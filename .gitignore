@@ -1,0 +1,13 @@
+# Local and private material
+private/
+.env
+.env.*
+!.env.example
+# Python working files
+__pycache__/
+*.py[cod]
+.venv/
+.ipynb_checkpoints/
+# Operating system files
+.DS_Store
+Thumbs.db
