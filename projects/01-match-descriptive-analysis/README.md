@@ -1,40 +1,32 @@
 # 01 — Match Descriptive Analysis
 
-**STATUS: PROJECT IDEA / EARLY EXPLORATION**
+**Status:** PROJECT IN PROGRESS — EARLY EXPLORATION
 
 ## Question
 
 **What happened in a table tennis match?**
 
-The first version will describe a match before trying to explain or predict it. The possible measures are:
+## First phase
 
-- Game scores
-- Total points won / lost
-- Point difference
-- Game win rate
-- Basic match description
+This study describes game scores, total points won and lost, point difference, game win rate, and a basic match summary. The input is a small synthetic practice CSV so another learner can run the same analysis.
 
-No real match dataset or research finding is included yet. The `data/`, `analysis/`, and `notes/` folders are prepared entry points.
+## Method and output
 
-## Why this project exists
+The standard-library script in [`analysis/analyze_match.py`](analysis/analyze_match.py) reads [`data/match_scores.csv`](data/match_scores.csv), loops through each game, and applies a simple win/loss condition. The reproducible output is recorded in [`analysis/results.md`](analysis/results.md); field definitions are in [`data/DATA_DICTIONARY.md`](data/DATA_DICTIONARY.md).
 
-This is the first bridge from basic Python to sports analytics. It gives a simple question a clear output and creates a baseline that later work can inspect. The project begins with description, then can grow toward pattern analysis, comparison, statistics, and research questions.
+The practice input produces 3 games won, 2 lost, 49 points won, 45 lost, a +4 point difference, and a 0.60 game win rate.
+
+## Limitations
+
+This is synthetic practice data, one match, and a descriptive baseline. It is not a real athlete finding and cannot explain causes, fatigue, tactics, or general performance.
 
 ## Upgrade route
 
-- **LEVEL 1 — Describe what happened.** Record scores and summarize one match.
-- **LEVEL 2 — Compare games and matches.** Compare game-level or match-level measures with consistent definitions.
-- **LEVEL 3 — Look for patterns.** Explore rally length, serve type, score context, or changes across stages.
-- **LEVEL 4 — Use statistics.** Add uncertainty, comparison methods, and assumptions when the data supports them.
-- **LEVEL 5 — Form a research question.** State a narrow question that can be answered with permitted data.
-- **LEVEL 6 — Develop a small research study.** Document design, data, analysis, limitations, and a reproducible result.
+1. **Level 1:** Describe what happened.
+2. **Level 2:** Compare games and matches.
+3. **Level 3:** Look for patterns.
+4. **Level 4:** Use statistics.
+5. **Level 5:** Form a research question.
+6. **Level 6:** Develop a small research study.
 
-## Planned evidence
-
-When the project moves beyond an idea, it should contain a data dictionary, a source and permission record, checked calculations, a short report, and explicit limitations. A model is not required for this first project.
-
-## Current position
-
-**D — Project System: FIRST PROJECT STARTED**
-
-The project is a scaffold and question, not a completed study.
+The next step is to improve data definitions and learn multi-match comparison before adding advanced tools.
