@@ -54,6 +54,7 @@ These are questions to refine, not claims that have already been answered.
 
 ## Repository map
 
+- [Serve & Third-Ball Analytics](research-tracks/match-analytics/serve-third-ball-analytics/): long-term flagship track at protocol and data-design stage
 - [projects/01-match-descriptive-analysis](projects/01-match-descriptive-analysis/): first reproducible, synthetic practice study
 - [RESEARCH_STANDARDS.md](RESEARCH_STANDARDS.md): shared evidence standard
 - [PROJECT_ROADMAP.md](PROJECT_ROADMAP.md): a 12-month learning and project path

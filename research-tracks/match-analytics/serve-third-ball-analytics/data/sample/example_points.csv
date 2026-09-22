@@ -1,0 +1,4 @@
+match_id,game_number,point_number,server,receiver,server_score_before,receiver_score_before,serve_side,serve_length,serve_location,serve_spin,receive_type,receive_location,third_ball_attack,third_ball_side,third_ball_outcome,rally_length,point_winner,point_outcome,video_timestamp,notes
+synthetic-001,1,1,player,opponent,0,0,forehand,short,backhand,backspin,short_touch,backhand,yes,forehand,successful,5,player,win,00:00:01,Synthetic data for workflow testing only.
+synthetic-001,1,2,opponent,player,0,1,backhand,long,middle,unknown,loop,forehand,not_applicable,not_applicable,not_applicable,3,opponent,loss,00:00:12,Synthetic data for workflow testing only.
+synthetic-001,1,3,player,opponent,1,1,forehand,unclear,forehand,unknown,unclear,unknown,unclear,unknown,unclear,unknown,opponent,loss,00:00:24,Synthetic data for workflow testing only.
