@@ -12,7 +12,7 @@ The pilot may use my own training or competition video, or video that is publicl
 
 ## Observation procedure
 
-1. Locate the point start and record the video timestamp.
+1. Locate the point start and record the video timestamp. If the clip starts after a point has begun, record the first visible timestamp and flag the row as a partial point in `notes`; do not present the clip offset as an exact point start.
 2. Record the score before the point when visible.
 3. Identify server and receiver.
 4. Classify serve side, length, location, and spin only when supported by the view.
@@ -26,6 +26,10 @@ For point-specific serve, receive, third-ball, and rally fields, inspect the com
 ## Missing and uncertain data
 
 **NEVER GUESS.** Use `unknown` when a variable should exist but cannot be observed, `unclear` when the video is ambiguous, and `not_applicable` when the event does not apply. Keep the row and preserve the uncertainty.
+
+For uncertainty reporting, define the eligible denominator for each field before calculating: `unknown + unclear / eligible observations`. Exclude `not_applicable` from both numerator and denominator and report its count separately. `third_ball_side` and `third_ball_outcome` are eligible only when `third_ball_attack=yes`; when third-ball eligibility itself is unknown or unclear, report unresolved eligibility separately and do not substitute all point rows as the denominator.
+
+For this 480p source, dense frame-by-frame review still produced no stable tactical labels in the first 10 points. Keep tactical variables in the schema for auditability, but do not use them in an association analysis from this source unless a future calibration pass yields reliable labels. Treat `serve_spin` as optional/future specialized observation for this source; only code it when visual spin evidence is clear, never from outcome or gesture alone.
 
 ## Real data collection plan
 

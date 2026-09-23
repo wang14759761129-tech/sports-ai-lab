@@ -47,6 +47,7 @@ def main():
     bad_categories = []
     bad_numbers = []
     bad_outcomes = []
+    bad_participants = []
     for row in rows:
         key = (row.get("match_id"), row.get("game_number"), row.get("point_number"))
         if key in seen:
@@ -73,16 +74,45 @@ def main():
         expected = {"player": "win", "opponent": "loss"}.get(row.get("point_winner"))
         if expected and row.get("point_outcome") != expected:
             bad_outcomes.append((key, expected, row.get("point_outcome")))
+        server, receiver = row.get("server"), row.get("receiver")
+        if server in {"player", "opponent"} and receiver in {"player", "opponent"} and server == receiver:
+            bad_participants.append((key, server, receiver))
 
     game_groups = {}
     for row in rows:
         key = (row.get("match_id"), row.get("game_number"))
         game_groups.setdefault(key, []).append(row)
     sequence_errors = []
+    score_progression_errors = []
     for key, group in game_groups.items():
         numbers = [int(r["point_number"]) for r in group if r.get("point_number", "").isdigit()]
         if numbers and numbers != list(range(1, len(numbers) + 1)):
             sequence_errors.append((key, numbers))
+        ordered = sorted(group, key=lambda r: int(r["point_number"]) if r.get("point_number", "").isdigit() else 0)
+        for previous, current in zip(ordered, ordered[1:]):
+            try:
+                previous_server_score = int(previous["server_score_before"])
+                previous_receiver_score = int(previous["receiver_score_before"])
+                current_server_score = int(current["server_score_before"])
+                current_receiver_score = int(current["receiver_score_before"])
+            except (KeyError, ValueError):
+                continue
+            previous_server = previous.get("server")
+            previous_receiver = previous.get("receiver")
+            if {previous_server, previous_receiver} != {"player", "opponent"}:
+                continue
+            scores = {previous_server: previous_server_score, previous_receiver: previous_receiver_score}
+            winner = previous.get("point_winner")
+            if winner not in scores:
+                continue
+            scores[winner] += 1
+            current_server = current.get("server")
+            current_receiver = current.get("receiver")
+            if {current_server, current_receiver} != {"player", "opponent"}:
+                continue
+            actual = {current_server: current_server_score, current_receiver: current_receiver_score}
+            if scores != actual:
+                score_progression_errors.append((key, previous.get("point_number"), current.get("point_number"), scores, actual))
 
     print(f"Input: {path}")
     print(f"Rows: {len(rows)}")
@@ -93,9 +123,11 @@ def main():
     print(f"Invalid categories: {len(bad_categories)}")
     print(f"Invalid numeric values: {len(bad_numbers)}")
     print(f"Point outcome inconsistencies: {len(bad_outcomes)}")
+    print(f"Server/receiver identity conflicts: {len(bad_participants)}")
     print(f"Point sequence errors: {len(sequence_errors)}")
-    print("Score consistency: not assessable when server/receiver scores are unknown.")
-    if errors or blank_cells or missing_ids or duplicates or bad_categories or bad_numbers or bad_outcomes or sequence_errors:
+    print(f"Adjacent score progression errors: {len(score_progression_errors)}")
+    print("Score progression checked where adjacent point scores and sides are known.")
+    if errors or blank_cells or missing_ids or duplicates or bad_categories or bad_numbers or bad_outcomes or bad_participants or sequence_errors or score_progression_errors:
         raise SystemExit(1)
 
 if __name__ == "__main__":

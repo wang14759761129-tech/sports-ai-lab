@@ -53,3 +53,15 @@
 - **Main methodological lesson:** File accessibility is not equivalent to visual review. A feasibility result requires actual complete-point inspection and timed replay, otherwise the honest outcome is unassessed.
 - **Decision:** STOP / HOLD expansion of Pilot 1. This is a procedural stop, not evidence that the source itself is unsuitable.
 - **Next decision:** Resume only when the same 10 points can be reviewed under the specified visual method; then calculate eligible-denominator uncertainty and timing before deciding GO / REVISE / PIVOT.
+
+## 2026-09-23 — Pilot 1C human / visual annotation calibration
+
+- **Pilot:** Same Match 001, Game 1 points 1–10; no sample expansion
+- **Source/method:** User supplied external dense frame-by-frame visual annotation. Points 2–10 had full serve/rally review; point 1 began mid-rally. This is user-supplied observation, not a new Work video review.
+- **Protocol version:** v0.3 (21-column schema retained; timestamp and conditional-denominator rules clarified)
+- **Observability:** Match-state fields, scores and outcomes were populated for all ten rows. Tactical serve/receive/third-ball/rally fields remained unknown/unclear in every eligible row; no field was demonstrated to become reliably classifiable specifically through replay.
+- **Data quality:** 10 rows/21 columns; validator passed all structure, category, participant, point-order, and adjacent score-progression checks. Scores and winners reconcile through 5–5.
+- **Uncertainty:** Serve side/length/location 10/10; spin 10/10; receive type/location 10/10; third-ball attack 10/10; rally length 10/10. Third-ball side/outcome have 0 confirmed eligible attacks and 10 unresolved eligibility cases, so rates are not estimable. `not_applicable` count is zero.
+- **Annotation burden:** 10 points checked; elapsed time and replay count not recorded; average and scale cost not estimable.
+- **Main lesson:** Core match-state fields are usable in this segment, but the tactical variables needed for the primary association question do not meet the measurement gate on this 480p source.
+- **Decision:** Pivot away from tactical association analysis for this source; retain the long-term flagship direction. Revise and hold sample expansion until a more suitable source or reliable tactical measurement is available.

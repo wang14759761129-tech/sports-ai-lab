@@ -1,34 +1,41 @@
-# Pilot 1 Mini Pilot — data quality report
+# Pilot 1C — data quality report
 
-**Status:** Structural validation passed; tactical variables have HIGH MEASUREMENT UNCERTAINTY.
+**Grain:** one row per point; 10 rows, Game 1 points 1–10 only.
 
-## Dataset checks
+## Structural and consistency checks
 
-- Points: 10
-- Schema fields: 21 (existing schema retained)
-- Blank cells: 0
+- Columns: exact existing 21-column schema; no rows added.
+- Blank required cells: 0
 - Missing identifiers: 0
 - Duplicate point IDs: 0
-- Invalid categories / numeric values: 0
-- Outcome consistency errors: 0
+- Invalid categories/numbers: 0
+- Point winner/outcome contradictions: 0
+- Server/receiver identity conflicts: 0
 - Point sequence errors: 0
-- Score consistency by server/receiver: Not assessable because server and receiver are unknown.
+- Adjacent score progression errors: 0
+- Scores and winners reconcile across this segment through 5–5.
 
-## Uncertainty by tracked field
+## Missingness and uncertainty
 
-| Field | Unknown | Unclear | Not applicable | Uncertain / not applicable | Rate |
+Uncertainty rate = `(unknown + unclear) / eligible observations`; `not_applicable` is counted separately and excluded from numerator and denominator.
+
+| Field | Eligible | Unknown | Unclear | Not applicable | Uncertainty rate |
 |---|---:|---:|---:|---:|---:|
-| `serve_spin` | 10 | 0 | 0 | 10 | 100% |
-| `serve_location` | 0 | 10 | 0 | 10 | 100% |
-| `serve_length` | 0 | 10 | 0 | 10 | 100% |
-| `receive_type` | 0 | 10 | 0 | 10 | 100% |
-| `third_ball_attack` | 0 | 10 | 0 | 10 | 100% |
-| `third_ball_outcome` | 0 | 10 | 0 | 10 | 100% |
+| `server`, `receiver`, score-before fields | 10 each | 0 | 0 | 0 | 0% each |
+| `serve_side`, `serve_length`, `serve_location` | 10 each | 1 each | 9 each | 0 | 100% each |
+| `serve_spin` | 10 | 10 | 0 | 0 | 100% |
+| `receive_type`, `receive_location` | 10 each | 1 each | 9 each | 0 | 100% each |
+| `third_ball_attack` | 10 | 1 | 9 | 0 | 100% |
+| `third_ball_side`, `third_ball_outcome` | 0 confirmed; 10 unresolved eligibility | 1 each in stored rows | 9 each in stored rows | 0 | Not estimable |
+| `rally_length` | 10 | 10 | 0 | 0 | 100% |
+| `point_winner`, `point_outcome` | 10 each | 0 | 0 | 0 | 0% each |
 
-Each core field exceeds the 30% stop threshold. Tactical rates are not estimable and expanded annotation is paused pending a reliable full-point visual review method.
+No `not_applicable` values were supplied. Third-ball side/outcome are conditional on a confirmed `third_ball_attack=yes`; there are no such rows, and ten points have unresolved attack eligibility. Their stored labels are retained but not used to claim an eligible denominator of ten.
 
-## Outcome-only description
+## Timestamp caveat
 
-The inspected scoreboard transitions recorded 5 points for `player` (Wang Chuqin as displayed) and 5 for `opponent` (Fan Zhendong as displayed), reaching 5–5. This describes only the first 10 recorded points and does not establish tactical patterns or match-level performance.
+Nine timestamps are supplied as point times. For point 1, `00:00:00` is the clip offset while the rally is already underway, not the true point start. The row note flags this boundary condition; schema wording now permits this explicit partial-point anchor.
 
-Third-ball attack rate, rally-length summary, and server point-win rate are not estimable. The validator and summary scripts use Python standard library only.
+## Analytical use
+
+The CSV is structurally sound for the 10-point outcome/match-state description. Serve/receive/third-ball/rally fields fail the 30% uncertainty threshold or lack a confirmed conditional denominator, so they are not fit for association analysis in this sample/source.

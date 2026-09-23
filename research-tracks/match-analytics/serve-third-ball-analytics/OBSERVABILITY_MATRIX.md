@@ -1,35 +1,38 @@
-# Observability matrix — Pilot 1B status
+# Observability matrix — Pilot 1C
 
-**Assessment status:** NOT COMPLETED. Pilot 1B requires complete-point normal-speed viewing and replay. The local video remains present, but the available browser refused the local-file preview under its security policy and explicitly disallowed alternate UI/workaround access. No second visual pass was performed.
+**Evidence:** Human-supplied dense frame-by-frame visual annotations for the same 10 points of Game 1. No additional points were added. Total annotation time and replay count were not recorded. Tier C means not reliably observable under the completed inspection of this 480p source; it is not a universal claim about all camera views or future tools.
 
-The table therefore records only the existing Pilot 1 Mini Pilot baseline. No field receives a Tier A/B/C classification from Pilot 1B. Tier definitions: A = stable during normal playback; B = stable only with pause/replay/slow review; C = not reliable even after replay. Those judgments remain pending.
+**Uncertainty definition:** `(unknown + unclear) / eligible observations`. `not_applicable` is shown separately and excluded from numerator and denominator. A point that could not be reviewed from its start remains an eligible event for serve/receive variables, but the unobserved value is marked unknown. For `third_ball_side` and `third_ball_outcome`, eligibility requires `third_ball_attack=yes`; rows where attack is unknown/unclear have unresolved eligibility and are not forced into the denominator.
 
-Uncertainty is `unknown + unclear / eligible observations`; `not_applicable` is excluded from the numerator and denominator. Pilot 1 recorded 10 points. For all rows below the denominator is 10 only where the field applies to every point or eligibility was not separately coded; third-ball applicability was not established, so the rates are provisional row-based rates and cannot distinguish structural non-applicability.
+| Field | Current definition | Tier | Eligible | Unknown | Unclear | Not applicable | Uncertainty | Evidence / decision |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| `match_id` | Match identifier | A* | 10 | 0 | 0 | 0 | 0% | Constant project metadata; retain |
+| `game_number` | Game within match | A* | 10 | 0 | 0 | 0 | 0% | Fixed sample boundary; retain |
+| `point_number` | Ordered point in game | A* | 10 | 0 | 0 | 0 | 0% | Ten sequential rows; retain |
+| `server` | Serving side | A | 10 | 0 | 0 | 0 | 0% | Human annotation populated all 10; retain |
+| `receiver` | Receiving side | A | 10 | 0 | 0 | 0% | Human annotation populated all 10; retain |
+| `server_score_before` | Server score before point | A | 10 | 0 | 0 | 0 | 0% | Populated across 10 and agrees with the sequence; retain |
+| `receiver_score_before` | Receiver score before point | A | 10 | 0 | 0 | 0% | Populated across 10 and agrees with the sequence; retain |
+| `serve_side` | Broad service side | C | 10 | 1 | 9 | 0 | 100% | Serve sequence reviewed; current view/definitions did not support stable coding |
+| `serve_length` | Short / half-long / long by bounce/end-line rule | C | 10 | 1 | 9 | 0 | 100% | No stable classifications under dense review |
+| `serve_location` | Broad forehand / middle / backhand zone | C | 10 | 1 | 9 | 0 | 100% | No stable classifications under dense review |
+| `serve_spin` | Backspin / sidespin / topspin / no-spin / mixed | C | 10 | 10 | 0 | 0 | 100% | No reliable spin label in any point; optional/future specialized observation for this source |
+| `receive_type` | First receive action | C | 10 | 1 | 9 | 0 | 100% | Complete rallies reviewed for points 2–10; no stable classification |
+| `receive_location` | Broad receive placement | C | 10 | 1 | 9 | 0 | 100% | No stable placement classification |
+| `third_ball_attack` | Server's intentional attacking third contact | C | 10 | 1 | 9 | 0 | 100% | Third-ball sequence visible in some points, but attack classification failed the reliability threshold |
+| `third_ball_side` | Side used for an established third-ball attack | C | 0 confirmed; 10 unresolved | 1 | 9 | 0 | N/E | No `third_ball_attack=yes`; eligibility unresolved. Do not treat 10 row labels as eligible-rate denominator |
+| `third_ball_outcome` | Immediate outcome of an established third-ball attack | C | 0 confirmed; 10 unresolved | 1 | 9 | 0 | N/E | No `third_ball_attack=yes`; eligibility unresolved. Do not treat 10 row labels as eligible-rate denominator |
+| `rally_length` | Ball contacts, serve included | C | 10 | 10 | 0 | 0 | 100% | Complete rally visible in reviewed points, but contacts were not counted reliably |
+| `point_winner` | Side winning the point | A | 10 | 0 | 0 | 0 | 0% | Human visual annotation complete; retain |
+| `point_outcome` | Player-perspective win/loss | A | 10 | 0 | 0 | 0 | 0% | Matches point winner; retain |
+| `video_timestamp` | Point start, or first visible fragment if clipped | A† | 10 | 0 | 0 | 0 | 0% coded | Nine point starts are timestamped; point 1 uses clip offset 00:00:00 because its rally is already underway. Flag as partial, not exact start |
+| `notes` | Evidence and ambiguity note | A* | 10 | 0 | 0 | 0 | Not applicable | Human-authored audit notes; present on all rows |
 
-| Field | Current definition | Pilot 1B tier | Pilot 1 points observable / uncertainty | Uncertainty rate | Reason / replay required? | Interim decision |
-|---|---|---|---|---:|---|---|
-| `match_id` | Match identifier | Not assessed | 10/10 ID rows present | 0% missing | Assigned from project metadata; no replay | Keep |
-| `game_number` | Game within match | Not assessed | 10/10 present | 0% missing | Sample boundary supplied; no replay | Keep |
-| `point_number` | Ordered point within game | Not assessed | 10/10 sequential IDs | 0% missing | Ordered in the pilot file; no replay | Keep |
-| `server` | Serving side | Not assessed | 0/10 identified; 10 unknown | 100% | Serve action not established in prior sampled inspection; replay test pending | Keep; test |
-| `receiver` | Receiving side | Not assessed | 0/10 identified; 10 unknown | 100% | Depends on verified server identity; replay test pending | Keep; test |
-| `server_score_before` | Server score before point | Not assessed | 0/10; 10 unknown | 100% | Prior file did not encode point-start score sides; replay/checkpoint needed | Keep; test |
-| `receiver_score_before` | Receiver score before point | Not assessed | 0/10; 10 unknown | 100% | Prior file did not encode point-start score sides; replay/checkpoint needed | Keep; test |
-| `serve_side` | Broad service side | Not assessed | 0/10; 10 unclear | 100% | Prior sampled review insufficient; replay test pending | Keep; test |
-| `serve_length` | Short / half-long / long by bounce/end-line definition | Not assessed | 0/10; 10 unclear | 100% | Requires reliable bounce view; replay test pending | Keep; test |
-| `serve_location` | Broad landing zone: forehand / middle / backhand | Not assessed | 0/10; 10 unclear | 100% | Requires visible landing/bounce; replay test pending | Keep; test |
-| `serve_spin` | Backspin / sidespin / topspin / no-spin / mixed | Not assessed | 0/10; 10 unknown | 100% | Spin was not inferable in prior sampled inspection; replay test pending | Keep in schema; future/specialized observation candidate |
-| `receive_type` | First receive action category | Not assessed | 0/10; 10 unclear | 100% | Full point and replay needed to test | Keep; test |
-| `receive_location` | Broad receive placement | Not assessed | 0/10; 10 unclear | 100% | Requires visible receiving contact/placement; replay test pending | Keep; test |
-| `third_ball_attack` | Server's intentional attacking third contact | Not assessed | 0/10; 10 unclear | 100%* | Eligible denominator not established because point sequence was not recoded | Keep; test eligibility semantics |
-| `third_ball_side` | Side used for the third-ball attack | Not assessed | 0/10; 10 unclear | 100%* | Depends on attack eligibility; replay test pending | Keep; test eligibility semantics |
-| `third_ball_outcome` | Immediate third-ball result | Not assessed | 0/10; 10 unclear | 100%* | Depends on attack eligibility; replay test pending | Keep; test eligibility semantics |
-| `rally_length` | Ball contacts, serve included | Not assessed | 0/10; 10 unknown | 100% | Requires continuous contact tracking; replay test pending | Keep; test |
-| `point_winner` | Side winning the point | Not assessed | 10/10 outcomes recorded | 0% unknown in pilot file | Scoreboard transitions were readable during prior sampled inspection; not a Pilot 1B result | Keep |
-| `point_outcome` | Perspective-coded win/loss | Not assessed | 10/10 coded | 0% unknown in pilot file | Derived consistently from recorded winner; not a Pilot 1B result | Keep |
-| `video_timestamp` | Point start timestamp | Not assessed | 10/10 broad 5-second inspection intervals | Not a missingness measure | Prior entries are score-transition discovery windows, not exact starts | Modify later if exact boundaries can be reviewed |
-| `notes` | Short evidence/uncertainty note | Not assessed | 10/10 populated | 0% missing | Captures limits of prior sampled observation | Keep |
+`A*` means directly available from sample/project structure or annotation record, not a sport-action measurement. `A†` is operationally useful after the partial-clip convention; one timestamp is a clip anchor rather than a true point start. **Tier B:** no field was shown to become reliably classifiable specifically through replay; replay count is unrecorded.
 
-`*` These 100% values describe the prior CSV's `unclear` labels, not an eligible-opportunity rate. A Pilot 1B review must first decide whether a third-ball opportunity exists, then exclude `not_applicable` observations from field uncertainty calculations.
+## Field-level interpretation
 
-**Conclusion:** Pilot 1B supplies no observed Tier A/B/C classifications. Do not treat this matrix as evidence that replay will or will not resolve any field. Do not expand the sample.
+- **Core match-state fields:** 10/10 populated; scores and winners reconcile across the sequence.
+- **Tactical serve/receive/attack/rally fields:** each unconditional core field has 100% unknown + unclear. These fail the ≤30% threshold for this source and current operational definitions.
+- **Conditional third-ball fields:** zero confirmed eligible observations and 10 unresolved eligibility cases; uncertainty rate is not estimable. Their stored unknown/unclear labels remain preserved.
+- `not_applicable` count is zero throughout these 10 supplied rows; it is not counted as uncertainty.

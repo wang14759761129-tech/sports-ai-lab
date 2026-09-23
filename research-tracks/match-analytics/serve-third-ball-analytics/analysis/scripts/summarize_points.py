@@ -6,9 +6,10 @@ from pathlib import Path
 
 PROJECT = Path(__file__).resolve().parents[2]
 DEFAULT_DATA = PROJECT / "data" / "raw" / "match_001_points.csv"
-FIELDS = ("serve_location", "serve_length", "serve_spin", "receive_type",
-          "third_ball_attack", "third_ball_outcome")
-UNCERTAIN = {"unknown", "unclear", "not_applicable"}
+FIELDS = ("serve_side", "serve_location", "serve_length", "serve_spin",
+          "receive_type", "receive_location", "third_ball_attack",
+          "third_ball_side", "third_ball_outcome", "rally_length")
+UNCERTAIN = {"unknown", "unclear"}
 
 def main():
     path = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_DATA
@@ -21,9 +22,19 @@ def main():
     print(f"Player point win rate (Wang / player): {winners['player'] / len(rows) if rows else 0:.2f}")
     for field in FIELDS:
         counts = Counter(row[field] for row in rows)
-        uncertain = sum(counts[value] for value in UNCERTAIN)
-        rate = uncertain / len(rows) if rows else 0
-        print(f"{field}: {dict(counts)}; unknown/unclear/not_applicable rate: {rate:.2f}")
+        not_applicable = counts["not_applicable"]
+        if field in {"third_ball_side", "third_ball_outcome"}:
+            eligible_rows = [row for row in rows if row["third_ball_attack"] == "yes"]
+            unresolved_eligibility = sum(row["third_ball_attack"] in {"unknown", "unclear"} for row in rows)
+        else:
+            eligible_rows = [row for row in rows if row[field] != "not_applicable"]
+            unresolved_eligibility = 0
+        eligible_counts = Counter(row[field] for row in eligible_rows)
+        uncertain = sum(eligible_counts[value] for value in UNCERTAIN)
+        rate = uncertain / len(eligible_rows) if eligible_rows else None
+        rate_text = f"{rate:.2f}" if rate is not None else "NOT ESTIMABLE (0 eligible)"
+        extra = f"; unresolved third-ball eligibility: {unresolved_eligibility}" if field in {"third_ball_side", "third_ball_outcome"} else ""
+        print(f"{field}: row labels {dict(counts)}; eligible={len(eligible_rows)}; unknown={eligible_counts['unknown']}; unclear={eligible_counts['unclear']}; not_applicable={not_applicable}; uncertainty rate={rate_text}{extra}")
     classified_attacks = [row for row in rows if row["third_ball_attack"] in {"yes", "no"}]
     if classified_attacks:
         attack_rate = sum(row["third_ball_attack"] == "yes" for row in classified_attacks) / len(classified_attacks)

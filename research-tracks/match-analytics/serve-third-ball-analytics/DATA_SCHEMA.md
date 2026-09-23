@@ -25,7 +25,7 @@ All categorical fields allow `unknown`, `unclear`, or `not_applicable` where obs
 | `rally_length` | Number of ball contacts, serve included | integer/category | `5` or `unknown` | Rally description |
 | `point_winner` | Side winning point | category | `player`, `opponent`, `unknown` | Point outcome |
 | `point_outcome` | Encoded result | category | `win`, `loss`, `unknown` | Convenient summary |
-| `video_timestamp` | Point start timestamp | text | `00:12:08` | Audit trail |
+| `video_timestamp` | Point start timestamp; if the point is already underway at the start of the clip, record the first visible segment time and state that it is partial in `notes` | text | `00:12:08` | Audit trail |
 | `notes` | Short evidence note | text | `serve partly occluded` | Preserves uncertainty |
 
 The first implementation uses this compact schema. Extra variables require a documented reason because complexity can reduce consistency.

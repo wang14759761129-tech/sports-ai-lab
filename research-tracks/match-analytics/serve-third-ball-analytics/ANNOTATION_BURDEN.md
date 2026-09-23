@@ -1,21 +1,15 @@
-# Annotation burden — Pilot 1B status
+# Annotation burden — Pilot 1C
 
-**Status:** Not measured. The required complete-point review did not occur, so no elapsed-time estimate is defensible.
-
-- Points reviewed under Pilot 1B method: 0
-- Total elapsed annotation time: Not recorded / not estimable
+- Points reviewed: 10
+- Total annotation time: Not recorded
 - Minutes per point: Not estimable
-- Replays used: 0 in Pilot 1B (no Pilot 1B review performed)
+- Replay count: Not recorded
 - Replay frequency: Not estimable
-- Most expensive variables: Not established; likely candidates such as serve spin and rally length remain hypotheses, not findings.
-- Main bottleneck: The local video could not be opened in the available visual interface under its security policy. The previous Mini Pilot used sampled inspection and did not meet the requested full-point review standard.
+- Most expensive variables: Not measurable without field-level timing. Serve/receive/third-ball categories and rally length remained unresolved, but no duration per field was recorded.
+- Main bottleneck: The 480p view did not support stable tactical categories under dense frame-by-frame inspection. Whether a standard player replay would improve classification is unknown; replay count was not recorded.
 
 ## Scale cost
 
-Costs for 50 points, 5 matches, and 20 matches are **not estimable** without a measured per-point workflow. Do not extrapolate from the earlier un-timed Mini Pilot.
+Estimates for 50 points, 5 matches, and 20 matches are **not estimable** from this pass. Do not extrapolate a time rate without measured elapsed annotation time.
 
-Manual annotation becomes impractical at a dataset size that exceeds the available review time or makes consistent replay-based coding unsustainable. A numeric threshold cannot yet be set. Measure at least one complete, timed 10-point pass before setting it or making a computer-vision case.
-
-## Next timing protocol
-
-Record clock start/end, total active minutes, points reviewed, number of replays, and time spent per variable or point. Include pauses and exclusions explicitly. Keep raw timing notes separate from estimates.
+This pilot cannot yet set a numeric point at which manual annotation becomes impractical. A later timed pass should record active start/end times and replay counts. Annotation feasibility is already limited by measurement uncertainty, independent of time cost.
