@@ -65,3 +65,13 @@
 - **Annotation burden:** 10 points checked; elapsed time and replay count not recorded; average and scale cost not estimable.
 - **Main lesson:** Core match-state fields are usable in this segment, but the tactical variables needed for the primary association question do not meet the measurement gate on this 480p source.
 - **Decision:** Pivot away from tactical association analysis for this source; retain the long-term flagship direction. Revise and hold sample expansion until a more suitable source or reliable tactical measurement is available.
+
+## 2026-09-23 — Pilot 2 video-source validation opened
+
+- **Current node:** D — Flagship Project ACTIVE; F — Measurement & Research Methods ACTIVE; Video Source Validation.
+- **Purpose:** Test which video conditions support reliable tactical annotation, not compare player performance.
+- **Scope:** Up to three candidate source classes; 10 points per actual source under Protocol v0.3. Do not expand the current Wang Chuqin vs Fan Zhendong sample.
+- **Baseline distinction:** Pilot 1C supports “the tested 480p source was unsuitable for the current tactical annotation protocol.” It does not show tactical variables are unmeasurable from all table-tennis video and does not invalidate the long-term question.
+- **Primary research question:** Retained unchanged and marked ON HOLD PENDING MEASUREMENT FEASIBILITY.
+- **Status:** No Pilot 2 candidate source has been supplied or tested. No source verdict or project-level GO / CONDITIONAL GO / PIVOT is assigned yet.
+- **Next:** Populate the source scorecard with actual video conditions, 10-point uncertainty rates, and measured annotation burden before making a decision.

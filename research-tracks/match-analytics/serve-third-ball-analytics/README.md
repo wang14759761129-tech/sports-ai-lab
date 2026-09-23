@@ -18,7 +18,9 @@ This project uses **associated with**, not **causes**. It is a developing observ
 
 ## Current stage
 
-**Protocol & Data Design.** The schema, annotation rules, pilot plan, and standard-library workflow are being tested with synthetic examples only.
+**Pilot 2 — Video Source Validation.** Pilot 1C used human visual annotations on 10 points from one 854×480, 25 fps broadcast source. Match-state fields were populated; tactical labels did not meet the reliability threshold. The primary question is **ON HOLD PENDING MEASUREMENT FEASIBILITY** while up to three video source classes are assessed with 10 points each.
+
+See the [Pilot 2 plan](PILOT_2_PLAN.md), [source scorecard](VIDEO_SOURCE_SCORECARD.md), and [current report](PILOT_2_REPORT.md). No new source has been assessed yet.
 
 ## Research design
 
@@ -26,7 +28,7 @@ One point is one row. The first pilot will test whether serve, receive, third-ba
 
 ## Data and analysis
 
-No real match data are included yet. [`data/sample/example_points.csv`](data/sample/example_points.csv) is synthetic workflow-testing data. Basic scripts will validate columns and summarise distributions; future statistical and predictive work is planned, not implemented.
+The repository contains 10 independently created structured point annotations for Pilot 1C; the original video and broadcast frames are not included. [`data/sample/example_points.csv`](data/sample/example_points.csv) remains synthetic workflow-testing data. Tactical values from the Pilot 1C source remain uncertain and are not used for association analysis. Future statistical and predictive work is planned, not implemented.
 
 ## Limitations
 
@@ -34,7 +36,7 @@ The project currently has no real sample, no inter-rater reliability evidence, m
 
 ## Roadmap
 
-Synthetic workflow test → one real-match pilot → 3–5 match descriptive dataset → comparison → statistical association → carefully scoped study → possible computer-vision baseline.
+Synthetic workflow test → Pilot 1 real-match calibration → Pilot 2 video-source validation → restart a bounded real-match pilot only after the source passes measurement gates → descriptive dataset → comparison → statistical association → carefully scoped study → possible computer-vision baseline.
 
 ## Reproducibility
 

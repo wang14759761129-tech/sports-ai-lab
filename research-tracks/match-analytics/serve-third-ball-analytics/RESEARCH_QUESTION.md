@@ -4,6 +4,8 @@
 
 How are serve characteristics associated with third-ball opportunities and point outcomes in competitive table tennis?
 
+**Status:** ON HOLD PENDING MEASUREMENT FEASIBILITY. This remains the long-term primary question and is not deleted or replaced. Pilot 1C found that one tested 480p source did not support the required tactical annotations; it did not test whether better video conditions can support them.
+
 ## Secondary Questions
 
 | Layer | Question | Timing |
