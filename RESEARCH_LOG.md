@@ -41,3 +41,15 @@
 - **Main methodological lesson:** Outcome-only evidence must be kept distinct from tactical annotation; high uncertainty is a stop signal, not a prompt to guess.
 - **Checkpoint:** KEEP existing schema and uncertainty categories; MODIFY visual-review protocol and add a >30% core-field uncertainty stop threshold; REMOVE none; ADD no columns.
 - **Next decision:** Establish full-speed point-by-point review and measure annotation time; continue Games 1–3 only if the observation gate becomes workable, otherwise revise before Pilot 2.
+
+## 2026-09-23 — Pilot 1B observation-feasibility attempt blocked
+
+- **Pilot:** Pilot 1B — same first 10 points of Game 1; no sample expansion
+- **Source:** Same user-supplied local video. File presence and technical properties were confirmed, but the visual browser refused local-file preview and prohibited alternate access workarounds.
+- **Points re-reviewed under full-playback/replay protocol:** 0
+- **Protocol version:** v0.2 unchanged
+- **Data quality / uncertainty:** No new observations or valid Pilot 1B uncertainty rates. Prior Pilot 1 counts remain the baseline only; third-ball eligible denominators remain unestablished.
+- **Annotation burden:** Not measured; scale cost not estimable.
+- **Main methodological lesson:** File accessibility is not equivalent to visual review. A feasibility result requires actual complete-point inspection and timed replay, otherwise the honest outcome is unassessed.
+- **Decision:** STOP / HOLD expansion of Pilot 1. This is a procedural stop, not evidence that the source itself is unsuitable.
+- **Next decision:** Resume only when the same 10 points can be reviewed under the specified visual method; then calculate eligible-denominator uncertainty and timing before deciding GO / REVISE / PIVOT.

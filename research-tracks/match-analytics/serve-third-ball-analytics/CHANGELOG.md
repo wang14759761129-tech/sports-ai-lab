@@ -15,3 +15,8 @@ Future changes to category definitions must record what changed and why.
 - **Expected effect:** Prevent score-only observations from being misrepresented as tactical annotations; pause expanded coding when core-field uncertainty is high.
 - **Old definition:** The protocol did not specify minimum visual review conditions or a stop threshold.
 - **New definition:** Review complete points at normal speed and replay; use scoreboard-only evidence for outcomes; pause expansion if unknown + unclear exceeds 30% in a core field.
+
+## 2026-09-23 — Pilot 1B attempt (no protocol version change)
+
+- The intended full-playback/replay feasibility check could not be performed because the available visual interface refused the local video under its security policy.
+- No Pilot 1B observations, field tiers, timing, or protocol changes were claimed. Version remains v0.2; the earlier Pilot 1 record remains intact.
