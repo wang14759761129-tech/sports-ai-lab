@@ -1,11 +1,11 @@
 # Annotation time
 
-**Status:** NOT STARTED — video access blocked before annotation.
+**Status:** Timing not captured during this Mini Pilot.
 
 - Start time: Not recorded
 - End time: Not recorded
-- Points annotated: 0
+- Points reviewed for scoreboard outcomes: 10
 - Minutes per point: Not estimable
-- Total annotation time: Metadata and access diagnosis only
+- Total annotation time: Not recorded
 
-Timing will be recorded after the first 10–15 points can be observed.
+The inspection was not run with a stopwatch or continuous annotation session. Timing is left unreported rather than reconstructed. Measure elapsed time in the next properly observed pilot.

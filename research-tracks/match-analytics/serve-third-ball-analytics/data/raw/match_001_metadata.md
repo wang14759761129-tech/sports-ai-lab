@@ -1,19 +1,20 @@
 # Match 001 metadata
 
 - **Match ID:** match_001
-- **Source type:** Public official YouTube video
-- **Source URL:** https://www.youtube.com/watch?v=54fMWpBlJTQ
-- **Video title:** WTT official FULL MATCH — Zhou Qihao vs Tomokazu Harimoto, Men's Singles Quarterfinal, WTT Champions Macao 2026
-- **Video ownership / permission status:** Publicly viewable on the official World Table Tennis channel; used only for personal learning and research annotation. Original video, broadcast images, and audio will not be uploaded or redistributed.
-- **Competition:** WTT Champions Macao 2026, Men's Singles Quarterfinal
-- **Date:** Not independently verified from the video page
-- **Player A:** Zhou Qihao
-- **Player B:** Tomokazu Harimoto
-- **Best of:** Not independently verified; selected boundary is Games 1–3
-- **Final score:** Selected games: Zhou Qihao 0–3 Tomokazu Harimoto
-- **Game scores:** 5–11, 4–11, 8–11
-- **Video duration:** Not recorded because video access is currently blocked by an automated-access verification page
-- **Annotation date:** 2026-09-22 (metadata only)
+- **Source type:** User-supplied local video file; visual scoreboard carries WTT branding
+- **Source URL:** Not applicable (local file; original media is not included in this repository)
+- **Video title:** Not verified
+- **Video ownership / permission status:** User supplied the local file for this personal research pilot. Do not publish or redistribute the broadcast video, audio, or frames.
+- **Competition:** Unknown; not verified from the inspected opening segment
+- **Date:** Unknown
+- **Player A (`player`):** Wang Chuqin (as displayed on the scoreboard)
+- **Player B (`opponent`):** Fan Zhendong (as displayed on the scoreboard)
+- **Best of:** Unknown
+- **Final score:** Not verified
+- **Game scores:** Not verified for the complete match
+- **Video duration:** 00:57:16.2
+- **Video dimensions:** 854 × 480
+- **Annotation date:** 2026-09-23
 - **Annotator:** wang14759761129-tech
-- **Sample boundary:** Games 1–3 only; approximately 50 points expected
-- **Notes:** Point-level annotation has not started. A browser verification block prevents visual observation. No point-level values have been inferred.
+- **Sample boundary:** Games 1–3 intended; Mini Pilot covers the first 10 points of Game 1 only
+- **Notes:** Opening score transitions were inspected in the supplied video. The first 10 points reach a displayed score of Wang 5–Fan 5. Serve, receive, third-ball, and rally details remain unknown or unclear where the inspected visual evidence was insufficient. The event identity is not inferred from the players alone.

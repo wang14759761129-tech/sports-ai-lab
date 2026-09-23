@@ -21,10 +21,12 @@ The pilot may use my own training or competition video, or video that is publicl
 7. Record rally length and point winner.
 8. Add a short note whenever visibility or classification is uncertain.
 
+For point-specific serve, receive, third-ball, and rally fields, inspect the complete point at normal playback speed and use replay when needed. A scoreboard transition may support point winner and score progression only; it does not support tactical coding. If a field cannot be verified from the video, use the uncertainty labels below. If `unknown` + `unclear` exceeds 30% for a core field in the Mini Pilot, pause expanded annotation and review the observation method before continuing.
+
 ## Missing and uncertain data
 
 **NEVER GUESS.** Use `unknown` when a variable should exist but cannot be observed, `unclear` when the video is ambiguous, and `not_applicable` when the event does not apply. Keep the row and preserve the uncertainty.
 
 ## Real data collection plan
 
-Pilot 1 targets one permitted match and approximately 30–80 points. The purpose is to test feasibility, not to produce a conclusion.
+Pilot 1 targets one permitted match and approximately 30–80 points. The purpose is to test feasibility, not to produce a conclusion. Start with 10–15 points as a Mini Pilot and document a Protocol Checkpoint before expanding. If visual evidence is insufficient for the core tactical fields, stop after the Mini Pilot; do not fill the remaining rows by inference.

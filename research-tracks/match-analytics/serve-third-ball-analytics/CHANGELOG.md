@@ -7,3 +7,11 @@
 - Added synthetic workflow test and staged pilot plan.
 
 Future changes to category definitions must record what changed and why.
+
+## v0.2 — 2026-09-23
+
+- **What changed:** Added a visual-evidence gate for point-specific tactical coding and a Mini Pilot uncertainty threshold. The schema and category definitions are unchanged.
+- **Why:** The supplied local video allowed visible scoreboard transitions to be read, but the sampled inspection did not reliably support serve, receive, third-ball, or rally classifications.
+- **Expected effect:** Prevent score-only observations from being misrepresented as tactical annotations; pause expanded coding when core-field uncertainty is high.
+- **Old definition:** The protocol did not specify minimum visual review conditions or a stop threshold.
+- **New definition:** Review complete points at normal speed and replay; use scoreboard-only evidence for outcomes; pause expansion if unknown + unclear exceeds 30% in a core field.
