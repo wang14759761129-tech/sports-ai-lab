@@ -2,7 +2,7 @@
 import argparse,json,sys,time,random,math,subprocess,shutil
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
-from vision.specialist import sha256,validate_split,validate_model,safe_checkpoint_target,OFFICIAL_SHA
+from vision.specialist import sha256,validate_split,validate_model,validate_provenance,safe_checkpoint_target,OFFICIAL_SHA
 from vision.config import RV_COMMIT
 from vision.benchmark import compare,read_ground_truth,percentile
 
@@ -45,7 +45,12 @@ def main():
         for role in ['train','dev','known_evaluation']:
             entries=[]
             for s in manifest[role]:
-                _,m,r=s.split('/');entries.append([m,r]);gtpath=source/f'tabletennis/all/{m}/csv/{r}_ball.csv';gt=read_ground_truth(gtpath)
+                _,m,r=s.split('/');entries.append([m,r]);gtpath=source/f'tabletennis/all/{m}/csv/{r}_ball.csv'
+                video_path=source/f'tabletennis/videos/{m}_{r}.mp4';deadline=time.monotonic()+900
+                while not (gtpath.exists() and video_path.exists()):
+                    if time.monotonic()>deadline:raise RuntimeError('Timed out waiting for verified download: '+s)
+                    time.sleep(1)
+                gt=read_ground_truth(gtpath)
                 if any((not g['visible']) and (g['x']!=0 or g['y']!=0) for g in gt.values()):raise ValueError('Visibility sentinel inconsistency; do not silently change GT')
                 target=data/'all'/m;frames=target/'frame'/r;frames.mkdir(parents=True,exist_ok=True)
                 csvdir=target/'csv';csvdir.mkdir(exist_ok=True);shutil.copyfile(gtpath,csvdir/f'{r}_ball.csv')
@@ -140,6 +145,8 @@ def main():
     strategy='B' if args.stage.endswith('b') else 'C'
     checkpoint=ROOT/'models/tti_tabletennis'/f'tti_balltrack_tt_ft_v1_{strategy}.pth'
     if args.stage.startswith('evaluate'):
+        provenance=json.loads(checkpoint.with_suffix('.provenance.json').read_text());validate_provenance(provenance,checkpoint)
+        if provenance['split_sha256']!=sha256(home/'split.json') or provenance['config_sha256']!=sha256(config_path):raise ValueError('Evaluation configuration drift')
         mdl=model(checkpoint);result,_=evaluate(mdl,'known_evaluation');write(home/f'{strategy}_known_evaluation.json',result);return
     safe_checkpoint_target(official,checkpoint)
     random.seed(config['seed']);np.random.seed(config['seed']);torch.manual_seed(config['seed']);torch.cuda.manual_seed_all(config['seed']);torch.backends.cudnn.benchmark=False

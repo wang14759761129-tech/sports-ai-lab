@@ -44,6 +44,7 @@ def validate_final_test(manifest,candidate_lock):
     validate_split(manifest)
     if not candidate_lock.get('accepted_on_known_evaluation') or not candidate_lock.get('model_sha256'):
         raise ValueError('Final test requires accepted frozen candidate')
+    if 'parent_exposed_match_ids' not in manifest:raise ValueError('Parent training exposure must be audited')
     if len({s.split('/')[1] for s in manifest['final_test']})<5:raise ValueError('At least five untouched matches required')
     if {s.split('/')[1] for s in manifest['final_test']} & set(manifest.get('parent_exposed_match_ids',[])):raise ValueError('Final test overlaps parent training/validation exposure')
     if manifest.get('final_selection_after_candidate_freeze') is not True:raise ValueError('Final test selection was premature')
