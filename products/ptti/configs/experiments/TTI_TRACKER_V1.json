@@ -1,0 +1,34 @@
+{
+  "experiment": "TTI_TRACKER_V1",
+  "status": "EXPERIMENTAL_FAILED_TRACKER_V1",
+  "result": "REJECTED",
+  "reason": "Cross-match performance worse than RAW",
+  "default_pipeline": "RAW_RACKETVISION",
+  "default_enabled": false,
+  "artifacts": [
+    {
+      "path": "outputs\\vision\\benchmark_suite_20261005T113747\\benchmark_suite.json",
+      "sha256": "d46f417400fddea2fbf79063b00db65f4e6d39455ab7d1d0117dadc5fdffd47c"
+    },
+    {
+      "path": "outputs\\vision\\hardening_v1\\development\\raw-vs-filtered.json",
+      "sha256": "177a05d7a5e1882f72d8955e70a7b08aac5cc7136a3e3ba2f40cfa604541cae5"
+    },
+    {
+      "path": "outputs\\vision\\hardening_v1\\holdout\\raw-vs-filtered.json",
+      "sha256": "58cbe1b38948295f51f2770d0116ac752c5428a8fbe3f86b16948c44dec825c7"
+    },
+    {
+      "path": "outputs\\vision\\tracker_v2\\development_benchmark.json",
+      "sha256": "244436d0bf5bf551dbc773cd34a3a1d9fb6affc3152765ae79a47a4fe58055b9"
+    },
+    {
+      "path": "outputs\\vision\\tracker_v2\\cross_match_benchmark.json",
+      "sha256": "4e01d8649c060934fea9234b79b35ac86b72937ee0d37e558b216ec9d1745091"
+    },
+    {
+      "path": "outputs\\vision\\tracker_v2\\tracker_lock.json",
+      "sha256": "6d3e5abb2401b37ff41d359e7f2b3ae1dad84e2a3eae296b32c79110cfbae357"
+    }
+  ]
+}
