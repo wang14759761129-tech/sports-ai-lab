@@ -1,4 +1,6 @@
 import os
+import hashlib
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -175,6 +177,50 @@ def create_app(db_path=None):
         try:record=repo.save_professional_match(value.to_record())
         except ValueError as exc:raise HTTPException(422,str(exc))
         return professional_match_view(record)
+    @app.post('/api/professional-matches/local-video',status_code=201)
+    async def create_professional_match_with_local_video(
+        metadata:str=Form(...),
+        rights_confirmed:bool=Form(False),
+        file:UploadFile=File(...),
+    ):
+        if not rights_confirmed:
+            raise HTTPException(422,'请先确认你有权在本机分析此视频')
+        try:
+            values=__import__('json').loads(metadata)
+            if not isinstance(values,dict):raise ValueError('比赛信息格式无效')
+            suffix=Path(file.filename or '').suffix.casefold()
+            if suffix not in {'.mp4','.mov','.mkv','.avi'}:
+                raise ValueError('请选择 MP4、MOV、MKV 或 AVI 视频')
+            video_dir=Path(resolved_db).parent/'professional-videos'
+            video_dir.mkdir(parents=True,exist_ok=True)
+            destination=video_dir/(str(__import__('uuid').uuid4())+suffix)
+            total=0;digest=hashlib.sha256()
+            try:
+                with destination.open('xb') as output:
+                    while chunk:=await file.read(1024*1024):
+                        total+=len(chunk)
+                        if total>2*1024**3:raise HTTPException(413,'视频超过 2 GiB，尚未保存比赛记录')
+                        digest.update(chunk);output.write(chunk)
+                from vision.quality import video_metadata, classify
+                media=video_metadata(destination)
+                quality=classify(media)
+                values.update(video_source_type='LOCAL_USER_VIDEO',video_local_path=str(destination),rights_status='USER_AUTHORIZED')
+                record=ProfessionalMatchInput.model_validate(values).to_record()
+                record['analysis_status']='VIDEO_READY'
+                record['video_metadata']={**media,'size_bytes':total,'sha256':digest.hexdigest(),'quality':quality}
+                try:record=repo.save_professional_match(record)
+                except ValueError as exc:raise HTTPException(422,str(exc)) from exc
+                return {**professional_match_view(record),'quality':quality}
+            except Exception:
+                destination.unlink(missing_ok=True)
+                raise
+        except HTTPException:raise
+        except subprocess.CalledProcessError as exc:
+            raise HTTPException(422,'视频无法读取。请确认文件完整，并使用 MP4、MOV、MKV 或 AVI。') from exc
+        except (ValueError,OSError) as exc:
+            raise HTTPException(422,str(exc)) from exc
+        finally:
+            await file.close()
     @app.get('/api/templates/{format}')
     def template(format:Literal['native','protocol']):
         filename='synthetic.csv' if format=='native' else 'protocol-v0.3-example.csv'

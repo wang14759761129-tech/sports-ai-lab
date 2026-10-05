@@ -1,6 +1,7 @@
 import copy
 import json
 import sqlite3
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -148,3 +149,49 @@ def test_authorized_existing_local_file_is_only_video_ready_state(tmp_path):
         "video_source_type": "REFERENCE_ONLY", "rights_status": "REFERENCE_ONLY", "external_reference_url": "https://example.org/match"
     }).to_record()
     assert reference["analysis_status"] == "NOT_ANALYZED"
+
+
+def test_local_video_registration_requires_rights_and_keeps_video_next_to_isolated_database(tmp_path, monkeypatch):
+    import json
+    import vision.quality as quality
+
+    monkeypatch.setattr(quality, "video_metadata", lambda path: {
+        "width": 1920, "height": 1080, "fps": 50.0, "duration": 7200.0,
+        "codec": "h264", "bitrate": 10000000, "frame_count": 360000,
+        "aspect_ratio": "16:9", "rate_variable": False,
+    })
+    database = tmp_path / "qa" / "matches.db"
+    metadata = {"event_name": "Local authorized video QA", "player_a_id": "athlete:121558",
+                "player_b_id": "athlete:123980", "event_date": "2026-10-06"}
+    with client_for(database.parent) as client:
+        denied = client.post("/api/professional-matches/local-video",
+                             data={"metadata": json.dumps(metadata), "rights_confirmed": "false"},
+                             files={"file": ("match.mp4", b"video", "video/mp4")})
+        assert denied.status_code == 422
+        assert not (database.parent / "professional-videos").exists()
+
+        response = client.post("/api/professional-matches/local-video",
+                               data={"metadata": json.dumps(metadata), "rights_confirmed": "true"},
+                               files={"file": ("match.mp4", b"video", "video/mp4")})
+        assert response.status_code == 201, response.text
+        record = response.json()
+        video = Path(record["video_local_path"])
+        assert video.parent == database.parent / "professional-videos"
+        assert video.read_bytes() == b"video"
+        assert record["analysis_status"] == "VIDEO_READY"
+        assert record["rights_status"] == "USER_AUTHORIZED"
+        assert record["video_metadata"]["quality"]["level"] == "VISION"
+        assert record["video_metadata"]["duration"] == 7200.0
+        assert len(record["video_metadata"]["sha256"]) == 64
+
+
+def test_local_video_registration_rejects_unsupported_extension(tmp_path):
+    import json
+    metadata = {"event_name": "Bad extension", "player_a_id": "athlete:121558",
+                "player_b_id": "athlete:123980"}
+    with client_for(tmp_path) as client:
+        response = client.post("/api/professional-matches/local-video",
+                               data={"metadata": json.dumps(metadata), "rights_confirmed": "true"},
+                               files={"file": ("match.webm", b"video", "video/webm")})
+        assert response.status_code == 422
+        assert not (tmp_path / "professional-videos").exists()
