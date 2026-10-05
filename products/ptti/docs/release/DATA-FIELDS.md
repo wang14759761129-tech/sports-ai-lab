@@ -1,4 +1,4 @@
-# 数据字段与证据：PTTI 0.1.1
+# 数据字段与证据：PTTI 0.1.2
 
 一分一行，UTF-8。原生格式：game、point、server/winner(A/B)、score_a/score_b（结束后比分）。可选 rally_length、third_ball_attack、serve_placement、serve_type、receive_type、point_phase、outcome 使用 CSV-TEMPLATE 中的原生枚举。
 

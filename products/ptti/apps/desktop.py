@@ -4,9 +4,18 @@ import time
 import urllib.request
 import uvicorn
 import webview
-from backend.main import app
+import os
+from pathlib import Path
+
+class DesktopAPI:
+    def open_data_folder(self):
+        folder=Path(os.environ.get('LOCALAPPDATA',Path.home()))/'PTTI'
+        folder.mkdir(parents=True,exist_ok=True)
+        os.startfile(str(folder))
+        return True
 
 def main():
+    from backend.main import app
     webview.settings['ALLOW_DOWNLOADS']=True
     with socket.socket() as s:
         s.bind(('127.0.0.1',0)); port=s.getsockname()[1]
@@ -18,7 +27,13 @@ def main():
             urllib.request.urlopen(url+'/api/health',timeout=.2); break
         except Exception: time.sleep(.1)
     else: raise RuntimeError('Local PTTI server did not start')
-    webview.create_window('PTTI · Match Intelligence',url,width=1440,height=900,min_size=(900,650))
+    width,height=1366,768
+    requested=os.environ.get('PTTI_WINDOW_SIZE','')
+    if requested:
+        try:
+            width,height=map(int,requested.lower().split('x'));width=max(1024,width);height=max(640,height)
+        except ValueError: pass
+    webview.create_window('PTTI · 个人乒乓球比赛分析',url,width=width,height=height,min_size=(1024,640),js_api=DesktopAPI())
     try: webview.start()
     finally: server.should_exit=True; thread.join(timeout=5)
 
@@ -31,4 +46,8 @@ if __name__=='__main__':
         target=Path(os.environ.get('LOCALAPPDATA',Path.home()))/'PTTI'
         target.mkdir(parents=True,exist_ok=True)
         (target/'startup-error.log').write_text(traceback.format_exc(),encoding='utf-8')
+        try:
+            import ctypes
+            ctypes.windll.user32.MessageBoxW(None,'PTTI 无法启动。请确认已完整解压，并已安装 Microsoft Edge WebView2 Runtime。\n\n已有比赛不会被重置。日志：\n'+str(target/'startup-error.log'),'PTTI · 启动失败',0x10)
+        except Exception: pass
         raise

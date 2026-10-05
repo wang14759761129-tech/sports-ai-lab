@@ -6,7 +6,14 @@ from pathlib import Path
 class Repository:
     def __init__(self,path):
         self.path=Path(path); self.path.parent.mkdir(parents=True,exist_ok=True)
-        with self.connect() as db: db.execute('CREATE TABLE IF NOT EXISTS matches (id TEXT PRIMARY KEY, payload TEXT NOT NULL)')
+        with self.connect() as db:
+            db.execute('CREATE TABLE IF NOT EXISTS matches (id TEXT PRIMARY KEY, payload TEXT NOT NULL)')
+            db.execute('CREATE TABLE IF NOT EXISTS preferences (id INTEGER PRIMARY KEY CHECK(id=1), payload TEXT NOT NULL)')
+    def settings(self):
+        with self.connect() as db: row=db.execute('SELECT payload FROM preferences WHERE id=1').fetchone()
+        return json.loads(row[0]) if row else {}
+    def save_settings(self,value):
+        with self.connect() as db: db.execute('INSERT OR REPLACE INTO preferences VALUES (1,?)',(json.dumps(value),))
     def connect(self): return sqlite3.connect(self.path)
     def save(self,payload):
         payload['id']=str(uuid.uuid4())

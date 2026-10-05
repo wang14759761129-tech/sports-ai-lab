@@ -1,24 +1,30 @@
-# PTTI 0.1.1 — Research Integration Release
+# PTTI 0.1.2 — Chinese Desktop Experience
 
-Personal Table Tennis Intelligence is local-first Windows match-analysis software for the owner and Kaikai: CSV → validation → saved match → statistics/charts/evidence → point explorer → JSON/HTML export → reopen. No API key, cloud, telemetry or exaggerated AI claims. **KAIKAI TEST 01: PENDING.**
+Personal Table Tennis Intelligence / 个人乒乓球比赛智能分析系统。Local-first Windows match workbench for the owner and Kaikai. Chinese-first interface; no account, telemetry, silent upload, AI API or cloud analysis. **KAIKAI TEST 01 PENDING.**
 
-## Run
+## Install or unzip
 
-Download the [Windows release](https://github.com/wang14759761129-tech/sports-ai-lab/releases/tag/ptti-v0.1.1) when published. Extract the whole ZIP, read START-HERE.txt, open PTTI/PTTI.exe. Keep _internal beside it. Windows 10/11 x64 and Edge WebView2 Runtime required; no Python/Node/Git/Codex/VS Code needed for users.
+[Release](https://github.com/wang14759761129-tech/sports-ai-lab/releases/tag/ptti-v0.1.2): extract the whole `PTTI-v0.1.2-Windows-x64.zip`, read START-HERE.txt, and run INSTALL.cmd for a per-user copy with desktop / Start Menu shortcuts. Default desktop shortcut is checked by design (omit using INSTALL.ps1 -NoDesktop). No administrator rights. Inno Setup was unavailable; this release uses an explicit PowerShell/batch installer fallback, **not a setup EXE**. Windows may enforce local script policies; portable direct launch remains available.
 
-## Architecture and research
+Portable mode: open PTTI/PTTI.exe, keep _internal alongside it. Windows 10/11 x64 and Edge WebView2 Runtime required. Python, Node, Git, Codex and VS Code are unnecessary for users. The executable is unsigned; no security-setting bypass is part of this release.
 
-[Research track](../../research-tracks/match-analytics/serve-third-ball-analytics/) → Protocol/schema → compatibility adapter → pure analytics → FastAPI/SQLite → React/Recharts → pywebview/PyInstaller. See [research basis](docs/RESEARCH-BASIS.md), [compatibility](docs/SCHEMA-COMPATIBILITY.md) and [evidence metric definitions](docs/EVIDENCE-METRICS.md). Pilot 1C only supports descriptive match-state records in its ten-point segment; tactical evidence remains insufficient. Pilot 2 has not started. Software output is not a scientific result.
+Installation: %LOCALAPPDATA%\Programs\PTTI\versions\0.1.2. Normal uninstall via Start Menu Uninstall PTTI asks confirmation and retains %LOCALAPPDATA%\PTTI\matches.db. Existing same-version differing binaries are never overwritten; existing shortcut files are backed up before replacement.
 
-## Supported CSV
+## Chinese UX
 
-Native 1.0.0-new: game, point, server, winner, score_a, score_b; A/B, post-point scores, original strict optional codes. Historical protocol_v0_3: game_number/point_number, player/opponent, pre-point server/receiver scores and up to all 21 research fields, auto-detected. player=A/opponent=B; enter names accordingly. Original values and uncertainty preserved. Unknown core identities/scores, mixed formats and impossible sequences reject.
+Three-step first-run introduction; match information → file/template selection → automatic preview checks → explicit save. Chinese issue severity and suggestions. Dashboard tabs: overview, service/receive, third ball, rallies, points, evidence. Chinese column labels, filters and expandable original research fields. Searchable/date-filtered library with confirmed deletion. Persistent Chinese language, light/dark/system theme, onboarding and home/recent startup preference. Settings opens the local data folder in the desktop edition. One export menu for JSON, Chinese HTML, and experimental current-section printing/PDF.
 
-Templates: data/samples/synthetic.csv and data/samples/protocol-v0.3-example.csv, both explicitly synthetic. [Fields](docs/release/DATA-FIELDS.md). Real Pilot annotations are test evidence, not a shipped training match or tactical conclusion.
+Future player, training, video and AI-coach modules are **planning-only shells**, visibly unopened; no fabricated analytics. Only Match Intelligence is active.
 
-## Development and release build
+## Evidence and research
 
-From products/ptti in the full monorepo, with Python 3.12+ and Node 22.12+ (or 20.19+):
+[Research](../../research-tracks/match-analytics/serve-third-ball-analytics/) → Protocol/schema → adapter → analytics → FastAPI/SQLite → React → pywebview/PyInstaller. Native `1.0.0-new` and historical Protocol v0.3 CSVs remain supported; player=A/opponent=B, native scores after point, research scores before point. Templates are synthetic. See [schema comparison](docs/SCHEMA-COMPATIBILITY.md), [evidence definitions](docs/EVIDENCE-METRICS.md) and [research basis](docs/RESEARCH-BASIS.md).
+
+Analytics/adapter remain 0.1.1: calculations and thresholds did not change in this UX release. Unknown, unclear and N/A retain semantics and original values. Unavailable evidence produces a state, not fake zero. Pilot 1C remains REVISE / HOLD, primary research question ON HOLD PENDING MEASUREMENT FEASIBILITY; Pilot 2 NOT STARTED. No new research result.
+
+## Development / tests / build
+
+From products/ptti in the full monorepo, Python 3.12 and supported Node:
 
 ```bat
 setup_windows.bat
@@ -28,12 +34,12 @@ build_windows.bat
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package_release.ps1
 ```
 
-Live reload: run_backend.bat and run_frontend.bat separately. Native shell serves built frontend; rebuild after edits. Tests reference canonical research fixtures in the full monorepo. Git includes source/tests/lockfile/docs/scripts, not generated binaries or personal data. ZIP/SHA256 belong in GitHub Release assets. Packaging refuses to overwrite old handoff output.
+Icon is original programmatic geometry, reproducible with Python standard library in scripts/make_icon.py. Shared CSS tokens / reusable UI primitives; score chart loaded on demand. Internal code/API/research field names stay English. Packaged app serves the built frontend. Git tracks source/tests/assets/scripts/docs only; binaries and hashes belong in Release assets.
 
-## Storage, versions and limits
+SQLite matches table and old payloads remain unchanged. Additive preferences table has no destructive migration. Old saved analyses are retained and labeled, not silently recalculated. Back up with the app closed. PTTI_DB and PTTI_WINDOW_SIZE are developer smoke-test overrides.
 
-%LOCALAPPDATA%\PTTI\matches.db; PTTI_DB developer override. Close app before backup. Product/analytics/adapter 0.1.1, native schema 1.0.0-new, research protocol v0.3. Old saved 0.1.0 analyses stay unchanged and labeled; reimport CSV for new rules. Export contains raw source/provenance.
+## Limits and quality gates
 
-No mid-game starting state, doubles identities, cross-game service/match-length enforcement or annotation-consistency certification. Receive subtypes coarsen with warnings/raw retention. No direct third-contact success metric, data editing, JSON reimport, exact point drilldown, video/CV/LLM/cloud. Clean-machine/Kaikai testing, printing and large-match performance remain pending.
+Single match and complete game prefixes only; no doubles/cross-game service enforcement or annotation-consistency certification; receive subtypes can coarsen with warnings/raw retention. No data editing/JSON reimport/video/LLM/cloud. Printing/PDF experimental; clean-machine athlete use, large-match performance, additional monitor/scaling combinations require independent validation. No broad v0.2 work.
 
-Only next external milestone: **KAIKAI TEST 01** — independent unzip/launch/sample/CSV/dashboard/explorer/restart/persistence/export. Failures become bugs; no broad v0.2 work. [Feedback](docs/USER-FEEDBACK.md), [roadmap](ROADMAP.md), [verification](docs/integration-verification.md).
+[0.1.2 verification](docs/desktop-verification-v0.1.2.md) · [Kaikai checklist](docs/USER-FEEDBACK.md). Only next external milestone: **KAIKAI TEST 01**.

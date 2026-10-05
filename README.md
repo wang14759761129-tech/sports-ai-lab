@@ -22,7 +22,7 @@ Pilot 2 tests which video conditions support reliable tactical annotation. It do
 
 ## Product
 
-[PTTI — Personal Table Tennis Intelligence](products/ptti/) is local-first Windows software for the owner and Kaikai. Version 0.1.1 adds explicit Protocol v0.3 compatibility and evidence states without claiming tactical measurement reliability. [Schema compatibility](products/ptti/docs/SCHEMA-COMPATIBILITY.md) · [research basis](products/ptti/docs/RESEARCH-BASIS.md) · [Windows release](https://github.com/wang14759761129-tech/sports-ai-lab/releases/tag/ptti-v0.1.1). Kaikai Test 01 is pending; video/CV/LLM/cloud capabilities are not implemented.
+[PTTI — Personal Table Tennis Intelligence](products/ptti/) is local-first Windows software for the owner and Kaikai. Version 0.1.1 adds explicit Protocol v0.3 compatibility and evidence states without claiming tactical measurement reliability. [Schema compatibility](products/ptti/docs/SCHEMA-COMPATIBILITY.md) · [research basis](products/ptti/docs/RESEARCH-BASIS.md) · [Windows release](https://github.com/wang14759761129-tech/sports-ai-lab/releases/tag/ptti-v0.1.2). Kaikai Test 01 is pending; video/CV/LLM/cloud capabilities are not implemented.
 
 ## Research tracks
 
