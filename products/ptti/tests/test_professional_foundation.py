@@ -202,3 +202,32 @@ def test_local_video_registration_rejects_unsupported_extension(tmp_path):
                                files={"file": ("match.webm", b"video", "video/webm")})
         assert response.status_code == 422
         assert not (tmp_path / "professional-videos").exists()
+
+
+def test_local_video_registration_runs_real_ffprobe_without_changing_source(tmp_path):
+    import hashlib
+    import subprocess
+
+    source = tmp_path / "owner-recorded-match.mp4"
+    subprocess.run(["ffmpeg", "-v", "error", "-f", "lavfi", "-i",
+                    "color=size=320x240:rate=25:duration=1", "-c:v", "libx264", "-n", str(source)],
+                   check=True)
+    original = source.read_bytes()
+    metadata = {"event_name": "Real ffprobe QA", "player_a_id": "athlete:121558",
+                "player_b_id": "athlete:123980"}
+    with client_for(tmp_path / "qa") as client:
+        response = client.post("/api/professional-matches/local-video",
+                               data={"metadata": json.dumps(metadata),
+                                     "video_source_note": "Locally recorded practice match",
+                                     "rights_confirmed": "true"},
+                               files={"file": (source.name, original, "video/mp4")})
+    assert response.status_code == 201, response.text
+    record = response.json()
+    assert source.read_bytes() == original
+    assert record["video_original_filename"] == source.name
+    assert record["video_metadata"]["width"] == 320
+    assert record["video_metadata"]["height"] == 240
+    assert record["video_metadata"]["orientation_degrees"] == 0
+    assert record["video_metadata"]["audio_streams"] == []
+    assert record["video_metadata"]["sha256"] == hashlib.sha256(original).hexdigest()
+    assert record["analysis_status"] == "VIDEO_READY"
