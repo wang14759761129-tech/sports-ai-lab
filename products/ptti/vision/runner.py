@@ -35,7 +35,7 @@ def report_html(result):
     body += '<h2>复现与运行记录</h2><pre>' + escape(json.dumps(result['provenance'], ensure_ascii=False, indent=2)) + '</pre>'
     return '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>PTTI 视觉分析</title><style>body{font-family:Microsoft YaHei,sans-serif;max-width:960px;margin:30px auto}th,td{padding:8px;text-align:left;border-bottom:1px solid #ddd}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style>' + body + '</html>'
 
-def run_analysis(video, source, gt=None, config=None, device='cuda', stage=lambda value: None):
+def run_analysis(video, source, gt=None, config=None, device='cuda', stage=lambda value: None, force_recompute=False):
     config = config or VisionConfig.load()
     source = Source.model_validate(source).model_dump()
     checkpoint = config.model_root / 'balltrack_best.pth'
@@ -56,13 +56,16 @@ def run_analysis(video, source, gt=None, config=None, device='cuda', stage=lambd
     logs = out / 'logs'; logs.mkdir()
     write_json(out / 'source.json', source); write_json(out / 'video_meta.json', meta)
     write_json(out / 'quality.json', classify(meta))
-    started = time.perf_counter(); reused = (cache / 'raw_prediction.json').is_file() and (cache / 'runtime.json').is_file()
+    started = time.perf_counter(); reused = (not force_recompute and (cache / 'raw_prediction.json').is_file() and (cache / 'runtime.json').is_file())
+    normalization_seconds=0.0
     if not reused:
         cache.mkdir(exist_ok=True)
         input_video = Path(video)
         if meta['codec'] != 'h264' or meta['rate_variable']:
             stage('规范化视频（保持分辨率）')
+            normalization_started=time.perf_counter()
             input_video = normalize(video, cache / 'normalized.mp4', meta)
+            normalization_seconds=time.perf_counter()-normalization_started
         stage('准备帧与球追踪')
         command = [str(config.worker_python), str(Path(__file__).resolve().parents[1] / 'vision_worker/balltrack.py'),
                    '--runtime', str(config.runtime_root), '--checkpoint', str(checkpoint),
@@ -76,6 +79,7 @@ def run_analysis(video, source, gt=None, config=None, device='cuda', stage=lambd
             if process.wait() != 0:
                 raise RuntimeError('球追踪失败。请检查 GPU / 模型 / 日志：' + str(logs / 'balltrack.log'))
     stage('转换结果与基准对比')
+    postprocess_started=time.perf_counter()
     raw = json.loads((cache / 'raw_prediction.json').read_text(encoding='utf-8'))
     points = adapt_ball_rows(raw, meta['width'], meta['height'], meta['fps'])
     write_json(out / 'ball_track.json', points)
@@ -86,16 +90,22 @@ def run_analysis(video, source, gt=None, config=None, device='cuda', stage=lambd
     runtime['processing_realtime_factor'] = runtime['processing_seconds'] / meta['duration'] if meta['duration'] else None
     metrics = compare(points, read_ground_truth(gt), meta['width'], meta['height']) if gt else None
     write_json(out / 'metrics.json', metrics)
+    postprocessing_seconds=time.perf_counter()-postprocess_started
     stage('生成轨迹叠加视频')
+    overlay_started=time.perf_counter()
     overlay_command = [str(config.worker_python), str(Path(__file__).resolve().parents[1] / 'vision_worker/overlay.py'),
                        str(video), str(out / 'ball_track.json'), str(out / 'ball_overlay.mp4')]
     with (logs / 'overlay.log').open('w', encoding='utf-8') as log:
         subprocess.run(overlay_command, stdout=log, stderr=subprocess.STDOUT, check=True, timeout=3600)
+    overlay_encoding_seconds=time.perf_counter()-overlay_started
     git_sha = subprocess.check_output(['git', '-C', str(Path(__file__).resolve().parents[1]), 'rev-parse', 'HEAD'], text=True).strip()
     provenance = dict(tti_commit=git_sha, racketvision_commit=commit, pipeline=PIPELINE_VERSION,
                       checkpoint_sha256=sha256(checkpoint), video_sha256=sha256(video),
                       gt_sha256=sha256(gt) if gt else None, recorded_at=datetime.now(timezone.utc).isoformat(),
                       cache_reused=reused, elapsed_seconds=time.perf_counter() - started, runtime=runtime,
+                      profile=dict(runtime.get('profile',{}),normalization_seconds=normalization_seconds,
+                                   postprocessing_seconds=postprocessing_seconds,
+                                   overlay_encoding_seconds=overlay_encoding_seconds),
                       quality=classify(meta), worker_device=device, model_batchsize=2, heatmap_threshold=.5,
                       confidence_semantics='Mean sigmoid heatmap value inside selected bounding rectangle; not calibrated probability.',
                       source_tree_dirty=bool(subprocess.check_output(['git','-C',str(Path(__file__).resolve().parents[1]),'status','--porcelain'],text=True).strip()))

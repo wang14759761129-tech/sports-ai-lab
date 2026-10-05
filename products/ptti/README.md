@@ -51,3 +51,9 @@ SQLite matches table and old payloads remain unchanged. Additive preferences tab
 Single match and complete game prefixes only; no doubles/cross-game service enforcement or annotation-consistency certification; receive subtypes can coarsen with warnings/raw retention. No data editing/JSON reimport/video/LLM/cloud. Printing/PDF experimental; clean-machine athlete use, large-match performance, additional monitor/scaling combinations require independent validation. No broad v0.2 work.
 
 [0.1.2 verification](docs/desktop-verification-v0.1.2.md) · [Kaikai checklist](docs/USER-FEEDBACK.md). Only next external milestone: **KAIKAI TEST 01**.
+
+## Development database isolation
+
+The stable packaged `PTTI.exe` explicitly selects `%LOCALAPPDATA%\PTTI\matches.db`. Source and `PTTI-Vision-Dev.exe` use a separate development database; pytest bootstraps only from a temporary database and per-test repositories use `tmp_path`. Test/development startup raises `PRODUCTION_DATABASE_WRITE_GUARD` if the selected path resolves to production. Run the suite with `.venv/Scripts/python.exe -m pytest -q`.
+
+The 2026-10-05 incident investigation is recorded in [database_forensic_report.md](docs/database_forensic_report.md). Its conclusion is `STATE_UNCERTAIN_DO_NOT_MODIFY`; the synthetic demonstration remains preserved.

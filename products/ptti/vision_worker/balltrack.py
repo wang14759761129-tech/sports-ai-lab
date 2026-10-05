@@ -20,6 +20,7 @@ def main():
     started = time.perf_counter()
     print('STAGE Preparing frames', flush=True)
     frame_dir = output / 'frames'; frame_dir.mkdir(exist_ok=True)
+    extraction_started=time.perf_counter()
     cap = cv2.VideoCapture(args.video)
     if not cap.isOpened(): raise RuntimeError('Cannot read video')
     paths = []
@@ -34,7 +35,9 @@ def main():
         if len(paths) > 1800: raise RuntimeError('Experimental worker frame limit exceeded')
     cap.release()
     if not paths: raise RuntimeError('No frames decoded')
+    frame_extraction_seconds=time.perf_counter()-extraction_started
     # Deterministic bounded background sample; no GT is used in preprocessing.
+    background_started=time.perf_counter()
     indexes = np.linspace(0, len(paths) - 1, min(100, len(paths)), dtype=int)
     def read_frame(path):
         frame = cv2.imdecode(np.fromfile(path, dtype=np.uint8), cv2.IMREAD_COLOR)
@@ -42,6 +45,7 @@ def main():
         return frame
     median = np.median(np.array([read_frame(paths[i]) for i in indexes]), axis=0).astype(np.uint8)
     median_path = output / 'median.npz'; np.savez(median_path, median=median)
+    background_preprocessing_seconds=time.perf_counter()-background_started
     print('STAGE Tracking ball', flush=True)
 
     class AlignedInferencer(BallInferencer):
@@ -64,16 +68,29 @@ def main():
     if args.device == 'cuda' and not torch.cuda.is_available():
         raise RuntimeError('CUDA unavailable; explicitly select CPU mode')
     if torch.cuda.is_available(): torch.cuda.reset_peak_memory_stats()
+    model_load_started=time.perf_counter()
     tracker = AlignedInferencer(str(Path(args.runtime) / 'source/BallTrack/configs/tracknetv3_base.py'),
                                args.checkpoint, device=args.device, batchsize=2)
+    model_load_seconds=time.perf_counter()-model_load_started
+    if args.device=='cuda': torch.cuda.synchronize()
+    inference_started=time.perf_counter()
     prediction = tracker(paths, str(median_path))
+    if args.device=='cuda': torch.cuda.synchronize()
+    model_inference_seconds=time.perf_counter()-inference_started
+    serialization_started=time.perf_counter()
     (output / 'raw_prediction.json').write_text(json.dumps(prediction), encoding='utf-8')
+    prediction_serialization_seconds=time.perf_counter()-serialization_started
     info = dict(processing_seconds=time.perf_counter() - started, decoded_frames=len(paths),
                 torch=torch.__version__, cuda=torch.version.cuda, python=sys.version,
                 gpu=torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
                 peak_vram_bytes=torch.cuda.max_memory_allocated() if torch.cuda.is_available() else None,
                 alignment='inclusive history ending at output frame; initial repeated-frame padding',
                 background='up to 100 evenly sampled frames from this rally, not full-match median')
+    info['profile']={'frame_extraction_seconds':frame_extraction_seconds,
+                     'background_preprocessing_seconds':background_preprocessing_seconds,
+                     'model_load_seconds':model_load_seconds,
+                     'model_inference_seconds':model_inference_seconds,
+                     'prediction_serialization_seconds':prediction_serialization_seconds}
     import psutil
     memory = psutil.Process().memory_info()
     info['peak_cpu_ram_bytes'] = getattr(memory, 'peak_wset', None)

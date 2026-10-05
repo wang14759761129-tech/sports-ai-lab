@@ -1,5 +1,6 @@
 import os
 import sys
+import tempfile
 from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.responses import Response, FileResponse
@@ -11,6 +12,56 @@ from backend.repository import Repository
 from core.importing import import_csv
 
 ROOT=Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parents[1]))
+
+PRODUCTION_DATABASE_WRITE_GUARD = 'PRODUCTION_DATABASE_WRITE_GUARD'
+
+def _same_path(left, right):
+    left=Path(left).expanduser().resolve(strict=False)
+    right=Path(right).expanduser().resolve(strict=False)
+    if os.path.normcase(str(left))==os.path.normcase(str(right)):
+        return True
+    try:
+        return left.exists() and right.exists() and os.path.samefile(left,right)
+    except OSError:
+        return False
+
+def resolve_database_path(db_path=None, environ=None, testing=None):
+    """Resolve a DB path while preventing test/development writes to user data."""
+    env=os.environ if environ is None else environ
+    local=Path(env.get('LOCALAPPDATA',Path.home()))
+    production=(local/'PTTI'/'matches.db').resolve(strict=False)
+    mode=env.get('PTTI_ENV','').strip().lower()
+    if testing is None:
+        testing=('pytest' in sys.modules) if environ is None else mode=='test'
+    if testing:
+        mode='test'
+    elif not mode:
+        mode='development'
+
+    configured=db_path if db_path is not None else env.get('PTTI_DB')
+    if mode=='test':
+        if configured is None:
+            raise RuntimeError(f'{PRODUCTION_DATABASE_WRITE_GUARD}: tests require an explicit temporary PTTI_DB')
+        chosen=Path(configured).expanduser().resolve(strict=False)
+        if _same_path(chosen,production):
+            raise RuntimeError(f'{PRODUCTION_DATABASE_WRITE_GUARD}: tests cannot open the production database')
+        temporary=Path(tempfile.gettempdir()).resolve(strict=False)
+        try:
+            chosen.relative_to(temporary)
+        except ValueError as exc:
+            raise RuntimeError(f'{PRODUCTION_DATABASE_WRITE_GUARD}: test databases must be under the system temporary directory') from exc
+    elif mode=='development':
+        chosen=Path(configured).expanduser().resolve(strict=False) if configured is not None else (local/'PTTI-Dev'/'matches.db').resolve(strict=False)
+        if _same_path(chosen,production):
+            raise RuntimeError(f'{PRODUCTION_DATABASE_WRITE_GUARD}: development cannot open the production database')
+    elif mode=='production':
+        chosen=Path(configured).expanduser().resolve(strict=False) if configured is not None else production
+        if not _same_path(chosen,production):
+            raise RuntimeError(f'{PRODUCTION_DATABASE_WRITE_GUARD}: production database path must be {production}')
+    else:
+        raise RuntimeError(f'Unsupported PTTI_ENV: {mode}')
+    return chosen
+
 class Metadata(BaseModel):
     name: str=Field(min_length=1,max_length=200)
     player_a: str=Field(min_length=1,max_length=100)
@@ -50,7 +101,9 @@ def create_app(db_path=None):
     app=FastAPI(title='PTTI',version='0.2.0-dev')
     from backend.vision_api import router as vision_router
     app.include_router(vision_router())
-    repo=Repository(db_path or os.environ.get('PTTI_DB',str(Path(os.environ.get('LOCALAPPDATA',Path.home()))/'PTTI'/'matches.db')))
+    resolved_db=resolve_database_path(db_path)
+    app.state.database_path=resolved_db
+    repo=Repository(resolved_db)
     def get(id):
         m=repo.get(id)
         if not m: raise HTTPException(404,'Match not found')

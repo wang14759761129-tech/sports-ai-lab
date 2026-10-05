@@ -35,6 +35,19 @@ RacketPose and TrajPred are not implemented. Installation is intentionally gated
 
 The official sample is tabletennis/match1/000 in test split. Ground truth is sparse: only annotated frames are evaluated; unannotated frames are not negatives. Report visibility recall and missed annotated balls, error mean/median/P90/P95 in original pixels, normalized error, annotated negative counts. False-detection assessment is unavailable when there are no negative annotations. No precision/F1 or PASS threshold is invented. This one-rally result is not the official full-dataset score or research validation.
 
+## Bounded multi-clip suite
+
+The downloader can select 5–10 rally clips from the pinned official table-tennis test split, round-robin across distinct match IDs before taking a second rally from any match. It downloads only each selected video and its paired ball CSV, validates the official file size and LFS SHA256, and never downloads the full dataset:
+
+```powershell
+.venv\Scripts\python.exe scripts\download_vision_sample.py --benchmark-suite --suite-clips 10
+.venv\Scripts\python.exe -m vision suite --device cuda --force-recompute
+```
+
+Each suite writes `benchmark_suite.json`, `benchmark_suite.html`, and up to 20 annotated worst-case PNGs plus a contact sheet under `outputs/vision/benchmark_suite_<id>/`. GT crosses are green and predictions red. Misses and localization outliers are both retained for inspection; failure cause remains `unknown` until visually confirmed. Reports include per-clip and aggregate sparse-GT metrics, annotation-negative false detections, runtime phase totals, source hashes, pinned revisions and threshold status. `clips_passed` remains null because this experiment has no preregistered acceptance threshold. Reports stay `BASELINE_ONLY`.
+
+The worker records frame extraction, bounded background sampling, model load, model inference and prediction serialization separately. The parent also records normalization, metric/CSV postprocessing and overlay encoding. `processing_fps` is end-to-end worker throughput, not model-only FPS; CUDA inference timing synchronizes at the measured inference boundaries.
+
 Training source labels the last included frame; upstream inference excludes frame i yet labels i. TTI subclasses only preprocessing to include output frame i, with repeat padding at the beginning. The upstream checkout remains untouched. Background is a deterministic sample of up to 100 frames from this one rally; it differs from upstream full-match median preprocessing and is recorded explicitly.
 
 Each run records source, video/checkpoint/GT hashes, pinned upstream commit, current TTI SHA and dirty flag, device/config/runtime, alignment/background method and elapsed time. Cache key combines video hash, model hash, pipeline version, upstream SHA and device. Normalization, frames, median and prediction are reused only for a complete matching cache. Reports/overlays are regenerated per analysis ID. No user source file is overwritten.

@@ -5,6 +5,7 @@ from .config import VisionConfig, DATA_REVISION
 from .doctor import doctor
 from .runner import run_analysis
 from .regression import compare_runs
+from .suite import run_suite
 
 def main():
     parser = argparse.ArgumentParser(description='PTTI isolated local vision tools')
@@ -16,6 +17,9 @@ def main():
     regression.add_argument('--tolerance', type=float, default=0.05)
     benchmark = sub.add_parser('benchmark')
     benchmark.add_argument('--device', choices=['cuda', 'cpu'], default='cuda')
+    suite = sub.add_parser('suite')
+    suite.add_argument('--device', choices=['cuda', 'cpu'], default='cuda')
+    suite.add_argument('--force-recompute',action='store_true',help='rerun inference even if matching prediction caches exist')
     analyze = sub.add_parser('analyze')
     analyze.add_argument('video', type=Path)
     analyze.add_argument('--gt', type=Path)
@@ -30,6 +34,9 @@ def main():
         gt = config.dataset_root / 'tabletennis/all/match1/csv/000_ball.csv'
         source = dict(type='racketvision', provider='linfeng302/RacketVision', source_id='tabletennis/match1/000',
                       rights='research', rights_notes='Official test split; sparse annotations; revision ' + DATA_REVISION)
+    elif args.command == 'suite':
+        result=run_suite(config,args.device,stage=lambda s:print('STAGE '+s,flush=True),force_recompute=args.force_recompute)
+        print(json.dumps(result,ensure_ascii=False,indent=2));return
     else:
         video, gt = args.video, args.gt
         source = dict(type='local', rights='user_provided')

@@ -16,11 +16,26 @@ class DesktopAPI:
 
 def main():
     import sys
-    if getattr(sys, 'frozen', False) and Path(sys.executable).stem.casefold() == 'ptti-vision-dev':
-        # Workspace-only experimental EXE always defaults to an isolated QA DB.
-        product = Path(sys.executable).resolve().parents[2]
-        os.environ.setdefault('PTTI_VISION_HOME', str(product))
-        os.environ.setdefault('PTTI_DB', str(product / 'dist/vision-smoke.db'))
+    if getattr(sys, 'frozen', False):
+        executable=Path(sys.executable).stem.casefold()
+        if executable=='ptti-vision-dev':
+            # Workspace-only experimental EXE always uses an isolated DB.
+            product=Path(sys.executable).resolve().parents[2]
+            os.environ['PTTI_ENV']='development'
+            os.environ.setdefault('PTTI_VISION_HOME',str(product))
+            os.environ.setdefault('PTTI_DB',str(product/'dist/vision-smoke.db'))
+        elif executable=='ptti':
+            # Only the stable desktop executable is allowed to open user data.
+            database=Path(os.environ.get('LOCALAPPDATA',Path.home()))/'PTTI'/'matches.db'
+            os.environ['PTTI_ENV']='production'
+            os.environ['PTTI_DB']=str(database)
+        else:
+            raise RuntimeError(f'Unrecognized packaged PTTI executable: {sys.executable}')
+    else:
+        # Running from source is development; default to a separate user folder.
+        os.environ['PTTI_ENV']='development'
+        local=Path(os.environ.get('LOCALAPPDATA',Path.home()))
+        os.environ.setdefault('PTTI_DB',str(local/'PTTI-Dev'/'matches.db'))
     from backend.main import app
     webview.settings['ALLOW_DOWNLOADS']=True
     with socket.socket() as s:
