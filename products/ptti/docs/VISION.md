@@ -92,3 +92,7 @@ The worker processed 2,243 frames in 209.09 seconds, or 10.73 end-to-end worker 
 Compare compatible measured analysis.json files with `python -m vision regression baseline.json candidate.json --tolerance 0.05`. The explicit default 5% relative tolerance is an engineering regression policy, not a scientific accuracy threshold. Different video/GT/checkpoint/source/pipeline/device/runtime/GPU returns NOT_COMPARABLE; unavailable metrics remain unavailable. Report includes worker processing FPS, processing/video-duration factor, measured Windows process peak RAM and peak allocated CUDA memory (not total GPU reservation). Warm cache runs must not be described as new inference speed measurements.
 
 Windows frame read/write uses NumPy file IO plus OpenCV encoding/decoding so Chinese paths are supported. Upstream source is not edited.
+
+## Optional TTI hardening evaluation
+
+See [BALLTRACK-HARDENING-v1.md](BALLTRACK-HARDENING-v1.md) for the frozen development/holdout split, raw/filtered comparison, complete error dataset and real heatmap diagnosis. Rejection remains experimental and disabled by default: the holdout showed no measured improvement. No table clipping or tactical-field inference was added.

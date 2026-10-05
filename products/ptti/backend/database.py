@@ -41,9 +41,10 @@ class ProductionDatabaseGuard:
         if self.mode not in ('production','development','test'):
             raise RuntimeError(f'{GUARD}: FATAL invalid database environment')
         self.environment=dict(os.environ if environ is None else environ)
-        self.local=Path(self.environment.get('LOCALAPPDATA',Path.home())).resolve(strict=False)
+        self.local=Path(os.path.abspath(self.environment.get('LOCALAPPDATA',Path.home())))
 
     def validate(self,path):
+        requested=Path(os.path.abspath(Path(path).expanduser()))
         path=Path(path).resolve(strict=False)
         production=self.local/'PTTI'/'matches.db'
         aliases=[production]
@@ -76,19 +77,20 @@ class ProductionDatabaseGuard:
         if self.mode=='production':
             if 'pytest' in sys.modules:
                 raise RuntimeError(f'{GUARD}: FATAL tests cannot enable production mode')
-            if path!=production.resolve(strict=False):
+            if os.path.normcase(str(requested))!=os.path.normcase(str(production)):
                 raise RuntimeError(f'{GUARD}: FATAL production requires the canonical production path')
             identity=package_identity()
             if identity!='UNPACKAGED':
                 raise RuntimeError(f'{GUARD}: FATAL production launched under a packaged host ({identity}); exit and launch PTTI from Windows desktop')
-            self.verify_production_physical_path(path)
+            self.verify_production_physical_path(requested)
         return path
 
     def verify_production_physical_path(self,path):
+        requested=Path(os.path.abspath(Path(path).expanduser()))
         actual=physical_path(path)
         if actual is None:
             raise RuntimeError(f'{GUARD}: FATAL production physical path could not be verified')
-        if os.path.normcase(str(actual))!=os.path.normcase(str(Path(path).resolve(strict=False))):
+        if os.path.normcase(str(actual))!=os.path.normcase(str(requested)):
             raise RuntimeError(f'{GUARD}: FATAL virtualized production path: {path} -> {actual}')
 
 

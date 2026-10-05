@@ -73,6 +73,17 @@ def test_production_physical_view_must_be_known_and_exact(tmp_path,monkeypatch,v
     assert not selected.exists()
 
 
+def test_realpath_must_not_erase_the_original_production_request(tmp_path,monkeypatch):
+    import backend.database as module
+    selected=tmp_path/'PTTI'/'matches.db'
+    private=tmp_path/'Packages'/'Codex'/'LocalCache'/'Local'/'PTTI'/'matches.db'
+    original=Path.resolve
+    monkeypatch.setattr(Path,'resolve',lambda self,*a,**kw:private if self==selected else original(self,*a,**kw))
+    monkeypatch.setattr(module,'physical_path',lambda _:private)
+    with pytest.raises(RuntimeError,match='virtualized production path'):
+        module.ProductionDatabaseGuard('production',{'LOCALAPPDATA':str(tmp_path)}).verify_production_physical_path(selected)
+
+
 def production_db(local_app_data=None):
     root = Path(local_app_data or os.environ.get('LOCALAPPDATA', Path.home()))
     return root / 'PTTI' / 'matches.db'

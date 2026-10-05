@@ -70,3 +70,5 @@ Production defaults to LocalAppData/PTTI; development defaults to LocalAppData/P
 ## Stop condition
 
 **DATABASE_RECOVERY_REQUIRED** remains the gate because historical contents cannot be independently reconstructed and the user has explicitly retained STATE_UNCERTAIN_DO_NOT_MODIFY. Do not delete synthetic rows or substitute the private snapshot for the real user file. Path/view tracing is resolved; historical recovery is not.
+
+The real host regression additionally showed that Path.resolve() can erase the original request by returning a private backing path. Protection now preserves the original lexical absolute request before comparing file-ID evidence. A read-only check against the live Codex view produced the expected FATAL virtualized-production-path error without opening SQLite for writing. All 100 automated tests pass, including this erasure regression.
