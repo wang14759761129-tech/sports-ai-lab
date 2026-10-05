@@ -1,6 +1,6 @@
 # 两种 CSV，不要混用
 
-PTTI 0.1.1 支持原生 1.0.0-new 和研究 Protocol v0.3。sample/synthetic.csv 是原生模板；sample/protocol-v0.3-example.csv 是新生成、发球/比分有效的历史格式合成模板。两者都不是实际比赛证据，导入时请勾选“合成示例”。真实比赛请换成自己的记录。
+PTTI 0.1.2 支持原生 1.0.0-new 和研究 Protocol v0.3。sample/synthetic.csv 是原生模板；sample/protocol-v0.3-example.csv 是新生成、发球/比分有效的历史格式合成模板。两者都不是实际比赛证据，导入时请勾选“合成示例”。真实比赛请换成自己的记录。
 
 历史格式每行一分，game_number / point_number 从 1 连续编号；server/receiver/point_winner 使用 player/opponent。导入页面 A 姓名=player、B 姓名=opponent。server_score_before/receiver_score_before 是这一分开始前，按该行发球/接发者视角记录的比分，不是 A/B 固定顺序。适配器通过确认的赢家计算结束后比分。
 

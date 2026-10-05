@@ -2,8 +2,8 @@ $ErrorActionPreference = 'Stop'
 $pttiRoot = Split-Path -Parent $PSScriptRoot
 $pttiDist = Join-Path $pttiRoot 'dist'
 $pttiRuntime = Join-Path $pttiDist 'PTTI'
-$pttiPackage = Join-Path $pttiDist 'PTTI-v0.1.1-Windows'
-$pttiArchive = Join-Path $pttiDist 'PTTI-v0.1.1-Windows-x64.zip'
+$pttiPackage = Join-Path $pttiDist 'PTTI-v0.1.2-Windows'
+$pttiArchive = Join-Path $pttiDist 'PTTI-v0.1.2-Windows-x64.zip'
 if (-not (Test-Path -LiteralPath (Join-Path $pttiRuntime 'PTTI.exe'))) { throw 'Build PTTI first with build_windows.bat.' }
 if (-not (Test-Path -LiteralPath (Join-Path $pttiRuntime '_internal'))) { throw 'Required runtime folder is missing.' }
 if ((Test-Path -LiteralPath $pttiPackage) -or (Test-Path -LiteralPath $pttiArchive)) { throw 'Handoff output already exists. Preserve or move it before packaging again.' }
@@ -17,8 +17,9 @@ foreach ($pttiDoc in @('QUICK-START.md', 'CSV-TEMPLATE.md', 'DATA-FIELDS.md')) {
     Copy-Item -LiteralPath (Join-Path $pttiRoot "docs/release/$pttiDoc") -Destination (Join-Path $pttiPackage "docs/$pttiDoc")
 }
 Copy-Item -LiteralPath (Join-Path $pttiRoot 'docs/USER-FEEDBACK.md') -Destination (Join-Path $pttiPackage 'docs/USER-FEEDBACK.md')
+foreach ($pttiInstallFile in @('INSTALL.ps1','INSTALL.cmd','UNINSTALL.ps1')) { Copy-Item -LiteralPath (Join-Path $pttiRoot "scripts/$pttiInstallFile") -Destination (Join-Path $pttiPackage $pttiInstallFile) }
 Compress-Archive -LiteralPath $pttiPackage -DestinationPath $pttiArchive -CompressionLevel Optimal
 $pttiHash = (Get-FileHash -LiteralPath $pttiArchive -Algorithm SHA256).Hash.ToLowerInvariant()
-Set-Content -LiteralPath ($pttiArchive + '.sha256') -Value "$pttiHash  PTTI-v0.1.1-Windows-x64.zip" -Encoding ASCII
+Set-Content -LiteralPath ($pttiArchive + '.sha256') -Value "$pttiHash  PTTI-v0.1.2-Windows-x64.zip" -Encoding ASCII
 Write-Output $pttiArchive
 Write-Output "SHA256: $pttiHash"

@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.2 — 2026-10-05
+
+Chinese UX & Windows Desktop Experience.
+
+- Chinese-first home/import/dashboard/evidence/library/settings/about; shared design tokens, light/dark/system themes and first-run introduction.
+- Preview validation before explicit save, downloadable synthetic templates, understandable issues/suggestions and optional match notes.
+- Dashboard section tabs, denominators/evidence details, Chinese point columns and filters, searchable library with deletion confirmation.
+- Persistent local preferences via an additive SQLite table; existing match payloads and analytics unchanged.
+- Original programmatic app icon, Chinese window/startup error dialog, per-user portable installer fallback and desktop/Start Menu shortcuts. No setup EXE is claimed.
+- Chinese HTML report and unified export menu; printing/PDF visibly experimental. Score chart loaded on demand.
+- Planning-only player/training/video/AI-coach shells. No new analytics, AI calls, research conclusions or Pilot 2 execution.
+
 ## 0.1.1 — 2026-10-05
 
 Research integration and release hardening. Non-squashed subtree preserves the original release history. Recovered Protocol v0.3 references and 21-field compatibility analysis; dedicated adapter with original values/provenance, pre/post score conversion and explicit subtype warnings; uncertainty-aware denominators/evidence gates; Chinese import and metric copy; refreshed Windows handoff. Research conclusions unchanged; Pilot 2 not started. Unknown core identity/scores reject; mapping/measurement limitations remain documented.

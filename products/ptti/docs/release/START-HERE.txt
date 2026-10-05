@@ -1,10 +1,21 @@
-PTTI 0.1.1 — 凯凯，先看这张就够啦 🏓
+PTTI v0.1.2 · 个人乒乓球比赛智能分析系统
 
-1. 解压整个包，打开 PTTI/PTTI.exe；需要 Windows 10/11 x64 和 Edge WebView2 Runtime，不用 Python、Node、Git 或开发工具。
-2. 不要单独移动 exe：必须保留整个 PTTI 文件夹和 _internal。
-3. 首页点“加载合成示例”。这不是实际比赛，也不是研究结论。
-4. 点“导入比赛”，填比赛/球员名字、选 UTF-8 CSV、“校验并保存”。历史格式 player=A、opponent=B；合成 CSV 要勾选合成示例。
-5. 两种模板在 sample/，说明在 docs/CSV-TEMPLATE.md 和 DATA-FIELDS.md。不要把两种格式混在一起。
-6. “证据不足”不等于 0%：未知/不清楚不会被猜成战术值；数据足够也只是样本描述。
-7. 比赛页“导出 JSON/HTML”，选择位置。数据本地保存到 %LOCALAPPDATA%\PTTI\matches.db；重开后去比赛库找。
-8. 出错请截完整错误和出错页面，附 Windows 版本、docs/USER-FEEDBACK.md；有 startup-error.log 时附错误文本，不必发送私人比赛数据库。
+推荐：完整解压后双击 INSTALL.cmd，安装到自己的用户目录，并创建桌面“PTTI”快捷方式。不需要管理员权限；默认创建桌面图标。也可以直接打开 PTTI\PTTI.exe。不要单独移动 EXE 或 _internal 文件夹。
+
+首次打开可点“加载示例”。示例为合成数据，不是真实比赛证据。
+
+导入比赛：数据导入 → 填比赛信息 → 选择 CSV → 自动检查 → 修正错误 → 保存并进入比赛分析。警告允许继续；错误必须修复。
+
+模板在 sample\，也可在选择数据页面下载。两种格式不要混用。历史格式 player 对应球员 A，opponent 对应球员 B。
+
+“证据不足”表示样本太少或未知信息过多，不代表 0%。PTTI 不猜战术。
+
+比赛和设置保存在 %LOCALAPPDATA%\PTTI\matches.db。正常升级/卸载保留比赛；备份前关闭应用。设置页可打开数据文件夹。
+
+导出：比赛分析右上“导出分析” → JSON 或 HTML 报告。打印/保存 PDF 为实验功能，只打印当前分析分区；完整离线报告请导出 HTML。
+
+打不开：确认完整解压、Windows 10/11 x64、Microsoft Edge WebView2 Runtime。无需 Python、Node、Git 或账号。仍失败请截图，并附 %LOCALAPPDATA%\PTTI\startup-error.log（如果有）。不要发送个人数据库。
+
+卸载：先关闭 PTTI，在开始菜单运行 Uninstall PTTI，确认只删除应用，保留比赛。安装脚本界面为简短英文；输入 YES 才确认卸载。
+
+反馈：docs\USER-FEEDBACK.md。任何“不知道下一步点什么”的地方也请记录。
