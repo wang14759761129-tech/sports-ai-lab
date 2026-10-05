@@ -50,7 +50,7 @@ def main():
                 i+=1
             cap.release()
             if i!=item['count'] or max(needed)>=i:raise ValueError(f'Video frame count/GT bounds mismatch: {m}/{r}: metadata={item["count"]}, decoded={i}')
-            records.append(dict(source_id=f'tabletennis/{m}/{r}',role=item['role'],frames=i,annotations=len(item['gt']),resolution=[item['width'],item['height']],video_sha256=sha256(item['video']),gt_sha256=sha256(item['gt_path'])))
+            records.append(dict(source_id=f'tabletennis/{m}/{rally}',role=item['role'],frames=i,annotations=len(item['gt']),resolution=[item['width'],item['height']],video_sha256=sha256(item['video']),gt_sha256=sha256(item['gt_path'])))
         if len({(x['width'],x['height']) for x in metadata})!=1:raise ValueError(f'Changing resolution in match {m}; do not combine medians')
         # Faithful to create_median.py's np.linspace selection and uint8 pixel median,
         # restricted to downloaded annotated rallies rather than complete matches.

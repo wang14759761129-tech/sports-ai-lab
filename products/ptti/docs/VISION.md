@@ -108,3 +108,9 @@ Release Gate: HISTORICAL_DB_UNVERIFIED. Vision Gate: BALLTRACK_MODEL_IMPROVEMENT
 The fixed A/B/C pilot completed: table-tennis fine-tuning and TRAIN-only hard-negative weighting did not pass known-evaluation acceptance. RAW remains the default. Both checkpoints, raw heatmaps, provenance, prior tracker results and forensic artifacts are retained. Final untouched test was neither selected nor run. No Production DB access, RacketPose, TrajPred, main merge, tag or release.
 
 See [training audit](BALLTRACK-SPECIALIST-v1.md), [complete results](BALLTRACK-SPECIALIST-v1-RESULTS.md) and the hash-bound record in `configs/experiments/TTI_SPECIALIST_V1.json`. This rejects the bounded pilot, not all possible model-level improvement. Native GUI remains MANUAL_GUI_CHECK_REQUIRED.
+
+## Current gates — final bounded BallTrack v1 pass (2026-10-06)
+
+Release Gate: HISTORICAL_DB_UNVERIFIED; the Production database remains untouched. Vision Gate: BALLTRACK_V1_FROZEN_RAW. One diversified fine-tuning candidate and a small DEV decoder/refinement study were evaluated; the candidate failed KNOWN acceptance, so the official RacketVision RAW checkpoint remains the frozen default. No further BallTrack v1 tuning, main merge, tag, release, RacketPose or TrajPred.
+
+See [frozen results](BALLTRACK-V1-FROZEN.md) and hash-bound configuration `configs/experiments/BALLTRACK_V1_FROZEN.json`. The next permitted activity is the real professional-match pipeline using a complete authorized local match video. No such asset was available in the checked local folders, and the existing bounded rally worker does not perform full-match point/rally segmentation. Native GUI remains MANUAL_GUI_CHECK_REQUIRED.
