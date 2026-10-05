@@ -16,6 +16,14 @@ The project is nested in this repository, rather than being a separate GitHub re
 
 Pilot 2 tests which video conditions support reliable tactical annotation. It does not analyze player performance or treat Pilot 1C's single 480p source limitation as evidence that the research question is invalid.
 
+## Research
+
+[Serve & Third-Ball Analytics](research-tracks/match-analytics/serve-third-ball-analytics/) remains the flagship: Protocol v0.3, Pilot 1C REVISE / HOLD, Pilot 2 Video Source Validation planned and not started. The research question remains ON HOLD PENDING MEASUREMENT FEASIBILITY. Product integration does not change these conclusions.
+
+## Product
+
+[PTTI — Personal Table Tennis Intelligence](products/ptti/) is local-first Windows software for the owner and Kaikai. Version 0.1.1 adds explicit Protocol v0.3 compatibility and evidence states without claiming tactical measurement reliability. [Schema compatibility](products/ptti/docs/SCHEMA-COMPATIBILITY.md) · [research basis](products/ptti/docs/RESEARCH-BASIS.md) · [Windows release](https://github.com/wang14759761129-tech/sports-ai-lab/releases/tag/ptti-v0.1.1). Kaikai Test 01 is pending; video/CV/LLM/cloud capabilities are not implemented.
+
 ## Research tracks
 
 ### Match Analytics — ACTIVE / LEARNING
