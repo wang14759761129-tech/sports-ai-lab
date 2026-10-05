@@ -15,6 +15,12 @@ class DesktopAPI:
         return True
 
 def main():
+    import sys
+    if getattr(sys, 'frozen', False) and Path(sys.executable).stem.casefold() == 'ptti-vision-dev':
+        # Workspace-only experimental EXE always defaults to an isolated QA DB.
+        product = Path(sys.executable).resolve().parents[2]
+        os.environ.setdefault('PTTI_VISION_HOME', str(product))
+        os.environ.setdefault('PTTI_DB', str(product / 'dist/vision-smoke.db'))
     from backend.main import app
     webview.settings['ALLOW_DOWNLOADS']=True
     with socket.socket() as s:
