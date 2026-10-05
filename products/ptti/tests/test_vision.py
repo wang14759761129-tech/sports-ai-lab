@@ -74,6 +74,27 @@ def test_real_ffprobe_synthetic_fixture(tmp_path):
     subprocess.run(['ffmpeg','-v','error','-f','lavfi','-i','color=size=320x240:rate=25:duration=1','-c:v','libx264','-n',str(path)],check=True)
     metadata=video_metadata(path)
     assert metadata['width']==320 and metadata['height']==240 and metadata['fps']==25 and metadata['frame_count']==25
+    assert metadata['orientation_degrees']==0 and metadata['audio_streams']==[]
+
+def test_video_metadata_preserves_orientation_and_audio_stream_details(tmp_path,monkeypatch):
+    from types import SimpleNamespace
+    import vision.quality as quality
+    path=tmp_path/'rotated.mov';path.write_bytes(b'fixture')
+    payload={
+        'streams':[
+            {'codec_type':'video','codec_name':'h264','width':1080,'height':1920,
+             'avg_frame_rate':'50/1','r_frame_rate':'50/1','duration':'12.0','nb_frames':'600',
+             'display_aspect_ratio':'9:16','pix_fmt':'yuv420p','profile':'High',
+             'side_data_list':[{'rotation':-90}]},
+            {'codec_type':'audio','codec_name':'aac','sample_rate':'48000','channels':2,
+             'channel_layout':'stereo'}],
+        'format':{'duration':'12.0','bit_rate':'2000000','format_name':'mov,mp4,m4a,3gp,3g2,mj2'}
+    }
+    monkeypatch.setattr(quality.subprocess,'run',lambda *args,**kwargs:SimpleNamespace(stdout=json.dumps(payload)))
+    metadata=quality.video_metadata(path)
+    assert metadata['orientation_degrees']==270
+    assert metadata['audio_streams']==[{'codec':'aac','sample_rate':'48000','channels':2,'channel_layout':'stereo'}]
+    assert metadata['pixel_format']=='yuv420p' and metadata['format_name'].startswith('mov')
 
 def test_external_reference_saves_without_downloading(tmp_path,monkeypatch):
     monkeypatch.setenv('PTTI_VISION_HOME',str(tmp_path/'vision'))

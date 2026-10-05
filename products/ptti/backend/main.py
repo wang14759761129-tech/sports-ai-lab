@@ -214,6 +214,7 @@ def create_app(db_path=None):
                 record=ProfessionalMatchInput.model_validate(values).to_record()
                 record['analysis_status']='VIDEO_READY'
                 record['video_source_note']=source_note
+                record['video_original_filename']=Path(file.filename or '').name
                 record['video_metadata']={**media,'size_bytes':total,'sha256':digest.hexdigest(),'quality':quality}
                 try:record=repo.save_professional_match(record)
                 except ValueError as exc:raise HTTPException(422,str(exc)) from exc

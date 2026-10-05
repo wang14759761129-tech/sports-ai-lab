@@ -33,11 +33,23 @@ def video_metadata(path):
     if fps <= 0:
         raise ValueError('无法读取有效帧率')
     duration = float(stream.get('duration', data['format'].get('duration', 0)))
+    rotation = next((item.get('rotation') for item in stream.get('side_data_list', [])
+                     if item.get('rotation') is not None), stream.get('tags', {}).get('rotate', 0))
+    try:
+        orientation_degrees = int(round(float(rotation))) % 360
+    except (TypeError, ValueError):
+        orientation_degrees = None
+    audio_streams = [dict(codec=item.get('codec_name'), sample_rate=item.get('sample_rate'),
+                          channels=item.get('channels'), channel_layout=item.get('channel_layout'))
+                     for item in data['streams'] if item.get('codec_type') == 'audio']
     return dict(width=int(stream['width']), height=int(stream['height']), fps=fps,
                 duration=duration, codec=stream['codec_name'],
                 bitrate=int(data['format'].get('bit_rate', 0)),
                 frame_count=int(stream['nb_frames']) if stream.get('nb_frames', '').isdigit() else None,
                 aspect_ratio=stream.get('display_aspect_ratio'),
+                orientation_degrees=orientation_degrees,
+                pixel_format=stream.get('pix_fmt'), profile=stream.get('profile'),
+                format_name=data['format'].get('format_name'), audio_streams=audio_streams,
                 rate_variable=stream.get('r_frame_rate') != stream.get('avg_frame_rate'))
 
 def normalize(path, destination, meta):
