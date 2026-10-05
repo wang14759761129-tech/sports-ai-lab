@@ -8,3 +8,4 @@ tqdm
 scikit-learn
 parse
 huggingface_hub
+psutil==7.2.2

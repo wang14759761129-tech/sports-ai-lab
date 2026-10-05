@@ -27,17 +27,30 @@ def main():
         success, frame = cap.read()
         if not success: break
         path = frame_dir / f'{len(paths):06d}.jpg'
-        if not cv2.imwrite(str(path), frame): raise RuntimeError('Frame write failed')
+        success, encoded = cv2.imencode('.jpg', frame)
+        if not success: raise RuntimeError('Frame write failed')
+        encoded.tofile(path)
         paths.append(str(path))
+        if len(paths) > 1800: raise RuntimeError('Experimental worker frame limit exceeded')
     cap.release()
     if not paths: raise RuntimeError('No frames decoded')
     # Deterministic bounded background sample; no GT is used in preprocessing.
     indexes = np.linspace(0, len(paths) - 1, min(100, len(paths)), dtype=int)
-    median = np.median(np.array([cv2.imread(paths[i]) for i in indexes]), axis=0).astype(np.uint8)
+    def read_frame(path):
+        frame = cv2.imdecode(np.fromfile(path, dtype=np.uint8), cv2.IMREAD_COLOR)
+        if frame is None: raise RuntimeError('Cannot decode extracted frame')
+        return frame
+    median = np.median(np.array([read_frame(paths[i]) for i in indexes]), axis=0).astype(np.uint8)
     median_path = output / 'median.npz'; np.savez(median_path, median=median)
     print('STAGE Tracking ball', flush=True)
 
     class AlignedInferencer(BallInferencer):
+        def _load_frames(self, frame_paths):
+            # OpenCV imread/imwrite do not reliably handle Windows Chinese paths.
+            raw = [read_frame(path) for path in frame_paths]
+            resized = np.array([cv2.resize(f, (self.width, self.height)) for f in raw], dtype=np.float32) / 255.0
+            return raw, resized
+
         def _preprocess_batch(self, frames, start, end, median):
             batch = []
             for i in range(start, end):
@@ -61,6 +74,10 @@ def main():
                 peak_vram_bytes=torch.cuda.max_memory_allocated() if torch.cuda.is_available() else None,
                 alignment='inclusive history ending at output frame; initial repeated-frame padding',
                 background='up to 100 evenly sampled frames from this rally, not full-match median')
+    import psutil
+    memory = psutil.Process().memory_info()
+    info['peak_cpu_ram_bytes'] = getattr(memory, 'peak_wset', None)
+    info['current_cpu_ram_bytes'] = memory.rss
     (output / 'runtime.json').write_text(json.dumps(info, indent=2), encoding='utf-8')
 
 if __name__ == '__main__':

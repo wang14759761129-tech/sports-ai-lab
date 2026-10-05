@@ -45,6 +45,8 @@ def run_analysis(video, source, gt=None, config=None, device='cuda', stage=lambd
     if commit != RV_COMMIT: raise ValueError('RacketVision checkout does not match pinned commit')
     stage('读取视频')
     meta = video_metadata(video)
+    if meta['duration'] > 60 or (meta['frame_count'] or meta['duration'] * meta['fps']) > 1800:
+        raise ValueError('当前视觉实验仅处理不超过 60 秒、1800 帧的短片段。请保留原始视频并先剪出短回合。')
     key = cache_key(sha256(video), sha256(checkpoint), {'device': device})
     config.cache_root.mkdir(parents=True, exist_ok=True)
     cache = config.cache_root / key
@@ -54,7 +56,7 @@ def run_analysis(video, source, gt=None, config=None, device='cuda', stage=lambd
     logs = out / 'logs'; logs.mkdir()
     write_json(out / 'source.json', source); write_json(out / 'video_meta.json', meta)
     write_json(out / 'quality.json', classify(meta))
-    started = time.perf_counter(); reused = (cache / 'raw_prediction.json').is_file()
+    started = time.perf_counter(); reused = (cache / 'raw_prediction.json').is_file() and (cache / 'runtime.json').is_file()
     if not reused:
         cache.mkdir(exist_ok=True)
         input_video = Path(video)
@@ -80,6 +82,8 @@ def run_analysis(video, source, gt=None, config=None, device='cuda', stage=lambd
     with (out / 'ball_track.csv').open('w', encoding='utf-8', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=list(points[0])); writer.writeheader(); writer.writerows(points)
     runtime = json.loads((cache / 'runtime.json').read_text(encoding='utf-8'))
+    runtime['processing_fps'] = runtime['decoded_frames'] / runtime['processing_seconds']
+    runtime['processing_realtime_factor'] = runtime['processing_seconds'] / meta['duration'] if meta['duration'] else None
     metrics = compare(points, read_ground_truth(gt), meta['width'], meta['height']) if gt else None
     write_json(out / 'metrics.json', metrics)
     stage('生成轨迹叠加视频')
@@ -92,7 +96,9 @@ def run_analysis(video, source, gt=None, config=None, device='cuda', stage=lambd
                       checkpoint_sha256=sha256(checkpoint), video_sha256=sha256(video),
                       gt_sha256=sha256(gt) if gt else None, recorded_at=datetime.now(timezone.utc).isoformat(),
                       cache_reused=reused, elapsed_seconds=time.perf_counter() - started, runtime=runtime,
-                      quality=classify(meta))
+                      quality=classify(meta), worker_device=device, model_batchsize=2, heatmap_threshold=.5,
+                      confidence_semantics='Mean sigmoid heatmap value inside selected bounding rectangle; not calibrated probability.',
+                      source_tree_dirty=bool(subprocess.check_output(['git','-C',str(Path(__file__).resolve().parents[1]),'status','--porcelain'],text=True).strip()))
     result = dict(analysis_id=analysis_id, source=source, video=meta, metrics=metrics, provenance=provenance,
                   outputs=['ball_track.json', 'ball_track.csv', 'metrics.json', 'ball_overlay.mp4', 'report.html'])
     write_json(out / 'analysis.json', result)

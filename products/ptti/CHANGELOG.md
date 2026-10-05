@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0-dev — unreleased
+
+- Optional isolated RacketVision BallTrack worker pinned to an upstream commit; explicit model/data setup and configurable ignored storage.
+- Local-video metadata/quality checks, original-resolution coordinates, sparse-GT benchmark, JSON/CSV/HTML and MP4 overlays, cache/provenance and measured regression comparison.
+- Chinese experimental video page, local licensed WTT metadata and reference-only URLs; no third-party video downloads or access bypass.
+- Independent developer Windows build; existing match database/research conclusions preserved. RacketPose/TrajPred are not implemented and no production stability is claimed.
+
 ## 0.1.2 — 2026-10-05
 
 Chinese UX & Windows Desktop Experience.

@@ -4,11 +4,16 @@ from pathlib import Path
 from .config import VisionConfig, DATA_REVISION
 from .doctor import doctor
 from .runner import run_analysis
+from .regression import compare_runs
 
 def main():
     parser = argparse.ArgumentParser(description='PTTI isolated local vision tools')
     sub = parser.add_subparsers(dest='command', required=True)
     sub.add_parser('doctor')
+    regression = sub.add_parser('regression')
+    regression.add_argument('baseline', type=Path)
+    regression.add_argument('candidate', type=Path)
+    regression.add_argument('--tolerance', type=float, default=0.05)
     benchmark = sub.add_parser('benchmark')
     benchmark.add_argument('--device', choices=['cuda', 'cpu'], default='cuda')
     analyze = sub.add_parser('analyze')
@@ -17,6 +22,9 @@ def main():
     analyze.add_argument('--device', choices=['cuda', 'cpu'], default='cuda')
     args = parser.parse_args(); config = VisionConfig.load()
     if args.command == 'doctor': print(json.dumps(doctor(config), ensure_ascii=False, indent=2)); return
+    if args.command == 'regression':
+        result = compare_runs(json.loads(args.baseline.read_text(encoding='utf-8')), json.loads(args.candidate.read_text(encoding='utf-8')), args.tolerance)
+        print(json.dumps(result, indent=2)); return
     if args.command == 'benchmark':
         video = config.dataset_root / 'tabletennis/videos/match1_000.mp4'
         gt = config.dataset_root / 'tabletennis/all/match1/csv/000_ball.csv'

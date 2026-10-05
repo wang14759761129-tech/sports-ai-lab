@@ -1,4 +1,12 @@
-# PTTI 0.1.2 — Chinese Desktop Experience
+# PTTI — Chinese Desktop + experimental v0.2 visual perception
+
+Stable athlete delivery remains **ptti-v0.1.2**. This development branch adds a separate optional vision worker; it is not a consumer v0.2 release.
+
+## Computer Vision (experimental)
+
+Chinese local-video / licensed-local-WTT ingestion, input quality classification, pinned RacketVision BallTrack inference, sparse-GT benchmarking, ball-position JSON/CSV, HTML and trajectory overlay. [Vision architecture/setup/limits](docs/VISION.md) · [legal video sources](docs/VIDEO_SOURCES.md). RacketPose and TrajPred remain gated and **not implemented**; ball positions never become invented tactical fields. Heavy CUDA dependencies live in vision_worker/.venv, never the normal desktop environment. Build the independent PTTI-Vision-Dev EXE using scripts/build_vision_windows.bat; stable installed shortcuts are unchanged.
+
+## Stable 0.1.2 delivery
 
 Personal Table Tennis Intelligence / 个人乒乓球比赛智能分析系统。Local-first Windows match workbench for the owner and Kaikai. Chinese-first interface; no account, telemetry, silent upload, AI API or cloud analysis. **KAIKAI TEST 01 PENDING.**
 
@@ -14,7 +22,7 @@ Installation: %LOCALAPPDATA%\Programs\PTTI\versions\0.1.2. Normal uninstall via 
 
 Three-step first-run introduction; match information → file/template selection → automatic preview checks → explicit save. Chinese issue severity and suggestions. Dashboard tabs: overview, service/receive, third ball, rallies, points, evidence. Chinese column labels, filters and expandable original research fields. Searchable/date-filtered library with confirmed deletion. Persistent Chinese language, light/dark/system theme, onboarding and home/recent startup preference. Settings opens the local data folder in the desktop edition. One export menu for JSON, Chinese HTML, and experimental current-section printing/PDF.
 
-Future player, training, video and AI-coach modules are **planning-only shells**, visibly unopened; no fabricated analytics. Only Match Intelligence is active.
+Future player, training and AI-coach modules are **planning-only shells**, visibly unopened. Match Intelligence is active; the optional video module is explicitly experimental.
 
 ## Evidence and research
 

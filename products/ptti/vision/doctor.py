@@ -27,6 +27,8 @@ def doctor(config=None):
         except Exception as exc:
             result['worker'] = {'error': str(exc)}
     result['checkpoint'] = (config.model_root / 'balltrack_best.pth').is_file()
+    from .models import VisionModelManager
+    result['models'] = VisionModelManager(config).status()
     if result.get('worker', {}).get('torch') and result['checkpoint'] and result['racketvision_commit'] == RV_COMMIT:
         result['BallTrack'] = 'INSTALLED_NOT_VALIDATED'
     return result
