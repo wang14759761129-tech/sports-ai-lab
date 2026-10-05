@@ -1,6 +1,6 @@
 {
-  "schema_version": "professional-foundation-2",
-  "verified_at": "2026-10-05T16:34:22Z",
+  "schema_version": "professional-foundation-3",
+  "verified_at": "2026-10-05T18:30:29Z",
   "ranking_snapshot": {
     "ranking_type": "ITTF_MENS_SINGLES",
     "ranking_year": 2026,
@@ -183,6 +183,13 @@
       "source_type": "OFFICIAL_ITTF_PLAYER_CAREER_AND_RANKING_STATUS",
       "retrieved_at": "2026-10-06T00:00:00Z",
       "description": "Ma Long is identified in ITTF coverage; report states withdrawal from ITTF World Rankings."
+    },
+    {
+      "source_id": "ittf-macao-wc-2026-result-20260405",
+      "source_url": "https://worldcupresults.ittf.com/eventInfo?eventId=3379&selectedTab=Draws&subEvt=MSINGLES",
+      "source_type": "OFFICIAL_ITTF_EVENT_RESULTS",
+      "retrieved_at": "2026-10-05T18:30:29Z",
+      "description": "Official ITTF results page lists the men's singles final WANG Chuqin vs Sora Matsushima on 5 April 2026."
     }
   ],
   "groups": [
@@ -684,7 +691,7 @@
       "match_id": "pro:ittf:macao-world-cup-2026:wang-matsushima",
       "event_name": "ITTF Men’s & Women’s World Cup Macao 2026",
       "event_id": "3379",
-      "event_date": null,
+      "event_date": "2026-04-05",
       "round": "Men's Singles Final",
       "competition_level": "ITTF_WORLD_CUP",
       "player_a_id": "athlete:121558",
@@ -702,7 +709,8 @@
       "licence_reference": null,
       "analysis_status": "NOT_ANALYZED",
       "source_ids": [
-        "ittf-macao-world-cup-2026-matsushima-wang"
+        "ittf-macao-world-cup-2026-matsushima-wang",
+        "ittf-macao-wc-2026-result-20260405"
       ]
     },
     {

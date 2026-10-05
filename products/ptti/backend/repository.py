@@ -33,6 +33,8 @@ class Repository:
             db.execute('CREATE INDEX IF NOT EXISTS idx_professional_matches_event_date ON professional_matches(event_date DESC,event_name)')
             db.execute('CREATE INDEX IF NOT EXISTS idx_professional_matches_players ON professional_matches(player_a_id,player_b_id)')
             db.execute('CREATE TABLE IF NOT EXISTS professional_match_sources (match_id TEXT NOT NULL REFERENCES professional_matches(match_id), source_id TEXT NOT NULL REFERENCES professional_sources(source_id), PRIMARY KEY(match_id,source_id))')
+            db.execute('CREATE TABLE IF NOT EXISTS professional_match_revisions (match_id TEXT NOT NULL REFERENCES professional_matches(match_id), revision_no INTEGER NOT NULL, payload TEXT NOT NULL, created_at TEXT NOT NULL, PRIMARY KEY(match_id,revision_no))')
+            db.execute('CREATE TABLE IF NOT EXISTS professional_match_revision_sources (match_id TEXT NOT NULL, revision_no INTEGER NOT NULL, source_id TEXT NOT NULL REFERENCES professional_sources(source_id), PRIMARY KEY(match_id,revision_no,source_id), FOREIGN KEY(match_id,revision_no) REFERENCES professional_match_revisions(match_id,revision_no))')
             db.execute('CREATE TABLE IF NOT EXISTS professional_seed_versions (version TEXT PRIMARY KEY, applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)')
 
     def seed_professional(self,manifest):
@@ -89,7 +91,32 @@ class Repository:
                 encoded=json.dumps(match,ensure_ascii=False)
                 existing=db.execute('SELECT payload FROM professional_matches WHERE match_id=?',(match['match_id'],)).fetchone()
                 if existing and existing[0]!=encoded:
-                    raise ValueError(f'Professional match record is immutable and conflicts with existing data: {match["match_id"]}')
+                    original=json.loads(existing[0])
+                    old_sources=set(original.get('source_ids',[]));new_sources=set(match.get('source_ids',[]))
+                    if not old_sources.issubset(new_sources):
+                        raise ValueError(f'Professional match provenance cannot be removed: {match["match_id"]}')
+                    patch={}
+                    for field,value in match.items():
+                        if field=='source_ids':continue
+                        previous=original.get(field)
+                        if previous==value:continue
+                        if previous is None and value is not None and field in {'event_date','round'}:
+                            patch[field]=value
+                            continue
+                        raise ValueError(f'Professional match record is immutable and conflicts with existing data: {match["match_id"]}')
+                    added_sources=sorted(new_sources-old_sources)
+                    if len(added_sources)!=1:
+                        raise ValueError(f'Verified match enrichment requires exactly one new source: {match["match_id"]}')
+                    revision_no=db.execute('SELECT COALESCE(MAX(revision_no),0)+1 FROM professional_match_revisions WHERE match_id=?',(match['match_id'],)).fetchone()[0]
+                    patch['source_ids']=added_sources
+                    db.execute('INSERT INTO professional_match_revisions VALUES (?,?,?,?)',(
+                        match['match_id'],revision_no,json.dumps(patch,ensure_ascii=False),
+                        datetime.datetime.now(datetime.timezone.utc).isoformat()))
+                    for source_id in added_sources:
+                        db.execute('INSERT OR IGNORE INTO professional_match_revision_sources VALUES (?,?,?)',
+                                   (match['match_id'],revision_no,source_id))
+                        db.execute('INSERT OR IGNORE INTO professional_match_sources VALUES (?,?)',
+                                   (match['match_id'],source_id))
                 db.execute('INSERT OR IGNORE INTO professional_matches VALUES (?,?,?,?,?,?,?,?,?,?)',(
                     match['match_id'],match['event_name'],match.get('event_id'),match.get('event_date'),match.get('round'),
                     match.get('competition_level'),match['player_a_id'],match['player_b_id'],match.get('winner_id'),encoded))
@@ -187,11 +214,25 @@ class Repository:
             query+=' WHERE player_a_id=? OR player_b_id=?';params=[athlete_id,athlete_id]
         query+=' ORDER BY COALESCE(event_date,\'\') DESC,event_name,match_id'
         with self.connect() as db:rows=db.execute(query,params).fetchall()
-        return [json.loads(r[0]) for r in rows]
+        records=[self._apply_professional_match_revisions(json.loads(r[0])) for r in rows]
+        records.sort(key=lambda record:(record.get('event_name',''),record.get('match_id','')))
+        records.sort(key=lambda record:record.get('event_date') or '',reverse=True)
+        return records
+
+    def _apply_professional_match_revisions(self,record):
+        with self.connect() as db:
+            revisions=db.execute('SELECT revision_no,payload FROM professional_match_revisions WHERE match_id=? ORDER BY revision_no',(record['match_id'],)).fetchall()
+        source_ids=list(record.get('source_ids',[]))
+        for _,encoded in revisions:
+            revision=json.loads(encoded)
+            source_ids.extend(source for source in revision.get('source_ids',[]) if source not in source_ids)
+            record.update({key:value for key,value in revision.items() if key!='source_ids'})
+        record['source_ids']=source_ids
+        return record
 
     def get_professional_match(self,match_id):
         with self.connect() as db:row=db.execute('SELECT payload FROM professional_matches WHERE match_id=?',(match_id,)).fetchone()
-        return json.loads(row[0]) if row else None
+        return self._apply_professional_match_revisions(json.loads(row[0])) if row else None
 
     def update_professional_video_analysis(self,match_id,video_analysis):
         """Update runtime analysis metadata without changing seeded match facts."""

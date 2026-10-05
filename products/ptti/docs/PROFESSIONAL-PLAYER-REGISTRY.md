@@ -1,8 +1,8 @@
 # Professional player registry — verification snapshot
 
-**Checked:** 2026-10-05 UTC 16:34  
-**Ranking:** ITTF men's singles, 2026 week 41, published 2026-10-05  
-**Registry seed:** `data/professional/registry.json` (`professional-foundation-2`)
+**Checked:** 2026-10-05 UTC 18:30
+**Ranking:** ITTF men's singles, 2026 week 41, published 2026-10-05
+**Registry seed:** `data/professional/registry.json` (`professional-foundation-3`)
 
 This is a sourced initial registry, not a complete player database. Ranking is a dated snapshot, not a live value. ITTF IDs below came from the official WTT player search/profile data where available. Chinese display names are editorial translations/transliterations; the canonical identity field is the official English name. Missing information is left blank.
 
@@ -38,3 +38,5 @@ Playing hand and grip are null for every seeded athlete. WTT player IDs were not
 ## Refresh policy
 
 Add a new ranking week as a new source and new immutable history rows. Never rewrite an earlier week to reflect a later ranking. The frontend reads the repository API and labels the week/date; it does not embed ranking numbers.
+
+The official ITTF results page records the WANG Chuqin–Sora Matsushima men's singles final at the Macao 2026 World Cup on **2026-04-05**. This date was added as an append-only verified enrichment; the original seeded match payload remains unchanged. [Official ITTF results](https://worldcupresults.ittf.com/eventInfo?eventId=3379&selectedTab=Draws&subEvt=MSINGLES)

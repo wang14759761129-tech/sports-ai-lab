@@ -84,6 +84,40 @@ def test_new_seed_version_refreshes_profile_provenance_without_resetting_groups(
     assert len(repo.get_rankings("athlete:121558")) == 1
 
 
+def test_professional_match_verified_enrichment_is_append_only(tmp_path):
+    from pathlib import Path
+    manifest = json.loads((Path(__file__).parents[1] / "data/professional/registry.json").read_text(encoding="utf-8-sig"))
+    match_id = "pro:ittf:macao-world-cup-2026:wang-matsushima"
+    corrected_source = "ittf-macao-wc-2026-result-20260405"
+    repo = Repository(tmp_path / "match-revision.sqlite")
+    original = copy.deepcopy(manifest)
+    original["schema_version"] = "professional-foundation-test-v1"
+    original["sources"] = [source for source in original["sources"] if source["source_id"] != corrected_source]
+    match = next(item for item in original["professional_matches"] if item["match_id"] == match_id)
+    match["event_date"] = None
+    match["source_ids"].remove(corrected_source)
+    repo.seed_professional(original)
+
+    enriched = copy.deepcopy(manifest)
+    enriched["schema_version"] = "professional-foundation-test-v2"
+    repo.seed_professional(enriched)
+    record = repo.get_professional_match(match_id)
+    assert record["event_date"] == "2026-04-05"
+    assert corrected_source in record["source_ids"]
+    with repo.connect() as db:
+        base = json.loads(db.execute("SELECT payload FROM professional_matches WHERE match_id=?", (match_id,)).fetchone()[0])
+        revisions = db.execute("SELECT COUNT(*) FROM professional_match_revisions WHERE match_id=?", (match_id,)).fetchone()[0]
+    assert base["event_date"] is None
+    assert revisions == 1
+
+    conflict = copy.deepcopy(enriched)
+    conflict["schema_version"] = "professional-foundation-test-v3"
+    next(item for item in conflict["professional_matches"] if item["match_id"] == match_id)["final_score"]["player_a_games"] = 3
+    with pytest.raises(ValueError, match="immutable and conflicts"):
+        repo.seed_professional(conflict)
+    assert repo.get_professional_match(match_id)["event_date"] == "2026-04-05"
+
+
 def test_older_professional_group_table_migrates_additively(tmp_path):
     db = tmp_path / "older-groups.sqlite"
     with sqlite3.connect(db) as connection:
@@ -107,6 +141,8 @@ def test_profile_api_returns_rank_source_and_match_relations(tmp_path):
         assert len(profile["matches"]) == 1
         assert profile["matches"][0]["players"]["player_a"]["athlete_id"] == "athlete:121558"
         assert profile["matches"][0]["analysis_status"] == "NOT_ANALYZED"
+        assert profile["matches"][0]["event_date"] == "2026-04-05"
+        assert "ittf-macao-wc-2026-result-20260405" in {source["source_id"] for source in profile["matches"][0]["sources"]}
 
 
 def test_data_editable_priority_group_and_professional_match_api(tmp_path):
