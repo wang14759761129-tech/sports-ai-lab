@@ -100,6 +100,8 @@ def test_profile_api_returns_rank_source_and_match_relations(tmp_path):
     with client_for(tmp_path) as client:
         profile = client.get("/api/players/athlete:135996").json()
         assert profile["athlete"]["current_world_rank"] == 1
+        assert profile["athlete"]["ranking_year"] == 2026
+        assert profile["athlete"]["ranking_date"] == "2026-10-05"
         assert profile["rankings"][0]["source"]["source_type"] == "OFFICIAL_ITTF_WTT_RANKING_API"
         assert len(profile["matches"]) == 1
         assert profile["matches"][0]["players"]["player_a"]["athlete_id"] == "athlete:121558"

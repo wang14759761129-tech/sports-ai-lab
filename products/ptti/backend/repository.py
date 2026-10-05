@@ -145,7 +145,9 @@ class Repository:
                 groups=[r[0] for r in db.execute('SELECT group_code FROM athlete_group_memberships WHERE athlete_id=? ORDER BY group_code',(athlete_id,))]
                 profile.update(current_world_rank=rankings[0][2] if rankings else None,
                     ranking_points=rankings[0][3] if rankings else None,
+                    ranking_year=rankings[0][4] if rankings else None,
                     ranking_week=rankings[0][5] if rankings else None,
+                    ranking_date=rankings[0][6] if rankings else None,
                     ranking_history_count=len(rankings),groups=groups)
                 profiles.append(profile)
         return profiles
@@ -159,7 +161,9 @@ class Repository:
         groups=self.get_athlete_groups(profile['athlete_id'])
         profile.update(current_world_rank=rankings[0]['rank'] if rankings else None,
             ranking_points=rankings[0]['points'] if rankings else None,
+            ranking_year=rankings[0]['ranking_year'] if rankings else None,
             ranking_week=rankings[0]['ranking_week'] if rankings else None,
+            ranking_date=rankings[0]['ranking_date'] if rankings else None,
             ranking_history_count=len(rankings),groups=groups)
         return profile
 
