@@ -138,7 +138,10 @@ def create_app(db_path=None):
     @app.get('/api/players')
     def players(group_code:str|None=None,search:str|None=None):
         if group_code and not repo.get_group(group_code):raise HTTPException(404,'Player group not found')
-        return [dict(athlete=a,sources=repo.get_sources(a.get('source_ids',[]))) for a in repo.list_athletes(group_code,search)]
+        athletes=repo.list_athletes(group_code,search)
+        sources=repo.get_sources([source for a in athletes for source in a.get('source_ids',[])])
+        source_map={source['source_id']:source for source in sources}
+        return [dict(athlete=a,sources=[source_map[s] for s in a.get('source_ids',[]) if s in source_map]) for a in athletes]
     @app.get('/api/players/{athlete_id}/rankings')
     def player_rankings(athlete_id:str):
         if not repo.get_athlete(athlete_id):raise HTTPException(404,'Athlete not found')

@@ -136,8 +136,19 @@ class Repository:
             params.extend([f'%{search}%']*3)
         if where:query+=' WHERE '+' AND '.join(where)
         query+=' ORDER BY COALESCE((SELECT rank FROM athlete_ranking_history r WHERE r.athlete_id=a.athlete_id ORDER BY ranking_date DESC,ranking_year DESC,ranking_week DESC LIMIT 1),999999), a.canonical_name_en COLLATE NOCASE'
-        with self.connect() as db:rows=db.execute(query,params).fetchall()
-        return [self._athlete_view(json.loads(payload)) for _,payload in rows]
+        profiles=[]
+        with self.connect() as db:
+            rows=db.execute(query,params).fetchall()
+            for athlete_id,payload in rows:
+                profile=json.loads(payload)
+                rankings=db.execute('SELECT athlete_id,ranking_type,rank,points,ranking_year,ranking_week,ranking_date,source_id FROM athlete_ranking_history WHERE athlete_id=? ORDER BY ranking_date DESC,ranking_year DESC,ranking_week DESC',(athlete_id,)).fetchall()
+                groups=[r[0] for r in db.execute('SELECT group_code FROM athlete_group_memberships WHERE athlete_id=? ORDER BY group_code',(athlete_id,))]
+                profile.update(current_world_rank=rankings[0][2] if rankings else None,
+                    ranking_points=rankings[0][3] if rankings else None,
+                    ranking_week=rankings[0][5] if rankings else None,
+                    ranking_history_count=len(rankings),groups=groups)
+                profiles.append(profile)
+        return profiles
 
     def get_athlete(self,athlete_id):
         with self.connect() as db:row=db.execute('SELECT payload FROM athletes WHERE athlete_id=?',(athlete_id,)).fetchone()
