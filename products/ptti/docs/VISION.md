@@ -96,3 +96,8 @@ Windows frame read/write uses NumPy file IO plus OpenCV encoding/decoding so Chi
 ## Optional TTI hardening evaluation
 
 See [BALLTRACK-HARDENING-v1.md](BALLTRACK-HARDENING-v1.md) for the frozen development/holdout split, raw/filtered comparison, complete error dataset and real heatmap diagnosis. Rejection remains experimental and disabled by default: the holdout showed no measured improvement. No table clipping or tactical-field inference was added.
+
+
+## Current gates — cross-match experiment v2
+
+Release Gate: HISTORICAL_DB_UNVERIFIED; Production DB frozen and forensic artifacts preserved. Vision Gate: CROSS_MATCH_GENERALIZATION_REQUIRED. See [BALLTRACK-CROSS-MATCH-v2.md](BALLTRACK-CROSS-MATCH-v2.md): frozen six-match/ten-clip evaluation completed, but TTI recall decreased and FP increased. Tracker remains an experimental CLI component, not the default GUI pipeline. No RacketPose, TrajPred, main merge, v0.2 tag or release. Native GUI remains MANUAL_GUI_CHECK_REQUIRED.
