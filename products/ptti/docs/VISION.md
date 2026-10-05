@@ -66,6 +66,29 @@ GPU fresh inference: 25/25 annotated visible detections (recall 1.0), mean posit
 
 Measured run records are local under outputs/vision and are ignored by Git. Their initial inference provenance records TTI commit `87ff12b`; the working tree was dirty because setup and lockfile changes were pending. The documented media and weight SHA values let later runs check the exact inputs.
 
+## Measured 10-clip test-split suite (2026-10-05)
+
+This clean, forced-recompute CUDA run used 10 rallies selected round-robin from five distinct matches in the pinned official test split. It is a bounded engineering sample, not the full dataset or an independent research validation. See the [official RacketVision repository](https://github.com/OrcustD/RacketVision) and [dataset card](https://huggingface.co/datasets/linfeng302/RacketVision) for upstream data details. The exact run is `benchmark_suite_20261005T113747` under ignored local outputs.
+
+Across 250 annotated frames there were 208 visible-ball annotations, 164 detections, and 44 misses (78.85% visible recall). There were 42 annotated-negative frames and 10 predictions on them. The 164 co-visible pairs had a 14.68 px weighted mean error, 2.24 px median, and 10.58 px P95. Metrics use sparse annotations only; unannotated frames are not negatives. Nine clips had at least one missed visible annotation or annotated-negative false detection. No pass threshold was preregistered, so `clips_passed` remains null and the suite is `BASELINE_ONLY`.
+
+| Test rally | Visible GT | Detected | Recall | Mean / P95 error (px) | Worker pipeline (s) | Pipeline FPS | Misses | Annotated-negative false detections |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| match1/000 | 25 | 25 | 100.0% | 2.44 / 4.85 | 13.80 | 9.06 | 0 | — |
+| match10/000 | 20 | 15 | 75.0% | 2.18 / 5.39 | 27.21 | 11.02 | 5 | 1 |
+| match11/000 | 22 | 14 | 63.6% | 2.70 / 5.35 | 26.82 | 11.19 | 8 | 0 |
+| match12/000 | 17 | 12 | 70.6% | 3.65 / 7.49 | 14.24 | 8.71 | 5 | 0 |
+| match13/000 | 22 | 19 | 86.4% | 5.71 / 12.51 | 24.19 | 10.67 | 3 | 1 |
+| match1/001 | 15 | 14 | 93.3% | 2.33 / 3.54 | 12.42 | 9.98 | 1 | 4 |
+| match10/001 | 22 | 9 | 40.9% | 217.87 / 448.10 | 26.55 | 11.30 | 13 | 2 |
+| match11/001 | 25 | 22 | 88.0% | 2.35 / 5.39 | 24.55 | 12.22 | 3 | — |
+| match12/001 | 21 | 16 | 76.2% | 2.36 / 3.61 | 13.55 | 9.15 | 5 | 0 |
+| match13/001 | 19 | 18 | 94.7% | 2.25 / 4.31 | 25.75 | 11.18 | 1 | 2 |
+
+One outlier drives the difference between median and mean: visual review found six large-error frames in `match10/001` where predictions landed on a seated official's bright pink clothing behind the table while GT marked the ball. This is labelled background-person/clothing confusion. Other inspected misses remain unclassified where the cause was not clear; the review covers the 20 selected worst cases, not every frame. No evidence supports assigning motion blur, white-line confusion, camera-cut, or table-bounce causes to the remaining errors.
+
+The worker processed 2,243 frames in 209.09 seconds, or 10.73 end-to-end worker FPS. CUDA model inference accounted for 114.50 seconds; frame extraction 50.25 seconds and background preprocessing 42.30 seconds were also substantial. Overlay encoding added 49.61 seconds outside worker throughput. Model-only rate is therefore not application end-to-end speed, and the suite does not demonstrate real-time analysis.
+
 Compare compatible measured analysis.json files with `python -m vision regression baseline.json candidate.json --tolerance 0.05`. The explicit default 5% relative tolerance is an engineering regression policy, not a scientific accuracy threshold. Different video/GT/checkpoint/source/pipeline/device/runtime/GPU returns NOT_COMPARABLE; unavailable metrics remain unavailable. Report includes worker processing FPS, processing/video-duration factor, measured Windows process peak RAM and peak allocated CUDA memory (not total GPU reservation). Warm cache runs must not be described as new inference speed measurements.
 
 Windows frame read/write uses NumPy file IO plus OpenCV encoding/decoding so Chinese paths are supported. Upstream source is not edited.
