@@ -35,7 +35,7 @@ def report_html(result):
     body += '<h2>复现与运行记录</h2><pre>' + escape(json.dumps(result['provenance'], ensure_ascii=False, indent=2)) + '</pre>'
     return '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>PTTI 视觉分析</title><style>body{font-family:Microsoft YaHei,sans-serif;max-width:960px;margin:30px auto}th,td{padding:8px;text-align:left;border-bottom:1px solid #ddd}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style>' + body + '</html>'
 
-def run_analysis(video, source, gt=None, config=None, device='cuda', stage=lambda value: None, force_recompute=False):
+def run_analysis(video, source, gt=None, config=None, device='cuda', stage=lambda value: None, force_recompute=False,postprocessor=None):
     config = config or VisionConfig.load()
     source = Source.model_validate(source).model_dump()
     checkpoint = config.model_root / 'balltrack_best.pth'
@@ -89,6 +89,16 @@ def run_analysis(video, source, gt=None, config=None, device='cuda', stage=lambd
     runtime['processing_fps'] = runtime['decoded_frames'] / runtime['processing_seconds']
     runtime['processing_realtime_factor'] = runtime['processing_seconds'] / meta['duration'] if meta['duration'] else None
     metrics = compare(points, read_ground_truth(gt), meta['width'], meta['height']) if gt else None
+    filtered_metrics=None
+    if postprocessor is not None:
+        from .postprocess import TTIBallTrackPostProcessor
+        from dataclasses import asdict
+        evidence=TTIBallTrackPostProcessor(postprocessor).process(points,meta['width'],meta['height'],meta['fps'])
+        filtered=[item['filtered_prediction'] for item in evidence]
+        write_json(out/'ball_track_evidence.json',evidence)
+        write_json(out/'ball_track_filtered.json',filtered)
+        filtered_metrics=compare(filtered,read_ground_truth(gt),meta['width'],meta['height']) if gt else None
+        write_json(out/'filtered_metrics.json',filtered_metrics)
     write_json(out / 'metrics.json', metrics)
     postprocessing_seconds=time.perf_counter()-postprocess_started
     stage('生成轨迹叠加视频')
@@ -111,6 +121,9 @@ def run_analysis(video, source, gt=None, config=None, device='cuda', stage=lambd
                       source_tree_dirty=bool(subprocess.check_output(['git','-C',str(Path(__file__).resolve().parents[1]),'status','--porcelain'],text=True).strip()))
     result = dict(analysis_id=analysis_id, source=source, video=meta, metrics=metrics, provenance=provenance,
                   outputs=['ball_track.json', 'ball_track.csv', 'metrics.json', 'ball_overlay.mp4', 'report.html'])
+    if postprocessor is not None:
+        result.update(filtered_metrics=filtered_metrics,postprocessor=asdict(postprocessor))
+        result['outputs']+=['ball_track_evidence.json','ball_track_filtered.json','filtered_metrics.json']
     write_json(out / 'analysis.json', result)
     (out / 'report.html').write_text(report_html(result), encoding='utf-8')
     if metrics: (out / 'benchmark_report.html').write_text(report_html(result), encoding='utf-8')

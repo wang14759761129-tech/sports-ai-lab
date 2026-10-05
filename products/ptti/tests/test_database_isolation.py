@@ -10,6 +10,58 @@ from fastapi.testclient import TestClient
 from backend.main import app, create_app, resolve_database_path
 
 
+def test_guard_rejects_msix_production_alias_and_hardlink(tmp_path):
+    from backend.database import ProductionDatabaseGuard
+    local=tmp_path/'local';production=local/'PTTI'/'matches.db'
+    production.parent.mkdir(parents=True);production.write_bytes(b'protected')
+    alias=local/'Packages'/'OpenAI.Codex_test'/'LocalCache'/'Local'/'PTTI'/'matches.db'
+    alias.parent.mkdir(parents=True);alias.write_bytes(b'private')
+    guard=ProductionDatabaseGuard('development',{'LOCALAPPDATA':str(local)})
+    with pytest.raises(RuntimeError,match='PRODUCTION_DATABASE_WRITE_GUARD'):
+        guard.validate(alias)
+    hardlink=tmp_path/'dev.db';os.link(production,hardlink)
+    with pytest.raises(RuntimeError,match='PRODUCTION_DATABASE_WRITE_GUARD'):
+        guard.validate(hardlink)
+    assert production.read_bytes()==b'protected'
+
+
+def test_guard_is_rechecked_on_every_connection(tmp_path):
+    from backend.database import ProductionDatabaseGuard
+    from backend.repository import Repository
+    local=tmp_path/'local';production=local/'PTTI'/'matches.db'
+    production.parent.mkdir(parents=True);production.write_bytes(b'protected')
+    guard=ProductionDatabaseGuard('development',{'LOCALAPPDATA':str(local)})
+    repo=Repository(tmp_path/'dev.db',guard=guard)
+    repo.path.unlink();os.link(production,repo.path)
+    with pytest.raises(RuntimeError,match='PRODUCTION_DATABASE_WRITE_GUARD'):
+        repo.connect()
+    assert production.read_bytes()==b'protected'
+
+
+def test_startup_banner_and_runtime_diagnostics_use_isolated_db(tmp_path,capsys):
+    isolated=create_app(tmp_path/'diagnostic.db')
+    assert isolated.state.database_diagnostics['environment']=='TEST'
+    assert isolated.state.database_diagnostics['database_mode']=='READ_WRITE'
+    with TestClient(isolated) as client:
+        data=client.get('/api/diagnostics/database').json()
+        assert data['database']==str((tmp_path/'diagnostic.db').resolve())
+    assert 'PTTI Environment: TEST' in capsys.readouterr().out
+
+
+def test_pytest_cannot_enable_production_even_explicitly(tmp_path):
+    from backend.database import ProductionDatabaseGuard
+    with pytest.raises(RuntimeError,match='tests cannot enable production'):
+        ProductionDatabaseGuard('production',{'LOCALAPPDATA':str(tmp_path)}).validate(tmp_path/'PTTI'/'matches.db')
+
+
+def test_repository_test_mode_rejects_non_temp_path(monkeypatch,tmp_path):
+    from backend.database import ProductionDatabaseGuard
+    import backend.database as module
+    monkeypatch.setattr(module.tempfile,'gettempdir',lambda:str(tmp_path/'allowed-temp'))
+    with pytest.raises(RuntimeError,match='OS temp'):
+        ProductionDatabaseGuard('test',{'LOCALAPPDATA':str(tmp_path)}).validate(tmp_path/'outside.db')
+
+
 def production_db(local_app_data=None):
     root = Path(local_app_data or os.environ.get('LOCALAPPDATA', Path.home()))
     return root / 'PTTI' / 'matches.db'

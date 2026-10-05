@@ -1,0 +1,19 @@
+{
+  "status": "EXPERIMENTAL_NOT_ENABLED",
+  "development_clips": 10,
+  "holdout_clips": 5,
+  "default_behavior": "annotate suspects; preserve raw positions and visibility",
+  "experimental_rejection": {
+    "version": "tti-balltrack-postprocess-1",
+    "reject_suspects": true,
+    "neighbor_gap_seconds": 0.1,
+    "history_seconds": 0.5,
+    "velocity_floor_diagonals_per_second": 0.5,
+    "velocity_multiplier": 6.0,
+    "static_duration_seconds": 0.6,
+    "static_radius_diagonals": 0.006,
+    "static_visible_fraction": 0.9
+  },
+  "parameter_basis": "Conservative dimensionless engineering heuristics; not physical speed limits or scientifically calibrated thresholds. Frozen before holdout inference. No holdout tuning permitted.",
+  "error_triage_threshold": "Position error greater than 1 percent of frame diagonal; reporting only, never an accuracy acceptance threshold."
+}

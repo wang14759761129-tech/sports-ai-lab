@@ -3,9 +3,18 @@ import sqlite3
 import uuid
 from pathlib import Path
 
+class ClosingConnection(sqlite3.Connection):
+    def __exit__(self,*args):
+        try: return super().__exit__(*args)
+        finally: self.close()
+
 class Repository:
-    def __init__(self,path):
-        self.path=Path(path); self.path.parent.mkdir(parents=True,exist_ok=True)
+    def __init__(self,path,guard=None):
+        from backend.database import ProductionDatabaseGuard
+        import os,sys
+        mode='test' if 'pytest' in sys.modules else os.environ.get('PTTI_ENV','development')
+        self.guard=guard or ProductionDatabaseGuard(mode)
+        self.path=self.guard.validate(path); self.path.parent.mkdir(parents=True,exist_ok=True)
         with self.connect() as db:
             db.execute('CREATE TABLE IF NOT EXISTS matches (id TEXT PRIMARY KEY, payload TEXT NOT NULL)')
             db.execute('CREATE TABLE IF NOT EXISTS preferences (id INTEGER PRIMARY KEY CHECK(id=1), payload TEXT NOT NULL)')
@@ -14,7 +23,9 @@ class Repository:
         return json.loads(row[0]) if row else {}
     def save_settings(self,value):
         with self.connect() as db: db.execute('INSERT OR REPLACE INTO preferences VALUES (1,?)',(json.dumps(value),))
-    def connect(self): return sqlite3.connect(self.path)
+    def connect(self):
+        self.guard.validate(self.path)
+        return sqlite3.connect(self.path,factory=ClosingConnection)
     def save(self,payload):
         payload['id']=str(uuid.uuid4())
         with self.connect() as db: db.execute('INSERT INTO matches VALUES (?,?)',(payload['id'],json.dumps(payload,ensure_ascii=False)))

@@ -9,6 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from core.engine import ingest, analyze, SCHEMA_VERSION, ANALYTICS_VERSION
 from backend.repository import Repository
+from backend.database import ProductionDatabaseGuard, database_banner
 from core.importing import import_csv
 
 ROOT=Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parents[1]))
@@ -60,7 +61,7 @@ def resolve_database_path(db_path=None, environ=None, testing=None):
             raise RuntimeError(f'{PRODUCTION_DATABASE_WRITE_GUARD}: production database path must be {production}')
     else:
         raise RuntimeError(f'Unsupported PTTI_ENV: {mode}')
-    return chosen
+    return ProductionDatabaseGuard(mode,env).validate(chosen)
 
 class Metadata(BaseModel):
     name: str=Field(min_length=1,max_length=200)
@@ -103,7 +104,13 @@ def create_app(db_path=None):
     app.include_router(vision_router())
     resolved_db=resolve_database_path(db_path)
     app.state.database_path=resolved_db
-    repo=Repository(resolved_db)
+    mode='test' if 'pytest' in sys.modules or os.environ.get('PTTI_ENV')=='test' else os.environ.get('PTTI_ENV','development')
+    repo=Repository(resolved_db,guard=ProductionDatabaseGuard(mode))
+    app.state.database_diagnostics=database_banner(resolved_db,mode)
+    @app.get('/api/diagnostics/database',include_in_schema=False)
+    def database_diagnostics():
+        if mode=='production': raise HTTPException(404,'Not available')
+        return app.state.database_diagnostics
     def get(id):
         m=repo.get(id)
         if not m: raise HTTPException(404,'Match not found')

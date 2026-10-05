@@ -10,6 +10,7 @@ def main():
     for name in ('runtime', 'checkpoint', 'video', 'output'):
         parser.add_argument('--' + name, required=True)
     parser.add_argument('--device', choices=['cuda', 'cpu'], default='cuda')
+    parser.add_argument('--diagnostic-frames',default='',help='Comma-separated frames whose real heatmaps are retained')
     args = parser.parse_args()
     import cv2
     import numpy as np
@@ -36,6 +37,8 @@ def main():
     cap.release()
     if not paths: raise RuntimeError('No frames decoded')
     frame_extraction_seconds=time.perf_counter()-extraction_started
+    diagnostic_frames={int(x) for x in args.diagnostic_frames.split(',') if x.strip()}
+    diagnostics=[]
     # Deterministic bounded background sample; no GT is used in preprocessing.
     background_started=time.perf_counter()
     indexes = np.linspace(0, len(paths) - 1, min(100, len(paths)), dtype=int)
@@ -49,6 +52,31 @@ def main():
     print('STAGE Tracking ball', flush=True)
 
     class AlignedInferencer(BallInferencer):
+        diagnostic_index=0
+
+        def _predict_location(self,heatmap):
+            index=self.diagnostic_index;self.diagnostic_index+=1
+            selected=super()._predict_location(heatmap)
+            if diagnostic_frames:
+                mask=(heatmap>self.thre).astype('uint8')*255
+                contours,_=cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+                candidates=[]
+                for contour in contours:
+                    x,y,w,h=cv2.boundingRect(contour)
+                    region=heatmap[y:y+h,x:x+w]
+                    candidates.append({'model_center':[x+w/2,y+h/2],'bbox':[x,y,w,h],
+                                       'bbox_area':w*h,'mean_heatmap':float(region.mean()),'peak_heatmap':float(region.max()),
+                                       'selected_by_upstream':(x,y,w,h)==tuple(selected[:4])})
+                y,x=np.unravel_index(np.argmax(heatmap),heatmap.shape)
+                diagnostics.append({'frame':index,'heatmap_shape':list(heatmap.shape),'threshold':self.thre,
+                                    'global_peak':{'model_xy':[int(x),int(y)],'value':float(heatmap[y,x])},
+                                    'candidates':sorted(candidates,key=lambda x:x['bbox_area'],reverse=True),
+                                    'semantics':'Real model sigmoid heatmap; bbox mean is not calibrated probability. Upstream selects largest thresholded bounding box, not highest peak.'})
+                if index in diagnostic_frames:
+                    folder=output/'heatmaps';folder.mkdir(exist_ok=True)
+                    np.savez_compressed(folder/f'frame_{index:06d}.npz',heatmap=heatmap.astype(np.float32))
+            return selected
+
         def _load_frames(self, frame_paths):
             # OpenCV imread/imwrite do not reliably handle Windows Chinese paths.
             raw = [read_frame(path) for path in frame_paths]
@@ -79,6 +107,8 @@ def main():
     model_inference_seconds=time.perf_counter()-inference_started
     serialization_started=time.perf_counter()
     (output / 'raw_prediction.json').write_text(json.dumps(prediction), encoding='utf-8')
+    if diagnostic_frames:
+        (output/'candidate_diagnostics.json').write_text(json.dumps(diagnostics,indent=2),encoding='utf-8')
     prediction_serialization_seconds=time.perf_counter()-serialization_started
     info = dict(processing_seconds=time.perf_counter() - started, decoded_frames=len(paths),
                 torch=torch.__version__, cuda=torch.version.cuda, python=sys.version,

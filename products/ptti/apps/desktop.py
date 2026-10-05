@@ -9,7 +9,7 @@ from pathlib import Path
 
 class DesktopAPI:
     def open_data_folder(self):
-        folder=Path(os.environ.get('LOCALAPPDATA',Path.home()))/'PTTI'
+        folder=Path(os.environ['PTTI_DB']).parent if os.environ.get('PTTI_DB') else Path(os.environ.get('LOCALAPPDATA',Path.home()))/'PTTI-Dev'
         folder.mkdir(parents=True,exist_ok=True)
         os.startfile(str(folder))
         return True
@@ -20,10 +20,12 @@ def main():
         executable=Path(sys.executable).stem.casefold()
         if executable=='ptti-vision-dev':
             # Workspace-only experimental EXE always uses an isolated DB.
-            product=Path(sys.executable).resolve().parents[2]
+            product=next((p for p in Path(sys.executable).resolve().parents if (p/'vision_worker/balltrack.py').is_file()),
+                         Path(os.environ.get('LOCALAPPDATA',Path.home()))/'PTTI-Dev'/'vision')
             os.environ['PTTI_ENV']='development'
             os.environ.setdefault('PTTI_VISION_HOME',str(product))
-            os.environ.setdefault('PTTI_DB',str(product/'dist/vision-smoke.db'))
+            local=Path(os.environ.get('LOCALAPPDATA',Path.home()))
+            os.environ.setdefault('PTTI_DB',str(local/'PTTI-Dev'/'matches.db'))
         elif executable=='ptti':
             # Only the stable desktop executable is allowed to open user data.
             database=Path(os.environ.get('LOCALAPPDATA',Path.home()))/'PTTI'/'matches.db'
@@ -64,7 +66,7 @@ if __name__=='__main__':
         import traceback
         import os
         from pathlib import Path
-        target=Path(os.environ.get('LOCALAPPDATA',Path.home()))/'PTTI'
+        target=Path(os.environ.get('LOCALAPPDATA',Path.home()))/('PTTI' if os.environ.get('PTTI_ENV')=='production' else 'PTTI-Dev')
         target.mkdir(parents=True,exist_ok=True)
         (target/'startup-error.log').write_text(traceback.format_exc(),encoding='utf-8')
         try:

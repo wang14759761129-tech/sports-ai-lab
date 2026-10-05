@@ -24,6 +24,7 @@ def main():
     analyze.add_argument('video', type=Path)
     analyze.add_argument('--gt', type=Path)
     analyze.add_argument('--device', choices=['cuda', 'cpu'], default='cuda')
+    analyze.add_argument('--postprocess',choices=['annotate','reject'],help='Optional experimental TTI layer; default raw only')
     args = parser.parse_args(); config = VisionConfig.load()
     if args.command == 'doctor': print(json.dumps(doctor(config), ensure_ascii=False, indent=2)); return
     if args.command == 'regression':
@@ -40,7 +41,11 @@ def main():
     else:
         video, gt = args.video, args.gt
         source = dict(type='local', rights='user_provided')
-    result = run_analysis(video, source, gt, config, args.device, stage=lambda s: print('STAGE ' + s, flush=True))
+    options={}
+    if getattr(args,'postprocess',None):
+        from .postprocess import PostProcessorConfig
+        options['postprocessor']=PostProcessorConfig(reject_suspects=args.postprocess=='reject')
+    result = run_analysis(video, source, gt, config, args.device, stage=lambda s: print('STAGE ' + s, flush=True),**options)
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 if __name__ == '__main__': main()
