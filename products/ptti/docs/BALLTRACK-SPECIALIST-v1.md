@@ -1,5 +1,7 @@
 # TTI Table-Tennis BallTrack Specialist — bounded experiment v1
 
+Completed result: BALLTRACK_MODEL_IMPROVEMENT_FAILED. Both B and C failed known-evaluation acceptance. See [full results](BALLTRACK-SPECIALIST-v1-RESULTS.md). No final untouched test selected or run. Do not rerun the reproduction commands into this completed experiment directory: existing evidence must remain intact; any new experiment needs a separate directory and identifier.
+
 Release Gate remains HISTORICAL_DB_UNVERIFIED. No Production DB connection, migration, main merge, tag or Release. RacketPose and TrajPred stay prohibited.
 
 TTI_TRACKER_V1 is REJECTED / EXPERIMENTAL_FAILED_TRACKER_V1. Historical code, configs, reports, RAW outputs, images and forensic artifacts are preserved. The default product prediction pipeline remains official RacketVision RAW; specialist checkpoints are experimental and are not selected by the GUI.

@@ -101,3 +101,10 @@ See [BALLTRACK-HARDENING-v1.md](BALLTRACK-HARDENING-v1.md) for the frozen develo
 ## Current gates — cross-match experiment v2
 
 Release Gate: HISTORICAL_DB_UNVERIFIED; Production DB frozen and forensic artifacts preserved. Vision Gate: CROSS_MATCH_GENERALIZATION_REQUIRED. See [BALLTRACK-CROSS-MATCH-v2.md](BALLTRACK-CROSS-MATCH-v2.md): frozen six-match/ten-clip evaluation completed, but TTI recall decreased and FP increased. Tracker remains an experimental CLI component, not the default GUI pipeline. No RacketPose, TrajPred, main merge, v0.2 tag or release. Native GUI remains MANUAL_GUI_CHECK_REQUIRED.
+
+## Current gates — model specialist pilot v1 (supersedes the gate above)
+
+Release Gate: HISTORICAL_DB_UNVERIFIED. Vision Gate: BALLTRACK_MODEL_IMPROVEMENT_FAILED.
+The fixed A/B/C pilot completed: table-tennis fine-tuning and TRAIN-only hard-negative weighting did not pass known-evaluation acceptance. RAW remains the default. Both checkpoints, raw heatmaps, provenance, prior tracker results and forensic artifacts are retained. Final untouched test was neither selected nor run. No Production DB access, RacketPose, TrajPred, main merge, tag or release.
+
+See [training audit](BALLTRACK-SPECIALIST-v1.md), [complete results](BALLTRACK-SPECIALIST-v1-RESULTS.md) and the hash-bound record in `configs/experiments/TTI_SPECIALIST_V1.json`. This rejects the bounded pilot, not all possible model-level improvement. Native GUI remains MANUAL_GUI_CHECK_REQUIRED.
