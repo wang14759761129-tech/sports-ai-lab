@@ -9,6 +9,9 @@ def main():
     parser = argparse.ArgumentParser()
     for name in ('runtime', 'checkpoint', 'video', 'output'):
         parser.add_argument('--' + name, required=True)
+    parser.add_argument('--top-k', type=int, default=0)
+    parser.add_argument('--minimum-response', type=float, default=.01)
+    parser.add_argument('--nms-radius', type=int, default=5)
     parser.add_argument('--device', choices=['cuda', 'cpu'], default='cuda')
     parser.add_argument('--diagnostic-frames',default='',help='Comma-separated frames whose real heatmaps are retained')
     args = parser.parse_args()
@@ -39,6 +42,8 @@ def main():
     frame_extraction_seconds=time.perf_counter()-extraction_started
     diagnostic_frames={int(x) for x in args.diagnostic_frames.split(',') if x.strip()}
     diagnostics=[]
+    peak_rows=[]
+    candidate_seconds=0.0
     # Deterministic bounded background sample; no GT is used in preprocessing.
     background_started=time.perf_counter()
     indexes = np.linspace(0, len(paths) - 1, min(100, len(paths)), dtype=int)
@@ -55,8 +60,15 @@ def main():
         diagnostic_index=0
 
         def _predict_location(self,heatmap):
+            nonlocal candidate_seconds
             index=self.diagnostic_index;self.diagnostic_index+=1
             selected=super()._predict_location(heatmap)
+            if args.top_k:
+                from candidates import extract_peaks
+                candidate_started=time.perf_counter()
+                peaks=extract_peaks(heatmap,args.top_k,args.minimum_response,args.nms_radius)
+                peak_rows.append({'frame':index,'heatmap_shape':list(heatmap.shape),'candidates':peaks})
+                candidate_seconds+=time.perf_counter()-candidate_started
             if diagnostic_frames:
                 mask=(heatmap>self.thre).astype('uint8')*255
                 contours,_=cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
@@ -109,6 +121,8 @@ def main():
     (output / 'raw_prediction.json').write_text(json.dumps(prediction), encoding='utf-8')
     if diagnostic_frames:
         (output/'candidate_diagnostics.json').write_text(json.dumps(diagnostics,indent=2),encoding='utf-8')
+    if args.top_k:
+        (output/'peak_candidates.json').write_text(json.dumps(peak_rows),encoding='utf-8')
     prediction_serialization_seconds=time.perf_counter()-serialization_started
     info = dict(processing_seconds=time.perf_counter() - started, decoded_frames=len(paths),
                 torch=torch.__version__, cuda=torch.version.cuda, python=sys.version,
@@ -116,7 +130,8 @@ def main():
                 peak_vram_bytes=torch.cuda.max_memory_allocated() if torch.cuda.is_available() else None,
                 alignment='inclusive history ending at output frame; initial repeated-frame padding',
                 background='up to 100 evenly sampled frames from this rally, not full-match median')
-    info['profile']={'frame_extraction_seconds':frame_extraction_seconds,
+    info['profile']={'candidate_extraction_seconds':candidate_seconds,
+                     'frame_extraction_seconds':frame_extraction_seconds,
                      'background_preprocessing_seconds':background_preprocessing_seconds,
                      'model_load_seconds':model_load_seconds,
                      'model_inference_seconds':model_inference_seconds,
