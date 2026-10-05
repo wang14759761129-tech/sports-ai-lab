@@ -62,6 +62,17 @@ def test_repository_test_mode_rejects_non_temp_path(monkeypatch,tmp_path):
         ProductionDatabaseGuard('test',{'LOCALAPPDATA':str(tmp_path)}).validate(tmp_path/'outside.db')
 
 
+@pytest.mark.parametrize('view',['private','unknown'])
+def test_production_physical_view_must_be_known_and_exact(tmp_path,monkeypatch,view):
+    import backend.database as module
+    selected=tmp_path/'PTTI'/'matches.db'
+    actual=tmp_path/'Packages'/'Codex'/'LocalCache'/'Local'/'PTTI'/'matches.db' if view=='private' else None
+    monkeypatch.setattr(module,'physical_path',lambda _:actual)
+    with pytest.raises(RuntimeError,match='PRODUCTION_DATABASE_WRITE_GUARD'):
+        module.ProductionDatabaseGuard('production',{'LOCALAPPDATA':str(tmp_path)}).verify_production_physical_path(selected)
+    assert not selected.exists()
+
+
 def production_db(local_app_data=None):
     root = Path(local_app_data or os.environ.get('LOCALAPPDATA', Path.home()))
     return root / 'PTTI' / 'matches.db'

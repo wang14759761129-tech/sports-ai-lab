@@ -19,6 +19,22 @@ def package_identity():
     return name.value if code==0 else ('UNPACKAGED' if code==15700 else f'UNKNOWN:{code}')
 
 
+def physical_path(path):
+    """Resolve file-ID evidence, including inherited MSIX views with no package identity."""
+    path=Path(path).resolve(strict=False)
+    if os.name!='nt': return path
+    existing=path
+    while not existing.exists() and existing!=existing.parent: existing=existing.parent
+    try:
+        query=subprocess.run(['fsutil','file','queryfilenamebyid',existing.anchor,hex(existing.stat().st_ino)],
+                             capture_output=True,text=True,timeout=5,creationflags=subprocess.CREATE_NO_WINDOW)
+        if query.returncode==0 and '\\\\?\\' in query.stdout:
+            actual=Path(query.stdout.split('\\\\?\\',1)[1].strip())
+            return actual/path.relative_to(existing)
+    except (OSError,subprocess.SubprocessError): pass
+    return None
+
+
 class ProductionDatabaseGuard:
     def __init__(self,mode,environ=None):
         self.mode=mode.lower()
@@ -45,6 +61,12 @@ class ProductionDatabaseGuard:
             relative=path.relative_to(self.local)
             if relative.name.casefold()=='matches.db' and relative.parent.name.casefold()=='ptti': protected=True
         except ValueError: pass
+        actual=physical_path(path)
+        if actual:
+            try:
+                relative=actual.relative_to(self.local)
+                if relative.name.casefold()=='matches.db' and relative.parent.name.casefold()=='ptti': protected=True
+            except ValueError: pass
         if self.mode in ('test','development') and protected:
             raise RuntimeError(f'{GUARD}: FATAL {self.mode} cannot open a production database or MSIX alias: {path}')
         if self.mode=='test':
@@ -59,7 +81,15 @@ class ProductionDatabaseGuard:
             identity=package_identity()
             if identity!='UNPACKAGED':
                 raise RuntimeError(f'{GUARD}: FATAL production launched under a packaged host ({identity}); exit and launch PTTI from Windows desktop')
+            self.verify_production_physical_path(path)
         return path
+
+    def verify_production_physical_path(self,path):
+        actual=physical_path(path)
+        if actual is None:
+            raise RuntimeError(f'{GUARD}: FATAL production physical path could not be verified')
+        if os.path.normcase(str(actual))!=os.path.normcase(str(Path(path).resolve(strict=False))):
+            raise RuntimeError(f'{GUARD}: FATAL virtualized production path: {path} -> {actual}')
 
 
 def database_banner(path,mode):
@@ -74,12 +104,8 @@ def database_banner(path,mode):
         query=subprocess.run(['git','-C',str(Path(__file__).resolve().parents[1]),'rev-parse','HEAD'],capture_output=True,text=True,
                              **({'creationflags':subprocess.CREATE_NO_WINDOW} if os.name=='nt' else {}))
         result['build']={'version':'0.2.0-dev','commit':query.stdout.strip() if query.returncode==0 else 'UNKNOWN'}
-    if os.name=='nt':
-        query=subprocess.run(['fsutil','file','queryfilenamebyid',path.anchor,result['file_id']],capture_output=True,text=True,
-                             creationflags=subprocess.CREATE_NO_WINDOW)
-        if query.returncode==0 and '\\\\?\\' in query.stdout:
-            result['physical_path']=query.stdout.split('\\\\?\\',1)[1].strip()
-    else: result['physical_path']=str(path)
+    actual=physical_path(path)
+    if actual: result['physical_path']=str(actual)
     print(f'PTTI Environment: {mode.upper()}\nDatabase:\n{path}\nDatabase mode:\nREAD_WRITE',flush=True)
     # Persist beside the selected isolated DB so windowed EXEs retain evidence.
     with (path.parent/'startup-database.jsonl').open('a',encoding='utf-8') as log:

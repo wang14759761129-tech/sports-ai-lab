@@ -1,70 +1,72 @@
 # PTTI database forensic report — 2026-10-05
 
-## Scope and handling
+## Preserved decision
 
-Direct database inspection used SQLite read-only mode and `PRAGMA query_only=ON`; no application write endpoint was called, and no manual migration, cleanup, or restore was performed. Two developer EXE processes were nevertheless running, their database paths could not be confirmed through GUI automation, and later whole-file observations differed. Consequently, this report cannot certify that no external process wrote or replaced the production-path file during the full session. A byte-for-byte copy was made of the latest observed snapshot after confirming no `matches.db-wal` or `matches.db-shm` existed and SQLite reported DELETE journal mode.
+**STATE_UNCERTAIN_DO_NOT_MODIFY** remains in force for historical recovery. No production database was restored, migrated, cleaned, or deleted. Current physical files are distinguishable and both developer instances are now stopped. The historical pre-incident contents and origin of the real user database records remain unknown.
 
-## First recorded snapshot and backup
+## Corrected snapshot interpretation
 
-| Item | Value |
-|---|---|
-| Original path | `%LOCALAPPDATA%\PTTI\matches.db` |
-| Size | 40,960 bytes |
-| Modified | 2026-10-05 18:16:08.7149139 +08:00 |
-| Observed SHA256 at that check | `710FE918632896B02B6B0EFAF68126C217B41848433035F809E128785666362A` |
-| Byte-copy path reported at that check | `%LOCALAPPDATA%\PTTI\matches.db.forensic-backup-20261005-185959` |
-| Byte-copy SHA256 reported at that check | `710FE918632896B02B6B0EFAF68126C217B41848433035F809E128785666362A` |
-| Copy verification | Source hash unchanged; backup hash equals source hash |
-| SQLite integrity check | `ok` |
-| Journal mode | `delete`; no WAL or SHM files present |
+The previous report incorrectly treated two reader-dependent file views as successive versions of the same physical database. This interpretation is withdrawn. Simultaneous PowerShell/product-venv and Microsoft Store Python reads showed different sizes/hashes at the same nominal LocalAppData path. NTFS file-ID queries proved that they were different physical files. Both views remained unchanged throughout this investigation and after stopping the applications.
 
-That byte-copy was described as a safety copy of the post-incident state, not a pre-incident recovery source. On a later inspection on 2026-10-05, the named copy was not present; do not rely on that earlier path as available recovery evidence.
+| Physical entity | File ID | Bytes | SHA256 | Match / synthetic rows |
+|---|---|---:|---|---:|
+| Real `C:\Users\wang\AppData\Local\PTTI\matches.db` | `0xb00000014b6ba` | 262144 | `276e7e527e28f07adf0a41d9196665a8383d22ae3b793018e78a33acea6566ec` | 4 / 4 |
+| Codex private `C:\Users\wang\AppData\Local\Packages\OpenAI.Codex_2p2nqsd0c76g0\LocalCache\Local\PTTI\matches.db` | `0x2000000012c7e1` | 40960 | `710fe918632896b02b6b0efaf68126c217b41848433035f809e128785666362a` | 1 / 1 |
 
-## Later observation during v0.2 continuation
+Both pass SQLite integrity_check and have matches/preferences tables, user_version=0, no row creation/update timestamps, and no independently audited row history. The real database has four distinct synthetic IDs; the private database has one different synthetic ID. Their mtimes, complete IDs, schema metadata and reader evidence are in [database_snapshot_inventory.md](database_snapshot_inventory.md).
 
-Two `PTTI-Vision-Dev.exe` processes were running from different product build folders (PIDs 10100 and 43860). The native-app automation inventory returned no applications, so neither window could be inspected or controlled through the UI. Read-only `GET /api/matches` checks against their separate localhost ports returned one synthetic example from one process and zero matches from the other. No API write request was sent.
+This is confirmed file-view separation, not confirmed concurrent replacement. Windows MSIX AppData virtualization explains the Codex private backing path; child processes may report UNPACKAGED while still seeing the inherited view. Do not rely on package identity or a displayed path alone. See [Microsoft packaged desktop file-system documentation](https://learn.microsoft.com/en-us/windows/msix/desktop/desktop-to-uwp-behind-the-scenes).
 
-During the same inspection, the production path was observed at different whole-file states. One hash check returned `710FE918632896B02B6B0EFAF68126C217B41848433035F809E128785666362A`; subsequent read-only inspection found a 262,144-byte file with SHA256 `276e7e527e28f07adf0a41d9196665a8383d22ae3b793018e78a33acea6566ec`. The latter passed SQLite `integrity_check`, used DELETE journal mode, and contained four synthetic-example rows of 52 points each. A new byte-for-byte copy of that latter observed file is at `%LOCALAPPDATA%\PTTI\matches.db.forensic-backup-20261005-resume`, with the same 262,144-byte size and SHA256. The production file and this copy matched when checked.
+## Process evidence and database mapping
 
-The reason for the differing observations is unknown. The API endpoints queried were read-only, but the two running applications' resolved database paths could not be confirmed from the inaccessible UI, and no process-level write audit was available. Do not infer that either app caused the change. Further application interaction has been stopped to avoid adding uncertainty. The later four-row snapshot supersedes the one-row description below as the latest observed state; the historical comparison still cannot determine whether any authentic match was lost.
+### PID 10100
 
-## Schema and related records
+- Parent PID: 39476
+- Started: 2026-10-05T18:41:10.147879+08:00
+- Executable: `C:\Users\wang\OneDrive\文档\chatgpt\table tennis intelligent\research-integration\products\ptti\dist\ptti-vision-dev\ptti-vision-dev.exe`
+- Command line: `"C:\Users\wang\OneDrive\文档\chatgpt\table tennis intelligent\research-integration\products\ptti\dist\ptti-vision-dev\ptti-vision-dev.exe" `
+- Working directory: `C:\Program Files\WindowsApps\OpenAI.Codex_26.930.3930.0_x64__2p2nqsd0c76g0\app\`
+- Package identity API: `UNPACKAGED`
+- EXE SHA256: `06a880e69376323ee23869304c60bcd376fe39adb50e3d422758f962ad380da4`
+- PTTI_DB in captured process environment: `C:\Users\wang\OneDrive\文档\ChatGPT\table tennis intelligent\research-integration\products\ptti\dist\vision-smoke.db`
+- PTTI_ENV: `ABSENT`
+- PTTI_VISION_HOME: `C:\Users\wang\OneDrive\文档\ChatGPT\table tennis intelligent\research-integration\products\ptti`
+- HTTP health version: `0.2.0-dev`. Old binaries lack embedded build manifests; PID 43860 has the `51dee43` build directory and prior build record, while PID 10100 exact source commit is UNKNOWN.
 
-SQLite reports `application_id=0` and `user_version=0`; there is no migration/version table.
+### PID 43860
 
-| Table | Rows | Schema / keys | Relationships |
-|---|---:|---|---|
-| `matches` | 1 | `id TEXT PRIMARY KEY, payload TEXT NOT NULL`; SQLite primary-key auto-index | No foreign keys |
-| `preferences` | 1 | `id INTEGER PRIMARY KEY CHECK(id=1), payload TEXT NOT NULL` | No foreign keys |
+- Parent PID: 31088
+- Started: 2026-10-05T19:48:03.207735+08:00
+- Executable: `C:\Users\wang\OneDrive\文档\ChatGPT\table tennis intelligent\research-integration\products\ptti\dist\PTTI-Vision-Dev-51dee43\PTTI-Vision-Dev\PTTI-Vision-Dev.exe`
+- Command line: `"C:\Users\wang\OneDrive\文档\ChatGPT\table tennis intelligent\research-integration\products\ptti\dist\PTTI-Vision-Dev-51dee43\PTTI-Vision-Dev\PTTI-Vision-Dev.exe" `
+- Working directory: `C:\Users\wang\OneDrive\文档\ChatGPT\table tennis intelligent\research-integration\products\ptti\dist\PTTI-Vision-Dev-51dee43\PTTI-Vision-Dev\`
+- Package identity API: `UNPACKAGED`
+- EXE SHA256: `ac4a4054193f30f232b9d40b4e36c3c4931e47a76a1381820e7cd84ec7391d7e`
+- PTTI_DB in captured process environment: `C:\Users\wang\OneDrive\文档\ChatGPT\table tennis intelligent\research-integration\products\ptti\dist\dist\vision-smoke.db`
+- PTTI_ENV: `development`
+- PTTI_VISION_HOME: `C:\Users\wang\OneDrive\文档\ChatGPT\table tennis intelligent\research-integration\products\ptti\dist`
+- HTTP health version: `0.2.0-dev`. Old binaries lack embedded build manifests; PID 43860 has the `51dee43` build directory and prior build record, while PID 10100 exact source commit is UNKNOWN.
 
-There are no separate `points`, `players`, `events`, `analysis`, or `reports` tables, and no declared foreign keys. The single `matches` payload contains the match metadata, 52 point objects, validation, and analysis as embedded JSON. The one preferences payload contains language, theme, start-page, and onboarding state. The report is generated from the match payload and has no persisted report row.
+The environment was captured read-only from the Windows PEB, retaining only a configuration whitelist. Source Repository connects to the explicitly configured PTTI_DB. Read-only API row IDs matched the respective files: PID 10100 → product `dist/vision-smoke.db`, one synthetic row (`36e49cd9-2380-445e-ba53-2a0d790e6c0c`); PID 43860 → product `dist/dist/vision-smoke.db`, zero rows. Thus these two running instances were not pointing at either production snapshot. The nested build exposed a real developer launcher defect: fixed parent-depth calculation chose the dist directory as the vision workspace. The launcher now discovers the actual workspace and defaults DB to PTTI-Dev.
 
-## Synthetic record
+## Backup lineage and missing-backup investigation
 
-- Match ID: `58b371ff-8231-4ae0-8547-f52b967867f9`
-- Title: `Training lab · synthetic demo`
-- Synthetic flag: `true`
-- Embedded point objects: 52
-- Created/updated timestamps: absent
-- Source-type field: absent
-- Separate linked analysis/report/point rows: none
+- Confirmed: real four-row file → `%LOCALAPPDATA%/PTTI/matches.db.forensic-backup-20261005-resume`, identical 262144 bytes and SHA256 `276e7e...`.
+- Confirmed: Codex private one-row file → Codex-private `matches.db.forensic-backup-20261005-185959`, identical 40960 bytes and SHA256 `710fe9...`.
+- The earlier named backup exists in the Codex private directory. Store Python enumerating the real user directory did not see it; no deletion is established. Prior report/tool records describe a forensic byte copy, and its current bytes verify that copy; there is no independent audit identifying a creator process.
+- Source search found no automatic cleanup referring to forensic backups. Build scripts do not clean user PTTI data. Installer uninstall cleanup is restricted to its install directory; pytest temp retention concerns test directories only.
+- UNKNOWN: causal lineage between the real and private databases, creator of each synthetic record, whether authentic matches existed previously, and the physical reader view of the historical `9B949BE38ACD2FAE177A4DFD794600D677A77AFB5D24BD9666FA3746C72CF48F` hash. A hash alone with no file-ID/reader evidence does not prove overwrite. Earlier VSS history inspection lacked sufficient permissions; recovery history is not certified absent.
 
-At the first recorded snapshot the database had one synthetic match row. At the later snapshot it had four synthetic match rows, all with 52 points. No authentic match row was present in either observed snapshot. These observations cannot establish whether other records existed before the accidental application write or explain the intervening file-state difference.
+## Freeze result
 
-## History and overwrite evidence
+Both PID 10100 and PID 43860 were stopped only after environment/CIM/API evidence and both matching backups had been captured. Before/after scans found no changes in size, mtime, SHA256 or record IDs for the two production-view entities, their backups, or the developer DBs. No database write API was called during tracing. Full process/CIM and per-reader scans are local, ignored artifacts under outputs/db-trace.
 
-The bounded search found no historical `.bak`, `.backup`, `.old`, `.sqlite`, `db-copy`, autosave, or migration backup in `%LOCALAPPDATA%\PTTI` or the product tree’s searched backup locations. The normal File History location yielded no available history files. `vssadmin list shadows` could not enumerate shadow copies because this process lacks administrator permission; shadow-copy availability is therefore **unknown**, not confirmed absent.
+## Fail-closed isolation
 
-A prior session recorded a pre-incident database SHA256 of `9B949BE38ACD2FAE177A4DFD794600D677A77AFB5D24BD9666FA3746C72CF48F`. The current hash differs, proving the file bytes changed between those observations. No pre-incident byte copy or row-level audit is available, so this is not enough to establish whether prior match rows were overwritten or whether the database was empty before the synthetic row was saved.
+ProductionDatabaseGuard rejects production paths, MSIX PTTI aliases, symlinks/hardlinks visible in the current view, and path changes on every repository connection in development/test mode. Test mode requires OS temp and cannot switch to production even explicitly. Production mode rejects an unknown or differing physical file-ID path and packaged host identities, avoiding silently opening a private substitute. The real production database is never opened for a guard regression.
 
-## Root cause and protection
+Production defaults to LocalAppData/PTTI; development defaults to LocalAppData/PTTI-Dev; pytest bootstrap uses OS temp/pytest tmp_path. Each startup prints and persists environment, displayed DB, physical path, file ID, PID, READ_WRITE mode, runtime and source/build provenance beside the selected isolated DB. Local development exposes /api/diagnostics/database; production returns 404. SQLite transaction contexts now explicitly close their handles after commit/rollback.
 
-Before the isolation change, the packaged experimental `PTTI-Vision-Dev` startup did not set a database path. It imported `backend.main.app`; module-level `app=create_app()` constructed a `Repository` using the fallback `%LOCALAPPDATA%\PTTI\matches.db`. Loading the synthetic sample in that UI therefore saved into the production library. Separately, importing `backend.main` in pytest also constructed that default app as an import side effect, even though the existing API tests passed explicit `tmp_path` paths to their own apps.
+## Stop condition
 
-The current development change removes that implicit production fallback: production desktop startup selects the production path explicitly, source/developer mode defaults to a separate `PTTI-Dev` database, pytest bootstrap uses a temporary database, and test/development paths resolving to the production database raise `PRODUCTION_DATABASE_WRITE_GUARD`. Automated regressions cover missing test configuration, changed working directory, development defaults, explicit production paths, and temporary test databases.
-
-## Conclusion
-
-**`STATE_UNCERTAIN_DO_NOT_MODIFY`**
-
-The later observed snapshot and matching byte-copy are preserved. Neither can recover unknown pre-incident contents. The two whole-file states and the unavailable earlier copy add uncertainty; do not delete rows, replace, restore, migrate, or otherwise write the production database until an independently verified historical source or a user-approved recovery plan is available.
+**DATABASE_RECOVERY_REQUIRED** remains the gate because historical contents cannot be independently reconstructed and the user has explicitly retained STATE_UNCERTAIN_DO_NOT_MODIFY. Do not delete synthetic rows or substitute the private snapshot for the real user file. Path/view tracing is resolved; historical recovery is not.
