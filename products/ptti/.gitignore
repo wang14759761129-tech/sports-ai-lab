@@ -13,3 +13,14 @@ dist/
 !.env.example
 *.log
 *.tsbuildinfo
+datasets/
+models/
+checkpoints/
+cache/
+downloads/
+videos/
+third_party_runtime/
+outputs/
+benchmark_outputs/
+vision_worker/.venv/
+data/racketvision/

@@ -1,0 +1,10 @@
+# Isolated BallTrack runtime; never install these into the desktop environment.
+torch==2.10.0
+numpy<2
+opencv-python==4.10.0.84
+pandas
+mmengine>=0.10.7,<1
+tqdm
+scikit-learn
+parse
+huggingface_hub
