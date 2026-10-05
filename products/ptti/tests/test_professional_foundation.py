@@ -165,13 +165,19 @@ def test_local_video_registration_requires_rights_and_keeps_video_next_to_isolat
                 "player_b_id": "athlete:123980", "event_date": "2026-10-06"}
     with client_for(database.parent) as client:
         denied = client.post("/api/professional-matches/local-video",
-                             data={"metadata": json.dumps(metadata), "rights_confirmed": "false"},
+                             data={"metadata": json.dumps(metadata), "video_source_note": "Owner recorded video", "rights_confirmed": "false"},
                              files={"file": ("match.mp4", b"video", "video/mp4")})
         assert denied.status_code == 422
         assert not (database.parent / "professional-videos").exists()
 
+        missing_source = client.post("/api/professional-matches/local-video",
+                                     data={"metadata": json.dumps(metadata), "rights_confirmed": "true"},
+                                     files={"file": ("match.mp4", b"video", "video/mp4")})
+        assert missing_source.status_code == 422
+        assert not (database.parent / "professional-videos").exists()
+
         response = client.post("/api/professional-matches/local-video",
-                               data={"metadata": json.dumps(metadata), "rights_confirmed": "true"},
+                               data={"metadata": json.dumps(metadata), "video_source_note": "Owner recorded video", "rights_confirmed": "true"},
                                files={"file": ("match.mp4", b"video", "video/mp4")})
         assert response.status_code == 201, response.text
         record = response.json()
@@ -180,6 +186,7 @@ def test_local_video_registration_requires_rights_and_keeps_video_next_to_isolat
         assert video.read_bytes() == b"video"
         assert record["analysis_status"] == "VIDEO_READY"
         assert record["rights_status"] == "USER_AUTHORIZED"
+        assert record["video_source_note"] == "Owner recorded video"
         assert record["video_metadata"]["quality"]["level"] == "VISION"
         assert record["video_metadata"]["duration"] == 7200.0
         assert len(record["video_metadata"]["sha256"]) == 64
@@ -191,7 +198,7 @@ def test_local_video_registration_rejects_unsupported_extension(tmp_path):
                 "player_b_id": "athlete:123980"}
     with client_for(tmp_path) as client:
         response = client.post("/api/professional-matches/local-video",
-                               data={"metadata": json.dumps(metadata), "rights_confirmed": "true"},
+                               data={"metadata": json.dumps(metadata), "video_source_note": "Licensed local research copy", "rights_confirmed": "true"},
                                files={"file": ("match.webm", b"video", "video/webm")})
         assert response.status_code == 422
         assert not (tmp_path / "professional-videos").exists()

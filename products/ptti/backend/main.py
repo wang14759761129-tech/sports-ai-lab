@@ -1,8 +1,10 @@
-import os
+import json
 import hashlib
+import os
 import subprocess
 import sys
 import tempfile
+import uuid
 from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.responses import Response, FileResponse
@@ -180,20 +182,24 @@ def create_app(db_path=None):
     @app.post('/api/professional-matches/local-video',status_code=201)
     async def create_professional_match_with_local_video(
         metadata:str=Form(...),
+        video_source_note:str=Form(...),
         rights_confirmed:bool=Form(False),
         file:UploadFile=File(...),
     ):
         if not rights_confirmed:
             raise HTTPException(422,'请先确认你有权在本机分析此视频')
         try:
-            values=__import__('json').loads(metadata)
+            values=json.loads(metadata)
             if not isinstance(values,dict):raise ValueError('比赛信息格式无效')
+            source_note=video_source_note.strip()
+            if not source_note or len(source_note)>500:
+                raise ValueError('请填写不超过 500 字的视频来源与授权说明')
             suffix=Path(file.filename or '').suffix.casefold()
             if suffix not in {'.mp4','.mov','.mkv','.avi'}:
                 raise ValueError('请选择 MP4、MOV、MKV 或 AVI 视频')
             video_dir=Path(resolved_db).parent/'professional-videos'
             video_dir.mkdir(parents=True,exist_ok=True)
-            destination=video_dir/(str(__import__('uuid').uuid4())+suffix)
+            destination=video_dir/(str(uuid.uuid4())+suffix)
             total=0;digest=hashlib.sha256()
             try:
                 with destination.open('xb') as output:
@@ -207,6 +213,7 @@ def create_app(db_path=None):
                 values.update(video_source_type='LOCAL_USER_VIDEO',video_local_path=str(destination),rights_status='USER_AUTHORIZED')
                 record=ProfessionalMatchInput.model_validate(values).to_record()
                 record['analysis_status']='VIDEO_READY'
+                record['video_source_note']=source_note
                 record['video_metadata']={**media,'size_bytes':total,'sha256':digest.hexdigest(),'quality':quality}
                 try:record=repo.save_professional_match(record)
                 except ValueError as exc:raise HTTPException(422,str(exc)) from exc
@@ -244,7 +251,6 @@ def create_app(db_path=None):
     def points(id:str): return get(id)['points']
     @app.get('/api/matches/{id}/export')
     def export(id:str):
-        import json
         return Response(json.dumps(get(id),ensure_ascii=False,indent=2),media_type='application/json',headers={'Content-Disposition':'attachment; filename="ptti-match.json"'})
     @app.get('/api/matches/{id}/report')
     def report(id:str):
