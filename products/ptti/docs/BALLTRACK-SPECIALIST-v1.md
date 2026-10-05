@@ -38,7 +38,7 @@ Hard negatives are real local maxima with response>=.5 farther than4model pixels
 
 GT peak rank uses ranked3×3 local maxima, radius5 spatial NMS, nearby radius4model pixels. All surviving positive-response peaks considered, not top128 truncation. Report cumulative rank<=1/4/8/16/32/64, >64 and NO_NEARBY_PEAK separately. Response values are not calibrated probabilities. Fixed match10/001 frame184 is a witness only; it is never trained on or used for model selection.
 
-Official-style baseline uses unchanged official UniBallDataset / TrackNetV3 / BallMetrics logic on the bounded inputs, with a filename-only OpenCV Unicode shim. It is not an exact full-data test.py reproduction. Its coordinates/resize interpolation may differ from the legacy inference adapter. TTI metrics are reported alongside, and the historical baseline is retained unchanged.
+Official-style baseline uses official UniBallDataset / TrackNetV3 / BallMetrics logic with a coordinate-preservation defect repair on the bounded inputs, with a filename-only OpenCV Unicode shim. It is not an exact full-data test.py reproduction. Its coordinates/resize interpolation may differ from the legacy inference adapter. TTI metrics are reported alongside, and the historical baseline is retained unchanged.
 
 Models are separate under models/racketvision_official and models/tti_tabletennis. Parent original models/balltrack_best.pth retained byte-identical. Provenance records parent/model/config/split SHA, train/dev matches, seed,epochs,best epoch,LR,optimizer,DEV metric,source commits,worker hash,GPU,PyTorch/CUDA and derived input manifest hash. No architecture experiment D or auxiliary verifier is planned in this first ablation.
 
@@ -56,3 +56,6 @@ vision_worker/.venv/Scripts/python.exe vision_worker/specialist.py evaluate_c
 ```
 
 Final Test must remain unselected if candidates fail Known Evaluation acceptance. Never lower thresholds to force a positive gate. No claims about Pilot1C/Pilot2 are changed.
+
+
+Confirmed loader defect: coor is a view into data_dict and __getitem__ scales it in place. Repeated/oversampled access rescales targets again. TTI wraps each getitem with a coordinate snapshot/restore (finally), identically in A/B/C; generated target and input of the first read remain unchanged. Original source and CSV are untouched. This repair prevents corrupted training supervision and does not change the loss/architecture. CPU tests cover repeated reads and failed-read restoration.
