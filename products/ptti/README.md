@@ -6,6 +6,10 @@ Stable athlete delivery remains **ptti-v0.1.2**. This development branch adds a 
 
 Chinese local-video / licensed-local-WTT ingestion, input quality classification, pinned RacketVision BallTrack inference, sparse-GT benchmarking, ball-position JSON/CSV, HTML and trajectory overlay. [Vision architecture/setup/limits](docs/VISION.md) · [legal video sources](docs/VIDEO_SOURCES.md). RacketPose and TrajPred remain gated and **not implemented**; ball positions never become invented tactical fields. Heavy CUDA dependencies live in vision_worker/.venv, never the normal desktop environment. Build the independent PTTI-Vision-Dev EXE using scripts/build_vision_windows.bat; stable installed shortcuts are unchanged.
 
+## Professional athlete and match foundation
+
+This development branch adds a sourced 16-athlete registry, editable player groups, immutable weekly ranking snapshots, six professional match metadata records, and Chinese-first athlete/profile and professional-match pages. Professional identities use stable IDs; local CSV match records remain compatible and are not silently linked by name. External event pages are references only. Only an existing local video with an explicit authorization declaration can be marked `VIDEO_READY`. Rally segmentation and professional-match tactical analysis are not implemented. See [architecture audit](docs/CURRENT_PLAYER_ARCHITECTURE.md), [verified registry](docs/PROFESSIONAL-PLAYER-REGISTRY.md), and [next-step design](docs/PROFESSIONAL-MATCH-ROADMAP.md).
+
 ## Stable 0.1.2 delivery
 
 Personal Table Tennis Intelligence / 个人乒乓球比赛智能分析系统。Local-first Windows match workbench for the owner and Kaikai. Chinese-first interface; no account, telemetry, silent upload, AI API or cloud analysis. **KAIKAI TEST 01 PENDING.**

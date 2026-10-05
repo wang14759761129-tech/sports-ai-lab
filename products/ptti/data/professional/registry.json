@@ -1,0 +1,784 @@
+{
+  "schema_version": "professional-foundation-2",
+  "verified_at": "2026-10-05T16:34:22Z",
+  "ranking_snapshot": {
+    "ranking_type": "ITTF_MENS_SINGLES",
+    "ranking_year": 2026,
+    "ranking_week": 41,
+    "ranking_date": "2026-10-05",
+    "source_id": "ittf-wtt-mens-ranking-w41-2026"
+  },
+  "sources": [
+    {
+      "source_id": "ittf-wtt-mens-ranking-w41-2026",
+      "source_url": "https://mobileappapi.worldtabletennis.com/api/cms/GetRankingIndividuals?TopN=200&RankingYear=2026&RankingMonth=10&RankingWeek=41&SubEventCode=MS",
+      "source_type": "OFFICIAL_ITTF_WTT_RANKING_API",
+      "retrieved_at": "2026-10-05T16:31:23Z",
+      "description": "Official ITTF/WTT API response filtered to CategoryCode SEN and SubEventCode MS; published 5 Oct 2026, week 41."
+    },
+    {
+      "source_id": "wtt-player-search-api",
+      "source_url": "https://mobileappapi.worldtabletennis.com/api/cms/GetPlayersListWithSearch?searchText=",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE_API",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official WTT player search API. Individual player queries returned ITTF ID, association, country and date of birth where available."
+    },
+    {
+      "source_id": "ittf-w41-publication",
+      "source_url": "https://www.ittf.com/ittf-table-tennis-world-ranking/",
+      "source_type": "OFFICIAL_ITTF_RANKING_PUBLICATION",
+      "retrieved_at": "2026-10-05T16:31:00Z",
+      "description": "Official ranking archive identifies week 41 as published 5 October 2026."
+    },
+    {
+      "source_id": "wtt-china-smash-2025-wang-lebrun",
+      "source_url": "https://www.worldtabletennis.com/eventInfo?eventId=3098",
+      "source_type": "OFFICIAL_WTT_EVENT_RESULTS",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "China Smash 2025 official event page and result coverage: Wang Chuqin defeated Felix Lebrun 4-0 in the men's singles final (11-7, 11-2, 11-5, 11-7)."
+    },
+    {
+      "source_id": "wtt-doha-2025-harimoto-groth",
+      "source_url": "https://www.worldtabletennis.com/eventInfo?eventId=3083",
+      "source_type": "OFFICIAL_WTT_EVENT_RESULTS",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "WTT Star Contender Doha 2025 official event/result coverage: Tomokazu Harimoto defeated Jonathan Groth 4-0 in the men's singles final."
+    },
+    {
+      "source_id": "ittf-macao-world-cup-2026-matsushima-wang",
+      "source_url": "https://www.ittf.com/2026/10/05/sora-matsushima-becomes-first-non-chinese-world-no-1-since-2018/",
+      "source_type": "OFFICIAL_ITTF_MATCH_REPORT",
+      "retrieved_at": "2026-10-05T16:30:00Z",
+      "description": "ITTF report identifies the Macao 2026 World Cup men's singles final; Wang Chuqin defeated Sora Matsushima 4-3."
+    },
+    {
+      "source_id": "wtt-europe-smash-2026-moregard-ovtcharov",
+      "source_url": "https://www.worldtabletennis.com/description?artId=6482",
+      "source_type": "OFFICIAL_WTT_MATCH_REPORT",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Europe Smash - Sweden 2026 Round of 64: Dimitrij Ovtcharov defeated Truls Moregard 3-0 (11-9, 11-3, 11-8)."
+    },
+    {
+      "source_id": "wtt-chongqing-2025-lebrun-uda",
+      "source_url": "https://www.worldtabletennis.com/description?artId=4719",
+      "source_type": "OFFICIAL_WTT_MATCH_REPORT",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "WTT Champions Chongqing 2025: Felix Lebrun defeated Yukiya Uda 3-0 (11-4, 11-5, 11-9)."
+    },
+    {
+      "source_id": "wtt-finals-hk-2025-lin-harimoto",
+      "source_url": "https://www.worldtabletennis.com/description?artId=5707",
+      "source_type": "OFFICIAL_WTT_MATCH_REPORT",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "WTT Finals Hong Kong 2025 men's singles semifinal: Tomokazu Harimoto defeated Lin Shidong 4-3."
+    },
+    {
+      "source_id": "wtt-profile-135996",
+      "source_url": "https://www.worldtabletennis.com/player/135996/Sora-MATSUSHIMA",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-135977",
+      "source_url": "https://www.worldtabletennis.com/player/135977/Felix-LEBRUN",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-123980",
+      "source_url": "https://www.worldtabletennis.com/player/123980/Tomokazu-HARIMOTO",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-121558",
+      "source_url": "https://www.worldtabletennis.com/player/121558/WANG-Chuqin",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-122044",
+      "source_url": "https://www.worldtabletennis.com/player/122044/Truls-MOREGARD",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-121582",
+      "source_url": "https://www.worldtabletennis.com/player/121582/LIN-Yun-Ju",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-115641",
+      "source_url": "https://www.worldtabletennis.com/player/115641/Hugo-CALDERANO",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-132992",
+      "source_url": "https://www.worldtabletennis.com/player/132992/Alexis-LEBRUN",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-137237",
+      "source_url": "https://www.worldtabletennis.com/player/137237/LIN-Shidong",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-114715",
+      "source_url": "https://www.worldtabletennis.com/player/114715/Dang-QIU",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-110553",
+      "source_url": "https://www.worldtabletennis.com/player/110553/ZHANG-Jike",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-112409",
+      "source_url": "https://www.worldtabletennis.com/player/112409/Jonathan-GROTH",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-107028",
+      "source_url": "https://www.worldtabletennis.com/player/107028/Dimitrij-OVTCHAROV",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-122777",
+      "source_url": "https://www.worldtabletennis.com/player/122777/Yukiya-UDA",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "ittf-fan-zhendong-ranking-withdrawal",
+      "source_url": "https://www.ittf.com/2025/01/01/ma-long-fan-zhendong-and-chen-meng-withdraw-from-ittf-world-rankings/",
+      "source_type": "OFFICIAL_ITTF_PLAYER_CAREER_AND_RANKING_STATUS",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "description": "Fan Zhendong is identified in ITTF coverage; report states withdrawal from ITTF World Rankings."
+    },
+    {
+      "source_id": "ittf-ma-long-career",
+      "source_url": "https://www.ittf.com/2025/01/01/ma-long-fan-zhendong-and-chen-meng-withdraw-from-ittf-world-rankings/",
+      "source_type": "OFFICIAL_ITTF_PLAYER_CAREER_AND_RANKING_STATUS",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "description": "Ma Long is identified in ITTF coverage; report states withdrawal from ITTF World Rankings."
+    }
+  ],
+  "groups": [
+    {
+      "group_code": "CURRENT_ELITE",
+      "display_name": "当前男子精英",
+      "description": "本次初始化的当前男子精英名录。"
+    },
+    {
+      "group_code": "LEGACY_CHAMPION_REFERENCE",
+      "display_name": "历史冠军参考",
+      "description": "历史冠军参考组；不表示当前排名或当前参赛状态。"
+    },
+    {
+      "group_code": "CHINA",
+      "display_name": "中国协会",
+      "description": "协会代码 CHN。"
+    },
+    {
+      "group_code": "JAPAN",
+      "display_name": "日本协会",
+      "description": "协会代码 JPN。"
+    },
+    {
+      "group_code": "EUROPE",
+      "display_name": "欧洲协会球员",
+      "description": "本批数据中协会代码为欧洲协会的球员。"
+    },
+    {
+      "group_code": "TTI_PRIORITY",
+      "display_name": "PTTI 关注球员",
+      "description": "初始产品关注列表，可通过数据维护接口编辑。"
+    },
+    {
+      "group_code": "MATCH_CATALOG",
+      "display_name": "比赛目录相关球员",
+      "description": "至少出现在一条已核实职业比赛目录记录中。"
+    }
+  ],
+  "athletes": [
+    {
+      "athlete_id": "athlete:135996",
+      "canonical_name_en": "Sora MATSUSHIMA",
+      "canonical_name_zh": "松岛辉空",
+      "country_or_association": "JPN",
+      "wtt_player_id": null,
+      "ittf_id": 135996,
+      "date_of_birth": "2007-04-29",
+      "playing_hand": null,
+      "grip": null,
+      "career_status": "ACTIVE_RANKED",
+      "official_profile_url": "https://www.worldtabletennis.com/player/135996/Sora-MATSUSHIMA",
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-135996"
+      ],
+      "current_ranking": {
+        "rank": 1,
+        "points": 6930
+      },
+      "group_codes": [
+        "CURRENT_ELITE",
+        "JAPAN",
+        "TTI_PRIORITY",
+        "MATCH_CATALOG"
+      ]
+    },
+    {
+      "athlete_id": "athlete:135977",
+      "canonical_name_en": "Felix LEBRUN",
+      "canonical_name_zh": "菲利克斯·勒布伦",
+      "country_or_association": "FRA",
+      "wtt_player_id": null,
+      "ittf_id": 135977,
+      "date_of_birth": "2006-09-12",
+      "playing_hand": null,
+      "grip": null,
+      "career_status": "ACTIVE_RANKED",
+      "official_profile_url": "https://www.worldtabletennis.com/player/135977/Felix-LEBRUN",
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-135977"
+      ],
+      "current_ranking": {
+        "rank": 2,
+        "points": 6379
+      },
+      "group_codes": [
+        "CURRENT_ELITE",
+        "EUROPE",
+        "TTI_PRIORITY",
+        "MATCH_CATALOG"
+      ]
+    },
+    {
+      "athlete_id": "athlete:123980",
+      "canonical_name_en": "Tomokazu HARIMOTO",
+      "canonical_name_zh": "张本智和",
+      "country_or_association": "JPN",
+      "wtt_player_id": null,
+      "ittf_id": 123980,
+      "date_of_birth": "2003-06-27",
+      "playing_hand": null,
+      "grip": null,
+      "career_status": "ACTIVE_RANKED",
+      "official_profile_url": "https://www.worldtabletennis.com/player/123980/Tomokazu-HARIMOTO",
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-123980"
+      ],
+      "current_ranking": {
+        "rank": 3,
+        "points": 6363
+      },
+      "group_codes": [
+        "CURRENT_ELITE",
+        "JAPAN",
+        "TTI_PRIORITY",
+        "MATCH_CATALOG"
+      ]
+    },
+    {
+      "athlete_id": "athlete:121558",
+      "canonical_name_en": "WANG Chuqin",
+      "canonical_name_zh": "王楚钦",
+      "country_or_association": "CHN",
+      "wtt_player_id": null,
+      "ittf_id": 121558,
+      "date_of_birth": "2000-05-11",
+      "playing_hand": null,
+      "grip": null,
+      "career_status": "ACTIVE_RANKED",
+      "official_profile_url": "https://www.worldtabletennis.com/player/121558/WANG-Chuqin",
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-121558"
+      ],
+      "current_ranking": {
+        "rank": 4,
+        "points": 6157
+      },
+      "group_codes": [
+        "CURRENT_ELITE",
+        "CHINA",
+        "TTI_PRIORITY",
+        "MATCH_CATALOG"
+      ]
+    },
+    {
+      "athlete_id": "athlete:122044",
+      "canonical_name_en": "Truls MOREGARD",
+      "canonical_name_zh": "特鲁斯·莫雷加德",
+      "country_or_association": "SWE",
+      "wtt_player_id": null,
+      "ittf_id": 122044,
+      "date_of_birth": "2002-02-16",
+      "playing_hand": null,
+      "grip": null,
+      "career_status": "ACTIVE_RANKED",
+      "official_profile_url": "https://www.worldtabletennis.com/player/122044/Truls-MOREGARD",
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-122044"
+      ],
+      "current_ranking": {
+        "rank": 5,
+        "points": 5805
+      },
+      "group_codes": [
+        "CURRENT_ELITE",
+        "EUROPE",
+        "TTI_PRIORITY",
+        "MATCH_CATALOG"
+      ]
+    },
+    {
+      "athlete_id": "athlete:121582",
+      "canonical_name_en": "LIN Yun-Ju",
+      "canonical_name_zh": "林昀儒",
+      "country_or_association": "TPE",
+      "wtt_player_id": null,
+      "ittf_id": 121582,
+      "date_of_birth": "2001-08-17",
+      "playing_hand": null,
+      "grip": null,
+      "career_status": "ACTIVE_RANKED",
+      "official_profile_url": "https://www.worldtabletennis.com/player/121582/LIN-Yun-Ju",
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-121582"
+      ],
+      "current_ranking": {
+        "rank": 6,
+        "points": 4405
+      },
+      "group_codes": [
+        "CURRENT_ELITE"
+      ]
+    },
+    {
+      "athlete_id": "athlete:115641",
+      "canonical_name_en": "Hugo CALDERANO",
+      "canonical_name_zh": "雨果·卡尔德拉诺",
+      "country_or_association": "BRA",
+      "wtt_player_id": null,
+      "ittf_id": 115641,
+      "date_of_birth": "1996-06-22",
+      "playing_hand": null,
+      "grip": null,
+      "career_status": "ACTIVE_RANKED",
+      "official_profile_url": "https://www.worldtabletennis.com/player/115641/Hugo-CALDERANO",
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-115641"
+      ],
+      "current_ranking": {
+        "rank": 7,
+        "points": 4240
+      },
+      "group_codes": [
+        "CURRENT_ELITE"
+      ]
+    },
+    {
+      "athlete_id": "athlete:132992",
+      "canonical_name_en": "Alexis LEBRUN",
+      "canonical_name_zh": "艾利克西·勒布伦",
+      "country_or_association": "FRA",
+      "wtt_player_id": null,
+      "ittf_id": 132992,
+      "date_of_birth": "2003-08-27",
+      "playing_hand": null,
+      "grip": null,
+      "career_status": "ACTIVE_RANKED",
+      "official_profile_url": "https://www.worldtabletennis.com/player/132992/Alexis-LEBRUN",
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-132992"
+      ],
+      "current_ranking": {
+        "rank": 8,
+        "points": 3720
+      },
+      "group_codes": [
+        "CURRENT_ELITE",
+        "EUROPE"
+      ]
+    },
+    {
+      "athlete_id": "athlete:137237",
+      "canonical_name_en": "LIN Shidong",
+      "canonical_name_zh": "林诗栋",
+      "country_or_association": "CHN",
+      "wtt_player_id": null,
+      "ittf_id": 137237,
+      "date_of_birth": "2005-04-18",
+      "playing_hand": null,
+      "grip": null,
+      "career_status": "ACTIVE_RANKED",
+      "official_profile_url": "https://www.worldtabletennis.com/player/137237/LIN-Shidong",
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-137237"
+      ],
+      "current_ranking": {
+        "rank": 9,
+        "points": 3642
+      },
+      "group_codes": [
+        "CURRENT_ELITE",
+        "CHINA",
+        "TTI_PRIORITY",
+        "MATCH_CATALOG"
+      ]
+    },
+    {
+      "athlete_id": "athlete:114715",
+      "canonical_name_en": "Dang QIU",
+      "canonical_name_zh": "邱党",
+      "country_or_association": "GER",
+      "wtt_player_id": null,
+      "ittf_id": 114715,
+      "date_of_birth": "1996-10-29",
+      "playing_hand": null,
+      "grip": null,
+      "career_status": "ACTIVE_RANKED",
+      "official_profile_url": "https://www.worldtabletennis.com/player/114715/Dang-QIU",
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-114715"
+      ],
+      "current_ranking": {
+        "rank": 10,
+        "points": 3450
+      },
+      "group_codes": [
+        "CURRENT_ELITE",
+        "EUROPE"
+      ]
+    },
+    {
+      "athlete_id": "athlete:legacy:fan-zhendong",
+      "canonical_name_en": "FAN Zhendong",
+      "canonical_name_zh": "樊振东",
+      "country_or_association": "CHN",
+      "wtt_player_id": null,
+      "ittf_id": null,
+      "date_of_birth": null,
+      "playing_hand": null,
+      "grip": null,
+      "career_status": null,
+      "official_profile_url": null,
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "ittf-fan-zhendong-ranking-withdrawal"
+      ],
+      "current_ranking": null,
+      "group_codes": [
+        "LEGACY_CHAMPION_REFERENCE",
+        "CHINA",
+        "TTI_PRIORITY"
+      ]
+    },
+    {
+      "athlete_id": "athlete:legacy:ma-long",
+      "canonical_name_en": "MA Long",
+      "canonical_name_zh": "马龙",
+      "country_or_association": "CHN",
+      "wtt_player_id": null,
+      "ittf_id": null,
+      "date_of_birth": null,
+      "playing_hand": null,
+      "grip": null,
+      "career_status": null,
+      "official_profile_url": null,
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "ittf-ma-long-career"
+      ],
+      "current_ranking": null,
+      "group_codes": [
+        "LEGACY_CHAMPION_REFERENCE",
+        "CHINA",
+        "TTI_PRIORITY"
+      ]
+    },
+    {
+      "athlete_id": "athlete:110553",
+      "canonical_name_en": "ZHANG Jike",
+      "canonical_name_zh": "张继科",
+      "country_or_association": "CHN",
+      "wtt_player_id": null,
+      "ittf_id": 110553,
+      "date_of_birth": "1988-02-16",
+      "playing_hand": null,
+      "grip": null,
+      "career_status": null,
+      "official_profile_url": "https://www.worldtabletennis.com/player/110553/ZHANG-Jike",
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "wtt-profile-110553"
+      ],
+      "current_ranking": null,
+      "group_codes": [
+        "LEGACY_CHAMPION_REFERENCE",
+        "CHINA",
+        "TTI_PRIORITY"
+      ]
+    },
+    {
+      "athlete_id": "athlete:112409",
+      "canonical_name_en": "Jonathan GROTH",
+      "canonical_name_zh": "乔纳森·格罗特",
+      "country_or_association": "DEN",
+      "wtt_player_id": null,
+      "ittf_id": 112409,
+      "date_of_birth": "1992-11-09",
+      "playing_hand": null,
+      "grip": null,
+      "career_status": null,
+      "official_profile_url": "https://www.worldtabletennis.com/player/112409/Jonathan-GROTH",
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "wtt-profile-112409"
+      ],
+      "current_ranking": null,
+      "group_codes": [
+        "EUROPE",
+        "MATCH_CATALOG"
+      ]
+    },
+    {
+      "athlete_id": "athlete:107028",
+      "canonical_name_en": "Dimitrij OVTCHAROV",
+      "canonical_name_zh": "迪米特里·奥恰洛夫",
+      "country_or_association": "GER",
+      "wtt_player_id": null,
+      "ittf_id": 107028,
+      "date_of_birth": "1988-09-02",
+      "playing_hand": null,
+      "grip": null,
+      "career_status": null,
+      "official_profile_url": "https://www.worldtabletennis.com/player/107028/Dimitrij-OVTCHAROV",
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "wtt-profile-107028"
+      ],
+      "current_ranking": null,
+      "group_codes": [
+        "EUROPE",
+        "MATCH_CATALOG"
+      ]
+    },
+    {
+      "athlete_id": "athlete:122777",
+      "canonical_name_en": "Yukiya UDA",
+      "canonical_name_zh": "宇田幸矢",
+      "country_or_association": "JPN",
+      "wtt_player_id": null,
+      "ittf_id": 122777,
+      "date_of_birth": "2001-08-06",
+      "playing_hand": null,
+      "grip": null,
+      "career_status": null,
+      "official_profile_url": "https://www.worldtabletennis.com/player/122777/Yukiya-UDA",
+      "last_verified_at": "2026-10-05T16:32:00Z",
+      "source_ids": [
+        "wtt-profile-122777"
+      ],
+      "current_ranking": null,
+      "group_codes": [
+        "JAPAN",
+        "MATCH_CATALOG"
+      ]
+    }
+  ],
+  "professional_matches": [
+    {
+      "match_id": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+      "event_name": "China Smash 2025",
+      "event_id": "3098",
+      "event_date": null,
+      "round": "Men's Singles Final",
+      "competition_level": "WTT_GRAND_SMASH",
+      "player_a_id": "athlete:121558",
+      "player_b_id": "athlete:135977",
+      "final_score": {
+        "player_a_games": 4,
+        "player_b_games": 0
+      },
+      "winner_id": "athlete:121558",
+      "video_source_type": "REFERENCE_ONLY",
+      "video_local_path": null,
+      "external_reference_url": "https://www.worldtabletennis.com/eventInfo?eventId=3098",
+      "wtt_asset_id": null,
+      "rights_status": "REFERENCE_ONLY",
+      "licence_reference": null,
+      "analysis_status": "NOT_ANALYZED",
+      "source_ids": [
+        "wtt-china-smash-2025-wang-lebrun"
+      ]
+    },
+    {
+      "match_id": "pro:wtt:doha-star-contender-2025:harimoto-jonathan-groth",
+      "event_name": "WTT Star Contender Doha 2025",
+      "event_id": null,
+      "event_date": null,
+      "round": "Men's Singles Final",
+      "competition_level": "WTT_STAR_CONTENDER",
+      "player_a_id": "athlete:123980",
+      "player_b_id": "athlete:112409",
+      "final_score": {
+        "player_a_games": 4,
+        "player_b_games": 0
+      },
+      "winner_id": "athlete:123980",
+      "video_source_type": "REFERENCE_ONLY",
+      "video_local_path": null,
+      "external_reference_url": "https://www.worldtabletennis.com/eventInfo?eventId=3083",
+      "wtt_asset_id": null,
+      "rights_status": "REFERENCE_ONLY",
+      "licence_reference": null,
+      "analysis_status": "NOT_ANALYZED",
+      "source_ids": [
+        "wtt-doha-2025-harimoto-groth"
+      ]
+    },
+    {
+      "match_id": "pro:ittf:macao-world-cup-2026:wang-matsushima",
+      "event_name": "ITTF Men’s & Women’s World Cup Macao 2026",
+      "event_id": "3379",
+      "event_date": null,
+      "round": "Men's Singles Final",
+      "competition_level": "ITTF_WORLD_CUP",
+      "player_a_id": "athlete:121558",
+      "player_b_id": "athlete:135996",
+      "final_score": {
+        "player_a_games": 4,
+        "player_b_games": 3
+      },
+      "winner_id": "athlete:121558",
+      "video_source_type": "REFERENCE_ONLY",
+      "video_local_path": null,
+      "external_reference_url": "https://www.ittf.com/2026/10/05/sora-matsushima-becomes-first-non-chinese-world-no-1-since-2018/",
+      "wtt_asset_id": null,
+      "rights_status": "REFERENCE_ONLY",
+      "licence_reference": null,
+      "analysis_status": "NOT_ANALYZED",
+      "source_ids": [
+        "ittf-macao-world-cup-2026-matsushima-wang"
+      ]
+    },
+    {
+      "match_id": "pro:wtt:europe-smash-2026:ovtcharov-moregard",
+      "event_name": "Europe Smash - Sweden 2026",
+      "event_id": null,
+      "event_date": null,
+      "round": "Men's Singles Round of 64",
+      "competition_level": "WTT_GRAND_SMASH",
+      "player_a_id": "athlete:107028",
+      "player_b_id": "athlete:122044",
+      "final_score": {
+        "player_a_games": 3,
+        "player_b_games": 0
+      },
+      "winner_id": "athlete:107028",
+      "video_source_type": "REFERENCE_ONLY",
+      "video_local_path": null,
+      "external_reference_url": "https://www.worldtabletennis.com/description?artId=6482",
+      "wtt_asset_id": null,
+      "rights_status": "REFERENCE_ONLY",
+      "licence_reference": null,
+      "analysis_status": "NOT_ANALYZED",
+      "source_ids": [
+        "wtt-europe-smash-2026-moregard-ovtcharov"
+      ]
+    },
+    {
+      "match_id": "pro:wtt:chongqing-champions-2025:felix-lebrun-yukiya-uda",
+      "event_name": "WTT Champions Chongqing 2025 Presented by AITO",
+      "event_id": null,
+      "event_date": null,
+      "round": null,
+      "competition_level": "WTT_CHAMPIONS",
+      "player_a_id": "athlete:135977",
+      "player_b_id": "athlete:122777",
+      "final_score": {
+        "player_a_games": 3,
+        "player_b_games": 0
+      },
+      "winner_id": "athlete:135977",
+      "video_source_type": "REFERENCE_ONLY",
+      "video_local_path": null,
+      "external_reference_url": "https://www.worldtabletennis.com/description?artId=4719",
+      "wtt_asset_id": null,
+      "rights_status": "REFERENCE_ONLY",
+      "licence_reference": null,
+      "analysis_status": "NOT_ANALYZED",
+      "source_ids": [
+        "wtt-chongqing-2025-lebrun-uda"
+      ]
+    },
+    {
+      "match_id": "pro:wtt-finals-hong-kong-2025:harimoto-lin-shidong",
+      "event_name": "WTT Finals Hong Kong 2025",
+      "event_id": null,
+      "event_date": null,
+      "round": "Men's Singles Semifinal",
+      "competition_level": "WTT_FINALS",
+      "player_a_id": "athlete:123980",
+      "player_b_id": "athlete:137237",
+      "final_score": {
+        "player_a_games": 4,
+        "player_b_games": 3
+      },
+      "winner_id": "athlete:123980",
+      "video_source_type": "REFERENCE_ONLY",
+      "video_local_path": null,
+      "external_reference_url": "https://www.worldtabletennis.com/description?artId=5707",
+      "wtt_asset_id": null,
+      "rights_status": "REFERENCE_ONLY",
+      "licence_reference": null,
+      "analysis_status": "NOT_ANALYZED",
+      "source_ids": [
+        "wtt-finals-hk-2025-lin-harimoto"
+      ]
+    }
+  ]
+}

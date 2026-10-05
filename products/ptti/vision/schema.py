@@ -1,5 +1,6 @@
 from typing import Literal
 from pydantic import BaseModel, Field, model_validator
+from urllib.parse import urlparse
 
 class Source(BaseModel):
     type: Literal['local', 'racketvision', 'wtt_licensed', 'external_reference']
@@ -18,8 +19,12 @@ class Source(BaseModel):
     def rights_check(self):
         if self.type == 'wtt_licensed' and self.rights != 'licensed':
             raise ValueError('WTT imports require licensed rights metadata')
-        if self.type == 'external_reference' and not self.original_url:
-            raise ValueError('External references require a URL')
+        if self.type == 'wtt_licensed' and not self.licence_reference:
+            raise ValueError('WTT imports require a licence reference')
+        if self.type == 'external_reference':
+            parsed=urlparse(self.original_url or '')
+            if parsed.scheme not in {'http','https'} or not parsed.netloc:
+                raise ValueError('External references require an http(s) URL')
         return self
 
 class BallPoint(BaseModel):

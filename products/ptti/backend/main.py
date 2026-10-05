@@ -11,6 +11,7 @@ from core.engine import ingest, analyze, SCHEMA_VERSION, ANALYTICS_VERSION
 from backend.repository import Repository
 from backend.database import ProductionDatabaseGuard, database_banner
 from core.importing import import_csv
+from backend.professional import GroupMembershipUpdate, ProfessionalMatchInput
 
 ROOT=Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parents[1]))
 
@@ -106,6 +107,8 @@ def create_app(db_path=None):
     app.state.database_path=resolved_db
     mode='test' if 'pytest' in sys.modules or os.environ.get('PTTI_ENV')=='test' else os.environ.get('PTTI_ENV','development')
     repo=Repository(resolved_db,guard=ProductionDatabaseGuard(mode))
+    professional_manifest=ROOT/'data'/'professional'/'registry.json'
+    repo.seed_professional(__import__('json').loads(professional_manifest.read_text(encoding='utf-8')))
     app.state.database_diagnostics=database_banner(resolved_db,mode)
     @app.get('/api/diagnostics/database',include_in_schema=False)
     def database_diagnostics():
@@ -115,6 +118,10 @@ def create_app(db_path=None):
         m=repo.get(id)
         if not m: raise HTTPException(404,'Match not found')
         return m
+    def professional_match_view(record):
+        if not record:return None
+        a=repo.get_athlete(record['player_a_id']);b=repo.get_athlete(record['player_b_id'])
+        return {**record,'players':{'player_a':a,'player_b':b},'sources':repo.get_sources(record.get('source_ids',[]))}
     def import_data(raw,meta,save=True):
         rows,report,provenance=import_csv(raw)
         report['evidence_state']='AVAILABLE' if report['valid'] else 'INVALID_DATA'
@@ -128,6 +135,43 @@ def create_app(db_path=None):
     @app.put('/api/settings')
     def save_settings(value:Settings):
         repo.save_settings(value.model_dump());return value
+    @app.get('/api/players')
+    def players(group_code:str|None=None,search:str|None=None):
+        if group_code and not repo.get_group(group_code):raise HTTPException(404,'Player group not found')
+        return [dict(athlete=a,sources=repo.get_sources(a.get('source_ids',[]))) for a in repo.list_athletes(group_code,search)]
+    @app.get('/api/players/{athlete_id}/rankings')
+    def player_rankings(athlete_id:str):
+        if not repo.get_athlete(athlete_id):raise HTTPException(404,'Athlete not found')
+        rows=repo.get_rankings(athlete_id)
+        for row in rows:row['source']=repo.get_sources([row['source_id']])[0]
+        return rows
+    @app.get('/api/players/{athlete_id}/matches')
+    def player_matches(athlete_id:str):
+        if not repo.get_athlete(athlete_id):raise HTTPException(404,'Athlete not found')
+        return [professional_match_view(m) for m in repo.professional_matches(athlete_id)]
+    @app.get('/api/players/{athlete_id}')
+    def player_detail(athlete_id:str):
+        athlete=repo.get_athlete(athlete_id)
+        if not athlete:raise HTTPException(404,'Athlete not found')
+        return dict(athlete=athlete,rankings=player_rankings(athlete_id),matches=player_matches(athlete_id),
+            sources=repo.get_sources(athlete.get('source_ids',[])))
+    @app.get('/api/player-groups')
+    def player_groups():return repo.list_groups()
+    @app.put('/api/player-groups/{group_code}/members')
+    def update_player_group(group_code:str,value:GroupMembershipUpdate):
+        try:result=repo.set_group_members(group_code,value.athlete_ids)
+        except ValueError as exc:raise HTTPException(422,str(exc))
+        if result is None:raise HTTPException(404,'Player group not found')
+        return result
+    @app.get('/api/professional-matches')
+    def professional_matches(athlete_id:str|None=None):
+        if athlete_id and not repo.get_athlete(athlete_id):raise HTTPException(404,'Athlete not found')
+        return [professional_match_view(m) for m in repo.professional_matches(athlete_id)]
+    @app.post('/api/professional-matches',status_code=201)
+    def create_professional_match(value:ProfessionalMatchInput):
+        try:record=repo.save_professional_match(value.to_record())
+        except ValueError as exc:raise HTTPException(422,str(exc))
+        return professional_match_view(record)
     @app.get('/api/templates/{format}')
     def template(format:Literal['native','protocol']):
         filename='synthetic.csv' if format=='native' else 'protocol-v0.3-example.csv'
