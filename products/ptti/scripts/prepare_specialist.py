@@ -1,5 +1,5 @@
 """Bounded specialist pilot data; no database access or final-test inspection."""
-import json,sys,urllib.request,hashlib
+import json,sys,urllib.request,hashlib,time,re,uuid,threading
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from vision.config import VisionConfig,DATA_REVISION
@@ -28,12 +28,54 @@ def main():
     if path.exists() and json.loads(path.read_text())!=manifest:raise ValueError('Existing split frozen')
     write(path,manifest)
     from concurrent.futures import ThreadPoolExecutor
+    catalog_lock=threading.Lock();catalogs={}
+    def catalog(directory):
+        with catalog_lock:
+            if directory in catalogs:return catalogs[directory]
+            cache=HOME/'catalogs'/(directory.replace('/','_')+'.json')
+            if cache.exists():
+                saved=json.loads(cache.read_text())
+                if saved['revision']!=DATA_REVISION:raise ValueError('Wrong cached catalog revision')
+                catalogs[directory]={e['path']:e for e in saved['entries']};return catalogs[directory]
+            url=f'https://huggingface.co/api/datasets/linfeng302/RacketVision/tree/{DATA_REVISION}/{directory}?limit=1000';entries=[]
+            while url:
+                for attempt in range(3):
+                    try:
+                        with urllib.request.urlopen(url,timeout=20) as response:
+                            entries+=json.load(response);link=response.headers.get('Link','')
+                        break
+                    except (OSError,TimeoutError):
+                        if attempt==2:raise
+                        time.sleep(2*(attempt+1))
+                match=re.search(r'<([^>]+)>;\s*rel="next"',link);url=match.group(1) if match else None
+            write(cache,{'revision':DATA_REVISION,'entries':entries});catalogs[directory]={e['path']:e for e in entries};return catalogs[directory]
+    def asset(relative,destination):
+        entry=catalog(relative.rsplit('/',1)[0])[relative]
+        def valid(path):
+            data=path.read_bytes()
+            return len(data)==entry['size'] and (hashlib.sha256(data).hexdigest()==entry['lfs']['oid'] if entry.get('lfs') else hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()==entry['oid'])
+        if destination.exists():
+            if not valid(destination):raise ValueError('Existing asset identity mismatch')
+            return entry
+        destination.parent.mkdir(parents=True,exist_ok=True)
+        for attempt in range(3):
+            temporary=HOME/'download_attempts'/(destination.name+'.'+uuid.uuid4().hex+'.partial');temporary.parent.mkdir(exist_ok=True)
+            try:
+                print('Download',relative,flush=True)
+                url=f'https://huggingface.co/datasets/linfeng302/RacketVision/resolve/{DATA_REVISION}/{relative}'
+                with urllib.request.urlopen(url,timeout=45) as response,temporary.open('wb') as output:
+                    while chunk:=response.read(1024*1024):output.write(chunk)
+                if not valid(temporary):raise ValueError('Downloaded asset hash mismatch')
+                temporary.rename(destination);return entry
+            except (OSError,TimeoutError):
+                if attempt==2:raise
+                time.sleep(2*(attempt+1))
+
     def fetch(source):
         records=[]
         _,m,r=source.split('/')
         for rel in [f'tabletennis/videos/{m}_{r}.mp4',f'tabletennis/all/{m}/csv/{r}_ball.csv']:
-            destination=cfg.dataset_root/rel;download('linfeng302/RacketVision','datasets',DATA_REVISION,rel,destination)
-            entry=tree_entry('linfeng302/RacketVision','datasets',DATA_REVISION,rel);data=destination.read_bytes()
+            destination=cfg.dataset_root/rel;entry=asset(rel,destination);data=destination.read_bytes()
             if not entry.get('lfs') and hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()!=entry['oid']:raise ValueError('Official blob mismatch')
             records.append(dict(path=rel,sha256=sha256(destination),size=len(data)))
         return records
