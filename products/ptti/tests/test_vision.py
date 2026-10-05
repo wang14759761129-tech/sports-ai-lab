@@ -104,3 +104,9 @@ def test_regression_flags_real_measured_error_increase():
     candidate={'provenance':{},'metrics':{'visible_recall':1.0,'mean_position_error_px':6,'p95_position_error_px':8}}
     assert compare_runs(baseline,candidate)['status']=='REGRESSION'
     assert compare_runs(baseline,baseline)['status']=='NO_MEASURED_REGRESSION'
+
+def test_regression_rejects_different_pipeline():
+    from vision.regression import compare_runs
+    base={'provenance':{'pipeline':'0.2.a'},'metrics':{}}
+    candidate={'provenance':{'pipeline':'0.2.b'},'metrics':{}}
+    assert compare_runs(base,candidate)['status']=='NOT_COMPARABLE'

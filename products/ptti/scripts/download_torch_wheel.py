@@ -5,7 +5,8 @@ Explicit setup action only. Downloads are never triggered by desktop startup.
 import concurrent.futures
 import hashlib
 import shutil
-import subprocess
+from urllib.request import Request, urlopen
+from uuid import uuid4
 from pathlib import Path
 
 URL = 'https://pytorch.s3.amazonaws.com/whl/cu128/torch-2.10.0%2Bcu128-cp312-cp312-win_amd64.whl'
@@ -49,14 +50,18 @@ def main():
             fragment.rename(parts / f'{start}-{end}.{existing}.retained')
             existing = part.stat().st_size
             if existing == end - start + 1: return part
-        process = subprocess.run(['curl.exe', '--fail', '--silent', '--show-error',
-                        '--connect-timeout', '20', '--max-time', '1200', '--range', f'{start + existing}-{end}',
-                        '-o', str(fragment), URL])
+        range_start = start + existing
+        request = Request(URL + '?codex-range=' + uuid4().hex,
+                          headers={'Range': f'bytes={range_start}-{end}',
+                                   'Accept-Encoding': 'identity', 'Cache-Control': 'no-cache'})
+        with urlopen(request, timeout=1200) as response:
+            expected_range = f'bytes {range_start}-{end}/{SIZE}'
+            if response.status != 206 or response.headers.get('Content-Range') != expected_range:
+                raise RuntimeError('Official server returned a different range; retained bytes untouched')
+            with fragment.open('wb') as output:
+                while chunk := response.read(1024 * 1024): output.write(chunk)
         if fragment.stat().st_size != end - start + 1 - existing:
             raise RuntimeError('Server fragment range mismatch; original part retained')
-        # Windows Schannel can report missing TLS close_notify after all bytes
-        # arrived. Exact sizes + the published full-file SHA remain mandatory.
-        if process.returncode not in (0, 56): raise RuntimeError('Official range transfer failed')
         with part.open('ab') as output, fragment.open('rb') as incoming:
             shutil.copyfileobj(incoming, output)
         if part.stat().st_size != end - start + 1: raise RuntimeError('Server range mismatch')

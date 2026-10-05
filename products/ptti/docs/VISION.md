@@ -45,6 +45,14 @@ outputs/vision/<analysis_id> contains source.json, video_meta.json, quality.json
 
 Baseline/regression policy must be derived from reproducible measured results. Do not call the first baseline PASS; do not declare BallTrack stable merely because inference completed. Pilot 1C remains REVISE/HOLD; Pilot 2 NOT STARTED. Kaikai Test 01 remains pending.
 
-Compare compatible measured analysis.json files with `python -m vision regression baseline.json candidate.json --tolerance 0.05`. The explicit default 5% relative tolerance is an engineering regression policy, not a scientific accuracy threshold. Different video/GT/checkpoint/device returns NOT_COMPARABLE; unavailable metrics remain unavailable. Report includes worker processing FPS, processing/video-duration factor, measured Windows process peak RAM and peak allocated CUDA memory (not total GPU reservation). Warm cache runs must not be described as new inference speed measurements.
+## Measured single-rally baseline (2026-10-05)
+
+Host: Windows 11, RTX 5060 Laptop GPU (8 GiB, driver 616.64), CUDA 12.8, isolated PyTorch 2.10.0+cu128. Input: official `tabletennis/match1/000`, 1920×1080 H.264, 25 FPS, 5 seconds / 125 frames; 25 visible GT annotations and zero annotated negatives. Checkpoint SHA256: `00d707b9db7a49561c411e4765956e79bcd7c7e20c7a0a535073440b3e972342`.
+
+GPU fresh inference: 25/25 annotated visible detections (recall 1.0), mean position error 2.44 px, P95 4.85 px; 8.76 processed FPS, 2.85× slower than input duration, peak allocated VRAM 0.685 GiB and process peak RAM 2.38 GiB. A repeated GUI-triggered cache run reproduced the same metrics. CPU fresh inference: same 25/25 recall, mean error 2.52 px, P95 4.85 px; 2.13 FPS, 11.72× slower than input duration and 2.95 GiB peak process RAM. Both reports remain `BASELINE_ONLY`; false detections cannot be assessed without negative annotations, and 25 frames from one rally do not establish model stability. The production GUI was clicked through the cached official benchmark; generated 1920×1080/125-frame MP4 played and displayed an overlaid ball path.
+
+Measured run records are local under outputs/vision and are ignored by Git. Their initial inference provenance records TTI commit `87ff12b`; the working tree was dirty because setup and lockfile changes were pending. The documented media and weight SHA values let later runs check the exact inputs.
+
+Compare compatible measured analysis.json files with `python -m vision regression baseline.json candidate.json --tolerance 0.05`. The explicit default 5% relative tolerance is an engineering regression policy, not a scientific accuracy threshold. Different video/GT/checkpoint/source/pipeline/device/runtime/GPU returns NOT_COMPARABLE; unavailable metrics remain unavailable. Report includes worker processing FPS, processing/video-duration factor, measured Windows process peak RAM and peak allocated CUDA memory (not total GPU reservation). Warm cache runs must not be described as new inference speed measurements.
 
 Windows frame read/write uses NumPy file IO plus OpenCV encoding/decoding so Chinese paths are supported. Upstream source is not edited.

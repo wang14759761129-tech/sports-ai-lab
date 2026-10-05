@@ -2,9 +2,13 @@
 def compare_runs(baseline, candidate, relative_tolerance=0.05):
     if not 0 <= relative_tolerance <= 1:
         raise ValueError('Tolerance must be between zero and one')
-    identity = ('video_sha256', 'gt_sha256', 'checkpoint_sha256', 'worker_device')
+    identity = ('video_sha256', 'gt_sha256', 'checkpoint_sha256', 'worker_device',
+                'racketvision_commit', 'pipeline')
     if any(baseline['provenance'].get(k) != candidate['provenance'].get(k) for k in identity):
-        return dict(status='NOT_COMPARABLE', reason='Input, GT, checkpoint or device differs')
+        return dict(status='NOT_COMPARABLE', reason='Input, GT, checkpoint, source or pipeline differs')
+    for k in ('torch', 'cuda', 'gpu'):
+        if baseline['provenance'].get('runtime', {}).get(k) != candidate['provenance'].get('runtime', {}).get(k):
+            return dict(status='NOT_COMPARABLE', reason='Worker runtime or hardware differs')
     changes = []
     for key, lower_is_better in [('visible_recall', False), ('mean_position_error_px', True), ('p95_position_error_px', True)]:
         old, new = baseline['metrics'].get(key), candidate['metrics'].get(key)

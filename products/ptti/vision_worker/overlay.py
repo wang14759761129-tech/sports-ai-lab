@@ -31,3 +31,4 @@ while True:
 writer.release(); cap.release()
 subprocess.run(['ffmpeg', '-nostdin', '-v', 'error', '-i', temporary, '-c:v', 'libx264',
                 '-crf', '18', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', '-n', destination], check=True)
+Path(temporary).unlink()
