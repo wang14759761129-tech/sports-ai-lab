@@ -2,7 +2,7 @@
 import argparse,json,sys,time,random,math,subprocess,shutil
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
-from vision.specialist import sha256,validate_split,validate_model,validate_provenance,safe_checkpoint_target,OFFICIAL_SHA
+from vision.specialist import sha256,validate_split,immutable_coordinate_sample,validate_model,validate_provenance,safe_checkpoint_target,OFFICIAL_SHA
 from vision.config import RV_COMMIT
 from vision.benchmark import compare,read_ground_truth,percentile
 
@@ -75,7 +75,10 @@ def main():
             write(data/'info'/f'{role}.json',entries)
         write(home/'prepared_inputs.json',inputs);return
 
-    def dataset(role):return UniBallDataset(root_dir=str(data),split=role,seq_len=4,width=512,height=288,sigma=3.5,bg_mode='concat',first_frame='0000')
+    class StableUniBallDataset(UniBallDataset):
+        def __getitem__(self,index):
+            return immutable_coordinate_sample(self.data_dict,index,lambda i:super(StableUniBallDataset,self).__getitem__(i))
+    def dataset(role):return StableUniBallDataset(root_dir=str(data),split=role,seq_len=4,width=512,height=288,sigma=3.5,bg_mode='concat',first_frame='0000')
     def model(path):
         mdl=TrackNet(15,4,mixup=True,alpha=.5,last_only=True)
         state=torch.load(path,map_location='cpu',weights_only=False)['state_dict'];mdl.load_state_dict(remove_ddp_prefix(state));return mdl.cuda()

@@ -54,3 +54,22 @@ def test_valid_provenance_binds_checkpoint_content(tmp_path):
     validate_provenance(record,checkpoint)
     checkpoint.write_bytes(b'changed')
     with pytest.raises(ValueError):validate_provenance(record,checkpoint)
+
+def test_repeated_sampling_preserves_original_coordinates():
+    from vision.specialist import immutable_coordinate_sample
+    data={'coor':[[750.,375.]]}
+    def getitem(i):
+        data['coor'][i][0]/=3.75;data['coor'][i][1]/=3.75
+        return data['coor'][i].copy()
+    assert immutable_coordinate_sample(data,0,getitem)==[200.,100.]
+    assert immutable_coordinate_sample(data,0,getitem)==[200.,100.]
+    assert data['coor'][0]==[750.,375.]
+
+def test_coordinate_restore_on_failed_sample():
+    from vision.specialist import immutable_coordinate_sample
+    data={'coor':[[1.,2.]]}
+    def failing(i):
+        data['coor'][i][0]=0
+        raise RuntimeError('fixture error')
+    with pytest.raises(RuntimeError):immutable_coordinate_sample(data,0,failing)
+    assert data['coor'][0]==[1.,2.]

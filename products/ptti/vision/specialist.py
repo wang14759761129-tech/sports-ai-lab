@@ -5,6 +5,12 @@ from pathlib import Path
 
 OFFICIAL_SHA='00d707b9db7a49561c411e4765956e79bcd7c7e20c7a0a535073440b3e972342'
 
+def immutable_coordinate_sample(data_dict,index,getitem):
+    """Upstream __getitem__ scales a shared coor view; restore after each read."""
+    original=data_dict['coor'][index].copy()
+    try:return getitem(index)
+    finally:data_dict['coor'][index]=original
+
 def sha256(path):
     h=hashlib.sha256()
     with open(path,'rb') as f:
