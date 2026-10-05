@@ -140,9 +140,10 @@ def tune():
     # Deliberately small, declared development-only grid. No holdout metrics read.
     for k in [16,64,128]:
         for weight in [.1,.2]:
-            settings=TrackerConfig(top_k=k,response_weight=weight,motion_weight=1.)
-            report=evaluate('development',settings)
-            trials.append((report,settings));print(asdict(settings),report['tti'],flush=True)
+            for missing in [.35,.6]:
+                settings=TrackerConfig(top_k=k,response_weight=weight,motion_weight=1.,missing_cost=missing)
+                report=evaluate('development',settings)
+                trials.append((report,settings));print(asdict(settings),report['tti'],flush=True)
     # Development objective counts misses and false positives as well as catastrophes.
     def objective(pair):
         m=pair[0]['tti'];return (m['visible']-m['detected'])*2+m['false_positives']*2+m['catastrophic']['50']*4+m['catastrophic']['20']
