@@ -1,0 +1,36 @@
+{
+  "dataset_revision": "85157ca21faa2abca96d837dd2b963738029bcc8",
+  "development": [
+    "tabletennis/match1/000",
+    "tabletennis/match10/000",
+    "tabletennis/match11/000",
+    "tabletennis/match12/000",
+    "tabletennis/match13/000",
+    "tabletennis/match1/001",
+    "tabletennis/match10/001",
+    "tabletennis/match11/001",
+    "tabletennis/match12/001",
+    "tabletennis/match13/001"
+  ],
+  "internal_holdout": [
+    "tabletennis/match1/002",
+    "tabletennis/match10/002",
+    "tabletennis/match11/002",
+    "tabletennis/match12/002",
+    "tabletennis/match13/002"
+  ],
+  "cross_match_holdout": [
+    "tabletennis/match14/000",
+    "tabletennis/match14/001",
+    "tabletennis/match15/000",
+    "tabletennis/match15/001",
+    "tabletennis/match16/000",
+    "tabletennis/match16/001",
+    "tabletennis/match17/000",
+    "tabletennis/match17/001",
+    "tabletennis/match18/000",
+    "tabletennis/match19/000"
+  ],
+  "selection": "first available val rallies in ordered matches14..19; no GT/prediction selection",
+  "upstream_exposure": "Official val is used for best-checkpoint selection; matches overlap upstream train. This is TTI-only holdout, NOT model-unseen evidence."
+}
