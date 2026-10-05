@@ -231,3 +231,74 @@ def test_local_video_registration_runs_real_ffprobe_without_changing_source(tmp_
     assert record["video_metadata"]["audio_streams"] == []
     assert record["video_metadata"]["sha256"] == hashlib.sha256(original).hexdigest()
     assert record["analysis_status"] == "VIDEO_READY"
+
+
+def test_authorized_professional_short_clip_is_isolated_and_linked(tmp_path, monkeypatch):
+    import vision.quality as quality
+    import vision.service as vision_service
+
+    media = {"width": 1280, "height": 720, "fps": 30.0, "duration": 10.0,
+             "codec": "h264", "bitrate": 1000, "frame_count": 300,
+             "aspect_ratio": "16:9", "rate_variable": False}
+    monkeypatch.setattr(quality, "video_metadata", lambda path: media)
+    monkeypatch.setattr(vision_service, "video_metadata", lambda path: media)
+    def submit(self, *args, **kwargs):
+        job = {"id": "job-test", "status": "running", "stage": "queued"}
+        kwargs["on_update"](job)
+        return job
+    monkeypatch.setattr(vision_service.VisionService, "submit", submit)
+    database_root = tmp_path / "PTTI-Dev"
+    metadata = {"event_name": "Clip linkage QA", "player_a_id": "athlete:121558",
+                "player_b_id": "athlete:123980"}
+    with client_for(database_root) as client:
+        created = client.post("/api/professional-matches/local-video",
+                              data={"metadata": json.dumps(metadata), "video_source_note": "Authorized local source",
+                                    "rights_confirmed": "true"},
+                              files={"file": ("full-match.mp4", b"original-video", "video/mp4")})
+        assert created.status_code == 201, created.text
+        match_id = created.json()["match_id"]
+        denied = client.post(f"/api/vision/professional-matches/{match_id}/balltrack-clip",
+                             data={"source_note": "Authorized short clip", "rights_confirmed": "false"},
+                             files={"file": ("clip.mp4", b"clip", "video/mp4")})
+        assert denied.status_code == 422
+        response = client.post(f"/api/vision/professional-matches/{match_id}/balltrack-clip",
+                               data={"source_note": "Authorized short clip", "rights_confirmed": "true"},
+                               files={"file": ("rally.mp4", b"short-clip", "video/mp4")})
+        assert response.status_code == 200, response.text
+        assert response.json()["scope"] == "SHORT_CLIP"
+        saved = client.get("/api/professional-matches").json()
+        record = next(match for match in saved if match["match_id"] == match_id)
+        analysis = record["video_analysis"]
+        assert analysis["status"] == "running"
+        assert analysis["job_id"] == "job-test"
+        assert analysis["clip_filename"] == "rally.mp4"
+        assert analysis["source_note"] == "Authorized short clip"
+        assert Path(analysis["clip_path"]).parent == database_root / "vision" / "user_uploads"
+        assert Path(record["video_local_path"]).read_bytes() == b"original-video"
+
+
+def test_professional_clip_rejects_full_match_before_submission(tmp_path, monkeypatch):
+    import vision.quality as quality
+    import vision.service as vision_service
+
+    media = {"width": 1920, "height": 1080, "fps": 50.0, "duration": 61.0,
+             "codec": "h264", "bitrate": 1000, "frame_count": 3050,
+             "aspect_ratio": "16:9", "rate_variable": False}
+    monkeypatch.setattr(quality, "video_metadata", lambda path: media)
+    monkeypatch.setattr(vision_service, "video_metadata", lambda path: media)
+    submitted = []
+    monkeypatch.setattr(vision_service.VisionService, "submit", lambda *args, **kwargs: submitted.append(True))
+    root = tmp_path / "PTTI-Dev"
+    with client_for(root) as client:
+        created = client.post("/api/professional-matches/local-video",
+                              data={"metadata": json.dumps({"event_name": "Long match", "player_a_id": "athlete:121558",
+                                                             "player_b_id": "athlete:123980"}),
+                                    "video_source_note": "Authorized source", "rights_confirmed": "true"},
+                              files={"file": ("full.mp4", b"original", "video/mp4")})
+        match_id = created.json()["match_id"]
+        response = client.post(f"/api/vision/professional-matches/{match_id}/balltrack-clip",
+                               data={"source_note": "Authorized excerpt", "rights_confirmed": "true"},
+                               files={"file": ("long.mp4", b"too-long", "video/mp4")})
+        assert response.status_code == 422
+        assert not submitted
+        assert list((root / "vision" / "user_uploads").iterdir()) == []

@@ -193,6 +193,20 @@ class Repository:
         with self.connect() as db:row=db.execute('SELECT payload FROM professional_matches WHERE match_id=?',(match_id,)).fetchone()
         return json.loads(row[0]) if row else None
 
+    def update_professional_video_analysis(self,match_id,video_analysis):
+        """Update runtime analysis metadata without changing seeded match facts."""
+        with self.connect() as db:
+            row=db.execute('SELECT payload FROM professional_matches WHERE match_id=?',(match_id,)).fetchone()
+            if not row:return None
+            record=json.loads(row[0])
+            if (record.get('video_source_type') not in {'LOCAL_USER_VIDEO','LICENSED_WTT_LOCAL','RESEARCH_DATASET'}
+                    or record.get('rights_status') not in {'USER_AUTHORIZED','LICENSED_FOR_ANALYSIS','RESEARCH_DATASET_AUTHORIZED'}):
+                raise ValueError('Only an authorized local video can be analyzed')
+            record['video_analysis']=video_analysis
+            db.execute('UPDATE professional_matches SET payload=? WHERE match_id=?',
+                       (json.dumps(record,ensure_ascii=False),match_id))
+            return record
+
     def save_professional_match(self,record):
         with self.connect() as db:
             participants={record['player_a_id'],record['player_b_id']}

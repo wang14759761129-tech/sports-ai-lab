@@ -102,7 +102,7 @@ def test_external_reference_saves_without_downloading(tmp_path,monkeypatch):
         source=dict(type='external_reference',rights='research',original_url='https://example.org/match',title='参考比赛')
         result=client.post('/api/vision/reference',json=source)
         assert result.status_code==200 and not result.json()['downloaded']
-        saved=list((tmp_path/'vision/datasets/racketvision/references').glob('*.json'))
+        saved=list((tmp_path/'vision/references').glob('*.json'))
         assert len(saved)==1 and json.loads(saved[0].read_text(encoding='utf-8'))['title']=='参考比赛'
         assert client.get('/api/matches').json()==[]
 
@@ -112,6 +112,21 @@ def test_absent_models_fail_gracefully_without_breaking_matches(tmp_path,monkeyp
         assert client.post('/api/vision/benchmark',json={}).status_code==422
         assert client.post('/api/matches/sample').status_code==200
         assert client.get('/api/vision/analyses').json()==[]
+
+def test_vision_service_reports_initial_and_terminal_job_updates(tmp_path,monkeypatch):
+    import threading
+    import vision.service as service_module
+    config=VisionConfig(tmp_path/'dataset',tmp_path/'models',tmp_path/'cache',tmp_path/'outputs',
+                        tmp_path/'runtime',tmp_path/'python.exe')
+    monkeypatch.setattr(service_module,'run_analysis',lambda *args,**kwargs:{'analysis_id':'20261006T000000_abcdef123456'})
+    service=VisionService(config);updates=[];finished=threading.Event()
+    def on_update(job):
+        updates.append(job)
+        if job['status'] in {'complete','failed'}:finished.set()
+    job=service.submit(tmp_path/'short.mp4',Source(type='local',rights='user_provided'),on_update=on_update)
+    assert job['id'] and job['status'] in {'running','complete'}
+    assert finished.wait(3)
+    assert [item['status'] for item in updates]==['running','complete']
 
 def test_regression_requires_same_evidence():
     from vision.regression import compare_runs

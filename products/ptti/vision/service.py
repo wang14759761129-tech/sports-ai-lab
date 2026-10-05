@@ -28,24 +28,37 @@ class VisionService:
         metadata = video_metadata(video)
         return dict(video=metadata, quality=classify(metadata))
 
-    def submit(self, video, source, gt=None, device='cuda'):
+    def submit(self, video, source, gt=None, device='cuda', on_update=None):
         source = Source.model_validate(source).model_dump()
         if device not in ('cuda', 'cpu'): raise ValueError('Invalid processing device')
         with self.lock:
             if self.active: raise ValueError('已有视觉任务正在处理，请等待完成')
             job_id = str(uuid.uuid4()); self.active = job_id
             self.jobs[job_id] = dict(id=job_id, status='running', stage='等待读取视频', result=None, error=None)
+            initial=self.jobs[job_id].copy()
+        if on_update:
+            try:on_update(initial)
+            except Exception:
+                with self.lock:
+                    self.jobs.pop(job_id,None)
+                    self.active=None
+                raise
         def execute():
             try:
                 def stage(value):
                     with self.lock: self.jobs[job_id]['stage'] = value
                 result = run_analysis(video, source, gt, self.config, device, stage)
-                with self.lock: self.jobs[job_id].update(status='complete', stage='完成', result=result)
+                with self.lock:
+                    self.jobs[job_id].update(status='complete', stage='完成', result=result)
+                    snapshot=self.jobs[job_id].copy()
+                if on_update:on_update(snapshot)
             except Exception as exc:
                 log = self.config.output_root / ('error-' + job_id + '.log')
                 log.write_text(traceback.format_exc(), encoding='utf-8')
                 with self.lock:
                     self.jobs[job_id].update(status='failed', stage='处理未完成', error=str(exc), technical_log=log.name)
+                    snapshot=self.jobs[job_id].copy()
+                if on_update:on_update(snapshot)
             finally:
                 with self.lock: self.active = None
         threading.Thread(target=execute, daemon=True).start()

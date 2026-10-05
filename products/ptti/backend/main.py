@@ -105,12 +105,12 @@ class ImportResult(BaseModel):
 
 def create_app(db_path=None):
     app=FastAPI(title='PTTI',version='0.2.0-dev')
-    from backend.vision_api import router as vision_router
-    app.include_router(vision_router())
     resolved_db=resolve_database_path(db_path)
     app.state.database_path=resolved_db
     mode='test' if 'pytest' in sys.modules or os.environ.get('PTTI_ENV')=='test' else os.environ.get('PTTI_ENV','development')
     repo=Repository(resolved_db,guard=ProductionDatabaseGuard(mode))
+    from backend.vision_api import router as vision_router
+    app.include_router(vision_router(repo=repo,data_root=Path(resolved_db).parent))
     professional_manifest=ROOT/'data'/'professional'/'registry.json'
     repo.seed_professional(__import__('json').loads(professional_manifest.read_text(encoding='utf-8')))
     app.state.database_diagnostics=database_banner(resolved_db,mode)
