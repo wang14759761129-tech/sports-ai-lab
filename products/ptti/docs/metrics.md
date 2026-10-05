@@ -1,3 +1,5 @@
+> Historical v0.1.0 record. Protocol v0.3 has now been recovered; current compatibility, evidence gates and verification are documented in SCHEMA-COMPATIBILITY.md, RESEARCH-BASIS.md, EVIDENCE-METRICS.md and integration-verification.md. Earlier SOURCE NOT FOUND statements describe the original empty workspace only.
+
 # Metrics and missing data
 
 All percentages use `rate(rows, predicate)` and report numerator, denominator, value, status. Empty denominators return null / insufficient data. No imputation. Both player views use the same recorded-match rally distribution (not a player-specific distribution).

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1 — 2026-10-05
+
+Research integration and release hardening. Non-squashed subtree preserves the original release history. Recovered Protocol v0.3 references and 21-field compatibility analysis; dedicated adapter with original values/provenance, pre/post score conversion and explicit subtype warnings; uncertainty-aware denominators/evidence gates; Chinese import and metric copy; refreshed Windows handoff. Research conclusions unchanged; Pilot 2 not started. Unknown core identity/scores reject; mapping/measurement limitations remain documented.
+
+
 ## 0.1.0 — 2026-10-05
 
 First usable PTTI release.

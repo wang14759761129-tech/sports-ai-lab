@@ -1,6 +1,6 @@
 # PTTI 使用反馈（简短填写即可）
 
-PTTI version / 版本：0.1.0
+PTTI version / 版本：0.1.1
 
 Computer / 电脑（Windows 版本、型号）：
 

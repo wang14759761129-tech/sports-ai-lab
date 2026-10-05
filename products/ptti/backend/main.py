@@ -7,6 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from core.engine import ingest, analyze, SCHEMA_VERSION, ANALYTICS_VERSION
 from backend.repository import Repository
+from core.importing import import_csv
 
 ROOT=Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parents[1]))
 class Metadata(BaseModel):
@@ -25,29 +26,33 @@ class Validation(BaseModel):
     valid: bool
     issues: list[Issue]
     row_count: int
+    evidence_state: str='AVAILABLE'
 class Match(BaseModel):
     id: str
     metadata: Metadata
     points: list[dict]
     validation: Validation
     analysis: dict
+    provenance: dict = Field(default_factory=dict)
 class ImportResult(BaseModel):
     validation: Validation
     match: Match | None=None
+    provenance: dict = Field(default_factory=dict)
 
 def create_app(db_path=None):
-    app=FastAPI(title='PTTI',version='0.1.0')
+    app=FastAPI(title='PTTI',version='0.1.1')
     repo=Repository(db_path or os.environ.get('PTTI_DB',str(Path(os.environ.get('LOCALAPPDATA',Path.home()))/'PTTI'/'matches.db')))
     def get(id):
         m=repo.get(id)
         if not m: raise HTTPException(404,'Match not found')
         return m
     def import_data(raw,meta):
-        rows,report=ingest(raw)
-        if not report['valid']: return dict(validation=report,match=None)
-        return dict(validation=report,match=repo.save(dict(metadata=meta.model_dump(),points=rows,validation=report,analysis=analyze(rows))))
+        rows,report,provenance=import_csv(raw)
+        report['evidence_state']='AVAILABLE' if report['valid'] else 'INVALID_DATA'
+        if not report['valid']: return dict(validation=report,match=None,provenance=provenance)
+        return dict(validation=report,match=repo.save(dict(metadata=meta.model_dump(),points=rows,validation=report,analysis=analyze(rows),provenance=provenance)),provenance=provenance)
     @app.get('/api/health')
-    def health(): return dict(version='0.1.0',schema_version=SCHEMA_VERSION,analytics_version=ANALYTICS_VERSION)
+    def health(): return dict(version='0.1.1',schema_version=SCHEMA_VERSION,analytics_version=ANALYTICS_VERSION)
     @app.post('/api/matches/import',response_model=ImportResult)
     async def upload(file:UploadFile=File(...),metadata:str=Form(...)):
         try: meta=Metadata.model_validate_json(metadata)
@@ -79,13 +84,14 @@ def create_app(db_path=None):
             body+=f'<h2>{escape(meta["player_a" if p=="A" else "player_b"])}</h2><table><tr><th>Metric</th><th>Value</th><th>Evidence</th></tr>'
             for key in ['points_won','serve_win','receive_win','third_ball_attack','third_ball_win','average_rally']:
                 metric=analysis['players'][p][key]; value=metric['value']
-                body+=f'<tr><td>{key.replace("_"," ")}</td><td>{"Insufficient data" if value is None else str(value)+( "" if key=="average_rally" else "%")}</td><td>{str(metric.get("numerator", ""))}/{metric["denominator"]} annotated points</td></tr>'
+                body+=f'<tr><td>{key.replace("_"," ")}</td><td>{"Insufficient data" if value is None else str(value)+( "" if key=="average_rally" else "%")}</td><td>{str(metric.get("numerator", ""))}/{metric["denominator"]} annotated points; {metric.get("evidence_state","legacy result")}</td></tr>'
             body+='</table>'
+        body+=f'<p>Source schema: {escape(m.get("provenance",{}).get("source_schema","legacy saved match"))}. Evidence states: AVAILABLE / INSUFFICIENT_EVIDENCE / NOT_AVAILABLE. Unknown is not zero.</p>'
         body+='<h2>Tactical evidence</h2>'
         for i in analysis['insights']: body+=f'<p><b>{escape(i["kind"])} · Player {i["player"]}</b>: {escape(i["statement"])}<br>{escape(i["evidence"])} · {escape(i["reliability"])}</p>'
         body+='<h2>Validation notices</h2>'
         for i in m['validation']['issues']: body+=f'<p>{escape(i["level"])} · CSV row {i["row"]} · {escape(i["field"])}: {escape(i["message"])}</p>'
-        body+=f'<p>PTTI 0.1.0 · schema {SCHEMA_VERSION} · analytics {ANALYTICS_VERSION}. Descriptive recorded-point statistics. Third-ball conversion counts point wins following an attack annotation.</p>'
+        body+=f'<p>PTTI 0.1.1 · schema {SCHEMA_VERSION} · analytics {ANALYTICS_VERSION}. Descriptive recorded-point statistics. Third-ball conversion counts point wins following an attack annotation.</p>'
         html='<!doctype html><html><head><meta charset="utf-8"><title>PTTI match report</title><style>body{font-family:Segoe UI,Microsoft YaHei,sans-serif;max-width:900px;margin:40px auto;color:#183d3a}table{border-collapse:collapse;width:100%}td,th{padding:10px;border-bottom:1px solid #ddd;text-align:left}p{line-height:1.6}@media print{body{margin:0}}</style></head><body>'+body+'</body></html>'
         return Response(html,media_type='text/html',headers={'Content-Disposition':'attachment; filename="ptti-report.html"'})
     @app.delete('/api/matches/{id}')

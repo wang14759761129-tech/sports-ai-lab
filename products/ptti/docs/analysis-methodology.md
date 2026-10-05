@@ -1,3 +1,5 @@
+> Historical v0.1.0 record. Protocol v0.3 has now been recovered; current compatibility, evidence gates and verification are documented in SCHEMA-COMPATIBILITY.md, RESEARCH-BASIS.md, EVIDENCE-METRICS.md and integration-verification.md. Earlier SOURCE NOT FOUND statements describe the original empty workspace only.
+
 # Evidence and interpretation
 
 Reports describe recorded points, not unrecorded play or player ability. An annotation may be subjective; both teammates should audit sample points and agree on the protocol. Missing optional annotations reduce each metric's denominator; they are not losses or zeros.

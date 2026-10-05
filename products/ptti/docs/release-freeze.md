@@ -1,3 +1,5 @@
+> Historical v0.1.0 record. Protocol v0.3 has now been recovered; current compatibility, evidence gates and verification are documented in SCHEMA-COMPATIBILITY.md, RESEARCH-BASIS.md, EVIDENCE-METRICS.md and integration-verification.md. Earlier SOURCE NOT FOUND statements describe the original empty workspace only.
+
 # PTTI v0.1.0 — First Usable Release
 
 Freeze date: 2026-10-05. Product and analytics 0.1.0; data schema 1.0.0-new. Historical v0.3 source: SOURCE NOT FOUND. There is no claimed compatibility with the historical research protocol. This is the repository's legitimate first commit; no earlier history is invented.

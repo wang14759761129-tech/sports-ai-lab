@@ -1,13 +1,15 @@
-# PTTI v0.1.0 — First Usable Release
+# PTTI v0.1.1 — Research Integration Release
 
-Local-first Windows match intelligence for two table-tennis teammates. CSV → validation → saved match → charts/statistics → tactical evidence → point explorer → JSON/HTML export → reopen after restart. No OpenAI API key or developer tooling required to run the packaged app.
+PTTI now lives in `sports-ai-lab/products/ptti`, with both research history and the original v0.1.0 release commit preserved through a non-squashed Git subtree import.
 
-Download `PTTI-v0.1.0-Windows-x64.zip`, extract the whole folder, read `START-HERE.txt`, and open `PTTI/PTTI.exe`. Keep all runtime files together. Requires Windows 10/11 x64 and Edge WebView2 Runtime. Verify the archive against the accompanying SHA256 file.
+Download `PTTI-v0.1.1-Windows-x64.zip`, extract the whole folder, read `START-HERE.txt`, and open `PTTI/PTTI.exe`. Keep `_internal` beside the executable. Requires Windows 10/11 x64 and Edge WebView2 Runtime; Python, Node, Git and developer tools are not needed. Check the accompanying SHA256 file.
 
-Product and analytics 0.1.0. Data schema 1.0.0-new; historical v0.3 source was not found and compatibility is not claimed. The included synthetic CSV is a demo/template, not real match evidence.
+Changes: recovered canonical Protocol v0.3; documented all 21 field mappings; added historical CSV detection and an adapter retaining original values and provenance; exposed uncertainty-aware denominators, exclusions and evidence states; improved Chinese import, validation and dashboard copy; delivered both native and historical-format synthetic examples. Native schema `1.0.0-new` remains supported. Unresolved tactical evidence produces an explicit unavailable/insufficient state, never a guessed zero.
 
-Release verification: 16 automated tests passing; TypeScript/Vite production build and Windows PyInstaller directory build successful. Native application, sample dashboard, point explorer and persistence verified on the development Windows computer. Kaikai/clean-machine gate is PENDING. Download Save As dialog was observed; actual user-selected saving and printer output remain real-user test items.
+Validation: 34 automated tests passed, zero failed, including all original 16 tests and the real 10-row Pilot fixture. TypeScript/Vite production build and PyInstaller Windows build passed. Native sample dashboard, point explorer, restart persistence and Protocol v0.3 uncertainty display were verified on the development computer. Packaged-server CSV import and JSON/HTML export responses were checked. The final handoff copy also passed native GUI file selection, historical-format import/save, point inspection and JSON Save As; the saved JSON was parsed and verified. Independent clean-machine use and printing remain Kaikai test items.
 
-Known limits: English UI with Chinese names; complete game prefixes only, no mid-game start state; no doubles identity/cross-game service/match-length enforcement or annotation consistency checks; broad metric filtering; no CSV editing, JSON reimport, video, LLM or cloud; API-only deletion; large-match performance not validated.
+Research conclusions are unchanged: Pilot 1C remains REVISE / HOLD, the primary question remains ON HOLD PENDING MEASUREMENT FEASIBILITY, and Pilot 2 has not started. No video inspection or new tactical research result is claimed.
 
-Only next milestone: KAIKAI TEST 01. Failures become bug reports. No v0.2 feature work before that gate passes.
+Limits: one match per CSV; complete game prefixes only; incomplete tactical evidence suppresses metrics; product evidence thresholds are conservative display rules, not validated scientific confidence thresholds. No video, LLM, cloud, CSV editing or broad v0.2 feature development. Existing saved 0.1.0 analyses retain their original version and must be reimported to receive the new evidence calculations.
+
+Only next external milestone: **KAIKAI TEST 01 — PENDING**. Independently unzip, launch, load sample, import CSV, inspect dashboard/points, restart, confirm persistence and export. Report every failed step.

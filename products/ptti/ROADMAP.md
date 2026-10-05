@@ -1,6 +1,6 @@
 # Roadmap
 
-Release freeze: PTTI 0.1.0 — First Usable Release. The only next milestone is **KAIKAI TEST 01** as defined in docs/release-freeze.md. Do not start v0.2 until it passes; only release-blocking fixes are allowed before then.
+Current integration release: PTTI 0.1.1. v0.1.0 freeze history is retained. The only next milestone is **KAIKAI TEST 01** as defined in docs/release-freeze.md. Do not start v0.2 until it passes; only release-blocking fixes are allowed before then.
 
 v0.1: local CSV → validation → SQLite → dashboard → point explorer → evidence → export/print → desktop folder release.
 

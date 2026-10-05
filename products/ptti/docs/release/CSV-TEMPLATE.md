@@ -1,6 +1,18 @@
+# 两种 CSV，不要混用
+
+PTTI 0.1.1 支持原生 1.0.0-new 和研究 Protocol v0.3。sample/synthetic.csv 是原生模板；sample/protocol-v0.3-example.csv 是新生成、发球/比分有效的历史格式合成模板。两者都不是实际比赛证据，导入时请勾选“合成示例”。真实比赛请换成自己的记录。
+
+历史格式每行一分，game_number / point_number 从 1 连续编号；server/receiver/point_winner 使用 player/opponent。导入页面 A 姓名=player、B 姓名=opponent。server_score_before/receiver_score_before 是这一分开始前，按该行发球/接发者视角记录的比分，不是 A/B 固定顺序。适配器通过确认的赢家计算结束后比分。
+
+研究字段允许 unknown（未观察到）、unclear（不清楚）、not_applicable（不适用），保留原值。身份或比分未知无法可靠转换，会拒绝而不是补猜。缺少可选战术字段会提示，不会填成 no 或 0。细分类别合并会明确警告，原值保留在逐分表 source_ 列和导出的 provenance。
+
+没有已确认的第三板进攻机会就不计算转换率；win/loss 不等于 winner/error。video_timestamp/notes 保留，不当作自动视频同步。CSV 行号含表头，首行数据是第 2 行。
+
+完整字段见 DATA-FIELDS.md。以下为原生格式的详细说明（严格原始类别，不接受研究不确定标签）：
+
 # CSV 模板：PTTI 新协议 1.0.0-new
 
-文件：`sample/synthetic.csv`。这是合成示例，不能当作真实比赛记录。每行是一分；UTF-8 编码，逗号分隔，表头和枚举值使用英文。历史 v0.3 文件没找到，不保证兼容旧表格。
+文件：`sample/synthetic.csv`。这是合成示例，不能当作真实比赛记录。每行是一分；UTF-8 编码，逗号分隔，表头和枚举值使用英文。历史 v0.3 已恢复，由专用适配器处理，不覆盖原生字段定义。
 
 | 必填列 | 意义 |
 |---|---|

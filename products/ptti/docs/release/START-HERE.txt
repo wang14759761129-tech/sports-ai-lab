@@ -1,10 +1,10 @@
-PTTI v0.1.0 — 凯凯，先看这张就够啦 🏓
+PTTI 0.1.1 — 凯凯，先看这张就够啦 🏓
 
-1. 解压整个压缩包，双击 PTTI 文件夹里的 PTTI.exe。
-2. 点 Load sample match，可以看一场明确标记为“合成示例”的比赛。
-3. 导入自己的比赛：点 New / import match，填写名字、球员和比赛信息，选 CSV，然后点 Validate & save。报错时先改 CSV；警告表示数据不完整。
-4. 模板在 sample/synthetic.csv；字段说明在 docs/CSV-TEMPLATE.md。示例不是实际比赛数据。
-5. 比赛保存在你电脑的 %LOCALAPPDATA%\PTTI\matches.db；关掉再打开，去 Match library 找比赛。
-6. 在比赛页点 Export JSON 或 Export HTML，选择保存位置。HTML 可以用浏览器打开或打印。
-7. 打不开时，把完整报错截图、Windows 版本发回来；如果有 %LOCALAPPDATA%\PTTI\startup-error.log，也把错误文本发回来。需要 Windows 的 Edge WebView2 Runtime；不用装 Python、Node 或开发工具。
-8. 不要单独复制 PTTI.exe，必须保留整个 PTTI 文件夹（包括 _internal）。
+1. 解压整个包，打开 PTTI/PTTI.exe；需要 Windows 10/11 x64 和 Edge WebView2 Runtime，不用 Python、Node、Git 或开发工具。
+2. 不要单独移动 exe：必须保留整个 PTTI 文件夹和 _internal。
+3. 首页点“加载合成示例”。这不是实际比赛，也不是研究结论。
+4. 点“导入比赛”，填比赛/球员名字、选 UTF-8 CSV、“校验并保存”。历史格式 player=A、opponent=B；合成 CSV 要勾选合成示例。
+5. 两种模板在 sample/，说明在 docs/CSV-TEMPLATE.md 和 DATA-FIELDS.md。不要把两种格式混在一起。
+6. “证据不足”不等于 0%：未知/不清楚不会被猜成战术值；数据足够也只是样本描述。
+7. 比赛页“导出 JSON/HTML”，选择位置。数据本地保存到 %LOCALAPPDATA%\PTTI\matches.db；重开后去比赛库找。
+8. 出错请截完整错误和出错页面，附 Windows 版本、docs/USER-FEEDBACK.md；有 startup-error.log 时附错误文本，不必发送私人比赛数据库。
