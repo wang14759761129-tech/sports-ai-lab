@@ -167,7 +167,7 @@ class FullMatchService:
                             if timestamps_path and Path(timestamps_path).is_file() else None)
 
         def persist(current):
-            job = {"match_id": match_id, "status": current["status"], "stage": current["status"],
+            job = {"match_id": match_id, "status": current["status"], "stage": "BALLTRACK" if any(c['status']=='RUNNING' for c in current['chunks']) else "PREPARING",
                    "cache_key": current["cache_key"], "manifest_path": str(path),
                    "completed_chunks": sum(c["status"] == "COMPLETE" for c in current["chunks"]),
                    "total_chunks": len(current["chunks"]), "device": device,
@@ -257,6 +257,9 @@ class FullMatchService:
                                       "sampling": json.loads(background_info.read_text(encoding="utf-8"))}
             save_manifest(path, manifest)
             manifest = run_resumable_chunks(path, execute, persist)
+            report_job=self.repo.get_full_match_job(match_id) or {}
+            report_job.update(status='RUNNING',stage='GENERATING_REPORT')
+            self.repo.save_full_match_job(match_id,report_job)
             if source_identity(prepared["video"]) != prepared["source_identity"]:
                 raise ValueError("SOURCE_CHANGED: video identity changed before output finalization")
             merged_csv = prepared["run_folder"] / "full_match_balltrack.csv"

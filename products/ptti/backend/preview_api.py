@@ -92,7 +92,7 @@ def router(repo, data_root, mode):
         return outputs(match_id)
 
     @api.get("/matches/{match_id}/outputs/{asset}")
-    def output_asset(match_id: str, asset: str):
+    def output_asset(match_id: str, asset: str, download: bool=False):
         guard()
         listing = outputs(match_id)
         if not any(item["name"] == asset for item in listing["assets"]):
@@ -116,7 +116,7 @@ def router(repo, data_root, mode):
         if not candidate.is_relative_to(directory.resolve()):
             raise HTTPException(403, "输出路径无效")
         return FileResponse(candidate, media_type="video/mp4" if asset.endswith(".mp4") else None,
-                            filename=None if asset.endswith((".mp4", ".html")) else asset)
+                            filename=asset if download or not asset.endswith((".mp4", ".html")) else None)
 
     @api.post("/videos/inspect")
     async def inspect(file: UploadFile = File(...)):

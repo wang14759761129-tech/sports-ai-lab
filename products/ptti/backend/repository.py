@@ -1,6 +1,7 @@
 import json
 import sqlite3
 import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 
 class ClosingConnection(sqlite3.Connection):
@@ -299,6 +300,11 @@ class Repository:
         with self.connect() as db:
             if not db.execute('SELECT 1 FROM professional_matches WHERE match_id=?',(match_id,)).fetchone():
                 raise ValueError('Professional match does not exist')
+            previous=db.execute('SELECT payload FROM full_match_jobs WHERE match_id=?',(match_id,)).fetchone()
+            old=json.loads(previous[0]) if previous else None
+            timestamp=datetime.now(timezone.utc).isoformat()
+            payload={**payload,'created_at':old.get('created_at') if old is not None else timestamp,
+                     'updated_at':timestamp}
             db.execute('INSERT INTO full_match_jobs(match_id,payload) VALUES (?,?) ON CONFLICT(match_id) DO UPDATE SET payload=excluded.payload',
                        (match_id,json.dumps(payload,ensure_ascii=False)))
 

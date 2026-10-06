@@ -92,6 +92,7 @@ def test_output_center_serves_only_real_allowed_outputs_and_job_progress(tmp_pat
         (folder/'preview_overlays').mkdir(parents=True)
         (folder/'full_match_summary.json').write_text(json.dumps({'balltrack_frames':10,'balltrack_visible_frames':8,'balltrack_coverage':.8}))
         (folder/'full_match_balltrack.jsonl').write_text('{"global_frame":0,"visible":false}\n{"global_frame":1,"visible":true}\n')
+        (folder/'full_match_report.html').write_text('<!doctype html><title>QA</title>')
         (folder/'preview_overlays'/'preview-01.mp4').write_bytes(b'qa-video')
         (folder/'private.txt').write_text('secret')
         repo.save_full_match_job(mid,{'status':'RUNNING','completed_chunks':1,'total_chunks':3,'output_dir':str(folder)})
@@ -99,7 +100,8 @@ def test_output_center_serves_only_real_allowed_outputs_and_job_progress(tmp_pat
         assert jobs[0]['completed_chunks']==1
         listing=client.get(f'/api/preview/matches/{mid}/outputs').json()
         assert listing['summary']['balltrack_coverage']==.8
-        assert {x['name'] for x in listing['assets']}=={'full_match_summary.json','preview-01.mp4','full_match_balltrack.jsonl','full_match_balltrack.json'}
+        assert {x['name'] for x in listing['assets']}=={'full_match_summary.json','preview-01.mp4','full_match_balltrack.jsonl','full_match_balltrack.json','full_match_report.html'}
+        assert 'attachment' in client.get(f'/api/preview/matches/{mid}/outputs/full_match_report.html?download=true').headers['content-disposition']
         assert client.get(f'/api/preview/matches/{mid}/outputs/full_match_balltrack.json').json()==[
             {'global_frame':0,'visible':False},{'global_frame':1,'visible':True}]
         asset=next(x for x in listing['assets'] if x['kind']=='overlay')
@@ -121,3 +123,15 @@ def test_broken_video_has_chinese_error_and_no_orphan_intake_file(tmp_path):
         response=client.post('/api/preview/videos/inspect',files={'file':('broken.mp4',b'bad','video/mp4')})
         assert response.status_code==422 and '视频无法读取' in response.json()['detail']
         assert list((app.state.data_root/'preview-video-intake').iterdir())==[]
+
+
+def test_job_creation_time_survives_stage_replacement(tmp_path):
+    app=create_app(tmp_path/'matches.db')
+    repo=app.state.repository
+    mid=repo.professional_matches()[0]['match_id']
+    repo.save_full_match_job(mid,{'status':'QUEUED'})
+    first=repo.get_full_match_job(mid)
+    repo.save_full_match_job(mid,{'status':'RUNNING','completed_chunks':1})
+    updated=repo.get_full_match_job(mid)
+    assert updated['created_at']==first['created_at'] and updated['created_at']
+    assert updated['updated_at']>=first['updated_at']
