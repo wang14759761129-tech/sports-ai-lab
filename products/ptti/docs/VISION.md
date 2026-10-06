@@ -27,7 +27,17 @@ Paths are configurable via PTTI_VISION_HOME or individual PTTI_VISION_DATASET_RO
 
 ## Inputs / model scope
 
-MP4/MOV/MKV/AVI; experimental short clips up to 60 seconds / 1800 frames. No resolution downgrade is performed by normalization. The official neural network internally operates at 512×288, then decodes pixel coordinates into original frame dimensions. Each visible position includes frame, timestamp, pixel/normalized coordinates and model; invisible coordinates are null. Upstream confidence is an uncalibrated heatmap score, not a calibrated confidence probability.
+MP4/MOV/MKV/AVI. Short-clip analysis retains its 60-second / 1800-frame limit. A separate development-only full-match path now divides an authorized local match into resumable 60-second checkpoints and streams frames through the frozen official model; it does not raise the memory footprint to the full video size. No resolution downgrade is performed by normalization. The official neural network internally operates at 512×288, then decodes pixel coordinates into original frame dimensions. Each visible position includes frame, timestamp, pixel/normalized coordinates and model; invisible coordinates are null. Upstream confidence is an uncalibrated heatmap score, not a calibrated confidence probability.
+
+## Professional full-match foundation (development only)
+
+The Chinese **WTT 授权视频入口** inspects only its dedicated inbox and explicitly selected individual files. It never scans a drive or downloads archive content. Import requires user-entered WTT asset ID, official source URL, license reference, rights confirmation, source note, event and reviewed player identities. Import records SHA256 and media metadata; possible name matches remain `REVIEW_REQUIRED` until confirmed.
+
+Full-match processing is available only for an authorized local file and the frozen `BALLTRACK_V1_FROZEN_RAW` model. The reproducibility key binds video, checkpoint, config and processing version. One shared global median is built from at most 100 deterministic evenly spaced frames. FFmpeg creates independent CFR chunks, and a manifest records each chunk’s source-frame and time boundaries and completion state. Completed chunks remain intact after an interruption; resume verifies the key and restarts from the first incomplete chunk. Raw per-chunk model JSON is retained, and a merged CSV maps every output to global processing frame and timestamp (VFR sources also keep the nearest original source-frame index and presentation timestamp).
+
+The first scene segment is `UNKNOWN`. No automatic broadcast-cut classifier is claimed. Games, points, rallies, score and server/scorer identities are entered or corrected in a revisioned human timeline with accept, adjust, split and merge actions. Scoreboard recognition is an experimental interface only and is not called. Editing the timeline refreshes the full-match summary and report. No spin, stroke, rally outcome, tactics or automatic point boundaries are inferred. Runtime reports split decoding, preprocessing, model inference, coordinate processing and serialization timing.
+
+No authorized complete professional match was present in the inspected WTT inbox, Downloads or Videos folders on 2026-10-06. Thus ingestion, persistence and timeline behavior are covered by generated local fixtures, but a genuine full-match BallTrack run and its quality/performance remain unverified. State: `WAITING_FOR_AUTHORISED_FULL_MATCH_FILE`; no production database access, main merge, tag or release.
 
 RacketPose and TrajPred are not implemented. Installation is intentionally gated behind stable BallTrack evaluation. No MMCV source compilation, WSL setup or advanced model download is performed until needed. The core desktop remains available when a vision module is absent.
 
@@ -56,7 +66,7 @@ Each run records source, video/checkpoint/GT hashes, pinned upstream commit, cur
 
 outputs/vision/<analysis_id> contains source.json, video_meta.json, quality.json, ball_track.json/csv, metrics.json, analysis.json, report.html, benchmark_report.html where applicable, ball_overlay.mp4 and logs. Full traceback stays in logs; Chinese UI shows a short failure and retains existing match functionality. One worker job at a time; no false percentage progress. Restart interrupts an active process; complete results remain on disk. CPU mode is explicit and may be slow.
 
-Baseline/regression policy must be derived from reproducible measured results. Do not call the first baseline PASS; do not declare BallTrack stable merely because inference completed. Pilot 1C remains REVISE/HOLD; Pilot 2 NOT STARTED. Kaikai Test 01 remains pending.
+Baseline/regression policy must be derived from reproducible measured results. Do not call the first baseline PASS; do not declare BallTrack stable merely because inference completed. Pilot 1C remains REVISE/HOLD; Pilot 2 NOT STARTED. Kaikai Test 01 remains pending. Native Windows GUI interaction remains `MANUAL_GUI_CHECK_REQUIRED`; this build's API health check is not manual GUI acceptance.
 
 ## Measured single-rally baseline (2026-10-05)
 

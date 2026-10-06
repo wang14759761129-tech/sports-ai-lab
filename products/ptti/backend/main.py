@@ -1,6 +1,8 @@
 import json
 import hashlib
+import mimetypes
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -16,6 +18,8 @@ from backend.repository import Repository
 from backend.database import ProductionDatabaseGuard, database_banner
 from core.importing import import_csv
 from backend.professional import GroupMembershipUpdate, ProfessionalMatchInput
+from backend.fullmatch import (SUPPORTED_VIDEO_SUFFIXES, file_sha256, scan_wtt_inbox,
+                               MatchTimeline, TimelineAction, apply_timeline_action)
 
 ROOT=Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parents[1]))
 
@@ -109,6 +113,11 @@ def create_app(db_path=None):
     app.state.database_path=resolved_db
     mode='test' if 'pytest' in sys.modules or os.environ.get('PTTI_ENV')=='test' else os.environ.get('PTTI_ENV','development')
     repo=Repository(resolved_db,guard=ProductionDatabaseGuard(mode))
+    app.state.repository=repo
+    app.state.data_root=Path(resolved_db).parent
+    wtt_inbox=app.state.data_root/'inbox'/'wtt'
+    wtt_inbox.mkdir(parents=True,exist_ok=True)
+    inbox_scan_cache={}
     from backend.vision_api import router as vision_router
     app.include_router(vision_router(repo=repo,data_root=Path(resolved_db).parent))
     professional_manifest=ROOT/'data'/'professional'/'registry.json'
@@ -125,7 +134,11 @@ def create_app(db_path=None):
     def professional_match_view(record):
         if not record:return None
         a=repo.get_athlete(record['player_a_id']);b=repo.get_athlete(record['player_b_id'])
-        return {**record,'players':{'player_a':a,'player_b':b},'sources':repo.get_sources(record.get('source_ids',[]))}
+        full_job=repo.get_full_match_job(record['match_id'])
+        if full_job and full_job.get('status')=='BALLTRACK_COMPLETE':
+            record={**record,'analysis_status':'BALLTRACK_COMPLETE'}
+        return {**record,'players':{'player_a':a,'player_b':b},'sources':repo.get_sources(record.get('source_ids',[])),
+                'full_match_analysis':full_job}
     def import_data(raw,meta,save=True):
         rows,report,provenance=import_csv(raw)
         report['evidence_state']='AVAILABLE' if report['valid'] else 'INVALID_DATA'
@@ -174,6 +187,185 @@ def create_app(db_path=None):
     def professional_matches(athlete_id:str|None=None):
         if athlete_id and not repo.get_athlete(athlete_id):raise HTTPException(404,'Athlete not found')
         return [professional_match_view(m) for m in repo.professional_matches(athlete_id)]
+    @app.get('/api/professional-matches/inbox')
+    def professional_video_inbox():
+        registered={m.get('video_metadata',{}).get('sha256') for m in repo.professional_matches()}
+        athletes=[repo.get_athlete(item['athlete_id']) for item in repo.list_athletes()]
+        # Only this explicit application inbox is scanned. Downloads are available via
+        # the file-picker upload below; no directory-wide scan is performed.
+        items=[]
+        for path in sorted(wtt_inbox.iterdir(),key=lambda item:item.name.casefold()):
+            if not path.is_file() or path.suffix.casefold() not in SUPPORTED_VIDEO_SUFFIXES:continue
+            stat=path.stat();signature=(stat.st_size,stat.st_mtime_ns)
+            cached=inbox_scan_cache.get(str(path.resolve()))
+            if cached and cached[0]==signature:
+                item=dict(cached[1])
+            else:
+                inspected=scan_wtt_inbox(wtt_inbox,registered,athletes,only_file=path)
+                item=inspected[0] if inspected else None
+                if item is None:continue
+                inbox_scan_cache[str(path.resolve())]=(signature,dict(item))
+            item['duplicate']=bool(item.get('sha256') in registered)
+            items.append(item)
+        return {'inbox_directory':str(wtt_inbox),'items':items}
+
+    @app.get('/api/professional-matches/{match_id}/video')
+    def professional_match_video(match_id:str):
+        record=repo.get_professional_match(match_id)
+        if not record:raise HTTPException(404,'职业比赛记录不存在')
+        if record.get('video_source_type') not in {'LICENSED_WTT_LOCAL','LOCAL_USER_VIDEO','RESEARCH_DATASET'} or record.get('rights_status') not in {'LICENSED_FOR_ANALYSIS','USER_AUTHORIZED','RESEARCH_DATASET_AUTHORIZED'}:
+            raise HTTPException(403,'此比赛没有已授权的本机视频')
+        path=Path(record.get('video_local_path') or '')
+        if not path.is_file():raise HTTPException(404,'登记的视频文件当前不可用')
+        return FileResponse(path,media_type=mimetypes.guess_type(path.name)[0] or 'application/octet-stream',filename=record.get('video_original_filename') or path.name)
+
+    @app.get('/api/professional-matches/{match_id}/timeline')
+    def professional_match_timeline(match_id:str):
+        if not repo.get_professional_match(match_id):raise HTTPException(404,'职业比赛记录不存在')
+        value=repo.get_match_timeline(match_id) or {'match_id':match_id,'revision':0,'games':[],'scene_segments':[]}
+        return MatchTimeline.model_validate(value).model_dump(mode='json')
+
+    @app.get('/api/professional-matches/{match_id}/scoreboard-recognizer')
+    def scoreboard_recognizer_status(match_id:str):
+        if not repo.get_professional_match(match_id):raise HTTPException(404,'职业比赛记录不存在')
+        return {'status':'EXPERIMENTAL','enabled':False,'score':None,
+                'fallback':'MANUAL_SCORE_ENTRY','message':'当前不依赖记分牌 OCR；请人工录入并核对比分。'}
+
+    @app.put('/api/professional-matches/{match_id}/timeline')
+    def replace_professional_match_timeline(match_id:str,value:MatchTimeline,expected_revision:int|None=None):
+        if not repo.get_professional_match(match_id):raise HTTPException(404,'职业比赛记录不存在')
+        if value.match_id!=match_id:raise HTTPException(422,'时间轴比赛标识不匹配')
+        try:
+            saved=repo.save_match_timeline(match_id,value.model_dump(mode='json',exclude={'revision'}),expected_revision)
+            from backend.full_match_pipeline import refresh_timeline_summary
+            refresh_timeline_summary(repo,match_id,saved)
+            return saved
+        except ValueError as exc:raise HTTPException(409,str(exc)) from exc
+
+    @app.post('/api/professional-matches/{match_id}/timeline/actions')
+    def professional_timeline_action(match_id:str,value:TimelineAction,expected_revision:int|None=None):
+        if not repo.get_professional_match(match_id):raise HTTPException(404,'职业比赛记录不存在')
+        for athlete_id in (value.scorer_id,value.server_id,value.receiver_id):
+            if athlete_id is not None and not repo.get_athlete(athlete_id):
+                raise HTTPException(422,'得分方、发球方或接发方必须使用运动员名录中的 ID')
+        existing=repo.get_match_timeline(match_id) or {'match_id':match_id,'revision':0,'games':[],'scene_segments':[]}
+        if expected_revision is not None and expected_revision!=existing['revision']:
+            raise HTTPException(409,f"Timeline revision conflict: expected {expected_revision}, current {existing['revision']}")
+        try:
+            updated=apply_timeline_action(existing,value)
+            saved=repo.save_match_timeline(match_id,updated,existing['revision'])
+            from backend.full_match_pipeline import refresh_timeline_summary
+            refresh_timeline_summary(repo,match_id,saved)
+            return saved
+        except ValueError as exc:raise HTTPException(422,str(exc)) from exc
+
+    @app.get('/api/professional-matches/{match_id}/full-match/asset/{asset}')
+    def professional_full_match_asset(match_id:str,asset:str):
+        if asset not in {'full_match_balltrack.csv','full_match_summary.json','full_match_report.html','manifest.json','match_timeline.json'}:
+            raise HTTPException(404,'分析文件不存在')
+        job=repo.get_full_match_job(match_id)
+        if not job or not job.get('output_dir'):raise HTTPException(404,'全场分析文件尚未生成')
+        path=Path(job['output_dir'])/asset
+        if not path.is_file():raise HTTPException(404,'分析文件尚未生成')
+        return FileResponse(path,filename=asset)
+
+    @app.post('/api/professional-matches/inbox/import',status_code=201)
+    async def import_wtt_video(metadata:str=Form(...),rights_confirmed:bool=Form(False),
+                               video_source_note:str=Form(...),inbox_id:str|None=Form(None),
+                               file:UploadFile|None=File(None)):
+        if not rights_confirmed:raise HTTPException(422,'请确认已通过 WTT 官方流程取得本机分析授权')
+        note=video_source_note.strip()
+        if not note or len(note)>1000:raise HTTPException(422,'请填写不超过 1000 字的视频授权来源说明')
+        try:
+            values=json.loads(metadata)
+            if not isinstance(values,dict):raise ValueError('比赛资料格式无效')
+            values['video_source_type']='LICENSED_WTT_LOCAL'
+            values['rights_status']='LICENSED_FOR_ANALYSIS'
+            if not values.get('licence_reference'):raise ValueError('请填写 WTT 授权编号或许可记录')
+            if not values.get('wtt_asset_id'):raise ValueError('请填写 WTT Asset / Record ID')
+            if not values.get('external_reference_url'):raise ValueError('请填写 WTT 官方比赛或媒体来源链接')
+            if file is not None:
+                suffix=Path(file.filename or '').suffix.casefold()
+                if suffix not in SUPPORTED_VIDEO_SUFFIXES:raise ValueError('请选择 MP4、MOV、MKV 或 AVI 视频')
+                temp_path=wtt_inbox/(str(uuid.uuid4())+suffix)
+                size=0
+                try:
+                    with temp_path.open('xb') as output:
+                        while block:=await file.read(8*1024*1024):
+                            size+=len(block)
+                            if size>64*1024**3:raise HTTPException(413,'视频超过 64 GiB，未登记比赛')
+                            output.write(block)
+                except Exception:
+                    temp_path.unlink(missing_ok=True)
+                    raise
+                digest=file_sha256(temp_path)
+                destination=wtt_inbox/(digest+suffix)
+                if destination.exists():temp_path.unlink()
+                else:temp_path.replace(destination)
+                video_path=destination
+                original_name=Path(values.get('original_filename') or file.filename or '').name
+            else:
+                if not inbox_id or not re.fullmatch(r'[a-f0-9]{64}',inbox_id):
+                    raise ValueError('请选择 WTT Inbox 中的视频文件')
+                candidates=[p for p in wtt_inbox.iterdir() if p.is_file() and p.suffix.casefold() in SUPPORTED_VIDEO_SUFFIXES]
+                video_path=next((p for p in candidates if file_sha256(p)==inbox_id),None)
+                if video_path is None:raise HTTPException(404,'Inbox 视频已移动或发生变化，请重新扫描')
+                if video_path.is_symlink() or video_path.resolve().parent!=wtt_inbox.resolve():
+                    raise HTTPException(403,'Inbox 文件路径不安全')
+                digest=inbox_id;size=video_path.stat().st_size;original_name=Path(values.get('original_filename') or video_path.name).name
+            for previous in repo.professional_matches():
+                if previous.get('video_metadata',{}).get('sha256')==digest:
+                    raise HTTPException(409,'这段视频已登记，不能重复导入')
+            from vision.quality import video_metadata,classify
+            media=video_metadata(video_path)
+            values.update(video_local_path=str(video_path),external_reference_url=values.get('external_reference_url'))
+            record=ProfessionalMatchInput.model_validate(values).to_record()
+            record.update(analysis_status='VIDEO_READY',video_source_note=note,
+                          video_original_filename=original_name,
+                          video_metadata={**media,'size_bytes':size,'sha256':digest,'quality':classify(media)})
+            saved=repo.save_professional_match(record)
+            return {**professional_match_view(saved),'quality':classify(media)}
+        except HTTPException:raise
+        except subprocess.CalledProcessError as exc:raise HTTPException(422,'视频无法读取，请确认本机文件完整') from exc
+        except (ValueError,OSError) as exc:raise HTTPException(422,str(exc)) from exc
+        finally:
+            if file is not None:await file.close()
+
+    @app.post('/api/professional-matches/inbox/stage')
+    async def stage_wtt_video(file:UploadFile=File(...),rights_confirmed:bool=Form(False),
+                              video_source_note:str=Form(...)):
+        """Copy one explicitly selected, authorized local file into the review inbox."""
+        if not rights_confirmed:raise HTTPException(422,'请先确认该文件允许本机分析')
+        note=video_source_note.strip()
+        if not note or len(note)>1000:raise HTTPException(422,'请填写授权与来源说明')
+        suffix=Path(file.filename or '').suffix.casefold()
+        if suffix not in SUPPORTED_VIDEO_SUFFIXES:raise HTTPException(422,'请选择 MP4、MOV、MKV 或 AVI 视频')
+        temporary=wtt_inbox/(str(uuid.uuid4())+suffix)
+        try:
+            size=0
+            with temporary.open('xb') as output:
+                while block:=await file.read(8*1024*1024):
+                    size+=len(block)
+                    if size>64*1024**3:raise HTTPException(413,'视频超过 64 GiB')
+                    output.write(block)
+            digest=file_sha256(temporary)
+            original=Path(file.filename or '').name
+            safe_name=re.sub(r'[<>:"/\\|?*\x00-\x1f]','_',original)[:120] or ('video'+suffix)
+            destination=wtt_inbox/(digest[:12]+'_'+safe_name)
+            if destination.exists():temporary.unlink()
+            else:temporary.replace(destination)
+            item=next((value for value in scan_wtt_inbox(wtt_inbox,athletes=[repo.get_athlete(x['athlete_id']) for x in repo.list_athletes()],only_file=destination)),None)
+            if not item:raise HTTPException(422,'所选文件无法读取')
+            item['original_filename']=original
+            return item
+        except HTTPException:
+            temporary.unlink(missing_ok=True)
+            raise
+        except (subprocess.CalledProcessError,ValueError,OSError) as exc:
+            temporary.unlink(missing_ok=True)
+            raise HTTPException(422,'视频无法读取，请确认本机文件完整') from exc
+        finally:
+            await file.close()
     @app.post('/api/professional-matches',status_code=201)
     def create_professional_match(value:ProfessionalMatchInput):
         try:record=repo.save_professional_match(value.to_record())

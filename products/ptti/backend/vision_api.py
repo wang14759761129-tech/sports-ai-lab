@@ -10,6 +10,8 @@ from vision.service import VisionService, DatasetManager
 from vision.config import VisionConfig
 from vision.schema import Source
 from vision.doctor import doctor
+from backend.full_match_pipeline import FullMatchService
+from backend.fullmatch import quality_report, DEFAULT_CHUNK_SECONDS
 
 class BenchmarkRequest(BaseModel):
     device: str = 'cuda'
@@ -24,6 +26,37 @@ def router(repo=None, data_root=None):
         (vision_root/'user_uploads').mkdir(parents=True,exist_ok=True)
     service = VisionService(config)
     linked_jobs={}
+    full_match_service=FullMatchService(repo,data_root,config) if repo is not None and data_root is not None else None
+
+    @api.get('/professional-matches/{match_id}/full-match')
+    def full_match_status(match_id:str):
+        if repo is None:raise HTTPException(503,'职业比赛服务不可用')
+        if not repo.get_professional_match(match_id):raise HTTPException(404,'职业比赛记录不存在')
+        return repo.get_full_match_job(match_id) or {'match_id':match_id,'status':'NOT_STARTED','stage':'等待开始'}
+
+    @api.get('/professional-matches/{match_id}/full-match/quality')
+    def full_match_quality(match_id:str,device:str='cuda'):
+        if repo is None:raise HTTPException(503,'职业比赛服务不可用')
+        record=repo.get_professional_match(match_id)
+        if not record:raise HTTPException(404,'职业比赛记录不存在')
+        if record.get('video_source_type') not in {'LICENSED_WTT_LOCAL','LOCAL_USER_VIDEO','RESEARCH_DATASET'} or record.get('rights_status') not in {'LICENSED_FOR_ANALYSIS','USER_AUTHORIZED','RESEARCH_DATASET_AUTHORIZED'}:
+            raise HTTPException(403,'此比赛没有已授权的本机视频')
+        metadata=record.get('video_metadata') or {}
+        try:
+            report=quality_report(metadata,int(metadata.get('size_bytes',0)),device,DEFAULT_CHUNK_SECONDS)
+            report['input_file_present']=Path(record.get('video_local_path') or '').is_file()
+            report['frozen_checkpoint_present']=bool(full_match_service and full_match_service.config.model_root.joinpath('balltrack_best.pth').is_file())
+            return report
+        except (KeyError,TypeError,ValueError) as exc:
+            raise HTTPException(422,'视频媒体属性不完整，请重新登记本机视频') from exc
+
+    @api.post('/professional-matches/{match_id}/full-match')
+    def start_full_match(match_id:str,device:str='cuda',resume:bool=False):
+        if full_match_service is None:raise HTTPException(503,'全场分析服务不可用')
+        record=repo.get_professional_match(match_id)
+        if not record:raise HTTPException(404,'职业比赛记录不存在')
+        try:return full_match_service.start(match_id,device,resume)
+        except ValueError as exc:raise HTTPException(422,str(exc)) from exc
 
     def persist_job(match_id, clip, note, job, clip_filename=None):
         if repo is None:return

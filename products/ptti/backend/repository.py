@@ -36,6 +36,8 @@ class Repository:
             db.execute('CREATE TABLE IF NOT EXISTS professional_match_revisions (match_id TEXT NOT NULL REFERENCES professional_matches(match_id), revision_no INTEGER NOT NULL, payload TEXT NOT NULL, created_at TEXT NOT NULL, PRIMARY KEY(match_id,revision_no))')
             db.execute('CREATE TABLE IF NOT EXISTS professional_match_revision_sources (match_id TEXT NOT NULL, revision_no INTEGER NOT NULL, source_id TEXT NOT NULL REFERENCES professional_sources(source_id), PRIMARY KEY(match_id,revision_no,source_id), FOREIGN KEY(match_id,revision_no) REFERENCES professional_match_revisions(match_id,revision_no))')
             db.execute('CREATE TABLE IF NOT EXISTS professional_seed_versions (version TEXT PRIMARY KEY, applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)')
+            db.execute('CREATE TABLE IF NOT EXISTS full_match_jobs (match_id TEXT PRIMARY KEY REFERENCES professional_matches(match_id), payload TEXT NOT NULL)')
+            db.execute('CREATE TABLE IF NOT EXISTS match_timelines (match_id TEXT PRIMARY KEY REFERENCES professional_matches(match_id), revision INTEGER NOT NULL, payload TEXT NOT NULL)')
 
     def seed_professional(self,manifest):
         """Apply each shipped seed version once; later edits survive app restarts."""
@@ -247,6 +249,39 @@ class Repository:
             db.execute('UPDATE professional_matches SET payload=? WHERE match_id=?',
                        (json.dumps(record,ensure_ascii=False),match_id))
             return record
+
+    def get_full_match_job(self,match_id):
+        with self.connect() as db:
+            row=db.execute('SELECT payload FROM full_match_jobs WHERE match_id=?',(match_id,)).fetchone()
+        return json.loads(row[0]) if row else None
+
+    def save_full_match_job(self,match_id,payload):
+        with self.connect() as db:
+            if not db.execute('SELECT 1 FROM professional_matches WHERE match_id=?',(match_id,)).fetchone():
+                raise ValueError('Professional match does not exist')
+            db.execute('INSERT INTO full_match_jobs(match_id,payload) VALUES (?,?) ON CONFLICT(match_id) DO UPDATE SET payload=excluded.payload',
+                       (match_id,json.dumps(payload,ensure_ascii=False)))
+
+    def get_match_timeline(self,match_id):
+        with self.connect() as db:
+            row=db.execute('SELECT revision,payload FROM match_timelines WHERE match_id=?',(match_id,)).fetchone()
+        if not row:return None
+        payload=json.loads(row[1]);payload['revision']=row[0];return payload
+
+    def save_match_timeline(self,match_id,payload,expected_revision=None):
+        with self.connect() as db:
+            if not db.execute('SELECT 1 FROM professional_matches WHERE match_id=?',(match_id,)).fetchone():
+                raise ValueError('Professional match does not exist')
+            row=db.execute('SELECT revision FROM match_timelines WHERE match_id=?',(match_id,)).fetchone()
+            current=row[0] if row else 0
+            if expected_revision is not None and expected_revision!=current:
+                raise ValueError(f'Timeline revision conflict: expected {expected_revision}, current {current}')
+            revision=current+1
+            payload=dict(payload);payload['match_id']=match_id;payload['revision']=revision
+            db.execute('INSERT INTO match_timelines(match_id,revision,payload) VALUES (?,?,?) ON CONFLICT(match_id) DO UPDATE SET revision=excluded.revision,payload=excluded.payload',
+                       (match_id,revision,json.dumps(payload,ensure_ascii=False)))
+        payload['revision']=revision
+        return payload
 
     def save_professional_match(self,record):
         with self.connect() as db:
