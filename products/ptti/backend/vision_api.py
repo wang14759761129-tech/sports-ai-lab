@@ -19,6 +19,9 @@ from backend.scene_bootstrap import (REVIEW_ROLES, apply_review, frame_review_pr
 from backend.hybrid_scene import SCOREBOARD_MODULE
 from backend.person_scene import scene_snapshot, record_review, scene_asset
 from backend.fullmatch import quality_report, DEFAULT_CHUNK_SECONDS
+from backend.sam2_player_tracking import (player_tracking_frame_asset, player_tracking_root,
+                                          player_tracking_snapshot, player_tracking_video_asset,
+                                          record_player_tracking_review)
 
 class BenchmarkRequest(BaseModel):
     device: str = 'cuda'
@@ -33,6 +36,10 @@ class PersonSceneReviewRequest(BaseModel):
     action: str
     candidate_id: str | None = None
     role: str | None = None
+
+class PlayerTrackingReviewRequest(BaseModel):
+    action: str
+    note: str = ''
 
 def router(repo=None, data_root=None):
     api = APIRouter(prefix='/api/vision')
@@ -52,6 +59,10 @@ def router(repo=None, data_root=None):
         import os
         local=Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local')).resolve()
         return local/'PTTI-Dev'/'vision-v2'/'scene-bootstrap'
+
+    def sam2_player_tracking_root():
+        # Player-tracking research outputs are isolated from every SQLite root.
+        return player_tracking_root(os.environ.get('LOCALAPPDATA'))
 
     def person_review_path():
         if os.environ.get('PTTI_ENV')=='test' and data_root is not None:
@@ -81,6 +92,42 @@ def router(repo=None, data_root=None):
                                  source='QA_UI' if os.environ.get('PTTI_ENV')=='test' else 'USER_UI')
         except KeyError as exc:raise HTTPException(404,'样本帧或检测框不存在') from exc
         except (OSError, ValueError, TypeError) as exc:raise HTTPException(422,'请选择有效操作，或检查研究结果配置。') from exc
+
+    @api.get('/v2/player-tracking')
+    def sam2_player_tracking():
+        try:
+            return player_tracking_snapshot(sam2_player_tracking_root())
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            raise HTTPException(409, '球员追踪结果无法通过来源与时间轴校验。') from exc
+
+    @api.get('/v2/player-tracking/assets/{asset_name}')
+    def sam2_player_tracking_asset(asset_name: str):
+        try:
+            path = player_tracking_video_asset(sam2_player_tracking_root(), asset_name)
+        except ValueError as exc:
+            raise HTTPException(404, '追踪预览不存在。') from exc
+        if not path.is_file():
+            raise HTTPException(404, '追踪预览不存在。')
+        return FileResponse(path, media_type='video/mp4')
+
+    @api.get('/v2/player-tracking/frames/{frame}/{view}')
+    def sam2_player_tracking_frame(frame: int, view: str):
+        try:
+            path = player_tracking_frame_asset(sam2_player_tracking_root(), frame, view)
+        except ValueError as exc:
+            raise HTTPException(404, '追踪帧不存在。') from exc
+        if not path.is_file():
+            raise HTTPException(404, '追踪帧不存在。')
+        return FileResponse(path, media_type='image/jpeg')
+
+    @api.post('/v2/player-tracking/reviews')
+    def sam2_player_tracking_review(value: PlayerTrackingReviewRequest):
+        try:
+            return record_player_tracking_review(sam2_player_tracking_root(), **value.model_dump())
+        except ValueError as exc:
+            raise HTTPException(422, '请选择有效复核操作。') from exc
+        except (OSError, KeyError, TypeError) as exc:
+            raise HTTPException(409, '追踪结果不可用，复核没有保存。') from exc
 
     @api.get('/v2/scene-bootstrap')
     def scene_bootstrap_results():
@@ -348,6 +395,10 @@ def router(repo=None, data_root=None):
         scene_result=scene_root/'scene_bootstrap.json'
         scene_runtime=Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2'/'venv'/'Scripts'/'python.exe'
         scene_weights=Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2'/'models'/'grounding-dino-base'/'model.safetensors'
+        sam2_root=Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2-sam2'
+        sam2_runtime=sam2_root/'venv'/'Scripts'/'python.exe'
+        sam2_checkpoint=sam2_root/'checkpoints'/'sam2.1_hiera_small.pt'
+        sam2_result=sam2_player_tracking_root()/'tracking.json'
         scene_integrated=scene_result.is_file()
         scene_manifest=scene_root/'scene_bootstrap_eval_manifest.json'
         scene_dependencies=scene_runtime.is_file()
@@ -366,7 +417,10 @@ def router(repo=None, data_root=None):
                  (Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2-openmmlab'/'configs'/'rtmdet_tiny_8xb32-300e_coco.py').is_file()),
                 integrated=False),
             'scoreboard-module':ModuleAvailability(False,False,integrated=False),
-            'video-segmenter':ModuleAvailability(installed.get('sam2',False),False),
+            'video-segmenter':ModuleAvailability(
+                sam2_runtime.is_file(),
+                sam2_checkpoint.is_file() and sam2_checkpoint.stat().st_size==184416285,
+                integrated=sam2_result.is_file()),
             'player-pose':ModuleAvailability(installed.get('mmpose',False) and installed.get('mmcv',False),False),
             'scoreboard-ocr':ModuleAvailability(installed.get('paddleocr',False) and installed.get('paddle',False),False),
             'scene-classifier':ModuleAvailability(installed.get('mmaction',False),False),
