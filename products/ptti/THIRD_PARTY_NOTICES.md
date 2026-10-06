@@ -33,3 +33,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Extended OpenTTGames
+
+- Repository: https://github.com/moamal01/table_tennis_data
+- Pinned revision used for this research adapter: `36471a76b969a0340df59258a813bf8214e68e7c`
+- License: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0).
+- Purpose: non-commercial research and evaluation of match-structure/event annotations.
+- Dataset fields are used only in explicitly labeled research runs; the dataset is not included in product installers, portable builds, commercial assets, or Git.
+- Attribution and license terms must accompany any permitted redistribution or adaptation. Do not use this material for commercial purposes.
+- Staged local files are kept under `%LOCALAPPDATA%\PTTI-Dev\research-datasets\ExtendedOpenTTGames`; no video or annotation file is tracked by this repository.
+- Dataset metadata declares `commercial_use: false`.

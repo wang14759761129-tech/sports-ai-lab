@@ -28,6 +28,39 @@ def router(repo=None, data_root=None):
     linked_jobs={}
     full_match_service=FullMatchService(repo,data_root,config) if repo is not None and data_root is not None else None
 
+    @api.get('/research-datasets/extended-openttgames')
+    def extended_openttgames_status():
+        """Show locally staged research-only assets; never fetch or expose test data."""
+        if data_root is None:
+            raise HTTPException(503, 'Research dataset storage is unavailable')
+        root=Path(data_root)/'research-datasets'/'ExtendedOpenTTGames'
+        game_dir=root/'annotations'/'train'/'game_data'
+        ball_dir=root/'annotations'/'train'/'ball_data'
+        video_dir=root/'videos'/'train'
+        expected_sizes={"game_1":5572649632,"game_2":10833064677,"game_3":4637044123,
+                        "game_4":3947371986,"game_5":4493632417}
+        videos=[]
+        for index in range(1,6):
+            identifier=f'game_{index}';path=video_dir/f'{identifier}.mp4'
+            size=path.stat().st_size if path.is_file() else None
+            expected=expected_sizes[identifier]
+            status='MISSING' if size is None else ('READY' if size==expected else ('PARTIAL' if size<expected else 'SIZE_MISMATCH'))
+            videos.append({'id':identifier,'split':'training','status':status,
+                           'size_bytes':size,'expected_size_bytes':expected})
+        annotations=[]
+        for index in range(1,6):
+            game=game_dir/f'game_{index}.json'; ball=ball_dir/f'train_{index}.json'
+            annotations.append({'id':f'game_{index}','split':'training',
+                                'game_events':'READY' if game.is_file() else 'MISSING',
+                                'ball_ground_truth':'READY' if ball.is_file() else 'MISSING'})
+        return {'dataset':'Extended OpenTTGames','repository':'https://github.com/moamal01/table_tennis_data',
+                'revision':'36471a76b969a0340df59258a813bf8214e68e7c','license':'CC BY-NC-SA 4.0',
+                'usage':'Research / Non-commercial','commercial_use':False,
+                'annotations_status':'READY' if all(x['game_events']=='READY' and x['ball_ground_truth']=='READY' for x in annotations) else 'PARTIAL',
+                'training':{'annotations':annotations,'videos':videos},
+                'test_split':{'status':'LOCKED_NOT_ACCESSED','videos':7},
+                'storage_path':str(root) if root.exists() else None}
+
     @api.get('/professional-matches/{match_id}/full-match')
     def full_match_status(match_id:str):
         if repo is None:raise HTTPException(503,'职业比赛服务不可用')
