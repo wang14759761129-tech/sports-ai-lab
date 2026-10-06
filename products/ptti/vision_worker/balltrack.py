@@ -131,6 +131,10 @@ def main():
 
     print('STAGE Tracking ball (streaming decode)', flush=True)
     cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+    success, first = cap.read()
+    if not success or first is None:
+        cap.release()
+        raise RuntimeError('Could not restart video decoder at frame zero')
     history = deque(maxlen=tracker.seq_len)
     batch_data = []
     batch_indexes = []

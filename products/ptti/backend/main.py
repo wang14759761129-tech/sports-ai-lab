@@ -261,7 +261,9 @@ def create_app(db_path=None):
 
     @app.get('/api/professional-matches/{match_id}/full-match/asset/{asset}')
     def professional_full_match_asset(match_id:str,asset:str):
-        if asset not in {'full_match_balltrack.csv','full_match_summary.json','full_match_report.html','manifest.json','match_timeline.json'}:
+        if asset not in {'full_match_balltrack.csv','full_match_balltrack.jsonl','full_match_summary.json',
+                         'full_match_report.html','full_match_validation.json','full_match_validation.html',
+                         'manifest.json','match_timeline.json'}:
             raise HTTPException(404,'分析文件不存在')
         job=repo.get_full_match_job(match_id)
         if not job or not job.get('output_dir'):raise HTTPException(404,'全场分析文件尚未生成')
@@ -322,7 +324,7 @@ def create_app(db_path=None):
             record=ProfessionalMatchInput.model_validate(values).to_record()
             record.update(analysis_status='VIDEO_READY',video_source_note=note,
                           video_original_filename=original_name,
-                          video_metadata={**media,'size_bytes':size,'sha256':digest,'quality':classify(media)})
+                          video_metadata={**media,'size_bytes':size,'mtime_ns':video_path.stat().st_mtime_ns,'sha256':digest,'quality':classify(media)})
             saved=repo.save_professional_match(record)
             return {**professional_match_view(saved),'quality':classify(media)}
         except HTTPException:raise
@@ -407,7 +409,7 @@ def create_app(db_path=None):
                 record['analysis_status']='VIDEO_READY'
                 record['video_source_note']=source_note
                 record['video_original_filename']=Path(file.filename or '').name
-                record['video_metadata']={**media,'size_bytes':total,'sha256':digest.hexdigest(),'quality':quality}
+                record['video_metadata']={**media,'size_bytes':total,'mtime_ns':destination.stat().st_mtime_ns,'sha256':digest.hexdigest(),'quality':quality}
                 try:record=repo.save_professional_match(record)
                 except ValueError as exc:raise HTTPException(422,str(exc)) from exc
                 return {**professional_match_view(record),'quality':quality}

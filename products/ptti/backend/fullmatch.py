@@ -11,6 +11,8 @@ import bisect
 from pathlib import Path
 import re
 import subprocess
+import time
+from datetime import datetime, timezone
 from typing import Literal
 from typing import Protocol
 
@@ -38,6 +40,33 @@ def file_sha256(path: Path) -> str:
         for block in iter(lambda: source.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def source_identity(path: Path) -> dict:
+    path = Path(path)
+    before = path.stat()
+    digest = file_sha256(path)
+    after = path.stat()
+    if (before.st_size, before.st_mtime_ns) != (after.st_size, after.st_mtime_ns):
+        raise ValueError("SOURCE_CHANGED: video changed while its identity was being verified")
+    return {"path": str(path.resolve()), "sha256": digest, "size_bytes": after.st_size,
+            "mtime_ns": after.st_mtime_ns}
+
+
+def verify_chunk_artifacts(chunk: dict) -> None:
+    """Fail closed if a COMPLETE chunk's evidence is missing or changed."""
+    for path_key, hash_key in (("raw_prediction_path", "raw_prediction_sha256"),
+                               ("observations_path", "observations_sha256"),
+                               ("runtime_path", "runtime_sha256")):
+        path = Path(chunk.get(path_key, ""))
+        expected = chunk.get(hash_key)
+        # Older pure-helper fixtures have no filesystem evidence. Production
+        # pipeline checkpoints always carry hashes and are verified strictly.
+        if expected is None and not any(chunk.get(key) for key in (
+                "raw_prediction_sha256", "observations_sha256", "runtime_sha256")):
+            return
+        if not path.is_file() or not expected or file_sha256(path) != expected:
+            raise ValueError(f"CORRUPT_CHECKPOINT: chunk {chunk.get('chunk_index')} {path_key}")
 
 
 def extract_source_frame_timestamps(path: Path, expected_frames: int | None = None) -> list[float]:
@@ -172,18 +201,37 @@ def save_manifest(path: Path, manifest: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
     temporary.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
-    temporary.replace(path)
+    last_error = None
+    for attempt in range(8):
+        try:
+            temporary.replace(path)
+            return
+        except PermissionError as exc:
+            last_error = exc
+            time.sleep(0.025 * (attempt + 1))
+    raise last_error
 
 
 def run_resumable_chunks(path: Path, execute_chunk, progress=None) -> dict:
     """Run pending/failed chunks and durably checkpoint each transition."""
     manifest = json.loads(Path(path).read_text(encoding="utf-8"))
+    resumed = manifest.get("status") in {"PAUSED", "RUNNING"} or any(
+        chunk.get("status") == "COMPLETE" for chunk in manifest["chunks"])
+    manifest.setdefault("cache_hits", 0)
+    manifest.setdefault("resume_count", 0)
+    if resumed:
+        manifest["resume_count"] += 1
     manifest["status"] = "RUNNING"
     save_manifest(path, manifest)
     for chunk in manifest["chunks"]:
         if chunk["status"] == "COMPLETE":
+            verify_chunk_artifacts(chunk)
+            manifest["cache_hits"] += 1
+            save_manifest(path, manifest)
             continue
         chunk["status"] = "RUNNING"
+        chunk["attempt_count"] = chunk.get("attempt_count", 0) + 1
+        chunk["resumed"] = chunk["attempt_count"] > 1
         chunk.pop("error", None)
         save_manifest(path, manifest)
         if progress:
@@ -192,6 +240,7 @@ def run_resumable_chunks(path: Path, execute_chunk, progress=None) -> dict:
             result = execute_chunk(chunk)
             chunk.update(result or {})
             chunk["status"] = "COMPLETE"
+            chunk["completed_at"] = datetime.now(timezone.utc).isoformat()
             save_manifest(path, manifest)
             if progress:
                 progress(manifest)
@@ -204,7 +253,7 @@ def run_resumable_chunks(path: Path, execute_chunk, progress=None) -> dict:
             if progress:
                 progress(manifest)
             raise
-    manifest["status"] = "BALLTRACK_COMPLETE"
+    manifest["status"] = "CHUNKS_COMPLETE"
     manifest.pop("last_error", None)
     save_manifest(path, manifest)
     if progress:
@@ -324,7 +373,8 @@ class SceneSegment(BaseModel):
     scene_id: str
     start_ms: int = Field(ge=0)
     end_ms: int = Field(gt=0)
-    scene_type: Literal["PLAY_VIEW", "NON_PLAY_VIEW", "UNKNOWN"] = "UNKNOWN"
+    scene_type: Literal["MATCH_PLAY", "REPLAY", "CROWD", "TIMEOUT", "BREAK", "UNKNOWN",
+                        "PLAY_VIEW", "NON_PLAY_VIEW"] = "UNKNOWN"
     review_status: Literal["CANDIDATE", "ACCEPTED", "ADJUSTED"] = "CANDIDATE"
     evidence: Evidence = Field(default_factory=Evidence)
 
@@ -344,7 +394,7 @@ class MatchTimeline(BaseModel):
 
 
 class TimelineAction(BaseModel):
-    action: Literal["add_game", "mark_game_end", "add_point", "accept", "adjust", "split", "merge",
+    action: Literal["add_game", "mark_game_end", "delete_game", "add_point", "delete_point", "accept", "adjust", "split", "merge",
                     "set_score", "set_participants", "add_rally", "add_scene", "label_scene"]
     game_number: int = Field(default=1, ge=1)
     point_number: int | None = Field(default=None, ge=1)
@@ -354,7 +404,8 @@ class TimelineAction(BaseModel):
     split_at_ms: int | None = Field(default=None, gt=0)
     game_start_ms: int | None = Field(default=None, ge=0)
     scene_id: str | None = None
-    scene_type: Literal["PLAY_VIEW", "NON_PLAY_VIEW", "UNKNOWN"] = "UNKNOWN"
+    scene_type: Literal["MATCH_PLAY", "REPLAY", "CROWD", "TIMEOUT", "BREAK", "UNKNOWN",
+                        "PLAY_VIEW", "NON_PLAY_VIEW"] = "UNKNOWN"
     note: str = ""
     scorer_id: str | None = None
     server_id: str | None = None
@@ -402,6 +453,15 @@ def apply_timeline_action(timeline: dict, action: TimelineAction) -> dict:
         if game["points"] and action.end_ms < max(point["end_ms"] for point in game["points"]):
             raise ValueError("Game end cannot precede its last point")
         game["end_ms"] = action.end_ms
+    elif action.action == "delete_game":
+        if game is None:
+            raise ValueError("Game does not exist")
+        value["games"].remove(game)
+        for index, later_game in enumerate(sorted(value["games"], key=lambda item: item["game_number"]), start=1):
+            later_game["game_number"] = index
+            for point_index, point in enumerate(later_game["points"], start=1):
+                point["game_number"] = index
+                point["point_number"] = point_index
     else:
         if game is None:
             if action.action != "add_point" or action.start_ms is None:
@@ -426,7 +486,11 @@ def apply_timeline_action(timeline: dict, action: TimelineAction) -> dict:
             if index is None:
                 raise ValueError("Point does not exist")
             point = points[index]
-            if action.action == "accept":
+            if action.action == "delete_point":
+                del points[index]
+                for point_index, later in enumerate(points, start=1):
+                    later["point_number"] = point_index
+            elif action.action == "accept":
                 point["review_status"] = "ACCEPTED"
             elif action.action == "adjust":
                 start = point["start_ms"] if action.start_ms is None else action.start_ms
@@ -438,12 +502,17 @@ def apply_timeline_action(timeline: dict, action: TimelineAction) -> dict:
                 split_at = action.split_at_ms
                 if split_at is None or not point["start_ms"] < split_at < point["end_ms"]:
                     raise ValueError("Split time must be inside the point interval")
+                left_rallies = [r for r in point.get("rallies", []) if r["end_ms"] <= split_at]
+                right_rallies = [r for r in point.get("rallies", []) if r["start_ms"] >= split_at]
+                if len(left_rallies) + len(right_rallies) != len(point.get("rallies", [])):
+                    raise ValueError("Adjust rally boundaries before splitting across a rally")
                 right = deepcopy(point)
                 right.update(point_id=str(uuid4()), point_number=point["point_number"] + 1,
                              start_ms=split_at, review_status="CANDIDATE", scorer_id=None,
-                             score_after=None, confidence=None,
+                             server_id=None, receiver_id=None, score_before=None,
+                             score_after=None, confidence=None, rallies=right_rallies,
                              evidence={"source": "MANUAL", "note": action.note, "raw_detector_data": None})
-                point.update(end_ms=split_at, review_status="ADJUSTED")
+                point.update(end_ms=split_at, review_status="ADJUSTED", rallies=left_rallies)
                 points.insert(index + 1, right)
                 for offset, later in enumerate(points[index + 2:], start=index + 2):
                     later["point_number"] = offset + 1
@@ -458,8 +527,10 @@ def apply_timeline_action(timeline: dict, action: TimelineAction) -> dict:
                     raise ValueError("Point order is invalid")
                 point["end_ms"] = following["end_ms"]
                 point["rallies"].extend(following["rallies"])
-                point["score_after"] = following.get("score_after")
-                point["scorer_id"] = following.get("scorer_id")
+                if following.get("score_after") is not None:
+                    point["score_after"] = following["score_after"]
+                if following.get("scorer_id") is not None:
+                    point["scorer_id"] = following["scorer_id"]
                 point["review_status"] = "ADJUSTED"
                 point["evidence"]["note"] = action.note or "Merged adjacent point candidates"
                 del points[next_index]

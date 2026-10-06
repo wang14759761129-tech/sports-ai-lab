@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 
@@ -13,9 +14,13 @@ def main():
     args = parser.parse_args()
     import cv2
     import numpy as np
+    runtime = Path(args.runtime)
+    source = runtime / 'source' / 'BallTrack'
+    if not source.is_dir():
+        raise RuntimeError(f'Pinned RacketVision source is missing: {source}')
+    sys.path.insert(0, str(source))
     from mmengine.config import Config
 
-    runtime = Path(args.runtime)
     config = Config.fromfile(str(runtime / 'source/BallTrack/configs/tracknetv3_base.py'), lazy_import=False)
     cap = cv2.VideoCapture(args.video)
     if not cap.isOpened():

@@ -8,7 +8,7 @@ from fastapi.testclient import TestClient
 from backend.main import create_app
 from backend.fullmatch import (TimelineAction, apply_timeline_action, build_chunks,
                                cache_key, map_chunk_observation, merge_chunk_observations,
-                               run_resumable_chunks)
+                               run_resumable_chunks, source_identity, extract_source_frame_timestamps)
 from backend.full_match_pipeline import refresh_timeline_summary
 
 
@@ -68,7 +68,50 @@ def test_failed_chunk_resumes_at_first_incomplete_chunk(tmp_path):
     result = run_resumable_chunks(path, lambda chunk: resumed_calls.append(chunk["chunk_index"]) or {"observations": []})
     assert calls == [0, 1]
     assert resumed_calls == [1, 2]
-    assert result["status"] == "BALLTRACK_COMPLETE"
+    assert result["status"] == "CHUNKS_COMPLETE"
+    assert result["resume_count"] == 1
+    assert result["chunks"][1]["attempt_count"] == 2
+
+
+def test_complete_checkpoint_artifact_corruption_fails_closed(tmp_path):
+    raw = tmp_path / "raw.json"
+    raw.write_text("[]", encoding="utf-8")
+    path = tmp_path / "manifest.json"
+    path.write_text(json.dumps({"status": "PAUSED", "chunks": [{"chunk_index": 0,
+        "status": "COMPLETE", "raw_prediction_path": str(raw), "raw_prediction_sha256": "wrong"}]}), encoding="utf-8")
+    with pytest.raises(ValueError, match="CORRUPT_CHECKPOINT"):
+        run_resumable_chunks(path, lambda chunk: {})
+
+
+def test_source_identity_detects_mutation_and_move(tmp_path):
+    source = tmp_path / "source.mp4"
+    source.write_bytes(b"authorized qa input")
+    identity = source_identity(source)
+    source.write_bytes(b"changed authorized qa input")
+    changed = source_identity(source)
+    assert changed["sha256"] != identity["sha256"]
+    moved = tmp_path / "moved.mp4"
+    source.rename(moved)
+    with pytest.raises(FileNotFoundError):
+        source_identity(source)
+
+
+def test_vfr_fixture_uses_source_presentation_timestamps(tmp_path):
+    source = tmp_path / "variable-rate.mp4"
+    subprocess.run(["ffmpeg", "-nostdin", "-v", "error", "-f", "lavfi", "-i",
+        "testsrc2=size=320x240:rate=10:duration=2", "-vf",
+        "setpts=if(lt(N\\,10)\\,N\\,10+2*(N-10))", "-fps_mode", "vfr", "-an",
+        "-c:v", "libx264", "-preset", "ultrafast", "-y", str(source)], check=True)
+    from vision.quality import video_metadata
+    metadata = video_metadata(source)
+    timestamps = extract_source_frame_timestamps(source, metadata["frame_count"])
+    assert metadata["rate_variable"] is True
+    assert len(timestamps) == metadata["frame_count"] == 20
+    assert timestamps[-1] > 1000 / metadata["fps"] * (len(timestamps) - 1)
+    chunks = build_chunks(len(timestamps), metadata["fps"], 1, timestamps)
+    mapped = [map_chunk_observation(chunk, local, metadata["fps"], timestamps)
+              for chunk in chunks for local in range(chunk["expected_processed_frames"])]
+    assert all(a["global_frame"] < b["global_frame"] for a, b in zip(mapped, mapped[1:]))
 
 
 def test_manual_timeline_accept_adjust_split_merge_and_scene_labels():
@@ -91,6 +134,20 @@ def test_manual_timeline_accept_adjust_split_merge_and_scene_labels():
                                                         scene_type="PLAY_VIEW", note="Human reviewed"))
     assert value["scene_segments"][0]["scene_type"] == "PLAY_VIEW"
     assert value["games"][0]["points"][0]["scorer_id"] is None
+    value = apply_timeline_action(value, TimelineAction(action="delete_point", game_number=1, point_number=1))
+    assert value["games"][0]["points"] == []
+
+
+def test_manual_timeline_can_delete_game_and_accept_scene_taxonomy():
+    value = {"match_id": "m", "revision": 0, "games": [], "scene_segments": []}
+    value = apply_timeline_action(value, TimelineAction(action="add_game", game_number=1, game_start_ms=0))
+    value = apply_timeline_action(value, TimelineAction(action="delete_game", game_number=1))
+    assert value["games"] == []
+    value = apply_timeline_action(value, TimelineAction(action="add_scene", start_ms=0, end_ms=1000))
+    scene_id = value["scene_segments"][0]["scene_id"]
+    value = apply_timeline_action(value, TimelineAction(action="label_scene", scene_id=scene_id,
+                                                        scene_type="REPLAY"))
+    assert value["scene_segments"][0]["scene_type"] == "REPLAY"
 
 
 def test_timeline_adjust_rejects_non_positive_interval():
@@ -100,6 +157,18 @@ def test_timeline_adjust_rejects_non_positive_interval():
     with pytest.raises(ValueError, match="after start"):
         apply_timeline_action(value, TimelineAction(action="adjust", game_number=1,
                                                     point_number=1, start_ms=250, end_ms=200))
+
+
+def test_timeline_split_rejects_cutting_through_manual_rally():
+    value = {"match_id": "m", "revision": 0, "games": [], "scene_segments": []}
+    value = apply_timeline_action(value, TimelineAction(action="add_game", game_number=1, game_start_ms=0))
+    value = apply_timeline_action(value, TimelineAction(action="add_point", game_number=1,
+                                                        start_ms=1000, end_ms=5000))
+    value = apply_timeline_action(value, TimelineAction(action="add_rally", game_number=1,
+        point_number=1, rally_start_ms=1200, rally_end_ms=4800))
+    with pytest.raises(ValueError, match="Adjust rally boundaries"):
+        apply_timeline_action(value, TimelineAction(action="split", game_number=1,
+            point_number=1, split_at_ms=2500))
 
 
 def _video(path):

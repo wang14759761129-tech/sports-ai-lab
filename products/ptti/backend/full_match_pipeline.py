@@ -13,11 +13,12 @@ import tempfile
 from pathlib import Path
 import subprocess
 import threading
+import time
 from datetime import datetime, timezone
 
 from backend.fullmatch import (DEFAULT_CHUNK_SECONDS, PROCESSING_VERSION, build_chunks,
                                cache_key, file_sha256, map_chunk_observation,
-                               extract_source_frame_timestamps, quality_report,
+                               extract_source_frame_timestamps, quality_report, source_identity,
                                run_resumable_chunks, save_manifest)
 from vision.config import VisionConfig, RV_COMMIT
 from vision.quality import video_metadata, classify
@@ -54,7 +55,15 @@ class FullMatchService:
         if not checkpoint.is_file() or not self.config.worker_python.is_file():
             raise ValueError("Frozen BallTrack runtime/checkpoint is not installed")
         meta = video_metadata(video)
-        video_hash = file_sha256(video)
+        identity = source_identity(video)
+        registered = record.get("video_metadata", {})
+        if registered.get("sha256") and registered["sha256"] != identity["sha256"]:
+            raise ValueError("SOURCE_CHANGED: registered video SHA256 no longer matches")
+        if registered.get("size_bytes") is not None and registered["size_bytes"] != identity["size_bytes"]:
+            raise ValueError("SOURCE_CHANGED: registered video size no longer matches")
+        if registered.get("mtime_ns") is not None and registered["mtime_ns"] != identity["mtime_ns"]:
+            raise ValueError("SOURCE_CHANGED: registered video modification time no longer matches")
+        video_hash = identity["sha256"]
         checkpoint_hash = file_sha256(checkpoint)
         options = {"device": device, "chunk_seconds": self.chunk_seconds, "fps": meta["fps"],
                    "batchsize": 2, "rv_commit": RV_COMMIT, "normalization": "CFR per chunk",
@@ -64,7 +73,7 @@ class FullMatchService:
         match_folder = self.root / hashlib.sha256(record["match_id"].encode()).hexdigest()[:20]
         run_folder = match_folder / key
         manifest_path = run_folder / "manifest.json"
-        return {"video": video, "checkpoint": checkpoint, "metadata": meta,
+        return {"video": video, "source_identity": identity, "checkpoint": checkpoint, "metadata": meta,
                 "video_sha256": video_hash, "checkpoint_sha256": checkpoint_hash,
                 "config": options, "config_sha256": config_hash, "cache_key": key,
                 "run_folder": run_folder, "manifest_path": manifest_path}
@@ -74,12 +83,14 @@ class FullMatchService:
         if not record:
             raise ValueError("Professional match not found")
         prepared = self.prepare(record, device)
+        existing = self.repo.get_full_match_job(match_id) or {}
         with self.lock:
             if match_id in self.active:
+                if resume and existing.get("status") == "BALLTRACK_COMPLETE":
+                    return existing
                 raise ValueError("A full-match job is already active for this match")
             self.active.add(match_id)
         try:
-            existing = self.repo.get_full_match_job(match_id) or {}
             if resume:
                 manifest_path = Path(existing.get("manifest_path") or "")
                 if not manifest_path.is_file():
@@ -88,6 +99,15 @@ class FullMatchService:
                 if manifest.get("cache_key") != prepared["cache_key"]:
                     raise ValueError("Video/checkpoint/config changed; refusing to resume a different analysis")
                 if manifest.get("status") == "BALLTRACK_COMPLETE":
+                    from backend.fullmatch import verify_chunk_artifacts
+                    for chunk in manifest.get("chunks", []):
+                        verify_chunk_artifacts(chunk)
+                    manifest["cache_hits"] = manifest.get("cache_hits", 0) + len(manifest.get("chunks", []))
+                    save_manifest(manifest_path, manifest)
+                    existing["cache_hits"] = manifest["cache_hits"]
+                    self.repo.save_full_match_job(match_id, existing)
+                    with self.lock:
+                        self.active.discard(match_id)
                     return existing
             else:
                 prepared["run_folder"].mkdir(parents=True, exist_ok=True)
@@ -108,7 +128,9 @@ class FullMatchService:
                 "cache_key": prepared["cache_key"], "video_sha256": prepared["video_sha256"],
                 "checkpoint_sha256": prepared["checkpoint_sha256"], "config_sha256": prepared["config_sha256"],
                 "config": prepared["config"], "match_id": match_id,
+                "qa_classification": record.get("video_metadata", {}).get("qa_classification", "AUTHORIZED_LOCAL_VIDEO"),
                 "input_path": str(prepared["video"]), "media": media,
+                "source_identity": prepared["source_identity"],
                 "frame_timeline_basis": "global_frame is full-run CFR processing ordinal; timestamp_ms is mapped to source presentation time; source_frame records nearest source frame for VFR",
                 "source_frame_timestamps_path": str(timestamps_path) if timestamps_path else None,
                 "chunk_seconds": self.chunk_seconds, "chunks": chunks,
@@ -154,6 +176,14 @@ class FullMatchService:
             self.repo.save_full_match_job(match_id, job)
 
         def execute(chunk):
+            try:
+                current_stat = prepared["video"].stat()
+                unchanged = (current_stat.st_size == prepared["source_identity"]["size_bytes"] and
+                             current_stat.st_mtime_ns == prepared["source_identity"]["mtime_ns"])
+            except OSError:
+                unchanged = False
+            if not unchanged:
+                raise ValueError("SOURCE_CHANGED: video identity changed during processing")
             chunk_root = prepared["run_folder"] / "chunks" / f"{chunk['chunk_index'] + 1:06d}"
             chunk_root.mkdir(parents=True, exist_ok=True)
             chunk_video = chunk_root / "input.mp4"
@@ -165,7 +195,9 @@ class FullMatchService:
                        "-map", "0:v:0", "-an", "-vf", f"fps={prepared['metadata']['fps']}",
                        "-frames:v", str(expected_frames), "-c:v", "libx264", "-preset", "ultrafast",
                        "-crf", "18", "-y", str(chunk_video)]
+            transcode_started = time.perf_counter()
             subprocess.run(command, check=True, timeout=3600, capture_output=True, text=True)
+            transcode_seconds = time.perf_counter() - transcode_started
             output = chunk_root / "balltrack"
             output.mkdir(exist_ok=True)
             log_path = logs / f"chunk-{chunk['chunk_index'] + 1:06d}.log"
@@ -174,9 +206,11 @@ class FullMatchService:
                               "--video", str(chunk_video), "--output", str(output), "--device", device,
                               "--batchsize", "2", "--median-input",
                               str(prepared["run_folder"] / "global_median.npz")]
+            worker_started = time.perf_counter()
             with log_path.open("w", encoding="utf-8") as log:
                 subprocess.run(worker_command, stdout=log, stderr=subprocess.STDOUT,
                                check=True, timeout=3600, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+            worker_wall_seconds = time.perf_counter() - worker_started
             raw_path = output / "raw_prediction.json"
             runtime_path = output / "runtime.json"
             if not raw_path.is_file() or not runtime_path.is_file():
@@ -199,6 +233,11 @@ class FullMatchService:
             runtime = json.loads(runtime_path.read_text(encoding="utf-8"))
             return {"raw_prediction_path": str(raw_path), "observations_path": str(mapped_path),
                     "runtime_path": str(runtime_path), "log_path": str(log_path),
+                    "raw_prediction_sha256": file_sha256(raw_path),
+                    "observations_sha256": file_sha256(mapped_path),
+                    "runtime_sha256": file_sha256(runtime_path),
+                    "chunk_transcode_seconds": transcode_seconds,
+                    "worker_wall_seconds": worker_wall_seconds,
                     "decoded_frames": len(raw), "runtime": runtime,
                     "completed_at": datetime.now(timezone.utc).isoformat()}
 
@@ -217,12 +256,22 @@ class FullMatchService:
                                       "sampling": json.loads(background_info.read_text(encoding="utf-8"))}
             save_manifest(path, manifest)
             manifest = run_resumable_chunks(path, execute, persist)
+            if source_identity(prepared["video"]) != prepared["source_identity"]:
+                raise ValueError("SOURCE_CHANGED: video identity changed before output finalization")
             merged_csv = prepared["run_folder"] / "full_match_balltrack.csv"
+            merged_jsonl = prepared["run_folder"] / "full_match_balltrack.jsonl"
             columns = ["global_frame", "source_frame", "timestamp_ms", "local_frame", "chunk_index", "visible", "x", "y",
                        "raw_model_score", "raw_score_semantics"]
             frame_count = visible = 0
             previous_global_frame = -1
-            with merged_csv.open("w", encoding="utf-8", newline="") as output:
+            previous_timestamp = -1.0
+            boundary_frames = set()
+            for item in manifest["chunks"][:-1]:
+                boundary = item["processing_frame_start"] + item["expected_processed_frames"]
+                boundary_frames.update(range(max(0, boundary - 2), boundary + 3))
+            boundary_samples = []
+            with merged_csv.open("w", encoding="utf-8", newline="") as output, \
+                    merged_jsonl.open("w", encoding="utf-8") as jsonl:
                 writer = csv.DictWriter(output, fieldnames=columns)
                 writer.writeheader()
                 for chunk in sorted(manifest["chunks"],key=lambda item:item["chunk_index"]):
@@ -230,8 +279,21 @@ class FullMatchService:
                     for item in observations:
                         if item["global_frame"]<=previous_global_frame:
                             raise ValueError("Chunk outputs are duplicated or out of global timeline order")
+                        if item["global_frame"] != previous_global_frame + 1:
+                            raise ValueError("Global output frame sequence has a missing frame")
+                        if item["timestamp_ms"] < 0 or item["timestamp_ms"] < previous_timestamp:
+                            raise ValueError("Output timestamps are negative or not monotonic")
                         previous_global_frame=item["global_frame"]
-                        writer.writerow(item);frame_count+=1;visible+=bool(item["visible"])
+                        previous_timestamp=item["timestamp_ms"]
+                        writer.writerow(item)
+                        jsonl.write(json.dumps(item, ensure_ascii=False, separators=(",", ":")) + "\n")
+                        if item["global_frame"] in boundary_frames:
+                            boundary_samples.append(item)
+                        frame_count+=1;visible+=bool(item["visible"])
+            if frame_count != sum(c.get("decoded_frames", 0) for c in manifest["chunks"]):
+                raise ValueError("Output frame count does not match completed chunk evidence")
+            if previous_global_frame != frame_count - 1:
+                raise ValueError("Global frame sequence contains a gap")
             timeline = self.repo.get_match_timeline(match_id) or {
                 "match_id": match_id, "revision": 0, "games": [], "scene_segments": manifest["scene_segments"]}
             timeline_path = prepared["run_folder"] / "match_timeline.json"
@@ -242,6 +304,9 @@ class FullMatchService:
             summary = {"match_id": match_id, "event": record["event_name"], "round": record.get("round"),
                        "player_a_id": record["player_a_id"], "player_b_id": record["player_b_id"],
                        "duration_seconds": media["duration"], "games": len(timeline.get("games", [])),
+                       "game_scores": [{"game_number": game["game_number"], "score":
+                           (game["points"][-1].get("score_after") if game.get("points") else None),
+                           "source": "MANUAL"} for game in timeline.get("games", [])],
                        "points": len(points), "rallies": len(rallies),
                        "average_rally_duration_ms": (sum(r["end_ms"] - r["start_ms"] for r in rallies) / len(rallies) if rallies else None),
                        "balltrack_frames": frame_count, "balltrack_visible_frames": visible,
@@ -260,11 +325,32 @@ class FullMatchService:
             summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
             report = _summary_html(summary)
             (prepared["run_folder"] / "full_match_report.html").write_text(report, encoding="utf-8")
+            try:
+                overlay_started = time.perf_counter()
+                manifest["preview_overlays"] = generate_preview_overlays(
+                    prepared["video"], merged_csv, prepared["metadata"], prepared["run_folder"],
+                    self.config.worker_python)
+                manifest["overlay_encoding_seconds"] = time.perf_counter() - overlay_started
+            except Exception as overlay_error:
+                manifest["overlay_encoding_seconds"] = time.perf_counter() - overlay_started
+                manifest.setdefault("warnings", []).append(f"PREVIEW_OVERLAY_FAILED: {overlay_error}")
+            save_manifest(path, manifest)
+            validation = build_full_match_validation(manifest, summary, prepared["source_identity"],
+                prepared["run_folder"], frame_count, timeline, boundary_samples)
+            validation_path = prepared["run_folder"] / "full_match_validation.json"
+            validation_path.write_text(json.dumps(validation, ensure_ascii=False, indent=2), encoding="utf-8")
+            (prepared["run_folder"] / "full_match_validation.html").write_text(
+                _validation_html(validation), encoding="utf-8")
+            manifest["status"] = "BALLTRACK_COMPLETE"
+            manifest["completed_at"] = datetime.now(timezone.utc).isoformat()
+            manifest["output_artifacts_ready"] = True
+            save_manifest(path, manifest)
             job = {"match_id": match_id, "status": "BALLTRACK_COMPLETE", "stage": "全场球追踪完成；时间轴待人工校正",
                    "cache_key": prepared["cache_key"], "manifest_path": str(path),
                    "output_dir": str(prepared["run_folder"]), "summary_path": str(summary_path),
                    "report_path": str(prepared["run_folder"] / "full_match_report.html"),
                    "csv_path": str(merged_csv), "completed_chunks": len(manifest["chunks"]),
+                   "jsonl_path": str(merged_jsonl), "validation_path": str(validation_path),
                    "total_chunks": len(manifest["chunks"]), "device": device,
                    "summary": summary}
             self.repo.save_full_match_job(match_id, job)
@@ -292,6 +378,118 @@ def quality_report_for_summary(metadata, record):
         "camera_changes": "UNKNOWN"}
 
 
+def build_full_match_validation(manifest, summary, identity, output_dir, frame_count, timeline, boundary_samples=None):
+    chunks = sorted(manifest.get("chunks", []), key=lambda item: item["chunk_index"])
+    boundaries = []
+    missing = []
+    for index, chunk in enumerate(chunks):
+        if chunk.get("status") != "COMPLETE":
+            missing.append(chunk["chunk_index"])
+        if index:
+            previous = chunks[index - 1]
+            boundaries.append({"before_chunk": chunk["chunk_index"],
+                "global_frame_before": previous["processing_frame_start"] + previous["expected_processed_frames"] - 1,
+                "global_frame_after": chunk["processing_frame_start"],
+                "continuous": previous["processing_frame_start"] + previous["expected_processed_frames"] == chunk["processing_frame_start"],
+                "tracker_state": "RESET_PER_CHUNK"})
+    output_dir = Path(output_dir)
+    artifacts = {}
+    for name in ("full_match_balltrack.csv", "full_match_balltrack.jsonl", "full_match_summary.json",
+                 "full_match_report.html", "match_timeline.json", "manifest.json"):
+        item = output_dir / name
+        artifacts[name] = {"exists": item.is_file(), "size_bytes": item.stat().st_size if item.is_file() else None,
+                           "sha256": file_sha256(item) if item.is_file() else None}
+    profile = [chunk.get("runtime", {}) for chunk in chunks]
+    profile_totals = {}
+    for chunk, runtime in zip(chunks, profile):
+        for name, seconds in runtime.get("profile", {}).items():
+            profile_totals[name] = profile_totals.get(name, 0.0) + float(seconds or 0.0)
+        profile_totals["chunk_transcode_seconds"] = profile_totals.get("chunk_transcode_seconds", 0.0) + float(chunk.get("chunk_transcode_seconds", 0.0))
+        profile_totals["worker_wall_seconds"] = profile_totals.get("worker_wall_seconds", 0.0) + float(chunk.get("worker_wall_seconds", 0.0))
+    return {"qa_classification": manifest.get("qa_classification", "ENGINEERING_VALIDATION"),
+        "input": {**identity, "duration_seconds": manifest["media"]["duration"],
+                  "resolution": [manifest["media"]["width"], manifest["media"]["height"]],
+                  "fps": manifest["media"]["fps"], "variable_frame_rate": bool(manifest["media"].get("rate_variable"))},
+        "cache_key": manifest["cache_key"], "chunk_count": len(chunks),
+        "processed_chunks": sum(c.get("status") == "COMPLETE" for c in chunks),
+        "resumed_chunks": sum(bool(c.get("resumed")) for c in chunks),
+        "initial_cache_misses": sum(c.get("attempt_count", 0) > 0 for c in chunks),
+        "single_attempt_chunks": sum(c.get("attempt_count", 0) == 1 for c in chunks),
+        "chunk_retries": sum(max(0, c.get("attempt_count", 0) - 1) for c in chunks),
+        "cache_hits": manifest.get("cache_hits", 0), "resume_count": manifest.get("resume_count", 0),
+        "output_frames": frame_count, "missing_chunks": missing, "duplicate_frames": 0,
+        "timestamp_order": "MONOTONIC_GLOBAL_PTS_MAPPING",
+        "chunk_boundaries": boundaries, "boundary_frame_samples": boundary_samples or [],
+        "tracker_state_boundary_policy": "RESET_PER_CHUNK; raw model temporal history does not cross chunk boundaries",
+        "runtime_seconds_by_chunk": [p.get("processing_seconds") for p in profile],
+        "runtime_profile_totals_seconds": profile_totals,
+        "peak_cpu_ram_bytes": max((p.get("peak_cpu_ram_bytes") or 0 for p in profile), default=0),
+        "peak_vram_bytes": max((p.get("peak_vram_bytes") or 0 for p in profile), default=0),
+        "effective_fps": frame_count / sum(p.get("processing_seconds", 0) for p in profile) if sum(p.get("processing_seconds", 0) for p in profile) else None,
+        "realtime_factor": manifest["media"]["duration"] / sum(p.get("processing_seconds", 0) for p in profile) if sum(p.get("processing_seconds", 0) for p in profile) else None,
+        "overlay_encoding_seconds": manifest.get("overlay_encoding_seconds", 0.0),
+        "disk_io_profile": "NOT_INSTRUMENTED; output file sizes and hashes are reported",
+        "timeline": {"games": len(timeline.get("games", [])),
+            "points": sum(len(g.get("points", [])) for g in timeline.get("games", [])),
+            "rallies": sum(len(p.get("rallies", [])) for g in timeline.get("games", []) for p in g.get("points", [])),
+            "segmentation": "MANUAL / REVIEW_REQUIRED"},
+        "artifacts": artifacts, "errors": manifest.get("errors", []), "warnings": [
+            "Synthetic QA is not an accuracy evaluation." if manifest.get("qa_classification") == "SYNTHETIC_LONG_FORM_QA" else "",
+            "BallTrack temporal state resets at each chunk boundary.", *manifest.get("warnings", [])],
+        "preview_overlays": manifest.get("preview_overlays", []),
+        "scoreboard_recognition": "NOT_ENABLED", "tactical_inference": "NOT_PERFORMED"}
+
+
+def _validation_html(report):
+    rows = "".join(f"<tr><th>{html.escape(str(key))}</th><td><pre>{html.escape(json.dumps(value, ensure_ascii=False, indent=2))}</pre></td></tr>"
+                   for key, value in report.items())
+    return ("<!doctype html><html lang='zh-CN'><meta charset='utf-8'><title>全场工程验收</title>"
+            "<style>body{font:15px 'Microsoft YaHei',sans-serif;max-width:1100px;margin:32px auto}"
+            "th,td{padding:10px;vertical-align:top;border-bottom:1px solid #ddd;text-align:left}pre{white-space:pre-wrap}</style>"
+            "<h1>PTTI 全场工程验收报告</h1><p>工程稳定性记录，不构成职业比赛准确率认证。</p>" + f"<table>{rows}</table></html>")
+
+
+def generate_preview_overlays(video, csv_path, metadata, output_dir, worker_python):
+    """Render only three bounded 30-second review windows, never a whole-match overlay."""
+    preview_dir = Path(output_dir) / "preview_overlays"
+    preview_dir.mkdir(exist_ok=True)
+    duration = float(metadata["duration"])
+    fps = float(metadata["fps"])
+    window = min(30.0, duration)
+    starts = sorted(set((0.0, max(0.0, (duration - window) / 2), max(0.0, duration - window))))
+    rows = []
+    with Path(csv_path).open(encoding="utf-8", newline="") as source:
+        rows = list(csv.DictReader(source))
+    overlay_script = Path(__file__).resolve().parents[1] / "vision_worker" / "overlay.py"
+    previews = []
+    for index, start in enumerate(starts, start=1):
+        source_clip = preview_dir / f"preview-{index:02d}-source.mp4"
+        prediction_path = preview_dir / f"preview-{index:02d}-predictions.json"
+        destination = preview_dir / f"preview-{index:02d}.mp4"
+        subprocess.run(["ffmpeg", "-nostdin", "-v", "error", "-ss", f"{start:.3f}", "-i", str(video),
+            "-t", f"{window:.3f}", "-map", "0:v:0", "-an", "-c:v", "libx264", "-preset", "ultrafast",
+            "-crf", "20", "-y", str(source_clip)], check=True, timeout=3600, capture_output=True)
+        start_frame = round(start * fps)
+        end_frame = round((start + window) * fps)
+        values = []
+        for row in rows:
+            frame = int(row["global_frame"])
+            if start_frame <= frame < end_frame:
+                visible = row["visible"].lower() == "true"
+                values.append({"frame": frame - start_frame, "pixel_x": float(row["x"] or 0),
+                    "pixel_y": float(row["y"] or 0), "visible": visible,
+                    "confidence": float(row["raw_model_score"]) if row["raw_model_score"] else None})
+        prediction_path.write_text(json.dumps(values), encoding="utf-8")
+        subprocess.run([str(worker_python), str(overlay_script), str(source_clip), str(prediction_path),
+                        str(destination)], check=True, timeout=3600,
+                       creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+        source_clip.unlink(missing_ok=True)
+        prediction_path.unlink(missing_ok=True)
+        previews.append({"path": str(destination), "start_seconds": start, "duration_seconds": window,
+                         "frames": len(values), "bounded_preview": True})
+    return previews
+
+
 def _summary_html(summary):
     cells = "".join(f"<tr><th>{html.escape(key)}</th><td>{html.escape(str(value))}</td></tr>"
                     for key, value in summary.items())
@@ -315,6 +513,9 @@ def refresh_timeline_summary(repo, match_id, timeline):
     points = [point for game in timeline.get("games", []) for point in game.get("points", [])]
     rallies = [rally for point in points for rally in point.get("rallies", [])]
     summary.update(games=len(timeline.get("games", [])), points=len(points), rallies=len(rallies),
+                   game_scores=[{"game_number": game["game_number"], "score":
+                       (game["points"][-1].get("score_after") if game.get("points") else None),
+                       "source": "MANUAL"} for game in timeline.get("games", [])],
                    average_rally_duration_ms=(sum(r["end_ms"]-r["start_ms"] for r in rallies)/len(rallies) if rallies else None),
                    analysis_completeness={**summary.get("analysis_completeness", {}),
                      "game_point_segmentation": bool(points),

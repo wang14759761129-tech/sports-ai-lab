@@ -124,3 +124,9 @@ See [training audit](BALLTRACK-SPECIALIST-v1.md), [complete results](BALLTRACK-S
 Release Gate: HISTORICAL_DB_UNVERIFIED; the Production database remains untouched. Vision Gate: BALLTRACK_V1_FROZEN_RAW. One diversified fine-tuning candidate and a small DEV decoder/refinement study were evaluated; the candidate failed KNOWN acceptance, so the official RacketVision RAW checkpoint remains the frozen default. No further BallTrack v1 tuning, main merge, tag, release, RacketPose or TrajPred.
 
 See [frozen results](BALLTRACK-V1-FROZEN.md) and hash-bound configuration `configs/experiments/BALLTRACK_V1_FROZEN.json`. The next permitted activity is the real professional-match pipeline using a complete authorized local match video. No such asset was available in the checked local folders, and the existing bounded rally worker does not perform full-match point/rally segmentation. Native GUI remains MANUAL_GUI_CHECK_REQUIRED.
+
+## Current gates — long-video engineering QA (2026-10-06)
+
+Release Gate remains `HISTORICAL_DB_UNVERIFIED`; Vision Gate remains `BALLTRACK_V1_FROZEN_RAW`. Full Match Engineering Gate: `FULL_MATCH_PIPELINE_ENGINEERING_VERIFIED`, based on a 30-minute `SYNTHETIC_LONG_FORM_QA` fixture only. The fixture validates long-input orchestration, 30 chunks, checkpoint recovery, source immutability, cache validation, VFR timestamp mapping and manual timeline persistence. It is not an accuracy evaluation and is not `WTT_FULL_MATCH_VERIFIED`.
+
+The run report and synthetic source are under `outputs/full_match_qa/20261006-104953-094430/`; large generated output files are ignored by Git. BallTrack temporal model history resets at each chunk boundary. Point/rally and scene labels remain manual and review-required; scoreboard recognition and automatic tactical conclusions remain disabled. No authorized complete WTT match was processed. Native GUI remains `MANUAL_GUI_CHECK_REQUIRED`; do not merge, tag or release from this engineering gate.
