@@ -27,6 +27,8 @@ def main():
     for source,dest in [(info_path,'.'),(ROOT/'frontend/dist','frontend/dist'),
                         (ROOT/'data/professional','data/professional'),(ROOT/'data/samples','data/samples')]:
         command.extend(['--add-data',f'{source};{dest}'])
+    for script in ('balltrack.py','background.py','overlay.py','candidates.py'):
+        command.extend(['--add-data',f'{ROOT / "vision_worker" / script};vision_worker'])
     for tool in ('ffmpeg','ffprobe'):
         executable=shutil.which(tool)
         if not executable:raise RuntimeError(f'{tool} is required to package working video import')
