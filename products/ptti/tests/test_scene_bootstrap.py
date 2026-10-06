@@ -30,6 +30,13 @@ def test_detection_schema_and_cautious_spatial_roles():
     assert attach_roles([right], table)[0]["spatial_hint"] == "PLAYER_RIGHT_CANDIDATE"
 
 
+def test_new_scene_preview_executable_fails_closed_to_development():
+    from apps.desktop import is_development_preview
+    assert is_development_preview("PTTI-Vision-Lab-v2-Scene-Preview.exe")
+    assert is_development_preview("PTTI-Scene-Bootstrap-Preview-v2.exe")
+    assert not is_development_preview("PTTI.exe")
+
+
 def test_table_box_quality_reports_iou_overshoot_and_center_error():
     metrics = table_box_quality((0, 0, 12, 12), (2, 2, 10, 10), image_size=(20, 20))
     assert metrics["iou"] == 64 / 144
