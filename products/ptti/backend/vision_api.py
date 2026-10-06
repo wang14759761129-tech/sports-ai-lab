@@ -16,6 +16,7 @@ from backend.full_match_pipeline import FullMatchService
 from backend.vision_v2 import ModuleAvailability, VisionModuleManager
 from backend.scene_bootstrap import (REVIEW_ROLES, apply_review, frame_review_priority,
                                      temporal_player_presence, assign_near_far_candidates)
+from backend.hybrid_scene import SCOREBOARD_MODULE
 from backend.fullmatch import quality_report, DEFAULT_CHUNK_SECONDS
 
 class BenchmarkRequest(BaseModel):
@@ -79,6 +80,24 @@ def router(repo=None, data_root=None):
             result['keyframes'] = temporal_player_presence(result.get('keyframes', []))
             result['reviews_count']=len(corrections)
             evaluation=root/'scene_bootstrap_eval_manifest.json'
+            detector_comparison={
+                'grounding_dino':{'baseline_id':'GROUNDING_DINO_PLAYER_BASELINE','status':'BASELINE_FROZEN',
+                                  'sampled_frames':0,'both_player_candidate_frames':0,
+                                  'candidate_coverage_percent':None,'per_game':{},
+                                  'metrics_note':'候选覆盖率不是人工标注的检测召回率。'},
+                'rtmdet':{'status':'NOT_RUN_RUNTIME_NOT_INSTALLED','model':'rtmdet_tiny_8xb32-300e_coco',
+                          'runtime':'vision-v2-openmmlab','result_frames':0},
+            }
+            openmmlab_root=Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2-openmmlab'
+            rtmdet_python=openmmlab_root/'.venv'/'Scripts'/'python.exe'
+            rtmdet_checkpoint=openmmlab_root/'models'/'rtmdet_tiny_8xb32-300e_coco_20220902_112414-78e30dcc.pth'
+            rtmdet_config=openmmlab_root/'configs'/'rtmdet_tiny_8xb32-300e_coco.py'
+            if rtmdet_python.is_file() and not rtmdet_checkpoint.is_file():
+                detector_comparison['rtmdet']['status']='NOT_RUN_CHECKPOINT_MISSING'
+            elif rtmdet_python.is_file() and rtmdet_checkpoint.is_file() and not rtmdet_config.is_file():
+                detector_comparison['rtmdet']['status']='NOT_RUN_CONFIG_MISSING'
+            elif rtmdet_python.is_file() and rtmdet_checkpoint.is_file() and rtmdet_config.is_file():
+                detector_comparison['rtmdet']['status']='RUNTIME_READY_NOT_EVALUATED'
             if evaluation.is_file():
                 try:
                     manifest=json.loads(evaluation.read_text(encoding='utf-8'))
@@ -112,8 +131,30 @@ def router(repo=None, data_root=None):
                         'games':manifest.get('games',[]), 'prompt_summary':manifest.get('prompt_summary',{}),
                         'keyframes':eval_frames,'video_sha256_note':manifest.get('video_sha256_note'),
                     }
+                    baseline=manifest.get('prompt_summary',{}).get('official_bootstrap_a',{})
+                    detector_comparison['grounding_dino']={
+                        'baseline_id':'GROUNDING_DINO_PLAYER_BASELINE',
+                        'status':'BASELINE_FROZEN',
+                        'sampled_frames':baseline.get('sampled_frames',0),
+                        'both_player_candidate_frames':baseline.get('both_player_candidate_frames',0),
+                        'candidate_coverage_percent':baseline.get('both_player_candidate_coverage_percent'),
+                        'per_game':baseline.get('per_game',{}),
+                        'manifest_sha256':hashlib.sha256(evaluation.read_bytes()).hexdigest(),
+                        'metrics_note':'候选覆盖率不是人工标注的检测召回率。',
+                    }
                 except (OSError,ValueError):
                     result['multi_match_evaluation']={'status':'UNAVAILABLE'}
+            result['hybrid_scene']={
+                'name':'Hybrid Scene Engine',
+                'table':{'detector':'Grounding DINO','status':'TABLE_BOOTSTRAP_READY_FOR_SEGMENTATION',
+                         'candidate_coverage_frames':'20/20'},
+                'person_detectors':detector_comparison,
+                'scoreboard':{'status':SCOREBOARD_MODULE.status,'blocks_scene_gate':SCOREBOARD_MODULE.blocks_scene_gate,
+                              'message':'记分牌功能尚未实现；不阻止球台/人物 Gate。'},
+                'pose_adapter':{'status':'INPUT_SCHEMA_ONLY_NOT_INFERRED'},
+                'player_gate':'PLAYER_DETECTION_PARTIAL',
+                'scene_gate':'SCENE_BOOTSTRAP_PARTIAL',
+            }
             return result
         except (OSError,ValueError,TypeError) as exc:
             raise HTTPException(500,'场景识别结果文件无法读取') from exc
@@ -262,12 +303,20 @@ def router(repo=None, data_root=None):
         scene_runtime=Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2'/'venv'/'Scripts'/'python.exe'
         scene_weights=Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2'/'models'/'grounding-dino-base'/'model.safetensors'
         scene_integrated=scene_result.is_file()
+        scene_manifest=scene_root/'scene_bootstrap_eval_manifest.json'
         scene_dependencies=scene_runtime.is_file()
         scene_checkpoint=scene_weights.is_file() and scene_weights.stat().st_size==933400872
         availability={
             'balltrack':ModuleAvailability(bool(worker.get('torch')),balltrack_ready),
             'scene-detector':ModuleAvailability(installed.get('cv2',False),checkpoint=bool(scene_result.is_file()),integrated=bool(scene_result.is_file())),
             'grounding-dino':ModuleAvailability(scene_dependencies,scene_checkpoint,integrated=scene_integrated),
+            'grounding-dino-person':ModuleAvailability(scene_manifest.is_file(),scene_manifest.is_file(),integrated=scene_manifest.is_file()),
+            'rtmdet-person':ModuleAvailability(
+                (Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2-openmmlab'/'.venv'/'Scripts'/'python.exe').is_file(),
+                ((Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2-openmmlab'/'models'/'rtmdet_tiny_8xb32-300e_coco_20220902_112414-78e30dcc.pth').is_file() and
+                 (Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2-openmmlab'/'configs'/'rtmdet_tiny_8xb32-300e_coco.py').is_file()),
+                integrated=False),
+            'scoreboard-module':ModuleAvailability(False,False,integrated=False),
             'video-segmenter':ModuleAvailability(installed.get('sam2',False),False),
             'player-pose':ModuleAvailability(installed.get('mmpose',False) and installed.get('mmcv',False),False),
             'scoreboard-ocr':ModuleAvailability(installed.get('paddleocr',False) and installed.get('paddle',False),False),

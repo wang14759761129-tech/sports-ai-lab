@@ -61,6 +61,9 @@ def test_module_manager_distinguishes_ready_missing_failed_and_disabled():
         "video-segmenter": ModuleAvailability(dependencies=False, checkpoint=False),
         "player-pose": ModuleAvailability(dependencies=False, checkpoint=False),
         "scoreboard-ocr": ModuleAvailability(dependencies=False, checkpoint=False),
+        "grounding-dino-person": ModuleAvailability(dependencies=True, checkpoint=True),
+        "rtmdet-person": ModuleAvailability(dependencies=False, checkpoint=False),
+        "scoreboard-module": ModuleAvailability(dependencies=False, checkpoint=False),
         "scene-classifier": ModuleAvailability(dependencies=True, checkpoint=False),
         "co-tracker": ModuleAvailability(dependencies=True, checkpoint=True),
     }
@@ -70,6 +73,9 @@ def test_module_manager_distinguishes_ready_missing_failed_and_disabled():
     assert result["grounding-dino"].state == ModuleState.NOT_INSTALLED
     assert result["scene-classifier"].state == ModuleState.AVAILABLE
     assert result["co-tracker"].state == ModuleState.DISABLED
+    assert result["grounding-dino-person"].product_status == "RESEARCH_ONLY"
+    assert result["rtmdet-person"].state == ModuleState.NOT_INSTALLED
+    assert result["scoreboard-module"].product_status == "NOT_IMPLEMENTED"
 
     not_connected = VisionModuleManager({
         "scene-detector": ModuleAvailability(dependencies=True, integrated=False),
@@ -120,6 +126,56 @@ def test_v2_module_status_api_uses_worker_evidence_and_keeps_test_db_isolated(tm
     assert "尚未接入" in modules["scene-detector"]["message"]
     assert modules["grounding-dino"]["state"] == "NOT_INSTALLED"
     assert result.json()["policy"]["production_database"] == "NOT_ACCESSED"
+    modules = {item["id"]: item for item in result.json()["modules"]}
+    assert modules["rtmdet-person"]["state"] == "NOT_INSTALLED"
+    assert modules["scoreboard-module"]["product_status"] == "NOT_IMPLEMENTED"
+
+
+def test_scene_api_exposes_frozen_person_baseline_and_separate_unrun_rtmdet(tmp_path, monkeypatch):
+    import hashlib
+    import json
+    from fastapi.testclient import TestClient
+    from backend.main import create_app
+
+    local = tmp_path / "local"
+    monkeypatch.setenv("LOCALAPPDATA", str(local))
+    root = local / "PTTI-Dev" / "vision-v2" / "scene-bootstrap"
+    root.mkdir(parents=True)
+    baseline = {
+        "status": "MULTI_MATCH_RESEARCH_EVALUATION",
+        "dataset": "Extended OpenTTGames",
+        "license": "CC BY-NC-SA 4.0",
+        "official_split": "training only; test split not accessed",
+        "games": [],
+        "prompt_summary": {
+            "official_bootstrap_a": {
+                "sampled_frames": 20,
+                "both_player_candidate_frames": 11,
+                "both_player_candidate_coverage_percent": 55.0,
+                "per_game": {},
+            }
+        },
+        "frame_results": [],
+    }
+    manifest_path = root / "scene_bootstrap_eval_manifest.json"
+    manifest_path.write_text(json.dumps(baseline), encoding="utf-8")
+    (root / "scene_bootstrap.json").write_text(
+        json.dumps({"status": "RESEARCH_CANDIDATES_READY", "detections": [], "keyframes": []}),
+        encoding="utf-8",
+    )
+    app = create_app(tmp_path / "qa.sqlite")
+    with TestClient(app) as client:
+        result = client.get("/api/vision/v2/scene-bootstrap").json()
+        modules = {item["id"]: item for item in client.get("/api/vision/v2/modules").json()["modules"]}
+    gdino = result["hybrid_scene"]["person_detectors"]["grounding_dino"]
+    assert gdino["baseline_id"] == "GROUNDING_DINO_PLAYER_BASELINE"
+    assert gdino["both_player_candidate_frames"] == 11
+    assert gdino["candidate_coverage_percent"] == 55.0
+    assert gdino["manifest_sha256"] == hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+    assert result["hybrid_scene"]["person_detectors"]["rtmdet"]["status"] == "NOT_RUN_RUNTIME_NOT_INSTALLED"
+    assert result["hybrid_scene"]["scoreboard"]["status"] == "NOT_IMPLEMENTED"
+    assert modules["rtmdet-person"]["state"] == "NOT_INSTALLED"
+    assert modules["scoreboard-module"]["product_status"] == "NOT_IMPLEMENTED"
 
 
 def test_scene_detector_status_uses_completed_scene_run_as_integration_evidence(tmp_path, monkeypatch):
