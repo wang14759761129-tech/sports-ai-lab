@@ -48,6 +48,7 @@ def main() -> None:
         "--add-data", f"{ROOT / 'frontend' / 'dist'};frontend/dist",
         "--add-data", f"{ROOT / 'data' / 'professional'};data/professional",
         "--add-data", f"{ROOT / 'data' / 'samples'};data/samples",
+        "--add-data", f"{ROOT / 'configs' / 'vision' / 'PLAYER_TRACKING_V1_CANDIDATE.json'};configs/vision",
     ]
     for tool in ("ffmpeg", "ffprobe"):
         executable = shutil.which(tool)
