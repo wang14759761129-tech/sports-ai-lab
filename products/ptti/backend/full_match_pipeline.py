@@ -496,13 +496,40 @@ def generate_preview_overlays(video, csv_path, metadata, output_dir, worker_pyth
 
 
 def _summary_html(summary):
-    cells = "".join(f"<tr><th>{html.escape(key)}</th><td>{html.escape(str(value))}</td></tr>"
-                    for key, value in summary.items())
-    return ("<!doctype html><html lang='zh-CN'><meta charset='utf-8'><title>PTTI 全场比赛摘要</title>"
-            "<style>body{font:16px 'Microsoft YaHei',sans-serif;max-width:900px;margin:32px auto}"
-            "th,td{padding:8px;text-align:left;border-bottom:1px solid #ddd}</style>"
-            "<h1>PTTI · 全场比赛分析摘要</h1><p>只报告视频质量、BallTrack 观测与人工记录结构；不推断战术。</p>"
-            f"<table>{cells}</table></html>")
+    def text(value): return html.escape(str(value)) if value is not None else '—'
+    quality=summary.get('video_quality') or {}
+    resolution=quality.get('resolution') or {}
+    duration=summary.get('duration_seconds')
+    duration_label=f'{int(duration)//60} 分 {int(duration)%60} 秒' if duration is not None else '—'
+    coverage=summary.get('balltrack_coverage')
+    metrics=[('视频时长',duration_label),('画面分辨率',f"{resolution.get('width','—')} × {resolution.get('height','—')}"),
+             ('帧率',str(quality.get('fps','—'))+' FPS'),('处理帧数',summary.get('balltrack_frames')),
+             ('有效球坐标',summary.get('balltrack_visible_frames')),
+             ('轨迹覆盖率',f'{coverage*100:.1f}%' if coverage is not None else '—')]
+    cards=''.join(f'<div class="metric"><span>{label}</span><strong>{text(value)}</strong></div>' for label,value in metrics)
+    score_rows=''
+    for game in summary.get('game_scores',[]):
+        score=game.get('score')
+        value=f"{score.get('player_a','—')} : {score.get('player_b','—')}" if score else '未记录'
+        score_rows+=f"<tr><td>第 {text(game.get('game_number'))} 局</td><td>{text(value)}</td><td>人工记录</td></tr>"
+    review='已完成人工审核' if summary.get('analysis_completeness',{}).get('manual_review_complete') else '尚未完成人工审核'
+    structure=(f"<p>已记录 {text(summary.get('games',0))} 局 · {text(summary.get('points',0))} 分 · {text(summary.get('rallies',0))} 个回合。{review}。</p>"
+               +('<table><tr><th>局</th><th>比分</th><th>来源</th></tr>'+score_rows+'</table>' if score_rows else '<p>等待人工确认比赛结构。</p>'))
+    return ("<!doctype html><html lang='zh-CN'><head><meta charset='utf-8'><title>PTTI 比赛分析报告</title>"
+            "<meta name='viewport' content='width=device-width,initial-scale=1'><style>"
+            "body{font:16px 'Microsoft YaHei UI','Microsoft YaHei',sans-serif;max-width:960px;margin:40px auto;padding:0 24px;color:#193c38;background:#f7faf9;line-height:1.8}"
+            "h1{font-size:30px}h2{font-size:22px}section{background:white;border:1px solid #dce8e3;border-radius:12px;padding:24px;margin:22px 0}"
+            ".metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.metric{padding:16px;background:#eef5f1;border-radius:8px}.metric span{display:block;color:#5a716c;font-size:13px}.metric strong{font-size:22px}"
+            "th,td{padding:10px 18px;text-align:left;border-bottom:1px solid #dce8e3}small{color:#637c74}@media(max-width:600px){.metrics{grid-template-columns:1fr 1fr}}@media print{body{background:white}section{break-inside:avoid}}</style></head><body>"
+            "<small>TABLE TENNIS INTELLIGENCE · Professional Preview</small><h1>比赛分析报告</h1>"
+            f"<h2>{text(summary.get('player_a_name') or '球员 A')} vs {text(summary.get('player_b_name') or '球员 B')}</h2>"
+            f"<p>{text(summary.get('event') or '比赛名称未记录')}</p>"
+            f"<section><h2>球轨迹与视频</h2><div class='metrics'>{cards}</div>"
+            "<p>RacketVision RAW / BallTrack v1。覆盖率表示球坐标观测可用比例，不代表识别准确率。</p></section>"
+            f"<section><h2>比赛结构与人工审核</h2>{structure}</section>"
+            "<section><h2>证据边界</h2><p>球轨迹和人工记录不会自动成为发球旋转、技术动作、得分归因或战术结论。暂无这些分析数据。</p>"
+            "<p>不知道的，不猜。此报告仅描述本次视频处理与人工确认记录。</p></section>"
+            f"<details><summary>来源与完整性</summary><p>视频 SHA256：{text(quality.get('sha256'))}</p></details></body></html>")
 
 
 def refresh_timeline_summary(repo, match_id, timeline):

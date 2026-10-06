@@ -6,7 +6,7 @@ import uuid
 from pathlib import Path
 
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
-from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.responses import FileResponse, StreamingResponse, Response
 from pydantic import BaseModel, Field
 
 from backend.fullmatch import file_sha256
@@ -98,6 +98,15 @@ def router(repo, data_root, mode):
         if not any(item["name"] == asset for item in listing["assets"]):
             raise HTTPException(404, "分析文件尚未生成")
         directory = Path(listing["output_directory"])
+        if asset=='full_match_report.html' and listing.get('summary') is not None:
+            from backend.full_match_pipeline import _summary_html
+            record=repo.get_professional_match(match_id)
+            summary={**listing['summary']}
+            for side in ('a','b'):
+                player=repo.get_athlete(record[f'player_{side}_id'])
+                summary[f'player_{side}_name']=player.get('canonical_name_zh') or player['canonical_name_en']
+            return Response(_summary_html(summary),media_type='text/html',
+                headers={'Content-Disposition':'attachment; filename="PTTI-analysis-report.html"'} if download else {})
         if asset=='full_match_balltrack.json':
             def rows():
                 yield '['

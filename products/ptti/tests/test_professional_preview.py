@@ -135,3 +135,14 @@ def test_job_creation_time_survives_stage_replacement(tmp_path):
     updated=repo.get_full_match_job(mid)
     assert updated['created_at']==first['created_at'] and updated['created_at']
     assert updated['updated_at']>=first['updated_at']
+
+
+def test_product_report_hides_internal_payload_and_distinguishes_missing_from_zero():
+    from backend.full_match_pipeline import _summary_html
+    missing=_summary_html({'event':'<script>event</script>','player_a_name':'王楚钦','player_b_name':'松岛辉空',
+        'balltrack_coverage':None,'player_model_hooks':[{'secret':'internal'}]})
+    assert '王楚钦 vs 松岛辉空' in missing and '&lt;script&gt;' in missing
+    assert '<script>' not in missing and 'player_model_hooks' not in missing and 'None' not in missing
+    assert '等待人工确认比赛结构' in missing
+    zero=_summary_html({'balltrack_coverage':0})
+    assert '0.0%' in zero and '0.0%' not in missing
