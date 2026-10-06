@@ -11,6 +11,7 @@ from vision.config import VisionConfig
 from vision.schema import Source
 from vision.doctor import doctor
 from backend.full_match_pipeline import FullMatchService
+from backend.vision_v2 import ModuleAvailability, VisionModuleManager
 from backend.fullmatch import quality_report, DEFAULT_CHUNK_SECONDS
 
 class BenchmarkRequest(BaseModel):
@@ -112,6 +113,25 @@ def router(repo=None, data_root=None):
 
     @api.get('/doctor')
     def environment(): return doctor(service.config)
+
+    @api.get('/v2/modules')
+    def vision_v2_modules():
+        runtime=doctor(service.config)
+        worker=runtime.get('worker') or {}
+        installed=worker.get('modules') or {}
+        balltrack_ready=bool(runtime.get('checkpoint') and runtime.get('racketvision_commit'))
+        availability={
+            'balltrack':ModuleAvailability(bool(worker.get('torch')),balltrack_ready),
+            'scene-detector':ModuleAvailability(installed.get('cv2',False),integrated=False),
+            'grounding-dino':ModuleAvailability(installed.get('transformers',False) and installed.get('groundingdino',False),False),
+            'video-segmenter':ModuleAvailability(installed.get('sam2',False),False),
+            'player-pose':ModuleAvailability(installed.get('mmpose',False) and installed.get('mmcv',False),False),
+            'scoreboard-ocr':ModuleAvailability(installed.get('paddleocr',False) and installed.get('paddle',False),False),
+            'scene-classifier':ModuleAvailability(installed.get('mmaction',False),False),
+            'co-tracker':ModuleAvailability(installed.get('cotracker',False),False),
+        }
+        modules=[item.__dict__ | {'state':item.state.value} for item in VisionModuleManager(availability).snapshot()]
+        return {'modules':modules,'runtime':worker,'policy':{'inference':'STAGED','balltrack':'FROZEN_RAW','production_database':'NOT_ACCESSED'}}
 
     @api.get('/analyses')
     def library(): return service.list_results()

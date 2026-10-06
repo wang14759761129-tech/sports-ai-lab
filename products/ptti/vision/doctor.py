@@ -21,7 +21,7 @@ def doctor(config=None):
                                          '--format=csv,noheader'], capture_output=True, text=True,
                                          creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0)).stdout.strip()
     if config.worker_python.is_file():
-        probe = "import torch,json,platform; print(json.dumps(dict(python=platform.python_version(),torch=torch.__version__,cuda=torch.version.cuda,cuda_available=torch.cuda.is_available(),gpu=torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,arch=torch.cuda.get_arch_list())))"
+        probe = "import torch,json,platform,importlib.util; names=['cv2','transformers','groundingdino','sam2','mmpose','mmcv','paddleocr','paddle','mmaction','cotracker']; modules={n:importlib.util.find_spec(n) is not None for n in names}; cuda=torch.cuda.is_available(); mem=torch.cuda.mem_get_info(0) if cuda else None; print(json.dumps(dict(python=platform.python_version(),torch=torch.__version__,cuda=torch.version.cuda,cuda_available=cuda,gpu=torch.cuda.get_device_name(0) if cuda else None,free_vram_bytes=mem[0] if mem else None,total_vram_bytes=mem[1] if mem else None,arch=torch.cuda.get_arch_list(),modules=modules)))"
         try:
             process = subprocess.run([str(config.worker_python), '-c', probe], capture_output=True,
                                      text=True, timeout=60,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
