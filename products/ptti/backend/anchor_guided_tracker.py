@@ -15,6 +15,9 @@ from typing import Any, Iterable, Mapping, Sequence
 
 ROLES = ("NEAR_PLAYER", "FAR_PLAYER")
 VISIBILITY = {"VISIBLE", "PARTIAL", "OUT_OF_FRAME", "UNKNOWN"}
+TRACK_STATES = VISIBILITY | {"TRACK_LOST", "IDENTITY_UNCERTAIN"}
+MASK_CONFLICT_AGREEMENT_IOU = 0.55
+OUT_OF_FRAME_EDGE_MARGIN_RATIO = 0.04
 DEFAULT_ASSOCIATION = {
     "zone_weight": 0.58,
     "continuity_weight": 0.20,
@@ -329,7 +332,8 @@ def _mask_stats(mask) -> tuple[int, int]:
     return sum(bool(value) for row in rows for value in row), sum(len(row) for row in rows)
 
 
-def fuse_masks(forward, reverse, *, visibility: str, agreement_iou: float = 0.55) -> dict[str, Any]:
+def fuse_masks(forward, reverse, *, visibility: str,
+               agreement_iou: float = MASK_CONFLICT_AGREEMENT_IOU) -> dict[str, Any]:
     """Select a mask only when evidence and visibility permit it; preserve both raws."""
     if visibility not in VISIBILITY:
         raise ValueError("INVALID_VISIBILITY_STATE")
@@ -397,6 +401,173 @@ def visibility_coverage(rows: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
     return {"eligible_frames": len(eligible), "mask_available": available,
             "coverage": available / len(eligible) if eligible else None,
             "out_of_frame": out, "unknown": unknown}
+
+
+def _edge_sides(box: Sequence[float] | None, frame_size: Sequence[int],
+                margin_ratio: float = 0.04) -> set[str]:
+    if not box or len(box) != 4 or len(frame_size) != 2:
+        return set()
+    width, height = map(float, frame_size)
+    if width <= 0 or height <= 0:
+        return set()
+    margin_x, margin_y = width * margin_ratio, height * margin_ratio
+    x0, y0, x1, y1 = map(float, box)
+    sides = set()
+    if x0 <= margin_x:
+        sides.add("LEFT")
+    if x1 >= width - margin_x:
+        sides.add("RIGHT")
+    if y0 <= margin_y:
+        sides.add("TOP")
+    if y1 >= height - margin_y:
+        sides.add("BOTTOM")
+    return sides
+
+
+def classify_out_of_frame(*, frame_size: Sequence[int], human_annotation: str | None = None,
+                          previous_bbox: Sequence[float] | None = None,
+                          mask_bbox: Sequence[float] | None = None,
+                          next_bbox: Sequence[float] | None = None,
+                          matching_person_found: bool | None = None,
+                          mask_present: bool | None = None,
+                          edge_margin_ratio: float = OUT_OF_FRAME_EDGE_MARGIN_RATIO) -> dict[str, Any]:
+    """Classify absence conservatively; only explicit or combined evidence yields OUT_OF_FRAME.
+
+    Detector failure by itself is never enough. Human-reviewed labels take
+    precedence; otherwise a role must approach an image edge and have multiple
+    agreeing absence/re-entry signals before the state is called out of frame.
+    """
+    if human_annotation not in {None, "VISIBLE", "PARTIAL", "OUT_OF_FRAME", "UNKNOWN"}:
+        raise ValueError("INVALID_VISIBILITY_ANNOTATION")
+    if not 0 <= edge_margin_ratio <= 0.2:
+        raise ValueError("INVALID_EDGE_MARGIN")
+    evidence: list[dict[str, Any]] = []
+    if human_annotation in {"VISIBLE", "PARTIAL", "OUT_OF_FRAME"}:
+        evidence.append({"type": "HUMAN_VISIBILITY_ANNOTATION", "value": human_annotation})
+        return {"classification": human_annotation, "confidence_level": "HIGH",
+                "evidence": evidence, "source": "HUMAN_REVIEW"}
+
+    previous_edges = _edge_sides(previous_bbox, frame_size, edge_margin_ratio)
+    mask_edges = _edge_sides(mask_bbox, frame_size, edge_margin_ratio)
+    next_edges = _edge_sides(next_bbox, frame_size, edge_margin_ratio)
+    exit_edges = previous_edges | mask_edges
+    if exit_edges:
+        evidence.append({"type": "PREVIOUS_TRACK_APPROACHED_FRAME_EDGE",
+                         "edges": sorted(exit_edges)})
+    if matching_person_found is False:
+        evidence.append({"type": "NO_MATCHING_PERSON_DETECTION"})
+    if mask_present is False and exit_edges:
+        evidence.append({"type": "SAM2_MASK_DISAPPEARED_NEAR_EDGE"})
+    reentry = exit_edges & next_edges
+    if reentry:
+        evidence.append({"type": "SUBSEQUENT_REENTRY_NEAR_SAME_EDGE",
+                         "edges": sorted(reentry)})
+
+    # Two independent disappearance signals plus an edge approach are the
+    # minimum automatic bar. A same-edge re-entry strengthens the conclusion.
+    absence_signals = int(matching_person_found is False) + int(mask_present is False)
+    if exit_edges and absence_signals >= 2:
+        return {"classification": "OUT_OF_FRAME",
+                "confidence_level": "HIGH" if reentry else "MEDIUM",
+                "evidence": evidence, "source": "COMBINED_TRACK_AND_DETECTOR_EVIDENCE"}
+    return {"classification": "UNKNOWN", "confidence_level": "LOW",
+            "evidence": evidence, "source": "INSUFFICIENT_EVIDENCE"}
+
+
+def tracking_state(*, visibility: str, mask_available: bool,
+                   association_status: str | None = None) -> str:
+    """Translate observations into user-facing states without conflating absence and loss."""
+    if visibility not in VISIBILITY:
+        raise ValueError("INVALID_VISIBILITY_STATE")
+    if visibility == "OUT_OF_FRAME":
+        return "OUT_OF_FRAME"
+    if association_status == "AMBIGUOUS":
+        return "IDENTITY_UNCERTAIN"
+    if visibility in {"VISIBLE", "PARTIAL"}:
+        return visibility if mask_available else "TRACK_LOST"
+    return "UNKNOWN"
+
+
+def group_mask_conflicts(records: Iterable[Mapping[str, Any]], *, max_gap_frames: int = 0
+                         ) -> list[dict[str, Any]]:
+    """Group contiguous per-frame forward/reverse conflicts into review intervals."""
+    if max_gap_frames < 0:
+        raise ValueError("MAX_GAP_MUST_BE_NON_NEGATIVE")
+    rows = sorted((dict(row) for row in records
+                   if row.get("decision") == "FORWARD_REVERSE_CONFLICT"
+                   and row.get("role") in ROLES),
+                  key=lambda row: (row["role"], int(row["frame"])))
+    groups: list[dict[str, Any]] = []
+    current: list[dict[str, Any]] = []
+    for row in rows:
+        if (current and (row["role"] != current[-1]["role"]
+                         or int(row["frame"]) - int(current[-1]["frame"]) > max_gap_frames + 1)):
+            groups.append(current)
+            current = []
+        current.append(row)
+    if current:
+        groups.append(current)
+    result = []
+    for group in groups:
+        first, last = group[0], group[-1]
+        role = first["role"]
+        start, end = int(first["frame"]), int(last["frame"])
+        ious = [float(row.get("fusion_evidence", {}).get("forward_reverse_iou", 0.0))
+                for row in group]
+        result.append({"event_id": f"MASK_CONFLICT_{role}_{start:05d}_{end:05d}",
+                       "type": "MASK_CONFLICT", "role": role, "frame": (start + end) // 2,
+                       "start_frame": start, "end_frame": end,
+                       "timestamp_ms": int(first.get("timestamp_ms", 0)),
+                       "end_timestamp_ms": int(last.get("timestamp_ms", 0)),
+                       "status": "REVIEW_REQUIRED", "conflict_frames": len(group),
+                       "iou_min": round(min(ious), 6) if ious else None,
+                       "iou_mean": round(sum(ious) / len(ious), 6) if ious else None,
+                       "forward_source_anchor": first.get("forward_source_anchor"),
+                       "reverse_source_anchor": last.get("reverse_source_anchor"),
+                       "evidence": {"forward_raw_asset": first.get("raw_forward_asset"),
+                                   "reverse_raw_asset": first.get("raw_reverse_asset"),
+                                   "threshold": MASK_CONFLICT_AGREEMENT_IOU}})
+    return result
+
+
+def summarize_manual_actions(actions: Iterable[Mapping[str, Any]], duration_seconds: float) -> dict[str, Any]:
+    if duration_seconds <= 0:
+        raise ValueError("DURATION_MUST_BE_POSITIVE")
+    rows = list(actions)
+    counts = {name: sum(row.get("action") == name for row in rows)
+              for name in ("initial_seed", "out_of_frame_confirm", "mask_choice",
+                           "manual_rebox", "identity_confirm")}
+    total = sum(counts.values())
+    return {"total": total, "by_type": counts,
+            "per_10_seconds": round(total * 10 / duration_seconds, 3),
+            "per_minute": round(total * 60 / duration_seconds, 3)}
+
+
+def validate_mask_conflict_review(*, event: Mapping[str, Any], role: str, choice: str,
+                                  bbox: Sequence[float] | None,
+                                  frame_size: Sequence[int]) -> dict[str, Any]:
+    if event.get("type") != "MASK_CONFLICT" or event.get("status") != "REVIEW_REQUIRED":
+        raise ValueError("MASK_CONFLICT_NOT_REVIEWABLE")
+    if role != event.get("role") or role not in ROLES:
+        raise ValueError("MASK_CONFLICT_ROLE_MISMATCH")
+    if choice not in {"FORWARD", "REVERSE", "NEITHER", "REBOX"}:
+        raise ValueError("INVALID_MASK_CONFLICT_CHOICE")
+    normalized = None
+    if choice == "REBOX":
+        if bbox is None or len(bbox) != 4 or len(frame_size) != 2:
+            raise ValueError("REBOX_COORDINATES_REQUIRED")
+        x0, y0, x1, y1 = map(float, bbox)
+        width, height = map(float, frame_size)
+        if (width <= 0 or height <= 0 or x0 < 0 or y0 < 0 or x1 > width or y1 > height
+                or x1 <= x0 or y1 <= y0):
+            raise ValueError("INVALID_REBOX_COORDINATES")
+        normalized = [x0, y0, x1, y1]
+    elif bbox is not None:
+        raise ValueError("BBOX_ONLY_ALLOWED_FOR_REBOX")
+    return {"event_id": str(event.get("event_id")), "role": role,
+            "choice": choice, "bbox": normalized,
+            "frame": int(event["frame"]), "start_frame": int(event["start_frame"]),
+            "end_frame": int(event["end_frame"])}
 
 
 class AnchorGuidedPlayerTracker:

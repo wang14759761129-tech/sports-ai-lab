@@ -3,9 +3,14 @@ from backend.anchor_guided_tracker import (
     PlayerIdentityAssociator,
     associate_players,
     checkpoint_matches,
+    classify_out_of_frame,
     derive_play_zones,
     fuse_masks,
+    group_mask_conflicts,
     schedule_time_anchors,
+    summarize_manual_actions,
+    tracking_state,
+    validate_mask_conflict_review,
     visibility_coverage,
 )
 
@@ -218,3 +223,95 @@ def test_visible_frame_coverage_uses_only_visible_and_partial_truth():
     ])
     assert result == {"eligible_frames": 3, "mask_available": 2, "coverage": 2 / 3,
                       "out_of_frame": 1, "unknown": 1}
+
+
+def test_human_out_of_frame_truth_is_reported_with_auditable_evidence():
+    result = classify_out_of_frame(frame_size=(1920, 1080),
+                                   human_annotation="OUT_OF_FRAME")
+    assert result["classification"] == "OUT_OF_FRAME"
+    assert result["confidence_level"] == "HIGH"
+    assert result["source"] == "HUMAN_REVIEW"
+    assert result["evidence"] == [{"type": "HUMAN_VISIBILITY_ANNOTATION",
+                                    "value": "OUT_OF_FRAME"}]
+
+
+def test_automatic_out_of_frame_needs_edge_and_multiple_independent_absence_signals():
+    supported = classify_out_of_frame(
+        frame_size=(1000, 600), previous_bbox=[0, 160, 70, 590],
+        matching_person_found=False, mask_present=False)
+    insufficient = classify_out_of_frame(
+        frame_size=(1000, 600), previous_bbox=[0, 160, 70, 590],
+        matching_person_found=False, mask_present=True)
+    assert supported["classification"] == "OUT_OF_FRAME"
+    assert supported["confidence_level"] == "MEDIUM"
+    assert insufficient["classification"] == "UNKNOWN"
+
+
+def test_same_edge_reentry_strengthens_out_of_frame_evidence_without_changing_identity():
+    result = classify_out_of_frame(
+        frame_size=(1000, 600), previous_bbox=[0, 160, 70, 590],
+        matching_person_found=False, mask_present=False,
+        next_bbox=[3, 170, 80, 590])
+    assert result["classification"] == "OUT_OF_FRAME"
+    assert result["confidence_level"] == "HIGH"
+    assert {item["type"] for item in result["evidence"]} >= {
+        "PREVIOUS_TRACK_APPROACHED_FRAME_EDGE", "NO_MATCHING_PERSON_DETECTION",
+        "SAM2_MASK_DISAPPEARED_NEAR_EDGE", "SUBSEQUENT_REENTRY_NEAR_SAME_EDGE"}
+
+
+def test_tracking_states_do_not_conflate_out_of_frame_identity_uncertainty_and_track_loss():
+    assert tracking_state(visibility="OUT_OF_FRAME", mask_available=False) == "OUT_OF_FRAME"
+    assert tracking_state(visibility="UNKNOWN", mask_available=False,
+                          association_status="AMBIGUOUS") == "IDENTITY_UNCERTAIN"
+    assert tracking_state(visibility="VISIBLE", mask_available=False) == "TRACK_LOST"
+    assert tracking_state(visibility="PARTIAL", mask_available=True) == "PARTIAL"
+
+
+def test_mask_conflicts_are_grouped_with_raw_evidence_and_source_anchors():
+    records = [
+        {"role": "NEAR_PLAYER", "frame": frame, "timestamp_ms": frame * 10,
+         "decision": "FORWARD_REVERSE_CONFLICT",
+         "fusion_evidence": {"forward_reverse_iou": 0.4 + frame / 1000},
+         "forward_source_anchor": 50, "reverse_source_anchor": 90,
+         "raw_forward_asset": f"forward-{frame}.png", "raw_reverse_asset": f"reverse-{frame}.png"}
+        for frame in (59, 60, 61)
+    ] + [{"role": "NEAR_PLAYER", "frame": 70, "decision": "FORWARD_ONLY"}]
+    grouped = group_mask_conflicts(records)
+    assert len(grouped) == 1
+    assert grouped[0]["type"] == "MASK_CONFLICT"
+    assert grouped[0]["start_frame"] == 59 and grouped[0]["end_frame"] == 61
+    assert grouped[0]["conflict_frames"] == 3
+    assert grouped[0]["evidence"]["forward_raw_asset"] == "forward-59.png"
+    assert grouped[0]["forward_source_anchor"] == 50
+    assert grouped[0]["reverse_source_anchor"] == 90
+
+
+def test_mask_conflict_review_accepts_choices_and_validates_manual_rebox():
+    event = {"event_id": "conflict-1", "type": "MASK_CONFLICT",
+             "status": "REVIEW_REQUIRED", "role": "NEAR_PLAYER",
+             "frame": 80, "start_frame": 59, "end_frame": 118}
+    assert validate_mask_conflict_review(event=event, role="NEAR_PLAYER",
+                                         choice="FORWARD", bbox=None,
+                                         frame_size=(1920, 1080))["choice"] == "FORWARD"
+    rebox = validate_mask_conflict_review(event=event, role="NEAR_PLAYER",
+                                          choice="REBOX", bbox=[10, 20, 100, 200],
+                                          frame_size=(1920, 1080))
+    assert rebox["bbox"] == [10.0, 20.0, 100.0, 200.0]
+    try:
+        validate_mask_conflict_review(event=event, role="FAR_PLAYER",
+                                      choice="REBOX", bbox=[-1, 20, 100, 200],
+                                      frame_size=(1920, 1080))
+    except ValueError as error:
+        assert str(error) == "MASK_CONFLICT_ROLE_MISMATCH"
+    else:
+        raise AssertionError("a conflict cannot be resolved using another role")
+
+
+def test_manual_action_metrics_report_per_clip_duration():
+    result = summarize_manual_actions([
+        {"action": "initial_seed"}, {"action": "mask_choice"},
+        {"action": "manual_rebox"}, {"action": "out_of_frame_confirm"},
+    ], duration_seconds=10)
+    assert result["total"] == 4
+    assert result["per_10_seconds"] == 4
+    assert result["per_minute"] == 24
