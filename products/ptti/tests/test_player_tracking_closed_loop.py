@@ -1,6 +1,7 @@
 import hashlib
 import json
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import pytest
@@ -8,6 +9,7 @@ from fastapi.testclient import TestClient
 
 from backend.main import create_app
 from backend.player_tracking_closed_loop import (
+    atomic_json,
     closed_loop_root,
     create_closed_loop_job,
     load_job_progress,
@@ -19,6 +21,17 @@ from backend.player_tracking_closed_loop import (
 
 
 RIGHTS = "CC BY-NC-SA 4.0 research/non-commercial"
+
+
+def test_atomic_json_uses_unique_temporary_files_for_concurrent_progress_writes(tmp_path):
+    target = tmp_path / "progress.json"
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        list(pool.map(lambda index: atomic_json(target, {"writer": index, "payload": [index] * 20}),
+                      range(24)))
+    result = json.loads(target.read_text(encoding="utf-8"))
+    assert result["writer"] in range(24)
+    assert result["payload"] == [result["writer"]] * 20
+    assert list(tmp_path.glob("progress.json.*.tmp")) == []
 
 
 def fixture_sample(local: Path):
@@ -102,6 +115,27 @@ def test_confirmed_seed_creates_fixed_identity_job_and_preserves_raw(tmp_path):
     assert seed["timestamp_ms"] == 30133
     assert load_job_progress(job_id, tmp_path)["status"] == "QUEUED"
     assert seed_review_asset("game_4-t30", 4, detection_set_id, "overlay", tmp_path).read_bytes() == b"overlay"
+
+
+def test_anchor_guided_job_pins_interval_without_changing_fixed_identity(tmp_path):
+    digest = fixture_sample(tmp_path)
+    detection_set_id, _ = seed_detections(tmp_path, digest)
+    job_id, root, seed = create_closed_loop_job(
+        sample_id="game_4-t30", frame_index=4, detection_set_id=detection_set_id,
+        near_candidate_id="player-near", far_candidate_id="player-far",
+        user_confirmed=True, tracking_architecture="DETECTION_ANCHORED_MASK_TRACKING",
+        anchor_interval_seconds=0.5, localappdata=tmp_path,
+    )
+    assert seed["tracking_architecture"] == "DETECTION_ANCHORED_MASK_TRACKING"
+    assert seed["anchor_interval_seconds"] == 0.5
+    assert load_job_progress(job_id, tmp_path)["tracking_architecture"] == "DETECTION_ANCHORED_MASK_TRACKING"
+    with pytest.raises(ValueError, match="UNSUPPORTED_ANCHOR_INTERVAL"):
+        create_closed_loop_job(
+            sample_id="game_4-t30", frame_index=4, detection_set_id=detection_set_id,
+            near_candidate_id="player-near", far_candidate_id="player-far",
+            user_confirmed=True, tracking_architecture="DETECTION_ANCHORED_MASK_TRACKING",
+            anchor_interval_seconds=0.75, localappdata=tmp_path,
+        )
 
 
 def test_closed_loop_job_rejects_unconfirmed_or_changed_seed_evidence(tmp_path):
@@ -198,3 +232,44 @@ def test_closed_loop_desktop_api_keeps_jobs_in_ptti_dev_and_requires_user_seed(t
         })
         assert refused.status_code == 422
     assert app.state.database_path == (tmp_path / "test-db" / "matches.db").resolve()
+
+
+def test_desktop_api_routes_anchor_guided_jobs_to_isolated_worker(tmp_path, monkeypatch):
+    import backend.vision_api as vision_api
+
+    local = tmp_path / "local"
+    digest = fixture_sample(local)
+    detection_set_id, _ = seed_detections(local, digest)
+    monkeypatch.setenv("LOCALAPPDATA", str(local))
+    monkeypatch.setenv("PTTI_ENV", "test")
+    monkeypatch.setenv("PTTI_DB", str(tmp_path / "test-db" / "matches.db"))
+    monkeypatch.setattr(vision_api, "_CLOSED_LOOP_PROCESSES", {})
+    product_root = Path(__file__).resolve().parents[1]
+    script = product_root / "vision_worker" / "anchor_guided_player_tracker.py"
+    monkeypatch.setattr(vision_api, "anchor_guided_worker_paths",
+                        lambda: (product_root, script, Path(sys.executable)))
+
+    class FakeProcess:
+        def poll(self):
+            return None
+
+    launches = []
+    monkeypatch.setattr(vision_api, "launch_anchor_guided_worker",
+                        lambda **kwargs: launches.append(kwargs) or FakeProcess())
+    app = create_app(tmp_path / "test-db" / "matches.db")
+    with TestClient(app) as client:
+        response = client.post("/api/vision/v2/player-tracking/closed-loop/jobs", json={
+            "sample_id": "game_4-t30", "frame_index": 4,
+            "detection_set_id": detection_set_id,
+            "near_candidate_id": "player-near", "far_candidate_id": "player-far",
+            "user_confirmed": True,
+            "tracking_architecture": "DETECTION_ANCHORED_MASK_TRACKING",
+            "anchor_interval_seconds": 2.0,
+        })
+        assert response.status_code == 200
+        assert response.json()["tracking_architecture"] == "DETECTION_ANCHORED_MASK_TRACKING"
+        assert len(launches) == 1
+        assert launches[0]["interval_seconds"] == 2.0
+        progress = client.get(f"/api/vision/v2/player-tracking/closed-loop/jobs/{response.json()['job_id']}")
+        assert progress.status_code == 200
+        assert progress.json()["production_database"] == "NOT_ACCESSED"

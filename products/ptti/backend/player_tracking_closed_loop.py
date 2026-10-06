@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 import re
+import time
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -136,9 +137,19 @@ def seed_detection_dir(sample_id: str, frame_index: int, detection_set_id: str,
 
 def atomic_json(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(path.name + ".tmp")
-    temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding="utf-8")
-    temporary.replace(path)
+    temporary = path.with_name(f"{path.name}.{uuid.uuid4().hex}.tmp")
+    try:
+        temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding="utf-8")
+        for attempt in range(6):
+            try:
+                temporary.replace(path)
+                return
+            except PermissionError:
+                if attempt == 5:
+                    raise
+                time.sleep(0.02 * (2 ** attempt))
+    finally:
+        temporary.unlink(missing_ok=True)
 
 
 def load_seed_detection(sample_id: str, frame_index: int, detection_set_id: str,
@@ -177,7 +188,14 @@ def create_closed_loop_job(*, sample_id: str, frame_index: int, detection_set_id
                            far_bbox: list[float] | None = None,
                            athlete_mapping: dict[str, str] | None = None,
                            candidate_review: dict[str, str] | None = None,
+                           tracking_architecture: str = "CLOSED_LOOP_SINGLE_SEED",
+                           anchor_interval_seconds: float = 1.0,
                            localappdata: str | Path | None = None) -> tuple[str, Path, dict[str, Any]]:
+    if tracking_architecture not in {"CLOSED_LOOP_SINGLE_SEED", "DETECTION_ANCHORED_MASK_TRACKING"}:
+        raise ValueError("INVALID_TRACKING_ARCHITECTURE")
+    if (tracking_architecture == "DETECTION_ANCHORED_MASK_TRACKING"
+            and anchor_interval_seconds not in {0.5, 1.0, 2.0}):
+        raise ValueError("UNSUPPORTED_ANCHOR_INTERVAL")
     sample, raw = load_seed_detection(sample_id, frame_index, detection_set_id, localappdata)
     seed = confirm_seed(sample=sample, raw_detections=raw, near_candidate_id=near_candidate_id,
                         far_candidate_id=far_candidate_id, frame_index=frame_index,
@@ -190,6 +208,8 @@ def create_closed_loop_job(*, sample_id: str, frame_index: int, detection_set_id
     seed["candidate_review"] = [{"candidate_id": candidate_id, "action": action,
                                  "source": "USER_UI", "raw_preserved": True}
                                 for candidate_id, action in review.items()]
+    seed["tracking_architecture"] = tracking_architecture
+    seed["anchor_interval_seconds"] = float(anchor_interval_seconds)
     root = closed_loop_root(localappdata)
     job_id = uuid.uuid4().hex
     job_root = root / "jobs" / job_id
@@ -204,6 +224,8 @@ def create_closed_loop_job(*, sample_id: str, frame_index: int, detection_set_id
             "type": "INITIAL_SEED", "frame": frame_index, "timestamp_ms": seed["timestamp_ms"],
             "source": "USER_UI", "object_ids": {"NEAR_PLAYER": 1, "FAR_PLAYER": 2},
         }], "created_at": datetime.now(timezone.utc).isoformat(),
+        "tracking_architecture": tracking_architecture,
+        "anchor_interval_seconds": float(anchor_interval_seconds),
         "production_database": "NOT_ACCESSED",
     }
     atomic_json(job_root / "progress.json", progress)
@@ -266,7 +288,7 @@ def queue_reacquisition(*, job_id: str, role: str, candidate_id: str,
 
 def closed_loop_asset(job_id: str, asset_name: str, localappdata: str | Path | None = None) -> Path:
     if not isinstance(asset_name, str) or not re.fullmatch(
-            r"(?:player_tracking_overlay\.mp4|review-frames/\d{5}\.jpg|overlay-frames/\d{5}\.jpg|masks/(?:near_player|far_player)/\d{5}\.png)\Z",
+            r"(?:player_tracking_overlay\.mp4|anchor_guided_tracking_overlay\.mp4|review-frames/\d{5}\.jpg|overlay-frames/\d{5}\.jpg|masks/(?:near_player|far_player)/\d{5}\.png)\Z",
             asset_name):
         raise ValueError("INVALID_CLOSED_LOOP_ASSET")
     base = job_root(job_id, localappdata).resolve()

@@ -265,7 +265,8 @@ def extrapolated_box(history):
     return [last[0] + dx, last[1] + dy, last[2] + dx, last[3] + dy]
 
 
-def update_progress(job_id, *, status=None, stage=None, processed=None, event=None, error=None):
+def update_progress(job_id, *, status=None, stage=None, processed=None, total_steps=None,
+                    event=None, error=None):
     progress = load_job_progress(job_id)
     if status is not None:
         progress["status"] = status
@@ -273,10 +274,15 @@ def update_progress(job_id, *, status=None, stage=None, processed=None, event=No
         progress["stage"] = stage
     if processed is not None:
         progress["processed_frames"] = processed
+    if total_steps is not None:
+        progress["total_steps"] = total_steps
     if event is not None:
         progress.setdefault("events", []).append(event)
     if error is not None:
-        progress["error"] = str(error)[:1000]
+        if error:
+            progress["error"] = str(error)[:1000]
+        else:
+            progress.pop("error", None)
     progress["updated_at"] = now()
     save_job_progress(job_id, progress)
     return progress

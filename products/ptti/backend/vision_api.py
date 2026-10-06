@@ -6,6 +6,7 @@ import uuid
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Literal
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
@@ -49,6 +50,24 @@ def launch_closed_loop_worker(*, python, script, job_id, product_root, env, stdo
         cwd=str(product_root), env=env, stdout=stdout, stderr=subprocess.STDOUT,
         **({'creationflags': subprocess.CREATE_NO_WINDOW} if os.name == 'nt' else {}))
 
+
+def anchor_guided_worker_paths():
+    product_root = Path(__file__).resolve().parents[1]
+    script = product_root/'vision_worker'/'anchor_guided_player_tracker.py'
+    local = Path(os.environ.get('LOCALAPPDATA', Path.home()/'AppData/Local'))
+    python = local/'PTTI-Dev'/'vision-v2-sam2'/'venv'/'Scripts'/'python.exe'
+    if not script.is_file() or not python.is_file():
+        raise HTTPException(503, '锚点追踪 worker 或隔离 GPU 运行环境不可用。')
+    return product_root, script, python
+
+
+def launch_anchor_guided_worker(*, python, script, job_id, interval_seconds, product_root, env, stdout):
+    return subprocess.Popen(
+        [str(python), str(script), 'track', '--job-id', job_id,
+         '--interval-seconds', str(interval_seconds)],
+        cwd=str(product_root), env=env, stdout=stdout, stderr=subprocess.STDOUT,
+        **({'creationflags': subprocess.CREATE_NO_WINDOW} if os.name == 'nt' else {}))
+
 class BenchmarkRequest(BaseModel):
     device: str = 'cuda'
 
@@ -82,6 +101,8 @@ class ClosedLoopStartRequest(BaseModel):
     far_bbox: list[float] | None = None
     athlete_mapping: dict[str, str] | None = None
     candidate_review: dict[str, str] | None = None
+    tracking_architecture: Literal['CLOSED_LOOP_SINGLE_SEED', 'DETECTION_ANCHORED_MASK_TRACKING'] = 'CLOSED_LOOP_SINGLE_SEED'
+    anchor_interval_seconds: float = Field(default=1.0, gt=0, le=2.0)
 
 class ClosedLoopReacquisitionRequest(BaseModel):
     role: str
@@ -257,6 +278,8 @@ def router(repo=None, data_root=None):
                 user_confirmed=value.user_confirmed, near_bbox=value.near_bbox,
                 far_bbox=value.far_bbox, athlete_mapping=value.athlete_mapping,
                 candidate_review=value.candidate_review,
+                tracking_architecture=value.tracking_architecture,
+                anchor_interval_seconds=value.anchor_interval_seconds,
                 localappdata=closed_loop_local_root())
             with _CLOSED_LOOP_PROCESS_LOCK:
                 for old_id, old in list(_CLOSED_LOOP_PROCESSES.items()):
@@ -269,21 +292,31 @@ def router(repo=None, data_root=None):
                         'error': 'GPU_TRACKING_JOB_ALREADY_RUNNING', 'processed_frames': 0,
                         'events': [], 'production_database': 'NOT_ACCESSED'}, ensure_ascii=False), encoding='utf-8')
                     raise HTTPException(409, '另一个球员追踪任务仍在运行，请等待完成后再开始。')
-                product_root, script, python = closed_loop_worker()
+                product_root, script, python = (anchor_guided_worker_paths()
+                    if value.tracking_architecture == 'DETECTION_ANCHORED_MASK_TRACKING'
+                    else closed_loop_worker())
                 env = dict(os.environ)
                 env['PTTI_PRODUCT_ROOT'] = str(product_root)
                 env['PYTHONUTF8'] = '1'
                 log = (root/'worker.log').open('ab')
                 try:
-                    process = launch_closed_loop_worker(
-                        python=python, script=script, job_id=job_id,
-                        product_root=product_root, env=env, stdout=log)
+                    if value.tracking_architecture == 'DETECTION_ANCHORED_MASK_TRACKING':
+                        process = launch_anchor_guided_worker(
+                            python=python, script=script, job_id=job_id,
+                            interval_seconds=value.anchor_interval_seconds,
+                            product_root=product_root, env=env, stdout=log)
+                    else:
+                        process = launch_closed_loop_worker(
+                            python=python, script=script, job_id=job_id,
+                            product_root=product_root, env=env, stdout=log)
                 finally:
                     log.close()
                 _CLOSED_LOOP_PROCESSES[job_id] = process
             return {'status': 'QUEUED', 'job_id': job_id,
                     'seed_frame': seed['seed_frame'],
                     'object_ids': {'NEAR_PLAYER': 1, 'FAR_PLAYER': 2},
+                    'tracking_architecture': value.tracking_architecture,
+                    'anchor_interval_seconds': value.anchor_interval_seconds,
                     'seed_source': 'USER_CONFIRMED_SEED',
                     'production_database': 'NOT_ACCESSED'}
         except HTTPException:
