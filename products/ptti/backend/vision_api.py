@@ -37,7 +37,7 @@ _CLOSED_LOOP_PROCESSES = {}
 
 
 def closed_loop_worker_paths():
-    product_root = Path(__file__).resolve().parents[1]
+    product_root = _worker_product_root()
     script = product_root/'vision_worker'/'player_tracking_closed_loop.py'
     local = Path(os.environ.get('LOCALAPPDATA', Path.home()/'AppData/Local'))
     python = local/'PTTI-Dev'/'vision-v2-sam2'/'venv'/'Scripts'/'python.exe'
@@ -54,13 +54,29 @@ def launch_closed_loop_worker(*, python, script, job_id, product_root, env, stdo
 
 
 def anchor_guided_worker_paths():
-    product_root = Path(__file__).resolve().parents[1]
+    product_root = _worker_product_root()
     script = product_root/'vision_worker'/'anchor_guided_player_tracker.py'
     local = Path(os.environ.get('LOCALAPPDATA', Path.home()/'AppData/Local'))
     python = local/'PTTI-Dev'/'vision-v2-sam2'/'venv'/'Scripts'/'python.exe'
     if not script.is_file() or not python.is_file():
         raise HTTPException(503, '锚点追踪 worker 或隔离 GPU 运行环境不可用。')
     return product_root, script, python
+
+
+def _worker_product_root():
+    """Resolve source files for the isolated worker, including in a frozen preview.
+
+    PyInstaller stores the desktop server's Python modules inside its archive;
+    an external GPU Python process cannot import those archived modules. A
+    development preview therefore points PTTI_VISION_HOME at the matching
+    local checkout through its build metadata. Source runs keep using this
+    package's product directory.
+    """
+    configured = os.environ.get('PTTI_VISION_HOME')
+    product_root = Path(configured).resolve() if configured else Path(__file__).resolve().parents[1]
+    if not (product_root/'vision_worker').is_dir():
+        raise HTTPException(503, '本机隔离追踪代码目录不可用。')
+    return product_root
 
 
 def launch_anchor_guided_worker(*, python, script, job_id, interval_seconds, product_root, env, stdout):

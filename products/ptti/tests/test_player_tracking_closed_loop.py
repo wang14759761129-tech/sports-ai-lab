@@ -459,3 +459,24 @@ def test_out_of_frame_review_api_can_downgrade_unsupported_classification(tmp_pa
     manifest = json.loads((root / "tracking.json").read_text(encoding="utf-8"))
     assert manifest["events"][0]["type"] == "IDENTITY_UNCERTAIN"
     assert manifest["events"][0]["status"] == "REVIEW_REQUIRED"
+
+
+def test_packaged_preview_worker_paths_use_explicit_local_runtime(tmp_path, monkeypatch):
+    import backend.vision_api as vision_api
+
+    product_root = tmp_path / "local-runtime"
+    workers = product_root / "vision_worker"
+    workers.mkdir(parents=True)
+    closed_loop = workers / "player_tracking_closed_loop.py"
+    anchor_guided = workers / "anchor_guided_player_tracker.py"
+    closed_loop.write_text("# worker fixture", encoding="utf-8")
+    anchor_guided.write_text("# worker fixture", encoding="utf-8")
+    python = tmp_path / "local" / "PTTI-Dev" / "vision-v2-sam2" / "venv" / "Scripts" / "python.exe"
+    python.parent.mkdir(parents=True)
+    python.write_bytes(b"isolated worker fixture")
+
+    monkeypatch.setenv("PTTI_VISION_HOME", str(product_root))
+    monkeypatch.setenv("LOCALAPPDATA", str(tmp_path / "local"))
+
+    assert vision_api.closed_loop_worker_paths() == (product_root, closed_loop, python)
+    assert vision_api.anchor_guided_worker_paths() == (product_root, anchor_guided, python)
