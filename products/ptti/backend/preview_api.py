@@ -31,6 +31,22 @@ def router(repo, data_root, mode):
         if mode == "production":
             raise HTTPException(404, "Preview 仅在独立开发环境开放")
 
+    @api.get('/workspace')
+    def workspace():
+        guard()
+        value=repo.professional_workspace()
+        return {key:value[key] for key in ('athletes','matches','jobs')}
+
+    @api.get('/athletes/{athlete_id}')
+    def athlete(athlete_id:str):
+        guard()
+        value=repo.professional_workspace()
+        profile=next((a for a in value['athletes'] if a['athlete_id']==athlete_id),None)
+        if not profile:raise HTTPException(404,'运动员不存在')
+        return {'athlete':profile,'rankings':value['rankings'][athlete_id],
+                'matches':[m for m in value['matches'] if athlete_id in (m['player_a_id'],m['player_b_id'])],
+                'sources':[value['sources'][s] for s in profile.get('source_ids',[]) if s in value['sources']]}
+
     def outputs(match_id):
         job = repo.get_full_match_job(match_id) or {}
         directory = Path(job.get("output_dir") or "")

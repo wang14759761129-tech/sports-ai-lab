@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from backend.main import create_app
 from backend.preview_api import router
+from unittest.mock import patch
 
 
 def fixture_video(tmp_path):
@@ -23,6 +24,26 @@ def test_preview_lands_on_real_registry_without_creating_demo(tmp_path):
         assert len(client.get('/api/professional-matches').json())==6
         assert client.get('/api/matches').json()==[]
         assert client.get('/api/preview/jobs').json()==[]
+
+
+def test_workspace_refresh_uses_one_guarded_connection_and_retains_rankings_and_sources(tmp_path):
+    app=create_app(tmp_path/'matches.db')
+    repo=app.state.repository
+    expected=repo.professional_matches()
+    with patch.object(repo,'connect',wraps=repo.connect) as connect:
+        snapshot=repo.professional_workspace()
+        assert connect.call_count==1
+    assert len(snapshot['athletes'])==16 and len(snapshot['matches'])==6
+    for record in expected:
+        view=next(m for m in snapshot['matches'] if m['match_id']==record['match_id'])
+        assert view['source_ids']==record['source_ids']
+        assert view.get('final_score')==record.get('final_score')
+        assert view['players']['player_a']['athlete_id']==record['player_a_id']
+    with TestClient(app) as client:
+        assert client.get('/api/preview/workspace').json()['jobs']==[]
+        aid=next(a['athlete_id'] for a in snapshot['athletes'] if a['canonical_name_zh']=='王楚钦')
+        profile=client.get('/api/preview/athletes/'+aid).json()
+        assert len(profile['matches'])==2 and profile['rankings'][0]['source']['source_url']
 
 
 def test_inspect_attach_existing_match_preserves_provenance_and_checks_rights(tmp_path):

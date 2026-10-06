@@ -184,6 +184,43 @@ class Repository:
                 profiles.append(profile)
         return profiles
 
+    def professional_workspace(self):
+        """One guarded read transaction for the frequently refreshed desktop workspace."""
+        with self.connect() as db:
+            sources={row[0]:json.loads(row[1]) for row in db.execute('SELECT source_id,payload FROM professional_sources')}
+            athletes={row[0]:json.loads(row[1]) for row in db.execute('SELECT athlete_id,payload FROM athletes')}
+            ranks={key:[] for key in athletes}
+            for row in db.execute('SELECT athlete_id,ranking_type,rank,points,ranking_year,ranking_week,ranking_date,source_id FROM athlete_ranking_history ORDER BY ranking_date DESC,ranking_year DESC,ranking_week DESC'):
+                ranks[row[0]].append(dict(athlete_id=row[0],ranking_type=row[1],rank=row[2],points=row[3],ranking_year=row[4],ranking_week=row[5],ranking_date=row[6],source_id=row[7],source=sources.get(row[7])))
+            groups={key:[] for key in athletes}
+            for aid,code in db.execute('SELECT athlete_id,group_code FROM athlete_group_memberships ORDER BY group_code'):
+                groups[aid].append(code)
+            for aid,athlete in athletes.items():
+                latest=ranks[aid][0] if ranks[aid] else {}
+                athlete.update(current_world_rank=latest.get('rank'),ranking_points=latest.get('points'),
+                    ranking_year=latest.get('ranking_year'),ranking_week=latest.get('ranking_week'),
+                    ranking_date=latest.get('ranking_date'),ranking_history_count=len(ranks[aid]),groups=groups[aid])
+            records={row[0]:json.loads(row[1]) for row in db.execute('SELECT match_id,payload FROM professional_matches')}
+            for mid,encoded in db.execute('SELECT match_id,payload FROM professional_match_revisions ORDER BY revision_no'):
+                revision=json.loads(encoded);record=records[mid]
+                combined=list(dict.fromkeys(record.get('source_ids',[])+revision.get('source_ids',[])))
+                record.update({key:value for key,value in revision.items() if key!='source_ids'})
+                record['source_ids']=combined
+            jobs={row[0]:json.loads(row[1]) for row in db.execute('SELECT match_id,payload FROM full_match_jobs')}
+        for mid,record in records.items():
+            job=jobs.get(mid)
+            record.update(players={'player_a':athletes[record['player_a_id']],'player_b':athletes[record['player_b_id']]},
+                sources=[sources[s] for s in record.get('source_ids',[]) if s in sources],full_match_analysis=job)
+            if job and job.get('status')=='BALLTRACK_COMPLETE':record['analysis_status']='BALLTRACK_COMPLETE'
+        matches=sorted(records.values(),key=lambda m:(m.get('event_name',''),m['match_id']))
+        matches.sort(key=lambda m:m.get('event_date') or '',reverse=True)
+        job_views=[{**job,'match_id':mid,'event_name':records[mid]['event_name'],
+                    'player_a':athletes[records[mid]['player_a_id']],'player_b':athletes[records[mid]['player_b_id']]}
+                   for mid,job in jobs.items()]
+        return {'athletes':sorted(athletes.values(),key=lambda a:(a['current_world_rank'] or 999999,a['canonical_name_en'])),
+                'matches':matches,'jobs':sorted(job_views,key=lambda j:j.get('updated_at',j.get('created_at','')),reverse=True),
+                'rankings':ranks,'sources':sources}
+
     def get_athlete(self,athlete_id):
         with self.connect() as db:row=db.execute('SELECT payload FROM athletes WHERE athlete_id=?',(athlete_id,)).fetchone()
         return self._athlete_view(json.loads(row[0])) if row else None

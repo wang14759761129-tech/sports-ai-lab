@@ -1,4 +1,4 @@
-import {useEffect,useState} from 'react';
+import {useEffect,useState,useRef} from 'react';
 import {Card,Empty,PageHeader} from './ui';
 import './professional.css';
 
@@ -22,13 +22,14 @@ export default function ProfessionalWorkspace({page,navigationRevision,navigate,
  const [search,setSearch]=useState(''),[group,setGroup]=useState(''),[association,setAssociation]=useState(''),[videoTab,setVideoTab]=useState('import');
  const [file,setFile]=useState<File|null>(null),[asset,setAsset]=useState<any>(null),[importMatch,setImportMatch]=useState(''),[event,setEvent]=useState(''),[date,setDate]=useState(''),[round,setRound]=useState(''),[a,setA]=useState(''),[b,setB]=useState(''),[note,setNote]=useState(''),[rights,setRights]=useState(false),[notice,setNotice]=useState('');
  const [outputs,setOutputs]=useState<any>(null),[structure,setStructure]=useState<any>(null),[overlay,setOverlay]=useState(''),[dataset,setDataset]=useState<any>(null),[doctor,setDoctor]=useState<any>(null),[analyses,setAnalyses]=useState<any[]>([]);
- const refresh=async()=>{const [players,ms,js]=await Promise.all([request('/players'),request('/professional-matches'),request('/preview/jobs')]);setAthletes(players.map((x:any)=>x.athlete));setMatches(ms);setJobs(js)};
+ const refreshing=useRef<Promise<void>|null>(null);
+ const refresh=async()=>{if(refreshing.current)return refreshing.current;const pending=request('/preview/workspace').then(value=>{setAthletes(value.athletes);setMatches(value.matches);setJobs(value.jobs)}).finally(()=>{refreshing.current=null});refreshing.current=pending;return pending};
  useEffect(()=>{refresh().catch(e=>setError(e.message)).finally(()=>setLoading(false));const timer=setInterval(()=>refresh().catch(()=>{}),4000);return()=>clearInterval(timer)},[]);
  useEffect(()=>{setDetail(null);setError('');setOverlay('');if(page==='research'){Promise.all([request('/vision/research-datasets/extended-openttgames'),request('/vision/doctor'),request('/vision/analyses')]).then(([ds,dr,as])=>{setDataset(ds);setDoctor(dr);setAnalyses(as)}).catch(e=>setError(e.message))}},[page,navigationRevision]);
  useEffect(()=>{if(page!=='research')return;const timer=setInterval(()=>request('/vision/research-datasets/extended-openttgames').then(setDataset).catch(()=>{}),10000);return()=>clearInterval(timer)},[page]);
  useEffect(()=>{if(detail?.type!=='match')return;const id=detail.match.match_id;const timer=setInterval(()=>Promise.all([request(`/preview/matches/${encodeURIComponent(id)}/outputs`),request(`/professional-matches/${encodeURIComponent(id)}/match-structure`)]).then(([out,st])=>{setOutputs(out);setStructure(st)}).catch(()=>{}),4000);return()=>clearInterval(timer)},[detail?.type,detail?.match?.match_id]);
  async function act(fn:()=>Promise<void>){setBusy(true);setError('');try{await fn()}catch(e:any){setError(e.message||'操作未完成，请重试')}finally{setBusy(false)}}
- async function openAthlete(id:string){await act(async()=>{const value=await request('/players/'+encodeURIComponent(id));setDetail({type:'athlete',...value})})}
+ async function openAthlete(id:string){await act(async()=>{const value=await request('/preview/athletes/'+encodeURIComponent(id));setDetail({type:'athlete',...value})})}
  async function openMatch(m:any){await act(async()=>{const [out,st]=await Promise.all([request(`/preview/matches/${encodeURIComponent(m.match_id)}/outputs`),request(`/professional-matches/${encodeURIComponent(m.match_id)}/match-structure`)]);setOutputs(out);setStructure(st);setDetail({type:'match',match:m});setOverlay('')})}
  function importFor(m?:any){setImportMatch(m?.match_id||'');setVideoTab('import');setNotice('');navigate('videoCenter')}
  async function inspect(){if(!file)return;await act(async()=>{const form=new FormData();form.append('file',file);setAsset(await request('/preview/videos/inspect',{method:'POST',body:form}));setNotice('视频读取完成，请选择比赛并填写来源与权限。')})}
