@@ -1,13 +1,14 @@
 import json
 import hashlib
 import os
+import secrets
 import uuid
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 from fastapi.responses import FileResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from vision.service import VisionService, DatasetManager
 from vision.config import VisionConfig
 from vision.schema import Source
@@ -22,6 +23,31 @@ from backend.fullmatch import quality_report, DEFAULT_CHUNK_SECONDS
 from backend.sam2_player_tracking import (player_tracking_frame_asset, player_tracking_root,
                                           player_tracking_snapshot, player_tracking_video_asset,
                                           record_player_tracking_review)
+from backend.player_tracking_closed_loop import (
+    closed_loop_asset, closed_loop_root, create_closed_loop_job, job_root as closed_loop_job_root,
+    list_closed_loop_samples, load_job_progress, queue_reacquisition, save_job_progress,
+    seed_detection_dir, seed_review_asset,
+)
+
+_CLOSED_LOOP_PROCESS_LOCK = __import__('threading').RLock()
+_CLOSED_LOOP_PROCESSES = {}
+
+
+def closed_loop_worker_paths():
+    product_root = Path(__file__).resolve().parents[1]
+    script = product_root/'vision_worker'/'player_tracking_closed_loop.py'
+    local = Path(os.environ.get('LOCALAPPDATA', Path.home()/'AppData/Local'))
+    python = local/'PTTI-Dev'/'vision-v2-sam2'/'venv'/'Scripts'/'python.exe'
+    if not script.is_file() or not python.is_file():
+        raise HTTPException(503, '隔离追踪 worker 或 GPU 运行环境不可用。')
+    return product_root, script, python
+
+
+def launch_closed_loop_worker(*, python, script, job_id, product_root, env, stdout):
+    return subprocess.Popen(
+        [str(python), str(script), 'track', '--job-id', job_id],
+        cwd=str(product_root), env=env, stdout=stdout, stderr=subprocess.STDOUT,
+        **({'creationflags': subprocess.CREATE_NO_WINDOW} if os.name == 'nt' else {}))
 
 class BenchmarkRequest(BaseModel):
     device: str = 'cuda'
@@ -40,6 +66,26 @@ class PersonSceneReviewRequest(BaseModel):
 class PlayerTrackingReviewRequest(BaseModel):
     action: str
     note: str = ''
+
+class ClosedLoopSeedDetectionRequest(BaseModel):
+    sample_id: str
+    frame_index: int = Field(ge=0)
+
+class ClosedLoopStartRequest(BaseModel):
+    sample_id: str
+    frame_index: int = Field(ge=0)
+    detection_set_id: str
+    near_candidate_id: str
+    far_candidate_id: str
+    user_confirmed: bool
+    near_bbox: list[float] | None = None
+    far_bbox: list[float] | None = None
+    athlete_mapping: dict[str, str] | None = None
+    candidate_review: dict[str, str] | None = None
+
+class ClosedLoopReacquisitionRequest(BaseModel):
+    role: str
+    candidate_id: str
 
 def router(repo=None, data_root=None):
     api = APIRouter(prefix='/api/vision')
@@ -128,6 +174,164 @@ def router(repo=None, data_root=None):
             raise HTTPException(422, '请选择有效复核操作。') from exc
         except (OSError, KeyError, TypeError) as exc:
             raise HTTPException(409, '追踪结果不可用，复核没有保存。') from exc
+
+    def closed_loop_local_root():
+        return Path(os.environ.get('LOCALAPPDATA', Path.home()/'AppData/Local'))
+
+    def closed_loop_worker():
+        return closed_loop_worker_paths()
+
+    @api.get('/v2/player-tracking/closed-loop/samples')
+    def closed_loop_samples():
+        try:
+            samples = list_closed_loop_samples(closed_loop_local_root())
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            raise HTTPException(409, '研究视频未通过许可、来源或 SHA256 校验。') from exc
+        return {'status': 'READY' if samples else 'NO_AUTHORIZED_SAMPLES',
+                'samples': [{key: value for key, value in item.items() if key != 'video_path'}
+                            for item in samples],
+                'dataset': 'Extended OpenTTGames', 'rights': 'CC BY-NC-SA 4.0 research/non-commercial',
+                'commercial_use': False, 'production_database': 'NOT_ACCESSED'}
+
+    @api.post('/v2/player-tracking/closed-loop/seed-detections')
+    def closed_loop_seed_detections(value: ClosedLoopSeedDetectionRequest):
+        try:
+            samples = list_closed_loop_samples(closed_loop_local_root())
+            sample = next((item for item in samples if item['sample_id'] == value.sample_id), None)
+            if sample is None or value.frame_index >= sample['frames']:
+                raise ValueError('AUTHORIZED_TRAIN_SAMPLE_UNAVAILABLE_OR_FRAME_OUT_OF_RANGE')
+            detection_set_id = secrets.token_hex(32)
+            product_root, script, python = closed_loop_worker()
+            env = dict(os.environ)
+            env['PTTI_PRODUCT_ROOT'] = str(product_root)
+            env['PYTHONUTF8'] = '1'
+            process = subprocess.run(
+                [str(python), str(script), 'detect-seed', '--sample-id', value.sample_id,
+                 '--frame', str(value.frame_index), '--detection-set-id', detection_set_id],
+                cwd=str(product_root), env=env, capture_output=True, text=True, timeout=180,
+                **({'creationflags': subprocess.CREATE_NO_WINDOW} if os.name == 'nt' else {}))
+            if process.returncode:
+                raise RuntimeError(process.stderr[-1000:] or process.stdout[-1000:] or 'RTDETR_SEED_DETECTION_FAILED')
+            folder = seed_detection_dir(value.sample_id, value.frame_index, detection_set_id, closed_loop_local_root())
+            detections = json.loads((folder/'detections.json').read_text(encoding='utf-8'))
+            if detections.get('clip_sha256') != sample['clip_sha256']:
+                raise ValueError('SEED_SOURCE_SHA_MISMATCH')
+            return {'status': 'DETECTIONS_READY', 'sample_id': value.sample_id,
+                    'frame_index': value.frame_index, 'detection_set_id': detection_set_id,
+                    'timestamp_ms': round((sample['start_seconds'] + value.frame_index/sample['sample_fps'])*1000),
+                    'detections': detections['detections'], 'runtime': detections['runtime'],
+                    'detector': detections['detector'], 'image_url':
+                        f"/api/vision/v2/player-tracking/closed-loop/seed-assets/{value.sample_id}/{value.frame_index}/{detection_set_id}/overlay",
+                    'source_image_url':
+                        f"/api/vision/v2/player-tracking/closed-loop/seed-assets/{value.sample_id}/{value.frame_index}/{detection_set_id}/source",
+                    'production_database': 'NOT_ACCESSED'}
+        except HTTPException:
+            raise
+        except subprocess.TimeoutExpired as exc:
+            raise HTTPException(504, 'RT-DETR 初始化或检测超时；追踪尚未开始。') from exc
+        except FileNotFoundError as exc:
+            raise HTTPException(404, '授权研究片段或检测结果不存在。') from exc
+        except RuntimeError as exc:
+            raise HTTPException(503, 'RT-DETR 种子检测失败；追踪尚未开始。') from exc
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            raise HTTPException(422, '请选择有效片段和画面，并重新运行人物检测。') from exc
+
+    @api.get('/v2/player-tracking/closed-loop/seed-assets/{sample_id}/{frame_index}/{detection_set_id}/{view}')
+    def closed_loop_seed_asset(sample_id: str, frame_index: int, detection_set_id: str, view: str):
+        try:
+            path = seed_review_asset(sample_id, frame_index, detection_set_id, view, closed_loop_local_root())
+        except (ValueError, FileNotFoundError) as exc:
+            raise HTTPException(404, '种子复核画面不存在。') from exc
+        if not path.is_file():
+            raise HTTPException(404, '种子复核画面不存在。')
+        return FileResponse(path, media_type='image/jpeg')
+
+    @api.post('/v2/player-tracking/closed-loop/jobs')
+    def start_closed_loop(value: ClosedLoopStartRequest):
+        try:
+            job_id, root, seed = create_closed_loop_job(
+                sample_id=value.sample_id, frame_index=value.frame_index,
+                detection_set_id=value.detection_set_id,
+                near_candidate_id=value.near_candidate_id,
+                far_candidate_id=value.far_candidate_id,
+                user_confirmed=value.user_confirmed, near_bbox=value.near_bbox,
+                far_bbox=value.far_bbox, athlete_mapping=value.athlete_mapping,
+                candidate_review=value.candidate_review,
+                localappdata=closed_loop_local_root())
+            with _CLOSED_LOOP_PROCESS_LOCK:
+                for old_id, old in list(_CLOSED_LOOP_PROCESSES.items()):
+                    if old.poll() is not None:
+                        _CLOSED_LOOP_PROCESSES.pop(old_id, None)
+                if _CLOSED_LOOP_PROCESSES:
+                    (root/'progress.json').write_text(json.dumps({
+                        'job_id': job_id, 'sample_id': value.sample_id, 'status': 'FAILED',
+                        'stage': '已有隔离 GPU 追踪任务运行；本次尚未启动。',
+                        'error': 'GPU_TRACKING_JOB_ALREADY_RUNNING', 'processed_frames': 0,
+                        'events': [], 'production_database': 'NOT_ACCESSED'}, ensure_ascii=False), encoding='utf-8')
+                    raise HTTPException(409, '另一个球员追踪任务仍在运行，请等待完成后再开始。')
+                product_root, script, python = closed_loop_worker()
+                env = dict(os.environ)
+                env['PTTI_PRODUCT_ROOT'] = str(product_root)
+                env['PYTHONUTF8'] = '1'
+                log = (root/'worker.log').open('ab')
+                try:
+                    process = launch_closed_loop_worker(
+                        python=python, script=script, job_id=job_id,
+                        product_root=product_root, env=env, stdout=log)
+                finally:
+                    log.close()
+                _CLOSED_LOOP_PROCESSES[job_id] = process
+            return {'status': 'QUEUED', 'job_id': job_id,
+                    'seed_frame': seed['seed_frame'],
+                    'object_ids': {'NEAR_PLAYER': 1, 'FAR_PLAYER': 2},
+                    'seed_source': 'USER_CONFIRMED_SEED',
+                    'production_database': 'NOT_ACCESSED'}
+        except HTTPException:
+            raise
+        except FileNotFoundError as exc:
+            raise HTTPException(404, '种子检测已失效或样本不可用，请重新检测。') from exc
+        except ValueError as exc:
+            raise HTTPException(422, '追踪未启动：请确认两个不同人物框，并检查种子画面。') from exc
+        except (OSError, RuntimeError) as exc:
+            raise HTTPException(503, '隔离追踪任务无法启动；请检查研究版 GPU worker。') from exc
+
+    @api.get('/v2/player-tracking/closed-loop/jobs/{job_id}')
+    def closed_loop_job_status(job_id: str):
+        try:
+            progress = load_job_progress(job_id, closed_loop_local_root())
+            if progress.get('status') == 'NEEDS_USER_CONFIRMATION':
+                candidates_path = closed_loop_job_root(job_id, closed_loop_local_root())/'review_candidates.json'
+                if candidates_path.is_file():
+                    progress['review_candidates'] = json.loads(candidates_path.read_text(encoding='utf-8'))
+            result_path = closed_loop_job_root(job_id, closed_loop_local_root())/'tracking.json'
+            progress['result_available'] = result_path.is_file()
+            return progress
+        except FileNotFoundError as exc:
+            raise HTTPException(404, '追踪任务不存在。') from exc
+        except (OSError, ValueError, TypeError) as exc:
+            raise HTTPException(409, '追踪任务状态文件无法校验。') from exc
+
+    @api.post('/v2/player-tracking/closed-loop/jobs/{job_id}/reacquisitions')
+    def closed_loop_reacquisition(job_id: str, value: ClosedLoopReacquisitionRequest):
+        try:
+            return queue_reacquisition(job_id=job_id, role=value.role,
+                                       candidate_id=value.candidate_id,
+                                       localappdata=closed_loop_local_root())
+        except FileNotFoundError as exc:
+            raise HTTPException(404, '追踪异常候选当前不可用。') from exc
+        except ValueError as exc:
+            raise HTTPException(409, '追踪未处于等待人工重新确认状态，未发送操作。') from exc
+
+    @api.get('/v2/player-tracking/closed-loop/jobs/{job_id}/assets/{asset_name:path}')
+    def closed_loop_job_asset(job_id: str, asset_name: str):
+        try:
+            path = closed_loop_asset(job_id, asset_name, closed_loop_local_root())
+        except ValueError as exc:
+            raise HTTPException(404, '追踪预览不存在。') from exc
+        if not path.is_file():
+            raise HTTPException(404, '追踪预览尚未生成。')
+        media = 'video/mp4' if path.suffix.lower() == '.mp4' else ('image/png' if path.suffix.lower() == '.png' else 'image/jpeg')
+        return FileResponse(path, media_type=media)
 
     @api.get('/v2/scene-bootstrap')
     def scene_bootstrap_results():
