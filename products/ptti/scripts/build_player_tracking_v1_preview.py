@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -12,7 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 NAME = "PTTI-Vision-v2-Player-Tracking-v1-Preview"
-TARGET = ROOT / "build" / "player-tracking-v1-preview-final"
+TARGET = Path(os.environ.get("PTTI_PLAYER_TRACKING_PREVIEW_BUILD_ROOT", r"C:\ptti-v1-preview"))
 
 
 def main() -> None:
