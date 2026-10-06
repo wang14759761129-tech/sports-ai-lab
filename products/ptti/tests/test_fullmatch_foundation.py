@@ -277,7 +277,7 @@ def test_persistent_timeline_actions_and_revision_conflict(tmp_path):
         timeline = client.get(base).json()
         assert timeline["games"][0]["points"][0]["score_after"] == {"player_a": 1, "player_b": 0}
         assert timeline["games"][0]["points"][0]["rallies"][0]["evidence"]["source"] == "MANUAL"
-        assert client.get(f"/api/professional-matches/{match_id}/scoreboard-recognizer").json()["status"] == "EXPERIMENTAL"
+        assert client.get(f"/api/professional-matches/{match_id}/scoreboard-recognizer").json()["status"] == "DISABLED_EXPERIMENTAL"
 
 
 def test_manual_timeline_updates_full_match_summary_artifacts(tmp_path):

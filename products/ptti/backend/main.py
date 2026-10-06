@@ -25,6 +25,19 @@ ROOT=Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parents[1]))
 
 PRODUCTION_DATABASE_WRITE_GUARD = 'PRODUCTION_DATABASE_WRITE_GUARD'
 
+class RallyReviewInput(BaseModel):
+    action: Literal['accept','reject','adjust','split','merge']
+    start_ms: int | None = Field(default=None, ge=0)
+    end_ms: int | None = Field(default=None, gt=0)
+    split_at_ms: int | None = Field(default=None, gt=0)
+    target_segment_id: str | None = None
+
+class TableCalibrationInput(BaseModel):
+    camera_segment_id: str = Field(min_length=1, max_length=200)
+    width: int = Field(gt=0, le=20000)
+    height: int = Field(gt=0, le=20000)
+    corners: list[list[float]]
+
 def _same_path(left, right):
     left=Path(left).expanduser().resolve(strict=False)
     right=Path(right).expanduser().resolve(strict=False)
@@ -228,8 +241,114 @@ def create_app(db_path=None):
     @app.get('/api/professional-matches/{match_id}/scoreboard-recognizer')
     def scoreboard_recognizer_status(match_id:str):
         if not repo.get_professional_match(match_id):raise HTTPException(404,'职业比赛记录不存在')
-        return {'status':'EXPERIMENTAL','enabled':False,'score':None,
+        return {'status':'DISABLED_EXPERIMENTAL','enabled':False,'score':None,
                 'fallback':'MANUAL_SCORE_ENTRY','message':'当前不依赖记分牌 OCR；请人工录入并核对比分。'}
+
+    @app.post('/api/professional-matches/{match_id}/match-structure/suggest')
+    def suggest_match_structure(match_id:str):
+        record=repo.get_professional_match(match_id)
+        if not record:raise HTTPException(404,'职业比赛记录不存在')
+        job=repo.get_full_match_job(match_id)
+        if not job or job.get('status')!='BALLTRACK_COMPLETE' or not job.get('jsonl_path'):
+            raise HTTPException(409,'需要先完成全场 BallTrack，才能生成分球候选')
+        from backend.fullmatch import file_sha256
+        source=Path(record.get('video_local_path') or '')
+        if not source.is_file():raise HTTPException(409,'登记的视频文件当前不可用')
+        current_hash=file_sha256(source)
+        registered=record.get('video_metadata',{}).get('sha256')
+        if not registered or current_hash!=registered or current_hash!=job.get('video_sha256'):
+            raise HTTPException(409,'SOURCE_CHANGED: 视频与已运行 BallTrack 的来源哈希不一致')
+        jsonl=Path(job['jsonl_path']).resolve()
+        output=Path(job.get('output_dir') or '').resolve()
+        try:
+            jsonl.relative_to(output)
+            output.relative_to(Path(app.state.data_root).resolve())
+        except ValueError:raise HTTPException(409,'全场 BallTrack 输出路径校验失败')
+        if not jsonl.is_file():raise HTTPException(409,'全场 BallTrack JSONL 不存在')
+        try:
+            rows=[json.loads(line) for line in jsonl.read_text(encoding='utf-8').splitlines() if line.strip()]
+            from backend.match_structure import MatchStructureEngine
+            timeline=repo.get_match_timeline(match_id) or {'games':[],'scene_segments':[]}
+            structure=MatchStructureEngine().suggest(rows,match_id=match_id,video_sha256=current_hash,
+                                                     manual_timeline=timeline)
+            run_id=str(uuid.uuid4())
+            structure.update({'engine_version':'0.1.0','source_balltrack_cache_key':job.get('cache_key'),
+                              'created_at':__import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat()})
+            repo.save_match_structure_run(run_id,match_id,structure)
+            from backend.match_structure import write_match_structure_outputs
+            write_match_structure_outputs(output,run_id,structure)
+            return {'run_id':run_id,**structure}
+        except HTTPException:raise
+        except Exception as exc:raise HTTPException(422,f'分球候选生成失败：{exc}') from exc
+
+    @app.get('/api/professional-matches/{match_id}/match-structure')
+    def get_match_structure(match_id:str,run_id:str|None=None):
+        if not repo.get_professional_match(match_id):raise HTTPException(404,'职业比赛记录不存在')
+        value=repo.get_match_structure_run(match_id,run_id)
+        if not value:raise HTTPException(404,'尚无 Match Structure 建议')
+        return value
+
+    @app.get('/api/professional-matches/{match_id}/match-structure/review-queue')
+    def match_structure_review_queue(match_id:str,run_id:str|None=None):
+        if not repo.get_professional_match(match_id):raise HTTPException(404,'职业比赛记录不存在')
+        value=repo.get_match_structure_run(match_id,run_id)
+        if not value:raise HTTPException(404,'尚无 Match Structure 建议')
+        from backend.match_structure import review_queue
+        return {'run_id':value['run_id'],'items':review_queue(value),'conflicts':value.get('conflicts',[])}
+
+    @app.post('/api/professional-matches/{match_id}/match-structure/{run_id}/rallies/{segment_id}/review')
+    def review_suggested_rally(match_id:str,run_id:str,segment_id:str,value:RallyReviewInput):
+        if not repo.get_professional_match(match_id):raise HTTPException(404,'职业比赛记录不存在')
+        structure=repo.get_match_structure_run(match_id,run_id)
+        if not structure:raise HTTPException(404,'Match Structure 运行记录不存在')
+        try:
+            from backend.match_structure import review_rally
+            updated=review_rally(structure,segment_id,value.action,start_ms=value.start_ms,end_ms=value.end_ms,
+                                 split_at_ms=value.split_at_ms,target_segment_id=value.target_segment_id)
+            if not repo.update_match_structure_run(run_id,match_id,{k:v for k,v in updated.items() if k!='run_id'}):
+                raise HTTPException(409,'Match Structure 记录已变化')
+            job=repo.get_full_match_job(match_id)
+            if job and job.get('output_dir'):
+                from backend.match_structure import write_match_structure_outputs
+                write_match_structure_outputs(Path(job['output_dir']),run_id,updated)
+            return {'run_id':run_id,**updated}
+        except ValueError as exc:raise HTTPException(422,str(exc)) from exc
+
+    @app.post('/api/professional-matches/{match_id}/table-calibrations',status_code=201)
+    def save_table_calibration(match_id:str,value:TableCalibrationInput):
+        record=repo.get_professional_match(match_id)
+        if not record:raise HTTPException(404,'职业比赛记录不存在')
+        from backend.match_structure import table_homography
+        try:
+            video_hash=record.get('video_metadata',{}).get('sha256')
+            video_path=Path(record.get('video_local_path') or '')
+            if not video_hash or not video_path.is_file() or file_sha256(video_path)!=video_hash:
+                raise HTTPException(409,'SOURCE_CHANGED: 需要可用且 SHA-256 匹配的登记视频才能校准')
+            if len(value.corners)!=4 or any(len(p)!=2 or p[0]<0 or p[1]<0 or p[0]>=value.width or p[1]>=value.height for p in value.corners):
+                raise ValueError('四个角点必须位于登记视频画面范围内')
+            matrix=table_homography(value.corners)
+            identity=str(uuid.uuid4())
+            payload={'match_id':match_id,'video_sha256':video_hash,
+                     'camera_segment_id':value.camera_segment_id,'resolution':{'width':value.width,'height':value.height},
+                     'corners_near_left_right_far_right_far_left':value.corners,'homography_to_unit_square':matrix,
+                     'coordinate_system':{'x':'近端球员左至右','y':'近端底线到远端底线','origin':'近端左角为(0,0)'},
+                     'status':'VALID','purpose':'几何归一化；不产生战术结论'}
+            repo.save_table_calibration(identity,match_id,payload)
+            return {'calibration_id':identity,**payload}
+        except ValueError as exc:raise HTTPException(422,str(exc)) from exc
+
+    @app.get('/api/professional-matches/{match_id}/table-calibrations')
+    def list_table_calibrations(match_id:str,camera_segment_id:str):
+        record=repo.get_professional_match(match_id)
+        if not record:raise HTTPException(404,'职业比赛记录不存在')
+        from backend.match_structure import calibration_status
+        video_hash=record.get('video_metadata',{}).get('sha256')
+        video_path=Path(record.get('video_local_path') or '')
+        if not video_path.is_file() or not video_hash or file_sha256(video_path)!=video_hash:
+            video_hash='SOURCE_CHANGED'
+        return [{'calibration_id':item['calibration_id'],**item,
+                 'status':calibration_status(item,video_hash,camera_segment_id)}
+                for item in repo.list_table_calibrations(match_id)]
 
     @app.put('/api/professional-matches/{match_id}/timeline')
     def replace_professional_match_timeline(match_id:str,value:MatchTimeline,expected_revision:int|None=None):
@@ -263,7 +382,7 @@ def create_app(db_path=None):
     def professional_full_match_asset(match_id:str,asset:str):
         if asset not in {'full_match_balltrack.csv','full_match_balltrack.jsonl','full_match_summary.json',
                          'full_match_report.html','full_match_validation.json','full_match_validation.html',
-                         'manifest.json','match_timeline.json'}:
+                         'manifest.json','match_timeline.json','match_structure.json','match_structure.html'}:
             raise HTTPException(404,'分析文件不存在')
         job=repo.get_full_match_job(match_id)
         if not job or not job.get('output_dir'):raise HTTPException(404,'全场分析文件尚未生成')

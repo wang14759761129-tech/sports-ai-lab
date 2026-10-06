@@ -38,6 +38,9 @@ class Repository:
             db.execute('CREATE TABLE IF NOT EXISTS professional_seed_versions (version TEXT PRIMARY KEY, applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)')
             db.execute('CREATE TABLE IF NOT EXISTS full_match_jobs (match_id TEXT PRIMARY KEY REFERENCES professional_matches(match_id), payload TEXT NOT NULL)')
             db.execute('CREATE TABLE IF NOT EXISTS match_timelines (match_id TEXT PRIMARY KEY REFERENCES professional_matches(match_id), revision INTEGER NOT NULL, payload TEXT NOT NULL)')
+            db.execute('CREATE TABLE IF NOT EXISTS match_structure_runs (run_id TEXT PRIMARY KEY, match_id TEXT NOT NULL REFERENCES professional_matches(match_id), payload TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)')
+            db.execute('CREATE INDEX IF NOT EXISTS idx_match_structure_runs_match ON match_structure_runs(match_id,created_at)')
+            db.execute('CREATE TABLE IF NOT EXISTS table_calibrations (calibration_id TEXT PRIMARY KEY, match_id TEXT NOT NULL REFERENCES professional_matches(match_id), payload TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)')
 
     def seed_professional(self,manifest):
         """Apply each shipped seed version once; later edits survive app restarts."""
@@ -282,6 +285,37 @@ class Repository:
                        (match_id,revision,json.dumps(payload,ensure_ascii=False)))
         payload['revision']=revision
         return payload
+
+    def save_match_structure_run(self,run_id,match_id,payload):
+        with self.connect() as db:
+            if not db.execute('SELECT 1 FROM professional_matches WHERE match_id=?',(match_id,)).fetchone():
+                raise ValueError('Professional match does not exist')
+            db.execute('INSERT INTO match_structure_runs(run_id,match_id,payload) VALUES (?,?,?)',
+                       (run_id,match_id,json.dumps(payload,ensure_ascii=False)))
+
+    def get_match_structure_run(self,match_id,run_id=None):
+        query='SELECT run_id,payload FROM match_structure_runs WHERE match_id=?';params=[match_id]
+        if run_id is not None:query+=' AND run_id=?';params.append(run_id)
+        else:query+=' ORDER BY created_at DESC,rowid DESC LIMIT 1'
+        with self.connect() as db:row=db.execute(query,params).fetchone()
+        return ({'run_id':row[0],**json.loads(row[1])} if row else None)
+
+    def update_match_structure_run(self,run_id,match_id,payload):
+        with self.connect() as db:
+            cursor=db.execute('UPDATE match_structure_runs SET payload=? WHERE run_id=? AND match_id=?',
+                              (json.dumps(payload,ensure_ascii=False),run_id,match_id))
+            return cursor.rowcount==1
+
+    def save_table_calibration(self,calibration_id,match_id,payload):
+        with self.connect() as db:
+            if not db.execute('SELECT 1 FROM professional_matches WHERE match_id=?',(match_id,)).fetchone():
+                raise ValueError('Professional match does not exist')
+            db.execute('INSERT INTO table_calibrations(calibration_id,match_id,payload) VALUES (?,?,?)',
+                       (calibration_id,match_id,json.dumps(payload,ensure_ascii=False)))
+
+    def list_table_calibrations(self,match_id):
+        with self.connect() as db:rows=db.execute('SELECT calibration_id,payload FROM table_calibrations WHERE match_id=? ORDER BY created_at,rowid',(match_id,)).fetchall()
+        return [{'calibration_id':row[0],**json.loads(row[1])} for row in rows]
 
     def save_professional_match(self,record):
         with self.connect() as db:
