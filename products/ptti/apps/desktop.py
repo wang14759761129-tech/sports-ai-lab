@@ -12,6 +12,7 @@ def is_development_preview(executable_name):
     return stem in {'ptti-professional-preview-v0.2','ptti-scene-bootstrap-preview-v2',
                     'ptti-vision-lab-v2-scene-preview','ptti-vision-v2-hybrid-scene-preview',
                     'ptti-vision-v2-player-tracking-preview',
+                    'ptti-vision-v2-player-tracking-v1-preview',
                     'ptti-vision-v2-person-preview'}
 
 class DesktopAPI:
@@ -97,6 +98,7 @@ def main():
     print('PTTI Desktop URL: '+url,flush=True)
     stem=Path(sys.executable).stem.casefold()
     title=('PTTI · Vision v2 Person Preview' if 'vision-v2-person-preview' in stem else
+           'PTTI · Vision v2 Player Tracking v1 Preview' if 'vision-v2-player-tracking-v1-preview' in stem else
            'PTTI · Vision v2 Player Tracking Preview' if 'vision-v2-player-tracking-preview' in stem else
            'PTTI · Vision v2 Hybrid Scene Preview' if 'hybrid-scene-preview' in stem else
            'PTTI · Vision Lab v2 Scene Bootstrap Preview' if 'scene-bootstrap-preview' in stem or 'vision-lab-v2-scene-preview' in stem else

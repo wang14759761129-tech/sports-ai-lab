@@ -28,7 +28,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='PTTI-Vision-Dev',
+    name='PTTI-Vision-v2-Player-Tracking-v1-Preview',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -48,5 +48,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='PTTI-Vision-Dev',
+    name='PTTI-Vision-v2-Player-Tracking-v1-Preview',
 )

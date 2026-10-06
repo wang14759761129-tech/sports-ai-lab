@@ -35,6 +35,7 @@ def test_new_scene_preview_executable_fails_closed_to_development():
     assert is_development_preview("PTTI-Vision-Lab-v2-Scene-Preview.exe")
     assert is_development_preview("PTTI-Vision-v2-Hybrid-Scene-Preview.exe")
     assert is_development_preview("PTTI-Vision-v2-Player-Tracking-Preview.exe")
+    assert is_development_preview("PTTI-Vision-v2-Player-Tracking-v1-Preview.exe")
     assert is_development_preview("PTTI-Scene-Bootstrap-Preview-v2.exe")
     assert not is_development_preview("PTTI.exe")
 
