@@ -135,6 +135,8 @@ def create_app(db_path=None):
     app.include_router(vision_router(repo=repo,data_root=Path(resolved_db).parent))
     professional_manifest=ROOT/'data'/'professional'/'registry.json'
     repo.seed_professional(__import__('json').loads(professional_manifest.read_text(encoding='utf-8')))
+    from backend.preview_api import router as preview_router
+    app.include_router(preview_router(repo, Path(resolved_db).parent, mode))
     app.state.database_diagnostics=database_banner(resolved_db,mode)
     @app.get('/api/diagnostics/database',include_in_schema=False)
     def database_diagnostics():

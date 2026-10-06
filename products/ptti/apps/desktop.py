@@ -8,6 +8,14 @@ import os
 from pathlib import Path
 
 class DesktopAPI:
+    def open_output_folder(self, requested):
+        folder=Path(requested).resolve()
+        root=(Path(os.environ['PTTI_DB']).parent/'full_matches').resolve()
+        if not folder.is_dir() or not folder.is_relative_to(root):
+            raise ValueError('Only this Preview application output directory may be opened')
+        os.startfile(str(folder))
+        return True
+
     def open_data_folder(self):
         folder=Path(os.environ['PTTI_DB']).parent if os.environ.get('PTTI_DB') else Path(os.environ.get('LOCALAPPDATA',Path.home()))/'PTTI-Dev'
         folder.mkdir(parents=True,exist_ok=True)
@@ -18,7 +26,30 @@ def main():
     import sys
     if getattr(sys, 'frozen', False):
         executable=Path(sys.executable).stem.casefold()
-        if executable=='ptti-vision-dev':
+        if executable=='ptti-professional-preview-v0.2':
+            # Preview is fail-closed development, even when launched with stale env vars.
+            os.environ['PTTI_ENV']='development'
+            os.environ['PTTI_PREVIEW']='1'
+            local=Path(os.environ.get('LOCALAPPDATA',Path.home()))
+            os.environ['PTTI_DB']=str(local/'PTTI-Dev'/'ProfessionalPreview'/'matches.db')
+            qa_database=os.environ.get('PTTI_PREVIEW_QA_DB')
+            if qa_database:
+                import tempfile
+                candidate=Path(qa_database).resolve()
+                if not candidate.is_relative_to(Path(tempfile.gettempdir()).resolve()):
+                    raise RuntimeError('Preview QA database must be inside OS temp')
+                os.environ['PTTI_DB']=str(candidate)
+                os.environ['PTTI_ENV']='test'
+            os.environ['PTTI_RESEARCH_DATA_ROOT']=str(local/'PTTI-Dev')
+            internal=Path(getattr(sys,'_MEIPASS',Path(sys.executable).parent))
+            os.environ['PATH']=str(internal)+os.pathsep+os.environ.get('PATH','')
+            build=Path(getattr(sys,'_MEIPASS',Path(sys.executable).parent))/'build-info.json'
+            if build.is_file():
+                import json
+                runtime_home=json.loads(build.read_text(encoding='utf-8')).get('local_vision_runtime_home')
+                if runtime_home and (Path(runtime_home)/'vision_worker/balltrack.py').is_file():
+                    os.environ['PTTI_VISION_HOME']=runtime_home
+        elif executable=='ptti-vision-dev':
             # Workspace-only experimental EXE always uses an isolated DB.
             product=next((p for p in Path(sys.executable).resolve().parents if (p/'vision_worker/balltrack.py').is_file()),
                          Path(os.environ.get('LOCALAPPDATA',Path.home()))/'PTTI-Dev'/'vision')
@@ -56,7 +87,9 @@ def main():
         try:
             width,height=map(int,requested.lower().split('x'));width=max(1024,width);height=max(640,height)
         except ValueError: pass
-    webview.create_window('PTTI · 个人乒乓球比赛分析',url,width=width,height=height,min_size=(1024,640),js_api=DesktopAPI())
+    print('PTTI Desktop URL: '+url,flush=True)
+    title='PTTI · Professional Preview v0.2' if 'professional-preview' in Path(sys.executable).stem.casefold() else 'PTTI · 个人乒乓球比赛分析'
+    webview.create_window(title,url,width=width,height=height,min_size=(1024,640),js_api=DesktopAPI())
     try: webview.start()
     finally: server.should_exit=True; thread.join(timeout=5)
 

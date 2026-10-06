@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 from fractions import Fraction
 from pathlib import Path
@@ -24,7 +25,7 @@ def video_metadata(path):
         raise ValueError('视频文件不存在')
     result = subprocess.run(['ffprobe', '-v', 'error', '-show_streams', '-show_format',
                              '-of', 'json', str(path)], capture_output=True, text=True,
-                            timeout=60, check=True)
+                            timeout=60, check=True, creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
     data = json.loads(result.stdout)
     stream = next((s for s in data['streams'] if s['codec_type'] == 'video'), None)
     if not stream:

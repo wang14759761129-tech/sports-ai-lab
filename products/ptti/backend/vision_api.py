@@ -33,7 +33,14 @@ def router(repo=None, data_root=None):
         """Show locally staged research-only assets; never fetch or expose test data."""
         if data_root is None:
             raise HTTPException(503, 'Research dataset storage is unavailable')
-        root=Path(data_root)/'research-datasets'/'ExtendedOpenTTGames'
+        research_root=Path(data_root)
+        requested=__import__('os').environ.get('PTTI_RESEARCH_DATA_ROOT')
+        if requested:
+            candidate=Path(requested).resolve()
+            allowed=(Path(__import__('os').environ.get('LOCALAPPDATA',Path.home()))/'PTTI-Dev').resolve()
+            if candidate==allowed:
+                research_root=candidate
+        root=research_root/'research-datasets'/'ExtendedOpenTTGames'
         game_dir=root/'annotations'/'train'/'game_data'
         ball_dir=root/'annotations'/'train'/'ball_data'
         video_dir=root/'videos'/'train'

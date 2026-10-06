@@ -196,7 +196,8 @@ class FullMatchService:
                        "-frames:v", str(expected_frames), "-c:v", "libx264", "-preset", "ultrafast",
                        "-crf", "18", "-y", str(chunk_video)]
             transcode_started = time.perf_counter()
-            subprocess.run(command, check=True, timeout=3600, capture_output=True, text=True)
+            subprocess.run(command, check=True, timeout=3600, capture_output=True, text=True,
+                           creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
             transcode_seconds = time.perf_counter() - transcode_started
             output = chunk_root / "balltrack"
             output.mkdir(exist_ok=True)
@@ -468,7 +469,8 @@ def generate_preview_overlays(video, csv_path, metadata, output_dir, worker_pyth
         destination = preview_dir / f"preview-{index:02d}.mp4"
         subprocess.run(["ffmpeg", "-nostdin", "-v", "error", "-ss", f"{start:.3f}", "-i", str(video),
             "-t", f"{window:.3f}", "-map", "0:v:0", "-an", "-c:v", "libx264", "-preset", "ultrafast",
-            "-crf", "20", "-y", str(source_clip)], check=True, timeout=3600, capture_output=True)
+            "-crf", "20", "-y", str(source_clip)], check=True, timeout=3600, capture_output=True,
+                       creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
         start_frame = round(start * fps)
         end_frame = round((start + window) * fps)
         values = []
