@@ -1,5 +1,7 @@
 # Hybrid Scene Engine — RTMDet Person Preflight
 
+**2026-10-06 continuation:** the RTMDet preflight below is preserved history. Current execution pivots to Transformers-native RT-DETR R18; see [PERSON-DETECTOR-PIVOT.md](PERSON-DETECTOR-PIVOT.md). Do not continue OpenMMLab installation or treat the old intended next step as the current plan. `RTMDET_RUNTIME_BLOCKED` remains recorded.
+
 Status: `PARTIAL`  
 Frozen comparison baseline: [GROUNDING_DINO_PLAYER_BASELINE.md](GROUNDING_DINO_PLAYER_BASELINE.md)  
 Current source branch: `codex/ptti-v0.2-racketvision`

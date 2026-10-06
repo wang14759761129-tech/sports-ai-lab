@@ -17,6 +17,7 @@ from backend.vision_v2 import ModuleAvailability, VisionModuleManager
 from backend.scene_bootstrap import (REVIEW_ROLES, apply_review, frame_review_priority,
                                      temporal_player_presence, assign_near_far_candidates)
 from backend.hybrid_scene import SCOREBOARD_MODULE
+from backend.person_scene import scene_snapshot, record_review, scene_asset
 from backend.fullmatch import quality_report, DEFAULT_CHUNK_SECONDS
 
 class BenchmarkRequest(BaseModel):
@@ -25,6 +26,12 @@ class BenchmarkRequest(BaseModel):
 class SceneReviewRequest(BaseModel):
     candidate_id: str
     action: str
+    role: str | None = None
+
+class PersonSceneReviewRequest(BaseModel):
+    frame_id: str
+    action: str
+    candidate_id: str | None = None
     role: str | None = None
 
 def router(repo=None, data_root=None):
@@ -45,6 +52,35 @@ def router(repo=None, data_root=None):
         import os
         local=Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local')).resolve()
         return local/'PTTI-Dev'/'vision-v2'/'scene-bootstrap'
+
+    def person_review_path():
+        if os.environ.get('PTTI_ENV')=='test' and data_root is not None:
+            import tempfile
+            qa_root=Path(data_root).resolve()
+            if not qa_root.is_relative_to(Path(tempfile.gettempdir()).resolve()):
+                raise ValueError('PERSON_QA_REVIEW_OUTSIDE_OS_TEMP')
+            return qa_root/'person_detector_reviews.json'
+        return None
+
+    @api.get('/v2/person-detection')
+    def person_detection():
+        try:return scene_snapshot(scene_bootstrap_root(),reviews_path=person_review_path())
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            raise HTTPException(409,'人物识别结果与当前配置不一致，需重新检查研究记录。') from exc
+
+    @api.get('/v2/person-detection/assets/{asset_name}')
+    def person_detection_asset(asset_name:str):
+        try:path=scene_asset(scene_bootstrap_root(),asset_name)
+        except ValueError as exc:raise HTTPException(404,'样本画面不存在') from exc
+        if not path.is_file():raise HTTPException(404,'样本画面不存在')
+        return FileResponse(path,media_type='image/jpeg')
+
+    @api.post('/v2/person-detection/reviews')
+    def person_detection_review(value:PersonSceneReviewRequest):
+        try:return record_review(scene_bootstrap_root(),**value.model_dump(),reviews_path=person_review_path(),
+                                 source='QA_UI' if os.environ.get('PTTI_ENV')=='test' else 'USER_UI')
+        except KeyError as exc:raise HTTPException(404,'样本帧或检测框不存在') from exc
+        except (OSError, ValueError, TypeError) as exc:raise HTTPException(422,'请选择有效操作，或检查研究结果配置。') from exc
 
     @api.get('/v2/scene-bootstrap')
     def scene_bootstrap_results():
@@ -88,6 +124,16 @@ def router(repo=None, data_root=None):
                 'rtmdet':{'status':'NOT_RUN_RUNTIME_NOT_INSTALLED','model':'rtmdet_tiny_8xb32-300e_coco',
                           'runtime':'vision-v2-openmmlab','result_frames':0},
             }
+            detector_comparison['rtmdet']['experiment_status']='RTMDET_RUNTIME_BLOCKED'
+            person_report=root/'person_detector_evaluation.json'
+            if person_report.is_file():
+                try:
+                    person=scene_snapshot(root)
+                    detector_comparison['rtdetr']={'status':person['status'],'model':person.get('model'),
+                        'development':person.get('development'),'validation':person.get('validation'),
+                        'person_gate':person.get('person_gate')}
+                except (OSError,ValueError,KeyError,TypeError):
+                    detector_comparison['rtdetr']={'status':'RESULT_UNAVAILABLE'}
             openmmlab_root=Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2-openmmlab'
             rtmdet_python=openmmlab_root/'.venv'/'Scripts'/'python.exe'
             rtmdet_checkpoint=openmmlab_root/'models'/'rtmdet_tiny_8xb32-300e_coco_20220902_112414-78e30dcc.pth'
@@ -311,6 +357,9 @@ def router(repo=None, data_root=None):
             'scene-detector':ModuleAvailability(installed.get('cv2',False),checkpoint=bool(scene_result.is_file()),integrated=bool(scene_result.is_file())),
             'grounding-dino':ModuleAvailability(scene_dependencies,scene_checkpoint,integrated=scene_integrated),
             'grounding-dino-person':ModuleAvailability(scene_manifest.is_file(),scene_manifest.is_file(),integrated=scene_manifest.is_file()),
+            'rtdetr-person':ModuleAvailability(scene_dependencies,
+                (scene_root.parent/'models'/'rtdetr-r18vd'/'model.safetensors').is_file(),
+                integrated=(scene_root/'person_detector_evaluation.json').is_file()),
             'rtmdet-person':ModuleAvailability(
                 (Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2-openmmlab'/'.venv'/'Scripts'/'python.exe').is_file(),
                 ((Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2-openmmlab'/'models'/'rtmdet_tiny_8xb32-300e_coco_20220902_112414-78e30dcc.pth').is_file() and

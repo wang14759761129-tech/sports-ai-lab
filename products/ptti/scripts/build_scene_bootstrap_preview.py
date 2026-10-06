@@ -27,6 +27,8 @@ def main():
         "environment": "DEVELOPMENT",
         "database": "%LOCALAPPDATA%/PTTI-Dev/ProfessionalPreview/matches.db",
         "scene_bootstrap_results": "%LOCALAPPDATA%/PTTI-Dev/vision-v2/scene-bootstrap",
+        "person_detector_results": "%LOCALAPPDATA%/PTTI-Dev/vision-v2/scene-bootstrap/person_detector_evaluation.json",
+        "person_detector_gate": "PERSON_DETECTOR_PARTIAL",
         "research_data_license": "CC BY-NC-SA 4.0; non-commercial",
         "release_gate": "HISTORICAL_DB_UNVERIFIED",
         "vision_gate": "SCENE_BOOTSTRAP_PARTIAL",
@@ -58,7 +60,8 @@ def main():
     (folder / f"{NAME}.exe.sha256").write_text(f"{sha}  {exe.name}\n", encoding="ascii")
     (folder / "START-HERE.txt").write_text(
         f"{START_TITLE}\n\n双击 {NAME}.exe。\n"
-        "研究中心展示本机真实乒乓球研究视频的场景候选框。结果仅供研究 / 非商业复核，身份需要人工确认。\n"
+        "视频分析 → 人物与球台：查看真实研究样本，切换新增比赛、只看异常、修正角色、确认本帧。\n"
+        "研究中心展示模型与对比证据。结果仅供研究 / 非商业复核，身份需要人工确认。\n"
         "示例视频、抽样帧和权重未包含在此文件夹中；结果从本机 PTTI-Dev 读取。\n"
         "开发预览不会覆盖正式 v0.1.2，也不是正式发布版本。\n", encoding="utf-8")
     print(json.dumps({"exe": str(exe), "bytes": exe.stat().st_size,
