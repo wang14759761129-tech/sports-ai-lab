@@ -1,0 +1,83 @@
+{
+  "schema_version": "ptti-player-tracking-v1-config-v1",
+  "status": "FROZEN_CANDIDATE",
+  "purpose": "Lock player tracking parameters before independent train-split validation.",
+  "runtime": {
+    "environment": "PTTI-Dev",
+    "production_database": "PROHIBITED",
+    "validation_dataset": "Extended OpenTTGames",
+    "validation_rights": "CC BY-NC-SA 4.0 research/non-commercial",
+    "official_split": "TRAIN only; official test split prohibited"
+  },
+  "models": {
+    "person_detector": {
+      "name": "RT-DETR R18",
+      "revision": "ac77a11ff0170a41b771c03264987f8ce2b0d753",
+      "checkpoint_sha256": "fe87a5a30f5daf298d10794c7682a63b6107986f97d6a770ba948d89e4340093"
+    },
+    "mask_propagator": {
+      "name": "SAM 2.1 Hiera Small",
+      "repository": "https://github.com/facebookresearch/sam2",
+      "commit": "2b90b9f5ceec907a1c18123530e92e794ad901a4",
+      "config": "sam2.1_hiera_s.yaml",
+      "checkpoint": "sam2.1_hiera_small.pt",
+      "checkpoint_sha256": "6d1aa6f30de5c92224f8172114de081d104bbd23dd9dc5c58996f0cad5dc4d38",
+      "config_sha256": "592306d059a2df49898fefcb939c11abc9dfc8fd962bc77c31d132e68cb4320a"
+    }
+  },
+  "anchors": {
+    "interval_seconds": 2.0,
+    "schedule": "timestamp-based; round to nearest sampled frame; include seed and final frame",
+    "roles": ["NEAR_PLAYER", "FAR_PLAYER"],
+    "fixed_object_ids": {"NEAR_PLAYER": 1, "FAR_PLAYER": 2}
+  },
+  "association": {
+    "zone_weight": 0.58,
+    "continuity_weight": 0.20,
+    "size_weight": 0.08,
+    "mask_overlap_weight": 0.14,
+    "minimum_confident_score": 0.58,
+    "minimum_confident_margin": 0.12,
+    "minimum_candidate_score": 0.32,
+    "ambiguous_policy": "IDENTITY_UNCERTAIN; never silently swap fixed object IDs"
+  },
+  "visibility": {
+    "human_label_precedence": true,
+    "automatic_out_of_frame_edge_margin_ratio": 0.04,
+    "automatic_out_of_frame_requires": [
+      "previous track or mask bbox approaches a frame edge",
+      "RT-DETR finds no matching person",
+      "SAM2 mask is absent"
+    ],
+    "same_edge_reentry": "confidence-strengthening evidence only",
+    "insufficient_evidence": "UNKNOWN",
+    "visible_or_partial_without_mask": "TRACK_LOST",
+    "health_numeric_thresholds": "NONE; not implemented in v1"
+  },
+  "mask_conflicts": {
+    "forward_reverse_agreement_iou": 0.55,
+    "automatic_choice": false,
+    "review_choices": ["FORWARD", "REVERSE", "REBOX", "NEITHER"],
+    "local_window": "nearest healthy accepted/candidate mask before and after the grouped conflict interval",
+    "raw_evidence": "immutable; local rerun outputs are stored separately",
+    "object_identity": "reuse existing role object ID"
+  },
+  "manual_actions": [
+    "initial_seed",
+    "out_of_frame_confirm",
+    "mask_choice",
+    "manual_rebox",
+    "identity_confirm"
+  ],
+  "evaluation": {
+    "development_samples": [
+      "game_1-t60",
+      "game_2-t60",
+      "game_3-t60",
+      "game_4-t30",
+      "game_5-t60"
+    ],
+    "validation_policy": "at least five non-overlapping TRAIN clips from distinct matches; no parameter adjustment after first validation inference",
+    "identity_swap_measurement": "only independently reviewable samples; otherwise UNKNOWN"
+  }
+}

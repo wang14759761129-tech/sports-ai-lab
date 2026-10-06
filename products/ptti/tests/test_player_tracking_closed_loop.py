@@ -9,9 +9,11 @@ from fastapi.testclient import TestClient
 
 from backend.main import create_app
 from backend.player_tracking_closed_loop import (
+    append_manual_action,
     atomic_json,
     closed_loop_root,
     create_closed_loop_job,
+    _player_tracking_validation_manifest,
     load_job_progress,
     queue_reacquisition,
     seed_detection_dir,
@@ -46,7 +48,8 @@ def fixture_sample(local: Path):
         "official_split": "TRAIN_ONLY; official test split not used",
         "videos": [{
             "video_id": "game_4-t30", "match_id": "game_4", "official_split": "TRAIN",
-            "clip": {"file": clip.name, "sha256": digest, "bytes": clip.stat().st_size,
+            "clip": {"file": clip.name, "start_seconds": 30,
+                     "sha256": digest, "bytes": clip.stat().st_size,
                      "duration_seconds": 10.0, "frames": 300, "sample_fps": 30,
                      "source_fps": 120, "resolution": "1920x1080"},
             "seed_screening": {"status": "SEEDS_READY"},
@@ -97,6 +100,89 @@ def test_sample_catalog_fails_closed_when_file_changed(tmp_path):
     clip = tmp_path / "PTTI-Dev/vision-v2-sam2/datasets/extended-openttgames/game_4_t30_10s.mp4"
     clip.write_bytes(b"changed")
     assert list_closed_loop_samples(tmp_path) == []
+
+
+def test_validation_manifest_requires_frozen_config_and_five_nonoverlapping_train_matches(tmp_path, monkeypatch):
+    fixture_sample(tmp_path)
+    config = tmp_path / "PLAYER_TRACKING_V1_CANDIDATE.json"
+    config.write_text('{"locked":true}', encoding="utf-8")
+    monkeypatch.setattr("backend.player_tracking_closed_loop._player_tracking_config_path", lambda: config)
+    validation_root = (tmp_path / "PTTI-Dev/vision-v2-sam2/runs/player-tracking-v1-validation")
+    validation_root.mkdir(parents=True)
+    validation_dataset = tmp_path / "PTTI-Dev/vision-v2-sam2/datasets/extended-openttgames"
+    validation_dataset.mkdir(parents=True, exist_ok=True)
+    videos = []
+    for game in range(1, 6):
+        start = 60 if game == 4 else 45
+        filename = f"game_{game}_t{start}_10s.mp4"
+        clip_path = validation_dataset / filename
+        clip_path.write_bytes(f"validation clip {game}".encode())
+        digest = hashlib.sha256(clip_path.read_bytes()).hexdigest()
+        videos.append({"video_id": f"game_{game}-t{start}", "match_id": f"game_{game}",
+                       "official_split": "TRAIN", "clip": {"start_seconds": start,
+                       "file": filename, "bytes": clip_path.stat().st_size, "sha256": digest,
+                       "duration_seconds": 10.0, "frames": 300, "sample_fps": 30,
+                       "source_fps": 120, "resolution": "1920x1080"},
+                       "seed_screening": {"status": "PENDING_SEED_REVIEW"}})
+    expected = hashlib.sha256(config.read_bytes()).hexdigest()
+    manifest = {"schema_version": "player-tracking-v1-validation-set-v1",
+                "dataset": "Extended OpenTTGames", "rights": RIGHTS,
+                "commercial_use": False,
+                "official_split": "TRAIN_ONLY; official test split not used",
+                "evaluation_role": "FROZEN_VALIDATION", "frozen_config_sha256": expected,
+                "videos": videos}
+    path = validation_root / "validation_manifest.json"
+    path.write_text(json.dumps(manifest), encoding="utf-8")
+    assert len(_player_tracking_validation_manifest(tmp_path)["videos"]) == 5
+    catalog = list_closed_loop_samples(tmp_path)
+    validation_catalog = [row for row in catalog if row["evaluation_role"] == "FROZEN_VALIDATION"]
+    assert len(validation_catalog) == 5
+    assert {row["validation_config_sha256"] for row in validation_catalog} == {expected}
+    manifest["frozen_config_sha256"] = "0" * 64
+    path.write_text(json.dumps(manifest), encoding="utf-8")
+    with pytest.raises(ValueError, match="CONFIG_NOT_FROZEN"):
+        _player_tracking_validation_manifest(tmp_path)
+
+
+def test_validation_manifest_rejects_development_overlap(tmp_path, monkeypatch):
+    fixture_sample(tmp_path)
+    config = tmp_path / "PLAYER_TRACKING_V1_CANDIDATE.json"
+    config.write_text("candidate", encoding="utf-8")
+    monkeypatch.setattr("backend.player_tracking_closed_loop._player_tracking_config_path", lambda: config)
+    validation_root = (tmp_path / "PTTI-Dev/vision-v2-sam2/runs/player-tracking-v1-validation")
+    validation_root.mkdir(parents=True)
+    videos = [{"video_id": f"game_{game}-t45", "match_id": f"game_{game}",
+               "official_split": "TRAIN", "clip": {"start_seconds": 45,
+               "duration_seconds": 10.0}, "seed_screening": {"status": "PENDING_SEED_REVIEW"}}
+              for game in range(1, 6)]
+    videos[3]["clip"]["start_seconds"] = 35
+    manifest = {"schema_version": "player-tracking-v1-validation-set-v1",
+                "dataset": "Extended OpenTTGames", "rights": RIGHTS,
+                "commercial_use": False,
+                "official_split": "TRAIN_ONLY; official test split not used",
+                "evaluation_role": "FROZEN_VALIDATION",
+                "frozen_config_sha256": hashlib.sha256(config.read_bytes()).hexdigest(),
+                "videos": videos}
+    (validation_root / "validation_manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+    with pytest.raises(ValueError, match="OVERLAPS_DEVELOPMENT"):
+        _player_tracking_validation_manifest(tmp_path)
+
+
+def test_manual_action_id_is_idempotent_and_replay_safe(tmp_path):
+    digest = fixture_sample(tmp_path)
+    detection_set_id, _ = seed_detections(tmp_path, digest)
+    job_id, _, _ = create_closed_loop_job(
+        sample_id="game_4-t30", frame_index=4, detection_set_id=detection_set_id,
+        near_candidate_id="player-near", far_candidate_id="player-far",
+        user_confirmed=True, localappdata=tmp_path)
+    action_id = "a" * 32
+    first = append_manual_action(job_id=job_id, action="mask_choice", action_id=action_id,
+                                 details={"choice": "REVERSE"}, localappdata=tmp_path)
+    second = append_manual_action(job_id=job_id, action="mask_choice", action_id=action_id,
+                                  details={"choice": "REVERSE"}, localappdata=tmp_path)
+    log = json.loads((closed_loop_root(tmp_path) / "jobs" / job_id / "manual-actions.json").read_text())
+    assert first == second
+    assert sum(row["action_id"] == action_id for row in log["actions"]) == 1
 
 
 def test_confirmed_seed_creates_fixed_identity_job_and_preserves_raw(tmp_path):
@@ -273,3 +359,103 @@ def test_desktop_api_routes_anchor_guided_jobs_to_isolated_worker(tmp_path, monk
         progress = client.get(f"/api/vision/v2/player-tracking/closed-loop/jobs/{response.json()['job_id']}")
         assert progress.status_code == 200
         assert progress.json()["production_database"] == "NOT_ACCESSED"
+
+
+def test_mask_conflict_review_api_preserves_evidence_and_queues_local_rerun(tmp_path, monkeypatch):
+    import backend.vision_api as vision_api
+
+    local = tmp_path / "local"
+    digest = fixture_sample(local)
+    detection_set_id, _ = seed_detections(local, digest)
+    monkeypatch.setenv("LOCALAPPDATA", str(local))
+    monkeypatch.setenv("PTTI_ENV", "test")
+    monkeypatch.setattr(vision_api, "_CLOSED_LOOP_PROCESSES", {})
+    product_root = Path(__file__).resolve().parents[1]
+    script = product_root / "vision_worker" / "anchor_guided_player_tracker.py"
+    monkeypatch.setattr(vision_api, "anchor_guided_worker_paths",
+                        lambda: (product_root, script, Path(sys.executable)))
+
+    class FakeProcess:
+        def poll(self):
+            return 0
+
+    launches = []
+    monkeypatch.setattr(vision_api, "launch_anchor_guided_review_worker",
+                        lambda **kwargs: launches.append(kwargs) or FakeProcess())
+    job_id, root, _ = create_closed_loop_job(
+        sample_id="game_4-t30", frame_index=4, detection_set_id=detection_set_id,
+        near_candidate_id="player-near", far_candidate_id="player-far",
+        user_confirmed=True, tracking_architecture="DETECTION_ANCHORED_MASK_TRACKING",
+        localappdata=local)
+    event_id = "MASK_CONFLICT_NEAR_PLAYER_00059_00118"
+    review_dir = root / "review-conflicts" / "near_player" / event_id
+    review_dir.mkdir(parents=True)
+    assets = {}
+    for view in ("source", "forward", "reverse"):
+        path = review_dir / f"{view}.jpg"
+        path.write_bytes(view.encode())
+        assets[view] = str(path.relative_to(root))
+    atomic_json(root / "tracking.json", {
+        "schema_version": "anchor-guided-player-tracking-v1",
+        "tracking_architecture": "DETECTION_ANCHORED_MASK_TRACKING",
+        "sample_id": "game_4-t30", "source_sha256": digest,
+        "duration_seconds": 10.0, "config": {"sha256": "c" * 64},
+        "events": [{"event_id": event_id, "type": "MASK_CONFLICT",
+                    "role": "NEAR_PLAYER", "status": "REVIEW_REQUIRED",
+                    "frame": 88, "start_frame": 59, "end_frame": 118,
+                    "review_assets": assets}],
+    })
+    progress = load_job_progress(job_id, local)
+    progress["status"] = "COMPLETE"
+    atomic_json(root / "progress.json", progress)
+    app = create_app(tmp_path / "test-db" / "matches.db")
+    with TestClient(app) as client:
+        asset = client.get(f"/api/vision/v2/player-tracking/closed-loop/jobs/{job_id}/conflicts/{event_id}/forward")
+        assert asset.status_code == 200
+        neither = client.post(f"/api/vision/v2/player-tracking/closed-loop/jobs/{job_id}/conflicts", json={
+            "event_id": event_id, "role": "NEAR_PLAYER", "choice": "NEITHER"})
+        assert neither.status_code == 200
+        assert neither.json()["status"] == "NEEDS_REBOX"
+        rebox = client.post(f"/api/vision/v2/player-tracking/closed-loop/jobs/{job_id}/conflicts", json={
+            "event_id": event_id, "role": "NEAR_PLAYER", "choice": "REBOX",
+            "bbox": [20, 40, 120, 260]})
+        assert rebox.status_code == 200
+        assert rebox.json()["status"] == "QUEUED"
+        assert launches[0]["event_id"] == event_id
+        assert launches[0]["choice"] == "REBOX"
+        assert launches[0]["bbox"] == [20.0, 40.0, 120.0, 260.0]
+    manifest = json.loads((root / "tracking.json").read_text(encoding="utf-8"))
+    assert manifest["events"][0]["status"] == "REVIEW_REQUIRED"
+    actions = json.loads((root / "manual-actions.json").read_text(encoding="utf-8"))["actions"]
+    assert [row["action"] for row in actions] == ["initial_seed", "mask_choice", "manual_rebox"]
+
+
+def test_out_of_frame_review_api_can_downgrade_unsupported_classification(tmp_path, monkeypatch):
+    import backend.vision_api as vision_api
+
+    local = tmp_path / "local"
+    digest = fixture_sample(local)
+    detection_set_id, _ = seed_detections(local, digest)
+    monkeypatch.setenv("LOCALAPPDATA", str(local))
+    monkeypatch.setenv("PTTI_ENV", "test")
+    job_id, root, _ = create_closed_loop_job(
+        sample_id="game_4-t30", frame_index=4, detection_set_id=detection_set_id,
+        near_candidate_id="player-near", far_candidate_id="player-far",
+        user_confirmed=True, tracking_architecture="DETECTION_ANCHORED_MASK_TRACKING",
+        localappdata=local)
+    event_id = "OUT_OF_FRAME_FAR_PLAYER_00180"
+    atomic_json(root / "tracking.json", {
+        "sample_id": "game_4-t30", "duration_seconds": 10,
+        "events": [{"event_id": event_id, "type": "OUT_OF_FRAME",
+                    "role": "FAR_PLAYER", "classification": "OUT_OF_FRAME",
+                    "confidence_level": "HIGH", "status": "CLASSIFIED"}],
+    })
+    app = create_app(tmp_path / "test-db" / "matches.db")
+    with TestClient(app) as client:
+        response = client.post(f"/api/vision/v2/player-tracking/closed-loop/jobs/{job_id}/out-of-frame-reviews", json={
+            "event_id": event_id, "role": "FAR_PLAYER", "confirm_out_of_frame": False})
+        assert response.status_code == 200
+        assert response.json()["classification"] == "UNKNOWN"
+    manifest = json.loads((root / "tracking.json").read_text(encoding="utf-8"))
+    assert manifest["events"][0]["type"] == "IDENTITY_UNCERTAIN"
+    assert manifest["events"][0]["status"] == "REVIEW_REQUIRED"

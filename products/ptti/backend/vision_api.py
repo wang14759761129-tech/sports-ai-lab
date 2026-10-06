@@ -25,10 +25,12 @@ from backend.sam2_player_tracking import (player_tracking_frame_asset, player_tr
                                           player_tracking_snapshot, player_tracking_video_asset,
                                           record_player_tracking_review)
 from backend.player_tracking_closed_loop import (
-    closed_loop_asset, closed_loop_root, create_closed_loop_job, job_root as closed_loop_job_root,
-    list_closed_loop_samples, load_job_progress, queue_reacquisition, save_job_progress,
+    append_manual_action, closed_loop_asset, closed_loop_root, create_closed_loop_job,
+    job_root as closed_loop_job_root, list_closed_loop_samples, load_job_progress,
+    player_tracking_conflict_asset, queue_reacquisition, save_job_progress,
     seed_detection_dir, seed_review_asset,
 )
+from backend.anchor_guided_tracker import validate_mask_conflict_review
 
 _CLOSED_LOOP_PROCESS_LOCK = __import__('threading').RLock()
 _CLOSED_LOOP_PROCESSES = {}
@@ -67,6 +69,18 @@ def launch_anchor_guided_worker(*, python, script, job_id, interval_seconds, pro
          '--interval-seconds', str(interval_seconds)],
         cwd=str(product_root), env=env, stdout=stdout, stderr=subprocess.STDOUT,
         **({'creationflags': subprocess.CREATE_NO_WINDOW} if os.name == 'nt' else {}))
+
+
+def launch_anchor_guided_review_worker(*, python, script, job_id, event_id, role,
+                                       choice, action_id, bbox, product_root, env, stdout):
+    command = [str(python), str(script), 'resolve-conflict', '--job-id', job_id,
+               '--event-id', event_id, '--role', role, '--choice', choice,
+               '--action-id', action_id]
+    if bbox is not None:
+        command += ['--bbox', *[str(value) for value in bbox]]
+    return subprocess.Popen(command, cwd=str(product_root), env=env, stdout=stdout,
+                            stderr=subprocess.STDOUT,
+                            **({'creationflags': subprocess.CREATE_NO_WINDOW} if os.name == 'nt' else {}))
 
 class BenchmarkRequest(BaseModel):
     device: str = 'cuda'
@@ -107,6 +121,17 @@ class ClosedLoopStartRequest(BaseModel):
 class ClosedLoopReacquisitionRequest(BaseModel):
     role: str
     candidate_id: str
+
+class PlayerTrackingConflictReviewRequest(BaseModel):
+    event_id: str
+    role: str
+    choice: Literal['FORWARD', 'REVERSE', 'NEITHER', 'REBOX']
+    bbox: list[float] | None = None
+
+class PlayerTrackingOutOfFrameReviewRequest(BaseModel):
+    event_id: str
+    role: str
+    confirm_out_of_frame: bool
 
 def router(repo=None, data_root=None):
     api = APIRouter(prefix='/api/vision')
@@ -343,6 +368,150 @@ def router(repo=None, data_root=None):
             raise HTTPException(404, '追踪任务不存在。') from exc
         except (OSError, ValueError, TypeError) as exc:
             raise HTTPException(409, '追踪任务状态文件无法校验。') from exc
+
+    @api.get('/v2/player-tracking/closed-loop/jobs/{job_id}/conflicts/{event_id}/{view}')
+    def closed_loop_conflict_asset(job_id: str, event_id: str, view: str):
+        try:
+            path = player_tracking_conflict_asset(job_id, event_id, view, closed_loop_local_root())
+        except ValueError as exc:
+            raise HTTPException(404, '冲突复核画面不存在。') from exc
+        except FileNotFoundError as exc:
+            raise HTTPException(404, '冲突复核画面尚未生成。') from exc
+        if not path.is_file():
+            raise HTTPException(404, '冲突复核画面尚未生成。')
+        return FileResponse(path, media_type='image/jpeg')
+
+    @api.post('/v2/player-tracking/closed-loop/jobs/{job_id}/conflicts')
+    def closed_loop_mask_conflict_review(job_id: str, value: PlayerTrackingConflictReviewRequest):
+        try:
+            root = closed_loop_job_root(job_id, closed_loop_local_root())
+            progress = load_job_progress(job_id, closed_loop_local_root())
+            if progress.get('status') != 'COMPLETE':
+                raise ValueError('TRACKING_JOB_NOT_READY_FOR_CONFLICT_REVIEW')
+            manifest_path = root/'tracking.json'
+            manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+            if manifest.get('tracking_architecture') not in {None, 'DETECTION_ANCHORED_MASK_TRACKING'}:
+                raise ValueError('MASK_CONFLICT_REVIEW_REQUIRES_ANCHOR_GUIDED_TRACKING')
+            event = next((row for row in manifest.get('events', [])
+                          if row.get('event_id') == value.event_id and row.get('type') == 'MASK_CONFLICT'), None)
+            if event is None:
+                raise ValueError('MASK_CONFLICT_NOT_FOUND')
+            sample = next((row for row in list_closed_loop_samples(closed_loop_local_root())
+                           if row['sample_id'] == manifest.get('sample_id')), None)
+            if sample is None or sample['clip_sha256'] != manifest.get('source_sha256'):
+                raise ValueError('MASK_CONFLICT_SOURCE_NOT_VERIFIED')
+            selection = validate_mask_conflict_review(
+                event=event, role=value.role, choice=value.choice, bbox=value.bbox,
+                frame_size=(sample['width'], sample['height']))
+            if value.choice == 'NEITHER':
+                action = append_manual_action(
+                    job_id=job_id, action='mask_choice',
+                    details={**selection, 'status': 'NEEDS_REBOX'},
+                    source='QA_UI' if os.environ.get('PTTI_ENV') == 'test' else 'USER_UI',
+                    localappdata=closed_loop_local_root())
+                event['last_review_action'] = {**selection, 'action_id': action['action_id'],
+                                              'status': 'NEEDS_REBOX', 'timestamp': action['timestamp']}
+                from backend.player_tracking_closed_loop import atomic_json
+                atomic_json(manifest_path, manifest)
+                progress['events'] = manifest['events']
+                action_log = json.loads((root/'manual-actions.json').read_text(encoding='utf-8'))
+                from backend.anchor_guided_tracker import summarize_manual_actions
+                progress['manual_actions'] = summarize_manual_actions(
+                    action_log['actions'], float(manifest['duration_seconds']))
+                save_job_progress(job_id, progress, closed_loop_local_root())
+                return {'status': 'NEEDS_REBOX', 'event_id': value.event_id,
+                        'action_id': action['action_id'], 'production_database': 'NOT_ACCESSED'}
+
+            with _CLOSED_LOOP_PROCESS_LOCK:
+                for old_id, old in list(_CLOSED_LOOP_PROCESSES.items()):
+                    if old.poll() is not None:
+                        _CLOSED_LOOP_PROCESSES.pop(old_id, None)
+                if any(proc.poll() is None for proc in _CLOSED_LOOP_PROCESSES.values()):
+                    raise ValueError('GPU_TRACKING_JOB_ALREADY_RUNNING')
+                action_type = 'manual_rebox' if value.choice == 'REBOX' else 'mask_choice'
+                action = append_manual_action(
+                    job_id=job_id, action=action_type,
+                    details={**selection, 'status': 'QUEUED'},
+                    source='QA_UI' if os.environ.get('PTTI_ENV') == 'test' else 'USER_UI',
+                    localappdata=closed_loop_local_root())
+                product_root, script, python = anchor_guided_worker_paths()
+                env = dict(os.environ)
+                env['PTTI_PRODUCT_ROOT'] = str(product_root)
+                env['PYTHONUTF8'] = '1'
+                event['last_review_action'] = {**selection, 'action_id': action['action_id'],
+                                               'status': 'RUNNING', 'timestamp': action['timestamp']}
+                from backend.player_tracking_closed_loop import atomic_json
+                atomic_json(manifest_path, manifest)
+                progress.update({'status': 'RUNNING_REVIEW', 'stage': '正在局部重跑冲突区间',
+                                 'review_event_id': value.event_id, 'review_action_id': action['action_id']})
+                save_job_progress(job_id, progress, closed_loop_local_root())
+                log = (root/'worker.log').open('ab')
+                try:
+                    process = launch_anchor_guided_review_worker(
+                        python=python, script=script, job_id=job_id,
+                        event_id=value.event_id, role=value.role, choice=value.choice,
+                        action_id=action['action_id'], bbox=value.bbox,
+                        product_root=product_root, env=env, stdout=log)
+                finally:
+                    log.close()
+                _CLOSED_LOOP_PROCESSES[job_id] = process
+            return {'status': 'QUEUED', 'event_id': value.event_id,
+                    'action_id': action['action_id'], 'choice': value.choice,
+                    'production_database': 'NOT_ACCESSED'}
+        except HTTPException:
+            raise
+        except ValueError as exc:
+            raise HTTPException(409, '当前冲突不能按此选择处理；请刷新复核项后重试。') from exc
+        except FileNotFoundError as exc:
+            raise HTTPException(404, '追踪结果或授权训练片段不可用。') from exc
+        except (OSError, RuntimeError, KeyError, TypeError) as exc:
+            raise HTTPException(503, '冲突局部重跑无法启动；原始前后向证据仍保留。') from exc
+
+    @api.post('/v2/player-tracking/closed-loop/jobs/{job_id}/out-of-frame-reviews')
+    def closed_loop_out_of_frame_review(job_id: str, value: PlayerTrackingOutOfFrameReviewRequest):
+        try:
+            root = closed_loop_job_root(job_id, closed_loop_local_root())
+            manifest_path = root/'tracking.json'
+            manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+            event = next((row for row in manifest.get('events', [])
+                          if row.get('event_id') == value.event_id
+                          and row.get('type') in {'OUT_OF_FRAME', 'IDENTITY_UNCERTAIN'}), None)
+            if event is None or event.get('role') != value.role:
+                raise ValueError('OUT_OF_FRAME_EVENT_NOT_FOUND')
+            action = append_manual_action(
+                job_id=job_id, action='out_of_frame_confirm',
+                details={'event_id': value.event_id,
+                         'decision': 'OUT_OF_FRAME' if value.confirm_out_of_frame else 'IDENTITY_UNCERTAIN'},
+                source='QA_UI' if os.environ.get('PTTI_ENV') == 'test' else 'USER_UI',
+                localappdata=closed_loop_local_root())
+            if value.confirm_out_of_frame:
+                event.update({'type': 'OUT_OF_FRAME', 'classification': 'OUT_OF_FRAME',
+                              'confidence_level': 'HIGH', 'status': 'CONFIRMED',
+                              'human_confirmation': {'source': action['source'],
+                                                     'timestamp': action['timestamp']}})
+            else:
+                event.update({'type': 'IDENTITY_UNCERTAIN', 'classification': 'UNKNOWN',
+                              'confidence_level': 'LOW', 'status': 'REVIEW_REQUIRED',
+                              'human_confirmation': {'source': action['source'],
+                                                     'timestamp': action['timestamp']}})
+            from backend.player_tracking_closed_loop import atomic_json
+            atomic_json(manifest_path, manifest)
+            progress = load_job_progress(job_id, closed_loop_local_root())
+            progress['events'] = manifest['events']
+            action_log = json.loads((root/'manual-actions.json').read_text(encoding='utf-8'))
+            from backend.anchor_guided_tracker import summarize_manual_actions
+            progress['manual_actions'] = summarize_manual_actions(
+                action_log['actions'], float(manifest['duration_seconds']))
+            save_job_progress(job_id, progress, closed_loop_local_root())
+            return {'status': event['status'], 'event_id': value.event_id,
+                    'classification': event['classification'],
+                    'production_database': 'NOT_ACCESSED'}
+        except ValueError as exc:
+            raise HTTPException(404, '画外复核事件不存在或身份不匹配。') from exc
+        except FileNotFoundError as exc:
+            raise HTTPException(404, '追踪结果不存在。') from exc
+        except (OSError, KeyError, TypeError) as exc:
+            raise HTTPException(409, '画外复核没有保存。') from exc
 
     @api.post('/v2/player-tracking/closed-loop/jobs/{job_id}/reacquisitions')
     def closed_loop_reacquisition(job_id: str, value: ClosedLoopReacquisitionRequest):

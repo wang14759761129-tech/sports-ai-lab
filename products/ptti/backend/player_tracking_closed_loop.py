@@ -53,17 +53,78 @@ def _manifest(localappdata: str | Path | None = None) -> dict[str, Any]:
     return value
 
 
+def _player_tracking_config_path() -> Path:
+    return (Path(__file__).resolve().parents[1] / "configs" / "vision"
+            / "PLAYER_TRACKING_V1_CANDIDATE.json")
+
+
+def _player_tracking_validation_manifest(localappdata: str | Path | None = None) -> dict[str, Any] | None:
+    path = (_research_root(localappdata) / "runs" / "player-tracking-v1-validation"
+            / "validation_manifest.json")
+    if not path.is_file():
+        return None
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if (value.get("schema_version") != "player-tracking-v1-validation-set-v1"
+            or value.get("dataset") != DATASET or value.get("rights") != RIGHTS
+            or value.get("commercial_use") is not False
+            or value.get("official_split") != "TRAIN_ONLY; official test split not used"
+            or value.get("evaluation_role") != "FROZEN_VALIDATION"):
+        raise ValueError("PLAYER_TRACKING_VALIDATION_PROVENANCE_INVALID")
+    config_path = _player_tracking_config_path()
+    if not config_path.is_file() or _sha(config_path) != value.get("frozen_config_sha256"):
+        raise ValueError("PLAYER_TRACKING_VALIDATION_CONFIG_NOT_FROZEN")
+    rows = value.get("videos")
+    if not isinstance(rows, list) or len(rows) < 5:
+        raise ValueError("PLAYER_TRACKING_VALIDATION_SET_TOO_SMALL")
+    validation_ids = [row.get("video_id") for row in rows if isinstance(row, dict)]
+    validation_matches = [row.get("match_id") for row in rows if isinstance(row, dict)]
+    if (len(validation_ids) != len(rows) or len(set(validation_ids)) != len(rows)
+            or len(set(validation_matches)) < 5):
+        raise ValueError("PLAYER_TRACKING_VALIDATION_MATCHES_NOT_INDEPENDENT")
+    dev = _manifest(localappdata)
+    dev_intervals = []
+    for row in dev.get("videos", []):
+        clip = row.get("clip") or {}
+        try:
+            start = float(clip["start_seconds"])
+            end = start + float(clip["duration_seconds"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        dev_intervals.append((row.get("match_id"), start, end))
+    for row in rows:
+        clip = row.get("clip") or {}
+        if row.get("official_split") != "TRAIN":
+            raise ValueError("PLAYER_TRACKING_VALIDATION_TEST_SPLIT_FORBIDDEN")
+        try:
+            start = float(clip["start_seconds"])
+            end = start + float(clip["duration_seconds"])
+        except (KeyError, TypeError, ValueError) as exc:
+            raise ValueError("PLAYER_TRACKING_VALIDATION_INTERVAL_INVALID") from exc
+        if end <= start or any(match == row.get("match_id")
+                               and start < dev_end and dev_start < end
+                               for match, dev_start, dev_end in dev_intervals):
+            raise ValueError("PLAYER_TRACKING_VALIDATION_OVERLAPS_DEVELOPMENT")
+    return value
+
+
 def list_closed_loop_samples(localappdata: str | Path | None = None, *, verify_hashes: bool = True) -> list[dict[str, Any]]:
     research = _research_root(localappdata)
     manifest = _manifest(localappdata)
+    validation = _player_tracking_validation_manifest(localappdata)
+    source_manifests = [(manifest, "DEVELOPMENT")]
+    if validation is not None:
+        source_manifests.append((validation, "FROZEN_VALIDATION"))
     result = []
     seen = set()
-    for row in manifest.get("videos", []):
+    source_rows = [(row, role) for source_manifest, role in source_manifests
+                   for row in source_manifest.get("videos", [])]
+    for row, evaluation_role in source_rows:
         clip = row.get("clip") or {}
         video_id = row.get("video_id")
         if (not isinstance(video_id, str) or not SAMPLE_ID.fullmatch(video_id)
                 or video_id in seen or row.get("official_split") != "TRAIN"
-                or row.get("seed_screening", {}).get("status") not in {"SEEDS_READY", "INITIALIZATION_FAILED"}):
+                or row.get("seed_screening", {}).get("status") not in
+                   {"SEEDS_READY", "INITIALIZATION_FAILED", "PENDING_SEED_REVIEW"}):
             continue
         name = clip.get("file")
         if not isinstance(name, str) or Path(name).name != name or not name.lower().endswith(".mp4"):
@@ -98,6 +159,10 @@ def list_closed_loop_samples(localappdata: str | Path | None = None, *, verify_h
             "width": width,
             "height": height,
             "seed_screening": row.get("seed_screening", {}).get("status"),
+            "evaluation_role": evaluation_role,
+            "validation_config_sha256": (validation.get("frozen_config_sha256")
+                                          if evaluation_role == "FROZEN_VALIDATION" else None),
+            "evaluation_role": evaluation_role,
             "video_path": source,
         })
     return sorted(result, key=lambda item: (item["match_id"], item["sample_id"]))
@@ -210,6 +275,10 @@ def create_closed_loop_job(*, sample_id: str, frame_index: int, detection_set_id
                                 for candidate_id, action in review.items()]
     seed["tracking_architecture"] = tracking_architecture
     seed["anchor_interval_seconds"] = float(anchor_interval_seconds)
+    seed["evaluation_role"] = sample.get("evaluation_role", "DEVELOPMENT")
+    seed["frozen_config_sha256"] = sample.get("validation_config_sha256")
+    if seed["evaluation_role"] == "FROZEN_VALIDATION" and not seed["frozen_config_sha256"]:
+        raise ValueError("PLAYER_TRACKING_VALIDATION_CONFIG_NOT_FROZEN")
     root = closed_loop_root(localappdata)
     job_id = uuid.uuid4().hex
     job_root = root / "jobs" / job_id
@@ -217,6 +286,12 @@ def create_closed_loop_job(*, sample_id: str, frame_index: int, detection_set_id
     seed["job_id"] = job_id
     seed["seed_confirmation_id"] = uuid.uuid4().hex
     atomic_json(job_root / "seed.json", seed)
+    atomic_json(job_root / "manual-actions.json", {
+        "schema_version": "player-tracking-manual-actions-v1",
+        "actions": [{"action_id": uuid.uuid4().hex, "action": "initial_seed",
+                     "source": "USER_UI", "frame": frame_index,
+                     "timestamp": datetime.now(timezone.utc).isoformat()}],
+    })
     progress = {
         "job_id": job_id, "sample_id": sample_id, "status": "QUEUED",
         "stage": "等待隔离视觉 worker 启动", "frame_count": sample["frames"],
@@ -226,6 +301,8 @@ def create_closed_loop_job(*, sample_id: str, frame_index: int, detection_set_id
         }], "created_at": datetime.now(timezone.utc).isoformat(),
         "tracking_architecture": tracking_architecture,
         "anchor_interval_seconds": float(anchor_interval_seconds),
+        "evaluation_role": seed["evaluation_role"],
+        "frozen_config_sha256": seed["frozen_config_sha256"],
         "production_database": "NOT_ACCESSED",
     }
     atomic_json(job_root / "progress.json", progress)
@@ -256,6 +333,58 @@ def save_job_progress(job_id: str, progress: dict[str, Any], localappdata: str |
     if progress.get("job_id") != job_id:
         raise ValueError("CLOSED_LOOP_JOB_ID_MISMATCH")
     atomic_json(job_root(job_id, localappdata) / "progress.json", progress)
+
+
+def append_manual_action(*, job_id: str, action: str, details: dict[str, Any] | None = None,
+                         source: str = "USER_UI",
+                         action_id: str | None = None,
+                         localappdata: str | Path | None = None) -> dict[str, Any]:
+    """Append a user action to the allowlisted development job audit trail."""
+    allowed = {"initial_seed", "out_of_frame_confirm", "mask_choice", "manual_rebox", "identity_confirm"}
+    if action not in allowed or source not in {"USER_UI", "QA_UI"}:
+        raise ValueError("INVALID_MANUAL_ACTION")
+    root = job_root(job_id, localappdata)
+    path = root / "manual-actions.json"
+    payload = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {
+        "schema_version": "player-tracking-manual-actions-v1", "actions": []}
+    if payload.get("schema_version") != "player-tracking-manual-actions-v1" or not isinstance(payload.get("actions"), list):
+        raise ValueError("MANUAL_ACTION_LOG_INVALID")
+    requested_id = action_id or uuid.uuid4().hex
+    if not re.fullmatch(r"[0-9a-f]{32}", requested_id):
+        raise ValueError("INVALID_MANUAL_ACTION_ID")
+    existing = next((row for row in payload["actions"]
+                     if row.get("action_id") == requested_id), None)
+    if existing is not None:
+        return existing
+    row = {"action_id": requested_id, "action": action, "source": source,
+           "timestamp": datetime.now(timezone.utc).isoformat(), "details": details or {}}
+    payload["actions"].append(row)
+    atomic_json(path, payload)
+    return row
+
+
+def player_tracking_conflict_asset(job_id: str, event_id: str, view: str,
+                                   localappdata: str | Path | None = None) -> Path:
+    if (not isinstance(event_id, str)
+            or not re.fullmatch(r"MASK_CONFLICT_(?:NEAR|FAR)_PLAYER_\d{5}_\d{5}", event_id)
+            or view not in {"source", "forward", "reverse"}):
+        raise ValueError("INVALID_MASK_CONFLICT_ASSET")
+    root = job_root(job_id, localappdata).resolve()
+    manifest_path = root / "tracking.json"
+    if not manifest_path.is_file():
+        raise FileNotFoundError("TRACKING_MANIFEST_NOT_FOUND")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    event = next((item for item in manifest.get("events", [])
+                  if item.get("event_id") == event_id and item.get("type") == "MASK_CONFLICT"), None)
+    if event is None:
+        raise FileNotFoundError("MASK_CONFLICT_NOT_FOUND")
+    relative = (event.get("review_assets") or {}).get(view)
+    if not isinstance(relative, str):
+        raise FileNotFoundError("MASK_CONFLICT_ASSET_NOT_FOUND")
+    path = (root / relative).resolve()
+    if not path.is_relative_to(root) or path.suffix.lower() not in {".jpg", ".jpeg", ".png"}:
+        raise ValueError("MASK_CONFLICT_ASSET_OUTSIDE_JOB")
+    return path
 
 
 def queue_reacquisition(*, job_id: str, role: str, candidate_id: str,
