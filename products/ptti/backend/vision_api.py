@@ -14,7 +14,8 @@ from vision.schema import Source
 from vision.doctor import doctor
 from backend.full_match_pipeline import FullMatchService
 from backend.vision_v2 import ModuleAvailability, VisionModuleManager
-from backend.scene_bootstrap import REVIEW_ROLES, apply_review
+from backend.scene_bootstrap import (REVIEW_ROLES, apply_review, frame_review_priority,
+                                     temporal_player_presence, assign_near_far_candidates)
 from backend.fullmatch import quality_report, DEFAULT_CHUNK_SECONDS
 
 class BenchmarkRequest(BaseModel):
@@ -66,7 +67,53 @@ def router(repo=None, data_root=None):
                 by_frame.setdefault(candidate['frame'],[]).append(candidate)
             for frame in result.get('keyframes',[]):
                 frame['detections']=by_frame.get(frame['frame'],[])
+                table = max((d for d in frame['detections'] if 'table' in d.get('label','').casefold()
+                             and not d.get('visualization_suppressed')
+                             and d['bbox'][2]-d['bbox'][0] >= frame.get('width',1)*0.2
+                             and (d['bbox'][2]-d['bbox'][0])*(d['bbox'][3]-d['bbox'][1]) >= frame.get('width',1)*frame.get('height',1)*0.03),
+                            key=lambda d: d.get('detector_score',0), default=None)
+                if table:
+                    frame['detections'] = assign_near_far_candidates(frame['detections'], table['bbox'])
+                frame['review'] = frame_review_priority(
+                    frame['detections'], image_size=(frame.get('width', 1), frame.get('height', 1)))
+            result['keyframes'] = temporal_player_presence(result.get('keyframes', []))
             result['reviews_count']=len(corrections)
+            evaluation=root/'scene_bootstrap_eval_manifest.json'
+            if evaluation.is_file():
+                try:
+                    manifest=json.loads(evaluation.read_text(encoding='utf-8'))
+                    eval_review_path=root/'scene_bootstrap_eval_reviews.json'
+                    try:eval_reviews=json.loads(eval_review_path.read_text(encoding='utf-8')) if eval_review_path.is_file() else []
+                    except (OSError,ValueError):eval_reviews=[]
+                    eval_frames=[]
+                    for item in manifest.get('frame_results',[]):
+                        if item.get('prompt_id') != 'official_bootstrap_a':
+                            continue
+                        game=item.get('game');slot=int(item.get('slot',0))
+                        if game not in {f'game_{i}' for i in range(1,6)} or not 1 <= slot <= 99:
+                            continue
+                        detections=apply_review(item.get('detections',[]),eval_reviews)
+                        table=item.get('selected_table_bbox')
+                        if table:
+                            detections=assign_near_far_candidates(detections,table)
+                        eval_frames.append({
+                            'game':game,'slot':slot,'timestamp_ms':round(item.get('timestamp_seconds',0)*1000),
+                            'image_asset':f'{game}-sample-{slot:02d}.jpg',
+                            'overlay_asset':item.get('overlay_asset'),
+                            'width':item.get('width'),'height':item.get('height'),
+                            'table_found':item.get('table_found'),
+                            'both_player_candidates':item.get('both_player_candidates'),
+                            'review':frame_review_priority(detections,image_size=(item.get('width',1),item.get('height',1))),
+                            'detections':detections,
+                        })
+                    result['multi_match_evaluation']={
+                        'status':manifest.get('status'), 'dataset':manifest.get('dataset'),
+                        'license':manifest.get('license'), 'official_split':manifest.get('official_split'),
+                        'games':manifest.get('games',[]), 'prompt_summary':manifest.get('prompt_summary',{}),
+                        'keyframes':eval_frames,'video_sha256_note':manifest.get('video_sha256_note'),
+                    }
+                except (OSError,ValueError):
+                    result['multi_match_evaluation']={'status':'UNAVAILABLE'}
             return result
         except (OSError,ValueError,TypeError) as exc:
             raise HTTPException(500,'场景识别结果文件无法读取') from exc
@@ -74,11 +121,18 @@ def router(repo=None, data_root=None):
     @api.get('/v2/scene-bootstrap/assets/{asset_name}')
     def scene_bootstrap_asset(asset_name:str):
         import re
-        if not re.fullmatch(r'(?:frame-\d{6}\.jpg|overlay-frame-\d{6}\.jpg)',asset_name):
+        eval_match=re.fullmatch(r'(game_[1-5])-(overlay-)?sample-(\d{2})\.jpg',asset_name)
+        if not re.fullmatch(r'(?:frame-\d{6}\.jpg|overlay-frame-\d{6}\.jpg)',asset_name) and not eval_match:
             raise HTTPException(404,'场景识别图像不存在')
         root=scene_bootstrap_root()
-        path=(root/'scene_bootstrap_overlay'/asset_name if asset_name.startswith('overlay-frame-')
-              else root/'frames'/asset_name)
+        if eval_match:
+            game,overlay,slot=eval_match.groups()
+            filename=('overlay-' if overlay else '')+f'sample-{slot}.jpg'
+            path=root/'multi-match-frames'/game/filename
+        elif asset_name.startswith('overlay-frame-'):
+            path=root/'scene_bootstrap_overlay'/asset_name
+        else:
+            path=root/'frames'/asset_name
         if not path.is_file():raise HTTPException(404,'场景识别图像不存在')
         return FileResponse(path,media_type='image/jpeg')
 
@@ -90,9 +144,19 @@ def router(repo=None, data_root=None):
         if not result_file.is_file():raise HTTPException(409,'尚无可修正的场景识别结果')
         try:result=json.loads(result_file.read_text(encoding='utf-8'))
         except (OSError,ValueError) as exc:raise HTTPException(500,'场景识别结果文件无法读取') from exc
-        if not any(x.get('candidate_id')==value.candidate_id for x in result.get('detections',[])):
+        is_eval_candidate=False
+        evaluation=root/'scene_bootstrap_eval_manifest.json'
+        if evaluation.is_file():
+            try:
+                manifest=json.loads(evaluation.read_text(encoding='utf-8'))
+                is_eval_candidate=any(item.get('prompt_id')=='official_bootstrap_a' and
+                                      any(candidate.get('candidate_id')==value.candidate_id for candidate in item.get('detections',[]))
+                                      for item in manifest.get('frame_results',[]))
+            except (OSError,ValueError):
+                is_eval_candidate=False
+        if not is_eval_candidate and not any(x.get('candidate_id')==value.candidate_id for x in result.get('detections',[])):
             raise HTTPException(404,'检测候选不存在')
-        review_file=root/'reviews.json'
+        review_file=root/('scene_bootstrap_eval_reviews.json' if is_eval_candidate else 'reviews.json')
         try:reviews=json.loads(review_file.read_text(encoding='utf-8')) if review_file.is_file() else []
         except (OSError,ValueError) as exc:raise HTTPException(500,'人工修正记录无法读取') from exc
         reviews.append({'candidate_id':value.candidate_id,'action':value.action,'role':value.role,
