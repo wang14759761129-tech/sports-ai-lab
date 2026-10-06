@@ -26,7 +26,7 @@ def main():
     import sys
     if getattr(sys, 'frozen', False):
         executable=Path(sys.executable).stem.casefold()
-        if executable=='ptti-professional-preview-v0.2':
+        if executable in {'ptti-professional-preview-v0.2','ptti-scene-bootstrap-preview-v2'}:
             # Preview is fail-closed development, even when launched with stale env vars.
             os.environ['PTTI_ENV']='development'
             os.environ['PTTI_PREVIEW']='1'
@@ -88,7 +88,10 @@ def main():
             width,height=map(int,requested.lower().split('x'));width=max(1024,width);height=max(640,height)
         except ValueError: pass
     print('PTTI Desktop URL: '+url,flush=True)
-    title='PTTI · Professional Preview v0.2' if 'professional-preview' in Path(sys.executable).stem.casefold() else 'PTTI · 个人乒乓球比赛分析'
+    stem=Path(sys.executable).stem.casefold()
+    title=('PTTI · Vision Lab v2 Scene Bootstrap Preview' if 'scene-bootstrap-preview' in stem else
+           'PTTI · Professional Preview v0.2' if 'professional-preview' in stem else
+           'PTTI · 个人乒乓球比赛分析')
     webview.create_window(title,url,width=width,height=height,min_size=(1024,640),js_api=DesktopAPI())
     try: webview.start()
     finally: server.should_exit=True; thread.join(timeout=5)

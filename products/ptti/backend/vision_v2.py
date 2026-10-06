@@ -55,8 +55,8 @@ class _ModuleSpec:
 
 _MODULES = (
     _ModuleSpec("balltrack", "RacketVision BallTrack", "PRODUCT", "MIT; model asset terms tracked separately", "v1 frozen RAW", "shared GPU worker", True, "Official RAW observations remain the default."),
-    _ModuleSpec("scene-detector", "镜头变化候选", "EXPERIMENTAL", "OpenCV Apache-2.0", "histogram-v1", "shared CPU worker", False, "只提出镜头切换候选，仍需人工确认。"),
-    _ModuleSpec("grounding-dino", "Grounding DINO", "EXPERIMENTAL", "Apache-2.0 code; checkpoint license must be verified", None, "isolated vision-v2 worker", True, "尚未安装检测运行时或模型权重。"),
+    _ModuleSpec("scene-detector", "镜头变化候选", "EXPERIMENTAL", "OpenCV Apache-2.0", "histogram-v1", "isolated vision-v2 worker", False, "镜头变化只触发重新抽帧，不代表比赛 / 回放分类。"),
+    _ModuleSpec("grounding-dino", "Grounding DINO", "EXPERIMENTAL", "Apache-2.0 code and checkpoint", "IDEA-Research/grounding-dino-base", "isolated vision-v2 worker", True, "真实研究视频候选已生成；所有框需人工复核。"),
     _ModuleSpec("video-segmenter", "SAM 2 视频分割", "EXPERIMENTAL", "Apache-2.0 code and checkpoints", None, "isolated vision-v2 worker", True, "尚未安装；需先实测漂移与场景切换恢复。"),
     _ModuleSpec("player-pose", "RTMPose / MMPose", "EXPERIMENTAL", "Apache-2.0 code; per-checkpoint terms required", None, "isolated vision-v2 worker", True, "尚未安装姿态模型或检查点。"),
     _ModuleSpec("scoreboard-ocr", "PaddleOCR", "EXPERIMENTAL", "Apache-2.0 code; per-model terms required", None, "isolated CPU/GPU worker", True, "尚未安装；比分只能作为候选观测。"),

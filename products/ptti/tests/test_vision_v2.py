@@ -103,6 +103,8 @@ def test_v2_module_status_api_uses_worker_evidence_and_keeps_test_db_isolated(tm
     import backend.vision_api as vision_api
     from backend.main import create_app
 
+    monkeypatch.setenv("LOCALAPPDATA", str(tmp_path / "isolated-localappdata"))
+
     monkeypatch.setattr(vision_api, "doctor", lambda config: {
         "checkpoint": True,
         "racketvision_commit": "pinned",
@@ -118,6 +120,26 @@ def test_v2_module_status_api_uses_worker_evidence_and_keeps_test_db_isolated(tm
     assert "尚未接入" in modules["scene-detector"]["message"]
     assert modules["grounding-dino"]["state"] == "NOT_INSTALLED"
     assert result.json()["policy"]["production_database"] == "NOT_ACCESSED"
+
+
+def test_scene_detector_status_uses_completed_scene_run_as_integration_evidence(tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+    import backend.vision_api as vision_api
+    from backend.main import create_app
+
+    local = tmp_path / "isolated-localappdata"
+    monkeypatch.setenv("LOCALAPPDATA", str(local))
+    monkeypatch.setattr(vision_api, "doctor", lambda config: {
+        "worker": {"modules": {"cv2": False}},
+    })
+    scene_results = local / "PTTI-Dev" / "vision-v2" / "scene-bootstrap"
+    scene_results.mkdir(parents=True)
+    (scene_results / "scene_bootstrap.json").write_text('{"status":"RESEARCH_CANDIDATES_READY"}', encoding="utf-8")
+    app = create_app(tmp_path / "isolated-test.sqlite")
+    with TestClient(app) as client:
+        result = client.get("/api/vision/v2/modules")
+    scene = next(item for item in result.json()["modules"] if item["id"] == "scene-detector")
+    assert scene["state"] == "READY"
 
 
 def color_frame(value):

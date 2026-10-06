@@ -1,7 +1,9 @@
 import json
 import hashlib
+import os
 import uuid
 import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 from fastapi.responses import FileResponse
@@ -12,10 +14,16 @@ from vision.schema import Source
 from vision.doctor import doctor
 from backend.full_match_pipeline import FullMatchService
 from backend.vision_v2 import ModuleAvailability, VisionModuleManager
+from backend.scene_bootstrap import REVIEW_ROLES, apply_review
 from backend.fullmatch import quality_report, DEFAULT_CHUNK_SECONDS
 
 class BenchmarkRequest(BaseModel):
     device: str = 'cuda'
+
+class SceneReviewRequest(BaseModel):
+    candidate_id: str
+    action: str
+    role: str | None = None
 
 def router(repo=None, data_root=None):
     api = APIRouter(prefix='/api/vision')
@@ -28,6 +36,71 @@ def router(repo=None, data_root=None):
     service = VisionService(config)
     linked_jobs={}
     full_match_service=FullMatchService(repo,data_root,config) if repo is not None and data_root is not None else None
+
+    def scene_bootstrap_root():
+        # Research assets are deliberately independent from any selected DB root.
+        # The standard preview/prod process can only view the explicit Dev QA area.
+        import os
+        local=Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local')).resolve()
+        return local/'PTTI-Dev'/'vision-v2'/'scene-bootstrap'
+
+    @api.get('/v2/scene-bootstrap')
+    def scene_bootstrap_results():
+        root=scene_bootstrap_root()
+        path=root/'scene_bootstrap.json'
+        if not path.is_file():
+            return {'status':'NOT_RUN','dataset':'Extended OpenTTGames','commercial_use':False,
+                    'rights':'CC BY-NC-SA 4.0','keyframes':[],'detections':[],
+                    'message':'真实场景识别尚未运行；BallTrack 与本研究样本相互独立。'}
+        try:
+            result=json.loads(path.read_text(encoding='utf-8'))
+            comparison=root/'scene_bootstrap_prompt_comparison.json'
+            if comparison.is_file():
+                try:result['prompt_comparison']=json.loads(comparison.read_text(encoding='utf-8'))
+                except (OSError,ValueError):result['prompt_comparison']={'status':'UNAVAILABLE'}
+            review_path=root/'reviews.json'
+            corrections=json.loads(review_path.read_text(encoding='utf-8')) if review_path.is_file() else []
+            result['detections']=apply_review(result.get('detections',[]),corrections)
+            by_frame={}
+            for candidate in result['detections']:
+                by_frame.setdefault(candidate['frame'],[]).append(candidate)
+            for frame in result.get('keyframes',[]):
+                frame['detections']=by_frame.get(frame['frame'],[])
+            result['reviews_count']=len(corrections)
+            return result
+        except (OSError,ValueError,TypeError) as exc:
+            raise HTTPException(500,'场景识别结果文件无法读取') from exc
+
+    @api.get('/v2/scene-bootstrap/assets/{asset_name}')
+    def scene_bootstrap_asset(asset_name:str):
+        import re
+        if not re.fullmatch(r'(?:frame-\d{6}\.jpg|overlay-frame-\d{6}\.jpg)',asset_name):
+            raise HTTPException(404,'场景识别图像不存在')
+        root=scene_bootstrap_root()
+        path=(root/'scene_bootstrap_overlay'/asset_name if asset_name.startswith('overlay-frame-')
+              else root/'frames'/asset_name)
+        if not path.is_file():raise HTTPException(404,'场景识别图像不存在')
+        return FileResponse(path,media_type='image/jpeg')
+
+    @api.post('/v2/scene-bootstrap/reviews')
+    def scene_bootstrap_review(value:SceneReviewRequest):
+        if value.action not in {'SET_ROLE','REJECT'} or (value.action=='SET_ROLE' and value.role not in REVIEW_ROLES):
+            raise HTTPException(422,'请选择有效的人工修正操作')
+        root=scene_bootstrap_root();result_file=root/'scene_bootstrap.json'
+        if not result_file.is_file():raise HTTPException(409,'尚无可修正的场景识别结果')
+        try:result=json.loads(result_file.read_text(encoding='utf-8'))
+        except (OSError,ValueError) as exc:raise HTTPException(500,'场景识别结果文件无法读取') from exc
+        if not any(x.get('candidate_id')==value.candidate_id for x in result.get('detections',[])):
+            raise HTTPException(404,'检测候选不存在')
+        review_file=root/'reviews.json'
+        try:reviews=json.loads(review_file.read_text(encoding='utf-8')) if review_file.is_file() else []
+        except (OSError,ValueError) as exc:raise HTTPException(500,'人工修正记录无法读取') from exc
+        reviews.append({'candidate_id':value.candidate_id,'action':value.action,'role':value.role,
+                        'recorded_at':datetime.now(timezone.utc).isoformat()})
+        temp=review_file.with_suffix('.json.tmp')
+        temp.write_text(json.dumps(reviews,ensure_ascii=False,indent=2),encoding='utf-8')
+        os.replace(temp,review_file)
+        return {'reviews_count':len(reviews),'raw_preserved':True}
 
     @api.get('/research-datasets/extended-openttgames')
     def extended_openttgames_status():
@@ -120,16 +193,28 @@ def router(repo=None, data_root=None):
         worker=runtime.get('worker') or {}
         installed=worker.get('modules') or {}
         balltrack_ready=bool(runtime.get('checkpoint') and runtime.get('racketvision_commit'))
+        scene_root=scene_bootstrap_root()
+        scene_result=scene_root/'scene_bootstrap.json'
+        scene_runtime=Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2'/'venv'/'Scripts'/'python.exe'
+        scene_weights=Path(os.environ.get('LOCALAPPDATA',Path.home()/'AppData/Local'))/'PTTI-Dev'/'vision-v2'/'models'/'grounding-dino-base'/'model.safetensors'
+        scene_integrated=scene_result.is_file()
+        scene_dependencies=scene_runtime.is_file()
+        scene_checkpoint=scene_weights.is_file() and scene_weights.stat().st_size==933400872
         availability={
             'balltrack':ModuleAvailability(bool(worker.get('torch')),balltrack_ready),
-            'scene-detector':ModuleAvailability(installed.get('cv2',False),integrated=False),
-            'grounding-dino':ModuleAvailability(installed.get('transformers',False) and installed.get('groundingdino',False),False),
+            'scene-detector':ModuleAvailability(installed.get('cv2',False),checkpoint=bool(scene_result.is_file()),integrated=bool(scene_result.is_file())),
+            'grounding-dino':ModuleAvailability(scene_dependencies,scene_checkpoint,integrated=scene_integrated),
             'video-segmenter':ModuleAvailability(installed.get('sam2',False),False),
             'player-pose':ModuleAvailability(installed.get('mmpose',False) and installed.get('mmcv',False),False),
             'scoreboard-ocr':ModuleAvailability(installed.get('paddleocr',False) and installed.get('paddle',False),False),
             'scene-classifier':ModuleAvailability(installed.get('mmaction',False),False),
             'co-tracker':ModuleAvailability(installed.get('cotracker',False),False),
         }
+        availability['scene-detector']=ModuleAvailability(
+            installed.get('cv2',False) or scene_integrated,
+            checkpoint=scene_integrated,
+            integrated=scene_integrated,
+        )
         modules=[item.__dict__ | {'state':item.state.value} for item in VisionModuleManager(availability).snapshot()]
         return {'modules':modules,'runtime':worker,'policy':{'inference':'STAGED','balltrack':'FROZEN_RAW','production_database':'NOT_ACCESSED'}}
 
