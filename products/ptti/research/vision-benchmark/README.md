@@ -10,6 +10,8 @@ Core imports only Python standard library. Model inference, decoding and runtime
 Keep model name/version/checkpoint hash, exact score semantics, code revision and code/weights licenses in every run.
 Scores are model outputs, not calibrated probabilities. Keep multiple detector candidates: additional false targets must count.
 No model can modify manifest or annotation assets. Verify SHA256 before a run. Reports refuse overwrite.
+Concrete cache adapters implement the common video/provenance contract and reject source mutation.
+R1 additionally seals canonical-label and RAW-cache hashes; the initial manifest and attempted reports remain preserved.
 
 ## Data and locks
 
@@ -39,6 +41,8 @@ Record FPS, cold startup, process RAM, CUDA allocated/reserved VRAM, install foo
 
 Feed identical detector streams into the unchanged `RawHitCandidateGenerator` and the same registered player evidence,
 canonical timestamps and frozen draft config. GT annotations are evaluation-only. Report raw hit recall and FP/min.
+`ptti_benchmark.downstream.evaluate_raw_hit_downstream` calls the unchanged product generator and event matcher
+with one explicit within-model highest-score selection policy; detector-only metrics retain every candidate.
 The current five-clip sparse ball comparison has no aligned native stroke GT or full observations, so this result is NOT_EVALUABLE.
 Existing full OpenTTGames DEV baseline remains available; do not substitute it for RF-DETR downstream metrics.
 

@@ -44,6 +44,7 @@ class BallDetection:
             x1, y1, x2, y2 = self.bbox
             if not all(math.isfinite(v) for v in self.bbox) or x2 <= x1 or y2 <= y1:
                 raise ValueError("INVALID_BBOX")
+            object.__setattr__(self, "bbox", tuple(self.bbox))
 
 
 @dataclass(frozen=True)
@@ -57,6 +58,7 @@ class FrameObservation:
     def __post_init__(self):
         if self.source_frame < 0 or not math.isfinite(self.timestamp_ms) or self.timestamp_ms < 0:
             raise ValueError("INVALID_CANONICAL_TIME")
+        object.__setattr__(self, "detections", tuple(self.detections))
 
 
 class VisionModelAdapter(Protocol):
@@ -147,7 +149,9 @@ def evaluate_ball(observations: Sequence[FrameObservation], labels: Sequence[dic
     predictions = {row.source_frame: row for row in observations}
     if len(predictions) != len(observations):
         raise ValueError("DUPLICATE_OBSERVATION_FRAME")
-    reviewed = [row for row in labels if row.get("visible") is not None]
+    reviewed = [row for row in labels if row.get("visible") is not None and
+                ("review_status" not in row or row["review_status"] in
+                 {"CONFIRMED", "HUMAN_REVIEWED", "NATIVE_GROUND_TRUTH"})]
     if len({row["source_frame"] for row in reviewed}) != len(reviewed):
         raise ValueError("DUPLICATE_GT_FRAME")
     present = localized = visible = negatives = fp = missed = 0
@@ -182,8 +186,7 @@ def evaluate_ball(observations: Sequence[FrameObservation], labels: Sequence[dic
     minutes = len(frames) / fps / 60 if dense else None
     precision = localized / (localized + fp) if localized + fp else None
     recall = localized / visible if visible else None
-    f1 = (2 * precision * recall / (precision + recall)
-          if precision is not None and recall is not None and precision + recall else 0.0)
+    f1 = 2*localized/(2*localized+fp+missed) if visible else None
     return {"metrics_version": METRICS_VERSION, "annotation_scope": "DENSE" if dense else "SPARSE",
             "reviewed_frames": len(reviewed), "unreviewed_labels": len(labels) - len(reviewed),
             "visible_ball_frames": visible, "detected_ball_frames": present,
@@ -232,6 +235,8 @@ def rank_models(results: Sequence[dict]) -> list[dict]:
     if len({r["manifest_sha256"] for r in results}) != 1 or any(
             r["metrics"]["metrics_version"] != METRICS_VERSION for r in results):
         raise ValueError("INCOMPARABLE_MODEL_RUNS")
+    if any(r["metrics"]["recall"] is None or r["metrics"]["f1"] is None for r in results):
+        raise ValueError("VISIBLE_GROUND_TRUTH_REQUIRED_FOR_RANKING")
     ordered = sorted(results, key=lambda r: (r["metrics"]["f1"], r["metrics"]["recall"] or 0), reverse=True)
     return [{"rank": index+1, "model": result["model"], "f1": result["metrics"]["f1"],
              "scope": "DESCRIPTIVE_SAME_DEV_DATA_ONLY"} for index, result in enumerate(ordered)]

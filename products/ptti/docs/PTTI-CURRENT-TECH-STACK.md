@@ -3,7 +3,7 @@
 Audited product baseline: `1052321db6887af5db4417aeaabb46124e9ad8f6`.
 Evidence: actual requirements, package metadata, worker sources, saved GPU runs, frontend package.json and build scripts.
 Local machine inventory: `%LOCALAPPDATA%/PTTI-Dev/technology-foundation/stack_inventory.json`.
-Five existing product/vision Python environments plus three new isolated research environments were inventoried.
+Five existing product/vision Python environments plus four isolated research/rebuild environments were inventoried.
 
 | Layer | Actual implementation | Status | Evidence / limitation |
 |---|---|---|---|

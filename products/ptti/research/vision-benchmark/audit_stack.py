@@ -15,14 +15,17 @@ def main():
     environments = {"desktop": PRODUCT / ".venv", "balltrack": PRODUCT / "vision_worker/.venv",
                     "scene_person": DEV / "vision-v2/venv", "sam2": DEV / "vision-v2-sam2/venv",
                     "pose": DEV / "vision-v2-rtmpose/venv", "research_tools": ROOT / "tools-env",
-                    "supervision": ROOT / "supervision-project/.venv", "rf_detr": ROOT / "rf-detr-env"}
+                    "supervision": ROOT / "supervision-project/.venv", "rf_detr": ROOT / "rf-detr-env",
+                    "supervision_rebuild": ROOT / "supervision-rebuild-env"}
     result = {"status": "SCOPED_READ_ONLY_AUDIT", "production_db": "NOT_OPENED", "environments": {}}
     for name, environment in environments.items():
         distributions = {dist.metadata.get("Name"): dist.version
                          for dist in metadata.distributions(path=[str(environment / "Lib/site-packages")])
                          if dist.metadata.get("Name")}
         result["environments"][name] = {"path": str(environment), "exists": environment.exists(),
-                                          "packages": distributions}
+                                          "packages": distributions,
+                                          "pyvenv_cfg": (environment/"pyvenv.cfg").read_text(encoding="utf-8")
+                                          if (environment/"pyvenv.cfg").exists() else None}
     result["tools"] = {name: shutil.which(name) for name in ("ffmpeg", "ffprobe", "docker", "uv", "ruff")}
     result["docker_standard_location_exists"] = Path("C:/Program Files/Docker/Docker/resources/bin/docker.exe").exists()
     result["base_commit"] = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=PRODUCT, text=True).strip()

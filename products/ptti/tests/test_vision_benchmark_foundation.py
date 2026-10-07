@@ -7,13 +7,15 @@ import pytest
 
 BENCHMARK = Path(__file__).parents[1] / "research" / "vision-benchmark"
 sys.path.insert(0, str(BENCHMARK))
-from ptti_benchmark.adapters import racketvision_rows, rfdetr_rows  # noqa: E402
+from ptti_benchmark.adapters import (  # noqa: E402
+    RFDETRAdapter, RacketVisionAdapter, racketvision_rows, rfdetr_rows, select_named_sports_balls)
 from ptti_benchmark.core import (  # noqa: E402
     BallDetection, FrameObservation, METRICS_VERSION, canonical_sha256,
     evaluate_ball, file_sha256, rank_models, trajectory_metrics, verify_manifest, write_report,
 )
 from ptti_benchmark.cvat import read_cvat_xml  # noqa: E402
 from ptti_benchmark.tool_value import validate_tool_card  # noqa: E402
+from ptti_benchmark.downstream import evaluate_raw_hit_downstream  # noqa: E402
 
 
 def row(frame, visible=True, x=10, y=10):
@@ -170,3 +172,67 @@ def test_derived_labels_tampering_is_rejected(tmp_path):
     labels.write_text("edited")
     with pytest.raises(ValueError, match="DERIVED_BENCHMARK"):
         verify_manifest(manifest)
+
+
+@pytest.mark.parametrize("adapter", [RacketVisionAdapter, RFDETRAdapter])
+def test_cached_model_adapter_source_guard(tmp_path, adapter):
+    video = tmp_path/"video"
+    video.write_bytes(b"engineering QA")
+    kwargs = dict(model_name="QA", model_version="QA", model_sha="0"*64, license="QA",
+                  weights_license="QA", input_video=video, video_sha256=file_sha256(video))
+    native = ([{"frame": 0, "visible": False}] if adapter is RacketVisionAdapter else
+              [{"source_frame": 0, "timestamp_ms": 0, "detections": []}])
+    if adapter is RacketVisionAdapter:
+        kwargs["fps"] = 120
+    instance = adapter.from_rows(rows=native, **kwargs)
+    assert instance.observations(video)[0].timestamp_ms == 0
+    assert instance.observations(video)[0].model == "QA"
+    with pytest.raises(ValueError, match="SOURCE_MISMATCH"):
+        instance.observations(tmp_path/"other")
+    video.write_bytes(b"modified")
+    with pytest.raises(ValueError, match="SOURCE_CHANGED"):
+        instance.observations(video)
+
+
+def test_downstream_does_not_invent_missing_gt_or_sparse_event_metrics():
+    kwargs = dict(video_sha256="QA", width=300, height=300, processing_fps=100, config={})
+    assert evaluate_raw_hit_downstream([row(0)], None, **kwargs)["raw_hit_recall"] is None
+    assert evaluate_raw_hit_downstream([row(0), row(3)], [], **kwargs)["status"] == "NOT_EVALUABLE_SPARSE_OBSERVATIONS"
+
+
+def test_sparse_coco_id_is_not_contiguous_class_name_index():
+    selected = select_named_sports_balls([[1,2,5,6], [10,10,20,20]], [.5,.8], [37,32], ["sports ball","tie"])
+    assert len(selected) == 1 and selected[0]["x"] == 3
+    with pytest.raises(ValueError, match="CLASS_NAMES_REQUIRED"):
+        select_named_sports_balls([], [], [], None)
+
+
+def test_downstream_calls_unchanged_engine_with_frozen_config():
+    config = json.loads((Path(__file__).parents[1]/"configs/evidence-fusion/HIT_EVENT_V0_2_DRAFT_CONFIG.json").read_text(encoding="utf-8"))
+    observations = [row(i, x=x) for i, x in enumerate([10,20,30,40,30,20,10])]
+    result = evaluate_raw_hit_downstream(observations, [{"timestamp_ms": 30, "player_role": "UNKNOWN"}],
+                                       video_sha256="QA", width=300, height=300, processing_fps=100, config=config)
+    assert result["status"] == "MEASURED_UNCHANGED_RAW_GENERATOR"
+    assert result["candidate_creation_uses_gt"] is False
+    assert result["raw_hit_recall"] == 1
+
+
+def test_downsampled_source_frames_use_registered_stride_and_timestamps():
+    config = json.loads((Path(__file__).parents[1]/"configs/evidence-fusion/HIT_EVENT_V0_2_DRAFT_CONFIG.json").read_text(encoding="utf-8"))
+    observations = [FrameObservation(i*4, i*1000/30, (BallDetection(x,10),), "QA", "QA")
+                    for i, x in enumerate([10,20,30,40,30,20,10])]
+    result = evaluate_raw_hit_downstream(observations, [{"timestamp_ms": 100, "player_role": "UNKNOWN"}],
+                                       video_sha256="QA", width=300, height=300, processing_fps=30,
+                                       source_frame_stride=4, config=config)
+    assert result["status"] == "MEASURED_UNCHANGED_RAW_GENERATOR"
+    assert result["raw_hit_recall"] == 1
+
+
+def test_unreviewed_suggestions_are_not_ground_truth_or_zero_accuracy():
+    result = evaluate_ball([row(0)], [{"source_frame": 0, "visible": True, "x": 10, "y": 10,
+                                      "review_status": "NEEDS_REVIEW"}], 300, 300, 100)
+    assert result["reviewed_frames"] == 0
+    assert result["f1"] is None
+    assert result["unreviewed_labels"] == 1
+    with pytest.raises(ValueError, match="GROUND_TRUTH_REQUIRED"):
+        rank_models([{"manifest_sha256": "QA", "model": "QA", "metrics": result}])

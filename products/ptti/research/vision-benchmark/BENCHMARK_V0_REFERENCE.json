@@ -1,9 +1,9 @@
 {
   "name": "PTTI Vision Benchmark v0",
-  "local_manifest_sha256": "ba008758b5aeaf0bd940653057c65065ca872b2e56a802ee31427970b04a19d8",
+  "local_manifest_sha256": "4d28ee9e9c22dacdcf66650c4524d4fa06f49a0a62f6eda29bcc8955c0078b8f",
   "metrics_version": "ptti-vision-benchmark-v0.1",
   "status": "RESEARCH_DEV_BASELINE; NOT_UNTOUCHED_EVALUATION",
-  "local_manifest_path": "C:\\Users\\wang\\AppData\\Local\\PTTI-Dev\\technology-foundation\\benchmark-v0\\PTTI_VISION_BENCHMARK_V0_MANIFEST.json",
+  "local_manifest_path": "C:\\Users\\wang\\AppData\\Local\\PTTI-Dev\\technology-foundation\\benchmark-v0\\PTTI_VISION_BENCHMARK_V0_MANIFEST_R1.json",
   "clips": [
     {
       "id": "tabletennis/match20/001",
@@ -17,7 +17,9 @@
       ],
       "video_sha256": "00c82b1ed3b684c601df335303608958bd26c0d981a5cf3112e390e36172935b",
       "annotation_sha256": "46c775eb09f4ee246ec6e37820aaff92cce0815f314288c6885b3fbca3204fe5",
-      "gt_frames": 25
+      "gt_frames": 25,
+      "canonical_labels_sha256": "d75c3fd641a37a91e374c5002da4f03bf835a280f2e2060b9fba32167b89f6b0",
+      "racketvision_raw_sha256": "daaa39a671c42e9ef233c7f0ecaeb389f245139fa73155e24957472672395b04"
     },
     {
       "id": "tabletennis/match21/002",
@@ -31,7 +33,9 @@
       ],
       "video_sha256": "6b1e97a038a85f2618c72ed27767d07976b3e71237e2b63d9c9692eb63519033",
       "annotation_sha256": "bcfdad59e26c270ffdd2d38b7d861cbfaa6c288da2f869cf06fa2662e11fbb42",
-      "gt_frames": 25
+      "gt_frames": 25,
+      "canonical_labels_sha256": "69af411c08898f2527d27a4bf34f29976c79ff65d46ed8e82950412204df34c4",
+      "racketvision_raw_sha256": "a2da1e42b6bb45b35333264a07ab652a14d0542a2cfd774ad8baaa6d8b1c5a05"
     },
     {
       "id": "tabletennis/match22/002",
@@ -45,7 +49,9 @@
       ],
       "video_sha256": "b1324872adf1981c8485dbbd356e39b26588fe2a93decd226e59f9535b89abfa",
       "annotation_sha256": "8e5c8a7275dc0b84fa376890af046a1ae0ca8c92dd89ece8415aae9407d856f9",
-      "gt_frames": 25
+      "gt_frames": 25,
+      "canonical_labels_sha256": "16dbd4de65836de6e5a8976835a37cd54201a37b1604661047aa97ce70d2b202",
+      "racketvision_raw_sha256": "b006275d6609745c4f48489fe1877ca95852b7603a18d984c6cb92b94e610e27"
     },
     {
       "id": "tabletennis/match23/002",
@@ -59,7 +65,9 @@
       ],
       "video_sha256": "f0c8d4c9be490e8aa103d8d21cf21ff0eafffae840f9d12af100d304bc3bf2b5",
       "annotation_sha256": "33432992b62b4bf106aaa34776654f0dadd427289cbc2f34ef2aae535ddcf51b",
-      "gt_frames": 25
+      "gt_frames": 25,
+      "canonical_labels_sha256": "cf91510718bb8dc160c632f001a2e586d8097dba6686148fc9b8903d2437584f",
+      "racketvision_raw_sha256": "24149ec2317906ad756dacf9d3a63a4b5da1ccf8227ea4da50cc875839fe9ab8"
     },
     {
       "id": "tabletennis/match24/002",
@@ -73,12 +81,16 @@
       ],
       "video_sha256": "496a32cd7da011a9af0571f1f7f404469503304277b20cda40772b4b435b6c20",
       "annotation_sha256": "001445d85e4d6d2f45319f1dea1cd012fb273352922fbe9c7431bee87571c6f6",
-      "gt_frames": 25
+      "gt_frames": 25,
+      "canonical_labels_sha256": "897b725f1202eb0724a1bac6d9666dc47a9265b8189d472d23141b33788c8b13",
+      "racketvision_raw_sha256": "5a045bfc5d1edb869ca3cbe4662aacf159e4a384ca37603cb36c5a04bdc21b66"
     }
   ],
   "locked": [
     "game_4",
     "game_5",
     "official_TEST"
-  ]
+  ],
+  "original_manifest_sha256": "ba008758b5aeaf0bd940653057c65065ca872b2e56a802ee31427970b04a19d8",
+  "revision": "R1_DERIVED_ASSET_HASH_SEAL"
 }

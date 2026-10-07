@@ -24,6 +24,8 @@ Decision: **TRIAL / B_BENCHMARK**, not ADOPT. Further value must come from reduc
 multi-object/mask/zone glue, which was not demonstrated here. No product architecture was changed.
 
 Reproducibility: new isolated `uv` project, complete lock, repeated locked sync and fresh-environment package comparison.
+The first environment used Python 3.12.14; uv's fresh rebuild selected 3.12.15 within the declared compatible range.
+All 26 installed package versions matched. This verifies locked dependencies, not an implicitly pinned interpreter.
 Use the copied `supervision-pyproject.toml` as `pyproject.toml` and `supervision-uv.lock` as `uv.lock`
 in a separate research project; select the intended Python with `uv sync --python <3.12 interpreter> --locked`.
 Do not run sync against any validated desktop/BallTrack/SAM2/Pose environment.
