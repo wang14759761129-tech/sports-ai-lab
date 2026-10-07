@@ -97,6 +97,20 @@ def test_raw_generator_uses_ball_kinematics_without_pose_candidate_creation():
     assert all("RTMPOSE" not in row["source_modules"] for row in candidates)
     assert all(row["evidence_components"]["pre_ball_observations"] == 2 for row in candidates)
     assert all(row["evidence_components"]["post_ball_observations"] == 2 for row in candidates)
+    assert all("PLAYER_TRACKING" in row["source_modules"] for row in candidates)
+
+
+def test_raw_candidate_provenance_does_not_claim_missing_player_tracking():
+    frames = make_frames([20, 30, 40, 50, 60, 50, 40, 30, 20])
+    for frame in frames:
+        frame["players"] = {"NEAR_PLAYER": {"track": None, "pose": None},
+                            "FAR_PLAYER": {"track": None, "pose": None}}
+
+    candidates = RawHitCandidateGenerator(config()).generate(frames)
+
+    assert candidates
+    assert all(row["candidate_player"] == "UNKNOWN" for row in candidates)
+    assert all(row["source_modules"] == ["RACKETVISION_RAW"] for row in candidates)
 
 
 def test_wrist_motion_cannot_create_a_candidate_without_ball_kinematics():

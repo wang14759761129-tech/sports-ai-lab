@@ -210,6 +210,10 @@ class RawHitCandidateGenerator:
             jump = max(norm_pre, norm_post) > self.config.max_normalized_ball_speed_per_second
             role, proximity, identity = _role_at(frame, point)
             raw_probability = (frame.get("ball") or {}).get("model_evidence")
+            player_evidence_present = any(
+                ((frame.get("players") or {}).get(player_role) or {}).get("track")
+                for player_role in ROLES
+            )
             event_id = hashlib.sha256(
                 f"{frame.get('video_sha256','')}:{timestamp:.3f}:RAW_KINEMATIC".encode()
             ).hexdigest()[:24]
@@ -233,7 +237,8 @@ class RawHitCandidateGenerator:
                     "pre_ball_observations": len(before), "post_ball_observations": len(after),
                     "pre_post_max_gap_ms": max([pre_gap, post_gap, *neighbor_gaps], default=0.0),
                 },
-                "source_modules": ["RACKETVISION_RAW", "PLAYER_TRACKING"],
+                "source_modules": (["RACKETVISION_RAW", "PLAYER_TRACKING"]
+                                   if player_evidence_present else ["RACKETVISION_RAW"]),
             })
         return output
 
