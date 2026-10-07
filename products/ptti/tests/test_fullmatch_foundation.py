@@ -11,7 +11,7 @@ from backend.fullmatch import (TimelineAction, apply_timeline_action, build_chun
                                cache_key, map_chunk_observation, merge_chunk_observations,
                                run_resumable_chunks, source_identity, extract_source_frame_timestamps,
                                system_resource_snapshot)
-from backend.full_match_pipeline import refresh_timeline_summary
+from backend.full_match_pipeline import refresh_manifest_artifact, refresh_timeline_summary
 
 
 def test_chunk_boundaries_cover_long_video_without_gaps_or_overlap():
@@ -137,6 +137,18 @@ def test_resource_snapshot_uses_windows_ram_fallback_without_psutil(monkeypatch)
 
     assert snapshot["available_ram_bytes"] == 3 * 1024 ** 3
     assert snapshot["gpu_memory_free_mib"] is None
+
+
+def test_validation_records_final_manifest_hash(tmp_path):
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text('{"status":"BALLTRACK_COMPLETE"}', encoding="utf-8")
+    validation = {"artifacts": {"manifest.json": {"sha256": "stale"}}}
+
+    refresh_manifest_artifact(validation, manifest_path)
+
+    assert validation["artifacts"]["manifest.json"]["exists"] is True
+    assert validation["artifacts"]["manifest.json"]["size_bytes"] == manifest_path.stat().st_size
+    assert validation["artifacts"]["manifest.json"]["sha256"] == source_identity(manifest_path)["sha256"]
 
 
 def test_complete_checkpoint_artifact_corruption_fails_closed(tmp_path):

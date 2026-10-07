@@ -394,13 +394,14 @@ class FullMatchService:
             validation = build_full_match_validation(manifest, summary, prepared["source_identity"],
                 prepared["run_folder"], frame_count, timeline, boundary_samples)
             validation_path = prepared["run_folder"] / "full_match_validation.json"
-            validation_path.write_text(json.dumps(validation, ensure_ascii=False, indent=2), encoding="utf-8")
-            (prepared["run_folder"] / "full_match_validation.html").write_text(
-                _validation_html(validation), encoding="utf-8")
             manifest["status"] = "BALLTRACK_COMPLETE"
             manifest["completed_at"] = datetime.now(timezone.utc).isoformat()
             manifest["output_artifacts_ready"] = True
             save_manifest(path, manifest)
+            refresh_manifest_artifact(validation, path)
+            validation_path.write_text(json.dumps(validation, ensure_ascii=False, indent=2), encoding="utf-8")
+            (prepared["run_folder"] / "full_match_validation.html").write_text(
+                _validation_html(validation), encoding="utf-8")
             job = {"match_id": match_id, "status": "BALLTRACK_COMPLETE", "stage": "全场球追踪完成；时间轴待人工校正",
                    "cache_key": prepared["cache_key"], "manifest_path": str(path),
                    "output_dir": str(prepared["run_folder"]), "summary_path": str(summary_path),
@@ -494,6 +495,17 @@ def build_full_match_validation(manifest, summary, identity, output_dir, frame_c
             "BallTrack temporal state resets at each chunk boundary.", *manifest.get("warnings", [])],
         "preview_overlays": manifest.get("preview_overlays", []),
         "scoreboard_recognition": "NOT_ENABLED", "tactical_inference": "NOT_PERFORMED"}
+
+
+def refresh_manifest_artifact(validation, manifest_path):
+    """Record the final manifest hash after its terminal status has been saved."""
+    manifest_path = Path(manifest_path)
+    validation.setdefault("artifacts", {})["manifest.json"] = {
+        "exists": manifest_path.is_file(),
+        "size_bytes": manifest_path.stat().st_size if manifest_path.is_file() else None,
+        "sha256": file_sha256(manifest_path) if manifest_path.is_file() else None,
+    }
+    return validation
 
 
 def _validation_html(report):
