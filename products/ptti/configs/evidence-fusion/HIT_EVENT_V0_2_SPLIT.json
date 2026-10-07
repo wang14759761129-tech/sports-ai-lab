@@ -1,0 +1,109 @@
+{
+  "schema_version": "hit-event-v0.2-video-split",
+  "locked_at_utc": "2026-10-07T03:07:44Z",
+  "dataset": "Extended OpenTTGames",
+  "dataset_revision": "36471a76b969a0340df59258a813bf8214e68e7c",
+  "license": "CC BY-NC-SA 4.0",
+  "commercial_use": false,
+  "annotation_root": "%LOCALAPPDATA%/PTTI-Dev/research-datasets/ExtendedOpenTTGames/annotations/train/game_data",
+  "official_test_split": "NOT_ACCESSED",
+  "production_database": "NOT_ACCESSED",
+  "split_policy": {
+    "unit": "whole match/video; no frame-level or clip-level random split",
+    "development": ["game_1", "game_2", "game_3"],
+    "calibration": ["game_4"],
+    "internal_holdout": ["game_5"],
+    "holdout_run_policy": "single evaluation after v0.2 config lock; no tuning after access",
+    "historical_exposure": "All five matches have prior v0.1 10-second slice exposure. game_1-t60, game_2-t60, game_3-t60 were v0.1 development slices; game_4-t30 and game_5-t60 were v0.1 frozen validation slices. Therefore the v0.2 internal holdout is not a pristine project-history holdout. Its full-video v0.2 evaluation remains reserved until config lock."
+  },
+  "training_annotation_inventory": {
+    "scope": "TRAIN annotations only; aggregate counts inspected before v0.2 tuning",
+    "total_frames_with_annotation_rows": 4180,
+    "total_stroke_events": 1133,
+    "event_types": {
+      "STROKE": 1133,
+      "BOUNCE": 1546,
+      "NET": 1171,
+      "RALLY_ENDING": 223,
+      "EMPTY_EVENT": 106,
+      "UNKNOWN_NATIVE_EVENT": 1
+    },
+    "stroke_types": {
+      "BLOCK": 141,
+      "CHOP": 28,
+      "FLICK": 41,
+      "LOB": 8,
+      "LOOP": 431,
+      "PUSH": 247,
+      "SERVE": 228,
+      "SMASH": 9
+    },
+    "stroke_side_counts": {
+      "left": 568,
+      "right": 565
+    }
+  },
+  "games": [
+    {
+      "game": "game_1",
+      "role": "development",
+      "annotation_sha256": "ef0fdbf0a2dcb0bf1004a2f6a55c71e6dc1fc87939e5fa9aa7a14750dc8c25e0",
+      "annotation_bytes": 19950,
+      "annotation_rows": 613,
+      "strokes": 161,
+      "stroke_types": {"BLOCK": 51, "FLICK": 6, "LOB": 1, "LOOP": 63, "PUSH": 13, "SERVE": 24, "SMASH": 3},
+      "left_strokes": 75,
+      "right_strokes": 86,
+      "historical_v0_1_exposure": "game_1-t60 development slice"
+    },
+    {
+      "game": "game_2",
+      "role": "development",
+      "annotation_sha256": "7466f1f8c46316406ae224a17491354eac89f9cc2de858633b6f893573db4fe7",
+      "annotation_bytes": 51539,
+      "annotation_rows": 1575,
+      "strokes": 399,
+      "stroke_types": {"BLOCK": 42, "CHOP": 2, "FLICK": 12, "LOB": 4, "LOOP": 179, "PUSH": 64, "SERVE": 92, "SMASH": 4},
+      "left_strokes": 206,
+      "right_strokes": 193,
+      "historical_v0_1_exposure": "game_2-t60 development slice"
+    },
+    {
+      "game": "game_3",
+      "role": "development",
+      "annotation_sha256": "b15160849fb31d18147faacb81aa45284155064f9c590468a2e7933dba8f60bb",
+      "annotation_bytes": 19793,
+      "annotation_rows": 624,
+      "strokes": 152,
+      "stroke_types": {"BLOCK": 27, "CHOP": 6, "LOB": 1, "LOOP": 65, "PUSH": 23, "SERVE": 30},
+      "left_strokes": 81,
+      "right_strokes": 71,
+      "unknown_native_events": 1,
+      "historical_v0_1_exposure": "game_3-t60 development slice"
+    },
+    {
+      "game": "game_4",
+      "role": "calibration",
+      "annotation_sha256": "9d6a558a1a933341b9c9beabc8561327da928e387d4fe743a492f76627207271",
+      "annotation_bytes": 20688,
+      "annotation_rows": 633,
+      "strokes": 173,
+      "stroke_types": {"BLOCK": 15, "CHOP": 20, "FLICK": 9, "LOB": 2, "LOOP": 42, "PUSH": 53, "SERVE": 30, "SMASH": 2},
+      "left_strokes": 82,
+      "right_strokes": 91,
+      "historical_v0_1_exposure": "game_4-t30 frozen validation slice"
+    },
+    {
+      "game": "game_5",
+      "role": "internal_holdout",
+      "annotation_sha256": "df691b76600bd8e417322d3732e60507200c6e1d35507b9848ed66deccf44c3f",
+      "annotation_bytes": 26257,
+      "annotation_rows": 735,
+      "strokes": 248,
+      "stroke_types": {"BLOCK": 6, "FLICK": 14, "LOOP": 82, "PUSH": 94, "SERVE": 52},
+      "left_strokes": 124,
+      "right_strokes": 124,
+      "historical_v0_1_exposure": "game_5-t60 frozen validation slice; full match not run with v0.2 before config lock"
+    }
+  ]
+}

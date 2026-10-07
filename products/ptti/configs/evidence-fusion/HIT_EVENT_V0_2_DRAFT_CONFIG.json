@@ -1,0 +1,17 @@
+{
+  "schema_version": "hit-event-v0.2",
+  "status": "DRAFT_DEV_ONLY",
+  "minimum_kinematic_score": 0.18,
+  "max_ball_gap_ms": 120.0,
+  "max_normalized_ball_speed_per_second": 2.779,
+  "minimum_pre_post_observations": 2,
+  "cluster_window_ms": 66.667,
+  "interval_floor_ms": 316.667,
+  "sequence_break_ms": 3966.667,
+  "decoder_selection_floor": 0.6,
+  "same_side_penalty": 0.4,
+  "alternation_reward": 0.08,
+  "short_interval_penalty": 0.4,
+  "pose_for_hit": false,
+  "pose_rerank_max_delta": 0.0
+}
