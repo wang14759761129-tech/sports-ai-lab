@@ -17,6 +17,18 @@ def enforce_calibration_scope(game: str, role: str, official_split: str) -> None
         raise ValueError("ONLY_GAME_4_TRAIN_CALIBRATION_IS_ALLOWED")
 
 
+def resolve_ptti_dev_root(video_path: Path) -> Path:
+    video = Path(video_path).resolve()
+    if (video.name != "game_4.mp4" or len(video.parents) < 5 or
+            video.parents[4].name.casefold() != "ptti-dev"):
+        raise ValueError("GAME4_SOURCE_OUTSIDE_CANONICAL_PTTI_DEV_ROOT")
+    expected = (video.parents[4] / "research-datasets" / "ExtendedOpenTTGames" /
+                "videos" / "train" / "game_4.mp4").resolve()
+    if video != expected:
+        raise ValueError("GAME4_SOURCE_PATH_NOT_CANONICAL")
+    return video.parents[4]
+
+
 def immutable_json(path: Path, value: Any) -> str:
     """Create a JSON artifact once; never replace a calibration result."""
     target = Path(path)

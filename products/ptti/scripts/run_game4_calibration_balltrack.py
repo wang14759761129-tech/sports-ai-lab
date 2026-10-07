@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 from pathlib import Path
 import sys
 import time
@@ -22,7 +21,7 @@ from backend.full_match_pipeline import FullMatchService  # noqa: E402
 from vision.config import VisionConfig  # noqa: E402
 from vision.quality import classify, video_metadata  # noqa: E402
 sys.path.insert(0, str(PRODUCT_ROOT / "research" / "hit-v03"))
-from calibration import enforce_calibration_scope  # noqa: E402
+from calibration import enforce_calibration_scope, resolve_ptti_dev_root  # noqa: E402
 
 
 class MemoryRepository:
@@ -86,14 +85,17 @@ def build_record(source: dict) -> dict:
 
 
 def run(source_path: Path, *, chunk_seconds: int = 30, poll_seconds: float = 5.0) -> dict:
+    source_path = Path(source_path).resolve()
     source = read_json(source_path)
     enforce_calibration_scope(source.get("game"), source.get("split_role"), source.get("official_split"))
     if source.get("game_5") != "NOT_ACCESSED" or source.get("official_test") != "NOT_ACCESSED":
         raise ValueError("CALIBRATION_SOURCE_SCOPE_MARKER_INVALID")
-    local = Path(os.environ["LOCALAPPDATA"]).resolve()
-    dev_root = (local / "PTTI-Dev").resolve()
     source_video = Path(source["video"]["path"]).resolve()
-    source_video.relative_to((dev_root / "research-datasets" / "ExtendedOpenTTGames" / "videos" / "train").resolve())
+    dev_root = resolve_ptti_dev_root(source_video)
+    expected_source = (dev_root / "evidence" / "hit_event_v0_3" /
+                       "game4-calibration-20261008" / "GAME4_CALIBRATION_SOURCE_VERIFICATION.json").resolve()
+    if source_path != expected_source:
+        raise ValueError("CALIBRATION_SOURCE_VERIFICATION_PATH_NOT_CANONICAL")
     record = build_record(source)
     repo = MemoryRepository(record)
     config = VisionConfig.load()

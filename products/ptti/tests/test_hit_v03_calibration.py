@@ -28,6 +28,15 @@ def test_calibration_scope_is_game4_train_only():
         calibration.enforce_calibration_scope("game_4", "calibration", "TEST")
 
 
+def test_calibration_root_is_derived_from_exact_game4_source(tmp_path):
+    video = tmp_path / "PTTI-Dev" / "research-datasets" / "ExtendedOpenTTGames" / "videos" / "train" / "game_4.mp4"
+    video.parent.mkdir(parents=True)
+    video.touch()
+    assert calibration.resolve_ptti_dev_root(video).name == "PTTI-Dev"
+    with pytest.raises(ValueError, match="CANONICAL_PTTI_DEV_ROOT"):
+        calibration.resolve_ptti_dev_root(tmp_path / "game_4.mp4")
+
+
 def test_first_pass_writer_is_immutable(tmp_path):
     path = tmp_path / "CALIBRATION_FIRST_PASS_UNTOUCHED.json"
     expected = {"status": "FIRST_PASS"}
