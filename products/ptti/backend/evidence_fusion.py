@@ -573,7 +573,8 @@ def adapt_training_strokes(annotations: Mapping[str, Any], timeline: CanonicalVi
 
 
 def _one_to_one_matches(predicted: Sequence[Mapping[str, Any]], truth: Sequence[Mapping[str, Any]],
-                        tolerance_ms: float) -> list[tuple[int, int, float]]:
+                        tolerance_ms: float,
+                        timestamp_rounding_epsilon_ms: float = 0.001) -> list[tuple[int, int, float]]:
     ordered_pred = sorted(enumerate(predicted), key=lambda row: (float(row[1]["timestamp_ms"]), row[0]))
     ordered_truth = sorted(enumerate(truth), key=lambda row: (float(row[1]["timestamp_ms"]), row[0]))
     # Dynamic programming first maximizes match count, then minimizes absolute
@@ -588,7 +589,7 @@ def _one_to_one_matches(predicted: Sequence[Mapping[str, Any]], truth: Sequence[
             pi, pred = ordered_pred[i - 1]
             gi, target = ordered_truth[j - 1]
             delta = float(pred["timestamp_ms"]) - float(target["timestamp_ms"])
-            if abs(delta) <= tolerance_ms:
+            if abs(delta) <= tolerance_ms + timestamp_rounding_epsilon_ms:
                 count, cost, pairs = best[i - 1][j - 1]
                 options.append((count + 1, cost + abs(delta), pairs + ((pi, gi, delta),)))
             best[i][j] = min(options, key=lambda item: (-item[0], item[1]))
@@ -608,10 +609,14 @@ def _percentile(values: Sequence[float], percentile: float) -> float | None:
 
 def evaluate_hit_events(predicted: Sequence[Mapping[str, Any]], truth: Sequence[Mapping[str, Any]], *,
                         tolerances_ms: Mapping[str, float],
-                        side_mapping: DatasetSideMapping | None = None) -> dict[str, Any]:
+                        side_mapping: DatasetSideMapping | None = None,
+                        timestamp_rounding_epsilon_ms: float = 0.001) -> dict[str, Any]:
+    if not math.isfinite(timestamp_rounding_epsilon_ms) or timestamp_rounding_epsilon_ms < 0:
+        raise ValueError("INVALID_TIMESTAMP_ROUNDING_EPSILON")
     result = {}
     for label, tolerance in tolerances_ms.items():
-        matches = _one_to_one_matches(predicted, truth, float(tolerance))
+        matches = _one_to_one_matches(predicted, truth, float(tolerance),
+                                      timestamp_rounding_epsilon_ms)
         fp, fn = len(predicted) - len(matches), len(truth) - len(matches)
         precision = len(matches) / len(predicted) if predicted else (1.0 if not truth else 0.0)
         recall = len(matches) / len(truth) if truth else (1.0 if not predicted else 0.0)
@@ -635,6 +640,7 @@ def evaluate_hit_events(predicted: Sequence[Mapping[str, Any]], truth: Sequence[
                     side_results_by_pair[(pi, gi)] = correct
         result[label] = {
             "tolerance_ms": float(tolerance), "predicted": len(predicted), "ground_truth": len(truth),
+            "timestamp_rounding_epsilon_ms": timestamp_rounding_epsilon_ms,
             "matched": len(matches), "false_positives": fp, "false_negatives": fn,
             "precision": precision, "recall": recall, "f1": f1,
             "median_absolute_timing_error_ms": _percentile(errors, 0.5),

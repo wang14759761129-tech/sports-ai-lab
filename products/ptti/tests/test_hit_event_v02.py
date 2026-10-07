@@ -128,7 +128,7 @@ def test_decoder_never_promotes_balltrack_jump_to_filtered_hit():
     result = HitSequenceDecoder(config(), prior).decode([candidate])
 
     assert result["accepted"] == []
-    assert result["suppressed"][0]["decision"] == "BALLTRACK_JUMP"
+    assert result["suppressed"][0]["decision"] == "BALLTRACK_QUALITY"
 
 
 def test_clusterer_keeps_strongest_candidate_and_records_removed_raw_events():
@@ -159,6 +159,19 @@ def test_cluster_window_does_not_chain_across_multiple_contacts():
     assert result["suppressed_count"] == 1
 
 
+def test_cluster_window_is_inclusive_at_serialized_timestamp_boundary():
+    rows = [
+        {"event_id": "anchor", "timestamp_ms": 0.0, "evidence_score": .7},
+        {"event_id": "edge", "timestamp_ms": 66.667, "evidence_score": .9},
+    ]
+
+    result = TemporalCandidateClusterer(66.666).cluster(rows)
+
+    assert result["cluster_count"] == 1
+    assert [row["event_id"] for row in result["kept"]] == ["edge"]
+    assert result["suppressed"][0]["selected_event_id"] == "edge"
+
+
 def test_decoder_softly_suppresses_same_side_conflict_and_keeps_alternation():
     prior = StrokeIntervalPrior.from_development_intervals([275, 316.667, 375, 733.333])
     decoder = HitSequenceDecoder(config(), prior)
@@ -174,7 +187,7 @@ def test_decoder_softly_suppresses_same_side_conflict_and_keeps_alternation():
     result = decoder.decode(candidates)
 
     assert [row["event_id"] for row in result["accepted"]] == ["near-1", "far-2"]
-    assert any(row["decision"] == "SAME_PLAYER_SEQUENCE_CONFLICT" for row in result["suppressed"])
+    assert any(row["decision"] == "SEQUENCE_GLOBAL_OPTIMUM" for row in result["suppressed"])
     assert result["accepted"][1]["decoder_reason"] == "ALTERNATING_PLAYER_SEQUENCE"
 
 
@@ -192,6 +205,47 @@ def test_uncertain_identity_does_not_receive_hard_alternation_constraint():
 
     assert len(result["accepted"]) == 2
     assert all(row["sequence_review_required"] for row in result["accepted"])
+
+
+def test_decoder_surfaces_near_optimal_alternating_event_for_review():
+    prior = StrokeIntervalPrior.from_development_intervals([300, 350, 400])
+    decoder = HitSequenceDecoder(config(), prior)
+    candidates = [
+        {"event_id": "near-weak", "timestamp_ms": 0, "evidence_score": .508841,
+         "candidate_player": "NEAR_PLAYER", "identity_status": "CONFIDENT"},
+        {"event_id": "far-strong", "timestamp_ms": 833.333, "evidence_score": .855552,
+         "candidate_player": "FAR_PLAYER", "identity_status": "CONFIDENT"},
+    ]
+
+    result = decoder.decode(candidates)
+
+    review = {row["event_id"]: row for row in result["review_candidates"]}
+    assert "near-weak" in review
+    assert review["near-weak"]["status"] == "REQUIRES_REVIEW"
+    assert review["near-weak"]["review_reason"] == "NEAR_OPTIMAL_SEQUENCE"
+    assert review["near-weak"]["decoder_trace"]["regret_to_best_block_path"] < .02
+    assert all(row["event_id"] != "near-weak" for row in result["accepted"])
+
+
+def test_decoder_routes_ambiguous_above_floor_candidate_to_review():
+    prior = StrokeIntervalPrior.from_development_intervals([300, 350, 400])
+    decoder = HitSequenceDecoder(config(), prior)
+    candidates = [
+        {"event_id": "strong", "timestamp_ms": 0, "evidence_score": .95,
+         "candidate_player": "NEAR_PLAYER", "identity_status": "CONFIDENT"},
+        {"event_id": "ambiguous", "timestamp_ms": 100, "evidence_score": .606,
+         "candidate_player": "UNKNOWN", "identity_status": "UNCERTAIN"},
+    ]
+
+    result = decoder.decode(candidates)
+
+    assert [row["event_id"] for row in result["accepted"]] == ["strong"]
+    assert result["review_candidates"][0]["event_id"] == "ambiguous"
+    assert result["review_candidates"][0]["review_reason"] == "IDENTITY_UNCERTAIN"
+    suppressed = next(row for row in result["suppressed"] if row["event_id"] == "ambiguous")
+    assert suppressed["decision"] == "SEQUENCE_GLOBAL_OPTIMUM"
+    assert "SEQUENCE_GLOBAL_OPTIMUM" in suppressed["rejection_reasons"]
+    assert suppressed["decoder_trace"]["best_block_path_utility"] > 0
 
 
 def test_pose_rerank_never_creates_candidates_and_is_off_by_default():

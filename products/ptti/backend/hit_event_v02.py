@@ -239,6 +239,10 @@ class RawHitCandidateGenerator:
 
 
 class TemporalCandidateClusterer:
+    # Candidate timestamps are serialized to 0.001 ms. This tolerance only
+    # absorbs that serialization rounding at an inclusive window boundary.
+    TIMESTAMP_ROUNDING_EPSILON_MS = 0.001
+
     def __init__(self, window_ms: float):
         if window_ms < 0:
             raise ValueError("CLUSTER_WINDOW_MUST_BE_NONNEGATIVE")
@@ -250,7 +254,9 @@ class TemporalCandidateClusterer:
         for row in rows:
             # Anchor the window to its first member so a chain of individually
             # close peaks cannot collapse multiple contacts into one cluster.
-            if not groups or float(row["timestamp_ms"]) - float(groups[-1][0]["timestamp_ms"]) > self.window_ms:
+            if (not groups or
+                    float(row["timestamp_ms"]) - float(groups[-1][0]["timestamp_ms"]) >
+                    self.window_ms + self.TIMESTAMP_ROUNDING_EPSILON_MS):
                 groups.append([row])
             else:
                 groups[-1].append(row)
@@ -281,14 +287,41 @@ class HitSequenceDecoder:
         self.interval_floor_ms = (config.interval_floor_ms if config.interval_floor_ms > 0
                                   else interval_prior.p1_ms)
 
+    def _transition(self, prior: Mapping[str, Any], current: Mapping[str, Any],
+                    delta_ms: float) -> tuple[float, str, list[str]]:
+        transition = 0.0
+        reason = "SEQUENCE_CONTINUITY"
+        adjustments: list[str] = []
+        if delta_ms < self.interval_floor_ms:
+            transition -= self.config.short_interval_penalty
+            reason = "SHORT_INTER_STROKE_INTERVAL"
+            adjustments.append("INTERVAL_PENALTY")
+        prior_role = prior.get("candidate_player", "UNKNOWN")
+        current_role = current.get("candidate_player", "UNKNOWN")
+        identities_confident = (prior.get("identity_status", "UNCERTAIN") ==
+                                current.get("identity_status", "UNCERTAIN") == "CONFIDENT")
+        if prior_role in ROLES and current_role in ROLES and identities_confident:
+            if prior_role == current_role:
+                transition -= self.config.same_side_penalty
+                reason = "SAME_PLAYER_SEQUENCE_CONFLICT"
+                adjustments.append("ALTERNATION_CONFLICT")
+            else:
+                transition += self.config.alternation_reward
+                reason = "ALTERNATING_PLAYER_SEQUENCE"
+        return transition, reason, adjustments
+
     def decode(self, candidates: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
         rows = sorted((dict(row) for row in candidates), key=lambda row: float(row["timestamp_ms"]))
         accepted: list[dict[str, Any]] = []
         removed: list[dict[str, Any]] = []
+        review_candidates: list[dict[str, Any]] = []
         eligible: list[dict[str, Any]] = []
         for row in rows:
             if row.get("ball_quality") == "JUMP_SUSPECT" or row.get("filter_reason") == "BALLTRACK_JUMP":
-                removed.append({**row, "decision": "BALLTRACK_JUMP"})
+                removed.append({**row, "decision": "BALLTRACK_QUALITY",
+                                "rejection_reasons": ["BALLTRACK_QUALITY"],
+                                "decoder_trace": {"ball_quality": row.get("ball_quality"),
+                                                  "filter_reason": row.get("filter_reason")}})
             else:
                 eligible.append(row)
         # Decode independent temporal blocks; a long gap resets the alternation
@@ -301,64 +334,99 @@ class HitSequenceDecoder:
                 blocks[-1].append(row)
         for block in blocks:
             n = len(block)
-            best_score = [float(row.get("evidence_score", 0.0)) - self.config.decoder_selection_floor
-                          for row in block]
+            node_utility = [float(row.get("evidence_score", 0.0)) -
+                            self.config.decoder_selection_floor for row in block]
+            best_score = list(node_utility)
             previous = [-1] * n
             edge_reason: list[str | None] = [None] * n
+            edge_adjustments: list[list[str]] = [[] for _ in range(n)]
             for j in range(n):
-                current_role = block[j].get("candidate_player", "UNKNOWN")
-                current_identity = block[j].get("identity_status", "UNCERTAIN")
                 for i in range(j):
                     delta = float(block[j]["timestamp_ms"]) - float(block[i]["timestamp_ms"])
-                    prior_role = block[i].get("candidate_player", "UNKNOWN")
-                    prior_identity = block[i].get("identity_status", "UNCERTAIN")
-                    transition = 0.0
-                    reason = "SEQUENCE_CONTINUITY"
-                    if delta < self.interval_floor_ms:
-                        transition -= self.config.short_interval_penalty
-                        reason = "SHORT_INTER_STROKE_INTERVAL"
-                    if current_role in ROLES and prior_role in ROLES and current_identity == prior_identity == "CONFIDENT":
-                        if current_role == prior_role:
-                            transition -= self.config.same_side_penalty
-                            reason = "SAME_PLAYER_SEQUENCE_CONFLICT"
-                        else:
-                            transition += self.config.alternation_reward
-                            reason = "ALTERNATING_PLAYER_SEQUENCE"
-                    score = best_score[i] + (float(block[j].get("evidence_score", 0.0)) -
-                                              self.config.decoder_selection_floor) + transition
+                    transition, reason, adjustments = self._transition(block[i], block[j], delta)
+                    score = best_score[i] + node_utility[j] + transition
                     if score > best_score[j]:
                         best_score[j], previous[j], edge_reason[j] = score, i, reason
+                        edge_adjustments[j] = adjustments
+
+            # Best suffix scores let the report measure the best complete path
+            # that could include each suppressed candidate, rather than guess
+            # a rejection reason from the candidate's raw score alone.
+            suffix_score = list(node_utility)
+            for i in range(n - 1, -1, -1):
+                for j in range(i + 1, n):
+                    delta = float(block[j]["timestamp_ms"]) - float(block[i]["timestamp_ms"])
+                    transition, _, _ = self._transition(block[i], block[j], delta)
+                    score = node_utility[i] + transition + suffix_score[j]
+                    if score > suffix_score[i]:
+                        suffix_score[i] = score
             # A block's best path provides the selected sequence. Other
-            # candidates remain reviewable with an explicit suppression cause.
+            # candidates remain explainable and borderline alternatives enter
+            # a separate review queue; they are not promoted to automatic hits.
             end = max(range(n), key=lambda index: best_score[index])
             path = set()
             cursor = end
             while cursor >= 0:
                 path.add(cursor)
                 cursor = previous[cursor]
+            global_best_score = best_score[end]
+            selected_event_ids = [block[index]["event_id"] for index in sorted(path)
+                                  if best_score[index] >= 0]
             for index, row in enumerate(block):
+                through_score = best_score[index] + suffix_score[index] - node_utility[index]
+                regret = max(0.0, global_best_score - through_score)
+                trace = {
+                    "candidate_utility": round(node_utility[index], 6),
+                    "best_prefix_utility": round(best_score[index], 6),
+                    "best_suffix_utility": round(suffix_score[index], 6),
+                    "best_path_utility_through_candidate": round(through_score, 6),
+                    "best_block_path_utility": round(global_best_score, 6),
+                    "regret_to_best_block_path": round(regret, 6),
+                    "best_predecessor_event_id": (block[previous[index]]["event_id"]
+                                                   if previous[index] >= 0 else None),
+                    "best_predecessor_transition": edge_reason[index],
+                    "transition_adjustments": list(edge_adjustments[index]),
+                    "selected_block_sequence_event_ids": selected_event_ids,
+                }
                 if index in path and best_score[index] >= 0:
                     selected = dict(row)
                     selected["decoder_reason"] = edge_reason[index] or "RAW_EVIDENCE_SELECTED"
+                    selected["decoder_trace"] = trace
                     selected["sequence_review_required"] = (
                         selected.get("candidate_player") not in ROLES or
                         selected.get("identity_status") != "CONFIDENT")
                     accepted.append(selected)
                 else:
-                    if row.get("ball_quality") == "JUMP_SUSPECT":
-                        reason = "BALLTRACK_JUMP"
-                    elif float(row.get("evidence_score", 0.0)) < self.config.decoder_selection_floor:
-                        reason = "WEAK_BALL_KINEMATIC_EVIDENCE"
-                    elif any(
-                        other.get("candidate_player") == row.get("candidate_player") and
-                        other.get("identity_status") == row.get("identity_status") == "CONFIDENT" and
-                        abs(float(other["timestamp_ms"]) - float(row["timestamp_ms"])) >= self.interval_floor_ms
-                        for other in block if other["event_id"] != row["event_id"]
-                    ):
-                        reason = "SAME_PLAYER_SEQUENCE_CONFLICT"
+                    evidence_below_floor = node_utility[index] < 0
+                    rejection_reasons = []
+                    if evidence_below_floor:
+                        rejection_reasons.append("LOW_BALL_EVIDENCE")
+                    rejection_reasons.extend(edge_adjustments[index])
+                    if through_score > 0 and regret > 1e-9:
+                        rejection_reasons.append("SEQUENCE_GLOBAL_OPTIMUM")
+                        reason = "SEQUENCE_GLOBAL_OPTIMUM"
+                    elif evidence_below_floor:
+                        rejection_reasons.append("LOW_SEQUENCE_UTILITY")
+                        reason = "LOW_BALL_EVIDENCE"
                     else:
+                        rejection_reasons.append("LOW_SEQUENCE_UTILITY")
                         reason = "LOW_SEQUENCE_UTILITY"
-                    removed.append({**row, "decision": reason})
+                    trace["rejection_reasons"] = list(dict.fromkeys(rejection_reasons))
+                    removed.append({**row, "decision": reason,
+                                    "rejection_reasons": trace["rejection_reasons"],
+                                    "decoder_trace": trace})
+
+                    identity_uncertain = (row.get("candidate_player") not in ROLES or
+                                          row.get("identity_status") != "CONFIDENT")
+                    near_optimal_alternative = (through_score > 0 and regret <=
+                                                max(self.config.alternation_reward, 0.001))
+                    if (not evidence_below_floor and identity_uncertain) or near_optimal_alternative:
+                        review_reason = ("IDENTITY_UNCERTAIN" if identity_uncertain and
+                                         not evidence_below_floor else "NEAR_OPTIMAL_SEQUENCE")
+                        review_candidates.append({**row, "status": "REQUIRES_REVIEW",
+                                                  "review_reason": review_reason,
+                                                  "rejection_reasons": trace["rejection_reasons"],
+                                                  "decoder_trace": trace})
         accepted.sort(key=lambda row: float(row["timestamp_ms"]))
         previous_time = None
         for index, row in enumerate(accepted, start=1):
@@ -367,8 +435,10 @@ class HitSequenceDecoder:
                 float(row["timestamp_ms"]) - previous_time, 3)
             previous_time = float(row["timestamp_ms"])
         return {"accepted": accepted, "suppressed": removed,
+                "review_candidates": review_candidates,
                 "candidate_count": len(rows), "accepted_count": len(accepted),
                 "suppressed_count": len(removed),
+                "review_candidate_count": len(review_candidates),
                 "decoder_parameters": {
                     "interval_floor_ms": self.interval_floor_ms,
                     "selection_floor": self.config.decoder_selection_floor,
@@ -452,10 +522,12 @@ def build_hit_event_pipeline(frames: Sequence[Mapping[str, Any]], config: HitEve
     return {"raw_candidates": raw, "clustered_candidates": cluster["kept"],
             "cluster_suppressed": cluster["suppressed"], "filtered_candidates": decoded["accepted"],
             "decoder_suppressed": decoded["suppressed"],
+            "decoder_review_candidates": decoded["review_candidates"],
             "counts": {"raw": len(raw), "clustered": len(cluster["kept"]),
                        "cluster_suppressed": len(cluster["suppressed"]),
                        "decoded": len(decoded["accepted"]),
-                       "decoder_suppressed": len(decoded["suppressed"])},
+                       "decoder_suppressed": len(decoded["suppressed"]),
+                       "decoder_review_candidates": len(decoded["review_candidates"])},
             "config_sha256": config_sha256(config), "config_status": config.status}
 
 

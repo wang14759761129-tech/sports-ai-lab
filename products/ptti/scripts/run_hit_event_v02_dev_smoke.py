@@ -58,6 +58,84 @@ def _read_jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
+def _matched_ground_truth_indices(evaluation: dict) -> set[int]:
+    rows = evaluation["by_tolerance"]["plus_minus_2_processing_frames"]["matches"]
+    return {int(row["ground_truth_index"]) for row in rows}
+
+
+def _nearest_candidate(candidate_rows: list[dict], truth_row: dict, tolerance_ms: float) -> dict | None:
+    if not candidate_rows:
+        return None
+    target = float(truth_row["timestamp_ms"])
+    candidate = min(candidate_rows, key=lambda row: abs(float(row["timestamp_ms"]) - target))
+    delta = float(candidate["timestamp_ms"]) - target
+    return {
+        "event_id": candidate.get("event_id"),
+        "timestamp_ms": candidate.get("timestamp_ms"),
+        "delta_ms": round(delta, 6),
+        "within_plus_minus_2_frames": abs(delta) <= tolerance_ms + 0.001,
+        "evidence_score": candidate.get("evidence_score"),
+        "candidate_player": candidate.get("candidate_player"),
+        "identity_status": candidate.get("identity_status"),
+        "ball_quality": candidate.get("ball_quality"),
+        "filter_reason": candidate.get("filter_reason"),
+        "evidence_components": candidate.get("evidence_components"),
+    }
+
+
+def _ground_truth_stage_diagnostics(truth_rows: list[dict], *, raw: list[dict], clustered: list[dict],
+                                    decoded: list[dict], review: list[dict],
+                                    raw_evaluation: dict, clustered_evaluation: dict,
+                                    decoded_evaluation: dict, tolerance_ms: float,
+                                    cluster_suppressed: list[dict], decoder_suppressed: list[dict]) -> list[dict]:
+    matched = {
+        "RAW": _matched_ground_truth_indices(raw_evaluation),
+        "CLUSTERED": _matched_ground_truth_indices(clustered_evaluation),
+        "DECODED": _matched_ground_truth_indices(decoded_evaluation),
+    }
+    cluster_drops = {str(row.get("event_id")): row for row in cluster_suppressed}
+    decoder_drops = {str(row.get("event_id")): row for row in decoder_suppressed}
+    diagnostics = []
+    for index, gt in enumerate(truth_rows):
+        nearest = {
+            "RAW": _nearest_candidate(raw, gt, tolerance_ms),
+            "CLUSTERED": _nearest_candidate(clustered, gt, tolerance_ms),
+            "DECODED": _nearest_candidate(decoded, gt, tolerance_ms),
+            "REVIEW_QUEUE": _nearest_candidate(review, gt, tolerance_ms),
+        }
+        if index not in matched["RAW"]:
+            loss_stage = "RAW_GENERATOR_MISS"
+        elif index not in matched["CLUSTERED"]:
+            loss_stage = "TEMPORAL_CLUSTER_LOSS"
+        elif index not in matched["DECODED"]:
+            loss_stage = "SEQUENCE_DECODER_LOSS"
+        else:
+            loss_stage = "MATCHED"
+        rejection = None
+        if loss_stage == "TEMPORAL_CLUSTER_LOSS" and nearest["RAW"]:
+            rejection = cluster_drops.get(str(nearest["RAW"]["event_id"]))
+        elif loss_stage == "SEQUENCE_DECODER_LOSS" and nearest["CLUSTERED"]:
+            rejection = decoder_drops.get(str(nearest["CLUSTERED"]["event_id"]))
+        diagnostics.append({
+            "ground_truth_index": index,
+            "event_id": gt.get("event_id"),
+            "timestamp_ms": gt.get("timestamp_ms"),
+            "source_frame": gt.get("source_frame"),
+            "player_role": gt.get("player_role"),
+            "technique": gt.get("technique"),
+            "stage_status": {stage: ("FOUND" if index in matched[stage] else "MISSED")
+                             for stage in ("RAW", "CLUSTERED", "DECODED")},
+            "elimination_stage": loss_stage,
+            "nearest_candidates_by_stage": nearest,
+            "decoder_rejection": ({
+                "decision": rejection.get("decision"),
+                "rejection_reasons": rejection.get("rejection_reasons", []),
+                "decoder_trace": rejection.get("decoder_trace"),
+            } if rejection else None),
+        })
+    return diagnostics
+
+
 def run() -> dict:
     split_bytes = SPLIT_PATH.read_bytes()
     split_sha = hashlib.sha256(split_bytes).hexdigest()
@@ -97,6 +175,9 @@ def run() -> dict:
         clustered_evaluation = evaluate_hit_events(pipeline["clustered_candidates"], truth,
                                                    tolerances_ms=tolerances)
         evaluation = evaluate_hit_events(pipeline["filtered_candidates"], truth, tolerances_ms=tolerances)
+        review_queue_candidates = pipeline["filtered_candidates"] + pipeline["decoder_review_candidates"]
+        review_queue_evaluation = evaluate_hit_events(review_queue_candidates, truth,
+                                                      tolerances_ms=tolerances)
         stage_results["raw"].append((sample_id, raw_evaluation))
         stage_results["clustered"].append((sample_id, clustered_evaluation))
         stage_results["filtered"].append((sample_id, evaluation))
@@ -111,6 +192,7 @@ def run() -> dict:
                           if int(segment["start_frame"]) <= clip_end_frame and
                           int(segment["end_frame"]) >= clip_start_frame)
         filtered_two = evaluation["by_tolerance"]["plus_minus_2_processing_frames"]
+        tolerance_ms = 2 * 1000 / processing_fps
         row = {
             "sample_id": sample_id, "match_id": manifest["match_id"],
             "official_split": "TRAIN", "video_sha256": manifest["video_sha256"],
@@ -122,6 +204,15 @@ def run() -> dict:
             "inference_seconds": inference_seconds,
             "pipeline_counts": pipeline["counts"], "evaluation": evaluation,
             "raw_evaluation": raw_evaluation, "clustered_evaluation": clustered_evaluation,
+            "review_queue_potential_evaluation": review_queue_evaluation,
+            "ground_truth_stage_diagnostics": _ground_truth_stage_diagnostics(
+                truth, raw=pipeline["raw_candidates"], clustered=pipeline["clustered_candidates"],
+                decoded=pipeline["filtered_candidates"], review=pipeline["decoder_review_candidates"],
+                raw_evaluation=raw_evaluation, clustered_evaluation=clustered_evaluation,
+                decoded_evaluation=evaluation, tolerance_ms=tolerance_ms,
+                cluster_suppressed=pipeline["cluster_suppressed"],
+                decoder_suppressed=pipeline["decoder_suppressed"]),
+            "decoder_review_candidate_count": len(pipeline["decoder_review_candidates"]),
             "review_burden_per_minute": round(
                 len(pipeline["filtered_candidates"]) / max(duration_ms / 60_000, 1e-9), 4),
             "false_positives_per_rally_at_plus_minus_2": round(
@@ -134,6 +225,7 @@ def run() -> dict:
             "filtered_candidates": pipeline["filtered_candidates"],
             "cluster_suppressed": pipeline["cluster_suppressed"],
             "decoder_suppressed": pipeline["decoder_suppressed"],
+            "decoder_review_candidates": pipeline["decoder_review_candidates"],
         }
         outputs.append(row)
     aggregates = {stage: aggregate_hit_evaluations(values) for stage, values in stage_results.items()}
@@ -158,6 +250,7 @@ def run() -> dict:
             {"sample_id": row["sample_id"], "gt_strokes": row["ground_truth_count"],
              "raw": row["pipeline_counts"]["raw"], "clustered": row["pipeline_counts"]["clustered"],
              "decoded": row["pipeline_counts"]["decoded"],
+             "review_queue": row["decoder_review_candidate_count"],
              "derived_gt_rallies_intersecting_clip": row["derived_gt_rallies_intersecting_clip"]}
             for row in outputs],
         "aggregate_smoke_metrics": aggregate,
@@ -167,6 +260,7 @@ def run() -> dict:
         "limitations": [
             "Only previously processed 10-second slices were available at this smoke-run time.",
             "The 7 DEV-slice strokes are insufficient for tuning or validation.",
+            "Review-queue potential is post-hoc diagnostics, not a human-reviewed or automated result.",
             "The config remains DRAFT_DEV_ONLY; no calibration or holdout evaluation has run.",
             "No official TEST annotation or video was opened.",
         ],
@@ -183,7 +277,8 @@ def run() -> dict:
             "<h1>Hit Event v0.2 · DEV wiring smoke</h1>",
             "<p>仅验证代码链路；不是完整 DEV 评估，不用于调参。配置仍为 DRAFT_DEV_ONLY。</p>",
             f"<p>split SHA256: <code>{html.escape(split_sha)}</code></p>",
-            "<table><tr><th>片段</th><th>GT stroke</th><th>Raw</th><th>Clustered</th><th>Decoded</th></tr>"]
+            "<table><tr><th>片段</th><th>GT stroke</th><th>Raw</th><th>Clustered</th>"
+            "<th>Decoded</th><th>复核建议</th></tr>"]
     for row in result["dev_sample_counts"]:
         rows.append("<tr>" + "".join(f"<td>{html.escape(str(value))}</td>" for value in row.values()) + "</tr>")
     rows.append("</table><h2>Stage metrics</h2><pre>" +

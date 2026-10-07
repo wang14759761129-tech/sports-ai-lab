@@ -207,6 +207,28 @@ def test_config_hash_is_stable_and_event_matching_is_one_to_one_at_all_tolerance
     assert result["by_tolerance"]["three"]["player_side_accuracy"] is None
 
 
+def test_event_matching_tolerates_millisecond_serialization_at_frame_boundary():
+    result = evaluate_hit_events(
+        [{"event_id": "p1", "timestamp_ms": 68_833.333}],
+        [{"event_id": "g1", "timestamp_ms": 68_900.0}],
+        tolerances_ms={"two_frames": 2 * 1000 / 30},
+    )
+
+    metrics = result["by_tolerance"]["two_frames"]
+    assert metrics["matched"] == 1
+    assert metrics["timestamp_rounding_epsilon_ms"] == 0.001
+
+
+def test_event_matching_rejects_deltas_outside_rounding_epsilon():
+    result = evaluate_hit_events(
+        [{"event_id": "p1", "timestamp_ms": 68_833.332}],
+        [{"event_id": "g1", "timestamp_ms": 68_900.0}],
+        tolerances_ms={"two_frames": 2 * 1000 / 30},
+    )
+
+    assert result["by_tolerance"]["two_frames"]["matched"] == 0
+
+
 def test_aggregate_never_matches_events_from_different_videos():
     tolerance = {"pm3": 100}
     first_video = evaluate_hit_events(
