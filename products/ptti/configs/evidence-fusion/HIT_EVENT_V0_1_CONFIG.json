@@ -1,0 +1,18 @@
+{
+  "schema_version": "hit-event-v0.1",
+  "weights": {
+    "ball_player_proximity": 0.1,
+    "wrist_proximity_proxy": 0.24,
+    "trajectory_direction_change": 0.25,
+    "ball_speed_change": 0.12,
+    "wrist_speed_peak": 0.1,
+    "pose_quality": 0.1,
+    "track_health": 0.09
+  },
+  "candidate_threshold": 0.62,
+  "local_peak_radius_frames": 1,
+  "minimum_separation_ms": 140,
+  "trajectory_window_ms": 33.34,
+  "side_tie_margin": 0.08,
+  "minimum_dynamic_evidence_score": 0.15
+}

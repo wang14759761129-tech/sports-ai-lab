@@ -13,6 +13,7 @@ def is_development_preview(executable_name):
                     'ptti-vision-lab-v2-scene-preview','ptti-vision-v2-hybrid-scene-preview',
                     'ptti-vision-v2-player-tracking-preview',
                     'ptti-vision-v2-player-motion-preview',
+                    'ptti-evidence-fusion-preview',
                     'ptti-vision-v2-player-tracking-v1-preview',
                     'ptti-vision-v2-person-preview'}
 
@@ -101,6 +102,7 @@ def main():
     title=('PTTI · Vision v2 Person Preview' if 'vision-v2-person-preview' in stem else
            'PTTI · Vision v2 Player Tracking v1 Preview' if 'vision-v2-player-tracking-v1-preview' in stem else
            'PTTI · Vision v2 Player Motion Preview' if 'vision-v2-player-motion-preview' in stem else
+           'PTTI · Evidence Fusion Preview' if 'evidence-fusion-preview' in stem else
            'PTTI · Vision v2 Player Tracking Preview' if 'vision-v2-player-tracking-preview' in stem else
            'PTTI · Vision v2 Hybrid Scene Preview' if 'hybrid-scene-preview' in stem else
            'PTTI · Vision Lab v2 Scene Bootstrap Preview' if 'scene-bootstrap-preview' in stem or 'vision-lab-v2-scene-preview' in stem else

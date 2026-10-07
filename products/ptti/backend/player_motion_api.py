@@ -21,6 +21,7 @@ from backend.player_motion import (TRACKING_JOB_ID, load_tracking_evidence,
                                    supports_pose_tracking_manifest)
 from backend.tracking_validation_workbench import (list_tracking_window_reviews,
                                                    record_tracking_window_review)
+from backend.evidence_fusion_api import router as evidence_fusion_api_router
 
 
 _PROCESS_LOCK = threading.RLock()
@@ -107,6 +108,7 @@ def _tracking_jobs():
 
 def router() -> APIRouter:
     api = APIRouter(prefix="/v2")
+    api.include_router(evidence_fusion_api_router())
 
     @api.get("/player-motion")
     def snapshot():
