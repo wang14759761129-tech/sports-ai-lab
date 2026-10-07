@@ -38,6 +38,33 @@ def _read_json(path: Path) -> dict:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
+def _load_consistent_model_provenance(jobs: list[dict]) -> dict:
+    if not jobs:
+        raise ValueError("CALIBRATION_PLAYER_JOBS_REQUIRED")
+    provenance = _read_json(Path(jobs[0]["output"])).get("model_provenance")
+    if not isinstance(provenance, dict):
+        raise ValueError("CALIBRATION_PLAYER_MODEL_PROVENANCE_MISSING")
+    for job in jobs[1:]:
+        if _read_json(Path(job["output"])).get("model_provenance") != provenance:
+            raise ValueError("RT_DETR_PROVENANCE_CHANGED_BETWEEN_BATCHES")
+    return provenance
+
+
+def _summarize_roles(rows: list[dict]) -> tuple[dict[str, int], dict[str, int]]:
+    role_counts = {name: 0 for name in ("NEAR_PLAYER", "FAR_PLAYER", "UNKNOWN", "OTHER")}
+    frames_with_role = {name: 0 for name in role_counts}
+    both_near_and_far = 0
+    for row in rows:
+        roles = {person.get("role_candidate", "UNKNOWN") for person in row["resolved_people"]}
+        for name in role_counts:
+            role_counts[name] += sum(person.get("role_candidate", "UNKNOWN") == name
+                                     for person in row["resolved_people"])
+            frames_with_role[name] += name in roles
+        both_near_and_far += {"NEAR_PLAYER", "FAR_PLAYER"}.issubset(roles)
+    frames_with_role["both_near_and_far"] = both_near_and_far
+    return role_counts, frames_with_role
+
+
 def _table_bbox(scene_path: Path) -> tuple[list[float] | None, int]:
     if _sha(scene_path).lower() != FROZEN_MANIFEST_SHA.lower():
         raise ValueError("SCENE_EVIDENCE_MANIFEST_CHANGED")
@@ -173,17 +200,8 @@ def run(source_path: Path, raw_candidates_path: Path, output_dir: Path | None = 
     all_rows.sort(key=lambda row: row["source_frame"])
     if [row["source_frame"] for row in all_rows] != frames:
         raise ValueError("CALIBRATION_PLAYER_FRAME_COVERAGE_MISMATCH")
-    model_provenance = _read(Path(jobs[0]["output"]))["model_provenance"]
-    if any(_read(Path(job["output"])).get("model_provenance") != model_provenance for job in jobs):
-        raise ValueError("RT_DETR_PROVENANCE_CHANGED_BETWEEN_BATCHES")
-    role_counts = {name: 0 for name in ("NEAR_PLAYER", "FAR_PLAYER", "UNKNOWN", "OTHER")}
-    frames_with_role = {name: 0 for name in ("NEAR_PLAYER", "FAR_PLAYER", "UNKNOWN", "OTHER")}
-    for row in all_rows:
-        roles = {person.get("role_candidate", "UNKNOWN") for person in row["resolved_people"]}
-        for name in role_counts:
-            role_counts[name] += sum(person.get("role_candidate", "UNKNOWN") == name
-                                     for person in row["resolved_people"])
-            frames_with_role[name] += name in roles
+    model_provenance = _load_consistent_model_provenance(jobs)
+    role_counts, frames_with_role = _summarize_roles(all_rows)
     summary = {
         "schema": "ptti-game4-calibration-player-evidence-v1", "status": "COMPLETE",
         "game": "game_4", "official_split": "TRAIN", "split_role": "CALIBRATION",

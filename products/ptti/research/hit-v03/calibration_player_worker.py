@@ -21,6 +21,11 @@ from calibration import enforce_calibration_scope, resolve_ptti_dev_root  # noqa
 FROZEN_SCENE_MANIFEST_SHA256 = "67bc35a5a1570d4610e524141030f1c93aa5b2a8516767f12023d4eb9f75276f"
 
 
+def rtdetr_model_folder(dev_root: Path) -> Path:
+    """Return the already verified isolated RT-DETR R18 checkpoint directory."""
+    return Path(dev_root) / "vision-v2" / "models" / "rtdetr-r18vd"
+
+
 def _sha(path: Path) -> str:
     digest = hashlib.sha256()
     with Path(path).open("rb") as stream:
@@ -94,7 +99,7 @@ def main() -> None:
         raise RuntimeError("RESOURCE_GUARD_INSUFFICIENT_AVAILABLE_RAM")
     torch.set_num_threads(2)
     cv2.setNumThreads(1)
-    model_folder = dev_root / "vision-v2" / "models" / "rtdetr-r18"
+    model_folder = rtdetr_model_folder(dev_root)
     provenance = verify_r18(model_folder)
     started = time.perf_counter()
     processor = RTDetrImageProcessor.from_pretrained(model_folder, local_files_only=True)

@@ -100,6 +100,12 @@ def test_calibration_player_worker_rejects_annotation_content_before_io():
         player_worker.validate_request(request)
 
 
+def test_calibration_player_worker_uses_verified_rtdetr_model_directory(tmp_path):
+    assert player_worker.rtdetr_model_folder(tmp_path) == (
+        tmp_path / "vision-v2" / "models" / "rtdetr-r18vd"
+    )
+
+
 def test_player_coverage_keeps_unknown_roles_neutral_and_reports_table_coverage():
     raw = [{"source_frame": 12, "event_id": "candidate-1"}]
     people = [{"bbox": [40, 40, 60, 60], "detector_score": 0.8,
@@ -142,3 +148,32 @@ def test_game4_table_box_uses_only_frozen_game4_manifest_rows(tmp_path, monkeypa
     bbox, count = player_runner._table_bbox(path)
     assert count == 2
     assert bbox == [11.0, 21.0, 91.0, 81.0]
+
+
+def test_player_runner_requires_consistent_model_provenance(tmp_path):
+    first = tmp_path / "first.json"
+    second = tmp_path / "second.json"
+    first.write_text(json.dumps({"model_provenance": {"revision": "fixed"}}), encoding="utf-8")
+    second.write_text(json.dumps({"model_provenance": {"revision": "fixed"}}), encoding="utf-8")
+    jobs = [{"output": str(first)}, {"output": str(second)}]
+    assert player_runner._load_consistent_model_provenance(jobs) == {"revision": "fixed"}
+
+    second.write_text(json.dumps({"model_provenance": {"revision": "changed"}}), encoding="utf-8")
+    with pytest.raises(ValueError, match="PROVENANCE_CHANGED"):
+        player_runner._load_consistent_model_provenance(jobs)
+
+
+def test_player_runner_counts_frames_with_both_resolved_roles():
+    rows = [
+        {"resolved_people": [
+            {"role_candidate": "NEAR_PLAYER"}, {"role_candidate": "FAR_PLAYER"},
+        ]},
+        {"resolved_people": [{"role_candidate": "NEAR_PLAYER"}]},
+        {"resolved_people": [{"role_candidate": "UNKNOWN"}]},
+    ]
+    people, frames = player_runner._summarize_roles(rows)
+    assert people["NEAR_PLAYER"] == 2
+    assert people["FAR_PLAYER"] == 1
+    assert frames["NEAR_PLAYER"] == 2
+    assert frames["FAR_PLAYER"] == 1
+    assert frames["both_near_and_far"] == 1
