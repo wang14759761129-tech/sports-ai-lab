@@ -16,6 +16,9 @@ def load(name):
 
 calibration = load("calibration")
 runtime = load("runtime")
+player_worker = load("calibration_player_worker")
+evaluator = load("evaluate_game4_calibration")
+player_runner = load("run_calibration_players")
 
 
 def test_calibration_scope_is_game4_train_only():
@@ -78,3 +81,54 @@ def test_frozen_config_requires_calibration_and_dev_backcheck():
     record = calibration.build_frozen_config_record(**kwargs, calibration_passed=True, dev_backcheck_passed=True)
     assert record["config_sha256"] == calibration.canonical_config_sha256(config)
     assert record["game_5"] == "LOCKED_NOT_ACCESSED"
+
+
+def test_calibration_player_worker_rejects_game5_and_non_calibration_splits():
+    with pytest.raises(ValueError, match="ONLY_GAME_4"):
+        player_worker.validate_request({"game": "game_5", "split_role": "holdout",
+                                        "official_split": "TRAIN"})
+    with pytest.raises(ValueError, match="ONLY_GAME_4"):
+        player_worker.validate_request({"game": "game_4", "split_role": "dev",
+                                        "official_split": "TRAIN"})
+
+
+def test_calibration_player_worker_rejects_annotation_content_before_io():
+    request = {"game": "game_4", "split_role": "CALIBRATION", "official_split": "TRAIN",
+               "game_5": "NOT_ACCESSED", "official_test": "NOT_ACCESSED",
+               "annotations": {"strokes": []}}
+    with pytest.raises(ValueError, match="GT_CONTENT_FORBIDDEN"):
+        player_worker.validate_request(request)
+
+
+def test_player_coverage_keeps_unknown_roles_neutral_and_reports_table_coverage():
+    raw = [{"source_frame": 12, "event_id": "candidate-1"}]
+    people = [{"bbox": [40, 40, 60, 60], "detector_score": 0.8,
+               "candidate_id": "person-1", "role_candidate": "UNKNOWN"}]
+    by_frame = {12: {"resolved_people": people}}
+    summary = evaluator._player_coverage(raw, by_frame, [0, 0, 100, 100], {"12": [50, 50]})
+    assert summary["player_neutral_fallback_frames"] == 1
+    assert summary["role_frames"]["unknown_role_person_frame"] == 1
+    assert summary["table_geometry"]["coverage"] == 1.0
+    assert summary["table_geometry"]["inside_bbox_count"] == 1
+
+
+def test_game4_table_box_uses_only_frozen_game4_manifest_rows(tmp_path, monkeypatch):
+    manifest = {"frame_results": [
+        {"game": "game_4", "detections": [
+            {"label": "table tennis table", "bbox": [10, 20, 90, 80]},
+            {"label": "table", "bbox": [30, 35, 70, 60]},
+        ]},
+        {"game": "game_4", "detections": [
+            {"label": "table tennis table", "bbox": [12, 22, 92, 82]},
+        ]},
+        {"game": "game_5", "detections": [
+            {"label": "table tennis table", "bbox": [100, 100, 500, 400]},
+        ]},
+    ]}
+    path = tmp_path / "scene.json"
+    path.write_text(json.dumps(manifest), encoding="utf-8")
+    digest = player_runner._sha(path)
+    monkeypatch.setattr(player_runner, "FROZEN_MANIFEST_SHA", digest)
+    bbox, count = player_runner._table_bbox(path)
+    assert count == 2
+    assert bbox == [11.0, 21.0, 91.0, 81.0]
