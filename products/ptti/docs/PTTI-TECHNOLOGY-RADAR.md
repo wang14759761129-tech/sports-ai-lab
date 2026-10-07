@@ -2,6 +2,15 @@
 
 Audit date: 2026-10-07. Decisions apply to isolated research and development, not commercial product approval.
 
+2026-10-08 Hit v0.3 continuation: RF-DETR stays HOLD/E_REJECT;
+Supervision stays TRIAL with no current pipeline integration. CVAT is
+TRIAL/task-ready: the new non-commercial annotation pack has 55 verified
+one-second research clips and seven labels, with no Docker/WSL/service
+installation or human-time claim. uv is ADOPT for the new dependency-free
+Hit v0.3 analysis environment; Ruff is ADOPT for new code only. Existing
+RT-DETR R18 supplies candidate-centric player observations; no new model,
+Pose experiment or frozen-environment migration is introduced.
+
 Full problem/current solution/before-after/benefit/cost/risk cards: `../research/vision-benchmark/TOOL_VALUE_CARDS.json`.
 
 | Tool | Ring | Decision | Evidence / purpose |
