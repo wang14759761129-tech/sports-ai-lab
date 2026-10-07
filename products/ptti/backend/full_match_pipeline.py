@@ -366,7 +366,8 @@ class FullMatchService:
                        "average_rally_duration_ms": (sum(r["end_ms"] - r["start_ms"] for r in rallies) / len(rallies) if rallies else None),
                        "balltrack_frames": frame_count, "balltrack_visible_frames": visible,
                        "balltrack_coverage": visible / frame_count if frame_count else None,
-                       "video_quality": quality_report_for_summary(media, record),
+                       "video_quality": quality_report_for_summary(
+                           media, record, manifest.get("chunk_seconds", DEFAULT_CHUNK_SECONDS)),
                        "analysis_completeness": {"video_validated": True, "full_match_balltrack": True,
                            "game_point_segmentation": bool(points), "manual_review_complete": all(p.get("review_status") in {"ACCEPTED", "ADJUSTED"} for p in points) if points else False},
                        "manual_corrections": sum(p.get("segmentation_source") == "MANUAL" for p in points),
@@ -426,9 +427,9 @@ class FullMatchService:
                 self.active.discard(match_id)
 
 
-def quality_report_for_summary(metadata, record):
+def quality_report_for_summary(metadata, record, chunk_seconds=DEFAULT_CHUNK_SECONDS):
     return quality_report(metadata, record.get("video_metadata", {}).get("size_bytes", 0),
-                          "frozen BallTrack v1", DEFAULT_CHUNK_SECONDS) | {
+                          "frozen BallTrack v1", chunk_seconds) | {
         "sha256": record.get("video_metadata", {}).get("sha256"),
         "camera_changes": "UNKNOWN"}
 

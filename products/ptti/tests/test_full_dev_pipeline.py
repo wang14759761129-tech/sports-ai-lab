@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 import scripts.run_full_dev_game as runner
+from backend.full_match_pipeline import quality_report_for_summary
 
 
 def _manifest(root, status="VERIFIED"):
@@ -57,3 +58,12 @@ def test_full_dev_runner_rejects_changed_source_hash(tmp_path, monkeypatch):
 
     with pytest.raises(ValueError, match="SHA256_MISMATCH"):
         runner.resolve_verified_dev_video(1, tmp_path, manifest)
+
+
+def test_full_match_quality_report_uses_actual_chunk_duration():
+    metadata = {"duration": 738.325, "fps": 120, "width": 1920, "height": 1080,
+                "codec": "h264", "frame_count": 88599, "rate_variable": False}
+    report = quality_report_for_summary(metadata, {"video_metadata": {"size_bytes": 1000}}, 30)
+
+    assert report["chunk_duration_seconds"] == 30
+    assert report["estimated_chunk_count"] == 25
