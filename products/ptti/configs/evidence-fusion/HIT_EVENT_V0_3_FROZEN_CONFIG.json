@@ -1,0 +1,4221 @@
+{
+  "schema": "ptti-hit-event-v0.3-frozen-config-v1",
+  "status": "FROZEN_FOR_GAME_5_INTERNAL_HOLDOUT",
+  "config": {
+    "distance_scale": 0.12,
+    "person_distance_penalty": 0.12,
+    "table_center_penalty": 0.08
+  },
+  "config_sha256": "7b3715807699180b1559d28df5a456046c870035c3d3e9e728e6981185f8ef98",
+  "source_commit": "a005f6ffd5490ecf2ad7e3100d7fd4a3eb3f3c28",
+  "dev_metrics": {
+    "dataset": "Extended OpenTTGames TRAIN; games 1-3",
+    "ground_truth_strokes": 712,
+    "A": {
+      "tp": 353,
+      "fp": 479,
+      "fn": 359,
+      "precision": 0.42427884615384615,
+      "recall": 0.4957865168539326,
+      "f1": 0.4572538860103627,
+      "fp_per_minute": 10.296185503300405,
+      "fn_per_minute": 7.716765335458967
+    },
+    "D": {
+      "tp": 355,
+      "fp": 394,
+      "fn": 357,
+      "precision": 0.4739652870493992,
+      "recall": 0.49859550561797755,
+      "f1": 0.485968514715948,
+      "fp_per_minute": 8.469096217746053,
+      "fn_per_minute": 7.673774999328277
+    },
+    "per_game": [
+      {
+        "game": "game_1",
+        "ground_truth_strokes": 161,
+        "A": {
+          "precision": 0.6428571428571429,
+          "recall": 0.6149068322981367,
+          "f1": 0.6285714285714287,
+          "tp": 99,
+          "fp": 55,
+          "fn": 62
+        },
+        "D": {
+          "precision": 0.6666666666666666,
+          "recall": 0.5962732919254659,
+          "f1": 0.6295081967213114,
+          "tp": 96,
+          "fp": 48,
+          "fn": 65
+        }
+      },
+      {
+        "game": "game_2",
+        "ground_truth_strokes": 399,
+        "A": {
+          "precision": 0.3831967213114754,
+          "recall": 0.46867167919799496,
+          "f1": 0.42164599774520856,
+          "tp": 187,
+          "fp": 301,
+          "fn": 212
+        },
+        "D": {
+          "precision": 0.44495412844036697,
+          "recall": 0.48621553884711777,
+          "f1": 0.46467065868263474,
+          "tp": 194,
+          "fp": 242,
+          "fn": 205
+        }
+      },
+      {
+        "game": "game_3",
+        "ground_truth_strokes": 152,
+        "A": {
+          "precision": 0.3526315789473684,
+          "recall": 0.4407894736842105,
+          "f1": 0.391812865497076,
+          "tp": 67,
+          "fp": 123,
+          "fn": 85
+        },
+        "D": {
+          "precision": 0.38461538461538464,
+          "recall": 0.4276315789473684,
+          "f1": 0.4049844236760125,
+          "tp": 65,
+          "fp": 104,
+          "fn": 87
+        }
+      }
+    ],
+    "backcheck_reproduced": true,
+    "backcheck_scope": "FULL_DEV_EXPLORATORY_NOT_HOLDOUT",
+    "backcheck_report_sha256": "151443e3c2c14fc9a502d3ec9b4db17d4f20aad957d1258328bb917934789b68",
+    "original_dev_report_sha256": "07e536c57d5de9b901ae531b38c9a81ff3fcc92b039fdc6d9740cc6563979361"
+  },
+  "calibration_metrics": {
+    "game": "game_4",
+    "official_split": "TRAIN",
+    "split_role": "CALIBRATION",
+    "ground_truth_strokes": 173,
+    "primary_tolerance": {
+      "name": "plus_minus_2_processing_frames",
+      "milliseconds": 16.666666666666668
+    },
+    "A": {
+      "tp": 83,
+      "fp": 84,
+      "fn": 90,
+      "precision": 0.49700598802395207,
+      "recall": 0.4797687861271676,
+      "f1": 0.48823529411764705,
+      "fp_per_minute": 9.581749049429657,
+      "fn_per_minute": 10.26615969581749,
+      "review_candidates": 264,
+      "review_candidates_per_minute": 30.11406844106464,
+      "estimated_review_minutes_per_45_minute_match": 67.75665399239544,
+      "review_time_is_measured": false
+    },
+    "D": {
+      "tp": 82,
+      "fp": 69,
+      "fn": 91,
+      "precision": 0.543046357615894,
+      "recall": 0.47398843930635837,
+      "f1": 0.5061728395061729,
+      "fp_per_minute": 7.870722433460076,
+      "fn_per_minute": 10.38022813688213,
+      "review_candidates": 248,
+      "review_candidates_per_minute": 28.288973384030417,
+      "estimated_review_minutes_per_45_minute_match": 63.65019011406844,
+      "review_time_is_measured": false
+    },
+    "D_minus_A": {
+      "precision": 0.046040369591941965,
+      "recall": -0.005780346820809246,
+      "f1": 0.017937545388525822,
+      "fp_per_minute": -1.7110266159695815,
+      "fn_per_minute": 0.11406844106463865,
+      "review_candidates_per_minute": -1.825095057034222,
+      "estimated_review_minutes_per_45_minute_match": -4.1064638783270055
+    },
+    "all_tolerances": {
+      "A": {
+        "plus_minus_1_processing_frames": {
+          "tolerance_ms": 8.333333333333334,
+          "predicted": 167,
+          "ground_truth": 173,
+          "timestamp_rounding_epsilon_ms": 0.001,
+          "matched": 51,
+          "false_positives": 116,
+          "false_negatives": 122,
+          "precision": 0.30538922155688625,
+          "recall": 0.2947976878612717,
+          "f1": 0.3,
+          "median_absolute_timing_error_ms": 8.333000000013271,
+          "p90_absolute_timing_error_ms": 8.333666666672798,
+          "player_side_accuracy": null,
+          "player_side_evaluable_matches": 0,
+          "matches": [
+            {
+              "prediction_index": 2,
+              "ground_truth_index": 1,
+              "signed_timing_error_ms": 8.33333333333394,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 3,
+              "ground_truth_index": 2,
+              "signed_timing_error_ms": -8.333000000000538,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 4,
+              "ground_truth_index": 3,
+              "signed_timing_error_ms": -8.33333333333394,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 5,
+              "ground_truth_index": 5,
+              "signed_timing_error_ms": 8.33366666666916,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 14,
+              "ground_truth_index": 14,
+              "signed_timing_error_ms": -8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 15,
+              "ground_truth_index": 15,
+              "signed_timing_error_ms": -8.333333333335759,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 16,
+              "ground_truth_index": 16,
+              "signed_timing_error_ms": -0.0003333333370392211,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 19,
+              "ground_truth_index": 20,
+              "signed_timing_error_ms": 8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 21,
+              "ground_truth_index": 23,
+              "signed_timing_error_ms": 8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 25,
+              "ground_truth_index": 27,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 27,
+              "ground_truth_index": 30,
+              "signed_timing_error_ms": -8.333666666672798,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 28,
+              "ground_truth_index": 31,
+              "signed_timing_error_ms": 8.333333333328483,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 30,
+              "ground_truth_index": 34,
+              "signed_timing_error_ms": -8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 31,
+              "ground_truth_index": 35,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 32,
+              "ground_truth_index": 36,
+              "signed_timing_error_ms": -8.333333333328483,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 36,
+              "ground_truth_index": 41,
+              "signed_timing_error_ms": 8.333666666672798,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 38,
+              "ground_truth_index": 43,
+              "signed_timing_error_ms": 0.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 47,
+              "ground_truth_index": 52,
+              "signed_timing_error_ms": -8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 50,
+              "ground_truth_index": 56,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 56,
+              "ground_truth_index": 58,
+              "signed_timing_error_ms": 8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 57,
+              "ground_truth_index": 59,
+              "signed_timing_error_ms": -8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 59,
+              "ground_truth_index": 62,
+              "signed_timing_error_ms": 8.333333333343035,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 61,
+              "ground_truth_index": 64,
+              "signed_timing_error_ms": 8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 62,
+              "ground_truth_index": 66,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 64,
+              "ground_truth_index": 68,
+              "signed_timing_error_ms": 8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 75,
+              "ground_truth_index": 71,
+              "signed_timing_error_ms": -8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 77,
+              "ground_truth_index": 73,
+              "signed_timing_error_ms": -8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 83,
+              "ground_truth_index": 81,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 84,
+              "ground_truth_index": 82,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 88,
+              "ground_truth_index": 88,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 90,
+              "ground_truth_index": 90,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 97,
+              "ground_truth_index": 99,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 101,
+              "ground_truth_index": 103,
+              "signed_timing_error_ms": 0.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 102,
+              "ground_truth_index": 105,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 108,
+              "ground_truth_index": 110,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 109,
+              "ground_truth_index": 111,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 114,
+              "ground_truth_index": 117,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 115,
+              "ground_truth_index": 118,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 119,
+              "ground_truth_index": 122,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 123,
+              "ground_truth_index": 126,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 130,
+              "ground_truth_index": 133,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 131,
+              "ground_truth_index": 134,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 134,
+              "ground_truth_index": 136,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 135,
+              "ground_truth_index": 137,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 138,
+              "ground_truth_index": 140,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 142,
+              "ground_truth_index": 147,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 143,
+              "ground_truth_index": 148,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 144,
+              "ground_truth_index": 149,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 153,
+              "ground_truth_index": 160,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 156,
+              "ground_truth_index": 163,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 158,
+              "ground_truth_index": 165,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            }
+          ],
+          "unmatched_prediction_ids": [
+            "f62022f19dbd89066aa109e0",
+            "cf7bd71261751324e94e4a8d",
+            "6808c3985343fa22126b8b26",
+            "81b7fc6d783ebfe06093d14a",
+            "5a9d8c3fc175578a46c3267e",
+            "2109ec8f30a26683e63b33e2",
+            "3dae23adf0c3865f4a29db56",
+            "01da1be5c57fdcedee9ef6cc",
+            "14b3842f93a43f6eb9027520",
+            "2ab3482cfd0fc1904247ca99",
+            "6504e237323901a5fa43adca",
+            "b633ed6b1d21d39c750247ab",
+            "6ac5ab761c1929e4df5e4ae8",
+            "d3c0af7ccc152c14deda57b6",
+            "9adef7670248fd0ab13a56e2",
+            "6ba8be9ef6f90709cf04306f",
+            "d515f3a80d93c7db004303eb",
+            "a03696423ddf39a6334c8c5d",
+            "bbdbd2dd6905005c388efa25",
+            "8d8e0fdc48adfb1eff5809d5",
+            "d6f06cd6fcc199fd7fa349ab",
+            "0da564a45cb858bf930cbcb5",
+            "376cf00a4fad86210d4094a1",
+            "a22650e4a3092eb7a9dec9a2",
+            "54606db7c1c73093870cd175",
+            "64594f5dc35aab6c03dc45bc",
+            "7a2a3b8189864b5dcbb3e128",
+            "e38f2c0634bade2451f5565b",
+            "d076d6b200aca03b37acf74b",
+            "e18845193a042605bc522e8b",
+            "e0ed6d138e1b197ea7f1b621",
+            "dc1af7006e70a60f55bc5e35",
+            "aa504e5c7a2bf2290369da02",
+            "eec77686012a854272418a4e",
+            "87225caa2fa66143b54173ff",
+            "ceba3a5ca4ef5bbe72a88903",
+            "6f552af5c4d7927dc10a3c5c",
+            "260f1f64752705689e8a98c5",
+            "6272853cc57eddeb28092f7d",
+            "62cc6f394aaed5d60b41dcf6",
+            "395d4c520ecf62a3f84e0fbc",
+            "aad6d399b26e57706211221f",
+            "2a0a88af793c28d496998be1",
+            "072347d1416c7cba460b4743",
+            "b22c732f6c639ace2cd2a8a3",
+            "7dca01a37d162102b89a88e2",
+            "39ad8893cccba3af08760d78",
+            "f4fd239b9c8f4d479b0d9ca5",
+            "0f76bfaeb344ac5d0f154fde",
+            "ae6fc9dd105434aea680a660",
+            "d389e26b1f785a1a4634aa8e",
+            "624d98e1d39e83b59e74042c",
+            "406d55f664db88062e1bd66e",
+            "cbf46b49d667052ecbde3250",
+            "72f0efe1c3c688bfeedb456d",
+            "b780ab0ce048b7ff4a8015c3",
+            "4bcc58dd8db80ae9f9c909ae",
+            "0af1e9dbc78871b264be0ed5",
+            "0650988551ea2a3127857525",
+            "e085cb327ee2380a39fd03f8",
+            "81878052c6c8e1d73fe57520",
+            "b0459b145a0d86ded228ce89",
+            "1aae218e26591d24f0cfa0f9",
+            "d1ce44bd9afe746e8c9ea3dd",
+            "921290ac7e1f5d0cbfb918cf",
+            "ff3c7880aaa95e694d41bfbf",
+            "9ee88425f022be9815de7d30",
+            "2b59ede82109ad93b36c42b2",
+            "4c7afe3c3f06594278f34d10",
+            "a8cad59bf9032a90e80617d7",
+            "3c181e665d6b3cf8c0054d4d",
+            "18957652956106acb4befe9e",
+            "4ddbc74b9e3d9856374ce73d",
+            "3b2fd0ad7dc44aa5ce9bce94",
+            "2bc9a96788abf8b49e1d3e44",
+            "db066d9d31401c530f06412d",
+            "fd44e7fdc1b796f4c91487f5",
+            "3071f88b86f5fdea859b4baa",
+            "9d9fc1ad9102ded72414f148",
+            "bc09ea3898f7296b528fcb35",
+            "a8c0e718da31f11fe5928558",
+            "b31ba63862c824dd4989b941",
+            "b9f928d1da8940ba3bad933c",
+            "d705315e94d5e3a441de6fde",
+            "d3db32f39cb1921b09bbd4f0",
+            "2d1968b83e94b2fb86643da6",
+            "e232df5e52e73d31b93dc575",
+            "93f8482084f03f980b504e0d",
+            "46a00d1daf61329f0def9393",
+            "e2b679a6e6e90cef16006796",
+            "8ec5d1dc7cb848ad78e721c8",
+            "3afebdd4d904a3db10a7dfdb",
+            "80927f8104b93738292c9adf",
+            "13c8538acc9785c48e9248d7",
+            "6233ad7cdda968b042242538",
+            "8410e6d5535d1a4250a1acc3",
+            "aac719d924022a5eeb638d4f",
+            "8e42e17ca760520f41bbe218",
+            "7f40977d1bd0313303c94502",
+            "d52beb286ad94f6a5cf9485f",
+            "b9237c892119d45749139a47",
+            "aedb98e92ce0372d459cb085",
+            "610306834b200e41211985a2",
+            "4f50e8b8a9b05e0dc37ff95b",
+            "a11882da6c822907ac4c9ff2",
+            "eb2e82dfa54fa8d2ccbb66e0",
+            "37fb853f713f0f2a0059ab08",
+            "27ec5a4bcdef0116c6d47b1f",
+            "27e083e8b37c7765c0c8a81a",
+            "5bd024a3be20fc659ce2b51d",
+            "246d18058d4790ae670992b2",
+            "517fcdea7cce3870647e67bc",
+            "5c98d0f9ccd37a16607542f2",
+            "70d2b79e87d11ba780eee3bc",
+            "e13161aece55d571fd2f00d6",
+            "1818b25a712008bd201eb8e2"
+          ],
+          "unmatched_ground_truth_ids": [
+            "extended_openttgames:1273:0",
+            "extended_openttgames:2276:5",
+            "extended_openttgames:2438:7",
+            "extended_openttgames:3527:9",
+            "extended_openttgames:3644:10",
+            "extended_openttgames:3746:11",
+            "extended_openttgames:4881:13",
+            "extended_openttgames:4991:14",
+            "extended_openttgames:5087:15",
+            "extended_openttgames:6357:31",
+            "extended_openttgames:6687:36",
+            "extended_openttgames:6797:41",
+            "extended_openttgames:7867:44",
+            "extended_openttgames:8053:46",
+            "extended_openttgames:8163:49",
+            "extended_openttgames:8430:57",
+            "extended_openttgames:10949:71",
+            "extended_openttgames:11045:72",
+            "extended_openttgames:11196:74",
+            "extended_openttgames:11283:75",
+            "extended_openttgames:11570:78",
+            "extended_openttgames:11655:79",
+            "extended_openttgames:13030:96",
+            "extended_openttgames:13121:97",
+            "extended_openttgames:13166:98",
+            "extended_openttgames:14528:108",
+            "extended_openttgames:14704:110",
+            "extended_openttgames:14880:112",
+            "extended_openttgames:16109:139",
+            "extended_openttgames:16204:140",
+            "extended_openttgames:16300:141",
+            "extended_openttgames:16393:142",
+            "extended_openttgames:17980:150",
+            "extended_openttgames:18064:155",
+            "extended_openttgames:19196:166",
+            "extended_openttgames:19321:168",
+            "extended_openttgames:19427:169",
+            "extended_openttgames:19520:170",
+            "extended_openttgames:22470:189",
+            "extended_openttgames:22752:192",
+            "extended_openttgames:22859:194",
+            "extended_openttgames:23026:201",
+            "extended_openttgames:24617:210",
+            "extended_openttgames:24790:212",
+            "extended_openttgames:24963:214",
+            "extended_openttgames:30764:256",
+            "extended_openttgames:30950:258",
+            "extended_openttgames:31113:260",
+            "extended_openttgames:31153:261",
+            "extended_openttgames:32233:275",
+            "extended_openttgames:32328:276",
+            "extended_openttgames:32406:277",
+            "extended_openttgames:32509:278",
+            "extended_openttgames:33792:280",
+            "extended_openttgames:34204:283",
+            "extended_openttgames:34285:284",
+            "extended_openttgames:34375:285",
+            "extended_openttgames:34411:286",
+            "extended_openttgames:35317:299",
+            "extended_openttgames:35501:301",
+            "extended_openttgames:35692:303",
+            "extended_openttgames:35797:304",
+            "extended_openttgames:35858:305",
+            "extended_openttgames:36730:311",
+            "extended_openttgames:36812:312",
+            "extended_openttgames:36893:313",
+            "extended_openttgames:36985:314",
+            "extended_openttgames:37162:315",
+            "extended_openttgames:37319:318",
+            "extended_openttgames:37415:322",
+            "extended_openttgames:37503:325",
+            "extended_openttgames:38761:334",
+            "extended_openttgames:41621:350",
+            "extended_openttgames:41713:351",
+            "extended_openttgames:43249:368",
+            "extended_openttgames:43345:369",
+            "extended_openttgames:43525:372",
+            "extended_openttgames:43577:373",
+            "extended_openttgames:43671:374",
+            "extended_openttgames:43720:375",
+            "extended_openttgames:44612:381",
+            "extended_openttgames:44874:384",
+            "extended_openttgames:45059:385",
+            "extended_openttgames:45850:390",
+            "extended_openttgames:46016:392",
+            "extended_openttgames:46080:393",
+            "extended_openttgames:48013:408",
+            "extended_openttgames:48184:410",
+            "extended_openttgames:48389:416",
+            "extended_openttgames:50057:424",
+            "extended_openttgames:50148:425",
+            "extended_openttgames:50211:426",
+            "extended_openttgames:50299:427",
+            "extended_openttgames:52633:436",
+            "extended_openttgames:57022:462",
+            "extended_openttgames:57115:463",
+            "extended_openttgames:57360:465",
+            "extended_openttgames:57465:470",
+            "extended_openttgames:57553:473",
+            "extended_openttgames:57594:474",
+            "extended_openttgames:57696:475",
+            "extended_openttgames:57795:476",
+            "extended_openttgames:58098:480",
+            "extended_openttgames:58190:481",
+            "extended_openttgames:58351:482",
+            "extended_openttgames:58491:483",
+            "extended_openttgames:58617:484",
+            "extended_openttgames:58833:485",
+            "extended_openttgames:59056:491",
+            "extended_openttgames:60632:497",
+            "extended_openttgames:60702:500",
+            "extended_openttgames:60769:502",
+            "extended_openttgames:60878:508",
+            "extended_openttgames:60972:511",
+            "extended_openttgames:61201:513",
+            "extended_openttgames:61481:515",
+            "extended_openttgames:61525:516",
+            "extended_openttgames:61579:517",
+            "extended_openttgames:61712:518",
+            "extended_openttgames:62734:520",
+            "extended_openttgames:62812:521",
+            "extended_openttgames:62923:522"
+          ]
+        },
+        "plus_minus_2_processing_frames": {
+          "tolerance_ms": 16.666666666666668,
+          "predicted": 167,
+          "ground_truth": 173,
+          "timestamp_rounding_epsilon_ms": 0.001,
+          "matched": 83,
+          "false_positives": 84,
+          "false_negatives": 90,
+          "precision": 0.49700598802395207,
+          "recall": 0.4797687861271676,
+          "f1": 0.48823529411764705,
+          "median_absolute_timing_error_ms": 8.333666666643694,
+          "p90_absolute_timing_error_ms": 16.66666666668607,
+          "player_side_accuracy": null,
+          "player_side_evaluable_matches": 0,
+          "matches": [
+            {
+              "prediction_index": 2,
+              "ground_truth_index": 1,
+              "signed_timing_error_ms": 8.33333333333394,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 3,
+              "ground_truth_index": 2,
+              "signed_timing_error_ms": -8.333000000000538,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 4,
+              "ground_truth_index": 3,
+              "signed_timing_error_ms": -8.33333333333394,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 5,
+              "ground_truth_index": 5,
+              "signed_timing_error_ms": 8.33366666666916,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 6,
+              "ground_truth_index": 6,
+              "signed_timing_error_ms": -16.66666666666788,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 14,
+              "ground_truth_index": 14,
+              "signed_timing_error_ms": -8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 15,
+              "ground_truth_index": 15,
+              "signed_timing_error_ms": -8.333333333335759,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 16,
+              "ground_truth_index": 16,
+              "signed_timing_error_ms": -0.0003333333370392211,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 19,
+              "ground_truth_index": 20,
+              "signed_timing_error_ms": 8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 20,
+              "ground_truth_index": 21,
+              "signed_timing_error_ms": -16.666333333327202,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 21,
+              "ground_truth_index": 23,
+              "signed_timing_error_ms": 8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 24,
+              "ground_truth_index": 26,
+              "signed_timing_error_ms": -16.666666666671517,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 25,
+              "ground_truth_index": 27,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 27,
+              "ground_truth_index": 30,
+              "signed_timing_error_ms": -8.333666666672798,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 28,
+              "ground_truth_index": 31,
+              "signed_timing_error_ms": 8.333333333328483,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 30,
+              "ground_truth_index": 34,
+              "signed_timing_error_ms": -8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 31,
+              "ground_truth_index": 35,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 32,
+              "ground_truth_index": 36,
+              "signed_timing_error_ms": -8.333333333328483,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 34,
+              "ground_truth_index": 38,
+              "signed_timing_error_ms": -16.666666666671517,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 36,
+              "ground_truth_index": 41,
+              "signed_timing_error_ms": 8.333666666672798,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 37,
+              "ground_truth_index": 42,
+              "signed_timing_error_ms": -16.666333333327202,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 38,
+              "ground_truth_index": 43,
+              "signed_timing_error_ms": 0.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 39,
+              "ground_truth_index": 44,
+              "signed_timing_error_ms": 16.66700000000128,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 43,
+              "ground_truth_index": 46,
+              "signed_timing_error_ms": -16.666333333356306,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 47,
+              "ground_truth_index": 52,
+              "signed_timing_error_ms": -8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 48,
+              "ground_truth_index": 53,
+              "signed_timing_error_ms": 16.666666666656965,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 49,
+              "ground_truth_index": 54,
+              "signed_timing_error_ms": -16.666666666656965,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 50,
+              "ground_truth_index": 56,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 56,
+              "ground_truth_index": 58,
+              "signed_timing_error_ms": 8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 57,
+              "ground_truth_index": 59,
+              "signed_timing_error_ms": -8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 59,
+              "ground_truth_index": 62,
+              "signed_timing_error_ms": 8.333333333343035,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 61,
+              "ground_truth_index": 64,
+              "signed_timing_error_ms": 8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 62,
+              "ground_truth_index": 66,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 64,
+              "ground_truth_index": 68,
+              "signed_timing_error_ms": 8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 65,
+              "ground_truth_index": 69,
+              "signed_timing_error_ms": 16.66699999998673,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 75,
+              "ground_truth_index": 71,
+              "signed_timing_error_ms": -8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 76,
+              "ground_truth_index": 72,
+              "signed_timing_error_ms": -16.666666666656965,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 77,
+              "ground_truth_index": 73,
+              "signed_timing_error_ms": -8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 83,
+              "ground_truth_index": 81,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 84,
+              "ground_truth_index": 82,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 87,
+              "ground_truth_index": 86,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 88,
+              "ground_truth_index": 88,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 89,
+              "ground_truth_index": 89,
+              "signed_timing_error_ms": 16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 90,
+              "ground_truth_index": 90,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 91,
+              "ground_truth_index": 93,
+              "signed_timing_error_ms": -16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 92,
+              "ground_truth_index": 94,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 93,
+              "ground_truth_index": 95,
+              "signed_timing_error_ms": 16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 95,
+              "ground_truth_index": 97,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 96,
+              "ground_truth_index": 98,
+              "signed_timing_error_ms": -16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 97,
+              "ground_truth_index": 99,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 100,
+              "ground_truth_index": 102,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 101,
+              "ground_truth_index": 103,
+              "signed_timing_error_ms": 0.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 102,
+              "ground_truth_index": 105,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 105,
+              "ground_truth_index": 107,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 108,
+              "ground_truth_index": 110,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 109,
+              "ground_truth_index": 111,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 112,
+              "ground_truth_index": 114,
+              "signed_timing_error_ms": 16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 114,
+              "ground_truth_index": 117,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 115,
+              "ground_truth_index": 118,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 119,
+              "ground_truth_index": 122,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 120,
+              "ground_truth_index": 123,
+              "signed_timing_error_ms": -16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 121,
+              "ground_truth_index": 124,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 123,
+              "ground_truth_index": 126,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 130,
+              "ground_truth_index": 133,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 131,
+              "ground_truth_index": 134,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 134,
+              "ground_truth_index": 136,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 135,
+              "ground_truth_index": 137,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 136,
+              "ground_truth_index": 138,
+              "signed_timing_error_ms": -16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 138,
+              "ground_truth_index": 140,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 139,
+              "ground_truth_index": 144,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 142,
+              "ground_truth_index": 147,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 143,
+              "ground_truth_index": 148,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 144,
+              "ground_truth_index": 149,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 147,
+              "ground_truth_index": 154,
+              "signed_timing_error_ms": 16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 148,
+              "ground_truth_index": 155,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 153,
+              "ground_truth_index": 160,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 156,
+              "ground_truth_index": 163,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 157,
+              "ground_truth_index": 164,
+              "signed_timing_error_ms": -16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 158,
+              "ground_truth_index": 165,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 159,
+              "ground_truth_index": 166,
+              "signed_timing_error_ms": 16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 160,
+              "ground_truth_index": 167,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 161,
+              "ground_truth_index": 168,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 163,
+              "ground_truth_index": 171,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            }
+          ],
+          "unmatched_prediction_ids": [
+            "f62022f19dbd89066aa109e0",
+            "cf7bd71261751324e94e4a8d",
+            "81b7fc6d783ebfe06093d14a",
+            "5a9d8c3fc175578a46c3267e",
+            "2109ec8f30a26683e63b33e2",
+            "3dae23adf0c3865f4a29db56",
+            "01da1be5c57fdcedee9ef6cc",
+            "14b3842f93a43f6eb9027520",
+            "2ab3482cfd0fc1904247ca99",
+            "6504e237323901a5fa43adca",
+            "b633ed6b1d21d39c750247ab",
+            "d3c0af7ccc152c14deda57b6",
+            "9adef7670248fd0ab13a56e2",
+            "d515f3a80d93c7db004303eb",
+            "a03696423ddf39a6334c8c5d",
+            "bbdbd2dd6905005c388efa25",
+            "d6f06cd6fcc199fd7fa349ab",
+            "a22650e4a3092eb7a9dec9a2",
+            "54606db7c1c73093870cd175",
+            "64594f5dc35aab6c03dc45bc",
+            "e38f2c0634bade2451f5565b",
+            "d076d6b200aca03b37acf74b",
+            "e18845193a042605bc522e8b",
+            "aa504e5c7a2bf2290369da02",
+            "eec77686012a854272418a4e",
+            "87225caa2fa66143b54173ff",
+            "ceba3a5ca4ef5bbe72a88903",
+            "6f552af5c4d7927dc10a3c5c",
+            "260f1f64752705689e8a98c5",
+            "6272853cc57eddeb28092f7d",
+            "62cc6f394aaed5d60b41dcf6",
+            "aad6d399b26e57706211221f",
+            "2a0a88af793c28d496998be1",
+            "072347d1416c7cba460b4743",
+            "b22c732f6c639ace2cd2a8a3",
+            "7dca01a37d162102b89a88e2",
+            "39ad8893cccba3af08760d78",
+            "f4fd239b9c8f4d479b0d9ca5",
+            "0f76bfaeb344ac5d0f154fde",
+            "ae6fc9dd105434aea680a660",
+            "624d98e1d39e83b59e74042c",
+            "406d55f664db88062e1bd66e",
+            "cbf46b49d667052ecbde3250",
+            "72f0efe1c3c688bfeedb456d",
+            "b780ab0ce048b7ff4a8015c3",
+            "4bcc58dd8db80ae9f9c909ae",
+            "0af1e9dbc78871b264be0ed5",
+            "d1ce44bd9afe746e8c9ea3dd",
+            "9ee88425f022be9815de7d30",
+            "2b59ede82109ad93b36c42b2",
+            "a8cad59bf9032a90e80617d7",
+            "3c181e665d6b3cf8c0054d4d",
+            "4ddbc74b9e3d9856374ce73d",
+            "3b2fd0ad7dc44aa5ce9bce94",
+            "2bc9a96788abf8b49e1d3e44",
+            "db066d9d31401c530f06412d",
+            "3071f88b86f5fdea859b4baa",
+            "9d9fc1ad9102ded72414f148",
+            "bc09ea3898f7296b528fcb35",
+            "a8c0e718da31f11fe5928558",
+            "d705315e94d5e3a441de6fde",
+            "d3db32f39cb1921b09bbd4f0",
+            "2d1968b83e94b2fb86643da6",
+            "e232df5e52e73d31b93dc575",
+            "93f8482084f03f980b504e0d",
+            "46a00d1daf61329f0def9393",
+            "e2b679a6e6e90cef16006796",
+            "8ec5d1dc7cb848ad78e721c8",
+            "3afebdd4d904a3db10a7dfdb",
+            "13c8538acc9785c48e9248d7",
+            "8410e6d5535d1a4250a1acc3",
+            "aac719d924022a5eeb638d4f",
+            "8e42e17ca760520f41bbe218",
+            "7f40977d1bd0313303c94502",
+            "aedb98e92ce0372d459cb085",
+            "610306834b200e41211985a2",
+            "4f50e8b8a9b05e0dc37ff95b",
+            "a11882da6c822907ac4c9ff2",
+            "eb2e82dfa54fa8d2ccbb66e0",
+            "37fb853f713f0f2a0059ab08",
+            "517fcdea7cce3870647e67bc",
+            "70d2b79e87d11ba780eee3bc",
+            "e13161aece55d571fd2f00d6",
+            "1818b25a712008bd201eb8e2"
+          ],
+          "unmatched_ground_truth_ids": [
+            "extended_openttgames:1273:0",
+            "extended_openttgames:2276:5",
+            "extended_openttgames:3527:9",
+            "extended_openttgames:3644:10",
+            "extended_openttgames:3746:11",
+            "extended_openttgames:4881:13",
+            "extended_openttgames:4991:14",
+            "extended_openttgames:5087:15",
+            "extended_openttgames:6357:31",
+            "extended_openttgames:6687:36",
+            "extended_openttgames:6797:41",
+            "extended_openttgames:7867:44",
+            "extended_openttgames:8163:49",
+            "extended_openttgames:8430:57",
+            "extended_openttgames:10949:71",
+            "extended_openttgames:11196:74",
+            "extended_openttgames:11283:75",
+            "extended_openttgames:11570:78",
+            "extended_openttgames:11655:79",
+            "extended_openttgames:13030:96",
+            "extended_openttgames:13166:98",
+            "extended_openttgames:14528:108",
+            "extended_openttgames:16109:139",
+            "extended_openttgames:16300:141",
+            "extended_openttgames:16393:142",
+            "extended_openttgames:17980:150",
+            "extended_openttgames:18064:155",
+            "extended_openttgames:19196:166",
+            "extended_openttgames:19520:170",
+            "extended_openttgames:22470:189",
+            "extended_openttgames:22752:192",
+            "extended_openttgames:22859:194",
+            "extended_openttgames:23026:201",
+            "extended_openttgames:24617:210",
+            "extended_openttgames:24790:212",
+            "extended_openttgames:30764:256",
+            "extended_openttgames:31113:260",
+            "extended_openttgames:31153:261",
+            "extended_openttgames:32233:275",
+            "extended_openttgames:32328:276",
+            "extended_openttgames:32406:277",
+            "extended_openttgames:32509:278",
+            "extended_openttgames:33792:280",
+            "extended_openttgames:34204:283",
+            "extended_openttgames:34285:284",
+            "extended_openttgames:34375:285",
+            "extended_openttgames:35317:299",
+            "extended_openttgames:35692:303",
+            "extended_openttgames:35797:304",
+            "extended_openttgames:36893:313",
+            "extended_openttgames:37319:318",
+            "extended_openttgames:37415:322",
+            "extended_openttgames:38761:334",
+            "extended_openttgames:41621:350",
+            "extended_openttgames:43249:368",
+            "extended_openttgames:43345:369",
+            "extended_openttgames:43525:372",
+            "extended_openttgames:43577:373",
+            "extended_openttgames:43720:375",
+            "extended_openttgames:44612:381",
+            "extended_openttgames:44874:384",
+            "extended_openttgames:45059:385",
+            "extended_openttgames:45850:390",
+            "extended_openttgames:48013:408",
+            "extended_openttgames:48184:410",
+            "extended_openttgames:48389:416",
+            "extended_openttgames:50057:424",
+            "extended_openttgames:50148:425",
+            "extended_openttgames:50211:426",
+            "extended_openttgames:50299:427",
+            "extended_openttgames:52633:436",
+            "extended_openttgames:57115:463",
+            "extended_openttgames:57360:465",
+            "extended_openttgames:57465:470",
+            "extended_openttgames:57553:473",
+            "extended_openttgames:57696:475",
+            "extended_openttgames:57795:476",
+            "extended_openttgames:58098:480",
+            "extended_openttgames:58190:481",
+            "extended_openttgames:58351:482",
+            "extended_openttgames:58491:483",
+            "extended_openttgames:59056:491",
+            "extended_openttgames:60632:497",
+            "extended_openttgames:60702:500",
+            "extended_openttgames:60769:502",
+            "extended_openttgames:60878:508",
+            "extended_openttgames:60972:511",
+            "extended_openttgames:61712:518",
+            "extended_openttgames:62734:520",
+            "extended_openttgames:62923:522"
+          ]
+        },
+        "plus_minus_3_processing_frames": {
+          "tolerance_ms": 25.0,
+          "predicted": 167,
+          "ground_truth": 173,
+          "timestamp_rounding_epsilon_ms": 0.001,
+          "matched": 105,
+          "false_positives": 62,
+          "false_negatives": 68,
+          "precision": 0.6287425149700598,
+          "recall": 0.6069364161849711,
+          "f1": 0.6176470588235294,
+          "median_absolute_timing_error_ms": 16.6663333332981,
+          "p90_absolute_timing_error_ms": 25.0,
+          "player_side_accuracy": null,
+          "player_side_evaluable_matches": 0,
+          "matches": [
+            {
+              "prediction_index": 2,
+              "ground_truth_index": 1,
+              "signed_timing_error_ms": 8.33333333333394,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 3,
+              "ground_truth_index": 2,
+              "signed_timing_error_ms": -8.333000000000538,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 4,
+              "ground_truth_index": 3,
+              "signed_timing_error_ms": -8.33333333333394,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 5,
+              "ground_truth_index": 5,
+              "signed_timing_error_ms": 8.33366666666916,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 6,
+              "ground_truth_index": 6,
+              "signed_timing_error_ms": -16.66666666666788,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 9,
+              "ground_truth_index": 8,
+              "signed_timing_error_ms": 25.0003333333334,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 14,
+              "ground_truth_index": 14,
+              "signed_timing_error_ms": -8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 15,
+              "ground_truth_index": 15,
+              "signed_timing_error_ms": -8.333333333335759,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 16,
+              "ground_truth_index": 16,
+              "signed_timing_error_ms": -0.0003333333370392211,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 18,
+              "ground_truth_index": 18,
+              "signed_timing_error_ms": 25.00033333333704,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 19,
+              "ground_truth_index": 20,
+              "signed_timing_error_ms": 8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 20,
+              "ground_truth_index": 21,
+              "signed_timing_error_ms": -16.666333333327202,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 21,
+              "ground_truth_index": 23,
+              "signed_timing_error_ms": 8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 24,
+              "ground_truth_index": 26,
+              "signed_timing_error_ms": -16.666666666671517,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 25,
+              "ground_truth_index": 27,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 26,
+              "ground_truth_index": 28,
+              "signed_timing_error_ms": -25.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 27,
+              "ground_truth_index": 30,
+              "signed_timing_error_ms": -8.333666666672798,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 28,
+              "ground_truth_index": 31,
+              "signed_timing_error_ms": 8.333333333328483,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 29,
+              "ground_truth_index": 32,
+              "signed_timing_error_ms": 25.000333333329763,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 30,
+              "ground_truth_index": 34,
+              "signed_timing_error_ms": -8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 31,
+              "ground_truth_index": 35,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 32,
+              "ground_truth_index": 36,
+              "signed_timing_error_ms": -8.333333333328483,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 34,
+              "ground_truth_index": 38,
+              "signed_timing_error_ms": -16.666666666671517,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 36,
+              "ground_truth_index": 41,
+              "signed_timing_error_ms": 8.333666666672798,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 37,
+              "ground_truth_index": 42,
+              "signed_timing_error_ms": -16.666333333327202,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 38,
+              "ground_truth_index": 43,
+              "signed_timing_error_ms": 0.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 39,
+              "ground_truth_index": 44,
+              "signed_timing_error_ms": 16.66700000000128,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 43,
+              "ground_truth_index": 46,
+              "signed_timing_error_ms": -16.666333333356306,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 47,
+              "ground_truth_index": 52,
+              "signed_timing_error_ms": -8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 48,
+              "ground_truth_index": 53,
+              "signed_timing_error_ms": 16.666666666656965,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 49,
+              "ground_truth_index": 54,
+              "signed_timing_error_ms": -16.666666666656965,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 50,
+              "ground_truth_index": 56,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 56,
+              "ground_truth_index": 58,
+              "signed_timing_error_ms": 8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 57,
+              "ground_truth_index": 59,
+              "signed_timing_error_ms": -8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 59,
+              "ground_truth_index": 62,
+              "signed_timing_error_ms": 8.333333333343035,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 61,
+              "ground_truth_index": 64,
+              "signed_timing_error_ms": 8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 62,
+              "ground_truth_index": 66,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 64,
+              "ground_truth_index": 68,
+              "signed_timing_error_ms": 8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 65,
+              "ground_truth_index": 69,
+              "signed_timing_error_ms": 16.66699999998673,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 75,
+              "ground_truth_index": 71,
+              "signed_timing_error_ms": -8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 76,
+              "ground_truth_index": 72,
+              "signed_timing_error_ms": -16.666666666656965,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 77,
+              "ground_truth_index": 73,
+              "signed_timing_error_ms": -8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 79,
+              "ground_truth_index": 77,
+              "signed_timing_error_ms": 25.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 80,
+              "ground_truth_index": 78,
+              "signed_timing_error_ms": 25.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 81,
+              "ground_truth_index": 79,
+              "signed_timing_error_ms": 24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 83,
+              "ground_truth_index": 81,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 84,
+              "ground_truth_index": 82,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 85,
+              "ground_truth_index": 83,
+              "signed_timing_error_ms": 24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 86,
+              "ground_truth_index": 85,
+              "signed_timing_error_ms": -25.000333333329763,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 87,
+              "ground_truth_index": 86,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 88,
+              "ground_truth_index": 88,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 89,
+              "ground_truth_index": 89,
+              "signed_timing_error_ms": 16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 90,
+              "ground_truth_index": 90,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 91,
+              "ground_truth_index": 93,
+              "signed_timing_error_ms": -16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 92,
+              "ground_truth_index": 94,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 93,
+              "ground_truth_index": 95,
+              "signed_timing_error_ms": 16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 94,
+              "ground_truth_index": 96,
+              "signed_timing_error_ms": 25.000333333329763,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 95,
+              "ground_truth_index": 97,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 96,
+              "ground_truth_index": 98,
+              "signed_timing_error_ms": -16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 97,
+              "ground_truth_index": 99,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 98,
+              "ground_truth_index": 100,
+              "signed_timing_error_ms": -24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 99,
+              "ground_truth_index": 101,
+              "signed_timing_error_ms": -24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 100,
+              "ground_truth_index": 102,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 101,
+              "ground_truth_index": 103,
+              "signed_timing_error_ms": 0.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 102,
+              "ground_truth_index": 105,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 105,
+              "ground_truth_index": 107,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 108,
+              "ground_truth_index": 110,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 109,
+              "ground_truth_index": 111,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 110,
+              "ground_truth_index": 112,
+              "signed_timing_error_ms": 24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 111,
+              "ground_truth_index": 113,
+              "signed_timing_error_ms": -24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 112,
+              "ground_truth_index": 114,
+              "signed_timing_error_ms": 16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 113,
+              "ground_truth_index": 115,
+              "signed_timing_error_ms": 24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 114,
+              "ground_truth_index": 117,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 115,
+              "ground_truth_index": 118,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 117,
+              "ground_truth_index": 120,
+              "signed_timing_error_ms": -24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 119,
+              "ground_truth_index": 122,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 120,
+              "ground_truth_index": 123,
+              "signed_timing_error_ms": -16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 121,
+              "ground_truth_index": 124,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 123,
+              "ground_truth_index": 126,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 124,
+              "ground_truth_index": 127,
+              "signed_timing_error_ms": 24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 125,
+              "ground_truth_index": 128,
+              "signed_timing_error_ms": -24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 130,
+              "ground_truth_index": 133,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 131,
+              "ground_truth_index": 134,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 134,
+              "ground_truth_index": 136,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 135,
+              "ground_truth_index": 137,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 136,
+              "ground_truth_index": 138,
+              "signed_timing_error_ms": -16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 138,
+              "ground_truth_index": 140,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 139,
+              "ground_truth_index": 144,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 140,
+              "ground_truth_index": 145,
+              "signed_timing_error_ms": 25.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 141,
+              "ground_truth_index": 146,
+              "signed_timing_error_ms": 25.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 142,
+              "ground_truth_index": 147,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 143,
+              "ground_truth_index": 148,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 144,
+              "ground_truth_index": 149,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 145,
+              "ground_truth_index": 150,
+              "signed_timing_error_ms": -25.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 147,
+              "ground_truth_index": 154,
+              "signed_timing_error_ms": 16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 148,
+              "ground_truth_index": 155,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 153,
+              "ground_truth_index": 160,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 156,
+              "ground_truth_index": 163,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 157,
+              "ground_truth_index": 164,
+              "signed_timing_error_ms": -16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 158,
+              "ground_truth_index": 165,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 159,
+              "ground_truth_index": 166,
+              "signed_timing_error_ms": 16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 160,
+              "ground_truth_index": 167,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 161,
+              "ground_truth_index": 168,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 162,
+              "ground_truth_index": 169,
+              "signed_timing_error_ms": 25.000333333329763,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 163,
+              "ground_truth_index": 171,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            }
+          ],
+          "unmatched_prediction_ids": [
+            "f62022f19dbd89066aa109e0",
+            "cf7bd71261751324e94e4a8d",
+            "81b7fc6d783ebfe06093d14a",
+            "5a9d8c3fc175578a46c3267e",
+            "3dae23adf0c3865f4a29db56",
+            "01da1be5c57fdcedee9ef6cc",
+            "14b3842f93a43f6eb9027520",
+            "2ab3482cfd0fc1904247ca99",
+            "6504e237323901a5fa43adca",
+            "d3c0af7ccc152c14deda57b6",
+            "9adef7670248fd0ab13a56e2",
+            "bbdbd2dd6905005c388efa25",
+            "d6f06cd6fcc199fd7fa349ab",
+            "a22650e4a3092eb7a9dec9a2",
+            "54606db7c1c73093870cd175",
+            "64594f5dc35aab6c03dc45bc",
+            "e38f2c0634bade2451f5565b",
+            "d076d6b200aca03b37acf74b",
+            "e18845193a042605bc522e8b",
+            "aa504e5c7a2bf2290369da02",
+            "eec77686012a854272418a4e",
+            "87225caa2fa66143b54173ff",
+            "ceba3a5ca4ef5bbe72a88903",
+            "6f552af5c4d7927dc10a3c5c",
+            "260f1f64752705689e8a98c5",
+            "6272853cc57eddeb28092f7d",
+            "62cc6f394aaed5d60b41dcf6",
+            "aad6d399b26e57706211221f",
+            "2a0a88af793c28d496998be1",
+            "072347d1416c7cba460b4743",
+            "b22c732f6c639ace2cd2a8a3",
+            "7dca01a37d162102b89a88e2",
+            "39ad8893cccba3af08760d78",
+            "f4fd239b9c8f4d479b0d9ca5",
+            "0f76bfaeb344ac5d0f154fde",
+            "ae6fc9dd105434aea680a660",
+            "624d98e1d39e83b59e74042c",
+            "b780ab0ce048b7ff4a8015c3",
+            "a8cad59bf9032a90e80617d7",
+            "3c181e665d6b3cf8c0054d4d",
+            "4ddbc74b9e3d9856374ce73d",
+            "3b2fd0ad7dc44aa5ce9bce94",
+            "9d9fc1ad9102ded72414f148",
+            "a8c0e718da31f11fe5928558",
+            "d705315e94d5e3a441de6fde",
+            "e232df5e52e73d31b93dc575",
+            "93f8482084f03f980b504e0d",
+            "46a00d1daf61329f0def9393",
+            "e2b679a6e6e90cef16006796",
+            "8ec5d1dc7cb848ad78e721c8",
+            "3afebdd4d904a3db10a7dfdb",
+            "13c8538acc9785c48e9248d7",
+            "7f40977d1bd0313303c94502",
+            "aedb98e92ce0372d459cb085",
+            "610306834b200e41211985a2",
+            "4f50e8b8a9b05e0dc37ff95b",
+            "a11882da6c822907ac4c9ff2",
+            "eb2e82dfa54fa8d2ccbb66e0",
+            "37fb853f713f0f2a0059ab08",
+            "70d2b79e87d11ba780eee3bc",
+            "e13161aece55d571fd2f00d6",
+            "1818b25a712008bd201eb8e2"
+          ],
+          "unmatched_ground_truth_ids": [
+            "extended_openttgames:1273:0",
+            "extended_openttgames:2276:5",
+            "extended_openttgames:3527:9",
+            "extended_openttgames:3746:11",
+            "extended_openttgames:4881:13",
+            "extended_openttgames:4991:14",
+            "extended_openttgames:5087:15",
+            "extended_openttgames:6357:31",
+            "extended_openttgames:6687:36",
+            "extended_openttgames:7867:44",
+            "extended_openttgames:8163:49",
+            "extended_openttgames:8430:57",
+            "extended_openttgames:10949:71",
+            "extended_openttgames:11283:75",
+            "extended_openttgames:11655:79",
+            "extended_openttgames:13030:96",
+            "extended_openttgames:13166:98",
+            "extended_openttgames:14528:108",
+            "extended_openttgames:16109:139",
+            "extended_openttgames:16300:141",
+            "extended_openttgames:16393:142",
+            "extended_openttgames:17980:150",
+            "extended_openttgames:18064:155",
+            "extended_openttgames:19196:166",
+            "extended_openttgames:19520:170",
+            "extended_openttgames:22470:189",
+            "extended_openttgames:22752:192",
+            "extended_openttgames:22859:194",
+            "extended_openttgames:23026:201",
+            "extended_openttgames:24617:210",
+            "extended_openttgames:24790:212",
+            "extended_openttgames:30764:256",
+            "extended_openttgames:31113:260",
+            "extended_openttgames:31153:261",
+            "extended_openttgames:32233:275",
+            "extended_openttgames:33792:280",
+            "extended_openttgames:34285:284",
+            "extended_openttgames:35317:299",
+            "extended_openttgames:35692:303",
+            "extended_openttgames:35797:304",
+            "extended_openttgames:38761:334",
+            "extended_openttgames:41621:350",
+            "extended_openttgames:43249:368",
+            "extended_openttgames:43345:369",
+            "extended_openttgames:44612:381",
+            "extended_openttgames:44874:384",
+            "extended_openttgames:45850:390",
+            "extended_openttgames:48013:408",
+            "extended_openttgames:50057:424",
+            "extended_openttgames:50148:425",
+            "extended_openttgames:50211:426",
+            "extended_openttgames:50299:427",
+            "extended_openttgames:52633:436",
+            "extended_openttgames:57115:463",
+            "extended_openttgames:57360:465",
+            "extended_openttgames:57465:470",
+            "extended_openttgames:57553:473",
+            "extended_openttgames:58190:481",
+            "extended_openttgames:58351:482",
+            "extended_openttgames:58491:483",
+            "extended_openttgames:59056:491",
+            "extended_openttgames:60632:497",
+            "extended_openttgames:60702:500",
+            "extended_openttgames:60769:502",
+            "extended_openttgames:60878:508",
+            "extended_openttgames:60972:511",
+            "extended_openttgames:62734:520",
+            "extended_openttgames:62923:522"
+          ]
+        }
+      },
+      "D": {
+        "plus_minus_1_processing_frames": {
+          "tolerance_ms": 8.333333333333334,
+          "predicted": 151,
+          "ground_truth": 173,
+          "timestamp_rounding_epsilon_ms": 0.001,
+          "matched": 52,
+          "false_positives": 99,
+          "false_negatives": 121,
+          "precision": 0.3443708609271523,
+          "recall": 0.30057803468208094,
+          "f1": 0.32098765432098764,
+          "median_absolute_timing_error_ms": 8.333166666663601,
+          "p90_absolute_timing_error_ms": 8.333666666672798,
+          "player_side_accuracy": null,
+          "player_side_evaluable_matches": 0,
+          "matches": [
+            {
+              "prediction_index": 2,
+              "ground_truth_index": 1,
+              "signed_timing_error_ms": 8.33333333333394,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 3,
+              "ground_truth_index": 2,
+              "signed_timing_error_ms": -8.333000000000538,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 4,
+              "ground_truth_index": 3,
+              "signed_timing_error_ms": -8.33333333333394,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 5,
+              "ground_truth_index": 5,
+              "signed_timing_error_ms": 8.33366666666916,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 11,
+              "ground_truth_index": 14,
+              "signed_timing_error_ms": -8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 12,
+              "ground_truth_index": 15,
+              "signed_timing_error_ms": -8.333333333335759,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 13,
+              "ground_truth_index": 16,
+              "signed_timing_error_ms": -0.0003333333370392211,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 16,
+              "ground_truth_index": 20,
+              "signed_timing_error_ms": 8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 18,
+              "ground_truth_index": 23,
+              "signed_timing_error_ms": 8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 22,
+              "ground_truth_index": 27,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 24,
+              "ground_truth_index": 30,
+              "signed_timing_error_ms": -8.333666666672798,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 25,
+              "ground_truth_index": 31,
+              "signed_timing_error_ms": 8.333333333328483,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 27,
+              "ground_truth_index": 34,
+              "signed_timing_error_ms": -8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 28,
+              "ground_truth_index": 35,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 29,
+              "ground_truth_index": 36,
+              "signed_timing_error_ms": -8.333333333328483,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 33,
+              "ground_truth_index": 41,
+              "signed_timing_error_ms": 8.333666666672798,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 35,
+              "ground_truth_index": 43,
+              "signed_timing_error_ms": 0.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 42,
+              "ground_truth_index": 52,
+              "signed_timing_error_ms": -8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 45,
+              "ground_truth_index": 56,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 49,
+              "ground_truth_index": 58,
+              "signed_timing_error_ms": 8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 50,
+              "ground_truth_index": 59,
+              "signed_timing_error_ms": -8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 52,
+              "ground_truth_index": 62,
+              "signed_timing_error_ms": 8.333333333343035,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 54,
+              "ground_truth_index": 64,
+              "signed_timing_error_ms": 8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 55,
+              "ground_truth_index": 66,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 57,
+              "ground_truth_index": 68,
+              "signed_timing_error_ms": 8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 65,
+              "ground_truth_index": 71,
+              "signed_timing_error_ms": -8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 67,
+              "ground_truth_index": 73,
+              "signed_timing_error_ms": -8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 73,
+              "ground_truth_index": 81,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 74,
+              "ground_truth_index": 82,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 76,
+              "ground_truth_index": 85,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 77,
+              "ground_truth_index": 88,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 79,
+              "ground_truth_index": 90,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 86,
+              "ground_truth_index": 99,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 90,
+              "ground_truth_index": 103,
+              "signed_timing_error_ms": 0.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 91,
+              "ground_truth_index": 105,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 95,
+              "ground_truth_index": 110,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 96,
+              "ground_truth_index": 111,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 101,
+              "ground_truth_index": 117,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 102,
+              "ground_truth_index": 118,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 106,
+              "ground_truth_index": 122,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 109,
+              "ground_truth_index": 126,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 116,
+              "ground_truth_index": 133,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 117,
+              "ground_truth_index": 134,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 119,
+              "ground_truth_index": 136,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 120,
+              "ground_truth_index": 137,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 123,
+              "ground_truth_index": 140,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 127,
+              "ground_truth_index": 147,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 128,
+              "ground_truth_index": 148,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 129,
+              "ground_truth_index": 149,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 138,
+              "ground_truth_index": 160,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 141,
+              "ground_truth_index": 163,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 143,
+              "ground_truth_index": 165,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            }
+          ],
+          "unmatched_prediction_ids": [
+            "f62022f19dbd89066aa109e0",
+            "cf7bd71261751324e94e4a8d",
+            "1c63e7a64132850e01eaf5aa",
+            "2109ec8f30a26683e63b33e2",
+            "3dae23adf0c3865f4a29db56",
+            "14b3842f93a43f6eb9027520",
+            "2ab3482cfd0fc1904247ca99",
+            "6504e237323901a5fa43adca",
+            "b633ed6b1d21d39c750247ab",
+            "6ac5ab761c1929e4df5e4ae8",
+            "d3c0af7ccc152c14deda57b6",
+            "9adef7670248fd0ab13a56e2",
+            "6ba8be9ef6f90709cf04306f",
+            "d515f3a80d93c7db004303eb",
+            "a03696423ddf39a6334c8c5d",
+            "bbdbd2dd6905005c388efa25",
+            "8d8e0fdc48adfb1eff5809d5",
+            "d6f06cd6fcc199fd7fa349ab",
+            "0da564a45cb858bf930cbcb5",
+            "376cf00a4fad86210d4094a1",
+            "64594f5dc35aab6c03dc45bc",
+            "7a2a3b8189864b5dcbb3e128",
+            "e38f2c0634bade2451f5565b",
+            "d076d6b200aca03b37acf74b",
+            "e18845193a042605bc522e8b",
+            "e0ed6d138e1b197ea7f1b621",
+            "dc1af7006e70a60f55bc5e35",
+            "87225caa2fa66143b54173ff",
+            "ceba3a5ca4ef5bbe72a88903",
+            "6f552af5c4d7927dc10a3c5c",
+            "260f1f64752705689e8a98c5",
+            "6272853cc57eddeb28092f7d",
+            "62cc6f394aaed5d60b41dcf6",
+            "395d4c520ecf62a3f84e0fbc",
+            "b22c732f6c639ace2cd2a8a3",
+            "7dca01a37d162102b89a88e2",
+            "39ad8893cccba3af08760d78",
+            "f4fd239b9c8f4d479b0d9ca5",
+            "0f76bfaeb344ac5d0f154fde",
+            "ae6fc9dd105434aea680a660",
+            "d389e26b1f785a1a4634aa8e",
+            "624d98e1d39e83b59e74042c",
+            "7438396f37d8d91c3e733f03",
+            "cbf46b49d667052ecbde3250",
+            "72f0efe1c3c688bfeedb456d",
+            "b780ab0ce048b7ff4a8015c3",
+            "4bcc58dd8db80ae9f9c909ae",
+            "e085cb327ee2380a39fd03f8",
+            "81878052c6c8e1d73fe57520",
+            "b0459b145a0d86ded228ce89",
+            "1aae218e26591d24f0cfa0f9",
+            "d1ce44bd9afe746e8c9ea3dd",
+            "921290ac7e1f5d0cbfb918cf",
+            "ff3c7880aaa95e694d41bfbf",
+            "9ee88425f022be9815de7d30",
+            "2b59ede82109ad93b36c42b2",
+            "4c7afe3c3f06594278f34d10",
+            "18957652956106acb4befe9e",
+            "4ddbc74b9e3d9856374ce73d",
+            "3b2fd0ad7dc44aa5ce9bce94",
+            "2bc9a96788abf8b49e1d3e44",
+            "db066d9d31401c530f06412d",
+            "fd44e7fdc1b796f4c91487f5",
+            "3071f88b86f5fdea859b4baa",
+            "9d9fc1ad9102ded72414f148",
+            "bc09ea3898f7296b528fcb35",
+            "a8c0e718da31f11fe5928558",
+            "b31ba63862c824dd4989b941",
+            "b9f928d1da8940ba3bad933c",
+            "d3db32f39cb1921b09bbd4f0",
+            "2d1968b83e94b2fb86643da6",
+            "e232df5e52e73d31b93dc575",
+            "93f8482084f03f980b504e0d",
+            "46a00d1daf61329f0def9393",
+            "e2b679a6e6e90cef16006796",
+            "3afebdd4d904a3db10a7dfdb",
+            "80927f8104b93738292c9adf",
+            "13c8538acc9785c48e9248d7",
+            "6233ad7cdda968b042242538",
+            "8410e6d5535d1a4250a1acc3",
+            "aac719d924022a5eeb638d4f",
+            "8e42e17ca760520f41bbe218",
+            "7f40977d1bd0313303c94502",
+            "d52beb286ad94f6a5cf9485f",
+            "b9237c892119d45749139a47",
+            "aedb98e92ce0372d459cb085",
+            "610306834b200e41211985a2",
+            "4f50e8b8a9b05e0dc37ff95b",
+            "b731e4f1cddc5d9a9ea11df2",
+            "eb2e82dfa54fa8d2ccbb66e0",
+            "37fb853f713f0f2a0059ab08",
+            "27ec5a4bcdef0116c6d47b1f",
+            "fa41ecef267a00f0f09850ac",
+            "5bd024a3be20fc659ce2b51d",
+            "246d18058d4790ae670992b2",
+            "517fcdea7cce3870647e67bc",
+            "5c98d0f9ccd37a16607542f2",
+            "70d2b79e87d11ba780eee3bc",
+            "1818b25a712008bd201eb8e2"
+          ],
+          "unmatched_ground_truth_ids": [
+            "extended_openttgames:1273:0",
+            "extended_openttgames:2276:5",
+            "extended_openttgames:2438:7",
+            "extended_openttgames:3527:9",
+            "extended_openttgames:3644:10",
+            "extended_openttgames:3746:11",
+            "extended_openttgames:4881:13",
+            "extended_openttgames:4991:14",
+            "extended_openttgames:5087:15",
+            "extended_openttgames:6357:31",
+            "extended_openttgames:6687:36",
+            "extended_openttgames:6797:41",
+            "extended_openttgames:7867:44",
+            "extended_openttgames:8053:46",
+            "extended_openttgames:8163:49",
+            "extended_openttgames:8430:57",
+            "extended_openttgames:10949:71",
+            "extended_openttgames:11045:72",
+            "extended_openttgames:11196:74",
+            "extended_openttgames:11283:75",
+            "extended_openttgames:11570:78",
+            "extended_openttgames:11655:79",
+            "extended_openttgames:13030:96",
+            "extended_openttgames:13121:97",
+            "extended_openttgames:13166:98",
+            "extended_openttgames:14528:108",
+            "extended_openttgames:14704:110",
+            "extended_openttgames:14880:112",
+            "extended_openttgames:16109:139",
+            "extended_openttgames:16204:140",
+            "extended_openttgames:16300:141",
+            "extended_openttgames:16393:142",
+            "extended_openttgames:17980:150",
+            "extended_openttgames:18064:155",
+            "extended_openttgames:19196:166",
+            "extended_openttgames:19321:168",
+            "extended_openttgames:19427:169",
+            "extended_openttgames:19520:170",
+            "extended_openttgames:22470:189",
+            "extended_openttgames:22752:192",
+            "extended_openttgames:22859:194",
+            "extended_openttgames:23026:201",
+            "extended_openttgames:24617:210",
+            "extended_openttgames:24790:212",
+            "extended_openttgames:24963:214",
+            "extended_openttgames:30764:256",
+            "extended_openttgames:30950:258",
+            "extended_openttgames:31113:260",
+            "extended_openttgames:31153:261",
+            "extended_openttgames:32233:275",
+            "extended_openttgames:32328:276",
+            "extended_openttgames:32406:277",
+            "extended_openttgames:32509:278",
+            "extended_openttgames:33792:280",
+            "extended_openttgames:34204:283",
+            "extended_openttgames:34285:284",
+            "extended_openttgames:34411:286",
+            "extended_openttgames:35317:299",
+            "extended_openttgames:35501:301",
+            "extended_openttgames:35692:303",
+            "extended_openttgames:35797:304",
+            "extended_openttgames:35858:305",
+            "extended_openttgames:36730:311",
+            "extended_openttgames:36812:312",
+            "extended_openttgames:36893:313",
+            "extended_openttgames:36985:314",
+            "extended_openttgames:37162:315",
+            "extended_openttgames:37319:318",
+            "extended_openttgames:37415:322",
+            "extended_openttgames:37503:325",
+            "extended_openttgames:38761:334",
+            "extended_openttgames:41621:350",
+            "extended_openttgames:41713:351",
+            "extended_openttgames:43249:368",
+            "extended_openttgames:43345:369",
+            "extended_openttgames:43525:372",
+            "extended_openttgames:43577:373",
+            "extended_openttgames:43671:374",
+            "extended_openttgames:43720:375",
+            "extended_openttgames:44612:381",
+            "extended_openttgames:44874:384",
+            "extended_openttgames:45059:385",
+            "extended_openttgames:45850:390",
+            "extended_openttgames:46016:392",
+            "extended_openttgames:46080:393",
+            "extended_openttgames:48013:408",
+            "extended_openttgames:48184:410",
+            "extended_openttgames:48389:416",
+            "extended_openttgames:50057:424",
+            "extended_openttgames:50148:425",
+            "extended_openttgames:50211:426",
+            "extended_openttgames:50299:427",
+            "extended_openttgames:52633:436",
+            "extended_openttgames:57022:462",
+            "extended_openttgames:57115:463",
+            "extended_openttgames:57360:465",
+            "extended_openttgames:57465:470",
+            "extended_openttgames:57553:473",
+            "extended_openttgames:57594:474",
+            "extended_openttgames:57696:475",
+            "extended_openttgames:57795:476",
+            "extended_openttgames:58098:480",
+            "extended_openttgames:58190:481",
+            "extended_openttgames:58351:482",
+            "extended_openttgames:58491:483",
+            "extended_openttgames:58617:484",
+            "extended_openttgames:58833:485",
+            "extended_openttgames:59056:491",
+            "extended_openttgames:60632:497",
+            "extended_openttgames:60702:500",
+            "extended_openttgames:60769:502",
+            "extended_openttgames:60878:508",
+            "extended_openttgames:60972:511",
+            "extended_openttgames:61201:513",
+            "extended_openttgames:61481:515",
+            "extended_openttgames:61525:516",
+            "extended_openttgames:61579:517",
+            "extended_openttgames:61712:518",
+            "extended_openttgames:62734:520",
+            "extended_openttgames:62812:521",
+            "extended_openttgames:62923:522"
+          ]
+        },
+        "plus_minus_2_processing_frames": {
+          "tolerance_ms": 16.666666666666668,
+          "predicted": 151,
+          "ground_truth": 173,
+          "timestamp_rounding_epsilon_ms": 0.001,
+          "matched": 82,
+          "false_positives": 69,
+          "false_negatives": 91,
+          "precision": 0.543046357615894,
+          "recall": 0.47398843930635837,
+          "f1": 0.5061728395061729,
+          "median_absolute_timing_error_ms": 8.333666666643694,
+          "p90_absolute_timing_error_ms": 16.66666666668607,
+          "player_side_accuracy": null,
+          "player_side_evaluable_matches": 0,
+          "matches": [
+            {
+              "prediction_index": 2,
+              "ground_truth_index": 1,
+              "signed_timing_error_ms": 8.33333333333394,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 3,
+              "ground_truth_index": 2,
+              "signed_timing_error_ms": -8.333000000000538,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 4,
+              "ground_truth_index": 3,
+              "signed_timing_error_ms": -8.33333333333394,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 5,
+              "ground_truth_index": 5,
+              "signed_timing_error_ms": 8.33366666666916,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 11,
+              "ground_truth_index": 14,
+              "signed_timing_error_ms": -8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 12,
+              "ground_truth_index": 15,
+              "signed_timing_error_ms": -8.333333333335759,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 13,
+              "ground_truth_index": 16,
+              "signed_timing_error_ms": -0.0003333333370392211,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 16,
+              "ground_truth_index": 20,
+              "signed_timing_error_ms": 8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 17,
+              "ground_truth_index": 21,
+              "signed_timing_error_ms": -16.666333333327202,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 18,
+              "ground_truth_index": 23,
+              "signed_timing_error_ms": 8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 21,
+              "ground_truth_index": 26,
+              "signed_timing_error_ms": -16.666666666671517,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 22,
+              "ground_truth_index": 27,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 24,
+              "ground_truth_index": 30,
+              "signed_timing_error_ms": -8.333666666672798,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 25,
+              "ground_truth_index": 31,
+              "signed_timing_error_ms": 8.333333333328483,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 27,
+              "ground_truth_index": 34,
+              "signed_timing_error_ms": -8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 28,
+              "ground_truth_index": 35,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 29,
+              "ground_truth_index": 36,
+              "signed_timing_error_ms": -8.333333333328483,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 31,
+              "ground_truth_index": 38,
+              "signed_timing_error_ms": -16.666666666671517,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 33,
+              "ground_truth_index": 41,
+              "signed_timing_error_ms": 8.333666666672798,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 34,
+              "ground_truth_index": 42,
+              "signed_timing_error_ms": -16.666333333327202,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 35,
+              "ground_truth_index": 43,
+              "signed_timing_error_ms": 0.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 36,
+              "ground_truth_index": 44,
+              "signed_timing_error_ms": 16.66700000000128,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 38,
+              "ground_truth_index": 46,
+              "signed_timing_error_ms": -16.666333333356306,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 42,
+              "ground_truth_index": 52,
+              "signed_timing_error_ms": -8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 43,
+              "ground_truth_index": 53,
+              "signed_timing_error_ms": 16.666666666656965,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 44,
+              "ground_truth_index": 54,
+              "signed_timing_error_ms": -16.666666666656965,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 45,
+              "ground_truth_index": 56,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 49,
+              "ground_truth_index": 58,
+              "signed_timing_error_ms": 8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 50,
+              "ground_truth_index": 59,
+              "signed_timing_error_ms": -8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 52,
+              "ground_truth_index": 62,
+              "signed_timing_error_ms": 8.333333333343035,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 54,
+              "ground_truth_index": 64,
+              "signed_timing_error_ms": 8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 55,
+              "ground_truth_index": 66,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 57,
+              "ground_truth_index": 68,
+              "signed_timing_error_ms": 8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 58,
+              "ground_truth_index": 69,
+              "signed_timing_error_ms": 16.66699999998673,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 65,
+              "ground_truth_index": 71,
+              "signed_timing_error_ms": -8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 66,
+              "ground_truth_index": 72,
+              "signed_timing_error_ms": -16.666666666656965,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 67,
+              "ground_truth_index": 73,
+              "signed_timing_error_ms": -8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 73,
+              "ground_truth_index": 81,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 74,
+              "ground_truth_index": 82,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 76,
+              "ground_truth_index": 85,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 77,
+              "ground_truth_index": 88,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 78,
+              "ground_truth_index": 89,
+              "signed_timing_error_ms": 16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 79,
+              "ground_truth_index": 90,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 80,
+              "ground_truth_index": 93,
+              "signed_timing_error_ms": -16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 81,
+              "ground_truth_index": 94,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 82,
+              "ground_truth_index": 95,
+              "signed_timing_error_ms": 16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 84,
+              "ground_truth_index": 97,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 85,
+              "ground_truth_index": 98,
+              "signed_timing_error_ms": -16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 86,
+              "ground_truth_index": 99,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 89,
+              "ground_truth_index": 102,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 90,
+              "ground_truth_index": 103,
+              "signed_timing_error_ms": 0.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 91,
+              "ground_truth_index": 105,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 92,
+              "ground_truth_index": 107,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 95,
+              "ground_truth_index": 110,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 96,
+              "ground_truth_index": 111,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 99,
+              "ground_truth_index": 114,
+              "signed_timing_error_ms": 16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 101,
+              "ground_truth_index": 117,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 102,
+              "ground_truth_index": 118,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 106,
+              "ground_truth_index": 122,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 107,
+              "ground_truth_index": 123,
+              "signed_timing_error_ms": -16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 108,
+              "ground_truth_index": 124,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 109,
+              "ground_truth_index": 126,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 116,
+              "ground_truth_index": 133,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 117,
+              "ground_truth_index": 134,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 119,
+              "ground_truth_index": 136,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 120,
+              "ground_truth_index": 137,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 121,
+              "ground_truth_index": 138,
+              "signed_timing_error_ms": -16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 123,
+              "ground_truth_index": 140,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 124,
+              "ground_truth_index": 144,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 127,
+              "ground_truth_index": 147,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 128,
+              "ground_truth_index": 148,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 129,
+              "ground_truth_index": 149,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 132,
+              "ground_truth_index": 154,
+              "signed_timing_error_ms": 16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 133,
+              "ground_truth_index": 155,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 137,
+              "ground_truth_index": 159,
+              "signed_timing_error_ms": -16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 138,
+              "ground_truth_index": 160,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 141,
+              "ground_truth_index": 163,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 142,
+              "ground_truth_index": 164,
+              "signed_timing_error_ms": -16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 143,
+              "ground_truth_index": 165,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 145,
+              "ground_truth_index": 167,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 146,
+              "ground_truth_index": 168,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 148,
+              "ground_truth_index": 171,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            }
+          ],
+          "unmatched_prediction_ids": [
+            "f62022f19dbd89066aa109e0",
+            "cf7bd71261751324e94e4a8d",
+            "1c63e7a64132850e01eaf5aa",
+            "2109ec8f30a26683e63b33e2",
+            "3dae23adf0c3865f4a29db56",
+            "14b3842f93a43f6eb9027520",
+            "2ab3482cfd0fc1904247ca99",
+            "6504e237323901a5fa43adca",
+            "b633ed6b1d21d39c750247ab",
+            "d3c0af7ccc152c14deda57b6",
+            "9adef7670248fd0ab13a56e2",
+            "d515f3a80d93c7db004303eb",
+            "a03696423ddf39a6334c8c5d",
+            "bbdbd2dd6905005c388efa25",
+            "d6f06cd6fcc199fd7fa349ab",
+            "64594f5dc35aab6c03dc45bc",
+            "e38f2c0634bade2451f5565b",
+            "d076d6b200aca03b37acf74b",
+            "e18845193a042605bc522e8b",
+            "87225caa2fa66143b54173ff",
+            "ceba3a5ca4ef5bbe72a88903",
+            "6f552af5c4d7927dc10a3c5c",
+            "260f1f64752705689e8a98c5",
+            "6272853cc57eddeb28092f7d",
+            "62cc6f394aaed5d60b41dcf6",
+            "b22c732f6c639ace2cd2a8a3",
+            "7dca01a37d162102b89a88e2",
+            "39ad8893cccba3af08760d78",
+            "f4fd239b9c8f4d479b0d9ca5",
+            "0f76bfaeb344ac5d0f154fde",
+            "ae6fc9dd105434aea680a660",
+            "624d98e1d39e83b59e74042c",
+            "7438396f37d8d91c3e733f03",
+            "cbf46b49d667052ecbde3250",
+            "72f0efe1c3c688bfeedb456d",
+            "b780ab0ce048b7ff4a8015c3",
+            "4bcc58dd8db80ae9f9c909ae",
+            "d1ce44bd9afe746e8c9ea3dd",
+            "9ee88425f022be9815de7d30",
+            "2b59ede82109ad93b36c42b2",
+            "4ddbc74b9e3d9856374ce73d",
+            "3b2fd0ad7dc44aa5ce9bce94",
+            "2bc9a96788abf8b49e1d3e44",
+            "db066d9d31401c530f06412d",
+            "3071f88b86f5fdea859b4baa",
+            "9d9fc1ad9102ded72414f148",
+            "bc09ea3898f7296b528fcb35",
+            "a8c0e718da31f11fe5928558",
+            "d3db32f39cb1921b09bbd4f0",
+            "2d1968b83e94b2fb86643da6",
+            "e232df5e52e73d31b93dc575",
+            "93f8482084f03f980b504e0d",
+            "46a00d1daf61329f0def9393",
+            "e2b679a6e6e90cef16006796",
+            "3afebdd4d904a3db10a7dfdb",
+            "13c8538acc9785c48e9248d7",
+            "8410e6d5535d1a4250a1acc3",
+            "aac719d924022a5eeb638d4f",
+            "8e42e17ca760520f41bbe218",
+            "7f40977d1bd0313303c94502",
+            "aedb98e92ce0372d459cb085",
+            "610306834b200e41211985a2",
+            "4f50e8b8a9b05e0dc37ff95b",
+            "eb2e82dfa54fa8d2ccbb66e0",
+            "37fb853f713f0f2a0059ab08",
+            "fa41ecef267a00f0f09850ac",
+            "517fcdea7cce3870647e67bc",
+            "70d2b79e87d11ba780eee3bc",
+            "1818b25a712008bd201eb8e2"
+          ],
+          "unmatched_ground_truth_ids": [
+            "extended_openttgames:1273:0",
+            "extended_openttgames:2276:5",
+            "extended_openttgames:2438:7",
+            "extended_openttgames:3527:9",
+            "extended_openttgames:3644:10",
+            "extended_openttgames:3746:11",
+            "extended_openttgames:4881:13",
+            "extended_openttgames:4991:14",
+            "extended_openttgames:5087:15",
+            "extended_openttgames:6357:31",
+            "extended_openttgames:6687:36",
+            "extended_openttgames:6797:41",
+            "extended_openttgames:7867:44",
+            "extended_openttgames:8163:49",
+            "extended_openttgames:8430:57",
+            "extended_openttgames:10949:71",
+            "extended_openttgames:11196:74",
+            "extended_openttgames:11283:75",
+            "extended_openttgames:11570:78",
+            "extended_openttgames:11655:79",
+            "extended_openttgames:13030:96",
+            "extended_openttgames:13166:98",
+            "extended_openttgames:14528:108",
+            "extended_openttgames:16109:139",
+            "extended_openttgames:16300:141",
+            "extended_openttgames:16393:142",
+            "extended_openttgames:17980:150",
+            "extended_openttgames:18064:155",
+            "extended_openttgames:19196:166",
+            "extended_openttgames:19520:170",
+            "extended_openttgames:22470:189",
+            "extended_openttgames:22752:192",
+            "extended_openttgames:22859:194",
+            "extended_openttgames:23026:201",
+            "extended_openttgames:24617:210",
+            "extended_openttgames:24790:212",
+            "extended_openttgames:30764:256",
+            "extended_openttgames:31113:260",
+            "extended_openttgames:31153:261",
+            "extended_openttgames:32233:275",
+            "extended_openttgames:32328:276",
+            "extended_openttgames:32406:277",
+            "extended_openttgames:32509:278",
+            "extended_openttgames:33792:280",
+            "extended_openttgames:34204:283",
+            "extended_openttgames:34285:284",
+            "extended_openttgames:34411:286",
+            "extended_openttgames:35317:299",
+            "extended_openttgames:35692:303",
+            "extended_openttgames:35797:304",
+            "extended_openttgames:36893:313",
+            "extended_openttgames:37319:318",
+            "extended_openttgames:37415:322",
+            "extended_openttgames:38761:334",
+            "extended_openttgames:41621:350",
+            "extended_openttgames:43249:368",
+            "extended_openttgames:43345:369",
+            "extended_openttgames:43525:372",
+            "extended_openttgames:43577:373",
+            "extended_openttgames:43720:375",
+            "extended_openttgames:44612:381",
+            "extended_openttgames:44874:384",
+            "extended_openttgames:45059:385",
+            "extended_openttgames:45850:390",
+            "extended_openttgames:48013:408",
+            "extended_openttgames:48184:410",
+            "extended_openttgames:48389:416",
+            "extended_openttgames:50057:424",
+            "extended_openttgames:50148:425",
+            "extended_openttgames:50211:426",
+            "extended_openttgames:50299:427",
+            "extended_openttgames:52633:436",
+            "extended_openttgames:57115:463",
+            "extended_openttgames:57360:465",
+            "extended_openttgames:57465:470",
+            "extended_openttgames:57553:473",
+            "extended_openttgames:57696:475",
+            "extended_openttgames:57795:476",
+            "extended_openttgames:58098:480",
+            "extended_openttgames:58190:481",
+            "extended_openttgames:58351:482",
+            "extended_openttgames:58491:483",
+            "extended_openttgames:59056:491",
+            "extended_openttgames:60632:497",
+            "extended_openttgames:60702:500",
+            "extended_openttgames:60878:508",
+            "extended_openttgames:60972:511",
+            "extended_openttgames:61481:515",
+            "extended_openttgames:61712:518",
+            "extended_openttgames:62734:520",
+            "extended_openttgames:62923:522"
+          ]
+        },
+        "plus_minus_3_processing_frames": {
+          "tolerance_ms": 25.0,
+          "predicted": 151,
+          "ground_truth": 173,
+          "timestamp_rounding_epsilon_ms": 0.001,
+          "matched": 103,
+          "false_positives": 48,
+          "false_negatives": 70,
+          "precision": 0.6821192052980133,
+          "recall": 0.5953757225433526,
+          "f1": 0.6358024691358025,
+          "median_absolute_timing_error_ms": 8.333666666701902,
+          "p90_absolute_timing_error_ms": 24.999666666670237,
+          "player_side_accuracy": null,
+          "player_side_evaluable_matches": 0,
+          "matches": [
+            {
+              "prediction_index": 2,
+              "ground_truth_index": 1,
+              "signed_timing_error_ms": 8.33333333333394,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 3,
+              "ground_truth_index": 2,
+              "signed_timing_error_ms": -8.333000000000538,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 4,
+              "ground_truth_index": 3,
+              "signed_timing_error_ms": -8.33333333333394,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 5,
+              "ground_truth_index": 5,
+              "signed_timing_error_ms": 8.33366666666916,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 7,
+              "ground_truth_index": 8,
+              "signed_timing_error_ms": 25.0003333333334,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 11,
+              "ground_truth_index": 14,
+              "signed_timing_error_ms": -8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 12,
+              "ground_truth_index": 15,
+              "signed_timing_error_ms": -8.333333333335759,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 13,
+              "ground_truth_index": 16,
+              "signed_timing_error_ms": -0.0003333333370392211,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 15,
+              "ground_truth_index": 18,
+              "signed_timing_error_ms": 25.00033333333704,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 16,
+              "ground_truth_index": 20,
+              "signed_timing_error_ms": 8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 17,
+              "ground_truth_index": 21,
+              "signed_timing_error_ms": -16.666333333327202,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 18,
+              "ground_truth_index": 23,
+              "signed_timing_error_ms": 8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 21,
+              "ground_truth_index": 26,
+              "signed_timing_error_ms": -16.666666666671517,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 22,
+              "ground_truth_index": 27,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 23,
+              "ground_truth_index": 28,
+              "signed_timing_error_ms": -25.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 24,
+              "ground_truth_index": 30,
+              "signed_timing_error_ms": -8.333666666672798,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 25,
+              "ground_truth_index": 31,
+              "signed_timing_error_ms": 8.333333333328483,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 26,
+              "ground_truth_index": 32,
+              "signed_timing_error_ms": 25.000333333329763,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 27,
+              "ground_truth_index": 34,
+              "signed_timing_error_ms": -8.33299999999872,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 28,
+              "ground_truth_index": 35,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 29,
+              "ground_truth_index": 36,
+              "signed_timing_error_ms": -8.333333333328483,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 31,
+              "ground_truth_index": 38,
+              "signed_timing_error_ms": -16.666666666671517,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 33,
+              "ground_truth_index": 41,
+              "signed_timing_error_ms": 8.333666666672798,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 34,
+              "ground_truth_index": 42,
+              "signed_timing_error_ms": -16.666333333327202,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 35,
+              "ground_truth_index": 43,
+              "signed_timing_error_ms": 0.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 36,
+              "ground_truth_index": 44,
+              "signed_timing_error_ms": 16.66700000000128,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 38,
+              "ground_truth_index": 46,
+              "signed_timing_error_ms": -16.666333333356306,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 42,
+              "ground_truth_index": 52,
+              "signed_timing_error_ms": -8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 43,
+              "ground_truth_index": 53,
+              "signed_timing_error_ms": 16.666666666656965,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 44,
+              "ground_truth_index": 54,
+              "signed_timing_error_ms": -16.666666666656965,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 45,
+              "ground_truth_index": 56,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 49,
+              "ground_truth_index": 58,
+              "signed_timing_error_ms": 8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 50,
+              "ground_truth_index": 59,
+              "signed_timing_error_ms": -8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 52,
+              "ground_truth_index": 62,
+              "signed_timing_error_ms": 8.333333333343035,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 54,
+              "ground_truth_index": 64,
+              "signed_timing_error_ms": 8.333666666643694,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 55,
+              "ground_truth_index": 66,
+              "signed_timing_error_ms": 0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 57,
+              "ground_truth_index": 68,
+              "signed_timing_error_ms": 8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 58,
+              "ground_truth_index": 69,
+              "signed_timing_error_ms": 16.66699999998673,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 65,
+              "ground_truth_index": 71,
+              "signed_timing_error_ms": -8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 66,
+              "ground_truth_index": 72,
+              "signed_timing_error_ms": -16.666666666656965,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 67,
+              "ground_truth_index": 73,
+              "signed_timing_error_ms": -8.333000000013271,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 70,
+              "ground_truth_index": 78,
+              "signed_timing_error_ms": 25.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 71,
+              "ground_truth_index": 79,
+              "signed_timing_error_ms": 24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 73,
+              "ground_truth_index": 81,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 74,
+              "ground_truth_index": 82,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 75,
+              "ground_truth_index": 83,
+              "signed_timing_error_ms": 24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 76,
+              "ground_truth_index": 85,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 77,
+              "ground_truth_index": 88,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 78,
+              "ground_truth_index": 89,
+              "signed_timing_error_ms": 16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 79,
+              "ground_truth_index": 90,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 80,
+              "ground_truth_index": 93,
+              "signed_timing_error_ms": -16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 81,
+              "ground_truth_index": 94,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 82,
+              "ground_truth_index": 95,
+              "signed_timing_error_ms": 16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 83,
+              "ground_truth_index": 96,
+              "signed_timing_error_ms": 25.000333333329763,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 84,
+              "ground_truth_index": 97,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 85,
+              "ground_truth_index": 98,
+              "signed_timing_error_ms": -16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 86,
+              "ground_truth_index": 99,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 87,
+              "ground_truth_index": 100,
+              "signed_timing_error_ms": -24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 88,
+              "ground_truth_index": 101,
+              "signed_timing_error_ms": -24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 89,
+              "ground_truth_index": 102,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 90,
+              "ground_truth_index": 103,
+              "signed_timing_error_ms": 0.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 91,
+              "ground_truth_index": 105,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 92,
+              "ground_truth_index": 107,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 95,
+              "ground_truth_index": 110,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 96,
+              "ground_truth_index": 111,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 97,
+              "ground_truth_index": 112,
+              "signed_timing_error_ms": 24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 98,
+              "ground_truth_index": 113,
+              "signed_timing_error_ms": -24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 99,
+              "ground_truth_index": 114,
+              "signed_timing_error_ms": 16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 100,
+              "ground_truth_index": 115,
+              "signed_timing_error_ms": 24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 101,
+              "ground_truth_index": 117,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 102,
+              "ground_truth_index": 118,
+              "signed_timing_error_ms": -8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 104,
+              "ground_truth_index": 120,
+              "signed_timing_error_ms": -24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 106,
+              "ground_truth_index": 122,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 107,
+              "ground_truth_index": 123,
+              "signed_timing_error_ms": -16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 108,
+              "ground_truth_index": 124,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 109,
+              "ground_truth_index": 126,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 110,
+              "ground_truth_index": 127,
+              "signed_timing_error_ms": 24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 111,
+              "ground_truth_index": 128,
+              "signed_timing_error_ms": -24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 116,
+              "ground_truth_index": 133,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 117,
+              "ground_truth_index": 134,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 119,
+              "ground_truth_index": 136,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 120,
+              "ground_truth_index": 137,
+              "signed_timing_error_ms": 8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 121,
+              "ground_truth_index": 138,
+              "signed_timing_error_ms": -16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 123,
+              "ground_truth_index": 140,
+              "signed_timing_error_ms": -8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 124,
+              "ground_truth_index": 144,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 125,
+              "ground_truth_index": 145,
+              "signed_timing_error_ms": 25.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 126,
+              "ground_truth_index": 146,
+              "signed_timing_error_ms": 25.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 127,
+              "ground_truth_index": 147,
+              "signed_timing_error_ms": 8.332999999984168,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 128,
+              "ground_truth_index": 148,
+              "signed_timing_error_ms": -0.00033333332976326346,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 129,
+              "ground_truth_index": 149,
+              "signed_timing_error_ms": 8.333666666701902,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 130,
+              "ground_truth_index": 150,
+              "signed_timing_error_ms": -25.0,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 132,
+              "ground_truth_index": 154,
+              "signed_timing_error_ms": 16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 133,
+              "ground_truth_index": 155,
+              "signed_timing_error_ms": -16.667000000015832,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 137,
+              "ground_truth_index": 159,
+              "signed_timing_error_ms": -16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 138,
+              "ground_truth_index": 160,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 141,
+              "ground_truth_index": 163,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 142,
+              "ground_truth_index": 164,
+              "signed_timing_error_ms": -16.6663333332981,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 143,
+              "ground_truth_index": 165,
+              "signed_timing_error_ms": -8.33333333331393,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 144,
+              "ground_truth_index": 166,
+              "signed_timing_error_ms": -24.999666666670237,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 145,
+              "ground_truth_index": 167,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 146,
+              "ground_truth_index": 168,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 147,
+              "ground_truth_index": 169,
+              "signed_timing_error_ms": 25.000333333329763,
+              "player_side_correct": null
+            },
+            {
+              "prediction_index": 148,
+              "ground_truth_index": 171,
+              "signed_timing_error_ms": 16.66666666668607,
+              "player_side_correct": null
+            }
+          ],
+          "unmatched_prediction_ids": [
+            "f62022f19dbd89066aa109e0",
+            "cf7bd71261751324e94e4a8d",
+            "1c63e7a64132850e01eaf5aa",
+            "3dae23adf0c3865f4a29db56",
+            "14b3842f93a43f6eb9027520",
+            "2ab3482cfd0fc1904247ca99",
+            "6504e237323901a5fa43adca",
+            "d3c0af7ccc152c14deda57b6",
+            "9adef7670248fd0ab13a56e2",
+            "bbdbd2dd6905005c388efa25",
+            "d6f06cd6fcc199fd7fa349ab",
+            "64594f5dc35aab6c03dc45bc",
+            "e38f2c0634bade2451f5565b",
+            "d076d6b200aca03b37acf74b",
+            "e18845193a042605bc522e8b",
+            "87225caa2fa66143b54173ff",
+            "ceba3a5ca4ef5bbe72a88903",
+            "6f552af5c4d7927dc10a3c5c",
+            "260f1f64752705689e8a98c5",
+            "6272853cc57eddeb28092f7d",
+            "62cc6f394aaed5d60b41dcf6",
+            "b22c732f6c639ace2cd2a8a3",
+            "7dca01a37d162102b89a88e2",
+            "39ad8893cccba3af08760d78",
+            "f4fd239b9c8f4d479b0d9ca5",
+            "0f76bfaeb344ac5d0f154fde",
+            "ae6fc9dd105434aea680a660",
+            "624d98e1d39e83b59e74042c",
+            "7438396f37d8d91c3e733f03",
+            "b780ab0ce048b7ff4a8015c3",
+            "4ddbc74b9e3d9856374ce73d",
+            "3b2fd0ad7dc44aa5ce9bce94",
+            "9d9fc1ad9102ded72414f148",
+            "a8c0e718da31f11fe5928558",
+            "e232df5e52e73d31b93dc575",
+            "93f8482084f03f980b504e0d",
+            "46a00d1daf61329f0def9393",
+            "e2b679a6e6e90cef16006796",
+            "3afebdd4d904a3db10a7dfdb",
+            "13c8538acc9785c48e9248d7",
+            "7f40977d1bd0313303c94502",
+            "aedb98e92ce0372d459cb085",
+            "610306834b200e41211985a2",
+            "4f50e8b8a9b05e0dc37ff95b",
+            "eb2e82dfa54fa8d2ccbb66e0",
+            "37fb853f713f0f2a0059ab08",
+            "70d2b79e87d11ba780eee3bc",
+            "1818b25a712008bd201eb8e2"
+          ],
+          "unmatched_ground_truth_ids": [
+            "extended_openttgames:1273:0",
+            "extended_openttgames:2276:5",
+            "extended_openttgames:2438:7",
+            "extended_openttgames:3527:9",
+            "extended_openttgames:3746:11",
+            "extended_openttgames:4881:13",
+            "extended_openttgames:4991:14",
+            "extended_openttgames:5087:15",
+            "extended_openttgames:6357:31",
+            "extended_openttgames:6687:36",
+            "extended_openttgames:7867:44",
+            "extended_openttgames:8163:49",
+            "extended_openttgames:8430:57",
+            "extended_openttgames:10949:71",
+            "extended_openttgames:11283:75",
+            "extended_openttgames:11655:79",
+            "extended_openttgames:13030:96",
+            "extended_openttgames:13166:98",
+            "extended_openttgames:14528:108",
+            "extended_openttgames:16109:139",
+            "extended_openttgames:16300:141",
+            "extended_openttgames:16393:142",
+            "extended_openttgames:17980:150",
+            "extended_openttgames:18064:155",
+            "extended_openttgames:19196:166",
+            "extended_openttgames:19520:170",
+            "extended_openttgames:22470:189",
+            "extended_openttgames:22752:192",
+            "extended_openttgames:22859:194",
+            "extended_openttgames:23026:201",
+            "extended_openttgames:24617:210",
+            "extended_openttgames:24790:212",
+            "extended_openttgames:30764:256",
+            "extended_openttgames:31113:260",
+            "extended_openttgames:31153:261",
+            "extended_openttgames:32233:275",
+            "extended_openttgames:32328:276",
+            "extended_openttgames:33792:280",
+            "extended_openttgames:34285:284",
+            "extended_openttgames:34411:286",
+            "extended_openttgames:35317:299",
+            "extended_openttgames:35692:303",
+            "extended_openttgames:35797:304",
+            "extended_openttgames:38761:334",
+            "extended_openttgames:41621:350",
+            "extended_openttgames:43249:368",
+            "extended_openttgames:43345:369",
+            "extended_openttgames:44612:381",
+            "extended_openttgames:44874:384",
+            "extended_openttgames:45850:390",
+            "extended_openttgames:48013:408",
+            "extended_openttgames:50057:424",
+            "extended_openttgames:50148:425",
+            "extended_openttgames:50211:426",
+            "extended_openttgames:50299:427",
+            "extended_openttgames:52633:436",
+            "extended_openttgames:57115:463",
+            "extended_openttgames:57360:465",
+            "extended_openttgames:57465:470",
+            "extended_openttgames:57553:473",
+            "extended_openttgames:58190:481",
+            "extended_openttgames:58351:482",
+            "extended_openttgames:58491:483",
+            "extended_openttgames:59056:491",
+            "extended_openttgames:60632:497",
+            "extended_openttgames:60702:500",
+            "extended_openttgames:60878:508",
+            "extended_openttgames:60972:511",
+            "extended_openttgames:62734:520",
+            "extended_openttgames:62923:522"
+          ]
+        }
+      }
+    },
+    "first_pass_status": "CALIBRATION_FIRST_PASS_UNTOUCHED",
+    "first_pass_json_sha256": "48095e3d57ad416a8ce6daf6a8cc0801e4e1d2e5ba42fde21b01189a7281988b"
+  },
+  "official_test": "NOT_ACCESSED",
+  "game_5": "LOCKED_NOT_ACCESSED",
+  "frozen_at": "2026-10-07T18:39:49+00:00",
+  "research_gate": "HIT_EVENT_V0_3_CONFIG_FROZEN",
+  "product_gate": "HIT_EVENT_V0_2_PARTIAL",
+  "decision": {
+    "selected_mode": "D",
+    "calibration_variants_tested": 0,
+    "rationale": "On game_4, D increased precision and F1 while recall decreased only 0.58 percentage points; FP/min and review/min fell. DEV backcheck reproduced the locked game_1-3 results and D improved aggregate precision, recall, and F1 without per-game F1 regression."
+  },
+  "execution_provenance": {
+    "pre_calibration_snapshot_sha256": "33e4199307224faab106502e13c48b2b95481a537041b9ed27763530a1ba009b",
+    "first_pass_source_commit": "6620e79489b7ab79daa63a7cb88efec6d10278a8",
+    "first_pass_sha256": "48095e3d57ad416a8ce6daf6a8cc0801e4e1d2e5ba42fde21b01189a7281988b",
+    "first_pass_artifact_manifest_sha256": "89fb54d43fee1a1eb0381ccddb9f5548bb03a0e1e1e102a8db11b24b057c96b6",
+    "source_verification_sha256": "5770fe74d2bbea080c181dac50d6602aaf7c5174f9263742ed0f78e6b51478a6",
+    "video_sha256": "ddb2bc49915a99db46702825ff322759faa9205c846a1ba902419e38c1e23b39",
+    "annotation_sha256": "9d6a558a1a933341b9c9beabc8561327da928e387d4fe743a492f76627207271",
+    "balltrack_checkpoint_sha256": "00d707b9db7a49561c411e4765956e79bcd7c7e20c7a0a535073440b3e972342",
+    "balltrack_csv_sha256": "173436acf6965f31d48484f7c1d9ea7c2da8ab3f3213aa37d6506ca2a663893b",
+    "scene_manifest_sha256": "67bc35a5a1570d4610e524141030f1c93aa5b2a8516767f12023d4eb9f75276f",
+    "dev_selected_config_file_sha256": "9703ec102f0bf11ff545ee2772ebea16fd708d7e8a52d6693fafe1ceb22ba530",
+    "dev_selected_config_canonical_sha256": "7b3715807699180b1559d28df5a456046c870035c3d3e9e728e6981185f8ef98",
+    "hit_event_v0_2_config_sha256": "c7f739edbd1e86e92fc5d26900925dd4336b250cea326d13684a23bf3befaf7d",
+    "dev_interval_prior_sha256": "d60055544f3200601ade3f30582d03e583914856a3fd2d1ff91a1dc3a0352219",
+    "dev_backcheck_report_sha256": "151443e3c2c14fc9a502d3ec9b4db17d4f20aad957d1258328bb917934789b68"
+  },
+  "limits": {
+    "unknown_player_role_fallback": "NEUTRAL",
+    "pose": "OFF",
+    "dataset_side_mapping": "NOT_REVIEWED; striking-side accuracy unavailable",
+    "game_5": "LOCKED_NOT_ACCESSED",
+    "official_test": "NOT_ACCESSED",
+    "production_database": "NOT_ACCESSED",
+    "commercial_use": false,
+    "product_ready_claim": false
+  }
+}

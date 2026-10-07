@@ -1,5 +1,6 @@
-import json
+import hashlib
 import importlib.util
+import json
 from pathlib import Path
 
 import pytest
@@ -177,3 +178,19 @@ def test_player_runner_counts_frames_with_both_resolved_roles():
     assert frames["NEAR_PLAYER"] == 2
     assert frames["FAR_PLAYER"] == 1
     assert frames["both_near_and_far"] == 1
+
+
+def test_frozen_v03_config_hash_and_holdout_locks():
+    config_path = ROOT.parents[1] / "configs" / "evidence-fusion" / "HIT_EVENT_V0_3_FROZEN_CONFIG.json"
+    record = json.loads(config_path.read_text(encoding="utf-8"))
+    config_sha = calibration.canonical_config_sha256(record["config"])
+    assert record["config_sha256"] == config_sha
+    assert len(record["source_commit"]) == 40
+    assert record["status"] == "FROZEN_FOR_GAME_5_INTERNAL_HOLDOUT"
+    assert record["research_gate"] == "HIT_EVENT_V0_3_CONFIG_FROZEN"
+    assert record["product_gate"] == "HIT_EVENT_V0_2_PARTIAL"
+    assert record["limits"]["game_5"] == "LOCKED_NOT_ACCESSED"
+    assert record["limits"]["official_test"] == "NOT_ACCESSED"
+    assert record["limits"]["production_database"] == "NOT_ACCESSED"
+    sidecar = config_path.with_name(config_path.name + ".sha256").read_text(encoding="ascii")
+    assert sidecar.split()[0] == hashlib.sha256(config_path.read_bytes()).hexdigest()
