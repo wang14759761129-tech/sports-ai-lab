@@ -8,6 +8,7 @@ from __future__ import annotations
 from hashlib import sha256 as _sha256
 import json
 import bisect
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -212,8 +213,44 @@ def save_manifest(path: Path, manifest: dict) -> None:
     raise last_error
 
 
-def run_resumable_chunks(path: Path, execute_chunk, progress=None) -> dict:
+def system_resource_snapshot() -> dict:
+    """Return a small, best-effort system snapshot without importing GPU frameworks."""
+    snapshot = {"available_ram_bytes": None, "process_rss_bytes": None,
+                "gpu": None, "gpu_temperature_c": None, "gpu_memory_used_mib": None,
+                "gpu_memory_free_mib": None, "gpu_utilization_percent": None}
+    try:
+        import psutil
+        snapshot["available_ram_bytes"] = int(psutil.virtual_memory().available)
+        snapshot["process_rss_bytes"] = int(psutil.Process().memory_info().rss)
+    except (ImportError, OSError):
+        if os.name != "nt":
+            try:
+                snapshot["available_ram_bytes"] = int(os.sysconf("SC_AVPHYS_PAGES") *
+                                                       os.sysconf("SC_PAGE_SIZE"))
+            except (AttributeError, OSError, ValueError):
+                pass
+    try:
+        result = subprocess.run(
+            ["nvidia-smi", "--query-gpu=name,temperature.gpu,memory.used,memory.free,utilization.gpu",
+             "--format=csv,noheader,nounits"],
+            check=True, capture_output=True, text=True, timeout=5,
+            **({"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}),
+        )
+        fields = [part.strip() for part in result.stdout.splitlines()[0].split(",")]
+        if len(fields) == 5:
+            snapshot.update(gpu=fields[0], gpu_temperature_c=int(fields[1]),
+                            gpu_memory_used_mib=int(fields[2]), gpu_memory_free_mib=int(fields[3]),
+                            gpu_utilization_percent=int(fields[4]))
+    except (OSError, subprocess.SubprocessError, ValueError, IndexError):
+        pass
+    return snapshot
+
+
+def run_resumable_chunks(path: Path, execute_chunk, progress=None, *,
+                         max_new_chunks: int | None = None, before_chunk=None) -> dict:
     """Run pending/failed chunks and durably checkpoint each transition."""
+    if max_new_chunks is not None and max_new_chunks < 1:
+        raise ValueError("max_new_chunks must be positive")
     manifest = json.loads(Path(path).read_text(encoding="utf-8"))
     resumed = manifest.get("status") in {"PAUSED", "RUNNING"} or any(
         chunk.get("status") == "COMPLETE" for chunk in manifest["chunks"])
@@ -222,13 +259,35 @@ def run_resumable_chunks(path: Path, execute_chunk, progress=None) -> dict:
     if resumed:
         manifest["resume_count"] += 1
     manifest["status"] = "RUNNING"
+    manifest.pop("pause_reason", None)
     save_manifest(path, manifest)
+    completed_this_run = 0
     for chunk in manifest["chunks"]:
         if chunk["status"] == "COMPLETE":
             verify_chunk_artifacts(chunk)
             manifest["cache_hits"] += 1
             save_manifest(path, manifest)
             continue
+        if max_new_chunks is not None and completed_this_run >= max_new_chunks:
+            manifest["status"] = "PAUSED"
+            manifest["pause_reason"] = "BATCH_LIMIT_REACHED"
+            manifest["paused_after_new_chunks"] = completed_this_run
+            save_manifest(path, manifest)
+            if progress:
+                progress(manifest)
+            return manifest
+        if before_chunk is not None:
+            guard = before_chunk(chunk) or {}
+            if guard.get("allowed") is False:
+                manifest["status"] = "PAUSED"
+                manifest["pause_reason"] = guard.get("reason", "PRE_CHUNK_GUARD")
+                manifest["resource_guard_snapshot"] = guard.get("snapshot")
+                save_manifest(path, manifest)
+                if progress:
+                    progress(manifest)
+                return manifest
+            if guard.get("snapshot") is not None:
+                chunk["resource_snapshot_before"] = guard["snapshot"]
         chunk["status"] = "RUNNING"
         chunk["attempt_count"] = chunk.get("attempt_count", 0) + 1
         chunk["resumed"] = chunk["attempt_count"] > 1
@@ -242,6 +301,7 @@ def run_resumable_chunks(path: Path, execute_chunk, progress=None) -> dict:
             chunk["status"] = "COMPLETE"
             chunk["completed_at"] = datetime.now(timezone.utc).isoformat()
             save_manifest(path, manifest)
+            completed_this_run += 1
             if progress:
                 progress(manifest)
         except Exception as exc:
@@ -255,6 +315,7 @@ def run_resumable_chunks(path: Path, execute_chunk, progress=None) -> dict:
             raise
     manifest["status"] = "CHUNKS_COMPLETE"
     manifest.pop("last_error", None)
+    manifest.pop("pause_reason", None)
     save_manifest(path, manifest)
     if progress:
         progress(manifest)

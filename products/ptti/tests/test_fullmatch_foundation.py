@@ -73,6 +73,54 @@ def test_failed_chunk_resumes_at_first_incomplete_chunk(tmp_path):
     assert result["chunks"][1]["attempt_count"] == 2
 
 
+def test_chunk_batch_limit_checkpoints_and_resumes_without_reprocessing(tmp_path):
+    path = tmp_path / "manifest.json"
+    path.write_text(json.dumps({"status": "QUEUED", "chunks": [
+        {"chunk_index": i, "status": "PENDING"} for i in range(3)]}), encoding="utf-8")
+    first_calls = []
+    first = run_resumable_chunks(path,
+        lambda chunk: first_calls.append(chunk["chunk_index"]) or {"observations": []},
+        max_new_chunks=1)
+
+    assert first_calls == [0]
+    assert first["status"] == "PAUSED"
+    assert first["pause_reason"] == "BATCH_LIMIT_REACHED"
+    assert [chunk["status"] for chunk in first["chunks"]] == ["COMPLETE", "PENDING", "PENDING"]
+
+    second_calls = []
+    second = run_resumable_chunks(path,
+        lambda chunk: second_calls.append(chunk["chunk_index"]) or {"observations": []},
+        max_new_chunks=1)
+    assert second_calls == [1]
+    assert [chunk["status"] for chunk in second["chunks"]] == ["COMPLETE", "COMPLETE", "PENDING"]
+
+    third_calls = []
+    final = run_resumable_chunks(path,
+        lambda chunk: third_calls.append(chunk["chunk_index"]) or {"observations": []})
+    assert third_calls == [2]
+    assert final["status"] == "CHUNKS_COMPLETE"
+    # Each resume records the completed chunks it reused: one on resume 2,
+    # then two on resume 3.
+    assert final["cache_hits"] == 3
+
+
+def test_resource_guard_pauses_before_marking_or_running_chunk(tmp_path):
+    path = tmp_path / "manifest.json"
+    path.write_text(json.dumps({"status": "QUEUED", "chunks": [
+        {"chunk_index": 0, "status": "PENDING"}]}), encoding="utf-8")
+    execution_calls = []
+    result = run_resumable_chunks(path,
+        lambda chunk: execution_calls.append(chunk["chunk_index"]) or {},
+        before_chunk=lambda _chunk: {"allowed": False, "reason": "RESOURCE_GUARD_BEFORE_CHUNK",
+                                     "snapshot": {"available_ram_bytes": 512}})
+
+    assert execution_calls == []
+    assert result["status"] == "PAUSED"
+    assert result["pause_reason"] == "RESOURCE_GUARD_BEFORE_CHUNK"
+    assert result["chunks"][0]["status"] == "PENDING"
+    assert result["resource_guard_snapshot"]["available_ram_bytes"] == 512
+
+
 def test_complete_checkpoint_artifact_corruption_fails_closed(tmp_path):
     raw = tmp_path / "raw.json"
     raw.write_text("[]", encoding="utf-8")

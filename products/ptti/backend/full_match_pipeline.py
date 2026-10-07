@@ -19,6 +19,7 @@ from datetime import datetime, timezone
 from backend.fullmatch import (DEFAULT_CHUNK_SECONDS, PROCESSING_VERSION, build_chunks,
                                cache_key, file_sha256, map_chunk_observation,
                                extract_source_frame_timestamps, quality_report, source_identity,
+                               system_resource_snapshot,
                                run_resumable_chunks, save_manifest)
 from vision.config import VisionConfig, RV_COMMIT
 from vision.quality import video_metadata, classify
@@ -29,13 +30,21 @@ def _json_sha(value):
 
 
 class FullMatchService:
-    def __init__(self, repo, data_root, config=None, chunk_seconds=DEFAULT_CHUNK_SECONDS):
+    def __init__(self, repo, data_root, config=None, chunk_seconds=DEFAULT_CHUNK_SECONDS,
+                 min_available_ram_gib=2.0, max_new_chunks_per_run=None):
         self.repo = repo
         self.data_root = Path(data_root).resolve()
         self.config = config or VisionConfig.load()
         self.chunk_seconds = int(chunk_seconds)
         if not 30 <= self.chunk_seconds <= 120:
             raise ValueError("Chunk duration must be between 30 and 120 seconds")
+        self.min_available_ram_gib = float(min_available_ram_gib)
+        if self.min_available_ram_gib < 1.0:
+            raise ValueError("Resource guard must reserve at least 1 GiB of available RAM")
+        if max_new_chunks_per_run is not None and int(max_new_chunks_per_run) < 1:
+            raise ValueError("Chunk batch limit must be positive")
+        self.max_new_chunks_per_run = (None if max_new_chunks_per_run is None
+                                       else int(max_new_chunks_per_run))
         self.root = self.data_root / "full_matches"
         self.root.mkdir(parents=True, exist_ok=True)
         self.lock = threading.Lock()
@@ -240,9 +249,28 @@ class FullMatchService:
                     "chunk_transcode_seconds": transcode_seconds,
                     "worker_wall_seconds": worker_wall_seconds,
                     "decoded_frames": len(raw), "runtime": runtime,
+                    "resource_snapshot_after": system_resource_snapshot(),
                     "completed_at": datetime.now(timezone.utc).isoformat()}
 
         try:
+            initial_resources = system_resource_snapshot()
+            minimum_ram_bytes = int(self.min_available_ram_gib * (1024 ** 3))
+            if (initial_resources.get("available_ram_bytes") is None or
+                    initial_resources["available_ram_bytes"] < minimum_ram_bytes):
+                manifest["status"] = "PAUSED"
+                manifest["pause_reason"] = ("RESOURCE_GUARD_UNAVAILABLE" if
+                    initial_resources.get("available_ram_bytes") is None else
+                    "RESOURCE_GUARD_BEFORE_BACKGROUND")
+                manifest["resource_guard_snapshot"] = initial_resources
+                save_manifest(path, manifest)
+                self.repo.save_full_match_job(match_id, {
+                    "match_id": match_id, "status": "PAUSED", "stage": "可用内存不足，等待继续",
+                    "cache_key": prepared["cache_key"], "manifest_path": str(path),
+                    "completed_chunks": sum(c["status"] == "COMPLETE" for c in manifest["chunks"]),
+                    "total_chunks": len(manifest["chunks"]), "device": device,
+                    "resource_snapshot": initial_resources,
+                })
+                return
             background_path = prepared["run_folder"] / "global_median.npz"
             if not background_path.is_file():
                 background_script = Path(__file__).resolve().parents[1] / "vision_worker" / "background.py"
@@ -256,7 +284,30 @@ class FullMatchService:
                                       "sha256": file_sha256(background_path),
                                       "sampling": json.loads(background_info.read_text(encoding="utf-8"))}
             save_manifest(path, manifest)
-            manifest = run_resumable_chunks(path, execute, persist)
+            def before_chunk(_chunk):
+                snapshot = system_resource_snapshot()
+                available = snapshot.get("available_ram_bytes")
+                return {"allowed": available is not None and available >= minimum_ram_bytes,
+                        "reason": ("RESOURCE_GUARD_UNAVAILABLE" if available is None else
+                                   "RESOURCE_GUARD_BEFORE_CHUNK"),
+                        "snapshot": snapshot}
+
+            manifest = run_resumable_chunks(
+                path, execute, persist, max_new_chunks=self.max_new_chunks_per_run,
+                before_chunk=before_chunk)
+            if manifest.get("status") == "PAUSED":
+                reason = manifest.get("pause_reason", "RESOURCE_GUARD_BEFORE_CHUNK")
+                snapshot = manifest.get("resource_guard_snapshot")
+                self.repo.save_full_match_job(match_id, {
+                    "match_id": match_id, "status": "PAUSED",
+                    "stage": ("可用内存不足，等待继续" if reason.startswith("RESOURCE_GUARD")
+                              else "分块批次已保存，可恢复继续"),
+                    "cache_key": prepared["cache_key"], "manifest_path": str(path),
+                    "completed_chunks": sum(c["status"] == "COMPLETE" for c in manifest["chunks"]),
+                    "total_chunks": len(manifest["chunks"]), "device": device,
+                    "pause_reason": reason, "resource_snapshot": snapshot,
+                })
+                return
             report_job=self.repo.get_full_match_job(match_id) or {}
             report_job.update(status='RUNNING',stage='GENERATING_REPORT')
             self.repo.save_full_match_job(match_id,report_job)
