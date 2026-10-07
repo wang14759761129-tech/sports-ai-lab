@@ -21,6 +21,8 @@ if str(PRODUCT_ROOT) not in sys.path:
 from backend.fullmatch import file_sha256, source_identity
 from scripts.stage_extended_openttgames_train import EXPECTED_BYTES
 
+DEV_RUN_NAMESPACE = "full-dev-v1-compact-path"
+
 
 def resolve_verified_dev_video(game: int, dataset_root: Path, manifest_path: Path | None = None) -> tuple[Path, dict]:
     if game not in {1, 2, 3}:
@@ -73,13 +75,14 @@ def main() -> None:
     from vision.quality import classify, video_metadata
 
     db_path = (Path(tempfile.gettempdir()) /
-               f"ptti-opentt-dev-game-{args.game}-{identity['sha256'][:12]}.db").resolve()
+               f"ptti-opentt-dev-game-{args.game}-{identity['sha256'][:12]}-compact.db").resolve()
     db_path.relative_to(Path(tempfile.gettempdir()).resolve())
     repo = Repository(db_path, guard=ProductionDatabaseGuard("test"))
     registry_path = PRODUCT_ROOT / "data" / "professional" / "registry.json"
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
     repo.seed_professional(registry)
-    match_id = f"research:extended-openttgames:game_{args.game}:{identity['sha256'][:12]}"
+    match_id = (f"research:extended-openttgames:game_{args.game}:"
+                f"{identity['sha256'][:12]}:{DEV_RUN_NAMESPACE}")
     record = repo.get_professional_match(match_id)
     if record is None:
         athletes = registry.get("athletes", [])
@@ -108,7 +111,9 @@ def main() -> None:
     elif record.get("video_metadata", {}).get("sha256") != identity["sha256"]:
         raise ValueError("EXISTING_DEV_MATCH_SOURCE_HASH_MISMATCH")
 
-    data_root = dev_root / "vision-v2-evidence-fusion" / "full-dev-evidence"
+    # Keep this path compact: the packaged Windows host may resolve LocalAppData
+    # through a long AppX alias, and FullMatchService adds hashed subdirectories.
+    data_root = dev_root / "evidence"
     service = FullMatchService(repo, data_root, VisionConfig.load(),
                                chunk_seconds=args.chunk_seconds,
                                min_available_ram_gib=args.min_available_ram_gib,
