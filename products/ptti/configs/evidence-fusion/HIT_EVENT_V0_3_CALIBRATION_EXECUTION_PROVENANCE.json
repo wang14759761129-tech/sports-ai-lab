@@ -1,0 +1,55 @@
+{
+  "schema": "ptti-game4-calibration-first-pass-execution-provenance-v1",
+  "scope": "GAME_4_CALIBRATION_ONLY",
+  "first_pass_artifact_sha256": "48095e3d57ad416a8ce6da6f6a8cc0801e4e1d2e5ba42fde21b01189a7281988b",
+  "reported_source_commit": "6620e79489b7ab79daa63a7cb88efec6d10278a8",
+  "worktree_was_clean_during_player_inference": false,
+  "committed_scripts_at_reported_source_commit": {
+    "runner_at_recorded_commit": {
+      "path": "products/ptti/research/hit-v03/run_calibration_players.py",
+      "git_commit": "6620e79489b7ab79daa63a7cb88efec6d10278a8",
+      "sha256": "3ce4c9cd27b57fa37beaecc308a248b52405ca2d1cee0443f7abfbccf4cebc94"
+    },
+    "evaluator_at_recorded_commit": {
+      "path": "products/ptti/research/hit-v03/evaluate_game4_calibration.py",
+      "git_commit": "6620e79489b7ab79daa63a7cb88efec6d10278a8",
+      "sha256": "8889ff88cf4b17600c89e277e53548411b10aa9d4fbf85269d70652976c3b9d4"
+    }
+  },
+  "player_inference": {
+    "batch_runner_commit": "6620e79489b7ab79daa63a7cb88efec6d10278a8",
+    "batch_runner_sha256": "3ce4c9cd27b57fa37beaecc308a248b52405ca2d1cee0443f7abfbccf4cebc94",
+    "worker_path_fix_was_uncommitted": true,
+    "worker_path_fix": "Changed local checkpoint directory selection from nonexistent rtdetr-r18 to the existing SHA-verified rtdetr-r18vd directory.",
+    "worker_after_fix_path": "C:\\Users\\wang\\OneDrive\\文档\\ChatGPT\\table tennis intelligent\\research-integration\\products\\ptti\\research\\hit-v03\\calibration_player_worker.py",
+    "worker_after_fix_sha256": "fd080869153bdee02b48cde9487f4ad2ef05b5a37b12df4733d859078e2c6160",
+    "model": "PekingU/rtdetr_r18vd",
+    "model_revision": "ac77a11ff0170a41b771c03264987f8ce2b0d753",
+    "model_sha256": "fe87a5a30f5daf298d10794c7682a63b6107986f97d6a770ba948d89e4340093",
+    "config_sha256": "8493be71f51a1c0a741f8f71ec151039227579379de7bcba047c0470d9320c3c",
+    "preprocessor_sha256": "ffb4b9461a1dad746be8f0f9c8330ed7743a1ba5fba4f75c232cd281b3d4c64a",
+    "model_verification": "PASS; architecture RTDetrForObjectDetection; Apache-2.0",
+    "batches": 11,
+    "completed": 11,
+    "failed_batch_retries": 0,
+    "ground_truth_passed_to_worker": false
+  },
+  "post_inference_summary_recovery": {
+    "runner_after_finalizer_fix_path": "C:\\Users\\wang\\OneDrive\\文档\\ChatGPT\\table tennis intelligent\\research-integration\\products\\ptti\\research\\hit-v03\\run_calibration_players.py",
+    "runner_after_finalizer_fix_sha256": "d64a6a92fc6c24ff1a32c44ecbde772561237a74421235cadfc14ab9d0481d96",
+    "code_commit": "a005f6ffd5490ecf2ad7e3100d7fd4a3eb3f3c28",
+    "changes": "Fixed summary provenance reader and explicit both-near-and-far frame count.",
+    "resume_behavior": "Reran orchestration after all 11 model batches existed; request hashes and source identity were verified, results were loaded from cache, and no RT-DETR inference was repeated."
+  },
+  "metric_evaluator": {
+    "path": "products/ptti/research/hit-v03/evaluate_game4_calibration.py",
+    "commit": "6620e79489b7ab79daa63a7cb88efec6d10278a8",
+    "sha256": "8889ff88cf4b17600c89e277e53548411b10aa9d4fbf85269d70652976c3b9d4",
+    "changed_after_first_pass": false
+  },
+  "video_sha256": "ddb2bc49915a99db46702825ff322759faa9205c846a1ba902419e38c1e23b39",
+  "game_5": "NOT_ACCESSED",
+  "official_test": "NOT_ACCESSED",
+  "production_database": "NOT_ACCESSED",
+  "interpretation": "The first-pass metric evaluator and model provenance are reproducible. The recorded commit alone does not represent the worker path patch; this supplement makes that narrow difference explicit. The patch changes artifact location, not RT-DETR model, weights, preprocessing, threshold, or inference logic."
+}

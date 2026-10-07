@@ -192,5 +192,21 @@ def test_frozen_v03_config_hash_and_holdout_locks():
     assert record["limits"]["game_5"] == "LOCKED_NOT_ACCESSED"
     assert record["limits"]["official_test"] == "NOT_ACCESSED"
     assert record["limits"]["production_database"] == "NOT_ACCESSED"
+    provenance_path = (
+        ROOT.parents[1]
+        / "configs"
+        / "evidence-fusion"
+        / "HIT_EVENT_V0_3_CALIBRATION_EXECUTION_PROVENANCE.json"
+    )
+    provenance = record["execution_provenance"]
+    assert provenance["first_pass_execution_provenance_path"].endswith(
+        "HIT_EVENT_V0_3_CALIBRATION_EXECUTION_PROVENANCE.json"
+    )
+    assert hashlib.sha256(provenance_path.read_bytes()).hexdigest() == provenance[
+        "first_pass_execution_provenance_sha256"
+    ]
+    assert provenance["worktree_was_clean_during_player_inference"] is False
+    assert provenance["worker_path_fix_was_uncommitted"] is True
+    assert "cached outputs" in provenance["summary_recovery"]
     sidecar = config_path.with_name(config_path.name + ".sha256").read_text(encoding="ascii")
     assert sidecar.split()[0] == hashlib.sha256(config_path.read_bytes()).hexdigest()
