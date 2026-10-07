@@ -1,0 +1,12 @@
+[
+  {"name":"BALL","type":"any","attributes":[{"name":"visibility","input_type":"select","values":["VISIBLE","PARTIAL","UNKNOWN"],"mutable":true}]},
+  {"name":"BALL_ABSENT","type":"tag","attributes":[]},
+  {"name":"HIT","type":"tag","attributes":[{"name":"player","input_type":"select","values":["NEAR_PLAYER","FAR_PLAYER","UNKNOWN"],"mutable":true},{"name":"review","input_type":"select","values":["SUGGESTED","CONFIRMED","REJECTED"],"mutable":true}]},
+  {"name":"NEAR_PLAYER","type":"rectangle","attributes":[]},
+  {"name":"FAR_PLAYER","type":"rectangle","attributes":[]},
+  {"name":"REFEREE","type":"rectangle","attributes":[]},
+  {"name":"TABLE","type":"rectangle","attributes":[]},
+  {"name":"BOUNCE","type":"tag","attributes":[]},
+  {"name":"NET","type":"tag","attributes":[]},
+  {"name":"RALLY_END","type":"tag","attributes":[]}
+]

@@ -1,0 +1,84 @@
+{
+  "name": "PTTI Vision Benchmark v0",
+  "local_manifest_sha256": "ba008758b5aeaf0bd940653057c65065ca872b2e56a802ee31427970b04a19d8",
+  "metrics_version": "ptti-vision-benchmark-v0.1",
+  "status": "RESEARCH_DEV_BASELINE; NOT_UNTOUCHED_EVALUATION",
+  "local_manifest_path": "C:\\Users\\wang\\AppData\\Local\\PTTI-Dev\\technology-foundation\\benchmark-v0\\PTTI_VISION_BENCHMARK_V0_MANIFEST.json",
+  "clips": [
+    {
+      "id": "tabletennis/match20/001",
+      "split": "TRAIN",
+      "width": 1920,
+      "height": 1080,
+      "fps": 50.0,
+      "frames": 250,
+      "scene_strata": [
+        "UNKNOWN"
+      ],
+      "video_sha256": "00c82b1ed3b684c601df335303608958bd26c0d981a5cf3112e390e36172935b",
+      "annotation_sha256": "46c775eb09f4ee246ec6e37820aaff92cce0815f314288c6885b3fbca3204fe5",
+      "gt_frames": 25
+    },
+    {
+      "id": "tabletennis/match21/002",
+      "split": "TRAIN",
+      "width": 1920,
+      "height": 1080,
+      "fps": 50.0,
+      "frames": 250,
+      "scene_strata": [
+        "UNKNOWN"
+      ],
+      "video_sha256": "6b1e97a038a85f2618c72ed27767d07976b3e71237e2b63d9c9692eb63519033",
+      "annotation_sha256": "bcfdad59e26c270ffdd2d38b7d861cbfaa6c288da2f869cf06fa2662e11fbb42",
+      "gt_frames": 25
+    },
+    {
+      "id": "tabletennis/match22/002",
+      "split": "TRAIN",
+      "width": 1920,
+      "height": 1080,
+      "fps": 60.0,
+      "frames": 300,
+      "scene_strata": [
+        "UNKNOWN"
+      ],
+      "video_sha256": "b1324872adf1981c8485dbbd356e39b26588fe2a93decd226e59f9535b89abfa",
+      "annotation_sha256": "8e5c8a7275dc0b84fa376890af046a1ae0ca8c92dd89ece8415aae9407d856f9",
+      "gt_frames": 25
+    },
+    {
+      "id": "tabletennis/match23/002",
+      "split": "TRAIN",
+      "width": 1920,
+      "height": 1080,
+      "fps": 25.0,
+      "frames": 125,
+      "scene_strata": [
+        "UNKNOWN"
+      ],
+      "video_sha256": "f0c8d4c9be490e8aa103d8d21cf21ff0eafffae840f9d12af100d304bc3bf2b5",
+      "annotation_sha256": "33432992b62b4bf106aaa34776654f0dadd427289cbc2f34ef2aae535ddcf51b",
+      "gt_frames": 25
+    },
+    {
+      "id": "tabletennis/match24/002",
+      "split": "TRAIN",
+      "width": 1920,
+      "height": 1080,
+      "fps": 60.0,
+      "frames": 300,
+      "scene_strata": [
+        "UNKNOWN"
+      ],
+      "video_sha256": "496a32cd7da011a9af0571f1f7f404469503304277b20cda40772b4b435b6c20",
+      "annotation_sha256": "001445d85e4d6d2f45319f1dea1cd012fb273352922fbe9c7431bee87571c6f6",
+      "gt_frames": 25
+    }
+  ],
+  "locked": [
+    "game_4",
+    "game_5",
+    "official_TEST"
+  ]
+}
