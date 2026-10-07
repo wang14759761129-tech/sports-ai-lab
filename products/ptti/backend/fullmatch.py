@@ -223,7 +223,8 @@ def system_resource_snapshot() -> dict:
         snapshot["available_ram_bytes"] = int(psutil.virtual_memory().available)
         snapshot["process_rss_bytes"] = int(psutil.Process().memory_info().rss)
     except (ImportError, OSError):
-        if os.name != "nt":
+        snapshot["available_ram_bytes"] = _windows_available_ram_bytes()
+        if snapshot["available_ram_bytes"] is None and os.name != "nt":
             try:
                 snapshot["available_ram_bytes"] = int(os.sysconf("SC_AVPHYS_PAGES") *
                                                        os.sysconf("SC_PAGE_SIZE"))
@@ -244,6 +245,39 @@ def system_resource_snapshot() -> dict:
     except (OSError, subprocess.SubprocessError, ValueError, IndexError):
         pass
     return snapshot
+
+
+def _windows_available_ram_bytes() -> int | None:
+    """Read Windows available physical memory using the OS API when psutil is absent."""
+    if os.name != "nt":
+        return None
+    try:
+        import ctypes
+        from ctypes import wintypes
+
+        class MemoryStatusEx(ctypes.Structure):
+            _fields_ = [
+                ("dwLength", wintypes.DWORD),
+                ("dwMemoryLoad", wintypes.DWORD),
+                ("ullTotalPhys", ctypes.c_ulonglong),
+                ("ullAvailPhys", ctypes.c_ulonglong),
+                ("ullTotalPageFile", ctypes.c_ulonglong),
+                ("ullAvailPageFile", ctypes.c_ulonglong),
+                ("ullTotalVirtual", ctypes.c_ulonglong),
+                ("ullAvailVirtual", ctypes.c_ulonglong),
+                ("ullAvailExtendedVirtual", ctypes.c_ulonglong),
+            ]
+
+        status = MemoryStatusEx()
+        status.dwLength = ctypes.sizeof(status)
+        api = ctypes.WinDLL("kernel32", use_last_error=True).GlobalMemoryStatusEx
+        api.argtypes = [ctypes.POINTER(MemoryStatusEx)]
+        api.restype = wintypes.BOOL
+        if api(ctypes.byref(status)):
+            return int(status.ullAvailPhys)
+    except (AttributeError, ImportError, OSError, TypeError):
+        return None
+    return None
 
 
 def run_resumable_chunks(path: Path, execute_chunk, progress=None, *,

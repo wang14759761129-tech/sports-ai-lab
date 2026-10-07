@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 import subprocess
+import sys
 
 import pytest
 from fastapi.testclient import TestClient
@@ -8,7 +9,8 @@ from fastapi.testclient import TestClient
 from backend.main import create_app
 from backend.fullmatch import (TimelineAction, apply_timeline_action, build_chunks,
                                cache_key, map_chunk_observation, merge_chunk_observations,
-                               run_resumable_chunks, source_identity, extract_source_frame_timestamps)
+                               run_resumable_chunks, source_identity, extract_source_frame_timestamps,
+                               system_resource_snapshot)
 from backend.full_match_pipeline import refresh_timeline_summary
 
 
@@ -119,6 +121,22 @@ def test_resource_guard_pauses_before_marking_or_running_chunk(tmp_path):
     assert result["pause_reason"] == "RESOURCE_GUARD_BEFORE_CHUNK"
     assert result["chunks"][0]["status"] == "PENDING"
     assert result["resource_guard_snapshot"]["available_ram_bytes"] == 512
+
+
+def test_resource_snapshot_uses_windows_ram_fallback_without_psutil(monkeypatch):
+    import backend.fullmatch as fullmatch
+
+    def unavailable_nvidia_smi(*_args, **_kwargs):
+        raise FileNotFoundError("nvidia-smi unavailable")
+
+    monkeypatch.setitem(sys.modules, "psutil", None)
+    monkeypatch.setattr(fullmatch, "_windows_available_ram_bytes", lambda: 3 * 1024 ** 3)
+    monkeypatch.setattr(fullmatch.subprocess, "run", unavailable_nvidia_smi)
+
+    snapshot = system_resource_snapshot()
+
+    assert snapshot["available_ram_bytes"] == 3 * 1024 ** 3
+    assert snapshot["gpu_memory_free_mib"] is None
 
 
 def test_complete_checkpoint_artifact_corruption_fails_closed(tmp_path):
