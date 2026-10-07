@@ -112,6 +112,16 @@ def test_player_coverage_keeps_unknown_roles_neutral_and_reports_table_coverage(
     assert summary["table_geometry"]["inside_bbox_count"] == 1
 
 
+def test_calibration_metric_summary_uses_predicted_count_from_primary_tolerance():
+    metrics = {"by_tolerance": {"plus_minus_2_processing_frames": {
+        "predicted": 4, "matched": 3, "false_positives": 1, "false_negatives": 2,
+        "precision": 0.75, "recall": 0.6, "f1": 2 * 0.75 * 0.6 / 1.35,
+    }}}
+    summary = evaluator._metric_summary(metrics, 60.0)
+    assert summary["review_candidates_per_minute"] == 4.0
+    assert summary["fp_per_minute"] == 1.0
+
+
 def test_game4_table_box_uses_only_frozen_game4_manifest_rows(tmp_path, monkeypatch):
     manifest = {"frame_results": [
         {"game": "game_4", "detections": [

@@ -45,7 +45,7 @@ def _metric_summary(value: dict, duration_s: float) -> dict:
             "precision": two["precision"], "recall": two["recall"], "f1": two["f1"],
             "fp_per_minute": fp * 60.0 / duration_s,
             "fn_per_minute": fn * 60.0 / duration_s,
-            "review_candidates": int(value["predicted"]),
+            "review_candidates": int(two["predicted"]),
             "review_candidates_per_minute": workload["candidates_per_minute"],
             "estimated_review_minutes_per_45_minute_match":
                 workload["estimated_review_minutes_per_45_minute_match"],
