@@ -123,9 +123,10 @@ def prepare(source_path: Path) -> dict:
                     "person_distance_penalty": 0.12, "distance_scale": 0.12}:
         raise ValueError("DEV_SELECTED_D_CONFIG_CONTENT_CHANGED")
 
+    # Generate the frozen model candidates before opening annotation content.
+    pipeline = build_hit_event_pipeline(frames, config, prior)
     annotations = _read(annotation_path)
     truth = adapt_training_strokes(annotations, timeline, fps=fps, side_mapping=None)
-    pipeline = build_hit_event_pipeline(frames, config, prior)
     points = {}
     by_source = {int(frame["source_frame"]): frame for frame in frames}
     for candidate in pipeline["raw_candidates"]:
