@@ -6,11 +6,11 @@ Full problem/current solution/before-after/benefit/cost/risk cards: `../research
 
 | Tool | Ring | Decision | Evidence / purpose |
 |---|---|---|---|
-| Supervision | TRIAL | B_BENCHMARK | Isolated overlay experiment; main architecture unchanged |
-| RF-DETR | TRIAL | B_BENCHMARK | Pretrained Nano comparison only; no training or replacement |
-| CVAT | TRIAL | C_LATER | Task labels/frame maps/XML adapter ready; actual UI task blocked by absent Docker |
-| uv | ADOPT | A_NOW | New Supervision worker uv lock + repeated locked sync verified; legacy envs unchanged |
-| Ruff | ADOPT | A_NOW | Minimal E4/E7/E9/F config; new research code checked; legacy issues report only |
+| Supervision | TRIAL | B_BENCHMARK | Measured real overlay: 10 vs 10 adapter LOC, identical pixels, 0.025s vs 0.062s/240 frames; no proven code-saving benefit |
+| RF-DETR | HOLD | E_REJECT | Measured pretrained Nano: 9/115 localized (7.83%), 6 FP on 125 sparse frames; NO_VALUE for replacement; no training |
+| CVAT | TRIAL | C_LATER | 8 local tasks, 125 native-GT XML round-trip rows; Docker/service/UI/100-event timing NOT VERIFIED |
+| uv | ADOPT | A_NOW | Fresh isolated lock rebuild reproduced all 26 package versions; Python 3.12.14 vs auto-selected 3.12.15 recorded; legacy envs unchanged |
+| Ruff | ADOPT | A_NOW | New research scope lint passes; legacy scan 513 findings report-only; no automatic repository rewrite |
 | ONNX Runtime | ADOPT | A_NOW | Keep existing worker; no migration required |
 | Windows ML | ASSESS | C_LATER | Assessment only; test supported Windows/EP/device before delivery decision |
 | DuckDB | ASSESS | C_LATER | Assess Parquet analytical layer only when query/RAM measurements show a need |

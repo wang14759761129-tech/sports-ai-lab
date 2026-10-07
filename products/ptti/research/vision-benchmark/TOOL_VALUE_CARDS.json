@@ -8,13 +8,13 @@
       "current_problem_severity": "MEDIUM",
       "current_solution": "Custom OpenCV/PIL overlay scripts",
       "before": "Custom schema conversions and drawing",
-      "after": "Isolated overlay experiment; main architecture unchanged",
+      "after": "Measured real overlay: 10 vs 10 adapter LOC, identical pixels, 0.025s vs 0.062s/240 frames; no proven code-saving benefit",
       "benefits": {
         "accuracy": 0,
-        "dev_efficiency": 6,
-        "UX": 3,
+        "dev_efficiency": 1,
+        "UX": 0,
         "stability": 3,
-        "maintainability": 6,
+        "maintainability": 2,
         "extensibility": 5
       },
       "cost": {
@@ -49,13 +49,13 @@
       "current_problem_severity": "BOTTLENECK",
       "current_solution": "Frozen Official BallTrack RAW",
       "before": "Sparse ball benchmark exists; full event FP is not ball FP",
-      "after": "Pretrained Nano comparison only; no training or replacement",
+      "after": "Measured pretrained Nano: 9/115 localized (7.83%), 6 FP on 125 sparse frames; NO_VALUE for replacement; no training",
       "benefits": {
-        "accuracy": 3,
-        "dev_efficiency": 1,
-        "UX": 2,
+        "accuracy": 0,
+        "dev_efficiency": 0,
+        "UX": 0,
         "stability": 2,
-        "maintainability": 3,
+        "maintainability": 1,
         "extensibility": 4
       },
       "cost": {
@@ -77,9 +77,9 @@
         "API_stability": "Pinned version; regression test adapter on upgrade",
         "commercial_use": "Checkpoint/dataset rights separately required; no research data in builds"
       },
-      "decision": "B_BENCHMARK",
-      "radar": "TRIAL",
-      "evidence_status": "Scores are engineering judgments 0-10, not measured improvement; see experiment reports for actual results",
+      "decision": "E_REJECT",
+      "radar": "HOLD",
+      "evidence_status": "MEASURED_KNOWN_TRAIN_SPARSE_BENCHMARK; scores remain judgments; not a rejection of all future trained RF-DETR",
       "sources": [
         "https://github.com/roboflow/rf-detr"
       ]
@@ -90,7 +90,7 @@
       "current_problem_severity": "BOTTLENECK",
       "current_solution": "CSV labels and local manual review JSON",
       "before": "No dense ball truth on full DEV videos",
-      "after": "Task labels/frame maps/XML adapter ready; actual UI task blocked by absent Docker",
+      "after": "8 local tasks, 125 native-GT XML round-trip rows; Docker/service/UI/100-event timing NOT VERIFIED",
       "benefits": {
         "accuracy": 8,
         "dev_efficiency": 7,
@@ -131,7 +131,7 @@
       "current_problem_severity": "MEDIUM",
       "current_solution": "venv + pip requirements",
       "before": "Several validated environments with separate requirements",
-      "after": "New Supervision worker uv lock + repeated locked sync verified; legacy envs unchanged",
+      "after": "Fresh isolated lock rebuild reproduced all 26 package versions; Python 3.12.14 vs auto-selected 3.12.15 recorded; legacy envs unchanged",
       "benefits": {
         "accuracy": 0,
         "dev_efficiency": 8,
@@ -172,7 +172,7 @@
       "current_problem_severity": "MEDIUM",
       "current_solution": "pytest and manual review",
       "before": "No uniform new-research lint gate",
-      "after": "Minimal E4/E7/E9/F config; new research code checked; legacy issues report only",
+      "after": "New research scope lint passes; legacy scan 513 findings report-only; no automatic repository rewrite",
       "benefits": {
         "accuracy": 0,
         "dev_efficiency": 7,
@@ -235,7 +235,7 @@
         "Python": "Pin runtime; never migrate validated workers in this experiment",
         "dependencies": "Research environment only; no desktop dependency",
         "license": "MIT runtime; pose weights license unresolved",
-        "weights_license": "NO_MODEL_WEIGHTS",
+        "weights_license": "NO_ORT_WEIGHTS; current Halpe26 pose checkpoint rights remain UNKNOWN",
         "VRAM": "NO_GPU_REQUIREMENT",
         "project_health": "Official release/source checked 2026-10-07; future health not predicted",
         "API_stability": "Pinned version; regression test adapter on upgrade",
