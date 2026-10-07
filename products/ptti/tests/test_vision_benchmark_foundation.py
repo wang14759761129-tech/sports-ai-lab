@@ -77,7 +77,8 @@ def test_manifest_integrity_and_locked_split(tmp_path):
     asset = tmp_path / "qa.txt"
     asset.write_text("engineering QA")
     record = {"path": str(asset), "sha256": file_sha256(asset)}
-    manifest = {"metrics_version": METRICS_VERSION, "clips": [{"id": "qa", "split": "DEV", "scene_strata": ["UNKNOWN"], "video": record, "annotation": record}]}
+    manifest = {"metrics_version": METRICS_VERSION, "clips": [{"id": "qa", "split": "DEV", "scene_strata": ["UNKNOWN"], "video": record, "annotation": record,
+                "canonical_labels": str(asset), "canonical_labels_sha256": record["sha256"]}]}
     verify_manifest(manifest)
     manifest["clips"][0]["split"] = "TEST"
     with pytest.raises(ValueError, match="LOCKED_SPLIT"):
@@ -149,3 +150,23 @@ def test_ranking_refuses_different_data_or_metrics():
     with pytest.raises(ValueError, match="INCOMPARABLE"):
         rank_models([result, other])
     assert rank_models([result])[0]["scope"] == "DESCRIPTIVE_SAME_DEV_DATA_ONLY"
+
+
+def test_timestamp_alignment_is_checked_before_scoring():
+    with pytest.raises(ValueError, match="TIMESTAMP_ALIGNMENT"):
+        evaluate_ball([row(10)], [{"source_frame": 10, "timestamp_ms": 0, "visible": True,
+                                  "x": 10, "y": 10}], 300, 300, 100)
+
+
+def test_derived_labels_tampering_is_rejected(tmp_path):
+    asset, labels = tmp_path/"video", tmp_path/"labels.json"
+    asset.write_text("QA")
+    labels.write_text("original")
+    record = {"path": str(asset), "sha256": file_sha256(asset)}
+    manifest = {"metrics_version": METRICS_VERSION, "clips": [{"id": "qa", "split": "DEV",
+                "scene_strata": ["UNKNOWN"], "video": record, "annotation": record,
+                "canonical_labels": str(labels), "canonical_labels_sha256": file_sha256(labels)}]}
+    verify_manifest(manifest)
+    labels.write_text("edited")
+    with pytest.raises(ValueError, match="DERIVED_BENCHMARK"):
+        verify_manifest(manifest)

@@ -85,6 +85,13 @@ def verify_manifest(manifest: dict) -> None:
             asset = clip[field]
             if file_sha256(Path(asset["path"])) != asset["sha256"]:
                 raise ValueError("BENCHMARK_ASSET_CHANGED")
+        for field in ("canonical_labels", "racketvision_raw"):
+            if field not in clip:
+                if field == "canonical_labels":
+                    raise ValueError("CANONICAL_LABELS_HASH_REQUIRED")
+                continue
+            if file_sha256(Path(clip[field])) != clip.get(field + "_sha256"):
+                raise ValueError("DERIVED_BENCHMARK_ASSET_CHANGED")
 
 
 def percentile(values: Sequence[float], p: float) -> float | None:
@@ -147,6 +154,9 @@ def evaluate_ball(observations: Sequence[FrameObservation], labels: Sequence[dic
     errors, normalized = [], []
     for row in reviewed:
         detections = predictions.get(row["source_frame"])
+        if detections is not None and row.get("timestamp_ms") is not None:
+            if abs(detections.timestamp_ms - float(row["timestamp_ms"])) > .05:
+                raise ValueError("CANONICAL_TIMESTAMP_ALIGNMENT_FAILURE")
         detections = detections.detections if detections else ()
         if row["visible"]:
             visible += 1
