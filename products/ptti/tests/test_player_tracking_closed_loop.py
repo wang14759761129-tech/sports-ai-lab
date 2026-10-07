@@ -13,6 +13,7 @@ from backend.player_tracking_closed_loop import (
     atomic_json,
     closed_loop_root,
     create_closed_loop_job,
+    _player_tracking_config_path,
     _player_tracking_validation_manifest,
     load_job_progress,
     queue_reacquisition,
@@ -23,6 +24,15 @@ from backend.player_tracking_closed_loop import (
 
 
 RIGHTS = "CC BY-NC-SA 4.0 research/non-commercial"
+
+
+def test_tracking_config_uses_external_preview_root_when_packaged(tmp_path, monkeypatch):
+    external_root = tmp_path / "product-source"
+    expected = external_root / "configs" / "vision" / "PLAYER_TRACKING_V1_CANDIDATE.json"
+    expected.parent.mkdir(parents=True)
+    expected.write_text('{"locked":true}', encoding="utf-8")
+    monkeypatch.setenv("PTTI_VISION_HOME", str(external_root))
+    assert _player_tracking_config_path() == expected
 
 
 def test_atomic_json_uses_unique_temporary_files_for_concurrent_progress_writes(tmp_path):

@@ -62,7 +62,7 @@ _MODULES = (
     _ModuleSpec("rtdetr-person", "RT-DETR R18 · 人物识别", "EXPERIMENTAL", "Apache-2.0 model card; pinned safetensors", "ac77a11ff0170a41b771c03264987f8ce2b0d753", "existing isolated Transformers worker", True, "真实开发与新增比赛帧已推理；复杂画面角色分配仍需人工审核。"),
     _ModuleSpec("scoreboard-module", "记分牌模块", "NOT_IMPLEMENTED", "TTI module boundary only", None, "future isolated ROI/OCR worker", False, "从场景检测 Gate 中拆出；当前没有记分牌检测或 OCR。", True),
     _ModuleSpec("video-segmenter", "SAM 2.1 Small · 球员持续追踪", "EXPERIMENTAL", "Apache-2.0 code and checkpoints", "SAM 2.1 Hiera Small · pinned", "isolated vision-v2-sam2 worker", True, "锁定配置已在多段真实研究视频运行；人物裁切与长遮挡会丢失，桌面种子确认和真实切镜恢复仍未验证。"),
-    _ModuleSpec("player-pose", "RTMPose / MMPose", "EXPERIMENTAL", "Apache-2.0 code; per-checkpoint terms required", None, "isolated vision-v2 worker", True, "尚未安装姿态模型或检查点。"),
+    _ModuleSpec("player-pose", "RTMPose · 人体动作", "EXPERIMENTAL", "Apache-2.0 code; checkpoint terms unknown", "RTMPose-m Halpe26 · rtmlib 0.0.10", "isolated vision-v2-rtmpose worker", True, "只处理通过追踪质量门的窗口；当前姿态是 2D 观察，不用于判断技术动作。"),
     _ModuleSpec("scoreboard-ocr", "PaddleOCR", "EXPERIMENTAL", "Apache-2.0 code; per-model terms required", None, "isolated CPU/GPU worker", True, "尚未安装；比分只能作为候选观测。"),
     _ModuleSpec("scene-classifier", "MMAction2 场景分类", "RESEARCH_ONLY", "Apache-2.0 code; per-checkpoint terms required", None, "isolated research worker", True, "未安装；当前镜头变化不等于 PLAY / NON-PLAY 分类。"),
     _ModuleSpec("co-tracker", "CoTracker", "RESEARCH_ONLY", "CC-BY-NC majority; separate component terms apply", None, "isolated research worker", True, "非商业研究用途；默认关闭。", True),

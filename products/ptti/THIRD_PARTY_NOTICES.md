@@ -44,3 +44,14 @@ SOFTWARE.
 - Attribution and license terms must accompany any permitted redistribution or adaptation. Do not use this material for commercial purposes.
 - Staged local files are kept under `%LOCALAPPDATA%\PTTI-Dev\research-datasets\ExtendedOpenTTGames`; no video or annotation file is tracked by this repository.
 - Dataset metadata declares `commercial_use: false`.
+
+## RTMPose / RTMLib Player Motion v0.1
+
+- RTMLib repository: https://github.com/Tau-J/rtmlib
+- Pinned code revision: `cc359b924ec441b3563fb71f8cd012e576b8d262` (release `0.0.10`); code license: Apache-2.0.
+- Purpose: run cropped-person 2D keypoint estimation on quality-gated Near/Far tracking windows. RT-DETR remains the only person detector in this path.
+- Model source: official RTMLib RTMPose-m Halpe26 ONNX SDK archive; archive SHA256 `55b81170e236040b59fc792ad0a8315301ac4c079a3bdb1095d838aad3088d18`; extracted ONNX SHA256 `26f3a19e61304a600dfb82d1001d41d24343b89fc70a33ffc84657e0b0bf2ecf`.
+- The model archive describes an RTMPose-m SimCC Halpe26 model at 192×256 input resolution. The standalone checkpoint license was not found during this task; treat the checkpoint as research-only, keep it outside Git and all product packages, and do not redistribute it.
+- Isolated runtime: ONNX Runtime GPU `1.26.0`, NumPy `2.5.3`, OpenCV headless `5.0.0.93`, RTMLib `0.0.10`. CUDA DLLs are resolved from the existing isolated SAM2 PyTorch runtime; no packages are installed into the desktop, BallTrack, or SAM2 environments.
+- Dataset boundary: all current pose validation uses Extended OpenTTGames official training clips only, CC BY-NC-SA 4.0, non-commercial research. No dataset video or annotation is bundled or committed.
+- Source references: [RTMLib Apache-2.0 license](https://github.com/Tau-J/rtmlib/blob/cc359b924ec441b3563fb71f8cd012e576b8d262/LICENSE) · [RTMLib model zoo](https://github.com/Tau-J/rtmlib/blob/cc359b924ec441b3563fb71f8cd012e576b8d262/README.md) · [MMPose Halpe26 keypoint schema](https://github.com/open-mmlab/mmpose/blob/main/configs/_base_/datasets/halpe26.py).

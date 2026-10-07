@@ -54,8 +54,9 @@ def _manifest(localappdata: str | Path | None = None) -> dict[str, Any]:
 
 
 def _player_tracking_config_path() -> Path:
-    return (Path(__file__).resolve().parents[1] / "configs" / "vision"
-            / "PLAYER_TRACKING_V1_CANDIDATE.json")
+    configured_root = os.environ.get("PTTI_VISION_HOME")
+    root = Path(configured_root).resolve() if configured_root else Path(__file__).resolve().parents[1]
+    return root / "configs" / "vision" / "PLAYER_TRACKING_V1_CANDIDATE.json"
 
 
 def _player_tracking_validation_manifest(localappdata: str | Path | None = None) -> dict[str, Any] | None:

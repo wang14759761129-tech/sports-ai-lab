@@ -31,9 +31,16 @@ from backend.player_tracking_closed_loop import (
     seed_detection_dir, seed_review_asset,
 )
 from backend.anchor_guided_tracker import validate_mask_conflict_review
+from backend.player_motion import (TRACKING_JOB_ID, load_tracking_evidence, player_motion_job_root,
+                                   player_motion_root, tracking_job_path)
+from backend.tracking_validation_workbench import (list_tracking_window_reviews,
+                                                   record_tracking_window_review)
+from backend.player_motion_api import router as player_motion_api_router
 
 _CLOSED_LOOP_PROCESS_LOCK = __import__('threading').RLock()
 _CLOSED_LOOP_PROCESSES = {}
+_PLAYER_MOTION_PROCESS_LOCK = __import__('threading').RLock()
+_PLAYER_MOTION_PROCESSES = {}
 
 
 def closed_loop_worker_paths():
@@ -61,6 +68,16 @@ def anchor_guided_worker_paths():
     if not script.is_file() or not python.is_file():
         raise HTTPException(503, '锚点追踪 worker 或隔离 GPU 运行环境不可用。')
     return product_root, script, python
+
+
+def player_motion_worker_paths():
+    product_root = _worker_product_root()
+    script = product_root/'vision_worker'/'player_motion_rtmpose.py'
+    runtime = player_motion_root()/'venv'/'Scripts'/'python.exe'
+    model = player_motion_root()/'models'/'rtmpose-m-halpe26.onnx'
+    if not script.is_file() or not runtime.is_file() or not model.is_file():
+        raise HTTPException(503, '隔离姿态运行环境或模型权重尚未准备好。')
+    return product_root, script, runtime
 
 
 def _worker_product_root():
@@ -149,8 +166,18 @@ class PlayerTrackingOutOfFrameReviewRequest(BaseModel):
     role: str
     confirm_out_of_frame: bool
 
+class PlayerMotionReviewRequest(BaseModel):
+    tracking_job_id: str
+    start_frame: int = Field(ge=0)
+    end_frame: int = Field(gt=0)
+    role: Literal['NEAR_PLAYER', 'FAR_PLAYER']
+    visibility: Literal['VISIBLE', 'PARTIAL', 'OUT_OF_FRAME', 'UNKNOWN']
+    identity: Literal['NEAR_PLAYER', 'FAR_PLAYER', 'UNCERTAIN']
+    track_quality: Literal['GOOD', 'BAD', 'UNKNOWN']
+
 def router(repo=None, data_root=None):
     api = APIRouter(prefix='/api/vision')
+    api.include_router(player_motion_api_router())
     config=VisionConfig.load()
     if data_root is not None:
         vision_root=Path(data_root)/'vision'
@@ -821,6 +848,18 @@ def router(repo=None, data_root=None):
         sam2_runtime=sam2_root/'venv'/'Scripts'/'python.exe'
         sam2_checkpoint=sam2_root/'checkpoints'/'sam2.1_hiera_small.pt'
         sam2_result=sam2_player_tracking_root()/'tracking.json'
+        pose_root=player_motion_root(os.environ.get('LOCALAPPDATA'))
+        pose_runtime=pose_root/'venv'/'Scripts'/'python.exe'
+        pose_model=pose_root/'models'/'rtmpose-m-halpe26.onnx'
+        pose_runtime_info={}
+        try: pose_runtime_info=json.loads((pose_root/'runtime.json').read_text(encoding='utf-8'))
+        except (OSError,ValueError,TypeError): pass
+        pose_sessions=pose_runtime_info.get('session_providers') or []
+        pose_cuda_ready=bool(pose_runtime.is_file() and pose_runtime_info.get('cuda_provider_available')
+                             and (pose_runtime_info.get('cuda_session_verified') or any(
+                                 'CUDAExecutionProvider' in row for row in pose_sessions if isinstance(row,list))))
+        pose_model_ready=bool(pose_model.is_file() and pose_model.stat().st_size==55685444
+                              and pose_runtime_info.get('onnx_sha256')=='26f3a19e61304a600dfb82d1001d41d24343b89fc70a33ffc84657e0b0bf2ecf')
         scene_integrated=scene_result.is_file()
         scene_manifest=scene_root/'scene_bootstrap_eval_manifest.json'
         scene_dependencies=scene_runtime.is_file()
@@ -843,7 +882,7 @@ def router(repo=None, data_root=None):
                 sam2_runtime.is_file(),
                 sam2_checkpoint.is_file() and sam2_checkpoint.stat().st_size==184416285,
                 integrated=sam2_result.is_file()),
-            'player-pose':ModuleAvailability(installed.get('mmpose',False) and installed.get('mmcv',False),False),
+            'player-pose':ModuleAvailability(pose_cuda_ready,pose_model_ready,integrated=True),
             'scoreboard-ocr':ModuleAvailability(installed.get('paddleocr',False) and installed.get('paddle',False),False),
             'scene-classifier':ModuleAvailability(installed.get('mmaction',False),False),
             'co-tracker':ModuleAvailability(installed.get('cotracker',False),False),
