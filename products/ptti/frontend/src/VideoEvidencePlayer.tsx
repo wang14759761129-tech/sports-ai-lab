@@ -2,6 +2,7 @@ import {useCallback,useEffect,useRef,useState} from 'react';
 import {Card,Empty,Modal,PageHeader} from './ui';
 import HitCandidateReviewQueue from './HitCandidateReviewQueue';
 import {canReviewCandidate,canDeleteEvidence} from './reviewQueueRequests';
+import {requestedLibraryVideo} from './libraryPlayback';
 import './video-evidence.css';
 
 type Video={video_id:string;title:string;original_path:string;duration_ms:number;fps:number;width:number;height:number;file_size:number;hash_status:string;source_sha256:string|null;availability_status:string;match_id:string|null;athlete_ids:string[]};
@@ -20,9 +21,10 @@ const clock=(ms:number)=>{const s=Math.max(0,ms)/1000;return `${String(Math.floo
 const initial={start_ms:0,end_ms:1000,tags:'',notes:'',event_type:'KEY_CLIP',review_status:'CONFIRMED'};
 const aiStatuses=[['UNVERIFIED','AI 待复核'],['CONFIRMED','人工已确认'],['REJECTED','已否决'],['FILTERED','算法已过滤']];
 
-export default function VideoEvidencePlayer(){
+export default function VideoEvidencePlayer({initialVideoId=''}:{initialVideoId?:string}){
+ const appliedVideo=useRef('');
  const [videos,setVideos]=useState<Video[]>([]),[clips,setClips]=useState<Clip[]>([]),[collections,setCollections]=useState<Collection[]>([]),[points,setPoints]=useState<Point[]>([]);
- const [videoId,setVideoId]=useState(''),[selected,setSelected]=useState<Clip|null>(null),[draft,setDraft]=useState(initial);
+ const [videoId,setVideoId]=useState(initialVideoId),[selected,setSelected]=useState<Clip|null>(null),[draft,setDraft]=useState(initial);
  const [filterVideo,setFilterVideo]=useState(''),[tag,setTag]=useState(''),[search,setSearch]=useState(''),[collection,setCollection]=useState('');
  const [checked,setChecked]=useState<string[]>([]),[collectionName,setCollectionName]=useState('');
  const [current,setCurrent]=useState(0),[jump,setJump]=useState(''),[speed,setSpeed]=useState(1),[context,setContext]=useState(2);
@@ -48,6 +50,7 @@ export default function VideoEvidencePlayer(){
  async function work(fn:()=>Promise<void>):Promise<boolean>{if(workPending.current)return false;workPending.current=true;setBusy(true);setError('');try{await fn();return true}catch(e){setError((e as Error).message);return false}finally{workPending.current=false;setBusy(false)}}
  function seek(ms:number,play=false){const v=videoRef.current;if(!v)return;if(v.readyState<1){pending.current={ms,play};return}pending.current=null;v.currentTime=Math.max(0,Math.min(ms/1000,v.duration||Infinity));if(play)v.play().catch(()=>setNotice('点击播放即可继续'))}
  function selectVideo(v:Video){previewEndMs.current=null;boundaryBusy.current=false;setRangePlayback(false);videoRef.current?.pause();setPlaylistMode(false);setSelected(null);setVideoId(v.video_id);setDraft({...initial,end_ms:Math.min(v.duration_ms,5000)});setCurrent(0);setError('');setPointStart(0);setPointEnd(Math.min(v.duration_ms,1000));pending.current={ms:0,play:false}}
+ useEffect(()=>{const v=requestedLibraryVideo(videos,initialVideoId,appliedVideo.current);if(v){appliedVideo.current=initialVideoId;selectVideo(v)}},[initialVideoId,videos]);
  function openClip(c:Clip,play=false){previewEndMs.current=null;boundaryBusy.current=false;setRangePlayback(true);const v=videos.find(v=>v.video_id===c.video_id);if(!v)return;setSelected(c);setDraft({start_ms:c.start_ms,end_ms:c.end_ms,tags:c.tags.join('，'),notes:c.notes,event_type:c.event_type,review_status:c.review_status});setReviewStamp(c.representative_ms);setReviewSide(c.reviewer_side||c.suggested_side||'UNKNOWN');const start=Math.max(0,c.start_ms-context*1000);pending.current={ms:start,play};setVideoId(c.video_id);if(v.availability_status!=='AVAILABLE'){videoRef.current?.pause();setPlaylistMode(false);setError('原视频暂时离线或内容改变，请重新关联后播放');return}if(videoId===c.video_id&&videoRef.current?.readyState){pending.current=null;seek(start,play)}}
  const openRef=useRef(openClip);openRef.current=openClip;
  function enforcePlaybackBoundary(){const v=videoRef.current,s=playback.current;if(!v||v.paused||boundaryBusy.current)return;const explicitEnd=previewEndMs.current;const end=explicitEnd??(s.selected&&s.rangePlayback?Math.min(s.active?.duration_ms||Infinity,s.selected.end_ms+s.context*1000):null);if(end==null||v.currentTime*1000<end-35)return;boundaryBusy.current=true;previewEndMs.current=null;v.pause();if(explicitEnd!=null){setRangePlayback(false);setPlaylistMode(false);setNotice('前后 0.5 秒预览结束');boundaryBusy.current=false;return}if(s.loopClip&&s.selected){seek(Math.max(0,s.selected.start_ms-s.context*1000),true);boundaryBusy.current=false}else if(s.playlistMode&&s.selected){const index=s.playlist.findIndex(c=>c.evidence_id===s.selected?.evidence_id);const next=s.playlist[index+1]||(s.loopPlaylist?s.playlist[0]:null);if(next)openRef.current(next,true);else{setPlaylistMode(false);setNotice('播放列表已看完');boundaryBusy.current=false}}else{setNotice('片段播放完成');boundaryBusy.current=false}}

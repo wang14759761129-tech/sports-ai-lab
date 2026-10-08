@@ -7,14 +7,22 @@ import {pathToFileURL} from 'node:url';
 
 const folder=mkdtempSync(join(tmpdir(),'ptti-review-queue-'));
 try{
- const compilation=spawnSync(process.execPath,['node_modules/typescript/bin/tsc','src/reviewQueueRequests.ts',
+ const compilation=spawnSync(process.execPath,['node_modules/typescript/bin/tsc','src/reviewQueueRequests.ts','src/libraryPlayback.ts',
    '--target','ES2022','--module','ES2022','--strict','--skipLibCheck','--outDir',folder],{encoding:'utf8'});
  assert.equal(compilation.status,0,compilation.stdout+compilation.stderr);
  writeFileSync(join(folder,'package.json'),'{"type":"module"}');
  const {ReviewQueueRequests,nextCandidateAfterReview,shouldHandleReviewShortcut,canReviewCandidate,canDeleteEvidence}=await import(pathToFileURL(join(folder,'reviewQueueRequests.js')));
+ const {requestedLibraryVideo}=await import(pathToFileURL(join(folder,'libraryPlayback.js')));
  const deferred=()=>{let resolve;const promise=new Promise(r=>resolve=r);return {promise,resolve}};
  let count=0;
  const check=async(name,fn)=>{await fn();count++;console.log(`PASS ${name}`)};
+ await check('library deep link waits for data and never resets a chosen video after reload',()=>{
+  assert.equal(requestedLibraryVideo([], 'A', ''), null);
+  const videos=[{video_id:'A'},{video_id:'B'}];
+  assert.equal(requestedLibraryVideo(videos,'A',''),videos[0]);
+  assert.equal(requestedLibraryVideo(videos,'A','A'),null);
+  assert.equal(requestedLibraryVideo(videos,'B','A'),videos[1]);
+ });
  await check('switching video discards old response',async()=>{
   const requests=new ReviewQueueRequests(),old=deferred();const applied=[];
   requests.setScope('video-A');const first=requests.load('video-A',()=>old.promise,value=>applied.push(value),assert.fail,()=>{});

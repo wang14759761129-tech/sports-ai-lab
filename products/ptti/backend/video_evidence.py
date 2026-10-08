@@ -1174,4 +1174,7 @@ def evidence_router(repo, mode):
             "SAVE_PLAYLIST",
         )
 
+    if store:
+        from backend.match_library import library_router
+        router.include_router(library_router(store))
     return router
