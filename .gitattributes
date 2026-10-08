@@ -1,3 +1,8 @@
 # Preserve the exact bytes of the locked Hit Event v0.2 split on Windows.
 products/ptti/configs/evidence-fusion/HIT_EVENT_V0_2_SPLIT.json text eol=lf
 products/ptti/configs/evidence-fusion/HIT_EVENT_V0_2_SPLIT.json.sha256 text eol=lf
+products/ptti/configs/evidence-fusion/HIT_EVENT_V0_3_FROZEN_CONFIG.json text eol=lf
+products/ptti/configs/evidence-fusion/HIT_EVENT_V0_3_FROZEN_CONFIG.json.sha256 text eol=lf
+products/ptti/configs/evidence-fusion/HIT_EVENT_V0_3_CALIBRATION_EXECUTION_PROVENANCE.json text eol=lf
+products/ptti/configs/evidence-fusion/HIT_EVENT_V0_2_DRAFT_CONFIG.json text eol=lf
+products/ptti/configs/evidence-fusion/HIT_EVENT_V0_2_DEV_PRIORS.json text eol=lf

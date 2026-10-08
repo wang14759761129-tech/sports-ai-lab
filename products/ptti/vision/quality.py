@@ -24,7 +24,7 @@ def video_metadata(path):
     if not path.is_file():
         raise ValueError('视频文件不存在')
     result = subprocess.run(['ffprobe', '-v', 'error', '-show_streams', '-show_format',
-                             '-of', 'json', str(path)], capture_output=True, text=True,
+                             '-of', 'json', str(path)], capture_output=True, text=True, encoding='utf-8',
                             timeout=60, check=True, creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
     data = json.loads(result.stdout)
     stream = next((s for s in data['streams'] if s['codec_type'] == 'video'), None)
