@@ -9,7 +9,7 @@ Local Video → Manual Evidence → Clip Playlist → Replay → Persistent Know
 | ALREADY_WORKS | pywebview / WebView2, local FastAPI server bound to 127.0.0.1, HTML video, registered-match video endpoint, manual Game/Point/Rally timeline, existing Hit candidate evidence UI |
 | NEEDS_EXTENSION | Source-independent clip library, source identity, local-file relink, playlists, manual review records |
 | MISSING → ADDED | Independent Video ID + Evidence ID + Collection ID, tags/notes/search, ordered cross-source playback, durable evidence audit |
-| BROKEN → FIXED | FFprobe used the Windows locale to decode UTF-8 JSON containing a Chinese filename; metadata probe now explicitly uses UTF-8 |
+| BROKEN → FIXED | FFprobe locale decoding broke Chinese paths; explicit UTF-8 fixes it. Buffered media could retain old Windows file handles; cancellable streaming and player teardown release them |
 
 The implementation extends the existing HTML video / loopback FastAPI / guarded SQLite stack. It does not install a second player framework or a GPU runtime.
 
@@ -17,7 +17,7 @@ The implementation extends the existing HTML video / loopback FastAPI / guarded 
 
 - Register a **reference** to the original authorized local file. No full-video copy or full decode at import.
 - Probe metadata; calculate SHA256 in a single background worker using 1 MiB blocks. Playback is available before hashing finishes.
-- Media requests contain a registered Video ID, never a user-provided file path. GET/HEAD and byte Range/206 use the existing Starlette FileResponse implementation.
+- Media requests contain a registered Video ID, never a user-provided file path. GET/HEAD and single-byte Range/206 use bounded 64 KiB streaming within the existing loopback service. Disconnect or page exit closes the file handle; full videos are not loaded into RAM. Multipart ranges are explicitly refused with 416.
 - Verify size, mtime, and file identity before serving. Missing sources retain their evidence. Relink requires matching size and full SHA256, not just a filename.
 - New SQLite tables are additive: `evidence_videos`, `video_evidence`, `evidence_collections`, `evidence_audit`. Existing match tables are preserved.
 - The new store rejects Production mode before opening any database connection. Preview uses `%LOCALAPPDATA%/PTTI-Dev/VideoEvidencePreview/matches.db`; QA can use an explicit OS-temp database.

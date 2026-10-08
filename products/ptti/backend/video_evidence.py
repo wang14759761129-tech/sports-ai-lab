@@ -3,6 +3,8 @@
 import hashlib
 import json
 import math
+import mimetypes
+import re
 import subprocess
 import threading
 import uuid
@@ -13,8 +15,9 @@ from pathlib import Path
 from typing import Literal
 from urllib.parse import urlsplit
 
+import anyio
 from fastapi import APIRouter, Depends, HTTPException, Request
-from fastapi.responses import FileResponse
+from fastapi.responses import Response, StreamingResponse
 from pydantic import BaseModel, Field
 
 from vision.quality import video_metadata
@@ -410,7 +413,7 @@ def evidence_router(repo, mode):
             raise HTTPException(400, str(exc)) from exc
 
     @router.api_route("/videos/{video_id}/media", methods=["GET", "HEAD"])
-    def media(video_id: str):
+    def media(video_id: str, request: Request):
         row = store.availability(store.get("evidence_videos", "video_id", video_id))
         if row["availability_status"] != "AVAILABLE":
             raise HTTPException(
@@ -420,11 +423,64 @@ def evidence_router(repo, mode):
                     "message": "视频暂时离线或内容改变，请重新关联原文件",
                 },
             )
-        return FileResponse(
-            row["original_path"],
-            media_type="video/mp4"
-            if Path(row["original_path"]).suffix.lower() == ".mp4"
-            else None,
+        size = row["file_size"]
+        start, end, status = 0, size - 1, 200
+        requested = request.headers.get("range")
+        if requested:
+            match = re.fullmatch(r"bytes=(\d*)-(\d*)", requested.strip())
+            if not match or not any(match.groups()):
+                return Response(
+                    status_code=416, headers={"Content-Range": f"bytes */{size}"}
+                )
+            left, right = match.groups()
+            if left:
+                start = int(left)
+                end = min(int(right), size - 1) if right else size - 1
+            else:
+                start = max(0, size - int(right))
+            if (
+                start >= size
+                or start > end
+                or not size
+                or (not left and int(right) == 0)
+            ):
+                return Response(
+                    status_code=416, headers={"Content-Range": f"bytes */{size}"}
+                )
+            status = 206
+        headers = {
+            "Accept-Ranges": "bytes",
+            "Content-Length": str(end - start + 1),
+            "Cache-Control": "private, no-store",
+            "Content-Disposition": "inline",
+        }
+        if status == 206:
+            headers["Content-Range"] = f"bytes {start}-{end}/{size}"
+        if row.get("source_sha256"):
+            headers["ETag"] = '"' + row["source_sha256"] + '"'
+        content_type = (
+            mimetypes.guess_type(row["original_path"])[0] or "application/octet-stream"
+        )
+        if request.method == "HEAD":
+            return Response(
+                status_code=status, headers=headers, media_type=content_type
+            )
+
+        async def stream():
+            async with await anyio.open_file(row["original_path"], "rb") as source:
+                await source.seek(start)
+                remaining = end - start + 1
+                while remaining > 0:
+                    if await request.is_disconnected():
+                        break
+                    block = await source.read(min(64 * 1024, remaining))
+                    if not block:
+                        break
+                    remaining -= len(block)
+                    yield block
+
+        return StreamingResponse(
+            stream(), status_code=status, headers=headers, media_type=content_type
         )
 
     @router.get("/evidence")

@@ -35,6 +35,7 @@ export default function VideoEvidencePlayer(){
  async function refresh(){const [v,e,c]=await Promise.all([api('/videos'),api('/evidence'),api('/collections')]);setVideos(v);setClips(e);setCollections(c);return {v,e,c}}
  useEffect(()=>{refresh().catch(e=>setError(e.message));fetch('/api/professional-matches').then(r=>r.json()).then(setMatches).catch(()=>{});fetch('/api/players').then(r=>r.json()).then(setAthletes).catch(()=>{})},[]);
  useEffect(()=>{if(!videos.some(v=>v.hash_status==='PENDING'))return;const timer=setInterval(()=>api('/videos').then(setVideos).catch(()=>{}),3000);return()=>clearInterval(timer)},[videos]);
+ useEffect(()=>{const v=videoRef.current;return()=>{if(v){v.pause();v.removeAttribute('src');v.load()}}},[Boolean(active),active?.availability_status]);
  async function work(fn:()=>Promise<void>){setBusy(true);setError('');try{await fn()}catch(e){setError((e as Error).message)}finally{setBusy(false)}}
  function seek(ms:number,play=false){const v=videoRef.current;if(!v)return;if(v.readyState<1){pending.current={ms,play};return}pending.current=null;v.currentTime=Math.max(0,Math.min(ms/1000,v.duration||Infinity));if(play)v.play().catch(()=>setNotice('点击播放即可继续'));}
  function selectVideo(v:Video){setRangePlayback(false);videoRef.current?.pause();setPlaylistMode(false);setSelected(null);setVideoId(v.video_id);setDraft({...initial,end_ms:Math.min(v.duration_ms,5000)});setCurrent(0);setError('');pending.current={ms:0,play:false};}
