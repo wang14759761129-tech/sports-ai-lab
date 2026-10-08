@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -13,7 +14,8 @@ NAME = "PTTI-Video-Evidence-AI-Bridge-Preview"
 
 def main():
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-    target = ROOT / "build" / f"video-evidence-ai-bridge-{commit[:10]}"
+    build_root = Path(os.environ.get("PTTI_PREVIEW_BUILD_ROOT", ROOT / "build")).resolve()
+    target = build_root / f"video-evidence-ai-bridge-{commit[:10]}"
     target.mkdir(parents=True, exist_ok=True)
     info = {
         "version": "0.2-video-evidence-ai-bridge-preview",
