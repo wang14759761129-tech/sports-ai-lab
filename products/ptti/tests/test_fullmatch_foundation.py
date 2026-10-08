@@ -179,6 +179,28 @@ def test_resource_snapshot_uses_windows_ram_fallback_without_psutil(monkeypatch)
 
     assert snapshot["available_ram_bytes"] == 3 * 1024 ** 3
     assert snapshot["gpu_memory_free_mib"] is None
+    assert snapshot["process_metrics_status"] == "PHYSICAL_RAM_ONLY_FALLBACK"
+
+
+def test_resource_snapshot_measures_owned_python_child_without_model_inference(monkeypatch):
+    import backend.fullmatch as fullmatch
+
+    def no_gpu_query(*_args, **_kwargs):
+        raise FileNotFoundError("No GPU query required for this engineering test")
+
+    monkeypatch.setattr(fullmatch.subprocess, "run", no_gpu_query)
+    child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(15)"],
+                             creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    try:
+        snapshot = fullmatch.system_resource_snapshot(child.pid)
+        assert snapshot["process_metrics_status"] == "AVAILABLE"
+        assert snapshot["monitored_process_status"] == "AVAILABLE"
+        assert snapshot["monitored_process_count"] >= 1
+        assert snapshot["monitored_process_rss_bytes"] > 0
+        assert snapshot["total_ram_bytes"] >= snapshot["available_ram_bytes"] > 0
+    finally:
+        child.terminate()
+        child.wait(timeout=5)
 
 
 def test_validation_records_final_manifest_hash(tmp_path):

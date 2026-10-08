@@ -225,6 +225,8 @@ def system_resource_snapshot(process_pid: int | None = None) -> dict:
                 "total_ram_bytes": None, "process_uss_bytes": None,
                 "monitored_process_rss_bytes": None, "monitored_process_uss_bytes": None,
                 "monitored_process_count": 0,
+                "process_metrics_status": "UNAVAILABLE",
+                "monitored_process_status": "NOT_REQUESTED",
                 "gpu": None, "gpu_temperature_c": None, "gpu_memory_used_mib": None,
                 "gpu_memory_free_mib": None, "gpu_utilization_percent": None}
     try:
@@ -234,6 +236,7 @@ def system_resource_snapshot(process_pid: int | None = None) -> dict:
         snapshot["total_ram_bytes"] = int(memory.total)
         own = psutil.Process()
         snapshot["process_rss_bytes"] = int(own.memory_info().rss)
+        snapshot["process_metrics_status"] = "AVAILABLE"
         try:
             snapshot["process_uss_bytes"] = int(getattr(own.memory_full_info(), "uss", 0)) or None
         except (psutil.Error, OSError):
@@ -247,9 +250,12 @@ def system_resource_snapshot(process_pid: int | None = None) -> dict:
                 snapshot["monitored_process_rss_bytes"] = sum(item.memory_info().rss for item in tree)
                 uss_values = [getattr(item.memory_full_info(), "uss", 0) for item in tree]
                 snapshot["monitored_process_uss_bytes"] = sum(uss_values) or None
+                snapshot["monitored_process_status"] = "AVAILABLE"
             except (psutil.NoSuchProcess, psutil.AccessDenied, OSError):
                 snapshot["monitored_process_count"] = 0
+                snapshot["monitored_process_status"] = "EXITED_OR_INACCESSIBLE"
     except (ImportError, OSError):
+        snapshot["process_metrics_status"] = "PHYSICAL_RAM_ONLY_FALLBACK"
         snapshot["available_ram_bytes"] = _windows_available_ram_bytes()
         if snapshot["available_ram_bytes"] is None and os.name != "nt":
             try:
