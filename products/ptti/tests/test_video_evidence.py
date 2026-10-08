@@ -305,6 +305,93 @@ def _wait_batch(store, batch_id):
     raise AssertionError("AI package import did not finish")
 
 
+def _audit_candidate(library, tmp_path, monkeypatch, disposition="ACCEPTED"):
+    store, _, video, _ = library
+    _allow_local_video_for_package_test(monkeypatch, video)
+    package = tmp_path / "audit-candidate.jsonl"
+    _write_ai_package(package, video["source_sha256"], {
+        "event_id": "audit-hit", "event_type": "HIT_CANDIDATE", "ablation": "D",
+        "timestamp_ms": 5000, "source_frame": 600, "candidate_player": "UNKNOWN"})
+    lines = package.read_text(encoding="utf-8").splitlines()
+    record = json.loads(lines[1])
+    record["disposition"] = disposition
+    lines[1] = json.dumps(record)
+    package.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    _wait_batch(store, store.start_ai_import(video["video_id"], str(package))["batch_id"])
+    return store.ai_suggestions(video["video_id"], None, 0, 10)["items"][0]
+
+
+def test_filtered_ai_cannot_be_promoted_or_edited_through_manual_api(library, tmp_path, monkeypatch):
+    store, _, video, _ = library
+    candidate = _audit_candidate(library, tmp_path, monkeypatch, "FILTERED")
+    with pytest.raises(ValueError, match="过滤"):
+        store.review_ai(candidate["evidence_id"], AIReviewInput(decision="CONFIRMED"))
+    with pytest.raises(ValueError, match="复核"):
+        store.evidence(EvidenceInput(video_id=video["video_id"], start_ms=4500, end_ms=5501),
+                       candidate["evidence_id"])
+    assert store.get("video_evidence", "evidence_id", candidate["evidence_id"]) == {
+        key: value for key, value in candidate.items() if key != "review_flags"}
+
+
+def test_ai_raw_record_cannot_be_deleted(library, tmp_path, monkeypatch):
+    store, repo, _, _ = library
+    candidate = _audit_candidate(library, tmp_path, monkeypatch)
+    app = FastAPI()
+    app.include_router(evidence_router(repo, "test"))
+    with TestClient(app) as client:
+        response = client.delete(f"/api/video-evidence/evidence/{candidate['evidence_id']}")
+    assert response.status_code == 400
+    assert store.get("video_evidence", "evidence_id", candidate["evidence_id"])["raw_candidate"]
+
+
+def test_identical_review_retry_does_not_duplicate_audit(library, tmp_path, monkeypatch):
+    store, repo, _, _ = library
+    candidate = _audit_candidate(library, tmp_path, monkeypatch)
+    request = AIReviewInput(decision="CONFIRMED", reviewer_side="UNKNOWN", notes="人工确认")
+    first = store.review_ai(candidate["evidence_id"], request)
+    second = store.review_ai(candidate["evidence_id"], request)
+    assert first == second
+    assert len(second["review_history"]) == 1
+    with repo.connect() as db:
+        assert db.execute("SELECT COUNT(*) FROM evidence_audit WHERE entity_id=? AND action='AI_HUMAN_REVIEW'",
+                          (candidate["evidence_id"],)).fetchone()[0] == 1
+
+
+def test_concurrent_reviews_preserve_each_prior_decision(library, tmp_path, monkeypatch):
+    from concurrent.futures import ThreadPoolExecutor
+    from threading import Barrier
+
+    store, _, _, _ = library
+    candidate = _audit_candidate(library, tmp_path, monkeypatch)
+    barrier = Barrier(2)
+
+    def review(decision):
+        barrier.wait()
+        return store.review_ai(candidate["evidence_id"], AIReviewInput(decision=decision))
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        results = list(pool.map(review, ["CONFIRMED", "REJECTED"]))
+    final = store.get("video_evidence", "evidence_id", candidate["evidence_id"])
+    assert len(final["review_history"]) == 2
+    assert {entry["decision"] for entry in final["review_history"]} == {"CONFIRMED", "REJECTED"}
+    assert len(results) == 2
+    assert final["review_history"][1]["before"]["review_status"] == final["review_history"][0]["decision"]
+
+
+def test_audit_write_failure_rolls_back_ai_review(library, tmp_path, monkeypatch):
+    import sqlite3
+
+    store, repo, _, _ = library
+    candidate = _audit_candidate(library, tmp_path, monkeypatch)
+    before = store.get("video_evidence", "evidence_id", candidate["evidence_id"])
+    with repo.connect() as db:
+        db.execute("CREATE TRIGGER fail_review_audit BEFORE INSERT ON evidence_audit "
+                   "WHEN NEW.action='AI_HUMAN_REVIEW' BEGIN SELECT RAISE(ABORT, 'QA audit failure'); END")
+    with pytest.raises(sqlite3.IntegrityError, match="QA audit failure"):
+        store.review_ai(candidate["evidence_id"], AIReviewInput(decision="CONFIRMED"))
+    assert store.get("video_evidence", "evidence_id", candidate["evidence_id"]) == before
+
+
 def test_frozen_ai_package_import_checks_sha_timebase_and_preserves_unknown(library, tmp_path, monkeypatch):
     store, _, video, _ = library
     _allow_local_video_for_package_test(monkeypatch, video)

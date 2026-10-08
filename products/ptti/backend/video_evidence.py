@@ -393,6 +393,8 @@ class EvidenceStore:
         )
         if old and old["video_id"] != value.video_id:
             raise ValueError("已有证据不能改绑另一视频")
+        if old and old.get("source") == "AI_SUGGESTION":
+            raise ValueError("AI 候选必须通过专用复核操作修改，保留原始证据与修正历史")
         source = old["source"] if old else "MANUAL_CONFIRMED"
         if source in {"AI_SUGGESTED", "AI_REVIEWED"}:
             source = (
@@ -737,10 +739,25 @@ class EvidenceStore:
         }
 
     def review_ai(self, evidence_id, value):
-        old = self.get("video_evidence", "evidence_id", evidence_id)
+        # Lock before reading: two reviewers must append to the same latest
+        # history, and a failed audit INSERT must roll back the state change.
+        with self.repo.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            stored = db.execute("SELECT payload FROM video_evidence WHERE evidence_id=?", (evidence_id,)).fetchone()
+            if stored is None:
+                raise HTTPException(404, "记录不存在")
+            old = json.loads(stored[0])
+            return self._review_ai_in_transaction(db, old, value)
+
+    def _review_ai_in_transaction(self, db, old, value):
         if old.get("source") != "AI_SUGGESTION":
             raise ValueError("只有 AI 建议可以使用此复核操作")
-        video = self.get("evidence_videos", "video_id", old["video_id"])
+        if old.get("disposition") == "FILTERED" or old.get("review_status") == "FILTERED":
+            raise ValueError("算法已过滤记录仅供审计，不能提升为已确认候选；需要时请另建人工标记")
+        video_row = db.execute("SELECT payload FROM evidence_videos WHERE video_id=?", (old["video_id"],)).fetchone()
+        if video_row is None:
+            raise HTTPException(404, "视频记录不存在")
+        video = json.loads(video_row[0])
         representative = value.representative_ms if value.representative_ms is not None else old["representative_ms"]
         start = value.start_ms if value.start_ms is not None else old["start_ms"]
         end = value.end_ms if value.end_ms is not None else old["end_ms"]
@@ -750,12 +767,25 @@ class EvidenceStore:
             tags = list(dict.fromkeys(tag.strip() for tag in value.tags if tag.strip()))
         else:
             tags = list(old["tags"])
+        if any(len(tag) > 100 for tag in tags):
+            raise ValueError("标签最长 100 字")
         decision = value.decision
-        change = {"reviewer_decision": decision, "reviewed_at": utc_now(), "reviewer_side": value.reviewer_side or old.get("reviewer_side") or old.get("suggested_side", "UNKNOWN"), "review_status": decision, "representative_ms": representative, "start_ms": start, "end_ms": end, "tags": tags, "notes": value.notes if value.notes is not None else old.get("notes", "")}
+        change = {"reviewer_decision": decision, "reviewer_side": value.reviewer_side or old.get("reviewer_side") or old.get("suggested_side", "UNKNOWN"), "review_status": decision, "representative_ms": representative, "start_ms": start, "end_ms": end, "tags": tags, "notes": value.notes if value.notes is not None else old.get("notes", "")}
+        if all(old.get(key) == value for key, value in change.items()):
+            return old
+        recorded_at = utc_now()
+        change["reviewed_at"] = recorded_at
         history = list(old.get("review_history", []))
-        history.append({"at": utc_now(), "decision": decision, "before": {"representative_ms": old["representative_ms"], "start_ms": old["start_ms"], "end_ms": old["end_ms"], "reviewer_side": old.get("reviewer_side")}, "after": {"representative_ms": representative, "start_ms": start, "end_ms": end, "reviewer_side": change["reviewer_side"]}})
-        row = {**old, **change, "review_history": history, "updated_at": utc_now()}
-        return self.save("video_evidence", "evidence_id", row, "AI_HUMAN_REVIEW")
+        fields = ("review_status", "representative_ms", "start_ms", "end_ms", "reviewer_side", "tags", "notes")
+        history.append({"at": recorded_at, "decision": decision,
+                        "before": {key: old.get(key) for key in fields},
+                        "after": {key: change.get(key) for key in fields}})
+        row = {**old, **change, "review_history": history, "updated_at": recorded_at}
+        payload = json.dumps(row, ensure_ascii=False)
+        db.execute("UPDATE video_evidence SET payload=? WHERE evidence_id=?", (payload, old["evidence_id"]))
+        db.execute("INSERT INTO evidence_audit VALUES (?,?,?,?,?)",
+                   (str(uuid.uuid4()), old["evidence_id"], "AI_HUMAN_REVIEW", recorded_at, payload))
+        return row
 
     def points(self, video_id=None):
         rows = self.list("evidence_points")
@@ -1067,6 +1097,8 @@ def evidence_router(repo, mode):
     @router.delete("/evidence/{evidence_id}")
     def delete_evidence(evidence_id: str):
         row = store.get("video_evidence", "evidence_id", evidence_id)
+        if row.get("source") == "AI_SUGGESTION":
+            raise HTTPException(400, "原始 AI 候选不能删除；请通过复核操作否决，保留证据历史")
         with repo.connect() as db:
             db.execute("DELETE FROM video_evidence WHERE evidence_id=?", (evidence_id,))
             db.execute(
