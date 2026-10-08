@@ -1110,7 +1110,7 @@ def evidence_router(repo, mode):
     @router.delete("/evidence/{evidence_id}")
     def delete_evidence(evidence_id: str):
         row = store.get("video_evidence", "evidence_id", evidence_id)
-        if row.get("source") == "AI_SUGGESTION":
+        if str(row.get("source", "")).startswith("AI_") or "raw_candidate" in row:
             raise HTTPException(400, "原始 AI 候选不能删除；请通过复核操作否决，保留证据历史")
         with repo.connect() as db:
             db.execute("DELETE FROM video_evidence WHERE evidence_id=?", (evidence_id,))

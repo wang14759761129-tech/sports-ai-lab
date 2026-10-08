@@ -333,9 +333,14 @@ def test_filtered_ai_cannot_be_promoted_or_edited_through_manual_api(library, tm
         key: value for key, value in candidate.items() if key != "review_flags"}
 
 
-def test_ai_raw_record_cannot_be_deleted(library, tmp_path, monkeypatch):
-    store, repo, _, _ = library
-    candidate = _audit_candidate(library, tmp_path, monkeypatch)
+@pytest.mark.parametrize("legacy", [False, True])
+def test_ai_raw_record_cannot_be_deleted(library, tmp_path, monkeypatch, legacy):
+    store, repo, video, _ = library
+    if legacy:
+        candidate = store.import_ai_candidate(video["video_id"], {
+            "event_id": "legacy-hit", "video_sha256": video["source_sha256"], "timestamp_ms": 5000})
+    else:
+        candidate = _audit_candidate(library, tmp_path, monkeypatch)
     app = FastAPI()
     app.include_router(evidence_router(repo, "test"))
     with TestClient(app) as client:
