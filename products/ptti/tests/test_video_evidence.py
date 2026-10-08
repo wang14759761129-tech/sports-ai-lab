@@ -380,6 +380,91 @@ def test_filtered_candidates_remain_queryable_and_collection_keeps_order(library
     assert result["counts"]["FILTERED"] == 1 and result["items"][0]["disposition"] == "FILTERED"
 
 
+def test_ai_suggestion_attention_filter_prioritizes_only_explicit_review_evidence(library, tmp_path, monkeypatch):
+    store, _, video, _ = library
+    _allow_local_video_for_package_test(monkeypatch, video)
+    base = {"event_type": "HIT_CANDIDATE", "ablation": "D", "candidate_player": "NEAR",
+            "ball_quality": "SUPPORTED", "identity_status": "CONFIDENT"}
+    rows = [
+        ("ordinary", 1000, "ACCEPTED", {**base, "event_id": "ordinary-hit"}),
+        ("review", 2000, "REVIEW", {**base, "event_id": "review-hit", "sequence_review_required": True}),
+        ("gap", 3000, "ACCEPTED", {**base, "event_id": "gap-hit", "ball_quality": "JUMP_SUSPECT"}),
+        ("filtered", 4000, "FILTERED", {**base, "event_id": "filtered-hit"}),
+    ]
+    package = tmp_path / "attention.jsonl"
+    manifest = {"schema": "ptti-ai-evidence-package-v1", "dataset": "Extended OpenTTGames",
+                "dataset_license": "CC BY-NC-SA 4.0", "commercial_use": False, "split": "train",
+                "match_reference": "Extended OpenTTGames TRAIN game_1",
+                "source_video_sha256": video["source_sha256"],
+                "result_sha256": video_evidence_module.TRAIN_RESULT_SHA["1"],
+                "hit_event_version": "v0.3", "variant": "D", "model_version": "Frozen D",
+                "frozen_config_sha256": "7b3715807699180b1559d28df5a456046c870035c3d3e9e728e6981185f8ef98",
+                "frozen_config_file_sha256": "fb42c70ab44bb4b919242e6c14de493507fb5aa17ac4a203c6a9e870a1c047f3",
+                "timestamp_mapping": {"kind": "CANONICAL_SOURCE_TIMESTAMP_MS", "source_fps": 120.0,
+                                      "timebase": "1/120", "frame_field": "source_frame",
+                                      "timestamp_field": "timestamp_ms"},
+                "counts": {"total": len(rows), "accepted": 2, "review": 1, "filtered": 1}}
+    lines = [json.dumps({"kind": "manifest", "manifest": manifest})]
+    for _name, timestamp, disposition, candidate in rows:
+        candidate = {**candidate, "timestamp_ms": timestamp, "source_frame": int(timestamp * .12)}
+        lines.append(json.dumps({"kind": "candidate", "disposition": disposition,
+                                 "candidate": candidate}))
+    package.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    batch = _wait_batch(store, store.start_ai_import(video["video_id"], str(package))["batch_id"])
+    assert batch["status"] == "COMPLETED"
+    all_rows = store.ai_suggestions(video["video_id"], "UNVERIFIED", 0, 20)
+    assert all_rows["counts"]["FILTERED"] == 1
+    needs_review = store.ai_suggestions(video["video_id"], "UNVERIFIED", 0, 20,
+                                        attention="NEEDS_REVIEW")
+    assert [row["raw_candidate"]["event_id"] for row in needs_review["items"]] == ["review-hit", "gap-hit"]
+    evidence_gaps = store.ai_suggestions(video["video_id"], "UNVERIFIED", 0, 20,
+                                         attention="EVIDENCE_GAP")
+    assert [row["raw_candidate"]["event_id"] for row in evidence_gaps["items"]] == ["gap-hit"]
+
+
+def test_video_evidence_exports_keep_ai_review_history_and_filtered_state_separate(library, tmp_path, monkeypatch):
+    store, repo, video, _ = library
+    _allow_local_video_for_package_test(monkeypatch, video)
+    candidate = {"event_id": "export-hit", "event_type": "HIT_CANDIDATE", "ablation": "D",
+                 "timestamp_ms": 5000.0, "source_frame": 600, "candidate_player": "UNKNOWN",
+                 "evidence_score": 0.61, "ball_quality": "SUPPORTED"}
+    package = tmp_path / "export.jsonl"
+    _write_ai_package(package, video["source_sha256"], candidate,
+                      counts={"accepted": 1, "review": 0, "filtered": 1, "total": 2})
+    rows = package.read_text(encoding="utf-8").splitlines()
+    filtered = {**candidate, "event_id": "export-filtered", "timestamp_ms": 6000.0,
+                "source_frame": 720, "candidate_player": "NEAR"}
+    rows.append(json.dumps({"kind": "candidate", "disposition": "FILTERED", "candidate": filtered}))
+    package.write_text("\n".join(rows) + "\n", encoding="utf-8")
+    batch = _wait_batch(store, store.start_ai_import(video["video_id"], str(package))["batch_id"])
+    assert batch["status"] == "COMPLETED"
+    suggestion = store.ai_suggestions(video["video_id"], "UNVERIFIED", 0, 10)["items"][0]
+    store.review_ai(suggestion["evidence_id"], AIReviewInput(
+        decision="CONFIRMED", representative_ms=5010, start_ms=4510, end_ms=5510,
+        reviewer_side="UNKNOWN", tags=["关键分"], notes="确认用于复盘"))
+    app = FastAPI()
+    app.include_router(evidence_router(repo, "test"))
+    with TestClient(app) as client:
+        json_response = client.get(f"/api/video-evidence/videos/{video['video_id']}/export?format=json")
+        csv_response = client.get(f"/api/video-evidence/videos/{video['video_id']}/export?format=csv")
+        html_response = client.get(f"/api/video-evidence/videos/{video['video_id']}/export?format=html")
+    assert json_response.status_code == csv_response.status_code == html_response.status_code == 200
+    payload = json_response.json()
+    statuses = {row["raw_candidate"]["event_id"]: row["review_status"] for row in payload["events"]}
+    assert statuses == {"export-hit": "CONFIRMED", "export-filtered": "FILTERED"}
+    confirmed = next(row for row in payload["events"] if row["raw_candidate"]["event_id"] == "export-hit")
+    assert confirmed["raw_candidate"]["timestamp_ms"] == 5000.0
+    assert confirmed["review_history"][-1]["after"]["representative_ms"] == 5010
+    assert confirmed["review_status"] != "MANUAL_CONFIRMED"
+    assert "FILTERED" in csv_response.text and "CONFIRMED" in csv_response.text
+    assert "算法已过滤" in html_response.text and "人工已确认" in html_response.text
+    with repo.connect() as db:
+        actions = [row[0] for row in db.execute(
+            "SELECT action FROM evidence_audit WHERE entity_id=? ORDER BY recorded_at",
+            (suggestion["evidence_id"],)).fetchall()]
+    assert actions[-1] == "AI_HUMAN_REVIEW"
+
+
 def test_ai_import_skips_review_candidate_shadowed_by_filtered_raw_row(library, tmp_path, monkeypatch):
     store, _, video, _ = library
     _allow_local_video_for_package_test(monkeypatch, video)

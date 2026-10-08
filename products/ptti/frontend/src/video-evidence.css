@@ -10,6 +10,7 @@
 .vep-ai-list{display:flex;flex-direction:column;gap:5px;max-height:300px;overflow:auto}
 .vep-ai-list button{text-align:left;white-space:normal}
 .vep-ai-review{font-size:13px}
+.vep-review-queue{margin:14px 0;padding:12px;border:1px solid var(--border,#dce4ee);border-radius:10px;background:var(--soft,#f7fafc)}.vep-queue-heading,.vep-queue-actions,.vep-queue-footer,.vep-queue-filters{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.vep-queue-heading h3{margin:0 0 4px}.vep-queue-heading small,.vep-queue-actions span,.vep-queue-footer span{color:var(--muted,#677589);font-size:12px}.vep-exports{display:flex;gap:8px;flex-wrap:wrap}.vep-exports a{font-size:12px}.vep-queue-filters{justify-content:start;margin:12px 0}.vep-queue-filters label{display:flex;align-items:center;gap:6px;font-size:12px}.vep-queue-filters select{max-width:190px}.vep-queue-actions{justify-content:start;margin:8px 0}.vep-queue-footer{margin-top:10px}.vep-queue-footer>div{display:flex;gap:6px}.vep-empty-review{padding:10px;color:var(--muted,#677589)}
 .vep-point-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;align-items:end}
 .vep-point-form label{display:block;min-width:0}
 .vep-point-form>button{min-height:34px}

@@ -1,6 +1,9 @@
 """Local, reference-only evidence library. No vision runtime or research GT access."""
 
 import hashlib
+import csv
+import html
+import io
 import json
 import math
 import mimetypes
@@ -39,6 +42,49 @@ TRAIN_RESULT_SHA = {
 
 def utc_now():
     return datetime.now(timezone.utc).isoformat()
+
+
+def _review_flags(row):
+    """Expose explicit source evidence gaps without turning a rule into truth."""
+    raw = row.get("raw_candidate") or {}
+    flags = []
+    if row.get("disposition") == "REVIEW" or raw.get("sequence_review_required") is True:
+        flags.append("SEQUENCE_REVIEW")
+    if row.get("suggested_side", raw.get("candidate_player")) not in {"NEAR", "FAR"}:
+        flags.append("UNKNOWN_PLAYER_SIDE")
+    if raw.get("ball_quality") == "JUMP_SUSPECT":
+        flags.append("BALLTRACK_JUMP_SUSPECT")
+    elif not raw.get("ball_quality"):
+        flags.append("BALL_EVIDENCE_UNAVAILABLE")
+    if raw.get("identity_status") not in {None, "CONFIDENT"}:
+        flags.append("PLAYER_IDENTITY_UNCERTAIN")
+    return flags
+
+
+def _timestamp_basis(row):
+    mapping = (row.get("ai_provenance") or {}).get("timestamp_mapping") or {}
+    declared = mapping.get("timestamp_source") or mapping.get("timestamp_basis")
+    if declared == "SOURCE_PTS":
+        return "SOURCE_PTS"
+    if declared in {"SOURCE_FRAME_RATE_ESTIMATE", "ESTIMATED_FROM_SOURCE_FRAME_AND_FPS"}:
+        return "SOURCE_FRAME_RATE_ESTIMATE"
+    if mapping.get("kind") == "CANONICAL_SOURCE_TIMESTAMP_MS":
+        return "SOURCE_FRAME_RATE_ESTIMATE"
+    if row.get("source") == "AI_SUGGESTION":
+        return "UNKNOWN"
+    return "USER_MARKED_VIDEO_TIME"
+
+
+def _status_label(row):
+    if row.get("review_status") == "FILTERED":
+        return "算法已过滤"
+    if row.get("review_status") == "CONFIRMED":
+        return "人工已确认"
+    if row.get("review_status") == "REJECTED":
+        return "已否决"
+    if row.get("source") == "AI_SUGGESTION":
+        return "AI 候选 · 待复核"
+    return "人工记录"
 
 
 def digest_file(path, cancel=None):
@@ -621,7 +667,7 @@ class EvidenceStore:
             "representative_ms": stamp, "event_type": "HIT_CANDIDATE", "tags": ["AI待复核"] if not filtered else ["算法已过滤"],
             "notes": "", "source": "AI_SUGGESTION", "review_status": "FILTERED" if filtered else "UNVERIFIED",
             "suggested_side": candidate.get("candidate_player", "UNKNOWN"), "disposition": disposition,
-            "ai_provenance": {"source_video_sha256": batch["source_video_sha256"], "source_match_reference": batch["manifest"]["match_reference"], "dataset": batch["manifest"]["dataset"], "dataset_license": batch["manifest"]["dataset_license"], "commercial_use": False, "model_version": batch["manifest"]["model_version"], "frozen_config_sha256": batch["manifest"]["frozen_config_sha256"], "frozen_config_file_sha256": batch["manifest"].get("frozen_config_file_sha256"), "import_batch_id": batch["batch_id"], "package_sha256": batch["package_sha256"]},
+            "ai_provenance": {"source_video_sha256": batch["source_video_sha256"], "source_match_reference": batch["manifest"]["match_reference"], "dataset": batch["manifest"]["dataset"], "dataset_license": batch["manifest"]["dataset_license"], "commercial_use": False, "model_version": batch["manifest"]["model_version"], "frozen_config_sha256": batch["manifest"]["frozen_config_sha256"], "frozen_config_file_sha256": batch["manifest"].get("frozen_config_file_sha256"), "timestamp_mapping": batch["manifest"].get("timestamp_mapping"), "import_batch_id": batch["batch_id"], "package_sha256": batch["package_sha256"]},
             "raw_candidate": raw_candidate, "reviewer_decision": None, "reviewed_at": None, "reviewer_side": None,
             "review_history": [], "created_at": utc_now(), "updated_at": utc_now(),
         }
@@ -633,12 +679,62 @@ class EvidenceStore:
             db.execute("INSERT INTO evidence_audit VALUES (?,?,?,?,?)", (str(uuid.uuid4()), evidence_id, "IMPORT_AI_SUGGESTION", utc_now(), json.dumps(row, ensure_ascii=False)))
         return True
 
-    def ai_suggestions(self, video_id, status, offset, limit):
+    def ai_suggestions(self, video_id, status, offset, limit, attention=None):
         rows = [row for row in self.list("video_evidence") if row.get("source") == "AI_SUGGESTION" and (not video_id or row.get("video_id") == video_id)]
         counts = {key: sum(row.get("review_status") == key for row in rows) for key in ("UNVERIFIED", "FILTERED", "CONFIRMED", "REJECTED")}
+        attention_counts = {
+            "NEEDS_REVIEW": sum(bool(_review_flags(row)) for row in rows if row.get("review_status") == "UNVERIFIED"),
+            "EVIDENCE_GAP": sum(any(flag != "SEQUENCE_REVIEW" for flag in _review_flags(row))
+                                 for row in rows if row.get("review_status") == "UNVERIFIED"),
+        }
         selected = [row for row in rows if not status or row.get("review_status") == status]
+        if attention == "NEEDS_REVIEW":
+            selected = [row for row in selected if row.get("review_status") == "UNVERIFIED" and _review_flags(row)]
+        elif attention == "EVIDENCE_GAP":
+            selected = [row for row in selected if row.get("review_status") == "UNVERIFIED" and
+                        any(flag != "SEQUENCE_REVIEW" for flag in _review_flags(row))]
+        selected = [{**row, "review_flags": _review_flags(row)} for row in selected]
         selected.sort(key=lambda row: (row.get("representative_ms", 0), row["evidence_id"]))
-        return {"counts": counts, "total": len(selected), "offset": offset, "limit": limit, "items": selected[offset:offset + limit]}
+        return {"counts": counts, "attention_counts": attention_counts, "attention": attention,
+                "total": len(selected), "offset": offset, "limit": limit,
+                "items": selected[offset:offset + limit]}
+
+    def export_payload(self, video_id):
+        video = self.availability(self.get("evidence_videos", "video_id", video_id))
+        events = [row for row in self.list("video_evidence") if row.get("video_id") == video_id]
+        events.sort(key=lambda row: (float(row.get("representative_ms", 0)), row["evidence_id"]))
+        points = self.points(video_id)
+        identities = {row["evidence_id"] for row in events} | {row["point_id"] for row in points}
+        with self.repo.connect() as db:
+            audit_rows = [
+                {"audit_id": row[0], "entity_id": row[1], "action": row[2],
+                 "recorded_at": row[3], "payload": json.loads(row[4])}
+                for row in db.execute(
+                    "SELECT audit_id,entity_id,action,recorded_at,payload FROM evidence_audit ORDER BY rowid"
+                ).fetchall() if row[1] in identities
+            ]
+        for row in events:
+            raw = row.get("raw_candidate") or {}
+            row["timestamp_basis"] = _timestamp_basis(row)
+            row["raw_timestamp_ms"] = raw.get("timestamp_ms")
+            row["reviewed_timestamp_ms"] = row.get("representative_ms")
+            row["status_label"] = _status_label(row)
+            row["review_flags"] = _review_flags(row)
+        counts = {key: sum(row.get("review_status") == key for row in events if row.get("source") == "AI_SUGGESTION")
+                  for key in ("UNVERIFIED", "CONFIRMED", "REJECTED", "FILTERED")}
+        return {
+            "schema": "ptti-video-evidence-review-v1",
+            "notice": "AI 击球候选是待复核提示，不代表已验证的真实击球。算法已过滤记录单独保留，不等同人工确认。",
+            "video": {key: video.get(key) for key in (
+                "video_id", "title", "duration_ms", "fps", "width", "height", "codec",
+                "source_sha256", "hash_status", "availability_status", "rights_status")},
+            "counts": counts,
+            "events": events,
+            "points": points,
+            "audit": audit_rows,
+            "policy": {"production_database": "NOT_ACCESSED", "raw_candidates_preserved": True,
+                       "filtered_records_are_not_confirmed": True},
+        }
 
     def review_ai(self, evidence_id, value):
         old = self.get("video_evidence", "evidence_id", evidence_id)
@@ -679,6 +775,67 @@ class EvidenceStore:
         old = self.get("evidence_points", "point_id", point_id) if point_id else None
         row = {**(old or {}), **value.model_dump(), "point_id": point_id or str(uuid.uuid4()), "evidence_ids": evidence_ids, "source": "MANUAL_CONFIRMED", "created_at": old.get("created_at") if old else utc_now(), "updated_at": utc_now()}
         return self.save("evidence_points", "point_id", row, "MANUAL_POINT_SAVE")
+
+
+def _review_export_csv(payload):
+    output = io.StringIO(newline="")
+    fields = ["event_id", "video_time_ms", "raw_ai_time_ms", "timestamp_basis", "player_side",
+              "review_status", "status_label", "source", "rule_evidence_score",
+              "review_flags", "evidence_sources", "raw_candidate_json", "review_history_json"]
+    writer = csv.DictWriter(output, fieldnames=fields, extrasaction="ignore")
+    writer.writeheader()
+    for row in payload["events"]:
+        raw = row.get("raw_candidate") or {}
+        writer.writerow({
+            "event_id": row["evidence_id"], "video_time_ms": row.get("reviewed_timestamp_ms"),
+            "raw_ai_time_ms": row.get("raw_timestamp_ms"), "timestamp_basis": row.get("timestamp_basis"),
+            "player_side": row.get("reviewer_side") or row.get("suggested_side") or "UNKNOWN",
+            "review_status": row.get("review_status"), "status_label": row.get("status_label"),
+            "source": row.get("source"), "rule_evidence_score": raw.get("evidence_score"),
+            "review_flags": ";".join(row.get("review_flags", [])),
+            "evidence_sources": ";".join(raw.get("source_modules", [])),
+            "raw_candidate_json": json.dumps(raw, ensure_ascii=False, separators=(",", ":")),
+            "review_history_json": json.dumps(row.get("review_history", []), ensure_ascii=False,
+                                               separators=(",", ":")),
+        })
+    return "\ufeff" + output.getvalue()
+
+
+def _review_export_html(payload):
+    video = payload["video"]
+    esc = lambda value: html.escape("" if value is None else str(value))
+    rows = []
+    for row in payload["events"]:
+        raw = row.get("raw_candidate") or {}
+        side = row.get("reviewer_side") or row.get("suggested_side") or "UNKNOWN"
+        rows.append(
+            "<tr><td>{time}</td><td>{side}</td><td>{status}</td><td>{basis}</td>"
+            "<td>{score}</td><td>{sources}</td><td><details><summary>查看原始证据与修正</summary>"
+            "<pre>{raw}</pre><pre>{history}</pre></details></td></tr>".format(
+                time=esc(row.get("reviewed_timestamp_ms")), side=esc(side),
+                status=esc(row.get("status_label")), basis=esc(row.get("timestamp_basis")),
+                score=esc(raw.get("evidence_score")),
+                sources=esc(", ".join(raw.get("source_modules", []))),
+                raw=esc(json.dumps(raw, ensure_ascii=False, indent=2)),
+                history=esc(json.dumps(row.get("review_history", []), ensure_ascii=False, indent=2)),
+            )
+        )
+    counts = " · ".join(f"{esc(key)} {esc(value)}" for key, value in payload["counts"].items())
+    return (
+        "<!doctype html><html lang='zh-CN'><meta charset='utf-8'><meta name='viewport' content='width=device-width'>"
+        "<title>PTTI 视频证据复核报告</title><style>body{font-family:'Microsoft YaHei UI','Microsoft YaHei',sans-serif;"
+        "max-width:1200px;margin:32px auto;padding:0 18px;color:#16252a}table{border-collapse:collapse;width:100%}"
+        "th,td{border:1px solid #d8e0df;padding:8px;text-align:left;vertical-align:top}pre{white-space:pre-wrap;"
+        "max-width:600px;overflow:auto;background:#f4f7f6;padding:10px}code{word-break:break-all}.notice{background:#fff6df;"
+        "padding:12px}</style><h1>比赛视频复核时间线</h1><p class='notice'>" + esc(payload["notice"]) + "</p>"
+        "<h2>" + esc(video.get("title")) + "</h2><p>视频 SHA-256：<code>" + esc(video.get("source_sha256")) +
+        "</code></p><p>时长：" + esc(video.get("duration_ms")) + " ms · " + esc(video.get("width")) + "×" +
+        esc(video.get("height")) + " · " + esc(video.get("fps")) + " FPS</p><p>" + counts + "</p>"
+        "<p>“规则证据评分”不是校准概率；算法过滤记录保持独立状态，不代表已确认事件。</p>"
+        "<table><thead><tr><th>视频时间 ms</th><th>击球方</th><th>状态</th><th>时间来源</th>"
+        "<th>规则评分</th><th>证据来源</th><th>原始候选 / 人工修改</th></tr></thead><tbody>" +
+        "".join(rows) + "</tbody></table></html>"
+    )
 
 
 def evidence_router(repo, mode):
@@ -727,6 +884,27 @@ def evidence_router(repo, mode):
             ):
                 store.queue_hash(row["video_id"])
         return rows
+
+    @router.get("/videos/{video_id}/export")
+    def export_review(video_id: str, format: str = "json"):
+        try:
+            payload = store.export_payload(video_id)
+        except HTTPException:
+            raise
+        except (OSError, ValueError, TypeError) as exc:
+            raise HTTPException(409, "复核报告无法生成，请检查本机记录。") from exc
+        filename = f"ptti-video-review-{video_id}"
+        if format == "json":
+            content = json.dumps(payload, ensure_ascii=False, indent=2)
+            return Response(content, media_type="application/json; charset=utf-8",
+                            headers={"Content-Disposition": f'attachment; filename="{filename}.json"'})
+        if format == "csv":
+            return Response(_review_export_csv(payload), media_type="text/csv; charset=utf-8",
+                            headers={"Content-Disposition": f'attachment; filename="{filename}.csv"'})
+        if format == "html":
+            return Response(_review_export_html(payload), media_type="text/html; charset=utf-8",
+                            headers={"Content-Disposition": f'attachment; filename="{filename}.html"'})
+        raise HTTPException(422, "支持的复核报告格式为 JSON、CSV 或 HTML。")
 
     @router.post("/videos")
     def register(value: VideoInput):
@@ -824,12 +1002,15 @@ def evidence_router(repo, mode):
         return [row for row in store.list("video_evidence") if row.get("source") != "AI_SUGGESTION" or row.get("review_status") == "CONFIRMED"]
 
     @router.get("/ai-suggestions")
-    def ai_suggestions(video_id: str | None = None, status: str | None = None, offset: int = 0, limit: int = 50):
+    def ai_suggestions(video_id: str | None = None, status: str | None = None, offset: int = 0,
+                       limit: int = 50, attention: str | None = None):
         if status not in {None, "UNVERIFIED", "FILTERED", "CONFIRMED", "REJECTED"}:
             raise HTTPException(400, "未知的 AI 建议筛选状态")
+        if attention not in {None, "NEEDS_REVIEW", "EVIDENCE_GAP"}:
+            raise HTTPException(400, "未知的复核优先级筛选")
         if offset < 0 or not 1 <= limit <= 100:
             raise HTTPException(400, "分页参数无效")
-        return store.ai_suggestions(video_id, status, offset, limit)
+        return store.ai_suggestions(video_id, status, offset, limit, attention)
 
     @router.post("/imports")
     def start_import(value: AIImportInput):
