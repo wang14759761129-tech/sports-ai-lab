@@ -380,6 +380,58 @@ def test_filtered_candidates_remain_queryable_and_collection_keeps_order(library
     assert result["counts"]["FILTERED"] == 1 and result["items"][0]["disposition"] == "FILTERED"
 
 
+def test_ai_import_skips_review_candidate_shadowed_by_filtered_raw_row(library, tmp_path, monkeypatch):
+    store, _, video, _ = library
+    _allow_local_video_for_package_test(monkeypatch, video)
+    candidate = {
+        "event_id": "shared-hit-id", "event_type": "HIT_CANDIDATE", "ablation": "D",
+        "status": "REQUIRES_REVIEW", "timestamp_ms": 5000.0, "source_frame": 600,
+        "candidate_player": "UNKNOWN", "evidence_score": 0.61,
+    }
+    package = tmp_path / "shadowed-hit.jsonl"
+    _write_ai_package(
+        package, video["source_sha256"], candidate,
+        counts={"accepted": 0, "review": 1, "filtered": 1, "total": 2},
+    )
+    rows = package.read_text(encoding="utf-8").splitlines()
+    rows[1] = json.dumps({"kind": "candidate", "disposition": "REVIEW", "candidate": candidate})
+    shadow = {**candidate, "status": "RAW_CANDIDATE", "decision": "SUPPRESSED", "review_reason": "DUPLICATE"}
+    rows.append(json.dumps({"kind": "candidate", "disposition": "FILTERED", "candidate": shadow}))
+    package.write_text("\n".join(rows) + "\n", encoding="utf-8")
+
+    batch = _wait_batch(store, store.start_ai_import(video["video_id"], str(package))["batch_id"])
+
+    assert batch["status"] == "COMPLETED"
+    assert batch["processed_count"] == 2
+    assert batch["imported_count"] == 1
+    assert batch["duplicate_count"] == 1
+    assert batch["filtered_count"] == 0
+    suggestions = store.ai_suggestions(video["video_id"], "UNVERIFIED", 0, 10)
+    assert suggestions["total"] == 1
+    assert suggestions["items"][0]["disposition"] == "REVIEW"
+    assert store.ai_suggestions(video["video_id"], "FILTERED", 0, 10)["total"] == 0
+
+
+def test_ai_import_rejects_conflicting_duplicate_event_id(library, tmp_path, monkeypatch):
+    store, _, video, _ = library
+    _allow_local_video_for_package_test(monkeypatch, video)
+    candidate = {
+        "event_id": "conflicting-hit-id", "event_type": "HIT_CANDIDATE", "ablation": "D",
+        "timestamp_ms": 5000.0, "source_frame": 600, "candidate_player": "UNKNOWN",
+    }
+    package = tmp_path / "conflicting-hit.jsonl"
+    _write_ai_package(package, video["source_sha256"], candidate, counts={"accepted": 2, "review": 0, "filtered": 0, "total": 2})
+    with package.open("a", encoding="utf-8") as stream:
+        stream.write(json.dumps({"kind": "candidate", "disposition": "ACCEPTED", "candidate": {**candidate, "timestamp_ms": 5100.0, "source_frame": 612}}) + "\n")
+
+    batch = _wait_batch(store, store.start_ai_import(video["video_id"], str(package))["batch_id"])
+
+    assert batch["status"] == "FAILED"
+    assert "event_id 内容冲突" in batch["message"]
+    assert batch["processed_count"] == 1
+    assert store.ai_suggestions(video["video_id"], "UNVERIFIED", 0, 10)["total"] == 1
+
+
 def test_ai_bridge_api_import_review_and_manual_point(library, tmp_path, monkeypatch):
     _, repo, video, _ = library
     _allow_local_video_for_package_test(monkeypatch, video)

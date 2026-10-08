@@ -514,7 +514,7 @@ class EvidenceStore:
                 header = json.loads(stream.readline())
                 if header.get("kind") != "manifest" or header.get("manifest") != manifest:
                     raise ValueError("结果包 manifest 已改变")
-                seen = set()
+                seen = {}
                 for line_number, line in enumerate(stream, 2):
                     if cancel.is_set():
                         self._update_batch(batch_id, status="PAUSED", **counts, message="已暂停；可以安全恢复")
@@ -527,11 +527,44 @@ class EvidenceStore:
                     candidate = item.get("candidate")
                     self._validate_package_candidate(candidate, manifest, video)
                     event_id = candidate["event_id"]
-                    if event_id in seen:
-                        raise ValueError(f"结果包内 event_id 重复：{event_id}")
-                    seen.add(event_id)
                     disposition = item["disposition"]
                     disposition_counts[disposition] += 1
+                    if event_id in seen:
+                        previous = seen[event_id]
+                        identity = {
+                            key: value
+                            for key, value in candidate.items()
+                            if key not in {"status", "decision", "review_reason"}
+                        }
+                        exact_duplicate = (
+                            disposition == previous["disposition"]
+                            and candidate == previous["candidate"]
+                        )
+                        review_shadow = (
+                            identity == previous["identity"]
+                            and {disposition, previous["disposition"]} == {"REVIEW", "FILTERED"}
+                            and candidate.get("status")
+                            == ("RAW_CANDIDATE" if disposition == "FILTERED" else "REQUIRES_REVIEW")
+                            and previous["candidate"].get("status")
+                            == ("RAW_CANDIDATE" if previous["disposition"] == "FILTERED" else "REQUIRES_REVIEW")
+                        )
+                        if not exact_duplicate and not review_shadow:
+                            raise ValueError(f"结果包内 event_id 内容冲突：{event_id}")
+                        counts["duplicate_count"] += 1
+                        counts["processed_count"] += 1
+                        if counts["processed_count"] % 25 == 0:
+                            self._update_batch(batch_id, **counts, message="正在导入；重复候选会自动跳过")
+                        continue
+                    identity = {
+                        key: value
+                        for key, value in candidate.items()
+                        if key not in {"status", "decision", "review_reason"}
+                    }
+                    seen[event_id] = {
+                        "identity": identity,
+                        "disposition": disposition,
+                        "candidate": candidate,
+                    }
                     if disposition == "FILTERED":
                         counts["filtered_count"] += 1
                     key = f"{video['source_sha256']}:{event_id}:{manifest['frozen_config_sha256']}"
