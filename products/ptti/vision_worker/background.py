@@ -42,14 +42,19 @@ def main():
     median = np.median(np.stack(samples, axis=0), axis=0).astype(np.uint8)
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(output, median=median)
+    temporary = output.with_suffix(output.suffix + ".tmp.npz")
+    np.savez_compressed(temporary, median=median)
+    temporary.replace(output)
     metadata = {'method': 'up to 100 deterministic evenly spaced frames over the complete video',
                 'sampled_global_frames': [int(index) for index in indexes],
                 'sample_count': len(samples), 'model_width': config.width,
                 'model_height': config.height, 'source_frame_count': frame_count,
                 'background_sha256': hashlib.sha256(median.tobytes()).hexdigest(),
                 'scope': 'whole-match shared background for every chunk'}
-    output.with_suffix('.json').write_text(json.dumps(metadata, indent=2), encoding='utf-8')
+    metadata_path = output.with_suffix('.json')
+    metadata_temp = metadata_path.with_suffix(metadata_path.suffix + '.tmp')
+    metadata_temp.write_text(json.dumps(metadata, indent=2), encoding='utf-8')
+    metadata_temp.replace(metadata_path)
 
 
 if __name__ == '__main__':

@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+import time
 
 import pytest
 from fastapi.testclient import TestClient
@@ -10,7 +11,7 @@ from backend.main import create_app
 from backend.fullmatch import (TimelineAction, apply_timeline_action, build_chunks,
                                cache_key, map_chunk_observation, merge_chunk_observations,
                                run_resumable_chunks, source_identity, extract_source_frame_timestamps,
-                               system_resource_snapshot)
+                               system_resource_snapshot, ResourceGuardStop, ResourceTrendGuard)
 from backend.full_match_pipeline import refresh_manifest_artifact, refresh_timeline_summary
 
 
@@ -73,6 +74,47 @@ def test_failed_chunk_resumes_at_first_incomplete_chunk(tmp_path):
     assert result["status"] == "CHUNKS_COMPLETE"
     assert result["resume_count"] == 1
     assert result["chunks"][1]["attempt_count"] == 2
+
+
+def test_resource_guard_uses_machine_relative_start_pause_and_trend_thresholds():
+    gib = 1024 ** 3
+    snapshot = {"total_ram_bytes": 16 * gib, "available_ram_bytes": 5 * gib}
+    guard = ResourceTrendGuard(snapshot)
+    assert guard.start_bytes == 4 * gib
+    assert ResourceTrendGuard(snapshot, minimum_start_gib=2).start_bytes == 4 * gib
+    assert guard.start_check({**snapshot, "available_ram_bytes": int(3.9 * gib)})["allowed"] is False
+    assert guard.start_check(snapshot)["allowed"] is True
+
+    base_time = time.monotonic() + 1
+    first = guard.observe({**snapshot, "available_ram_bytes": 5 * gib}, now=base_time)
+    trend = guard.observe({**snapshot, "available_ram_bytes": int(3.6 * gib)}, now=base_time + 10)
+    assert first["pause"] is False
+    assert trend["pause"] is True
+    assert trend["reason"] == "RESOURCE_GUARD_DECLINING_RAM_TREND"
+    low = guard.observe({**snapshot, "available_ram_bytes": int(2.3 * gib)}, now=base_time + 11)
+    assert low["reason"] == "RESOURCE_GUARD_LOW_AVAILABLE_RAM"
+
+
+def test_resource_interruption_checkpoints_incomplete_chunk_and_resumes_it(tmp_path):
+    path = tmp_path / "manifest.json"
+    path.write_text(json.dumps({"status": "QUEUED", "cache_key": "cache-a", "video_sha256": "v" * 64,
+                                "checkpoint_sha256": "c" * 64, "config_sha256": "f" * 64,
+                                "chunks": [{"chunk_index": 0, "status": "PENDING"}]}), encoding="utf-8")
+
+    def stop_for_resources(_chunk):
+        raise ResourceGuardStop("RESOURCE_GUARD_LOW_AVAILABLE_RAM", {"available_ram_bytes": 100})
+
+    paused = run_resumable_chunks(path, stop_for_resources)
+    assert paused["status"] == "PAUSED"
+    assert paused["pause_reason"] == "RESOURCE_GUARD_LOW_AVAILABLE_RAM"
+    assert paused["chunks"][0]["status"] == "INTERRUPTED"
+    assert paused["chunks"][0]["failure_class"] == "RESOURCE_GUARD"
+    assert paused["chunks"][0]["cache_binding"]["video_sha256"] == "v" * 64
+
+    completed = run_resumable_chunks(path, lambda _chunk: {"observations": []})
+    assert completed["status"] == "CHUNKS_COMPLETE"
+    assert completed["chunks"][0]["status"] == "COMPLETE"
+    assert completed["chunks"][0]["attempt_count"] == 2
 
 
 def test_chunk_batch_limit_checkpoints_and_resumes_without_reprocessing(tmp_path):
@@ -159,6 +201,24 @@ def test_complete_checkpoint_artifact_corruption_fails_closed(tmp_path):
         "status": "COMPLETE", "raw_prediction_path": str(raw), "raw_prediction_sha256": "wrong"}]}), encoding="utf-8")
     with pytest.raises(ValueError, match="CORRUPT_CHECKPOINT"):
         run_resumable_chunks(path, lambda chunk: {})
+
+
+def test_legacy_complete_chunk_without_resource_log_remains_resumable(tmp_path):
+    import hashlib
+
+    artifacts = {}
+    for key in ("raw_prediction", "observations", "runtime"):
+        file_path = tmp_path / f"{key}.json"
+        file_path.write_text("{}", encoding="utf-8")
+        artifacts[f"{key}_path"] = str(file_path)
+        artifacts[f"{key}_sha256"] = hashlib.sha256(file_path.read_bytes()).hexdigest()
+    chunk = {"chunk_index": 0, "status": "COMPLETE", **artifacts}
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(json.dumps({"status": "PAUSED", "chunks": [chunk]}), encoding="utf-8")
+
+    result = run_resumable_chunks(manifest_path, lambda _chunk: pytest.fail("complete chunk reran"))
+
+    assert result["chunks"][0]["status"] == "COMPLETE"
 
 
 def test_source_identity_detects_mutation_and_move(tmp_path):

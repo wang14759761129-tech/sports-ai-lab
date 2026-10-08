@@ -19,7 +19,7 @@ from datetime import datetime, timezone
 from backend.fullmatch import (DEFAULT_CHUNK_SECONDS, PROCESSING_VERSION, build_chunks,
                                cache_key, file_sha256, map_chunk_observation,
                                extract_source_frame_timestamps, quality_report, source_identity,
-                               system_resource_snapshot,
+                               system_resource_snapshot, ResourceGuardStop, ResourceTrendGuard,
                                run_resumable_chunks, save_manifest)
 from vision.config import VisionConfig, RV_COMMIT
 from vision.quality import video_metadata, classify
@@ -29,18 +29,28 @@ def _json_sha(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
+def _atomic_text(path, text):
+    path = Path(path)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(text, encoding="utf-8")
+    temporary.replace(path)
+
+
 class FullMatchService:
     def __init__(self, repo, data_root, config=None, chunk_seconds=DEFAULT_CHUNK_SECONDS,
-                 min_available_ram_gib=2.0, max_new_chunks_per_run=None):
+                 min_available_ram_gib=None, max_new_chunks_per_run=None,
+                 resource_sample_seconds=5.0):
         self.repo = repo
         self.data_root = Path(data_root).resolve()
         self.config = config or VisionConfig.load()
         self.chunk_seconds = int(chunk_seconds)
         if not 30 <= self.chunk_seconds <= 120:
             raise ValueError("Chunk duration must be between 30 and 120 seconds")
-        self.min_available_ram_gib = float(min_available_ram_gib)
-        if self.min_available_ram_gib < 1.0:
+        self.min_available_ram_gib = (None if min_available_ram_gib is None
+                                      else float(min_available_ram_gib))
+        if self.min_available_ram_gib is not None and self.min_available_ram_gib < 1.0:
             raise ValueError("Resource guard must reserve at least 1 GiB of available RAM")
+        self.resource_sample_seconds = max(1.0, float(resource_sample_seconds))
         if max_new_chunks_per_run is not None and int(max_new_chunks_per_run) < 1:
             raise ValueError("Chunk batch limit must be positive")
         self.max_new_chunks_per_run = (None if max_new_chunks_per_run is None
@@ -175,6 +185,99 @@ class FullMatchService:
         source_frame_times=(json.loads(Path(timestamps_path).read_text(encoding="utf-8"))
                             if timestamps_path and Path(timestamps_path).is_file() else None)
 
+        initial_resources = system_resource_snapshot()
+        resource_guard = ResourceTrendGuard(initial_resources, self.min_available_ram_gib)
+        resource_check = resource_guard.start_check(initial_resources)
+        resource_lock = threading.Lock()
+
+        def persist_resource_sample(sample_log, phase, snapshot, guard_result):
+            sample = {"at": datetime.now(timezone.utc).isoformat(), "phase": phase,
+                      "snapshot": snapshot, "warning": guard_result.get("warning", False),
+                      "available_ram_drop_bytes": guard_result.get("available_ram_drop_bytes")}
+            with resource_lock:
+                sample_log.parent.mkdir(parents=True, exist_ok=True)
+                with sample_log.open("a", encoding="utf-8") as stream:
+                    stream.write(json.dumps(sample, ensure_ascii=False, separators=(",", ":")) + "\n")
+                    stream.flush()
+                    os.fsync(stream.fileno())
+
+        def terminate_owned_process_tree(process):
+            try:
+                import psutil
+                parent = psutil.Process(process.pid)
+                children = parent.children(recursive=True)
+                for child in reversed(children):
+                    try:
+                        child.terminate()
+                    except (psutil.NoSuchProcess, psutil.AccessDenied):
+                        pass
+                try:
+                    parent.terminate()
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    pass
+                _, alive = psutil.wait_procs([*children, parent], timeout=3)
+                for item in alive:
+                    try:
+                        item.kill()
+                    except (psutil.NoSuchProcess, psutil.AccessDenied):
+                        pass
+            except ImportError:
+                process.terminate()
+                try:
+                    process.wait(timeout=3)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+            process.wait()
+
+        def run_monitored(command, *, phase, chunk_index, sample_log, stdout=None, stderr=None,
+                          timeout=3600, capture_output=False):
+            snapshot = system_resource_snapshot()
+            check = resource_guard.start_check(snapshot)
+            persist_resource_sample(sample_log, f"{phase}_START", snapshot, check)
+            if not check["allowed"]:
+                raise ResourceGuardStop(check["reason"], snapshot, str(sample_log))
+            creationflags = getattr(subprocess, "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
+            capture_file = tempfile.TemporaryFile(mode="w+t", encoding="utf-8") if capture_output else None
+            process = subprocess.Popen(command, stdout=stdout if not capture_output else capture_file,
+                stderr=stderr if not capture_output else capture_file, text=True,
+                creationflags=creationflags)
+            started = time.monotonic()
+            last_sample = 0.0
+            try:
+                while process.poll() is None:
+                    if time.monotonic() - started > timeout:
+                        terminate_owned_process_tree(process)
+                        raise subprocess.TimeoutExpired(command, timeout)
+                    if time.monotonic() - last_sample >= self.resource_sample_seconds:
+                        snapshot = system_resource_snapshot(process.pid)
+                        result = resource_guard.observe(snapshot)
+                        persist_resource_sample(sample_log, phase, snapshot, result)
+                        last_sample = time.monotonic()
+                        if result["pause"]:
+                            terminate_owned_process_tree(process)
+                            raise ResourceGuardStop(result["reason"], snapshot, str(sample_log))
+                    time.sleep(min(1.0, self.resource_sample_seconds / 2))
+                process.wait()
+                if capture_file:
+                    capture_file.seek(0)
+                    output = capture_file.read()
+                    error = output if process.returncode else ""
+                else:
+                    output, error = None, None
+                if process.returncode:
+                    detail = (error or output or "").strip()[-4000:] if capture_output else ""
+                    raise subprocess.CalledProcessError(process.returncode, command,
+                        output=output, stderr=error or detail)
+                final = system_resource_snapshot()
+                result = resource_guard.observe(final)
+                persist_resource_sample(sample_log, f"{phase}_END", final, result)
+                return output
+            finally:
+                if process.poll() is None:
+                    terminate_owned_process_tree(process)
+                if capture_file:
+                    capture_file.close()
+
         def persist(current):
             job = {"match_id": match_id, "status": current["status"], "stage": "BALLTRACK" if any(c['status']=='RUNNING' for c in current['chunks']) else "PREPARING",
                    "cache_key": current["cache_key"], "manifest_path": str(path),
@@ -196,6 +299,8 @@ class FullMatchService:
             chunk_root = prepared["run_folder"] / "chunks" / f"{chunk['chunk_index'] + 1:06d}"
             chunk_root.mkdir(parents=True, exist_ok=True)
             chunk_video = chunk_root / "input.mp4"
+            transcode_temp = chunk_root / "input.part.mp4"
+            resource_log = logs / f"resource-chunk-{chunk['chunk_index'] + 1:06d}.jsonl"
             expected_frames = chunk.get("expected_processed_frames",chunk["end_frame_exclusive"] - chunk["start_frame_inclusive"])
             start_seconds = chunk["source_timestamp_start_ms"] / 1000.0
             duration_seconds = (chunk["source_timestamp_end_ms"]-chunk["source_timestamp_start_ms"])/1000.0
@@ -203,13 +308,23 @@ class FullMatchService:
                        "-i", str(prepared["video"]), "-t", f"{duration_seconds:.9f}",
                        "-map", "0:v:0", "-an", "-vf", f"fps={prepared['metadata']['fps']}",
                        "-frames:v", str(expected_frames), "-c:v", "libx264", "-preset", "ultrafast",
-                       "-crf", "18", "-y", str(chunk_video)]
+                       "-crf", "18", "-y", str(transcode_temp)]
             transcode_started = time.perf_counter()
-            subprocess.run(command, check=True, timeout=3600, capture_output=True, text=True,
-                           creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+            try:
+                run_monitored(command, phase="FFMPEG_TRANSCODE", chunk_index=chunk["chunk_index"],
+                              sample_log=resource_log, timeout=3600, capture_output=True)
+            except Exception:
+                transcode_temp.unlink(missing_ok=True)
+                raise
+            if not transcode_temp.is_file() or transcode_temp.stat().st_size == 0:
+                raise RuntimeError("FFMPEG produced no complete chunk video")
+            transcode_temp.replace(chunk_video)
             transcode_seconds = time.perf_counter() - transcode_started
             output = chunk_root / "balltrack"
             output.mkdir(exist_ok=True)
+            for stale in (output / "raw_prediction.json", output / "runtime.json",
+                          output / "global_observations.json"):
+                stale.unlink(missing_ok=True)
             log_path = logs / f"chunk-{chunk['chunk_index'] + 1:06d}.log"
             worker_command = [str(self.config.worker_python), str(worker),
                               "--runtime", str(self.config.runtime_root), "--checkpoint", str(prepared["checkpoint"]),
@@ -218,8 +333,15 @@ class FullMatchService:
                               str(prepared["run_folder"] / "global_median.npz")]
             worker_started = time.perf_counter()
             with log_path.open("w", encoding="utf-8") as log:
-                subprocess.run(worker_command, stdout=log, stderr=subprocess.STDOUT,
-                               check=True, timeout=3600, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+                try:
+                    run_monitored(worker_command, phase="BALLTRACK_WORKER", chunk_index=chunk["chunk_index"],
+                              sample_log=resource_log,
+                              stdout=log, stderr=subprocess.STDOUT, timeout=3600)
+                except ResourceGuardStop:
+                    for incomplete in (output / "raw_prediction.json", output / "runtime.json",
+                                       output / "global_observations.json"):
+                        incomplete.unlink(missing_ok=True)
+                    raise
             worker_wall_seconds = time.perf_counter() - worker_started
             raw_path = output / "raw_prediction.json"
             runtime_path = output / "runtime.json"
@@ -239,7 +361,7 @@ class FullMatchService:
                                "raw_model_score": row.get("Confidence"),
                                "raw_score_semantics": "Upstream threshold-component mean; not calibrated probability"})
             mapped_path = output / "global_observations.json"
-            mapped_path.write_text(json.dumps(mapped, ensure_ascii=False), encoding="utf-8")
+            _atomic_text(mapped_path, json.dumps(mapped, ensure_ascii=False))
             runtime = json.loads(runtime_path.read_text(encoding="utf-8"))
             return {"raw_prediction_path": str(raw_path), "observations_path": str(mapped_path),
                     "runtime_path": str(runtime_path), "log_path": str(log_path),
@@ -249,19 +371,21 @@ class FullMatchService:
                     "chunk_transcode_seconds": transcode_seconds,
                     "worker_wall_seconds": worker_wall_seconds,
                     "decoded_frames": len(raw), "runtime": runtime,
+                    "resource_sample_log_path": str(resource_log),
+                    "resource_sample_log_sha256": file_sha256(resource_log) if resource_log.is_file() else None,
                     "resource_snapshot_after": system_resource_snapshot(),
                     "completed_at": datetime.now(timezone.utc).isoformat()}
 
         try:
-            initial_resources = system_resource_snapshot()
-            minimum_ram_bytes = int(self.min_available_ram_gib * (1024 ** 3))
-            if (initial_resources.get("available_ram_bytes") is None or
-                    initial_resources["available_ram_bytes"] < minimum_ram_bytes):
+            if not resource_check["allowed"]:
                 manifest["status"] = "PAUSED"
-                manifest["pause_reason"] = ("RESOURCE_GUARD_UNAVAILABLE" if
-                    initial_resources.get("available_ram_bytes") is None else
-                    "RESOURCE_GUARD_BEFORE_BACKGROUND")
+                manifest["pause_reason"] = resource_check["reason"]
                 manifest["resource_guard_snapshot"] = initial_resources
+                manifest["resource_guard_thresholds"] = {
+                    "start_bytes": resource_guard.start_bytes,
+                    "pause_bytes": resource_guard.pause_bytes,
+                    "warning_drop_bytes": resource_guard.warning_drop_bytes,
+                    "critical_drop_bytes": resource_guard.critical_drop_bytes}
                 save_manifest(path, manifest)
                 self.repo.save_full_match_job(match_id, {
                     "match_id": match_id, "status": "PAUSED", "stage": "可用内存不足，等待继续",
@@ -269,27 +393,41 @@ class FullMatchService:
                     "completed_chunks": sum(c["status"] == "COMPLETE" for c in manifest["chunks"]),
                     "total_chunks": len(manifest["chunks"]), "device": device,
                     "resource_snapshot": initial_resources,
+                    "required_available_ram_bytes": resource_check["required_available_ram_bytes"],
                 })
                 return
             background_path = prepared["run_folder"] / "global_median.npz"
             if not background_path.is_file():
                 background_script = Path(__file__).resolve().parents[1] / "vision_worker" / "background.py"
-                subprocess.run([str(self.config.worker_python), str(background_script),
+                background_temp = prepared["run_folder"] / "global_median.part.npz"
+                background_log = logs / "resource-background.jsonl"
+                background_temp.unlink(missing_ok=True)
+                try:
+                    run_monitored([str(self.config.worker_python), str(background_script),
                                 "--runtime", str(self.config.runtime_root), "--video", str(prepared["video"]),
-                                "--output", str(background_path)], check=True, timeout=3600,
-                               creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+                                "--output", str(background_temp)], phase="BACKGROUND_BUILD",
+                              chunk_index=0, sample_log=background_log, timeout=3600)
+                except ResourceGuardStop:
+                    background_temp.unlink(missing_ok=True)
+                    background_temp.with_suffix(".json").unlink(missing_ok=True)
+                    raise
+                if not background_temp.is_file() or background_temp.stat().st_size == 0:
+                    raise RuntimeError("Background worker produced no complete median file")
+                background_temp.replace(background_path)
+                background_temp.with_suffix(".json").replace(background_path.with_suffix(".json"))
             manifest = json.loads(path.read_text(encoding="utf-8"))
             background_info = background_path.with_suffix(".json")
             manifest["background"] = {"path": str(background_path), "metadata_path": str(background_info),
                                       "sha256": file_sha256(background_path),
-                                      "sampling": json.loads(background_info.read_text(encoding="utf-8"))}
+                                      "sampling": json.loads(background_info.read_text(encoding="utf-8")),
+                                      "resource_sample_log_path": str(logs / "resource-background.jsonl"),
+                                      "resource_sample_log_sha256": (file_sha256(logs / "resource-background.jsonl")
+                                          if (logs / "resource-background.jsonl").is_file() else None)}
             save_manifest(path, manifest)
             def before_chunk(_chunk):
                 snapshot = system_resource_snapshot()
-                available = snapshot.get("available_ram_bytes")
-                return {"allowed": available is not None and available >= minimum_ram_bytes,
-                        "reason": ("RESOURCE_GUARD_UNAVAILABLE" if available is None else
-                                   "RESOURCE_GUARD_BEFORE_CHUNK"),
+                check = resource_guard.start_check(snapshot)
+                return {"allowed": check["allowed"], "reason": check["reason"],
                         "snapshot": snapshot}
 
             manifest = run_resumable_chunks(
@@ -315,6 +453,8 @@ class FullMatchService:
                 raise ValueError("SOURCE_CHANGED: video identity changed before output finalization")
             merged_csv = prepared["run_folder"] / "full_match_balltrack.csv"
             merged_jsonl = prepared["run_folder"] / "full_match_balltrack.jsonl"
+            merged_csv_tmp = merged_csv.with_suffix(merged_csv.suffix + ".tmp")
+            merged_jsonl_tmp = merged_jsonl.with_suffix(merged_jsonl.suffix + ".tmp")
             columns = ["global_frame", "source_frame", "timestamp_ms", "local_frame", "chunk_index", "visible", "x", "y",
                        "raw_model_score", "raw_score_semantics"]
             frame_count = visible = 0
@@ -325,8 +465,8 @@ class FullMatchService:
                 boundary = item["processing_frame_start"] + item["expected_processed_frames"]
                 boundary_frames.update(range(max(0, boundary - 2), boundary + 3))
             boundary_samples = []
-            with merged_csv.open("w", encoding="utf-8", newline="") as output, \
-                    merged_jsonl.open("w", encoding="utf-8") as jsonl:
+            with merged_csv_tmp.open("w", encoding="utf-8", newline="") as output, \
+                    merged_jsonl_tmp.open("w", encoding="utf-8") as jsonl:
                 writer = csv.DictWriter(output, fieldnames=columns)
                 writer.writeheader()
                 for chunk in sorted(manifest["chunks"],key=lambda item:item["chunk_index"]):
@@ -345,6 +485,8 @@ class FullMatchService:
                         if item["global_frame"] in boundary_frames:
                             boundary_samples.append(item)
                         frame_count+=1;visible+=bool(item["visible"])
+            merged_csv_tmp.replace(merged_csv)
+            merged_jsonl_tmp.replace(merged_jsonl)
             if frame_count != sum(c.get("decoded_frames", 0) for c in manifest["chunks"]):
                 raise ValueError("Output frame count does not match completed chunk evidence")
             if previous_global_frame != frame_count - 1:
@@ -352,7 +494,7 @@ class FullMatchService:
             timeline = self.repo.get_match_timeline(match_id) or {
                 "match_id": match_id, "revision": 0, "games": [], "scene_segments": manifest["scene_segments"]}
             timeline_path = prepared["run_folder"] / "match_timeline.json"
-            timeline_path.write_text(json.dumps(timeline, ensure_ascii=False, indent=2), encoding="utf-8")
+            _atomic_text(timeline_path, json.dumps(timeline, ensure_ascii=False, indent=2))
             media = manifest["media"]
             points = [point for game in timeline.get("games", []) for point in game.get("points", [])]
             rallies = [rally for point in points for rally in point.get("rallies", [])]
@@ -378,9 +520,9 @@ class FullMatchService:
                            "fallback": "MANUAL_SCORE_ENTRY"},
                        "notes": "No serve, spin, stroke, scorer, or tactics are inferred by BallTrack."}
             summary_path = prepared["run_folder"] / "full_match_summary.json"
-            summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+            _atomic_text(summary_path, json.dumps(summary, ensure_ascii=False, indent=2))
             report = _summary_html(summary)
-            (prepared["run_folder"] / "full_match_report.html").write_text(report, encoding="utf-8")
+            _atomic_text(prepared["run_folder"] / "full_match_report.html", report)
             try:
                 overlay_started = time.perf_counter()
                 manifest["preview_overlays"] = generate_preview_overlays(
@@ -399,9 +541,9 @@ class FullMatchService:
             manifest["output_artifacts_ready"] = True
             save_manifest(path, manifest)
             refresh_manifest_artifact(validation, path)
-            validation_path.write_text(json.dumps(validation, ensure_ascii=False, indent=2), encoding="utf-8")
-            (prepared["run_folder"] / "full_match_validation.html").write_text(
-                _validation_html(validation), encoding="utf-8")
+            _atomic_text(validation_path, json.dumps(validation, ensure_ascii=False, indent=2))
+            _atomic_text(prepared["run_folder"] / "full_match_validation.html",
+                         _validation_html(validation))
             job = {"match_id": match_id, "status": "BALLTRACK_COMPLETE", "stage": "全场球追踪完成；时间轴待人工校正",
                    "cache_key": prepared["cache_key"], "manifest_path": str(path),
                    "output_dir": str(prepared["run_folder"]), "summary_path": str(summary_path),
@@ -415,11 +557,22 @@ class FullMatchService:
             current = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else manifest
             current["status"] = "PAUSED"
             current["last_error"] = str(exc)
+            if isinstance(exc, ResourceGuardStop):
+                current["pause_reason"] = exc.reason
+                current["resource_guard_snapshot"] = exc.snapshot
+                current["failure_class"] = "RESOURCE_GUARD"
+                if exc.sample_log_path:
+                    current["resource_sample_log_path"] = exc.sample_log_path
+            else:
+                current["failure_class"] = "WORKER_OR_IO_ERROR"
             if path.is_file():
                 save_manifest(path, current)
             job = {"match_id": match_id, "status": current.get("status", "FAILED"),
                    "stage": "处理暂停，可从失败分块继续", "cache_key": prepared["cache_key"],
                    "manifest_path": str(path), "last_error": str(exc),
+                   "pause_reason": current.get("pause_reason"),
+                   "failure_class": current.get("failure_class"),
+                   "resource_snapshot": current.get("resource_guard_snapshot"),
                    "completed_chunks": sum(c["status"] == "COMPLETE" for c in current.get("chunks", [])),
                    "total_chunks": len(current.get("chunks", [])), "device": device}
             self.repo.save_full_match_job(match_id, job)
@@ -457,6 +610,34 @@ def build_full_match_validation(manifest, summary, identity, output_dir, frame_c
         artifacts[name] = {"exists": item.is_file(), "size_bytes": item.stat().st_size if item.is_file() else None,
                            "sha256": file_sha256(item) if item.is_file() else None}
     profile = [chunk.get("runtime", {}) for chunk in chunks]
+    resource_samples = []
+    resource_warnings = []
+    log_records = [(chunk.get("chunk_index"), chunk.get("resource_sample_log_path")) for chunk in chunks]
+    background_log = (manifest.get("background") or {}).get("resource_sample_log_path")
+    if background_log:
+        log_records.insert(0, ("BACKGROUND", background_log))
+    for chunk_index, log_path in log_records:
+        resource_path = Path(log_path or "")
+        if not resource_path.is_file():
+            continue
+        with resource_path.open("r", encoding="utf-8") as stream:
+            for line_number, line in enumerate(stream, 1):
+                try:
+                    sample = json.loads(line)
+                    sample["chunk_index"] = chunk_index
+                    resource_samples.append(sample)
+                except (json.JSONDecodeError, TypeError):
+                    resource_warnings.append(
+                        f"RESOURCE_SAMPLE_LOG_CORRUPT: chunk {chunk_index} line {line_number}")
+    snapshots = [sample.get("snapshot", {}) for sample in resource_samples]
+    available_values = [int(item["available_ram_bytes"]) for item in snapshots
+                        if isinstance(item.get("available_ram_bytes"), (int, float))]
+    monitored_rss = [int(item["monitored_process_rss_bytes"]) for item in snapshots
+                     if isinstance(item.get("monitored_process_rss_bytes"), (int, float))]
+    monitored_uss = [int(item["monitored_process_uss_bytes"]) for item in snapshots
+                     if isinstance(item.get("monitored_process_uss_bytes"), (int, float))]
+    gpu_values = [int(item["gpu_memory_used_mib"]) for item in snapshots
+                  if isinstance(item.get("gpu_memory_used_mib"), (int, float))]
     profile_totals = {}
     for chunk, runtime in zip(chunks, profile):
         for name, seconds in runtime.get("profile", {}).items():
@@ -482,6 +663,14 @@ def build_full_match_validation(manifest, summary, identity, output_dir, frame_c
         "runtime_profile_totals_seconds": profile_totals,
         "peak_cpu_ram_bytes": max((p.get("peak_cpu_ram_bytes") or 0 for p in profile), default=0),
         "peak_vram_bytes": max((p.get("peak_vram_bytes") or 0 for p in profile), default=0),
+        "resource_monitoring": {
+            "sample_count": len(resource_samples),
+            "available_ram_min_bytes": min(available_values) if available_values else None,
+            "monitored_process_tree_rss_peak_bytes": max(monitored_rss) if monitored_rss else None,
+            "monitored_process_tree_uss_peak_bytes": max(monitored_uss) if monitored_uss else None,
+            "gpu_memory_used_peak_mib": max(gpu_values) if gpu_values else None,
+            "samples": resource_samples,
+        },
         "effective_fps": frame_count / sum(p.get("processing_seconds", 0) for p in profile) if sum(p.get("processing_seconds", 0) for p in profile) else None,
         "realtime_factor": manifest["media"]["duration"] / sum(p.get("processing_seconds", 0) for p in profile) if sum(p.get("processing_seconds", 0) for p in profile) else None,
         "overlay_encoding_seconds": manifest.get("overlay_encoding_seconds", 0.0),
@@ -492,7 +681,8 @@ def build_full_match_validation(manifest, summary, identity, output_dir, frame_c
             "segmentation": "MANUAL / REVIEW_REQUIRED"},
         "artifacts": artifacts, "errors": manifest.get("errors", []), "warnings": [
             "Synthetic QA is not an accuracy evaluation." if manifest.get("qa_classification") == "SYNTHETIC_LONG_FORM_QA" else "",
-            "BallTrack temporal state resets at each chunk boundary.", *manifest.get("warnings", [])],
+            "BallTrack temporal state resets at each chunk boundary.", *resource_warnings,
+            *manifest.get("warnings", [])],
         "preview_overlays": manifest.get("preview_overlays", []),
         "scoreboard_recognition": "NOT_ENABLED", "tactical_inference": "NOT_PERFORMED"}
 

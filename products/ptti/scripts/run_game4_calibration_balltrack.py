@@ -106,7 +106,6 @@ def run(source_path: Path, *, chunk_seconds: int = 30, poll_seconds: float = 5.0
     data_root = dev_root / "evidence"
     service = FullMatchService(repo, data_root, config,
                                chunk_seconds=chunk_seconds,
-                               min_available_ram_gib=2.0,
                                max_new_chunks_per_run=1)
     prepared = service.prepare(record, "cuda")
     if prepared["video_sha256"].lower() != source["video"]["sha256"].lower():

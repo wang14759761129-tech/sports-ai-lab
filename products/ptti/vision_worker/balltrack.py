@@ -11,6 +11,13 @@ from collections import deque
 from pathlib import Path
 
 
+def _write_json_atomic(path, value):
+    path = Path(path)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(json.dumps(value), encoding="utf-8")
+    temporary.replace(path)
+
+
 def main():
     parser = argparse.ArgumentParser()
     for name in ('runtime', 'checkpoint', 'video', 'output'):
@@ -205,16 +212,17 @@ def main():
     if torch.cuda.is_available() and tracker.device.type == 'cuda':
         torch.cuda.synchronize()
     serialization_started = time.perf_counter()
-    (output / 'raw_prediction.json').write_text(json.dumps(results), encoding='utf-8')
+    _write_json_atomic(output / 'raw_prediction.json', results)
     if tracker.diagnostics:
-        (output / 'candidate_diagnostics.json').write_text(json.dumps(tracker.diagnostics, indent=2), encoding='utf-8')
+        _write_json_atomic(output / 'candidate_diagnostics.json', tracker.diagnostics)
     if args.top_k:
-        (output / 'peak_candidates.json').write_text(json.dumps(tracker.peak_rows), encoding='utf-8')
+        _write_json_atomic(output / 'peak_candidates.json', tracker.peak_rows)
     prediction_serialization_seconds = time.perf_counter() - serialization_started
     runtime = dict(processing_seconds=time.perf_counter() - started, decoded_frames=decoded_frames,
                    frame_count_hint=frame_count_hint, torch=torch.__version__, cuda=torch.version.cuda,
                    python=sys.version, gpu=torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
                    peak_vram_bytes=torch.cuda.max_memory_allocated() if torch.cuda.is_available() else None,
+                   peak_vram_reserved_bytes=torch.cuda.max_memory_reserved() if torch.cuda.is_available() else None,
                    alignment='inclusive history ending at output frame; initial repeated-frame padding',
                    background=background_method,
                    memory_mode='streaming; model history and inference batch only, independent of chunk length')
@@ -231,7 +239,7 @@ def main():
     memory = psutil.Process().memory_info()
     runtime['peak_cpu_ram_bytes'] = getattr(memory, 'peak_wset', None)
     runtime['current_cpu_ram_bytes'] = memory.rss
-    (output / 'runtime.json').write_text(json.dumps(runtime, indent=2), encoding='utf-8')
+    _write_json_atomic(output / 'runtime.json', runtime)
 
 
 if __name__ == '__main__':

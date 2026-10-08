@@ -56,10 +56,11 @@ def main() -> None:
     parser.add_argument("--device", choices=["cuda", "cpu"], default="cuda")
     parser.add_argument("--chunk-seconds", type=int, choices=[30, 60], default=30)
     parser.add_argument("--max-new-chunks", type=int, default=1)
-    parser.add_argument("--min-available-ram-gib", type=float, default=2.0)
+    parser.add_argument("--min-available-ram-gib", type=float, default=None,
+                        help="Optional additional RAM floor; cannot lower the machine-relative safety floor")
     parser.add_argument("--poll-seconds", type=int, default=10)
     args = parser.parse_args()
-    if args.max_new_chunks < 1 or args.min_available_ram_gib < 1.0:
+    if args.max_new_chunks < 1 or (args.min_available_ram_gib is not None and args.min_available_ram_gib < 1.0):
         raise ValueError("BATCH_LIMIT_MUST_BE_POSITIVE_AND_RAM_GUARD_AT_LEAST_1_GIB")
 
     local = Path(os.environ.get("LOCALAPPDATA", Path.home() / "AppData" / "Local")).resolve()

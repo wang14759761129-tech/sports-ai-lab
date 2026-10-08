@@ -13,6 +13,7 @@ from pathlib import Path
 import re
 import subprocess
 import time
+from collections import deque
 from datetime import datetime, timezone
 from typing import Literal
 from typing import Protocol
@@ -58,9 +59,12 @@ def verify_chunk_artifacts(chunk: dict) -> None:
     """Fail closed if a COMPLETE chunk's evidence is missing or changed."""
     for path_key, hash_key in (("raw_prediction_path", "raw_prediction_sha256"),
                                ("observations_path", "observations_sha256"),
-                               ("runtime_path", "runtime_sha256")):
+                               ("runtime_path", "runtime_sha256"),
+                               ("resource_sample_log_path", "resource_sample_log_sha256")):
         path = Path(chunk.get(path_key, ""))
         expected = chunk.get(hash_key)
+        if path_key == "resource_sample_log_path" and not expected and not chunk.get(path_key):
+            continue
         # Older pure-helper fixtures have no filesystem evidence. Production
         # pipeline checkpoints always carry hashes and are verified strictly.
         if expected is None and not any(chunk.get(key) for key in (
@@ -213,15 +217,36 @@ def save_manifest(path: Path, manifest: dict) -> None:
     raise last_error
 
 
-def system_resource_snapshot() -> dict:
+def system_resource_snapshot(process_pid: int | None = None) -> dict:
     """Return a small, best-effort system snapshot without importing GPU frameworks."""
     snapshot = {"available_ram_bytes": None, "process_rss_bytes": None,
+                "total_ram_bytes": None, "process_uss_bytes": None,
+                "monitored_process_rss_bytes": None, "monitored_process_uss_bytes": None,
+                "monitored_process_count": 0,
                 "gpu": None, "gpu_temperature_c": None, "gpu_memory_used_mib": None,
                 "gpu_memory_free_mib": None, "gpu_utilization_percent": None}
     try:
         import psutil
-        snapshot["available_ram_bytes"] = int(psutil.virtual_memory().available)
-        snapshot["process_rss_bytes"] = int(psutil.Process().memory_info().rss)
+        memory = psutil.virtual_memory()
+        snapshot["available_ram_bytes"] = int(memory.available)
+        snapshot["total_ram_bytes"] = int(memory.total)
+        own = psutil.Process()
+        snapshot["process_rss_bytes"] = int(own.memory_info().rss)
+        try:
+            snapshot["process_uss_bytes"] = int(getattr(own.memory_full_info(), "uss", 0)) or None
+        except (psutil.Error, OSError):
+            snapshot["process_uss_bytes"] = None
+        if process_pid is not None:
+            try:
+                process = psutil.Process(process_pid)
+                children = process.children(recursive=True)
+                tree = [process, *children]
+                snapshot["monitored_process_count"] = len(tree)
+                snapshot["monitored_process_rss_bytes"] = sum(item.memory_info().rss for item in tree)
+                uss_values = [getattr(item.memory_full_info(), "uss", 0) for item in tree]
+                snapshot["monitored_process_uss_bytes"] = sum(uss_values) or None
+            except (psutil.NoSuchProcess, psutil.AccessDenied, OSError):
+                snapshot["monitored_process_count"] = 0
     except (ImportError, OSError):
         snapshot["available_ram_bytes"] = _windows_available_ram_bytes()
         if snapshot["available_ram_bytes"] is None and os.name != "nt":
@@ -245,6 +270,73 @@ def system_resource_snapshot() -> dict:
     except (OSError, subprocess.SubprocessError, ValueError, IndexError):
         pass
     return snapshot
+
+
+class ResourceGuardStop(RuntimeError):
+    """A recoverable pause raised after the owned worker tree has been stopped."""
+
+    def __init__(self, reason: str, snapshot: dict, sample_log_path: str | None = None):
+        super().__init__(reason)
+        self.reason = reason
+        self.snapshot = snapshot
+        self.sample_log_path = sample_log_path
+
+
+class ResourceTrendGuard:
+    """Machine-relative RAM guard; fail closed if physical-memory telemetry is missing."""
+
+    GIB = 1024 ** 3
+
+    def __init__(self, initial_snapshot: dict, minimum_start_gib: float | None = None,
+                 trend_window_seconds: float = 30.0):
+        total = initial_snapshot.get("total_ram_bytes")
+        total = int(total) if isinstance(total, (int, float)) and total > 0 else 16 * self.GIB
+        machine_floor = max(3 * self.GIB, int(total * .25))
+        requested_floor = (machine_floor if minimum_start_gib is None
+                           else int(float(minimum_start_gib) * self.GIB))
+        self.start_bytes = max(machine_floor, requested_floor)
+        self.pause_bytes = max(int(1.5 * self.GIB), int(total * .15))
+        self.warning_drop_bytes = max(int(.5 * self.GIB), int(total * .05))
+        self.critical_drop_bytes = max(int(.9 * self.GIB), int(total * .08))
+        self.trend_window_seconds = float(trend_window_seconds)
+        self.samples = deque(maxlen=64)
+        self.observe(initial_snapshot)
+
+    def start_check(self, snapshot: dict) -> dict:
+        available = snapshot.get("available_ram_bytes")
+        if available is None:
+            return {"allowed": False, "reason": "RESOURCE_GUARD_UNAVAILABLE", "snapshot": snapshot,
+                    "required_available_ram_bytes": self.start_bytes}
+        allowed = int(available) >= self.start_bytes
+        return {"allowed": allowed,
+                "reason": None if allowed else "RESOURCE_GUARD_BEFORE_WORKER",
+                "snapshot": snapshot, "required_available_ram_bytes": self.start_bytes}
+
+    def observe(self, snapshot: dict, now: float | None = None) -> dict:
+        now = time.monotonic() if now is None else float(now)
+        available = snapshot.get("available_ram_bytes")
+        self.samples.append((now, int(available) if available is not None else None))
+        if available is None:
+            return {"pause": True, "warning": True, "reason": "RESOURCE_GUARD_UNAVAILABLE",
+                    "snapshot": snapshot, "available_ram_drop_bytes": None}
+        available = int(available)
+        recent = [(stamp, value) for stamp, value in self.samples
+                  if value is not None and now - stamp <= self.trend_window_seconds]
+        drop = max(0, recent[0][1] - available) if len(recent) > 1 else 0
+        if available < self.pause_bytes:
+            reason = "RESOURCE_GUARD_LOW_AVAILABLE_RAM"
+        elif available < self.start_bytes and drop >= self.critical_drop_bytes:
+            reason = "RESOURCE_GUARD_DECLINING_RAM_TREND"
+        else:
+            reason = None
+        return {"pause": reason is not None,
+                "warning": available < self.start_bytes or drop >= self.warning_drop_bytes,
+                "reason": reason, "snapshot": snapshot,
+                "available_ram_drop_bytes": drop,
+                "start_threshold_bytes": self.start_bytes,
+                "pause_threshold_bytes": self.pause_bytes,
+                "warning_drop_threshold_bytes": self.warning_drop_bytes,
+                "critical_drop_threshold_bytes": self.critical_drop_bytes}
 
 
 def _windows_available_ram_bytes() -> int | None:
@@ -290,6 +382,14 @@ def run_resumable_chunks(path: Path, execute_chunk, progress=None, *,
         chunk.get("status") == "COMPLETE" for chunk in manifest["chunks"])
     manifest.setdefault("cache_hits", 0)
     manifest.setdefault("resume_count", 0)
+    binding = {key: manifest.get(key) for key in
+               ("cache_key", "video_sha256", "checkpoint_sha256", "config_sha256")}
+    if all(binding.values()):
+        for chunk in manifest["chunks"]:
+            previous_binding = chunk.get("cache_binding")
+            if previous_binding is not None and previous_binding != binding:
+                raise ValueError(f"CACHE_BINDING_MISMATCH: chunk {chunk.get('chunk_index')}")
+            chunk["cache_binding"] = binding
     if resumed:
         manifest["resume_count"] += 1
     manifest["status"] = "RUNNING"
@@ -338,8 +438,23 @@ def run_resumable_chunks(path: Path, execute_chunk, progress=None, *,
             completed_this_run += 1
             if progress:
                 progress(manifest)
+        except ResourceGuardStop as exc:
+            chunk["status"] = "INTERRUPTED"
+            chunk["failure_class"] = "RESOURCE_GUARD"
+            chunk["error"] = str(exc)
+            chunk["resource_stop_snapshot"] = exc.snapshot
+            if exc.sample_log_path:
+                chunk["resource_sample_log_path"] = exc.sample_log_path
+            manifest["status"] = "PAUSED"
+            manifest["pause_reason"] = exc.reason
+            manifest["resource_guard_snapshot"] = exc.snapshot
+            save_manifest(path, manifest)
+            if progress:
+                progress(manifest)
+            return manifest
         except Exception as exc:
             chunk["status"] = "FAILED"
+            chunk["failure_class"] = "WORKER_OR_IO_ERROR"
             chunk["error"] = str(exc)
             manifest["status"] = "PAUSED"
             manifest["last_error"] = str(exc)
