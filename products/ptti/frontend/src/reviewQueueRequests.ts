@@ -30,3 +30,7 @@ export function canReviewCandidate(candidate:{source?:string;review_status?:stri
  return candidate?.source==='AI_SUGGESTION'&&candidate.disposition!=='FILTERED'&&
         ['UNVERIFIED','CONFIRMED','REJECTED'].includes(candidate.review_status??'');
 }
+
+export function canDeleteEvidence(candidate:{source?:string;raw_candidate?:unknown}|null){
+ return candidate!==null&&!candidate.source?.startsWith('AI_')&&!('raw_candidate' in candidate);
+}

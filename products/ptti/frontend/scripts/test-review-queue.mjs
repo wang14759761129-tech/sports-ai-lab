@@ -11,7 +11,7 @@ try{
    '--target','ES2022','--module','ES2022','--strict','--skipLibCheck','--outDir',folder],{encoding:'utf8'});
  assert.equal(compilation.status,0,compilation.stdout+compilation.stderr);
  writeFileSync(join(folder,'package.json'),'{"type":"module"}');
- const {ReviewQueueRequests,nextCandidateAfterReview,shouldHandleReviewShortcut,canReviewCandidate}=await import(pathToFileURL(join(folder,'reviewQueueRequests.js')));
+ const {ReviewQueueRequests,nextCandidateAfterReview,shouldHandleReviewShortcut,canReviewCandidate,canDeleteEvidence}=await import(pathToFileURL(join(folder,'reviewQueueRequests.js')));
  const deferred=()=>{let resolve;const promise=new Promise(r=>resolve=r);return {promise,resolve}};
  let count=0;
  const check=async(name,fn)=>{await fn();count++;console.log(`PASS ${name}`)};
@@ -58,6 +58,10 @@ try{
   assert.equal(canReviewCandidate({source:'AI_SUGGESTION',review_status:'FILTERED'}),false);
   assert.equal(canReviewCandidate({source:'AI_SUGGESTION',review_status:'CONFIRMED',disposition:'FILTERED'}),false);
   assert.equal(canReviewCandidate(null),false);
+  assert.equal(canDeleteEvidence({source:'MANUAL_CONFIRMED'}),true);
+  for(const source of ['AI_SUGGESTION','AI_SUGGESTED','AI_REVIEWED'])assert.equal(canDeleteEvidence({source}),false);
+  assert.equal(canDeleteEvidence({source:'MANUAL_CONFIRMED',raw_candidate:{}}),false);
+  assert.equal(canDeleteEvidence(null),false);
  });
  console.log(`${count} passed, 0 failed`);
 }finally{rmSync(folder,{recursive:true,force:true})}
