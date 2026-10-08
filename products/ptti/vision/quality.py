@@ -1,4 +1,5 @@
 import json
+import math
 import os
 import subprocess
 from fractions import Fraction
@@ -26,14 +27,31 @@ def video_metadata(path):
     result = subprocess.run(['ffprobe', '-v', 'error', '-show_streams', '-show_format',
                              '-of', 'json', str(path)], capture_output=True, text=True, encoding='utf-8',
                             timeout=60, check=True, creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
-    data = json.loads(result.stdout)
-    stream = next((s for s in data['streams'] if s['codec_type'] == 'video'), None)
+    try:
+        data = json.loads(result.stdout)
+        stream = next((s for s in data.get('streams', []) if s.get('codec_type') == 'video'), None)
+    except (ValueError, TypeError, AttributeError):
+        raise ValueError('无法读取有效的视频元数据') from None
     if not stream:
         raise ValueError('文件没有可读取的视频轨道')
-    fps = float(Fraction(stream.get('avg_frame_rate', '0/1')))
-    if fps <= 0:
+    format_data = data.get('format') or {}
+    try:
+        fps = float(Fraction(stream.get('avg_frame_rate', '0/1')))
+        duration_text = stream.get('duration')
+        if duration_text in (None, '', 'N/A'):
+            duration_text = format_data.get('duration', 0)
+        duration = float(duration_text)
+        width, height = int(stream['width']), int(stream['height'])
+    except (ValueError, TypeError, KeyError, ZeroDivisionError, OverflowError):
+        raise ValueError('无法读取有效的视频帧率、时长或分辨率') from None
+    if not math.isfinite(fps) or fps <= 0:
         raise ValueError('无法读取有效帧率')
-    duration = float(stream.get('duration', data['format'].get('duration', 0)))
+    if not math.isfinite(duration) or duration <= 0 or width <= 0 or height <= 0:
+        raise ValueError('无法读取有效的视频时长或分辨率')
+    try:
+        bitrate = int(format_data.get('bit_rate', 0))
+    except (ValueError, TypeError):
+        bitrate = None
     rotation = next((item.get('rotation') for item in stream.get('side_data_list', [])
                      if item.get('rotation') is not None), stream.get('tags', {}).get('rotate', 0))
     try:
@@ -43,14 +61,14 @@ def video_metadata(path):
     audio_streams = [dict(codec=item.get('codec_name'), sample_rate=item.get('sample_rate'),
                           channels=item.get('channels'), channel_layout=item.get('channel_layout'))
                      for item in data['streams'] if item.get('codec_type') == 'audio']
-    return dict(width=int(stream['width']), height=int(stream['height']), fps=fps,
+    return dict(width=width, height=height, fps=fps,
                 duration=duration, codec=stream['codec_name'],
-                bitrate=int(data['format'].get('bit_rate', 0)),
+                bitrate=bitrate,
                 frame_count=int(stream['nb_frames']) if stream.get('nb_frames', '').isdigit() else None,
                 aspect_ratio=stream.get('display_aspect_ratio'),
                 orientation_degrees=orientation_degrees,
                 pixel_format=stream.get('pix_fmt'), profile=stream.get('profile'),
-                format_name=data['format'].get('format_name'), audio_streams=audio_streams,
+                format_name=format_data.get('format_name'), audio_streams=audio_streams,
                 rate_variable=stream.get('r_frame_rate') != stream.get('avg_frame_rate'))
 
 def normalize(path, destination, meta):
