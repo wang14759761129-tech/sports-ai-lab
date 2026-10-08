@@ -203,6 +203,23 @@ def test_complete_checkpoint_artifact_corruption_fails_closed(tmp_path):
         run_resumable_chunks(path, lambda chunk: {})
 
 
+@pytest.mark.parametrize("digest", [None, "wrong"])
+def test_new_chunk_with_invalid_artifacts_is_never_committed_complete(tmp_path, digest):
+    path = tmp_path / "manifest.json"
+    path.write_text(json.dumps({"status": "QUEUED", "chunks": [
+        {"chunk_index": 0, "status": "PENDING"}]}), encoding="utf-8")
+
+    def execute(_chunk):
+        return {"raw_prediction_path": str(tmp_path / "missing.json"),
+                "raw_prediction_sha256": digest}
+
+    with pytest.raises(ValueError, match="CORRUPT_CHECKPOINT"):
+        run_resumable_chunks(path, execute)
+    persisted = json.loads(path.read_text(encoding="utf-8"))
+    assert persisted["status"] == "PAUSED"
+    assert persisted["chunks"][0]["status"] == "FAILED"
+
+
 def test_legacy_complete_chunk_without_resource_log_remains_resumable(tmp_path):
     import hashlib
 

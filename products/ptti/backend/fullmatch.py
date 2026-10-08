@@ -57,6 +57,13 @@ def source_identity(path: Path) -> dict:
 
 def verify_chunk_artifacts(chunk: dict) -> None:
     """Fail closed if a COMPLETE chunk's evidence is missing or changed."""
+    declared = ("raw_prediction_path", "raw_prediction_sha256", "observations_path",
+                "observations_sha256", "runtime_path", "runtime_sha256",
+                "resource_sample_log_path", "resource_sample_log_sha256")
+    # Pure state-machine fixtures carry no filesystem artifacts. Once any
+    # artifacts are declared, every required output must have a valid hash.
+    if not any(chunk.get(key) for key in declared):
+        return
     for path_key, hash_key in (("raw_prediction_path", "raw_prediction_sha256"),
                                ("observations_path", "observations_sha256"),
                                ("runtime_path", "runtime_sha256"),
@@ -65,11 +72,6 @@ def verify_chunk_artifacts(chunk: dict) -> None:
         expected = chunk.get(hash_key)
         if path_key == "resource_sample_log_path" and not expected and not chunk.get(path_key):
             continue
-        # Older pure-helper fixtures have no filesystem evidence. Production
-        # pipeline checkpoints always carry hashes and are verified strictly.
-        if expected is None and not any(chunk.get(key) for key in (
-                "raw_prediction_sha256", "observations_sha256", "runtime_sha256")):
-            return
         if not path.is_file() or not expected or file_sha256(path) != expected:
             raise ValueError(f"CORRUPT_CHECKPOINT: chunk {chunk.get('chunk_index')} {path_key}")
 
@@ -432,7 +434,10 @@ def run_resumable_chunks(path: Path, execute_chunk, progress=None, *,
         try:
             result = execute_chunk(chunk)
             chunk.update(result or {})
+            verify_chunk_artifacts(chunk)
             chunk["status"] = "COMPLETE"
+            chunk.pop("failure_class", None)
+            chunk.pop("resource_stop_snapshot", None)
             chunk["completed_at"] = datetime.now(timezone.utc).isoformat()
             save_manifest(path, manifest)
             completed_this_run += 1
