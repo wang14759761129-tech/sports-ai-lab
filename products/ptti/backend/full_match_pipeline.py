@@ -525,9 +525,17 @@ class FullMatchService:
             _atomic_text(prepared["run_folder"] / "full_match_report.html", report)
             try:
                 overlay_started = time.perf_counter()
+                overlay_resource_log = logs / "resource-preview-overlay.jsonl"
+
+                def preview_command(command, **options):
+                    return run_monitored(command, phase="PREVIEW_OVERLAY", chunk_index=None,
+                        sample_log=overlay_resource_log,
+                        capture_output=options.get("capture_output", False),
+                        timeout=options.get("timeout", 3600))
+
                 manifest["preview_overlays"] = generate_preview_overlays(
                     prepared["video"], merged_csv, prepared["metadata"], prepared["run_folder"],
-                    self.config.worker_python)
+                    self.config.worker_python, run_process=preview_command)
                 manifest["overlay_encoding_seconds"] = time.perf_counter() - overlay_started
             except Exception as overlay_error:
                 manifest["overlay_encoding_seconds"] = time.perf_counter() - overlay_started
@@ -707,7 +715,7 @@ def _validation_html(report):
             "<h1>PTTI 全场工程验收报告</h1><p>工程稳定性记录，不构成职业比赛准确率认证。</p>" + f"<table>{rows}</table></html>")
 
 
-def generate_preview_overlays(video, csv_path, metadata, output_dir, worker_python):
+def generate_preview_overlays(video, csv_path, metadata, output_dir, worker_python, *, run_process=None):
     """Render only three bounded 30-second review windows, never a whole-match overlay."""
     preview_dir = Path(output_dir) / "preview_overlays"
     preview_dir.mkdir(exist_ok=True)
@@ -715,35 +723,43 @@ def generate_preview_overlays(video, csv_path, metadata, output_dir, worker_pyth
     fps = float(metadata["fps"])
     window = min(30.0, duration)
     starts = sorted(set((0.0, max(0.0, (duration - window) / 2), max(0.0, duration - window))))
-    rows = []
+    run_process = run_process or subprocess.run
+    ranges = [(round(start * fps), round((start + window) * fps)) for start in starts]
+    selected = [[] for _ in ranges]
     with Path(csv_path).open(encoding="utf-8", newline="") as source:
-        rows = list(csv.DictReader(source))
+        for row in csv.DictReader(source):
+            frame = int(row["global_frame"])
+            for index, (start_frame, end_frame) in enumerate(ranges):
+                if start_frame <= frame < end_frame:
+                    selected[index].append({"frame": frame - start_frame,
+                        "pixel_x": float(row["x"] or 0), "pixel_y": float(row["y"] or 0),
+                        "visible": row["visible"].lower() == "true",
+                        "confidence": float(row["raw_model_score"]) if row["raw_model_score"] else None})
     overlay_script = Path(__file__).resolve().parents[1] / "vision_worker" / "overlay.py"
     previews = []
     for index, start in enumerate(starts, start=1):
         source_clip = preview_dir / f"preview-{index:02d}-source.mp4"
         prediction_path = preview_dir / f"preview-{index:02d}-predictions.json"
         destination = preview_dir / f"preview-{index:02d}.mp4"
-        subprocess.run(["ffmpeg", "-nostdin", "-v", "error", "-ss", f"{start:.3f}", "-i", str(video),
-            "-t", f"{window:.3f}", "-map", "0:v:0", "-an", "-c:v", "libx264", "-preset", "ultrafast",
-            "-crf", "20", "-y", str(source_clip)], check=True, timeout=3600, capture_output=True,
-                       creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
-        start_frame = round(start * fps)
-        end_frame = round((start + window) * fps)
-        values = []
-        for row in rows:
-            frame = int(row["global_frame"])
-            if start_frame <= frame < end_frame:
-                visible = row["visible"].lower() == "true"
-                values.append({"frame": frame - start_frame, "pixel_x": float(row["x"] or 0),
-                    "pixel_y": float(row["y"] or 0), "visible": visible,
-                    "confidence": float(row["raw_model_score"]) if row["raw_model_score"] else None})
-        prediction_path.write_text(json.dumps(values), encoding="utf-8")
-        subprocess.run([str(worker_python), str(overlay_script), str(source_clip), str(prediction_path),
-                        str(destination)], check=True, timeout=3600,
-                       creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
-        source_clip.unlink(missing_ok=True)
-        prediction_path.unlink(missing_ok=True)
+        temporary_destination = preview_dir / f"preview-{index:02d}.part.mp4"
+        values = selected[index - 1]
+        try:
+            run_process(["ffmpeg", "-nostdin", "-v", "error", "-ss", f"{start:.3f}", "-i", str(video),
+                "-t", f"{window:.3f}", "-map", "0:v:0", "-an", "-c:v", "libx264", "-preset", "ultrafast",
+                "-crf", "20", "-y", str(source_clip)], check=True, timeout=3600, capture_output=True,
+                           creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+            _atomic_text(prediction_path, json.dumps(values))
+            run_process([str(worker_python), str(overlay_script), str(source_clip), str(prediction_path),
+                            str(temporary_destination)], check=True, timeout=3600,
+                           creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+            if not temporary_destination.is_file() or temporary_destination.stat().st_size == 0:
+                raise RuntimeError("Preview encoder produced no complete output")
+            temporary_destination.replace(destination)
+        finally:
+            source_clip.unlink(missing_ok=True)
+            prediction_path.unlink(missing_ok=True)
+            prediction_path.with_suffix(prediction_path.suffix + ".tmp").unlink(missing_ok=True)
+            temporary_destination.unlink(missing_ok=True)
         previews.append({"path": str(destination), "start_seconds": start, "duration_seconds": window,
                          "frames": len(values), "bounded_preview": True})
     return previews
