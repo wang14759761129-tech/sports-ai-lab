@@ -174,12 +174,12 @@ def test_media_range_head_unregistered_path_and_cross_site_denied(library):
         head = client.head(url)
         assert head.status_code == 200 and head.content == b""
         assert int(head.headers["content-length"]) == video["file_size"]
-        suffix = client.get(url, headers={'Range': 'bytes=-10'})
+        suffix = client.get(url, headers={"Range": "bytes=-10"})
         assert suffix.status_code == 206 and suffix.content == source.read_bytes()[-10:]
-        ranged_head = client.head(url, headers={'Range': 'bytes=0-9'})
-        assert ranged_head.status_code == 206 and ranged_head.content == b''
-        assert ranged_head.headers['content-length'] == '10'
-        assert client.get(url, headers={'Range': 'bytes=0-1,4-5'}).status_code == 416
+        ranged_head = client.head(url, headers={"Range": "bytes=0-9"})
+        assert ranged_head.status_code == 206 and ranged_head.content == b""
+        assert ranged_head.headers["content-length"] == "10"
+        assert client.get(url, headers={"Range": "bytes=0-1,4-5"}).status_code == 416
         assert client.get(url, headers={"Range": "bytes=999999999-"}).status_code == 416
         assert (
             client.get("/api/video-evidence/videos/unregistered/media").status_code

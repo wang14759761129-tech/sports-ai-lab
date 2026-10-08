@@ -53,3 +53,12 @@ Output is a distinct `PTTI-Video-Evidence-Preview` onedir build. It includes FFm
 H.264 MP4 playback is the supported acceptance path. MOV/MKV/AVI or other codecs may not play in WebView2; no automatic multi-gigabyte transcoding is performed. Exact frame stepping, measured athlete time savings, and AI automatic event accuracy are not claimed.
 
 Research Gate stays `HIT_EVENT_V0_3_CONFIG_FROZEN`; Hit product Gate stays `HIT_EVENT_V0_2_PARTIAL`. GAME_5 downloading and evaluation remain separate and untouched.
+
+## Browser-hosted desktop frontend QA (2026-10-08)
+
+- Registered full, lawful TRAIN videos game_4 (3,947,371,986 bytes, 1920×1080, 526 s) and game_3 (4,637,044,123 bytes, 1920×1080, 618 s) by reference. No research annotation parsing or GPU inference.
+- Saved ten distinct game_4 intervals through the UI with three custom QA tags and notes; they persisted after a page reload. An eleventh game_3 clip verified cross-source playlists.
+- Cross-source playlist, previous/next, replay, 0.5× / 2×, single-clip and playlist loops were clicked. Playback switched to the correct original Video ID and source interval.
+- A Chinese-path QA hardlink was moved while the original research file remained untouched. Missing File preserved evidence; full-SHA relink restored playback. After the cancellable-stream fix, leaving the player released the file handle and the QA alias could move without stopping the server.
+- Full suite: 438 passed, 0 failed, 1 skipped (optional isolated vision runtime absent from this worktree), 1 existing Starlette/httpx deprecation warning. New-module Ruff and frontend production build passed. Final streaming changes additionally passed all 14 player tests.
+- Native packaged Windows acceptance is recorded separately after the preview build; this browser QA alone is not native GUI acceptance.
