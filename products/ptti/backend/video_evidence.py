@@ -23,6 +23,20 @@ from pydantic import BaseModel, Field
 from vision.quality import video_metadata
 
 
+FROZEN_HIT_CONFIG_SHA = "7b3715807699180b1559d28df5a456046c870035c3d3e9e728e6981185f8ef98"
+FROZEN_HIT_CONFIG_FILE_SHA = "fb42c70ab44bb4b919242e6c14de493507fb5aa17ac4a203c6a9e870a1c047f3"
+TRAIN_VIDEO_SHA = {
+    "1": "1297b3db91f2e3e160337643695dff07eabf9785ea2d88c2f7b59687ba511148",
+    "2": "330ac07730bae6d899dbbbd00ad43500c583e6af6ea6dd261565bc77811eba66",
+    "3": "e0f6a1ddbb838ac6acc67fb50f763728b589ec8f8cb7ababd9fa95f13c853e49",
+}
+TRAIN_RESULT_SHA = {
+    "1": "9b92c4a6d4f33bcca4016d7667276feda8db7dafe09cd51498e9a9cb1974df77",
+    "2": "fbb96373b194ce505bf353890c012d1ee5a7fc61af3864e4f49ea44481ee4ec7",
+    "3": "23ae3797b75da751283536cc53c217cfdfc280dc8ddf0b447c380e8220e9475e",
+}
+
+
 def utc_now():
     return datetime.now(timezone.utc).isoformat()
 
@@ -59,12 +73,39 @@ class EvidenceInput(BaseModel):
     event_type: str = Field(default="KEY_CLIP", min_length=1, max_length=100)
     tags: list[str] = Field(default_factory=list, max_length=30)
     notes: str = Field(default="", max_length=10000)
-    review_status: Literal["CONFIRMED", "REJECTED", "REVIEW_REQUIRED"] = "CONFIRMED"
+    review_status: Literal["CONFIRMED", "REJECTED", "REVIEW_REQUIRED", "UNVERIFIED", "FILTERED"] = "CONFIRMED"
 
 
 class CollectionInput(BaseModel):
     name: str = Field(min_length=1, max_length=100)
     evidence_ids: list[str] = Field(default_factory=list, max_length=10000)
+
+
+class AIImportInput(BaseModel):
+    video_id: str
+    path: str = Field(min_length=1, max_length=4000)
+
+
+class AIReviewInput(BaseModel):
+    decision: Literal["CONFIRMED", "REJECTED"]
+    representative_ms: int | None = Field(default=None, ge=0)
+    start_ms: int | None = Field(default=None, ge=0)
+    end_ms: int | None = Field(default=None, gt=0)
+    reviewer_side: Literal["NEAR", "FAR", "UNKNOWN"] | None = None
+    tags: list[str] | None = Field(default=None, max_length=30)
+    notes: str | None = Field(default=None, max_length=10000)
+
+
+class PointInput(BaseModel):
+    video_id: str
+    game_number: int | None = Field(default=None, ge=1, le=20)
+    score_a: int | None = Field(default=None, ge=0, le=30)
+    score_b: int | None = Field(default=None, ge=0, le=30)
+    start_ms: int = Field(ge=0)
+    end_ms: int = Field(gt=0)
+    tags: list[str] = Field(default_factory=list, max_length=30)
+    evidence_ids: list[str] = Field(default_factory=list, max_length=1000)
+    notes: str = Field(default="", max_length=10000)
 
 
 class EvidenceStore:
@@ -79,6 +120,8 @@ class EvidenceStore:
         self.hasher = ThreadPoolExecutor(
             max_workers=1, thread_name_prefix="evidence-sha"
         )
+        self.importer = ThreadPoolExecutor(max_workers=1, thread_name_prefix="evidence-import")
+        self.import_cancellations = {}
         self.pending = set()
         self.lock = threading.Lock()
         self.stopping = threading.Event()
@@ -94,6 +137,14 @@ class EvidenceStore:
             db.execute(
                 "CREATE TABLE IF NOT EXISTS evidence_audit (audit_id TEXT PRIMARY KEY, entity_id TEXT NOT NULL, action TEXT NOT NULL, recorded_at TEXT NOT NULL, payload TEXT NOT NULL)"
             )
+            db.execute("CREATE TABLE IF NOT EXISTS ai_import_batches (batch_id TEXT PRIMARY KEY, payload TEXT NOT NULL)")
+            db.execute("CREATE TABLE IF NOT EXISTS ai_import_keys (import_key TEXT PRIMARY KEY, evidence_id TEXT NOT NULL, batch_id TEXT NOT NULL)")
+            db.execute("CREATE TABLE IF NOT EXISTS evidence_points (point_id TEXT PRIMARY KEY, payload TEXT NOT NULL)")
+            for row in db.execute("SELECT batch_id,payload FROM ai_import_batches").fetchall():
+                payload = json.loads(row[1])
+                if payload.get("status") == "RUNNING":
+                    payload.update(status="PAUSED", message="应用已关闭；可安全恢复导入")
+                    db.execute("UPDATE ai_import_batches SET payload=? WHERE batch_id=?", (json.dumps(payload, ensure_ascii=False), row[0]))
         for row in self.list("evidence_videos"):
             if row.get("hash_status") == "PENDING":
                 self.queue_hash(row["video_id"])
@@ -236,6 +287,9 @@ class EvidenceStore:
     def close(self):
         self.stopping.set()
         self.hasher.shutdown(wait=False, cancel_futures=True)
+        for cancel in self.import_cancellations.values():
+            cancel.set()
+        self.importer.shutdown(wait=False, cancel_futures=True)
 
     def relink(self, video_id, path):
         row = self.get("evidence_videos", "video_id", video_id)
@@ -345,6 +399,253 @@ class EvidenceStore:
             "updated_at": utc_now(),
         }
         return self.save("video_evidence", "evidence_id", row, "IMPORT_AI_SUGGESTION")
+
+    def _verified_package(self, video_id, package_path):
+        video = self.get("evidence_videos", "video_id", video_id)
+        video = self.availability(video)
+        if video.get("availability_status") != "AVAILABLE" or video.get("hash_status") != "VERIFIED":
+            raise ValueError("请先恢复原视频并完成 SHA256 校验")
+        if str(package_path).startswith(("\\\\", "//")):
+            raise ValueError("请选择本机上的冻结结果包 JSONL")
+        path = Path(package_path).expanduser().resolve(strict=True)
+        if path.suffix.lower() != ".jsonl" or not path.is_file() or str(path).startswith("\\\\"):
+            raise ValueError("请选择本机上的冻结结果包 JSONL")
+        if path.stat().st_size > 2 * 1024 * 1024 * 1024:
+            raise ValueError("结果包超过 2 GB 安全上限")
+        package_sha = digest_file(path)
+        with path.open("r", encoding="utf-8-sig") as stream:
+            first = stream.readline()
+        try:
+            header = json.loads(first)
+        except (json.JSONDecodeError, TypeError) as exc:
+            raise ValueError("结果包首行不是有效 JSON manifest") from exc
+        manifest = header.get("manifest") if isinstance(header, dict) else None
+        if not isinstance(header, dict) or header.get("kind") != "manifest" or not isinstance(manifest, dict):
+            raise ValueError("结果包缺少 manifest")
+        if manifest.get("schema") != "ptti-ai-evidence-package-v1":
+            raise ValueError("不支持的 AI 证据包版本")
+        if manifest.get("dataset") != "Extended OpenTTGames" or manifest.get("split") != "train":
+            raise ValueError("此 Preview 仅接受 Extended OpenTTGames TRAIN 开发素材")
+        match_ref = str(manifest.get("match_reference", "")).casefold()
+        game_refs = re.findall(r"\bgame_([1-5])\b", match_ref)
+        if len(game_refs) != 1 or game_refs[0] not in {"1", "2", "3"}:
+            raise ValueError("GAME_4、GAME_5 与官方 TEST 素材在此导入中保持锁定")
+        if manifest.get("commercial_use") is not False or manifest.get("dataset_license") != "CC BY-NC-SA 4.0":
+            raise ValueError("结果包缺少正确的研究许可和非商业用途标记")
+        game_number = game_refs[0]
+        if manifest.get("source_video_sha256") != video.get("source_sha256") or video.get("source_sha256") != TRAIN_VIDEO_SHA[game_number]:
+            raise ValueError("原视频 SHA256 不匹配，候选不能绑定到这场录像")
+        if manifest.get("result_sha256") != TRAIN_RESULT_SHA[game_number]:
+            raise ValueError("冻结研究结果 SHA256 与已登记的 D 结果不一致")
+        if manifest.get("hit_event_version") != "v0.3" or manifest.get("variant") != "D" or manifest.get("frozen_config_sha256") != FROZEN_HIT_CONFIG_SHA:
+            raise ValueError("结果包不是冻结的 Hit Event v0.3 D 配置")
+        if manifest.get("frozen_config_file_sha256") != FROZEN_HIT_CONFIG_FILE_SHA:
+            raise ValueError("冻结配置文件 SHA256 与登记值不一致")
+        mapping = manifest.get("timestamp_mapping") or {}
+        if mapping.get("kind") != "CANONICAL_SOURCE_TIMESTAMP_MS" or mapping.get("frame_field") != "source_frame" or mapping.get("timestamp_field") != "timestamp_ms":
+            raise ValueError("结果包时间轴映射缺失或不受支持")
+        source_fps = mapping.get("source_fps")
+        if not isinstance(source_fps, (int, float)) or not math.isfinite(source_fps) or source_fps <= 0:
+            raise ValueError("结果包源帧率无效")
+        if abs(float(source_fps) - float(video["fps"])) > max(0.05, float(video["fps"]) * 0.001):
+            raise ValueError("结果包帧率与登记的原视频不一致")
+        return video, path, package_sha, manifest
+
+    def start_ai_import(self, video_id, package_path):
+        video, path, package_sha, manifest = self._verified_package(video_id, package_path)
+        for existing in self.list("ai_import_batches"):
+            if existing.get("video_id") == video_id and existing.get("package_sha256") == package_sha:
+                if existing.get("status") in {"COMPLETED", "RUNNING", "PAUSED"}:
+                    return existing
+        batch = {
+            "batch_id": str(uuid.uuid4()), "video_id": video_id, "package_path": str(path),
+            "package_sha256": package_sha, "source_video_sha256": video["source_sha256"],
+            "manifest": manifest, "status": "RUNNING", "processed_count": 0,
+            "imported_count": 0, "duplicate_count": 0, "filtered_count": 0,
+            "error_count": 0, "created_at": utc_now(), "updated_at": utc_now(), "message": "正在验证并导入候选",
+        }
+        self.save("ai_import_batches", "batch_id", batch, "AI_IMPORT_STARTED")
+        cancel = threading.Event()
+        self.import_cancellations[batch["batch_id"]] = cancel
+        self.importer.submit(self._run_ai_import, batch["batch_id"], cancel)
+        return batch
+
+    def import_batch(self, batch_id):
+        return self.get("ai_import_batches", "batch_id", batch_id)
+
+    def _update_batch(self, batch_id, **changes):
+        try:
+            old = self.get("ai_import_batches", "batch_id", batch_id)
+        except HTTPException:
+            return None
+        row = {**old, **changes, "updated_at": utc_now()}
+        return self.save("ai_import_batches", "batch_id", row, "AI_IMPORT_PROGRESS")
+
+    def cancel_ai_import(self, batch_id):
+        batch = self.import_batch(batch_id)
+        if batch.get("status") == "RUNNING":
+            cancel = self.import_cancellations.get(batch_id)
+            if cancel:
+                cancel.set()
+        return batch
+
+    def resume_ai_import(self, batch_id):
+        batch = self.import_batch(batch_id)
+        if batch.get("status") not in {"PAUSED", "FAILED"}:
+            raise ValueError("只有暂停或失败的导入可以恢复")
+        video, path, package_sha, manifest = self._verified_package(batch["video_id"], batch["package_path"])
+        if package_sha != batch["package_sha256"] or video["source_sha256"] != batch["source_video_sha256"]:
+            raise ValueError("结果包或原视频已变化，拒绝继续旧导入")
+        self._update_batch(batch_id, status="RUNNING", message="正在恢复导入")
+        cancel = threading.Event()
+        self.import_cancellations[batch_id] = cancel
+        self.importer.submit(self._run_ai_import, batch_id, cancel)
+        return self.import_batch(batch_id)
+
+    def _run_ai_import(self, batch_id, cancel):
+        batch = self.import_batch(batch_id)
+        counts = {"processed_count": 0, "imported_count": 0, "duplicate_count": 0, "filtered_count": 0}
+        disposition_counts = {"ACCEPTED": 0, "REVIEW": 0, "FILTERED": 0}
+        try:
+            video, path, package_sha, manifest = self._verified_package(batch["video_id"], batch["package_path"])
+            if package_sha != batch["package_sha256"] or video["source_sha256"] != batch["source_video_sha256"]:
+                raise ValueError("原视频或结果包身份改变")
+            with path.open("r", encoding="utf-8-sig") as stream:
+                header = json.loads(stream.readline())
+                if header.get("kind") != "manifest" or header.get("manifest") != manifest:
+                    raise ValueError("结果包 manifest 已改变")
+                seen = set()
+                for line_number, line in enumerate(stream, 2):
+                    if cancel.is_set():
+                        self._update_batch(batch_id, status="PAUSED", **counts, message="已暂停；可以安全恢复")
+                        return
+                    if not line.strip():
+                        continue
+                    item = json.loads(line)
+                    if item.get("kind") != "candidate" or item.get("disposition") not in {"ACCEPTED", "REVIEW", "FILTERED"}:
+                        raise ValueError(f"第 {line_number} 行候选结构无效")
+                    candidate = item.get("candidate")
+                    self._validate_package_candidate(candidate, manifest, video)
+                    event_id = candidate["event_id"]
+                    if event_id in seen:
+                        raise ValueError(f"结果包内 event_id 重复：{event_id}")
+                    seen.add(event_id)
+                    disposition = item["disposition"]
+                    disposition_counts[disposition] += 1
+                    if disposition == "FILTERED":
+                        counts["filtered_count"] += 1
+                    key = f"{video['source_sha256']}:{event_id}:{manifest['frozen_config_sha256']}"
+                    imported = self._store_ai_candidate(batch, candidate, disposition, key)
+                    if imported and disposition != "FILTERED":
+                        counts["imported_count"] += 1
+                    elif not imported:
+                        counts["duplicate_count"] += 1
+                    counts["processed_count"] += 1
+                    if counts["processed_count"] % 25 == 0:
+                        self._update_batch(batch_id, **counts, message="正在导入；重复候选会自动跳过")
+            expected = int(manifest.get("counts", {}).get("total", -1))
+            if expected != counts["processed_count"]:
+                raise ValueError(f"候选行数与 manifest 不符：{counts['processed_count']} / {expected}")
+            if digest_file(path) != batch["package_sha256"]:
+                raise ValueError("结果包在导入过程中发生变化")
+            for key, value in (("accepted", "ACCEPTED"), ("review", "REVIEW"), ("filtered", "FILTERED")):
+                if key in manifest.get("counts", {}) and int(manifest["counts"][key]) != disposition_counts[value]:
+                    raise ValueError(f"候选类型计数与 manifest 不符：{key}")
+            self._update_batch(batch_id, status="COMPLETED", **counts, message="导入完成；AI 建议仍需人工复核")
+        except Exception as exc:
+            self._update_batch(batch_id, status="FAILED", error_count=1, **counts, message=str(exc))
+        finally:
+            self.import_cancellations.pop(batch_id, None)
+
+    @staticmethod
+    def _validate_package_candidate(candidate, manifest, video):
+        if not isinstance(candidate, dict) or candidate.get("event_type") != "HIT_CANDIDATE" or candidate.get("ablation") != "D":
+            raise ValueError("结果包包含非 D 方案击球候选")
+        event_id = candidate.get("event_id")
+        stamp, frame = candidate.get("timestamp_ms"), candidate.get("source_frame")
+        if not isinstance(event_id, str) or not event_id or not isinstance(stamp, (int, float)) or not math.isfinite(stamp):
+            raise ValueError("候选 ID 或时间戳无效")
+        if not isinstance(frame, int) or frame < 0 or not 0 <= stamp < video["duration_ms"]:
+            raise ValueError("候选源帧或时间戳超出视频范围")
+        fps = float(manifest["timestamp_mapping"]["source_fps"])
+        if abs(stamp - frame * 1000 / fps) > (1000 / fps) + 0.02:
+            raise ValueError("源帧与 canonical timestamp 不一致")
+        side = candidate.get("candidate_player") or "UNKNOWN"
+        if side not in {"NEAR", "FAR", "UNKNOWN"}:
+            raise ValueError("候选击球方不是受支持的 Near/Far/Unknown 值")
+
+    def _store_ai_candidate(self, batch, candidate, disposition, import_key):
+        video = self.get("evidence_videos", "video_id", batch["video_id"])
+        if video.get("source_sha256") != batch["source_video_sha256"] or self.availability(video).get("availability_status") != "AVAILABLE":
+            raise ValueError("原视频身份在导入过程中发生变化")
+        stamp = round(candidate["timestamp_ms"])
+        filtered = disposition == "FILTERED"
+        evidence_id = str(uuid.uuid4())
+        raw_candidate = {**candidate, "source_video_sha256": batch["source_video_sha256"], "source_match_reference": batch["manifest"]["match_reference"], "model_version": batch["manifest"]["model_version"], "frozen_config_sha256": batch["manifest"]["frozen_config_sha256"], "import_batch_id": batch["batch_id"]}
+        row = {
+            "evidence_id": evidence_id, "video_id": batch["video_id"], "match_id": video.get("match_id"),
+            "point_id": None, "start_ms": max(0, stamp - 700), "end_ms": min(video["duration_ms"], stamp + 701),
+            "representative_ms": stamp, "event_type": "HIT_CANDIDATE", "tags": ["AI待复核"] if not filtered else ["算法已过滤"],
+            "notes": "", "source": "AI_SUGGESTION", "review_status": "FILTERED" if filtered else "UNVERIFIED",
+            "suggested_side": candidate.get("candidate_player", "UNKNOWN"), "disposition": disposition,
+            "ai_provenance": {"source_video_sha256": batch["source_video_sha256"], "source_match_reference": batch["manifest"]["match_reference"], "dataset": batch["manifest"]["dataset"], "dataset_license": batch["manifest"]["dataset_license"], "commercial_use": False, "model_version": batch["manifest"]["model_version"], "frozen_config_sha256": batch["manifest"]["frozen_config_sha256"], "frozen_config_file_sha256": batch["manifest"].get("frozen_config_file_sha256"), "import_batch_id": batch["batch_id"], "package_sha256": batch["package_sha256"]},
+            "raw_candidate": raw_candidate, "reviewer_decision": None, "reviewed_at": None, "reviewer_side": None,
+            "review_history": [], "created_at": utc_now(), "updated_at": utc_now(),
+        }
+        with self.repo.connect() as db:
+            if db.execute("SELECT 1 FROM ai_import_keys WHERE import_key=?", (import_key,)).fetchone():
+                return False
+            db.execute("INSERT INTO video_evidence VALUES (?,?)", (evidence_id, json.dumps(row, ensure_ascii=False)))
+            db.execute("INSERT INTO ai_import_keys VALUES (?,?,?)", (import_key, evidence_id, batch["batch_id"]))
+            db.execute("INSERT INTO evidence_audit VALUES (?,?,?,?,?)", (str(uuid.uuid4()), evidence_id, "IMPORT_AI_SUGGESTION", utc_now(), json.dumps(row, ensure_ascii=False)))
+        return True
+
+    def ai_suggestions(self, video_id, status, offset, limit):
+        rows = [row for row in self.list("video_evidence") if row.get("source") == "AI_SUGGESTION" and (not video_id or row.get("video_id") == video_id)]
+        counts = {key: sum(row.get("review_status") == key for row in rows) for key in ("UNVERIFIED", "FILTERED", "CONFIRMED", "REJECTED")}
+        selected = [row for row in rows if not status or row.get("review_status") == status]
+        selected.sort(key=lambda row: (row.get("representative_ms", 0), row["evidence_id"]))
+        return {"counts": counts, "total": len(selected), "offset": offset, "limit": limit, "items": selected[offset:offset + limit]}
+
+    def review_ai(self, evidence_id, value):
+        old = self.get("video_evidence", "evidence_id", evidence_id)
+        if old.get("source") != "AI_SUGGESTION":
+            raise ValueError("只有 AI 建议可以使用此复核操作")
+        video = self.get("evidence_videos", "video_id", old["video_id"])
+        representative = value.representative_ms if value.representative_ms is not None else old["representative_ms"]
+        start = value.start_ms if value.start_ms is not None else old["start_ms"]
+        end = value.end_ms if value.end_ms is not None else old["end_ms"]
+        if not 0 <= start <= representative < end <= video["duration_ms"]:
+            raise ValueError("复核后的范围必须满足 0 ≤ 起点 ≤ 代表时刻 < 终点 ≤ 视频时长")
+        if value.tags is not None:
+            tags = list(dict.fromkeys(tag.strip() for tag in value.tags if tag.strip()))
+        else:
+            tags = list(old["tags"])
+        decision = value.decision
+        change = {"reviewer_decision": decision, "reviewed_at": utc_now(), "reviewer_side": value.reviewer_side or old.get("reviewer_side") or old.get("suggested_side", "UNKNOWN"), "review_status": decision, "representative_ms": representative, "start_ms": start, "end_ms": end, "tags": tags, "notes": value.notes if value.notes is not None else old.get("notes", "")}
+        history = list(old.get("review_history", []))
+        history.append({"at": utc_now(), "decision": decision, "before": {"representative_ms": old["representative_ms"], "start_ms": old["start_ms"], "end_ms": old["end_ms"], "reviewer_side": old.get("reviewer_side")}, "after": {"representative_ms": representative, "start_ms": start, "end_ms": end, "reviewer_side": change["reviewer_side"]}})
+        row = {**old, **change, "review_history": history, "updated_at": utc_now()}
+        return self.save("video_evidence", "evidence_id", row, "AI_HUMAN_REVIEW")
+
+    def points(self, video_id=None):
+        rows = self.list("evidence_points")
+        if video_id:
+            rows = [row for row in rows if row.get("video_id") == video_id]
+        return sorted(rows, key=lambda row: (row.get("game_number") or 999, row["start_ms"]))
+
+    def save_point(self, value, point_id=None):
+        video = self.get("evidence_videos", "video_id", value.video_id)
+        if not 0 <= value.start_ms < value.end_ms <= video["duration_ms"]:
+            raise ValueError("逐分范围必须位于比赛视频时长内")
+        evidence_ids = list(dict.fromkeys(value.evidence_ids))
+        for evidence_id in evidence_ids:
+            evidence = self.get("video_evidence", "evidence_id", evidence_id)
+            if evidence["video_id"] != value.video_id:
+                raise ValueError("逐分证据必须来自同一场比赛录像")
+        old = self.get("evidence_points", "point_id", point_id) if point_id else None
+        row = {**(old or {}), **value.model_dump(), "point_id": point_id or str(uuid.uuid4()), "evidence_ids": evidence_ids, "source": "MANUAL_CONFIRMED", "created_at": old.get("created_at") if old else utc_now(), "updated_at": utc_now()}
+        return self.save("evidence_points", "point_id", row, "MANUAL_POINT_SAVE")
 
 
 def evidence_router(repo, mode):
@@ -485,7 +786,48 @@ def evidence_router(repo, mode):
 
     @router.get("/evidence")
     def list_evidence():
-        return store.list("video_evidence")
+        # Raw low-score/suppressed research rows stay in the explicit AI filter
+        # endpoint and never flood the athlete's ordinary clip library.
+        return [row for row in store.list("video_evidence") if row.get("source") != "AI_SUGGESTION" or row.get("review_status") == "CONFIRMED"]
+
+    @router.get("/ai-suggestions")
+    def ai_suggestions(video_id: str | None = None, status: str | None = None, offset: int = 0, limit: int = 50):
+        if status not in {None, "UNVERIFIED", "FILTERED", "CONFIRMED", "REJECTED"}:
+            raise HTTPException(400, "未知的 AI 建议筛选状态")
+        if offset < 0 or not 1 <= limit <= 100:
+            raise HTTPException(400, "分页参数无效")
+        return store.ai_suggestions(video_id, status, offset, limit)
+
+    @router.post("/imports")
+    def start_import(value: AIImportInput):
+        try:
+            return store.start_ai_import(value.video_id, value.path)
+        except (ValueError, OSError, HTTPException) as exc:
+            if isinstance(exc, HTTPException):
+                raise exc
+            raise HTTPException(400, str(exc)) from exc
+
+    @router.get("/imports")
+    def list_imports(video_id: str | None = None):
+        rows = store.list("ai_import_batches")
+        return [row for row in rows if not video_id or row.get("video_id") == video_id]
+
+    @router.get("/imports/{batch_id}")
+    def get_import(batch_id: str):
+        return store.import_batch(batch_id)
+
+    @router.post("/imports/{batch_id}/cancel")
+    def cancel_import(batch_id: str):
+        return store.cancel_ai_import(batch_id)
+
+    @router.post("/imports/{batch_id}/resume")
+    def resume_import(batch_id: str):
+        try:
+            return store.resume_ai_import(batch_id)
+        except (ValueError, OSError, HTTPException) as exc:
+            if isinstance(exc, HTTPException):
+                raise exc
+            raise HTTPException(400, str(exc)) from exc
 
     @router.post("/evidence")
     def create_evidence(value: EvidenceInput):
@@ -498,6 +840,13 @@ def evidence_router(repo, mode):
     def edit_evidence(evidence_id: str, value: EvidenceInput):
         try:
             return store.evidence(value, evidence_id)
+        except ValueError as exc:
+            raise HTTPException(400, str(exc)) from exc
+
+    @router.post("/evidence/{evidence_id}/review")
+    def review_ai(evidence_id: str, value: AIReviewInput):
+        try:
+            return store.review_ai(evidence_id, value)
         except ValueError as exc:
             raise HTTPException(400, str(exc)) from exc
 
@@ -521,6 +870,28 @@ def evidence_router(repo, mode):
     @router.get("/collections")
     def collections():
         return store.list("evidence_collections")
+
+    @router.get("/points")
+    def points(video_id: str | None = None):
+        return store.points(video_id)
+
+    @router.post("/points")
+    def create_point(value: PointInput):
+        try:
+            return store.save_point(value)
+        except (ValueError, HTTPException) as exc:
+            if isinstance(exc, HTTPException):
+                raise exc
+            raise HTTPException(400, str(exc)) from exc
+
+    @router.put("/points/{point_id}")
+    def edit_point(point_id: str, value: PointInput):
+        try:
+            return store.save_point(value, point_id)
+        except (ValueError, HTTPException) as exc:
+            if isinstance(exc, HTTPException):
+                raise exc
+            raise HTTPException(400, str(exc)) from exc
 
     @router.post("/collections")
     @router.put("/collections/{collection_id}")

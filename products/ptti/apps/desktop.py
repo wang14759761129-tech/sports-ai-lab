@@ -14,6 +14,7 @@ def is_development_preview(executable_name):
                     'ptti-vision-v2-player-tracking-preview',
                     'ptti-vision-v2-player-motion-preview',
                     'ptti-evidence-fusion-preview', 'ptti-video-evidence-preview',
+                    'ptti-video-evidence-ai-bridge-preview',
                     'ptti-vision-v2-player-tracking-v1-preview',
                     'ptti-vision-v2-person-preview'}
 
@@ -22,6 +23,12 @@ class DesktopAPI:
         result=webview.windows[0].create_file_dialog(
             webview.FileDialog.OPEN, allow_multiple=False,
             file_types=('视频文件 (*.mp4;*.mov;*.mkv;*.avi)',))
+        return str(result[0]) if result else None
+
+    def select_evidence_package(self):
+        result=webview.windows[0].create_file_dialog(
+            webview.FileDialog.OPEN, allow_multiple=False,
+            file_types=('PTTI 冻结证据包 (*.jsonl)',))
         return str(result[0]) if result else None
 
     def open_output_folder(self, requested):
@@ -48,9 +55,10 @@ def main():
             os.environ['PTTI_PREVIEW']='1'
             local=Path(os.environ.get('LOCALAPPDATA',Path.home()))
             os.environ['PTTI_DB']=str(local/'PTTI-Dev'/'ProfessionalPreview'/'matches.db')
-            if executable=='ptti-video-evidence-preview':
+            if executable in {'ptti-video-evidence-preview','ptti-video-evidence-ai-bridge-preview'}:
                 os.environ['PTTI_DB']=str(local/'PTTI-Dev'/'VideoEvidencePreview'/'matches.db')
-            os.environ['PTTI_EVIDENCE_PREVIEW']='1' if executable=='ptti-video-evidence-preview' else '0'
+            os.environ['PTTI_EVIDENCE_PREVIEW']='1' if executable in {'ptti-video-evidence-preview','ptti-video-evidence-ai-bridge-preview'} else '0'
+            os.environ['PTTI_AI_EVIDENCE_BRIDGE']='1' if executable=='ptti-video-evidence-ai-bridge-preview' else '0'
             qa_database=os.environ.get('PTTI_PREVIEW_QA_DB')
             if qa_database:
                 import tempfile
@@ -108,7 +116,8 @@ def main():
         except ValueError: pass
     print('PTTI Desktop URL: '+url,flush=True)
     stem=Path(sys.executable).stem.casefold()
-    title=('PTTI · 视频证据复盘 Preview' if 'video-evidence-preview' in stem else
+    title=('PTTI · AI 证据复盘 Preview' if 'video-evidence-ai-bridge-preview' in stem else
+           'PTTI · 视频证据复盘 Preview' if 'video-evidence-preview' in stem else
            'PTTI · Vision v2 Person Preview' if 'vision-v2-person-preview' in stem else
            'PTTI · Vision v2 Player Tracking v1 Preview' if 'vision-v2-player-tracking-v1-preview' in stem else
            'PTTI · Vision v2 Player Motion Preview' if 'vision-v2-player-motion-preview' in stem else

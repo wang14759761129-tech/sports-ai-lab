@@ -163,7 +163,7 @@ def create_app(db_path=None):
         payload=dict(id='',metadata=meta.model_dump(),points=rows,validation=report,analysis=analyze(rows),provenance=provenance)
         return dict(validation=report,match=repo.save(payload) if save else payload,provenance=provenance)
     @app.get('/api/health')
-    def health(): return dict(version='0.1-video-evidence-preview' if os.environ.get('PTTI_EVIDENCE_PREVIEW')=='1' else ('0.2.0-professional-preview' if os.environ.get('PTTI_PREVIEW')=='1' else '0.2.0-dev'),start_page='videoEvidence' if os.environ.get('PTTI_EVIDENCE_PREVIEW')=='1' else 'home',schema_version=SCHEMA_VERSION,analytics_version=ANALYTICS_VERSION,adapter_version='0.1.1')
+    def health(): return dict(version='0.2-video-evidence-ai-bridge-preview' if os.environ.get('PTTI_AI_EVIDENCE_BRIDGE')=='1' else ('0.1-video-evidence-preview' if os.environ.get('PTTI_EVIDENCE_PREVIEW')=='1' else ('0.2.0-professional-preview' if os.environ.get('PTTI_PREVIEW')=='1' else '0.2.0-dev')),start_page='videoEvidence' if os.environ.get('PTTI_EVIDENCE_PREVIEW')=='1' else 'home',schema_version=SCHEMA_VERSION,analytics_version=ANALYTICS_VERSION,adapter_version='0.1.1')
     @app.get('/api/settings')
     def settings(): return Settings.model_validate(repo.settings()).model_dump()
     @app.put('/api/settings')

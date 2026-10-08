@@ -1,4 +1,5 @@
 import hashlib
+import json
 import shutil
 import subprocess
 import time
@@ -8,9 +9,12 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from backend.repository import Repository
+from backend import video_evidence as video_evidence_module
 from backend.video_evidence import (
+    AIReviewInput,
     EvidenceInput,
     EvidenceStore,
+    PointInput,
     VideoInput,
     evidence_router,
 )
@@ -48,6 +52,7 @@ def library(tmp_path, monkeypatch):
     assert video["hash_status"] == "VERIFIED"
     yield store, repo, video, source
     store.hasher.shutdown(wait=True)
+    store.importer.shutdown(wait=True)
 
 
 def test_registration_references_original_and_preserves_existing_tables(library):
@@ -260,6 +265,148 @@ def test_production_store_denied_before_any_connection():
 
     with pytest.raises(RuntimeError, match="isolated"):
         EvidenceStore(Repo())
+
+
+def _write_ai_package(path, source_sha, candidate, *, match="game_1", counts=None):
+    manifest = {
+        "schema": "ptti-ai-evidence-package-v1",
+        "dataset": "Extended OpenTTGames",
+        "dataset_license": "CC BY-NC-SA 4.0",
+        "commercial_use": False,
+        "split": "train",
+        "match_reference": f"Extended OpenTTGames TRAIN {match}",
+        "source_video_sha256": source_sha,
+        "result_sha256": video_evidence_module.TRAIN_RESULT_SHA["1"],
+        "hit_event_version": "v0.3",
+        "variant": "D",
+        "model_version": "Hit Event v0.3 Frozen D",
+        "frozen_config_sha256": "7b3715807699180b1559d28df5a456046c870035c3d3e9e728e6981185f8ef98",
+        "frozen_config_file_sha256": "fb42c70ab44bb4b919242e6c14de493507fb5aa17ac4a203c6a9e870a1c047f3",
+        "timestamp_mapping": {"kind": "CANONICAL_SOURCE_TIMESTAMP_MS", "source_fps": 120.0, "timebase": "1/120", "frame_field": "source_frame", "timestamp_field": "timestamp_ms"},
+        "counts": counts or {"total": 1},
+    }
+    path.write_text(
+        json.dumps({"kind": "manifest", "manifest": manifest}) + "\n"
+        + json.dumps({"kind": "candidate", "disposition": "ACCEPTED", "candidate": candidate}) + "\n",
+        encoding="utf-8",
+    )
+
+
+def _allow_local_video_for_package_test(monkeypatch, video):
+    monkeypatch.setitem(video_evidence_module.TRAIN_VIDEO_SHA, "1", video["source_sha256"])
+
+
+def _wait_batch(store, batch_id):
+    for _ in range(200):
+        batch = store.import_batch(batch_id)
+        if batch["status"] != "RUNNING":
+            return batch
+        time.sleep(0.01)
+    raise AssertionError("AI package import did not finish")
+
+
+def test_frozen_ai_package_import_checks_sha_timebase_and_preserves_unknown(library, tmp_path, monkeypatch):
+    store, _, video, _ = library
+    _allow_local_video_for_package_test(monkeypatch, video)
+    candidate = {"event_id": "frozen-hit-1", "event_type": "HIT_CANDIDATE", "ablation": "D", "timestamp_ms": 5000.0, "source_frame": 600, "candidate_player": "UNKNOWN", "evidence_score": 0.61, "ball_quality": "SUPPORTED", "evidence_components": {"pre_ball_observations": 2}}
+    package = tmp_path / "hits.jsonl"
+    _write_ai_package(package, video["source_sha256"], candidate)
+    batch = store.start_ai_import(video["video_id"], str(package))
+    complete = _wait_batch(store, batch["batch_id"])
+    assert complete["status"] == "COMPLETED" and complete["imported_count"] == 1
+    suggestion = store.ai_suggestions(video["video_id"], "UNVERIFIED", 0, 10)["items"][0]
+    assert suggestion["source"] == "AI_SUGGESTION"
+    assert suggestion["review_status"] == "UNVERIFIED"
+    assert suggestion["suggested_side"] == "UNKNOWN"
+    assert suggestion["ai_provenance"]["source_video_sha256"] == video["source_sha256"]
+    assert suggestion["ai_provenance"]["frozen_config_sha256"].startswith("7b371580")
+    assert suggestion["raw_candidate"]["evidence_score"] == 0.61
+    repeated = store.start_ai_import(video["video_id"], str(package))
+    assert repeated["batch_id"] == batch["batch_id"]
+    assert store.ai_suggestions(video["video_id"], "UNVERIFIED", 0, 10)["total"] == 1
+
+
+def test_frozen_ai_package_rejects_video_sha_and_bad_frame_mapping(library, tmp_path, monkeypatch):
+    store, _, video, _ = library
+    _allow_local_video_for_package_test(monkeypatch, video)
+    candidate = {"event_id": "bad-hit", "event_type": "HIT_CANDIDATE", "ablation": "D", "timestamp_ms": 5000.0, "source_frame": 600, "candidate_player": "UNKNOWN"}
+    wrong_sha = tmp_path / "wrong-sha.jsonl"
+    _write_ai_package(wrong_sha, "0" * 64, candidate)
+    with pytest.raises(ValueError, match="SHA256"):
+        store.start_ai_import(video["video_id"], str(wrong_sha))
+    locked = tmp_path / "game-4.jsonl"
+    _write_ai_package(locked, video["source_sha256"], candidate, match="game_4")
+    with pytest.raises(ValueError, match="GAME_4"):
+        store.start_ai_import(video["video_id"], str(locked))
+    bad_time = tmp_path / "bad-time.jsonl"
+    _write_ai_package(bad_time, video["source_sha256"], {**candidate, "timestamp_ms": 5400.0})
+    batch = store.start_ai_import(video["video_id"], str(bad_time))
+    failed = _wait_batch(store, batch["batch_id"])
+    assert failed["status"] == "FAILED" and "canonical timestamp" in failed["message"]
+
+
+def test_ai_review_is_append_only_and_point_can_attach_confirmed_evidence(library, tmp_path, monkeypatch):
+    store, repo, video, _ = library
+    _allow_local_video_for_package_test(monkeypatch, video)
+    candidate = {"event_id": "review-hit", "event_type": "HIT_CANDIDATE", "ablation": "D", "timestamp_ms": 5000.0, "source_frame": 600, "candidate_player": "UNKNOWN", "evidence_score": 0.61}
+    package = tmp_path / "review.jsonl"
+    _write_ai_package(package, video["source_sha256"], candidate)
+    batch = _wait_batch(store, store.start_ai_import(video["video_id"], str(package))["batch_id"])
+    suggestion = store.ai_suggestions(video["video_id"], "UNVERIFIED", 0, 10)["items"][0]
+    edited = store.review_ai(suggestion["evidence_id"], AIReviewInput(decision="CONFIRMED", representative_ms=5012, start_ms=4512, end_ms=5513, reviewer_side="UNKNOWN", tags=["关键分"], notes="人工确认"))
+    assert edited["source"] == "AI_SUGGESTION"
+    assert edited["review_status"] == "CONFIRMED"
+    assert edited["raw_candidate"]["timestamp_ms"] == 5000.0
+    assert edited["representative_ms"] == 5012 and len(edited["review_history"]) == 1
+    point = store.save_point(PointInput(video_id=video["video_id"], game_number=1, score_a=9, score_b=9, start_ms=4000, end_ms=6000, tags=["关键分"], evidence_ids=[edited["evidence_id"]]))
+    assert point["source"] == "MANUAL_CONFIRMED" and point["evidence_ids"] == [edited["evidence_id"]]
+    assert store.points(video["video_id"])[0]["score_a"] == 9
+    with repo.connect() as db:
+        assert db.execute("SELECT COUNT(*) FROM evidence_audit WHERE entity_id=? AND action='AI_HUMAN_REVIEW'", (edited["evidence_id"],)).fetchone()[0] == 1
+        assert db.execute("SELECT COUNT(*) FROM evidence_audit WHERE action='MANUAL_POINT_SAVE'").fetchone()[0] == 1
+
+
+def test_filtered_candidates_remain_queryable_and_collection_keeps_order(library, tmp_path, monkeypatch):
+    store, _, video, _ = library
+    _allow_local_video_for_package_test(monkeypatch, video)
+    candidate = {"event_id": "filtered-hit", "event_type": "HIT_CANDIDATE", "ablation": "D", "timestamp_ms": 5000.0, "source_frame": 600, "candidate_player": "UNKNOWN"}
+    package = tmp_path / "filtered.jsonl"
+    manifest_counts = {"total": 1}
+    manifest = {"schema": "ptti-ai-evidence-package-v1", "dataset": "Extended OpenTTGames", "dataset_license": "CC BY-NC-SA 4.0", "commercial_use": False, "split": "train", "match_reference": "Extended OpenTTGames TRAIN game_1", "source_video_sha256": video["source_sha256"], "result_sha256": video_evidence_module.TRAIN_RESULT_SHA["1"], "hit_event_version": "v0.3", "variant": "D", "model_version": "Frozen D", "frozen_config_sha256": "7b3715807699180b1559d28df5a456046c870035c3d3e9e728e6981185f8ef98", "frozen_config_file_sha256": "fb42c70ab44bb4b919242e6c14de493507fb5aa17ac4a203c6a9e870a1c047f3", "timestamp_mapping": {"kind": "CANONICAL_SOURCE_TIMESTAMP_MS", "source_fps": 120.0, "frame_field": "source_frame", "timestamp_field": "timestamp_ms"}, "counts": manifest_counts}
+    package.write_text(json.dumps({"kind": "manifest", "manifest": manifest}) + "\n" + json.dumps({"kind": "candidate", "disposition": "FILTERED", "candidate": candidate}) + "\n", encoding="utf-8")
+    batch = _wait_batch(store, store.start_ai_import(video["video_id"], str(package))["batch_id"])
+    assert batch["filtered_count"] == 1
+    result = store.ai_suggestions(video["video_id"], "FILTERED", 0, 10)
+    assert result["counts"]["FILTERED"] == 1 and result["items"][0]["disposition"] == "FILTERED"
+
+
+def test_ai_bridge_api_import_review_and_manual_point(library, tmp_path, monkeypatch):
+    _, repo, video, _ = library
+    _allow_local_video_for_package_test(monkeypatch, video)
+    candidate = {"event_id": "api-hit", "event_type": "HIT_CANDIDATE", "ablation": "D", "timestamp_ms": 5000.0, "source_frame": 600, "candidate_player": "UNKNOWN"}
+    package = tmp_path / "api.jsonl"
+    _write_ai_package(package, video["source_sha256"], candidate)
+    app = FastAPI()
+    app.include_router(evidence_router(repo, "test"))
+    with TestClient(app) as client:
+        started = client.post("/api/video-evidence/imports", json={"video_id": video["video_id"], "path": str(package)})
+        assert started.status_code == 200
+        batch_id = started.json()["batch_id"]
+        for _ in range(200):
+            state = client.get(f"/api/video-evidence/imports/{batch_id}").json()
+            if state["status"] != "RUNNING":
+                break
+            time.sleep(0.01)
+        assert state["status"] == "COMPLETED"
+        result = client.get(f"/api/video-evidence/ai-suggestions?video_id={video['video_id']}&status=UNVERIFIED")
+        assert result.status_code == 200 and result.json()["total"] == 1
+        suggestion = result.json()["items"][0]
+        assert client.get("/api/video-evidence/evidence").json() == []
+        reviewed = client.post(f"/api/video-evidence/evidence/{suggestion['evidence_id']}/review", json={"decision": "CONFIRMED", "representative_ms": 5012, "start_ms": 4512, "end_ms": 5513, "reviewer_side": "UNKNOWN", "tags": ["关键分"], "notes": "人工判断"})
+        assert reviewed.status_code == 200 and reviewed.json()["review_status"] == "CONFIRMED"
+        assert client.get("/api/video-evidence/evidence").json()[0]["evidence_id"] == suggestion["evidence_id"]
+        point = client.post("/api/video-evidence/points", json={"video_id": video["video_id"], "game_number": 1, "score_a": 9, "score_b": 9, "start_ms": 4000, "end_ms": 6000, "tags": ["关键分"], "evidence_ids": [suggestion["evidence_id"]], "notes": "人工记录"})
+        assert point.status_code == 200 and point.json()["evidence_ids"] == [suggestion["evidence_id"]]
 
 
 @pytest.mark.skipif(not shutil.which("ffmpeg"), reason="FFmpeg unavailable")

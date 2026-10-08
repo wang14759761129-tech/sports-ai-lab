@@ -44,6 +44,7 @@ SOFTWARE.
 - Attribution and license terms must accompany any permitted redistribution or adaptation. Do not use this material for commercial purposes.
 - Staged local files are kept under `%LOCALAPPDATA%\PTTI-Dev\research-datasets\ExtendedOpenTTGames`; no video or annotation file is tracked by this repository.
 - Dataset metadata declares `commercial_use: false`.
+- The Video Evidence AI Bridge Preview imports cached frozen Hit Event v0.3 D result packages for TRAIN `game_1`–`game_3` only. Imported evidence carries the source video SHA, result SHA, attribution, and non-commercial restriction. The program, build folder, and Preview artifact do not include videos, annotations, or generated result packages.
 
 ## RTMPose / RTMLib Player Motion v0.1
 
