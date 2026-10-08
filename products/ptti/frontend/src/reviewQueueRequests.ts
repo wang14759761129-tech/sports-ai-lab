@@ -25,3 +25,8 @@ export function nextCandidateAfterReview<T extends {evidence_id:string}>(previou
 export function shouldHandleReviewShortcut(event:{repeat:boolean;isComposing:boolean;altKey:boolean;ctrlKey:boolean;metaKey:boolean;shiftKey:boolean},editable:boolean){
  return !editable&&!event.repeat&&!event.isComposing&&!event.altKey&&!event.ctrlKey&&!event.metaKey&&!event.shiftKey;
 }
+
+export function canReviewCandidate(candidate:{source?:string;review_status?:string;disposition?:string}|null){
+ return candidate?.source==='AI_SUGGESTION'&&candidate.disposition!=='FILTERED'&&
+        ['UNVERIFIED','CONFIRMED','REJECTED'].includes(candidate.review_status??'');
+}

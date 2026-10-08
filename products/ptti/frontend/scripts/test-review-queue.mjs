@@ -11,7 +11,7 @@ try{
    '--target','ES2022','--module','ES2022','--strict','--skipLibCheck','--outDir',folder],{encoding:'utf8'});
  assert.equal(compilation.status,0,compilation.stdout+compilation.stderr);
  writeFileSync(join(folder,'package.json'),'{"type":"module"}');
- const {ReviewQueueRequests,nextCandidateAfterReview,shouldHandleReviewShortcut}=await import(pathToFileURL(join(folder,'reviewQueueRequests.js')));
+ const {ReviewQueueRequests,nextCandidateAfterReview,shouldHandleReviewShortcut,canReviewCandidate}=await import(pathToFileURL(join(folder,'reviewQueueRequests.js')));
  const deferred=()=>{let resolve;const promise=new Promise(r=>resolve=r);return {promise,resolve}};
  let count=0;
  const check=async(name,fn)=>{await fn();count++;console.log(`PASS ${name}`)};
@@ -51,6 +51,13 @@ try{
   const second=requests.load('same',()=>current.promise,()=>{},assert.fail,value=>loading.push(value));
   old.resolve(1);await first;assert.deepEqual(loading,[true,true]);
   current.resolve(2);await second;assert.deepEqual(loading,[true,true,false]);
+ });
+ await check('human decisions remain correctable while filtered evidence stays locked',()=>{
+  for(const review_status of ['UNVERIFIED','CONFIRMED','REJECTED'])
+   assert.equal(canReviewCandidate({source:'AI_SUGGESTION',review_status}),true);
+  assert.equal(canReviewCandidate({source:'AI_SUGGESTION',review_status:'FILTERED'}),false);
+  assert.equal(canReviewCandidate({source:'AI_SUGGESTION',review_status:'CONFIRMED',disposition:'FILTERED'}),false);
+  assert.equal(canReviewCandidate(null),false);
  });
  console.log(`${count} passed, 0 failed`);
 }finally{rmSync(folder,{recursive:true,force:true})}
