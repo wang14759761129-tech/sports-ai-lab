@@ -12,10 +12,16 @@ try{
  assert.equal(compilation.status,0,compilation.stdout+compilation.stderr);
  writeFileSync(join(folder,'package.json'),'{"type":"module"}');
  const {ReviewQueueRequests,nextCandidateAfterReview,shouldHandleReviewShortcut,canReviewCandidate,canDeleteEvidence}=await import(pathToFileURL(join(folder,'reviewQueueRequests.js')));
- const {requestedLibraryVideo}=await import(pathToFileURL(join(folder,'libraryPlayback.js')));
+ const {requestedLibraryVideo,savedFolderDefaults}=await import(pathToFileURL(join(folder,'libraryPlayback.js')));
  const deferred=()=>{let resolve;const promise=new Promise(r=>resolve=r);return {promise,resolve}};
  let count=0;
  const check=async(name,fn)=>{await fn();count++;console.log(`PASS ${name}`)};
+ await check('saved folder survives reopen without overriding a new folder choice',()=>{
+  const previous={path:'D:/研究录像',rights_status:'RESEARCH_NONCOMMERCIAL',source_note:'许可'};
+  assert.equal(savedFolderDefaults([],''),null);
+  assert.equal(savedFolderDefaults([previous],''),previous);
+  assert.equal(savedFolderDefaults([previous],'D:/本人录像'),null);
+ });
  await check('library deep link waits for data and never resets a chosen video after reload',()=>{
   assert.equal(requestedLibraryVideo([], 'A', ''), null);
   const videos=[{video_id:'A'},{video_id:'B'}];

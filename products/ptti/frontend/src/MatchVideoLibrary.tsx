@@ -1,5 +1,6 @@
 import {useEffect,useRef,useState} from 'react';
 import {Card,Empty,Modal,PageHeader} from './ui';
+import {savedFolderDefaults} from './libraryPlayback';
 import './match-video-library.css';
 
 const name=(a:any)=>a?.canonical_name_zh||a?.canonical_name_en||'姓名未核实';
@@ -19,6 +20,7 @@ export default function MatchVideoLibrary({page,revision,onOpenVideo,navigate}:{
  const refresh=async()=>{const g=++generation.current;const [d,s]=await Promise.all([request(''),request('/folders')]);if(g===generation.current){setData(d);setScans(s.sort((a:any,b:any)=>b.created_at.localeCompare(a.created_at)))} };
  useEffect(()=>{setAthlete(null);setMatch(null);setSearch('');refresh().catch(e=>setError(e.message));return()=>{generation.current++}},[page,revision]);
  useEffect(()=>{if(!scans.some(s=>['RUNNING','QUEUED'].includes(s.status)))return;const timer=setInterval(()=>refresh().catch(e=>setError(e.message)),2000);return()=>clearInterval(timer)},[scans]);
+ useEffect(()=>{if(!folderOpen)return;const previous=savedFolderDefaults(scans,path);if(previous){setPath(previous.path);setPermission(previous.rights_status);setSourceNote(previous.source_note);setConfirmed(false)}},[folderOpen,scans,path]);
  async function act(fn:()=>Promise<void>){if(locked.current)return;locked.current=true;setBusy(true);setError('');try{await fn()}catch(e:any){setError(e.message)}finally{locked.current=false;setBusy(false)}}
  async function pick(){await act(async()=>{const bridge=(window as any).pywebview?.api;if(!bridge?.select_video_folder){setNotice('请填写本机视频文件夹完整路径');return}const p=await bridge.select_video_folder();if(p)setPath(p)})}
  function play(id:string){request(`/videos/${id}/opened`,{},'POST').catch(()=>{});onOpenVideo(id)}
