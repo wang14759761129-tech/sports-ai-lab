@@ -126,3 +126,16 @@ def test_remote_urls_never_claim_media_rights():
         assert not source["frame_access"]
         if not url.startswith("https:"):
             assert source["official_url"] is None
+
+
+def test_recent_views_survive_application_restart_without_mutating_evidence(workspace):
+    client, root, tmp = workspace
+    row = scan(client, root)
+    video = client.post(f'/api/video-evidence/library/folders/{row["scan_id"]}/confirm',
+                       json={"candidate_id": row["candidates"][0]["candidate_id"]}).json()
+    assert client.post(f'/api/video-evidence/library/videos/{video["video_id"]}/opened').status_code == 200
+    with TestClient(create_app(tmp / "library.db")) as restarted:
+        catalog = restarted.get("/api/video-evidence/library").json()
+        assert catalog["videos"][0]["last_opened_at"]
+        assert catalog["videos"][0]["match_id"] is None
+        assert restarted.post('/api/video-evidence/library/videos/unknown/opened').status_code == 404

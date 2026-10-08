@@ -21,8 +21,8 @@ export default function MatchVideoLibrary({page,revision,onOpenVideo,navigate}:{
  useEffect(()=>{if(!scans.some(s=>['RUNNING','QUEUED'].includes(s.status)))return;const timer=setInterval(()=>refresh().catch(e=>setError(e.message)),2000);return()=>clearInterval(timer)},[scans]);
  async function act(fn:()=>Promise<void>){if(locked.current)return;locked.current=true;setBusy(true);setError('');try{await fn()}catch(e:any){setError(e.message)}finally{locked.current=false;setBusy(false)}}
  async function pick(){await act(async()=>{const bridge=(window as any).pywebview?.api;if(!bridge?.select_video_folder){setNotice('请填写本机视频文件夹完整路径');return}const p=await bridge.select_video_folder();if(p)setPath(p)})}
- function play(id:string){try{const recent=JSON.parse(localStorage.getItem('ptti-library-recent')||'[]').filter((r:any)=>r.video_id!==id);localStorage.setItem('ptti-library-recent',JSON.stringify([{video_id:id,viewed_at:new Date().toISOString()},...recent].slice(0,12)))}catch{}onOpenVideo(id)}
- function recentVideos(){try{const ids=JSON.parse(localStorage.getItem('ptti-library-recent')||'[]');return ids.map((r:any)=>data.videos.find((v:any)=>v.video_id===r.video_id&&v.availability_status==='AVAILABLE')).filter(Boolean)}catch{return []}}
+ function play(id:string){request(`/videos/${id}/opened`,{},'POST').catch(()=>{});onOpenVideo(id)}
+ function recentVideos(){return data.videos.filter((v:any)=>v.last_opened_at&&v.availability_status==='AVAILABLE').sort((a:any,b:any)=>b.last_opened_at.localeCompare(a.last_opened_at)).slice(0,12)}
  if(!data)return <Empty title={error?'比赛库暂时无法打开':'正在打开比赛库'} text={error||'正在读取本机录像与已收录比赛资料。'}/>;
  const current=match&&data.matches.find((m:any)=>m.match_id===match.match_id), latest=scans[0];
  const query=search.trim().toLowerCase();

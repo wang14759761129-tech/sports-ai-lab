@@ -59,6 +59,7 @@ class LocalMediaIndexer:
         self.confirm_lock = threading.Lock()
         with store.repo.connect() as db:
             db.execute("CREATE TABLE IF NOT EXISTS media_scan_jobs (scan_id TEXT PRIMARY KEY, payload TEXT NOT NULL)")
+            db.execute("CREATE TABLE IF NOT EXISTS media_recent_views (video_id TEXT PRIMARY KEY, viewed_at TEXT NOT NULL)")
             for identity, raw in db.execute("SELECT scan_id,payload FROM media_scan_jobs").fetchall():
                 row = json.loads(raw)
                 if row["status"] in {"QUEUED", "RUNNING"}:
@@ -201,6 +202,9 @@ def library_router(store):
     @router.get("")
     def catalog():
         videos = [store.availability(v) for v in store.list("evidence_videos")]
+        with store.repo.connect() as db:
+            recent = dict(db.execute("SELECT video_id,viewed_at FROM media_recent_views"))
+        videos = [{**v, "last_opened_at": recent.get(v["video_id"])} for v in videos]
         matches = []
         for m in store.repo.professional_matches():
             matches.append({**m, "players": {"player_a": store.repo.get_athlete(m["player_a_id"]),
@@ -220,6 +224,17 @@ def library_router(store):
     @router.get("/folders")
     def folders():
         return store.list("media_scan_jobs")
+
+    @router.post("/videos/{video_id}/opened")
+    def opened(video_id: str):
+        video = store.get("evidence_videos", "video_id", video_id)
+        if store.availability(video)["availability_status"] != "AVAILABLE":
+            raise HTTPException(400, "录像暂时离线，不记录为最近观看")
+        stamp = utc_now()
+        with store.repo.connect() as db:
+            db.execute("INSERT INTO media_recent_views VALUES (?,?) ON CONFLICT(video_id) DO UPDATE SET viewed_at=excluded.viewed_at",
+                       (video_id, stamp))
+        return {"video_id": video_id, "last_opened_at": stamp}
 
     @router.post("/folders")
     def start(value: FolderInput):
