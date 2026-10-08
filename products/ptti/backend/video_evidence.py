@@ -807,6 +807,18 @@ class EvidenceStore:
         return self.save("evidence_points", "point_id", row, "MANUAL_POINT_SAVE")
 
 
+def _spreadsheet_text(value):
+    """Keep untrusted text literal when CSV is opened in a spreadsheet.
+
+    Numeric cells remain numeric; JSON evidence remains unchanged and reversible.
+    CSV quoting alone does not stop formula execution.
+    """
+    if isinstance(value, str) and (value.startswith(("\t", "\r", "\n")) or
+                                   value.lstrip(" \t\r\n\ufeff").startswith(("=", "+", "-", "@"))):
+        return "'" + value
+    return value
+
+
 def _review_export_csv(payload):
     output = io.StringIO(newline="")
     fields = ["event_id", "video_time_ms", "raw_ai_time_ms", "timestamp_basis", "player_side",
@@ -816,7 +828,7 @@ def _review_export_csv(payload):
     writer.writeheader()
     for row in payload["events"]:
         raw = row.get("raw_candidate") or {}
-        writer.writerow({
+        values = {
             "event_id": row["evidence_id"], "video_time_ms": row.get("reviewed_timestamp_ms"),
             "raw_ai_time_ms": row.get("raw_timestamp_ms"), "timestamp_basis": row.get("timestamp_basis"),
             "player_side": row.get("reviewer_side") or row.get("suggested_side") or "UNKNOWN",
@@ -827,7 +839,8 @@ def _review_export_csv(payload):
             "raw_candidate_json": json.dumps(raw, ensure_ascii=False, separators=(",", ":")),
             "review_history_json": json.dumps(row.get("review_history", []), ensure_ascii=False,
                                                separators=(",", ":")),
-        })
+        }
+        writer.writerow({key: _spreadsheet_text(value) for key, value in values.items()})
     return "\ufeff" + output.getvalue()
 
 
