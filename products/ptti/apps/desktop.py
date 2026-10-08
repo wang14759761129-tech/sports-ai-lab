@@ -14,7 +14,7 @@ def is_development_preview(executable_name):
                     'ptti-vision-v2-player-tracking-preview',
                     'ptti-vision-v2-player-motion-preview',
                     'ptti-evidence-fusion-preview', 'ptti-video-evidence-preview',
-                    'ptti-video-evidence-ai-bridge-preview',
+                    'ptti-video-evidence-ai-bridge-preview', 'ptti-video-evidence-v0.3-preview',
                     'ptti-vision-v2-player-tracking-v1-preview',
                     'ptti-vision-v2-person-preview'}
 
@@ -55,10 +55,12 @@ def main():
             os.environ['PTTI_PREVIEW']='1'
             local=Path(os.environ.get('LOCALAPPDATA',Path.home()))
             os.environ['PTTI_DB']=str(local/'PTTI-Dev'/'ProfessionalPreview'/'matches.db')
-            if executable in {'ptti-video-evidence-preview','ptti-video-evidence-ai-bridge-preview'}:
+            if executable in {'ptti-video-evidence-preview','ptti-video-evidence-ai-bridge-preview','ptti-video-evidence-v0.3-preview'}:
                 os.environ['PTTI_DB']=str(local/'PTTI-Dev'/'VideoEvidencePreview'/'matches.db')
-            os.environ['PTTI_EVIDENCE_PREVIEW']='1' if executable in {'ptti-video-evidence-preview','ptti-video-evidence-ai-bridge-preview'} else '0'
-            os.environ['PTTI_AI_EVIDENCE_BRIDGE']='1' if executable=='ptti-video-evidence-ai-bridge-preview' else '0'
+            if executable=='ptti-video-evidence-v0.3-preview':
+                os.environ['PTTI_DB']=str(local/'PTTI-Dev'/'VideoEvidence-v03-Preview'/'matches.db')
+            os.environ['PTTI_EVIDENCE_PREVIEW']='1' if executable in {'ptti-video-evidence-preview','ptti-video-evidence-ai-bridge-preview','ptti-video-evidence-v0.3-preview'} else '0'
+            os.environ['PTTI_AI_EVIDENCE_BRIDGE']='1' if executable in {'ptti-video-evidence-ai-bridge-preview','ptti-video-evidence-v0.3-preview'} else '0'
             qa_database=os.environ.get('PTTI_PREVIEW_QA_DB')
             if qa_database:
                 import tempfile
@@ -73,7 +75,11 @@ def main():
             build=Path(getattr(sys,'_MEIPASS',Path(sys.executable).parent))/'build-info.json'
             if build.is_file():
                 import json
-                runtime_home=json.loads(build.read_text(encoding='utf-8')).get('local_vision_runtime_home')
+                build_info=json.loads(build.read_text(encoding='utf-8'))
+                if executable=='ptti-video-evidence-v0.3-preview':
+                    os.environ['PTTI_PREVIEW_VERSION']=build_info['version']
+                    os.environ['PTTI_PREVIEW_COMMIT']=build_info['commit']
+                runtime_home=build_info.get('local_vision_runtime_home')
                 if runtime_home and (Path(runtime_home)/'vision_worker/balltrack.py').is_file():
                     os.environ['PTTI_VISION_HOME']=runtime_home
         elif executable=='ptti-vision-dev':
@@ -116,7 +122,8 @@ def main():
         except ValueError: pass
     print('PTTI Desktop URL: '+url,flush=True)
     stem=Path(sys.executable).stem.casefold()
-    title=('PTTI · AI 证据复盘 Preview' if 'video-evidence-ai-bridge-preview' in stem else
+    title=(('PTTI · Video Evidence v0.3 Preview · '+os.environ.get('PTTI_PREVIEW_COMMIT','UNKNOWN')[:10]) if stem=='ptti-video-evidence-v0.3-preview' else
+           'PTTI · AI 证据复盘 Preview' if 'video-evidence-ai-bridge-preview' in stem else
            'PTTI · 视频证据复盘 Preview' if 'video-evidence-preview' in stem else
            'PTTI · Vision v2 Person Preview' if 'vision-v2-person-preview' in stem else
            'PTTI · Vision v2 Player Tracking v1 Preview' if 'vision-v2-player-tracking-v1-preview' in stem else
