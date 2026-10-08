@@ -19,6 +19,7 @@ VideoSourceProvider 预留 LOCAL_READY / AUTHORIZED_REMOTE_PLAYABLE / OFFICIAL_E
 ## 产品与数据模型
 复用 Professional Registry、EvidenceStore、Repository、既有播放器和审计 schema。Competition 由 competition_level 标识，TournamentEdition 为已有 event_id/名称/日期的目录投影；Match 使用原 ID；Player 使用 athlete_id；VideoAsset 使用 evidence_videos；Game/Point 复用人工 timeline/points；Evidence、专题保持原数据。没有新建第二套数据库或播放器。
 首页、运动员比赛目录、比赛详情、可观看本机录像、最近播放与关键分专题已接入。官方资料没有视频时明确提示权限不足，不渲染假播放器。
+再次打开索引页会带回已保存的文件夹与来源说明，用户重新确认使用范围即可扫描新增文件；不要求重复选择目录。
 文件夹索引单 worker、非递归、逐文件 probe 与 1MB 流式 SHA、最多 500 个候选；后台状态持久化。扫描不会自动注册或关联。用户确认后复用原 registrar，按 SHA/路径识别已登记项，源改变拒绝关联，移动后按哈希重新关联。用户点击“为这场比赛关联视频”或选择已有未关联录像；不会覆盖既有比赛关系。
 最近打开的录像保存在隔离 SQLite 的独立轻量索引，首页最多显示12条；不计作实际播放时长。避免随机本机端口导致 localStorage 重启失效。原始比赛不依赖视觉模型或候选 JSON。索引失败不阻止原播放。
 
