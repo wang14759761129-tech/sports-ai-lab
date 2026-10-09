@@ -17,7 +17,7 @@
       "published_at": null,
       "metadata_verified_at": "2026-10-09T14:18:45.968249+00:00",
       "playback_status": "EMBED_BLOCKED",
-      "rights": "OFFICIAL_EMBED_ONLY",
+      "rights": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
       "local_analysis_allowed": false,
       "provenance": {
         "metadata_method": "YOUTUBE_OEMBED",
@@ -64,7 +64,7 @@
       "published_at": null,
       "metadata_verified_at": "2026-10-09T14:18:52.673994+00:00",
       "playback_status": "EMBED_BLOCKED",
-      "rights": "OFFICIAL_EMBED_ONLY",
+      "rights": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
       "local_analysis_allowed": false,
       "provenance": {
         "metadata_method": "YOUTUBE_OEMBED",
@@ -125,7 +125,7 @@
       "embeddable_api": null,
       "privacy_status_api": null,
       "region_restrictions_api": null,
-      "rights": "OFFICIAL_EMBED_ONLY",
+      "rights": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
       "local_analysis_allowed": false,
       "provenance": {
         "metadata_method": "YOUTUBE_OEMBED",
@@ -161,22 +161,44 @@
       "source_url": "https://www.youtube.com/watch?v=JTUWXpB-NVo",
       "embed_url": "https://www.youtube.com/embed/JTUWXpB-NVo",
       "thumbnail_url": "https://i.ytimg.com/vi/JTUWXpB-NVo/hqdefault.jpg",
-      "duration_seconds": null,
+      "duration_seconds": 2517.841,
       "published_at": null,
       "metadata_verified_at": "2026-10-09T14:18:55.493007+00:00",
       "playback_status": "EMBED_NOT_TESTED",
-      "watch_page_status": "NOT_TESTED",
+      "watch_page_status": "PLAYBACK_VERIFIED",
       "embeddable_api": null,
       "privacy_status_api": null,
       "region_restrictions_api": null,
-      "rights": "OFFICIAL_EMBED_ONLY",
+      "rights": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
       "local_analysis_allowed": false,
       "provenance": {
         "metadata_method": "YOUTUBE_OEMBED",
         "endpoint": "https://www.youtube.com/oembed",
         "limitations": "oEmbed supplies neither duration nor playback restrictions; actual play required",
         "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/"
-      }
+      },
+      "watch_page_test": {
+        "surface": "BROWSER_IAB",
+        "result": "ACTUAL_PLAYBACK_VERIFIED",
+        "checked_at": "2026-10-09T15:12:47.879699+00:00",
+        "observed_playing_times": [
+          0.21441,
+          49.016291
+        ],
+        "ready_state": 4,
+        "method": "One repeat after visible session state changed; official UI playback and observed match footage",
+        "full_content_reviewed": false,
+        "limitations": "External current-session playback only; earlier login-blocked observation retained; no native embed or analysis licence"
+      },
+      "watch_page_tests": [
+        {
+          "surface": "BROWSER_IAB",
+          "result": "NOT_PLAYABLE_IN_CURRENT_UNAUTHENTICATED_SESSION",
+          "checked_at": "2026-10-09T15:02:24.527622+00:00",
+          "observed_message": "请登录，以便我们确认你不是聊天机器人",
+          "full_content_reviewed": false
+        }
+      ]
     },
     {
       "video_id": "H77vNFk3neg",
@@ -200,22 +222,44 @@
       "source_url": "https://www.youtube.com/watch?v=H77vNFk3neg",
       "embed_url": "https://www.youtube.com/embed/H77vNFk3neg",
       "thumbnail_url": "https://i.ytimg.com/vi/H77vNFk3neg/hqdefault.jpg",
-      "duration_seconds": null,
+      "duration_seconds": 1704.721,
       "published_at": null,
       "metadata_verified_at": "2026-10-09T14:18:59.078088+00:00",
       "playback_status": "EMBED_NOT_TESTED",
-      "watch_page_status": "NOT_TESTED",
+      "watch_page_status": "PLAYBACK_VERIFIED",
       "embeddable_api": null,
       "privacy_status_api": null,
       "region_restrictions_api": null,
-      "rights": "OFFICIAL_EMBED_ONLY",
+      "rights": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
       "local_analysis_allowed": false,
       "provenance": {
         "metadata_method": "YOUTUBE_OEMBED",
         "endpoint": "https://www.youtube.com/oembed",
         "limitations": "oEmbed supplies neither duration nor playback restrictions; actual play required",
         "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/"
-      }
+      },
+      "watch_page_test": {
+        "surface": "BROWSER_IAB",
+        "result": "ACTUAL_PLAYBACK_VERIFIED",
+        "checked_at": "2026-10-09T15:10:39.208616+00:00",
+        "observed_playing_times": [
+          0.512458,
+          15.636063
+        ],
+        "ready_state": 4,
+        "method": "One repeat after visible browser session state changed; official play button and moving match picture",
+        "full_content_reviewed": false,
+        "limitations": "External current-session playback only; the earlier login-blocked observation is retained; not a download or analysis licence"
+      },
+      "watch_page_tests": [
+        {
+          "surface": "BROWSER_IAB",
+          "result": "NOT_PLAYABLE_IN_CURRENT_UNAUTHENTICATED_SESSION",
+          "checked_at": "2026-10-09T14:56:46.730993+00:00",
+          "observed_message": "请登录，以便我们确认你不是聊天机器人",
+          "full_content_reviewed": false
+        }
+      ]
     },
     {
       "video_id": "ekfCZiIEYi0",
@@ -239,22 +283,44 @@
       "source_url": "https://www.youtube.com/watch?v=ekfCZiIEYi0",
       "embed_url": "https://www.youtube.com/embed/ekfCZiIEYi0",
       "thumbnail_url": "https://i.ytimg.com/vi/ekfCZiIEYi0/hqdefault.jpg",
-      "duration_seconds": null,
+      "duration_seconds": 3166.301,
       "published_at": null,
       "metadata_verified_at": "2026-10-09T14:19:01.591146+00:00",
       "playback_status": "EMBED_NOT_TESTED",
-      "watch_page_status": "NOT_TESTED",
+      "watch_page_status": "PLAYBACK_VERIFIED",
       "embeddable_api": null,
       "privacy_status_api": null,
       "region_restrictions_api": null,
-      "rights": "OFFICIAL_EMBED_ONLY",
+      "rights": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
       "local_analysis_allowed": false,
       "provenance": {
         "metadata_method": "YOUTUBE_OEMBED",
         "endpoint": "https://www.youtube.com/oembed",
         "limitations": "oEmbed supplies neither duration nor playback restrictions; actual play required",
         "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/"
-      }
+      },
+      "watch_page_test": {
+        "surface": "BROWSER_IAB",
+        "result": "ACTUAL_PLAYBACK_VERIFIED",
+        "checked_at": "2026-10-09T15:11:49.804077+00:00",
+        "observed_playing_times": [
+          0.220873,
+          31.969694
+        ],
+        "ready_state": 4,
+        "method": "One repeat after visible session state changed; official UI playback and observed moving match picture",
+        "full_content_reviewed": false,
+        "limitations": "External current-session playback only; earlier login-blocked observation retained; no native embedding or analysis licence"
+      },
+      "watch_page_tests": [
+        {
+          "surface": "BROWSER_IAB",
+          "result": "NOT_PLAYABLE_IN_CURRENT_UNAUTHENTICATED_SESSION",
+          "checked_at": "2026-10-09T14:56:46.730993+00:00",
+          "observed_message": "请登录，以便我们确认你不是聊天机器人",
+          "full_content_reviewed": false
+        }
+      ]
     },
     {
       "video_id": "DTPNEl3-2b0",
@@ -276,21 +342,42 @@
       "source_url": "https://www.youtube.com/watch?v=DTPNEl3-2b0",
       "embed_url": "https://www.youtube.com/embed/DTPNEl3-2b0",
       "thumbnail_url": "https://i.ytimg.com/vi/DTPNEl3-2b0/hqdefault.jpg",
-      "duration_seconds": null,
+      "duration_seconds": 1145.021,
       "published_at": null,
       "metadata_verified_at": "2026-10-09T14:19:06.168132+00:00",
       "playback_status": "EMBED_NOT_TESTED",
-      "watch_page_status": "NOT_TESTED",
+      "watch_page_status": "PLAYBACK_VERIFIED",
       "embeddable_api": null,
       "privacy_status_api": null,
       "region_restrictions_api": null,
-      "rights": "OFFICIAL_EMBED_ONLY",
+      "rights": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
       "local_analysis_allowed": false,
       "provenance": {
         "metadata_method": "YOUTUBE_OEMBED",
         "endpoint": "https://www.youtube.com/oembed",
         "limitations": "oEmbed supplies neither duration nor playback restrictions; actual play required",
         "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/"
+      },
+      "watch_page_test": {
+        "surface": "BROWSER_IAB",
+        "result": "ACTUAL_PLAYBACK_VERIFIED",
+        "checked_at": "2026-10-09T15:02:24.527622+00:00",
+        "observed_playing_times": [
+          0,
+          10.487318
+        ],
+        "sampled_playing_times": [
+          577.417544,
+          1057.385284
+        ],
+        "ready_state": 4,
+        "media_dimensions": [
+          1280,
+          720
+        ],
+        "method": "Official UI play click, advancing media clock and observed match picture; official number-key seeking to middle/late sections",
+        "full_content_reviewed": false,
+        "limitations": "Session-specific external playback; no native PTTI embed test, no complete uninterrupted viewing, no licence to download/analyse"
       }
     },
     {
@@ -317,21 +404,38 @@
       "source_url": "https://www.youtube.com/watch?v=iQhVLkcGCFE",
       "embed_url": "https://www.youtube.com/embed/iQhVLkcGCFE",
       "thumbnail_url": "https://i.ytimg.com/vi/iQhVLkcGCFE/hqdefault.jpg",
-      "duration_seconds": null,
+      "duration_seconds": 1950.381,
       "published_at": null,
       "metadata_verified_at": "2026-10-09T14:19:09.839368+00:00",
       "playback_status": "EMBED_NOT_TESTED",
-      "watch_page_status": "NOT_TESTED",
+      "watch_page_status": "PLAYBACK_VERIFIED",
       "embeddable_api": null,
       "privacy_status_api": null,
       "region_restrictions_api": null,
-      "rights": "OFFICIAL_EMBED_ONLY",
+      "rights": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
       "local_analysis_allowed": false,
       "provenance": {
         "metadata_method": "YOUTUBE_OEMBED",
         "endpoint": "https://www.youtube.com/oembed",
         "limitations": "oEmbed supplies neither duration nor playback restrictions; actual play required",
         "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/"
+      },
+      "watch_page_test": {
+        "surface": "BROWSER_IAB",
+        "result": "ACTUAL_PLAYBACK_VERIFIED",
+        "checked_at": "2026-10-09T15:04:37.703193+00:00",
+        "observed_playing_times": [
+          49.76546,
+          85.431804
+        ],
+        "ready_state": 4,
+        "media_dimensions": [
+          854,
+          480
+        ],
+        "method": "Official play button and moving match picture; two advancing playback samples",
+        "full_content_reviewed": false,
+        "limitations": "Session-specific external playback; no Windows PTTI embed verification or full uninterrupted viewing; not a download/analysis licence"
       }
     }
   ]

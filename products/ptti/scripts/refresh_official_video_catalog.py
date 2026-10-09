@@ -42,7 +42,7 @@ def main():
             "playback_status": old.get("playback_status", "EMBED_NOT_TESTED"),
             "watch_page_status": old.get("watch_page_status", "NOT_TESTED"),
             "embeddable_api": None, "privacy_status_api": None, "region_restrictions_api": None,
-            "rights": "OFFICIAL_EMBED_ONLY", "local_analysis_allowed": False,
+            "rights": "REFERENCE_ONLY_NOT_LICENSE_GRANTED", "local_analysis_allowed": False,
             "provenance": {"metadata_method": "YOUTUBE_OEMBED", "endpoint": "https://www.youtube.com/oembed",
                 "limitations": "oEmbed supplies neither duration nor playback restrictions; actual play required",
                 "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/"}})

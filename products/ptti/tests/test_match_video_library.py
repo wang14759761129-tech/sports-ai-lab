@@ -148,12 +148,14 @@ def test_official_catalog_does_not_claim_analysis_rights_or_playback(workspace):
     assert len({r["video_id"] for r in rows}) == 8
     for row in rows:
         assert row["playback_status"] in {"EMBED_NOT_TESTED", "EMBED_BLOCKED"}
-        assert row["watch_page_status"] in {"NOT_TESTED", "LOGIN_REQUIRED"}
+        assert row["watch_page_status"] in {"NOT_TESTED", "LOGIN_REQUIRED", "PLAYBACK_VERIFIED"}
         assert row["full_match"] is True
         assert row["embeddable_api"] is None
         assert row["local_analysis_allowed"] is False
-        assert row["rights"] == "OFFICIAL_EMBED_ONLY"
-        assert row["duration_seconds"] is None
+        assert row["rights"] == "REFERENCE_ONLY_NOT_LICENSE_GRANTED"
+        assert row["video_source"]["is_full_match"] is None
+        assert row["video_source"]["playback_verified"] is (row["watch_page_status"] == "PLAYBACK_VERIFIED")
+        assert row["duration_seconds"] is None or row["duration_seconds"] > 0
         assert row["provenance"]["metadata_method"] == "YOUTUBE_OEMBED"
 
 

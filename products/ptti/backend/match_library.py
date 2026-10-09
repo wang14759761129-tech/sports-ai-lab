@@ -16,6 +16,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
+from backend.video_sources import official_source, source_counts
 from backend.video_evidence import VideoInput, digest_file, utc_now
 from vision.quality import video_metadata
 
@@ -231,7 +232,8 @@ def library_router(store):
         official = json.loads((Path(__file__).resolve().parents[1] / "data/professional/official_video_sources.json").read_text(encoding="utf-8"))["videos"]
         # Metadata must be refreshed before it can remain discoverable beyond 30 days.
         official = [row for row in official if 0 <= (datetime.now(timezone.utc) - datetime.fromisoformat(row["metadata_verified_at"])).total_seconds() <= 30 * 86400]
-        return {"official_videos": official, "feed_favorites": favorites, "matches": matches, "videos": videos, "athletes": store.repo.list_athletes(),
+        official = [{**row, "video_source": official_source(row)} for row in official]
+        return {"source_summary": source_counts([r["video_source"] for r in official]), "official_videos": official, "feed_favorites": favorites, "matches": matches, "videos": videos, "athletes": store.repo.list_athletes(),
                 "tournament_editions": list(editions.values()),
                 "collections": store.list("evidence_collections"),
                 "summary": {"matches": len(matches), "playable_professional": sum(m["video_source"]["status"] == "LOCAL_READY" for m in matches),
