@@ -13,6 +13,11 @@ from pydantic import BaseModel, Field
 from backend.video_evidence import utc_now
 
 
+class ScoreTimestampEvidenceInput(BaseModel):
+    source: Literal['USER_MARKED_PLAYHEAD', 'USER_ENTERED_TIME', 'USER_CONFIRMED_EXISTING_VALUE']
+    verification_status: Literal['REVIEW_REQUIRED', 'CONFIRMED']
+
+
 class ScoreMomentInput(BaseModel):
     video_asset_id: str
     game_number: int = Field(ge=1, le=20)
@@ -22,6 +27,7 @@ class ScoreMomentInput(BaseModel):
     point_start_ms: int | None = Field(default=None, ge=0)
     point_end_ms: int | None = Field(default=None, gt=0)
     score_display_ms: int | None = Field(default=None, ge=0)
+    field_evidence: dict[str, "ScoreTimestampEvidenceInput"] = Field(default_factory=dict)
     player_a_id: str = 'UNKNOWN'
     player_b_id: str = 'UNKNOWN'
     games_a_before: int | None = Field(default=None, ge=0, le=7)
@@ -98,10 +104,21 @@ def score_router(store):
         has_bounds = value.point_start_ms is not None and value.point_end_ms is not None
         if value.verification_status == 'CONFIRMED' and (not has_bounds or value.score_a_before is None or value.score_b_before is None):
             raise HTTPException(400, '确认前请填写比分并标记本分完整起止范围')
-        if has_bounds and not 0 <= value.point_start_ms < value.point_end_ms <= video['duration_ms']:
+        timestamp_values = {
+            'point_start_ms': value.point_start_ms,
+            'point_end_ms': value.point_end_ms,
+            'score_display_ms': value.score_display_ms,
+        }
+        if any(timestamp is not None and timestamp > video['duration_ms']
+               for timestamp in timestamp_values.values()):
+            raise HTTPException(400, '时间标记必须位于视频范围内')
+        if has_bounds and not value.point_start_ms < value.point_end_ms:
             raise HTTPException(400, '本分起止时间必须位于视频内')
-        if value.score_display_ms is not None and value.score_display_ms > video['duration_ms']:
-            raise HTTPException(400, '比分显示时刻超出视频')
+        allowed_time_fields = set(timestamp_values)
+        if set(value.field_evidence) - allowed_time_fields:
+            raise HTTPException(400, '只有视频时间字段可以保存独立时间证据')
+        if any(timestamp_values[field] is None for field in value.field_evidence):
+            raise HTTPException(400, '已清空的时间字段不能保留确认状态')
         if value.match_best_of is not None and value.match_best_of % 2 == 0:
             raise HTTPException(400, '比赛局制必须是奇数局')
         if (value.games_a_before is None) != (value.games_b_before is None):
@@ -141,6 +158,41 @@ def score_router(store):
                         if proposed != (value.score_a_before, value.score_b_before):
                             raise HTTPException(409, '上一分的人工确认得分方与本分比分不一致，请核对或保留未知')
             now = utc_now()
+            field_evidence = {}
+            previous_evidence = (old or {}).get('field_evidence') or {}
+            submitted_evidence = body.get('field_evidence') or {}
+            for field, timestamp in timestamp_values.items():
+                if timestamp is None:
+                    continue
+                incoming = submitted_evidence.get(field)
+                previous = previous_evidence.get(field)
+                same_value = old is not None and old.get(field) == timestamp
+                if incoming is None and same_value and previous:
+                    # Keep an existing field review intact when editing an unrelated field.
+                    field_evidence[field] = previous
+                    continue
+                source = incoming['source'] if incoming else 'USER_ENTERED_TIME'
+                status = incoming['verification_status'] if incoming else 'REVIEW_REQUIRED'
+                if value.verification_status == 'CONFIRMED' and field in {'point_start_ms', 'point_end_ms'}:
+                    # The explicit whole-point confirmation also confirms the two required boundaries.
+                    status = 'CONFIRMED'
+                if old is not None and not same_value and status == 'CONFIRMED':
+                    # A moved timestamp needs fresh review even if a stale client submits a confirmed flag.
+                    status = ('CONFIRMED' if value.verification_status == 'CONFIRMED'
+                              else 'REVIEW_REQUIRED')
+                if same_value and previous and incoming == {
+                        'source': previous.get('source'),
+                        'verification_status': previous.get('verification_status')}:
+                    field_evidence[field] = previous
+                    continue
+                field_evidence[field] = {
+                    'source': source,
+                    'verification_status': status,
+                    'value_ms': timestamp,
+                    'source_video_sha256': video['source_sha256'],
+                    'recorded_at': now,
+                }
+            body['field_evidence'] = submitted_evidence
             row = {**body, 'schema': 'SCORE_MOMENT_V1', 'point_id': identity or str(uuid.uuid4()),
                    'video_id': video['video_id'], 'video_sha256': video['source_sha256'],
                    'match_id': video.get('match_id'), 'start_ms': value.point_start_ms,
@@ -148,6 +200,7 @@ def score_router(store):
                    'score_b': value.score_b_before, 'tags': [], 'evidence_ids': [],
                    'source': 'MANUAL_SCORE_INDEX', 'created_at': old['created_at'] if old else now,
                    'updated_at': now, 'submitted_body': body,
+                   'field_evidence': field_evidence,
                    'correction_history': [*(old or {}).get('correction_history', []),
                                           {'recorded_at': now, 'action': 'CREATE' if old is None else 'EDIT',
                                            'before': old, 'after': body}],

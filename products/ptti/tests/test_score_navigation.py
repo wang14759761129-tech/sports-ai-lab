@@ -57,6 +57,7 @@ def test_score_create_search_and_idempotency(score_client):
     assert first.json()["video_sha256"] == video["source_sha256"]
     assert first.json()["provenance"]["score_semantics"] == "BEFORE_POINT"
     assert first.json()["point_winner_id"] == "UNKNOWN"
+    assert first.json()["field_evidence"]["point_start_ms"]["verification_status"] == "CONFIRMED"
     assert client.get("/api/video-evidence/scores?video_id=" + video["video_id"] + "&score_a=9&score_b=9").json()[0]["flags"]["deuce"] is False
     changed = {**payload, "point_end_ms": 13000}
     assert client.post("/api/video-evidence/scores", json=changed).status_code == 409
@@ -120,6 +121,115 @@ def test_search_mixes_confirmed_and_unbounded_drafts(score_client):
     rows = result.json()
     assert len(rows) == 2
     assert {row["verification_status"] for row in rows} == {"REVIEW_REQUIRED", "CONFIRMED"}
+
+
+def test_unbounded_observation_keeps_independent_timestamp_evidence(score_client):
+    client, videos, _ = score_client
+    video = videos[0][0]
+    payload = body(
+        video,
+        score_a_before=10,
+        score_b_before=6,
+        point_start_ms=None,
+        point_end_ms=None,
+        score_display_ms=15000,
+        verification_status="REVIEW_REQUIRED",
+        field_evidence={"score_display_ms": {
+            "source": "USER_MARKED_PLAYHEAD",
+            "verification_status": "REVIEW_REQUIRED",
+        }},
+        request_id="observation-bookmark",
+    )
+    created = client.post("/api/video-evidence/scores", json=payload)
+    assert created.status_code == 200, created.text
+    row = created.json()
+    assert row["verification_status"] == "REVIEW_REQUIRED"
+    assert row["point_start_ms"] is None and row["point_end_ms"] is None
+    assert row["point_winner_id"] == "UNKNOWN"
+    assert row["field_evidence"]["score_display_ms"] == {
+        "source": "USER_MARKED_PLAYHEAD",
+        "verification_status": "REVIEW_REQUIRED",
+        "value_ms": 15000,
+        "source_video_sha256": video["source_sha256"],
+        "recorded_at": row["updated_at"],
+    }
+
+    # Confirming one timestamp does not confirm the whole point or make it playable.
+    update = {**payload, "request_id": "observation-time-confirmed",
+              "expected_updated_at": row["updated_at"],
+              "field_evidence": {"score_display_ms": {
+                  "source": "USER_CONFIRMED_EXISTING_VALUE",
+                  "verification_status": "CONFIRMED",
+              }}}
+    confirmed_field = client.put(f"/api/video-evidence/scores/{row['point_id']}", json=update)
+    assert confirmed_field.status_code == 200, confirmed_field.text
+    row = confirmed_field.json()
+    assert row["field_evidence"]["score_display_ms"]["verification_status"] == "CONFIRMED"
+    assert row["field_evidence"]["score_display_ms"]["source"] == "USER_CONFIRMED_EXISTING_VALUE"
+    assert row["verification_status"] == "REVIEW_REQUIRED"
+    assert client.post("/api/video-evidence/scores/playlist", json=[row["point_id"]]).status_code == 400
+
+
+def test_changed_confirmed_time_is_downgraded_and_audited(score_client):
+    client, videos, _ = score_client
+    video = videos[0][0]
+    payload = body(video, point_start_ms=10000, point_end_ms=None,
+                   verification_status="REVIEW_REQUIRED",
+                   field_evidence={"point_start_ms": {
+                       "source": "USER_MARKED_PLAYHEAD",
+                       "verification_status": "CONFIRMED",
+                   }}, request_id="confirmed-start")
+    created = client.post("/api/video-evidence/scores", json=payload)
+    assert created.status_code == 200, created.text
+    row = created.json()
+    assert row["field_evidence"]["point_start_ms"]["verification_status"] == "CONFIRMED"
+    edit = {**payload, "point_start_ms": 10500, "request_id": "changed-start",
+            "expected_updated_at": row["updated_at"]}
+    changed = client.put(f"/api/video-evidence/scores/{row['point_id']}", json=edit)
+    assert changed.status_code == 200, changed.text
+    assert changed.json()["field_evidence"]["point_start_ms"]["verification_status"] == "REVIEW_REQUIRED"
+    history = client.get(f"/api/video-evidence/scores/{row['point_id']}/history").json()
+    assert len(history) == 2
+    assert history[-1]["after"]["field_evidence"]["point_start_ms"]["value_ms"] == 10500
+
+
+@pytest.mark.parametrize("field,value", [("point_start_ms", 120001), ("point_end_ms", 120001),
+                                          ("score_display_ms", 120001)])
+def test_each_timestamp_field_is_bounded_by_source_duration(score_client, field, value):
+    client, videos, _ = score_client
+    video = videos[0][0]
+    payload = body(video, verification_status="REVIEW_REQUIRED", request_id=f"duration-{field}")
+    payload[field] = value
+    result = client.post("/api/video-evidence/scores", json=payload)
+    assert result.status_code == 400
+
+
+def test_observation_bookmark_and_field_evidence_survive_database_restart(score_client):
+    client, videos, tmp_path = score_client
+    video = videos[0][0]
+    payload = body(video, score_a_before=10, score_b_before=6,
+                   point_start_ms=None, point_end_ms=None, score_display_ms=24000,
+                   verification_status="REVIEW_REQUIRED",
+                   field_evidence={"score_display_ms": {
+                       "source": "USER_MARKED_PLAYHEAD",
+                       "verification_status": "CONFIRMED",
+                   }}, request_id="persisted-observation")
+    saved = client.post("/api/video-evidence/scores", json=payload)
+    assert saved.status_code == 200, saved.text
+    point_id = saved.json()["point_id"]
+    client.close()
+
+    reopened = TestClient(create_app(tmp_path / "score-qa.db"))
+    try:
+        rows = reopened.get(f"/api/video-evidence/scores?video_id={video['video_id']}").json()
+        row = next(item for item in rows if item["point_id"] == point_id)
+        assert row["verification_status"] == "REVIEW_REQUIRED"
+        assert row["point_start_ms"] is None and row["point_end_ms"] is None
+        assert row["point_winner_id"] == "UNKNOWN"
+        assert row["field_evidence"]["score_display_ms"]["value_ms"] == 24000
+        assert row["field_evidence"]["score_display_ms"]["source_video_sha256"] == video["source_sha256"]
+    finally:
+        reopened.close()
 
 
 def test_edit_history_undo_and_draft_delete_protection(score_client):
