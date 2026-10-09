@@ -15,6 +15,7 @@ def is_development_preview(executable_name):
                     'ptti-vision-v2-player-motion-preview',
                     'ptti-evidence-fusion-preview', 'ptti-video-evidence-preview',
                     'ptti-video-evidence-ai-bridge-preview', 'ptti-video-evidence-v0.3-preview', 'ptti-match-library-v0.4-preview',
+                    'ptti-score-navigation-v0.1-preview',
                     'ptti-vision-v2-player-tracking-v1-preview',
                     'ptti-vision-v2-person-preview'}
 
@@ -59,15 +60,19 @@ def main():
             os.environ['PTTI_PREVIEW']='1'
             local=Path(os.environ.get('LOCALAPPDATA',Path.home()))
             os.environ['PTTI_DB']=str(local/'PTTI-Dev'/'ProfessionalPreview'/'matches.db')
-            if executable in {'ptti-video-evidence-preview','ptti-video-evidence-ai-bridge-preview','ptti-video-evidence-v0.3-preview','ptti-match-library-v0.4-preview'}:
+            if executable in {'ptti-video-evidence-preview','ptti-video-evidence-ai-bridge-preview','ptti-video-evidence-v0.3-preview','ptti-match-library-v0.4-preview','ptti-score-navigation-v0.1-preview'}:
                 os.environ['PTTI_DB']=str(local/'PTTI-Dev'/'VideoEvidencePreview'/'matches.db')
-            if executable in {'ptti-video-evidence-v0.3-preview','ptti-match-library-v0.4-preview'}:
+            if executable in {'ptti-video-evidence-v0.3-preview','ptti-match-library-v0.4-preview','ptti-score-navigation-v0.1-preview'}:
                 os.environ['PTTI_DB']=str(local/'PTTI-Dev'/'VideoEvidence-v03-Preview'/'matches.db')
+            if executable=='ptti-score-navigation-v0.1-preview':
+                os.environ['PTTI_DB']=str(local/'PTTI-Dev'/'ScoreNavigation-v01-Preview'/'matches.db')
+                os.environ['PTTI_MATCH_LIBRARY_PREVIEW']='1'
+                os.environ['PTTI_SCORE_NAV_PREVIEW']='1'
             if executable=='ptti-match-library-v0.4-preview':
                 os.environ['PTTI_DB']=str(local/'PTTI-Dev'/'MatchLibrary-v04-Preview'/'matches.db')
                 os.environ['PTTI_MATCH_LIBRARY_PREVIEW']='1'
-            os.environ['PTTI_EVIDENCE_PREVIEW']='1' if executable in {'ptti-video-evidence-preview','ptti-video-evidence-ai-bridge-preview','ptti-video-evidence-v0.3-preview','ptti-match-library-v0.4-preview'} else '0'
-            os.environ['PTTI_AI_EVIDENCE_BRIDGE']='1' if executable in {'ptti-video-evidence-ai-bridge-preview','ptti-video-evidence-v0.3-preview','ptti-match-library-v0.4-preview'} else '0'
+            os.environ['PTTI_EVIDENCE_PREVIEW']='1' if executable in {'ptti-video-evidence-preview','ptti-video-evidence-ai-bridge-preview','ptti-video-evidence-v0.3-preview','ptti-match-library-v0.4-preview','ptti-score-navigation-v0.1-preview'} else '0'
+            os.environ['PTTI_AI_EVIDENCE_BRIDGE']='1' if executable in {'ptti-video-evidence-ai-bridge-preview','ptti-video-evidence-v0.3-preview','ptti-match-library-v0.4-preview','ptti-score-navigation-v0.1-preview'} else '0'
             qa_database=os.environ.get('PTTI_PREVIEW_QA_DB')
             if qa_database:
                 import tempfile
@@ -83,7 +88,7 @@ def main():
             if build.is_file():
                 import json
                 build_info=json.loads(build.read_text(encoding='utf-8'))
-                if executable in {'ptti-video-evidence-v0.3-preview','ptti-match-library-v0.4-preview'}:
+                if executable in {'ptti-video-evidence-v0.3-preview','ptti-match-library-v0.4-preview','ptti-score-navigation-v0.1-preview'}:
                     os.environ['PTTI_PREVIEW_VERSION']=build_info['version']
                     os.environ['PTTI_PREVIEW_COMMIT']=build_info['commit']
                 runtime_home=build_info.get('local_vision_runtime_home')
@@ -129,7 +134,7 @@ def main():
         except ValueError: pass
     print('PTTI Desktop URL: '+url,flush=True)
     stem=Path(sys.executable).stem.casefold()
-    title=('PTTI · 比赛录像库 v0.4 Preview · '+os.environ.get('PTTI_PREVIEW_COMMIT','UNKNOWN')[:10] if stem=='ptti-match-library-v0.4-preview' else ('PTTI · Video Evidence v0.3 Preview · '+os.environ.get('PTTI_PREVIEW_COMMIT','UNKNOWN')[:10]) if stem=='ptti-video-evidence-v0.3-preview' else
+    title=('PTTI · 比分导航 v0.1 Preview · '+os.environ.get('PTTI_PREVIEW_COMMIT','UNKNOWN')[:10] if stem=='ptti-score-navigation-v0.1-preview' else ('PTTI · 比赛录像库 v0.4 Preview · '+os.environ.get('PTTI_PREVIEW_COMMIT','UNKNOWN')[:10] if stem=='ptti-match-library-v0.4-preview' else ('PTTI · Video Evidence v0.3 Preview · '+os.environ.get('PTTI_PREVIEW_COMMIT','UNKNOWN')[:10]) if stem=='ptti-video-evidence-v0.3-preview' else
            'PTTI · AI 证据复盘 Preview' if 'video-evidence-ai-bridge-preview' in stem else
            'PTTI · 视频证据复盘 Preview' if 'video-evidence-preview' in stem else
            'PTTI · Vision v2 Person Preview' if 'vision-v2-person-preview' in stem else
@@ -140,7 +145,7 @@ def main():
            'PTTI · Vision v2 Hybrid Scene Preview' if 'hybrid-scene-preview' in stem else
            'PTTI · Vision Lab v2 Scene Bootstrap Preview' if 'scene-bootstrap-preview' in stem or 'vision-lab-v2-scene-preview' in stem else
            'PTTI · Professional Preview v0.2' if 'professional-preview' in stem else
-           'PTTI · 个人乒乓球比赛分析')
+           'PTTI · 个人乒乓球比赛分析'))
     webview.create_window(title,url,width=width,height=height,min_size=(1024,640),js_api=DesktopAPI())
     try: webview.start()
     finally: server.should_exit=True; thread.join(timeout=5)

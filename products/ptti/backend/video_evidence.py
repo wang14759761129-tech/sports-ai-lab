@@ -791,7 +791,11 @@ class EvidenceStore:
         rows = self.list("evidence_points")
         if video_id:
             rows = [row for row in rows if row.get("video_id") == video_id]
-        return sorted(rows, key=lambda row: (row.get("game_number") or 999, row["start_ms"]))
+        return sorted(rows, key=lambda row: (
+            row.get("game_number") or 999,
+            row.get("start_ms") is None,
+            row.get("start_ms") or 0,
+        ))
 
     def save_point(self, value, point_id=None):
         video = self.get("evidence_videos", "video_id", value.video_id)
@@ -803,6 +807,8 @@ class EvidenceStore:
             if evidence["video_id"] != value.video_id:
                 raise ValueError("逐分证据必须来自同一场比赛录像")
         old = self.get("evidence_points", "point_id", point_id) if point_id else None
+        if old and old.get("schema") == "SCORE_MOMENT_V1":
+            raise ValueError("比分导航记录请通过比分索引界面修改，以保留字段与审计历史")
         row = {**(old or {}), **value.model_dump(), "point_id": point_id or str(uuid.uuid4()), "evidence_ids": evidence_ids, "source": "MANUAL_CONFIRMED", "created_at": old.get("created_at") if old else utc_now(), "updated_at": utc_now()}
         return self.save("evidence_points", "point_id", row, "MANUAL_POINT_SAVE")
 
@@ -1177,4 +1183,6 @@ def evidence_router(repo, mode):
     if store:
         from backend.match_library import library_router
         router.include_router(library_router(store))
+        from backend.score_navigation import score_router
+        router.include_router(score_router(store))
     return router
