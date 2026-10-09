@@ -23,7 +23,8 @@ const clock=(ms:number)=>{const s=Math.max(0,ms)/1000;return `${String(Math.floo
 const initial={start_ms:0,end_ms:1000,tags:'',notes:'',event_type:'KEY_CLIP',review_status:'CONFIRMED'};
 const aiStatuses=[['UNVERIFIED','AI 待复核'],['CONFIRMED','人工已确认'],['REJECTED','已否决'],['FILTERED','算法已过滤']];
 
-export default function VideoEvidencePlayer({initialVideoId='',initialScoreTarget=null,initialScorePlaylist=[],onInitialScoreHandled=()=>{},onInitialPlaylistHandled=()=>{},videoFirst=false}:{initialVideoId?:string;initialScoreTarget?:any;initialScorePlaylist?:string[];onInitialScoreHandled?:()=>void;onInitialPlaylistHandled?:()=>void;videoFirst?:boolean}){
+export default function VideoEvidencePlayer({initialVideoId='',initialScoreTarget=null,initialScorePlaylist=[],onInitialScoreHandled=()=>{},onInitialPlaylistHandled=()=>{},videoFirst=false,watchMode=false}:{initialVideoId?:string;initialScoreTarget?:any;initialScorePlaylist?:string[];onInitialScoreHandled?:()=>void;onInitialPlaylistHandled?:()=>void;videoFirst?:boolean;watchMode?:boolean}){
+ const [showTools,setShowTools]=useState(false);
  const appliedVideo=useRef('');
  const appliedScore=useRef('');
  const [videos,setVideos]=useState<Video[]>([]),[clips,setClips]=useState<Clip[]>([]),[collections,setCollections]=useState<Collection[]>([]),[points,setPoints]=useState<Point[]>([]);
@@ -82,7 +83,7 @@ export default function VideoEvidencePlayer({initialVideoId='',initialScoreTarge
  const activeBatch=batches.find(b=>b.status==='RUNNING');
  const toggleTag=(value:string)=>{const values=draft.tags.split(/[,，]/).map(v=>v.trim()).filter(Boolean);setDraft({...draft,tags:values.includes(value)?values.filter(v=>v!==value).join('，'):[...values,value].join('，')})};
 
- return <div className="vep"><PageHeader title="视频复盘" text={videoFirst?'先观看原始比赛，找到关键球，再保存片段与笔记。AI 复核是可选步骤。':'AI 帮你找到值得看的时刻；每条结论都由你确认，并保留原视频证据。'}><button className="primary" onClick={()=>setImportOpen(true)}>导入本地比赛视频</button></PageHeader>
+ return <div className={watchMode&&!showTools?"vep vep-watch":"vep"}>{watchMode&&<div className="actions"><button onClick={()=>setShowTools(v=>!v)}>{showTools?"返回宽屏观看":"比分标记与证据复核"}</button><span>正常播放 · Vision 尚无本视频已核验轨迹</span></div>}<PageHeader title="视频复盘" text={videoFirst?'先观看原始比赛，找到关键球，再保存片段与笔记。AI 复核是可选步骤。':'AI 帮你找到值得看的时刻；每条结论都由你确认，并保留原视频证据。'}><button className="primary" onClick={()=>setImportOpen(true)}>导入本地比赛视频</button></PageHeader>
  <p className="vep-guide">{videoFirst?'① 打开完整录像 → ② 找到关键球 → ③ 保存片段与笔记 → ④ 专题连续复盘':'① 选择原视频 → ② 导入冻结 AI 候选 → ③ 播放判断并确认 → ④ 保存关键分与专题'}</p>
  {error&&<p className="error-banner" role="alert">{error}<button onClick={()=>setError('')}>关闭</button></p>}{notice&&<p className="vep-notice" role="status">{notice}</p>}{busy&&<p role="status">正在保存 / 校验，请稍候…</p>}
  {!videos.length?<Empty title="从一场你自己的比赛开始" text="引用本机视频，不复制整场文件。保存的片段始终可以回到原画面。"><button onClick={()=>setImportOpen(true)}>导入视频</button></Empty>:<div className="vep-workspace">

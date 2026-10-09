@@ -1,0 +1,51 @@
+{
+  "videos": [
+    {
+      "video_id": "0QgbtsBWZhk",
+      "title": "FULL MATCH | Wang Chuqin vs Felix Lebrun | MS Final | #ChinaSmash 2025",
+      "athlete_ids": [
+        "athlete:121558",
+        "athlete:135977"
+      ],
+      "provider": "YOUTUBE_OFFICIAL",
+      "channel": "World Table Tennis",
+      "channel_url": "https://www.youtube.com/@wttglobal",
+      "source_url": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+      "embed_url": "https://www.youtube.com/embed/0QgbtsBWZhk",
+      "thumbnail_url": "https://i.ytimg.com/vi/0QgbtsBWZhk/hqdefault.jpg",
+      "duration_seconds": null,
+      "published_at": null,
+      "metadata_verified_at": "2026-10-09T13:44:54.644065+00:00",
+      "playback_status": "EMBED_NOT_TESTED",
+      "rights": "OFFICIAL_EMBED_ONLY",
+      "local_analysis_allowed": false,
+      "provenance": {
+        "metadata_method": "YOUTUBE_OEMBED",
+        "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/",
+        "athlete_mapping": "EXACT_TITLE_NAMES_TO_EXISTING_REGISTRY_ONLY"
+      }
+    },
+    {
+      "video_id": "vYsJLPTEIaI",
+      "title": "FULL MATCH | Sun Yingsha vs Wang Manyu | WS Final | #WTTSingapore2026",
+      "athlete_ids": [],
+      "provider": "YOUTUBE_OFFICIAL",
+      "channel": "World Table Tennis",
+      "channel_url": "https://www.youtube.com/@wttglobal",
+      "source_url": "https://www.youtube.com/watch?v=vYsJLPTEIaI",
+      "embed_url": "https://www.youtube.com/embed/vYsJLPTEIaI",
+      "thumbnail_url": "https://i.ytimg.com/vi/vYsJLPTEIaI/hqdefault.jpg",
+      "duration_seconds": null,
+      "published_at": null,
+      "metadata_verified_at": "2026-10-09T13:44:54.644065+00:00",
+      "playback_status": "EMBED_NOT_TESTED",
+      "rights": "OFFICIAL_EMBED_ONLY",
+      "local_analysis_allowed": false,
+      "provenance": {
+        "metadata_method": "YOUTUBE_OEMBED",
+        "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/",
+        "athlete_mapping": "EXACT_TITLE_NAMES_TO_EXISTING_REGISTRY_ONLY"
+      }
+    }
+  ]
+}

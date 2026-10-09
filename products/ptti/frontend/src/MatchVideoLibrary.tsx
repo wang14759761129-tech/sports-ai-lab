@@ -3,6 +3,7 @@ import {Card,Empty,Modal,PageHeader} from './ui';
 import {savedFolderDefaults} from './libraryPlayback';
 import {canPlayConfirmedScore,isUnboundedScoreObservation,observationAnchorMs,scoreObservationLabel,scoreObservationStatusLabel} from './scoreObservation';
 import './match-video-library.css';
+import VideoDiscovery from './VideoDiscovery';
 
 const name=(a:any)=>a?.canonical_name_zh||a?.canonical_name_en||'姓名未核实';
 const title=(m:any)=>`${name(m.players?.player_a)} vs ${name(m.players?.player_b)}`;
@@ -34,6 +35,7 @@ export default function MatchVideoLibrary({page,revision,onOpenVideo,onOpenScore
  function play(id:string){request(`/videos/${id}/opened`,{},'POST').catch(()=>{});onOpenVideo(id)}
  function recentVideos(){return data.videos.filter((v:any)=>v.last_opened_at&&v.availability_status==='AVAILABLE').sort((a:any,b:any)=>b.last_opened_at.localeCompare(a.last_opened_at)).slice(0,12)}
  if(!data)return <Empty title={error?'比赛库暂时无法打开':'正在打开比赛库'} text={error||'正在读取本机录像与已收录比赛资料。'}/>;
+ if(page==='home')return <VideoDiscovery data={data} onPlay={play} onTools={()=>navigate('videoEvidence')} onLibrary={()=>navigate('professionalMatches')}/>;
  const current=match&&data.matches.find((m:any)=>m.match_id===match.match_id), latest=scans[0];
  const query=search.trim().toLowerCase();
  const matches=data.matches.filter((m:any)=>(!athlete||[m.player_a_id,m.player_b_id].includes(athlete.athlete_id))&&(!query||`${title(m)} ${m.event_name} ${m.event_date||''}`.toLowerCase().includes(query))&&(!onlyPlayable||m.video_source.status==='LOCAL_READY'));

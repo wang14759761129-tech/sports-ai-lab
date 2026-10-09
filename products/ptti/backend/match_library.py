@@ -1,13 +1,19 @@
 """Video-first catalogue and opt-in, bounded local indexing. No model or GT reads."""
 import json
+import hashlib
+import shutil
+import subprocess
+import tempfile
 import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import asynccontextmanager
 from pathlib import Path
 from urllib.parse import urlsplit
+from datetime import datetime, timezone
 
 from fastapi import APIRouter, HTTPException
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 from backend.video_evidence import VideoInput, digest_file, utc_now
@@ -189,6 +195,7 @@ class LocalMediaIndexer:
 
 def library_router(store):
     indexer = LocalMediaIndexer(store)
+    thumbnail_lock = threading.Lock()
 
     @asynccontextmanager
     async def lifespan(_app):
@@ -214,12 +221,47 @@ def library_router(store):
         editions = {m["event_name"]: {"edition_id": m.get("event_id") or m["event_name"],
                     "name": m["event_name"], "competition": m.get("competition_level"),
                     "date": m.get("event_date"), "source_ids": m.get("source_ids", [])} for m in matches}
-        return {"matches": matches, "videos": videos, "athletes": store.repo.list_athletes(),
+        official = json.loads((Path(__file__).resolve().parents[1] / "data/professional/official_video_sources.json").read_text(encoding="utf-8"))["videos"]
+        # Metadata must be refreshed before it can remain discoverable beyond 30 days.
+        official = [row for row in official if 0 <= (datetime.now(timezone.utc) - datetime.fromisoformat(row["metadata_verified_at"])).total_seconds() <= 30 * 86400]
+        return {"official_videos": official, "matches": matches, "videos": videos, "athletes": store.repo.list_athletes(),
                 "tournament_editions": list(editions.values()),
                 "collections": store.list("evidence_collections"),
                 "summary": {"matches": len(matches), "playable_professional": sum(m["video_source"]["status"] == "LOCAL_READY" for m in matches),
                     "local_playable": sum(v["availability_status"] == "AVAILABLE" for v in videos)},
                 "remote_policy": "SOURCE_LINK_ONLY_UNTIL_PERMISSION_VERIFIED"}
+
+    @router.get("/videos/{video_id}/thumbnail")
+    def thumbnail(video_id: str):
+        video = store.availability(store.get("evidence_videos", "video_id", video_id))
+        if video["availability_status"] != "AVAILABLE" or not video.get("source_sha256"):
+            raise HTTPException(404, "录像或来源校验暂不可用")
+        path = Path(video["original_path"])
+        stat = path.stat()
+        key = hashlib.sha256(f"{video['source_sha256']}:{stat.st_size}:{stat.st_mtime_ns}".encode()).hexdigest()
+        root = Path(tempfile.gettempdir()) / "PTTI-Video-First-Thumbnails"
+        root.mkdir(exist_ok=True)
+        target = root / (key + ".jpg")
+        with thumbnail_lock:
+            if not target.is_file():
+                executable = shutil.which("ffmpeg")
+                if not executable:
+                    raise HTTPException(503, "缩略图工具不可用，仍可直接播放录像")
+                temporary = root / (key + ".part.jpg")
+                try:
+                    subprocess.run([executable, "-nostdin", "-v", "error", "-threads", "1",
+                        "-ss", "0", "-i", str(path), "-frames:v", "1", "-vf", "scale=480:-2",
+                        "-threads", "1", "-y", str(temporary)], check=True,
+                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=15,
+                        creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+                    if not temporary.is_file() or not temporary.stat().st_size:
+                        raise OSError("empty thumbnail")
+                    temporary.replace(target)
+                except (OSError, subprocess.SubprocessError) as exc:
+                    raise HTTPException(503, "暂无法生成缩略图，仍可直接播放录像") from exc
+                finally:
+                    temporary.unlink(missing_ok=True)
+        return FileResponse(target, media_type="image/jpeg")
 
     @router.get("/folders")
     def folders():

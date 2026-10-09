@@ -139,3 +139,61 @@ def test_recent_views_survive_application_restart_without_mutating_evidence(work
         assert catalog["videos"][0]["last_opened_at"]
         assert catalog["videos"][0]["match_id"] is None
         assert restarted.post('/api/video-evidence/library/videos/unknown/opened').status_code == 404
+
+
+def test_official_catalog_does_not_claim_analysis_rights_or_playback(workspace):
+    client, _, _ = workspace
+    rows = client.get("/api/video-evidence/library").json()["official_videos"]
+    assert len(rows) == 2
+    assert len({r["video_id"] for r in rows}) == 2
+    for row in rows:
+        assert row["playback_status"] == "EMBED_NOT_TESTED"
+        assert row["local_analysis_allowed"] is False
+        assert row["rights"] == "OFFICIAL_EMBED_ONLY"
+        assert row["duration_seconds"] is None
+        assert row["provenance"]["metadata_method"] == "YOUTUBE_OEMBED"
+
+
+def test_thumbnail_missing_video_and_missing_tool_fail_safely(workspace, monkeypatch):
+    client, root, tmp = workspace
+    assert client.get("/api/video-evidence/library/videos/missing/thumbnail").status_code == 404
+    row = scan(client, root)
+    video = client.post(f'/api/video-evidence/library/folders/{row["scan_id"]}/confirm',
+        json={"candidate_id": row["candidates"][0]["candidate_id"]}).json()
+    for _ in range(100):
+        if client.get("/api/video-evidence/videos").json()[0]["source_sha256"]:
+            break
+        time.sleep(.01)
+    monkeypatch.setattr("backend.match_library.tempfile.gettempdir", lambda: str(tmp))
+    monkeypatch.setattr("backend.match_library.shutil.which", lambda _: None)
+    assert client.get(f'/api/video-evidence/library/videos/{video["video_id"]}/thumbnail').status_code == 503
+    assert client.get("/api/video-evidence/library").json()["summary"]["local_playable"] == 1
+
+
+def test_thumbnail_is_atomic_cached_and_single_frame(workspace, monkeypatch):
+    client, root, tmp = workspace
+    row = scan(client, root)
+    video = client.post(f'/api/video-evidence/library/folders/{row["scan_id"]}/confirm',
+        json={"candidate_id": row["candidates"][0]["candidate_id"]}).json()
+    for _ in range(100):
+        if client.get("/api/video-evidence/videos").json()[0]["source_sha256"]:
+            break
+        time.sleep(.01)
+    calls = []
+    import subprocess
+    original_run = subprocess.run
+    def run(command, **kwargs):
+        if command[0] != "test-ffmpeg":
+            return original_run(command, **kwargs)
+        calls.append(command)
+        assert command[command.index("-frames:v") + 1] == "1"
+        assert kwargs["timeout"] == 15
+        Path(command[-1]).write_bytes(b"SYNTHETIC_THUMBNAIL_TEST_ONLY")
+    monkeypatch.setattr("backend.match_library.tempfile.gettempdir", lambda: str(tmp))
+    monkeypatch.setattr("backend.match_library.shutil.which", lambda _: "test-ffmpeg")
+    monkeypatch.setattr("backend.match_library.subprocess.run", run)
+    url = f'/api/video-evidence/library/videos/{video["video_id"]}/thumbnail'
+    assert client.get(url).status_code == 200
+    assert client.get(url).status_code == 200
+    assert len(calls) == 1
+    assert not list((tmp / "PTTI-Video-First-Thumbnails").glob("*.part.jpg"))

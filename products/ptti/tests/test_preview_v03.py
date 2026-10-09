@@ -38,3 +38,8 @@ def test_score_navigation_preview_uses_one_build_identity(tmp_path, monkeypatch)
     assert health["version"] == "0.1"
     assert health["build_id"] == "abc123def0"
     assert health["build_commit"] == "abc123def01234567890"
+
+
+def test_video_first_preview_is_development_only():
+    assert is_development_preview("PTTI-Video-First-v0.5-Preview.exe")
+    assert not is_development_preview("PTTI-Video-First.exe")
