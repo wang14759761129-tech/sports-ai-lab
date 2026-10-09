@@ -1,6 +1,28 @@
 {
   "videos": [
     {
+      "video_id": "BV1nb421H7jB",
+      "source_key": "BILIBILI:BV1nb421H7jB",
+      "provider": "BILIBILI",
+      "title": "马龙 王楚钦VS樊振东 林高远 观众视角 23年亚锦赛",
+      "display_title": "马龙 / 王楚钦 vs 樊振东 / 林高远 · 观众视角片段",
+      "athlete_ids": [],
+      "athlete_names": ["马龙", "王楚钦", "樊振东", "林高远"],
+      "source_url": "https://www.bilibili.com/video/BV1nb421H7jB/",
+      "thumbnail_url": "",
+      "duration_seconds": 646,
+      "full_match": false,
+      "metadata_verified_at": "2026-10-09T15:57:08.1042839+00:00",
+      "event_name": "2023 亚锦赛 · 发布者标题线索",
+      "discipline": "MD",
+      "rights": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
+      "local_analysis_allowed": false,
+      "playback_status": "SOURCE_LINK_ONLY",
+      "playback_limitation": "本次会话画面播放已验证 · 登录/试看提示，完整性未核验",
+      "provenance": {"metadata_method": "MANUAL_PUBLIC_PAGE_REVIEW", "publisher": "乒乓球珍藏馆", "match_mapping": "NOT_VERIFIED", "thumbnail": "NOT_OBTAINED", "notice": "未经作者授权，禁止转载"},
+      "watch_page_test": {"surface": "BROWSER_IAB", "result": "ACTUAL_PLAYBACK_VERIFIED", "observed_playing_times": [0.472329, 124.797929], "full_content_reviewed": false, "limitations": "Login and trial-quality banner visible; actual moving match picture beyond 30 seconds observed. Does not establish unrestricted viewing, rights, embedding or complete-match availability."}
+    },
+    {
       "video_id": "0QgbtsBWZhk",
       "title": "FULL MATCH | Wang Chuqin vs Felix Lebrun | MS Final | #ChinaSmash 2025",
       "athlete_ids": [

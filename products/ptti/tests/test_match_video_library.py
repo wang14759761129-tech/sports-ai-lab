@@ -45,6 +45,50 @@ def test_catalog_preserves_real_metadata_and_does_not_invent_media(workspace):
     assert all(not m["video_source"]["frame_access"] for m in result["matches"])
 
 
+def test_online_sources_share_match_but_not_timeline_or_analysis(workspace):
+    client, _root, _tmp = workspace
+    match = client.get("/api/video-evidence/library").json()["matches"][0]["match_id"]
+    rows = []
+    for provider, identity in [("BILIBILI", "BV1Hm4y1g7My"), ("YOUTUBE", "H77vNFk3neg")]:
+        body = {"provider": provider, "source_id": identity, "title": "ENGINEERING_QA_MAPPING_ONLY", "user_confirmed_match": True}
+        response = client.post(f"/api/video-evidence/library/matches/{match}/online-sources", json=body)
+        assert response.status_code == 200, response.text
+        row = response.json()
+        assert row["video_source"]["match_id"] == match
+        assert row["video_source"]["analysis_permission"] == "DENIED"
+        assert row["video_source"]["is_full_match"] is None
+        assert row["video_source"]["embed_permission"] == "UNKNOWN"
+        assert client.post(f"/api/video-evidence/library/matches/{match}/online-sources", json=body).json() == row
+        rows.append(row)
+    assert rows[0]["video_source"]["provenance"]["timeline_id"] != rows[1]["video_source"]["provenance"]["timeline_id"]
+    assert len(client.get("/api/video-evidence/library").json()["matches"][0]["online_sources"]) == 2
+
+
+def test_online_source_mapping_requires_confirmation_and_valid_id(workspace):
+    client, _root, _tmp = workspace
+    match = client.get("/api/video-evidence/library").json()["matches"][0]["match_id"]
+    url = f"/api/video-evidence/library/matches/{match}/online-sources"
+    body = {"provider": "BILIBILI", "source_id": "BV1Hm4y1g7My", "title": "QA", "user_confirmed_match": False}
+    assert client.post(url, json=body).status_code == 400
+    body.update(user_confirmed_match=True, source_id="https://evil.invalid")
+    assert client.post(url, json=body).status_code == 400
+
+
+def test_online_sources_survive_backend_restart(tmp_path):
+    path = tmp_path / "isolated-test.db"
+    with TestClient(create_app(path)) as client:
+        match = client.get("/api/video-evidence/library").json()["matches"][0]["match_id"]
+        url = f"/api/video-evidence/library/matches/{match}/online-sources"
+        body = {"provider": "BILIBILI", "source_id": "BV1Qa1234567", "title": "ENGINEERING_QA_ONLY", "user_confirmed_match": True}
+        response = client.post(url, json=body)
+        assert response.status_code == 200
+        original = response.json()
+    with TestClient(create_app(path)) as client:
+        row = next(m for m in client.get("/api/video-evidence/library").json()["matches"] if m["match_id"] == match)
+        assert row["online_sources"] == [original]
+        assert client.post(url, json=body).json() == original
+
+
 def test_folder_candidates_do_not_auto_bind_filename(workspace):
     client, root, _tmp = workspace
     row = scan(client, root)
@@ -144,9 +188,17 @@ def test_recent_views_survive_application_restart_without_mutating_evidence(work
 def test_official_catalog_does_not_claim_analysis_rights_or_playback(workspace):
     client, _, _ = workspace
     rows = client.get("/api/video-evidence/library").json()["official_videos"]
-    assert len(rows) == 8
-    assert len({r["video_id"] for r in rows}) == 8
+    assert len(rows) == 9
+    assert len({r["video_id"] for r in rows}) == 9
     for row in rows:
+        if row["provider"] == "BILIBILI":
+            assert row["full_match"] is False
+            assert row["video_source"]["is_full_match"] is None
+            assert row["video_source"]["embed_permission"] == "UNKNOWN"
+            assert row["video_source"]["analysis_permission"] == "DENIED"
+            assert row["video_source"]["playback_verified"] is True
+            assert "登录/试看" in row["playback_limitation"]
+            continue
         assert row["playback_status"] in {"EMBED_NOT_TESTED", "EMBED_BLOCKED"}
         assert row["watch_page_status"] in {"NOT_TESTED", "LOGIN_REQUIRED", "PLAYBACK_VERIFIED"}
         assert row["full_match"] is True

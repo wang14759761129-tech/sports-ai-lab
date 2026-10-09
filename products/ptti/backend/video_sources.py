@@ -16,6 +16,10 @@ class MatchVideoSource(BaseModel):
     player_ids: list[str] = Field(default_factory=list)
     tournament_id: str | None = None
     source_url: str
+    video_version: str = "UNKNOWN"
+    timeline_id: str | None = None
+    timeline_mapping_status: str = "NOT_VERIFIED"
+    viewing_permission: Literal["UNKNOWN", "PUBLIC_PLATFORM_PAGE", "AUTHORIZED", "DENIED"] = "UNKNOWN"
     playback_type: Literal["OFFICIAL_PAGE", "OFFICIAL_EMBED", "AUTHORIZED_STREAM", "LOCAL"]
     stream_id: str | None = None
     match_start_seconds: float | None = Field(default=None, ge=0)
@@ -66,6 +70,7 @@ def official_source(row: dict) -> dict:
         provider=row["provider"], source_id=row["video_id"],
         match_id=row.get("match_id"), player_ids=row.get("athlete_ids", []),
         tournament_id=row.get("tournament_id"), source_url=row["source_url"],
+        timeline_id=row["provider"] + ":" + row["video_id"], viewing_permission="PUBLIC_PLATFORM_PAGE",
         playback_type="OFFICIAL_PAGE", stream_id=row["video_id"],
         duration=row.get("duration_seconds"),
         full_match_verification="TITLE_CLAIM_ONLY" if row.get("full_match") else "NOT_VERIFIED",

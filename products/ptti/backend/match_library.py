@@ -57,6 +57,13 @@ class MappingInput(BaseModel):
     user_confirmed: bool
 
 
+class OnlineSourceInput(BaseModel):
+    provider: str = Field(pattern="^(BILIBILI|YOUTUBE)$")
+    source_id: str = Field(min_length=1, max_length=64)
+    title: str = Field(min_length=1, max_length=300)
+    user_confirmed_match: bool
+
+
 class FeedFavoriteInput(BaseModel):
     key: str = Field(min_length=1, max_length=160)
     saved: bool
@@ -73,6 +80,7 @@ class LocalMediaIndexer:
             db.execute("CREATE TABLE IF NOT EXISTS media_scan_jobs (scan_id TEXT PRIMARY KEY, payload TEXT NOT NULL)")
             db.execute("CREATE TABLE IF NOT EXISTS media_recent_views (video_id TEXT PRIMARY KEY, viewed_at TEXT NOT NULL)")
             db.execute("CREATE TABLE IF NOT EXISTS media_feed_favorites (source_key TEXT PRIMARY KEY)")
+            db.execute("CREATE TABLE IF NOT EXISTS media_online_sources (source_key TEXT PRIMARY KEY, payload TEXT NOT NULL)")
             for identity, raw in db.execute("SELECT scan_id,payload FROM media_scan_jobs").fetchall():
                 row = json.loads(raw)
                 if row["status"] in {"QUEUED", "RUNNING"}:
@@ -233,6 +241,20 @@ def library_router(store):
         # Metadata must be refreshed before it can remain discoverable beyond 30 days.
         official = [row for row in official if 0 <= (datetime.now(timezone.utc) - datetime.fromisoformat(row["metadata_verified_at"])).total_seconds() <= 30 * 86400]
         official = [{**row, "video_source": official_source(row)} for row in official]
+        added = store.list("media_online_sources")
+        for row in added:
+            known = next((r for r in official if r["video_id"] == row["video_source"]["source_id"]
+                          and r["provider"].removesuffix("_OFFICIAL") == row["provider"]), None)
+            if known:
+                known["match_id"] = row["match_id"]
+                known["source_key"] = row["source_key"]
+                known["video_source"]["match_id"] = row["match_id"]
+                known["video_source"]["provenance"]["match_mapping"] = "USER_CONFIRMED"
+            else:
+                official.append(row)
+        for match in matches:
+            match["online_sources"] = [r for r in official if r.get("match_id") == match["match_id"]]
+            match["local_video_ids"] = [v["video_id"] for v in videos if v.get("match_id") == match["match_id"]]
         return {"source_summary": source_counts([r["video_source"] for r in official]), "official_videos": official, "feed_favorites": favorites, "matches": matches, "videos": videos, "athletes": store.repo.list_athletes(),
                 "tournament_editions": list(editions.values()),
                 "collections": store.list("evidence_collections"),
@@ -323,6 +345,16 @@ def library_router(store):
             if not value.user_confirmed or not match:
                 raise HTTPException(400, "必须确认真实比赛关联")
             old = store.get("evidence_videos", "video_id", video_id)
+            if store.availability(old)["availability_status"] != "AVAILABLE" or old.get("hash_status") != "VERIFIED":
+                raise HTTPException(400, "录像不可用或 SHA256 尚未完成，不能确认关联")
+            try:
+                actual_sha = digest_file(Path(old["original_path"]))
+            except OSError as exc:
+                raise HTTPException(400, "无法读取录像，请检查文件权限") from exc
+            if actual_sha != old.get("source_sha256"):
+                raise HTTPException(400, "录像 SHA256 不一致，不能确认关联")
+            if store.availability(old)["availability_status"] != "AVAILABLE":
+                raise HTTPException(400, "录像在验证期间改变，不能确认关联")
             if old.get("match_id") == value.match_id:
                 return old
             if old.get("match_id"):
@@ -332,5 +364,33 @@ def library_router(store):
                    "mapping_source": "USER_CONFIRMED"}
             store.save("evidence_videos", "video_id", row, "USER_CONFIRMED_MATCH_MAPPING")
             return row
+
+    @router.post("/matches/{match_id}/online-sources")
+    def add_online_source(match_id: str, value: OnlineSourceInput):
+        import re
+        from backend.video_sources import MatchVideoSource
+        if not value.user_confirmed_match or not store.repo.get_professional_match(match_id):
+            raise HTTPException(400, "请人工核对同一场比赛；链接不代表授权")
+        pattern = r"BV[0-9A-Za-z]{10}" if value.provider == "BILIBILI" else r"[A-Za-z0-9_-]{11}"
+        if not re.fullmatch(pattern, value.source_id):
+            raise HTTPException(400, "视频标识无效")
+        key = value.provider + ":" + value.source_id
+        url = ("https://www.bilibili.com/video/" + value.source_id + "/" if value.provider == "BILIBILI"
+               else "https://www.youtube.com/watch?v=" + value.source_id)
+        canonical = MatchVideoSource(provider=value.provider, source_id=value.source_id, match_id=match_id,
+            source_url=url, playback_type="OFFICIAL_PAGE", analysis_permission="DENIED",
+            video_version=value.title, timeline_id=key, viewing_permission="PUBLIC_PLATFORM_PAGE",
+            provenance={"match_mapping": "USER_CONFIRMED", "timeline_id": key, "timeline_mapping": "NOT_VERIFIED"}).model_dump()
+        row = {"source_key": key, "video_id": key, "provider": value.provider, "source_url": url,
+               "match_id": match_id, "title": value.title, "full_match": None,
+               "duration_seconds": None, "thumbnail_url": "", "video_source": canonical,
+               "full_match_claim": "UNKNOWN", "metadata_verified_at": utc_now()}
+        with indexer.confirm_lock:
+            existing = next((r for r in store.list("media_online_sources") if r["source_key"] == key), None)
+            if existing:
+                if existing["match_id"] != match_id:
+                    raise HTTPException(409, "此来源已经关联另一比赛，不会覆盖")
+                return existing
+            return store.save("media_online_sources", "source_key", row, "USER_CONFIRMED_ONLINE_MATCH_MAPPING")
 
     return router

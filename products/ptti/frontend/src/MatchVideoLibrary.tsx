@@ -4,6 +4,7 @@ import {savedFolderDefaults} from './libraryPlayback';
 import {canPlayConfirmedScore,isUnboundedScoreObservation,observationAnchorMs,scoreObservationLabel,scoreObservationStatusLabel} from './scoreObservation';
 import './match-video-library.css';
 import VideoDiscovery from './VideoDiscovery';
+import MatchSourcePanel from './MatchSourcePanel';
 
 const name=(a:any)=>a?.canonical_name_zh||a?.canonical_name_en||'姓名未核实';
 const title=(m:any)=>`${name(m.players?.player_a)} vs ${name(m.players?.player_b)}`;
@@ -48,6 +49,7 @@ export default function MatchVideoLibrary({page,revision,onOpenVideo,onOpenScore
  <PageHeader title={current?title(current):athlete?name(athlete):page==='players'?'运动员比赛目录':page==='professionalMatches'?'比赛录像库':'先看比赛，再找关键球'} text="原始视频优先。AI 候选需要复核，比赛资料不等于视频播放权限。"><button onClick={()=>{setMatch(null);setAthlete(null);navigate('home')}}>首页</button><button className="primary" onClick={()=>setFolderOpen(true)}>选择视频文件夹</button></PageHeader>
  {page==='home'&&!current&&!athlete&&<ScoreSearch onOpenScore={onOpenScore} onPlaylist={onScorePlaylist}/>}
  {current?<>
+  <MatchSourcePanel match={current} data={data} onPlay={play} onRefresh={refresh}/>
   <Card><h2>{current.video_source.video_ids.length?'完整比赛录像':'完整视频尚未获得可播放权限'}</h2><p>{current.video_source.reason}</p>{current.video_source.video_ids.map((id:string)=>videoCard(data.videos.find((v:any)=>v.video_id===id)))}{!current.video_source.video_ids.length&&<Empty title="没有可播放的本机录像" text="官方网页只作为来源链接，不会伪装成播放器。你可为这场比赛关联自己获准使用的视频。"/>}<div className="actions"><button onClick={()=>setFolderOpen(true)}>为这场比赛关联视频</button>{current.video_source.official_url&&<a href={current.video_source.official_url} target="_blank" rel="noreferrer">打开官方来源 ↗</a>}</div>
   <label>已登记且尚未关联的录像<select value={existing} onChange={e=>setExisting(e.target.value)}><option value="">请选择并核对双方运动员</option>{data.videos.filter((v:any)=>!v.match_id).map((v:any)=><option key={v.video_id} value={v.video_id}>{v.title} · {rights(v.rights_status)}</option>)}</select></label><button disabled={busy||!existing} onClick={()=>act(async()=>{if(!window.confirm('确认这份录像确实对应本场比赛？研究样本不能冒充职业比赛。'))return;await request(`/videos/${existing}/match`,{match_id:current.match_id,user_confirmed:true},'PUT');setExisting('');await refresh()})}>确认比赛关联</button></Card>
   <ScoreSearch matchId={current.match_id} onOpenScore={onOpenScore} onPlaylist={onScorePlaylist}/><Card><h2>比赛信息与证据来源</h2><p>{eventName(current.event_name)} · {current.event_date||'日期未核实'} · {roundName(current.round)}</p><p>局分 {current.final_score?`${current.final_score.player_a_games}:${current.final_score.player_b_games}`:'未核实'} · 每局分数尚未建立索引</p>{current.sources.map((s:any)=><p key={s.source_id}><a href={s.source_url} target="_blank" rel="noreferrer">官方资料来源</a> · 收录于 {s.retrieved_at?.slice(0,10)||'时间未知'}</p>)}<p>元数据沿用已有来源快照；未获得视频的比赛不能定位比分或生成轨迹。</p><button onClick={()=>setMatch(null)}>返回比赛目录</button></Card>
