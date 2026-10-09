@@ -17,3 +17,8 @@ The dedicated executable is PTTI-Video-First-v0.5-Preview, with a separate devel
 
 ## Acceptance
 Implementation and automated tests alone do not establish native playback acceptance. Verify: home card → actual local video → slow playback → secondary evidence tools → back to viewing; official embed playing or explicit error; athlete filter does not invent videos. M1 remains PARTIAL until these actual user journeys and packaging are evidenced. M2/M3 should not be represented as completed.
+
+
+## Actual QA evidence, 2026-10-09
+Native Windows source QA used an independent TEST database. Registered the licensed TRAIN game_1 video, recomputed its SHA256 (1297b3db91f2e3e160337643695dff07eabf9785ea2d88c2f7b59687ba511148), loaded the actual first-frame thumbnail, clicked its home card and observed real playback advancing to 11.683 seconds with changing video content. This is source-host QA, not a packaged EXE claim.
+Both official samples loaded the official YouTube player but returned error 150 with an explicit country/region playback restriction. Verified professional internal playback count is therefore zero for these two samples. No restriction bypass was attempted. This source limitation prevents a claim that the professional video platform is ready. M1 remains PARTIAL; M2 and M3 are not promoted.

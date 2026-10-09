@@ -35,6 +35,7 @@ export default function MatchVideoLibrary({page,revision,onOpenVideo,onOpenScore
  function play(id:string){request(`/videos/${id}/opened`,{},'POST').catch(()=>{});onOpenVideo(id)}
  function recentVideos(){return data.videos.filter((v:any)=>v.last_opened_at&&v.availability_status==='AVAILABLE').sort((a:any,b:any)=>b.last_opened_at.localeCompare(a.last_opened_at)).slice(0,12)}
  if(!data)return <Empty title={error?'比赛库暂时无法打开':'正在打开比赛库'} text={error||'正在读取本机录像与已收录比赛资料。'}/>;
+ if(page==='players'&&athlete)return <><button onClick={()=>setAthlete(null)}>返回运动员目录</button><h1>{name(athlete)} · 比赛视频</h1><VideoDiscovery data={{...data,videos:data.videos.filter((v:any)=>v.athlete_ids?.includes(athlete.athlete_id)),official_videos:(data.official_videos||[]).filter((v:any)=>v.athlete_ids.includes(athlete.athlete_id))}} onPlay={play} onTools={()=>navigate('videoEvidence')} onLibrary={()=>navigate('professionalMatches')}/></>;
  if(page==='home')return <VideoDiscovery data={data} onPlay={play} onTools={()=>navigate('videoEvidence')} onLibrary={()=>navigate('professionalMatches')}/>;
  const current=match&&data.matches.find((m:any)=>m.match_id===match.match_id), latest=scans[0];
  const query=search.trim().toLowerCase();
