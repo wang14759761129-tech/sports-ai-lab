@@ -43,3 +43,11 @@ def test_score_navigation_preview_uses_one_build_identity(tmp_path, monkeypatch)
 def test_video_first_preview_is_development_only():
     assert is_development_preview("PTTI-Video-First-v0.5-Preview.exe")
     assert not is_development_preview("PTTI-Video-First.exe")
+
+
+def test_video_feed_preview_identity_and_isolation(tmp_path, monkeypatch):
+    assert is_development_preview("PTTI-Video-First-v0.5.1-Preview.exe")
+    monkeypatch.setenv("PTTI_VIDEO_FEED_PREVIEW", "1")
+    monkeypatch.setenv("PTTI_MATCH_LIBRARY_PREVIEW", "1")
+    with TestClient(create_app(tmp_path / "qa.db")) as client:
+        assert client.get("/api/health").json()["video_feed"] is True

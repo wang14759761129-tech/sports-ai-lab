@@ -56,6 +56,11 @@ class MappingInput(BaseModel):
     user_confirmed: bool
 
 
+class FeedFavoriteInput(BaseModel):
+    key: str = Field(min_length=1, max_length=160)
+    saved: bool
+
+
 class LocalMediaIndexer:
     def __init__(self, store):
         self.store = store
@@ -66,6 +71,7 @@ class LocalMediaIndexer:
         with store.repo.connect() as db:
             db.execute("CREATE TABLE IF NOT EXISTS media_scan_jobs (scan_id TEXT PRIMARY KEY, payload TEXT NOT NULL)")
             db.execute("CREATE TABLE IF NOT EXISTS media_recent_views (video_id TEXT PRIMARY KEY, viewed_at TEXT NOT NULL)")
+            db.execute("CREATE TABLE IF NOT EXISTS media_feed_favorites (source_key TEXT PRIMARY KEY)")
             for identity, raw in db.execute("SELECT scan_id,payload FROM media_scan_jobs").fetchall():
                 row = json.loads(raw)
                 if row["status"] in {"QUEUED", "RUNNING"}:
@@ -211,6 +217,7 @@ def library_router(store):
         videos = [store.availability(v) for v in store.list("evidence_videos")]
         with store.repo.connect() as db:
             recent = dict(db.execute("SELECT video_id,viewed_at FROM media_recent_views"))
+            favorites = [row[0] for row in db.execute("SELECT source_key FROM media_feed_favorites ORDER BY source_key")]
         videos = [{**v, "last_opened_at": recent.get(v["video_id"])} for v in videos]
         matches = []
         for m in store.repo.professional_matches():
@@ -224,12 +231,27 @@ def library_router(store):
         official = json.loads((Path(__file__).resolve().parents[1] / "data/professional/official_video_sources.json").read_text(encoding="utf-8"))["videos"]
         # Metadata must be refreshed before it can remain discoverable beyond 30 days.
         official = [row for row in official if 0 <= (datetime.now(timezone.utc) - datetime.fromisoformat(row["metadata_verified_at"])).total_seconds() <= 30 * 86400]
-        return {"official_videos": official, "matches": matches, "videos": videos, "athletes": store.repo.list_athletes(),
+        return {"official_videos": official, "feed_favorites": favorites, "matches": matches, "videos": videos, "athletes": store.repo.list_athletes(),
                 "tournament_editions": list(editions.values()),
                 "collections": store.list("evidence_collections"),
                 "summary": {"matches": len(matches), "playable_professional": sum(m["video_source"]["status"] == "LOCAL_READY" for m in matches),
                     "local_playable": sum(v["availability_status"] == "AVAILABLE" for v in videos)},
                 "remote_policy": "SOURCE_LINK_ONLY_UNTIL_PERMISSION_VERIFIED"}
+
+    @router.put("/feed/favorite")
+    def favorite(value: FeedFavoriteInput):
+        snapshot = catalog()
+        allowed = {"local:" + v["video_id"] for v in snapshot["videos"]}
+        allowed.update("official:" + v["video_id"] for v in snapshot["official_videos"])
+        if value.saved and value.key not in allowed:
+            raise HTTPException(404, "视频来源未收录，不能收藏")
+        with store.repo.connect() as db:
+            if value.saved:
+                db.execute("INSERT OR IGNORE INTO media_feed_favorites VALUES (?)", (value.key,))
+            else:
+                db.execute("DELETE FROM media_feed_favorites WHERE source_key=?", (value.key,))
+            rows = [r[0] for r in db.execute("SELECT source_key FROM media_feed_favorites ORDER BY source_key")]
+        return {"favorites": rows}
 
     @router.get("/videos/{video_id}/thumbnail")
     def thumbnail(video_id: str):

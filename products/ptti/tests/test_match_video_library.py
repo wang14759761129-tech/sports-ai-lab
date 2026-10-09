@@ -144,10 +144,13 @@ def test_recent_views_survive_application_restart_without_mutating_evidence(work
 def test_official_catalog_does_not_claim_analysis_rights_or_playback(workspace):
     client, _, _ = workspace
     rows = client.get("/api/video-evidence/library").json()["official_videos"]
-    assert len(rows) == 2
-    assert len({r["video_id"] for r in rows}) == 2
+    assert len(rows) == 8
+    assert len({r["video_id"] for r in rows}) == 8
     for row in rows:
-        assert row["playback_status"] == "EMBED_NOT_TESTED"
+        assert row["playback_status"] in {"EMBED_NOT_TESTED", "EMBED_BLOCKED"}
+        assert row["watch_page_status"] in {"NOT_TESTED", "LOGIN_REQUIRED"}
+        assert row["full_match"] is True
+        assert row["embeddable_api"] is None
         assert row["local_analysis_allowed"] is False
         assert row["rights"] == "OFFICIAL_EMBED_ONLY"
         assert row["duration_seconds"] is None
@@ -197,3 +200,27 @@ def test_thumbnail_is_atomic_cached_and_single_frame(workspace, monkeypatch):
     assert client.get(url).status_code == 200
     assert len(calls) == 1
     assert not list((tmp / "PTTI-Video-First-Thumbnails").glob("*.part.jpg"))
+
+
+def test_feed_favorite_idempotence_and_restart(workspace):
+    client, _, tmp = workspace
+    endpoint = "/api/video-evidence/library/feed/favorite"
+    payload = {"key": "official:aFs7HJ0NX18", "saved": True}
+    assert client.put(endpoint, json=payload).status_code == 200
+    assert client.put(endpoint, json=payload).json()["favorites"] == [payload["key"]]
+    assert client.put(endpoint, json={"key": "official:invented", "saved": True}).status_code == 404
+    with TestClient(create_app(tmp / "library.db")) as restarted:
+        assert restarted.get("/api/video-evidence/library").json()["feed_favorites"] == [payload["key"]]
+        assert restarted.put(endpoint, json={**payload, "saved": False}).json()["favorites"] == []
+
+
+def test_known_embed_failure_keeps_platform_constraints_separate(workspace):
+    client, _, _ = workspace
+    rows = client.get("/api/video-evidence/library").json()["official_videos"]
+    blocked = [r for r in rows if r["playback_status"] == "EMBED_BLOCKED"]
+    assert len(blocked) == 2
+    for row in blocked:
+        assert row["native_playback_test"]["error_code"] == 150
+        assert row["native_playback_test"]["error_class"] == "EMBEDDING_DISALLOWED"
+        assert row["region_restrictions_api"] is None
+        assert row["local_analysis_allowed"] is False

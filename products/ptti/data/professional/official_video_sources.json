@@ -15,14 +15,39 @@
       "thumbnail_url": "https://i.ytimg.com/vi/0QgbtsBWZhk/hqdefault.jpg",
       "duration_seconds": null,
       "published_at": null,
-      "metadata_verified_at": "2026-10-09T13:44:54.644065+00:00",
-      "playback_status": "EMBED_NOT_TESTED",
+      "metadata_verified_at": "2026-10-09T14:18:45.968249+00:00",
+      "playback_status": "EMBED_BLOCKED",
       "rights": "OFFICIAL_EMBED_ONLY",
       "local_analysis_allowed": false,
       "provenance": {
         "metadata_method": "YOUTUBE_OEMBED",
-        "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/",
-        "athlete_mapping": "EXACT_TITLE_NAMES_TO_EXISTING_REGISTRY_ONLY"
+        "endpoint": "https://www.youtube.com/oembed",
+        "limitations": "oEmbed supplies neither duration nor playback restrictions; actual play required",
+        "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/"
+      },
+      "display_title": "王楚钦 vs 菲利克斯·勒布伦",
+      "athlete_names": [
+        "王楚钦",
+        "菲利克斯·勒布伦"
+      ],
+      "event_name": "China Smash 2025",
+      "discipline": "MS",
+      "round_label": "决赛",
+      "full_match": true,
+      "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+      "watch_page_status": "NOT_TESTED",
+      "embeddable_api": null,
+      "privacy_status_api": null,
+      "region_restrictions_api": null,
+      "native_playback_test": {
+        "version": "0.5",
+        "error_code": 150,
+        "result": "FAILED",
+        "error_class": "EMBEDDING_DISALLOWED",
+        "observed_message": "上传用户已禁止在你的国家/地区播放此视频",
+        "region_restriction_api": "UNKNOWN",
+        "verification": "NATIVE_PLAYER_OBSERVATION",
+        "date": "2026-10-09"
       }
     },
     {
@@ -37,14 +62,276 @@
       "thumbnail_url": "https://i.ytimg.com/vi/vYsJLPTEIaI/hqdefault.jpg",
       "duration_seconds": null,
       "published_at": null,
-      "metadata_verified_at": "2026-10-09T13:44:54.644065+00:00",
-      "playback_status": "EMBED_NOT_TESTED",
+      "metadata_verified_at": "2026-10-09T14:18:52.673994+00:00",
+      "playback_status": "EMBED_BLOCKED",
       "rights": "OFFICIAL_EMBED_ONLY",
       "local_analysis_allowed": false,
       "provenance": {
         "metadata_method": "YOUTUBE_OEMBED",
-        "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/",
-        "athlete_mapping": "EXACT_TITLE_NAMES_TO_EXISTING_REGISTRY_ONLY"
+        "endpoint": "https://www.youtube.com/oembed",
+        "limitations": "oEmbed supplies neither duration nor playback restrictions; actual play required",
+        "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/"
+      },
+      "display_title": "孙颖莎 vs 王曼昱",
+      "athlete_names": [
+        "孙颖莎",
+        "王曼昱"
+      ],
+      "event_name": "WTT Singapore 2026",
+      "discipline": "WS",
+      "round_label": "决赛",
+      "full_match": true,
+      "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+      "watch_page_status": "NOT_TESTED",
+      "embeddable_api": null,
+      "privacy_status_api": null,
+      "region_restrictions_api": null,
+      "native_playback_test": {
+        "version": "0.5",
+        "error_code": 150,
+        "result": "FAILED",
+        "error_class": "EMBEDDING_DISALLOWED",
+        "observed_message": "上传用户已禁止在你的国家/地区播放此视频",
+        "region_restriction_api": "UNKNOWN",
+        "verification": "NATIVE_PLAYER_OBSERVATION",
+        "date": "2026-10-09"
+      }
+    },
+    {
+      "video_id": "aFs7HJ0NX18",
+      "title": "FULL MATCH | MA Long (CHN) vs FAN Zhendong (CHN) | MS F | 2020 ITTF Finals",
+      "display_title": "马龙 vs 樊振东",
+      "athlete_ids": [],
+      "athlete_names": [
+        "马龙",
+        "樊振东"
+      ],
+      "event_name": "ITTF Finals 2020",
+      "discipline": "MS",
+      "round_label": "决赛",
+      "full_match": true,
+      "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+      "provider": "YOUTUBE_OFFICIAL",
+      "channel": "World Table Tennis",
+      "channel_url": "https://www.youtube.com/@wttglobal",
+      "source_url": "https://www.youtube.com/watch?v=aFs7HJ0NX18",
+      "embed_url": "https://www.youtube.com/embed/aFs7HJ0NX18",
+      "thumbnail_url": "https://i.ytimg.com/vi/aFs7HJ0NX18/hqdefault.jpg",
+      "duration_seconds": null,
+      "published_at": null,
+      "metadata_verified_at": "2026-10-09T14:18:54.674950+00:00",
+      "playback_status": "EMBED_NOT_TESTED",
+      "watch_page_status": "LOGIN_REQUIRED",
+      "embeddable_api": null,
+      "privacy_status_api": null,
+      "region_restrictions_api": null,
+      "rights": "OFFICIAL_EMBED_ONLY",
+      "local_analysis_allowed": false,
+      "provenance": {
+        "metadata_method": "YOUTUBE_OEMBED",
+        "endpoint": "https://www.youtube.com/oembed",
+        "limitations": "oEmbed supplies neither duration nor playback restrictions; actual play required",
+        "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/"
+      },
+      "watch_page_test": {
+        "date": "2026-10-09",
+        "surface": "BROWSER_IAB",
+        "observed_message": "请登录，以便我们确认你不是聊天机器人",
+        "result": "NOT_PLAYABLE_IN_CURRENT_UNAUTHENTICATED_SESSION",
+        "restriction_bypass": false
+      }
+    },
+    {
+      "video_id": "JTUWXpB-NVo",
+      "title": "FULL MATCH | MA Long (CHN) vs FAN Zhendong (CHN) | MS F | 2019 ITTF Grand Finals",
+      "display_title": "马龙 vs 樊振东",
+      "athlete_ids": [],
+      "athlete_names": [
+        "马龙",
+        "樊振东"
+      ],
+      "event_name": "ITTF Grand Finals 2019",
+      "discipline": "MS",
+      "round_label": "决赛",
+      "full_match": true,
+      "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+      "provider": "YOUTUBE_OFFICIAL",
+      "channel": "World Table Tennis",
+      "channel_url": "https://www.youtube.com/@wttglobal",
+      "source_url": "https://www.youtube.com/watch?v=JTUWXpB-NVo",
+      "embed_url": "https://www.youtube.com/embed/JTUWXpB-NVo",
+      "thumbnail_url": "https://i.ytimg.com/vi/JTUWXpB-NVo/hqdefault.jpg",
+      "duration_seconds": null,
+      "published_at": null,
+      "metadata_verified_at": "2026-10-09T14:18:55.493007+00:00",
+      "playback_status": "EMBED_NOT_TESTED",
+      "watch_page_status": "NOT_TESTED",
+      "embeddable_api": null,
+      "privacy_status_api": null,
+      "region_restrictions_api": null,
+      "rights": "OFFICIAL_EMBED_ONLY",
+      "local_analysis_allowed": false,
+      "provenance": {
+        "metadata_method": "YOUTUBE_OEMBED",
+        "endpoint": "https://www.youtube.com/oembed",
+        "limitations": "oEmbed supplies neither duration nor playback restrictions; actual play required",
+        "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/"
+      }
+    },
+    {
+      "video_id": "H77vNFk3neg",
+      "title": "FULL MATCH | WANG Chuqin vs MA Long | MS F | #WTTMacao 2023",
+      "display_title": "王楚钦 vs 马龙",
+      "athlete_ids": [
+        "athlete:121558"
+      ],
+      "athlete_names": [
+        "王楚钦",
+        "马龙"
+      ],
+      "event_name": "WTT Macao 2023",
+      "discipline": "MS",
+      "round_label": "决赛",
+      "full_match": true,
+      "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+      "provider": "YOUTUBE_OFFICIAL",
+      "channel": "World Table Tennis",
+      "channel_url": "https://www.youtube.com/@wttglobal",
+      "source_url": "https://www.youtube.com/watch?v=H77vNFk3neg",
+      "embed_url": "https://www.youtube.com/embed/H77vNFk3neg",
+      "thumbnail_url": "https://i.ytimg.com/vi/H77vNFk3neg/hqdefault.jpg",
+      "duration_seconds": null,
+      "published_at": null,
+      "metadata_verified_at": "2026-10-09T14:18:59.078088+00:00",
+      "playback_status": "EMBED_NOT_TESTED",
+      "watch_page_status": "NOT_TESTED",
+      "embeddable_api": null,
+      "privacy_status_api": null,
+      "region_restrictions_api": null,
+      "rights": "OFFICIAL_EMBED_ONLY",
+      "local_analysis_allowed": false,
+      "provenance": {
+        "metadata_method": "YOUTUBE_OEMBED",
+        "endpoint": "https://www.youtube.com/oembed",
+        "limitations": "oEmbed supplies neither duration nor playback restrictions; actual play required",
+        "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/"
+      }
+    },
+    {
+      "video_id": "ekfCZiIEYi0",
+      "title": "FULL MATCH | WANG Chuqin vs FAN Zhendong | MS F | #WTTLjubljana 2023",
+      "display_title": "王楚钦 vs 樊振东",
+      "athlete_ids": [
+        "athlete:121558"
+      ],
+      "athlete_names": [
+        "王楚钦",
+        "樊振东"
+      ],
+      "event_name": "WTT Ljubljana 2023",
+      "discipline": "MS",
+      "round_label": "决赛",
+      "full_match": true,
+      "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+      "provider": "YOUTUBE_OFFICIAL",
+      "channel": "World Table Tennis",
+      "channel_url": "https://www.youtube.com/@wttglobal",
+      "source_url": "https://www.youtube.com/watch?v=ekfCZiIEYi0",
+      "embed_url": "https://www.youtube.com/embed/ekfCZiIEYi0",
+      "thumbnail_url": "https://i.ytimg.com/vi/ekfCZiIEYi0/hqdefault.jpg",
+      "duration_seconds": null,
+      "published_at": null,
+      "metadata_verified_at": "2026-10-09T14:19:01.591146+00:00",
+      "playback_status": "EMBED_NOT_TESTED",
+      "watch_page_status": "NOT_TESTED",
+      "embeddable_api": null,
+      "privacy_status_api": null,
+      "region_restrictions_api": null,
+      "rights": "OFFICIAL_EMBED_ONLY",
+      "local_analysis_allowed": false,
+      "provenance": {
+        "metadata_method": "YOUTUBE_OEMBED",
+        "endpoint": "https://www.youtube.com/oembed",
+        "limitations": "oEmbed supplies neither duration nor playback restrictions; actual play required",
+        "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/"
+      }
+    },
+    {
+      "video_id": "DTPNEl3-2b0",
+      "title": "FULL MATCH | Sun Yingsha vs Kim Nayeong | WS R16 | #WTTMacao 2024",
+      "display_title": "孙颖莎 vs 金娜英",
+      "athlete_ids": [],
+      "athlete_names": [
+        "孙颖莎",
+        "金娜英"
+      ],
+      "event_name": "WTT Macao 2024",
+      "discipline": "WS",
+      "round_label": "16强",
+      "full_match": true,
+      "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+      "provider": "YOUTUBE_OFFICIAL",
+      "channel": "World Table Tennis",
+      "channel_url": "https://www.youtube.com/@wttglobal",
+      "source_url": "https://www.youtube.com/watch?v=DTPNEl3-2b0",
+      "embed_url": "https://www.youtube.com/embed/DTPNEl3-2b0",
+      "thumbnail_url": "https://i.ytimg.com/vi/DTPNEl3-2b0/hqdefault.jpg",
+      "duration_seconds": null,
+      "published_at": null,
+      "metadata_verified_at": "2026-10-09T14:19:06.168132+00:00",
+      "playback_status": "EMBED_NOT_TESTED",
+      "watch_page_status": "NOT_TESTED",
+      "embeddable_api": null,
+      "privacy_status_api": null,
+      "region_restrictions_api": null,
+      "rights": "OFFICIAL_EMBED_ONLY",
+      "local_analysis_allowed": false,
+      "provenance": {
+        "metadata_method": "YOUTUBE_OEMBED",
+        "endpoint": "https://www.youtube.com/oembed",
+        "limitations": "oEmbed supplies neither duration nor playback restrictions; actual play required",
+        "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/"
+      }
+    },
+    {
+      "video_id": "iQhVLkcGCFE",
+      "title": "FULL MATCH | LIN Yun-Ju / CHENG I-Ching vs WANG Chuqin / SUN Yingsha | XD SF | #ITTFWorlds2021",
+      "display_title": "林昀儒 / 郑怡静 vs 王楚钦 / 孙颖莎",
+      "athlete_ids": [
+        "athlete:121558"
+      ],
+      "athlete_names": [
+        "林昀儒",
+        "郑怡静",
+        "王楚钦",
+        "孙颖莎"
+      ],
+      "event_name": "ITTF Worlds 2021",
+      "discipline": "XD",
+      "round_label": "半决赛",
+      "full_match": true,
+      "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+      "provider": "YOUTUBE_OFFICIAL",
+      "channel": "World Table Tennis",
+      "channel_url": "https://www.youtube.com/@wttglobal",
+      "source_url": "https://www.youtube.com/watch?v=iQhVLkcGCFE",
+      "embed_url": "https://www.youtube.com/embed/iQhVLkcGCFE",
+      "thumbnail_url": "https://i.ytimg.com/vi/iQhVLkcGCFE/hqdefault.jpg",
+      "duration_seconds": null,
+      "published_at": null,
+      "metadata_verified_at": "2026-10-09T14:19:09.839368+00:00",
+      "playback_status": "EMBED_NOT_TESTED",
+      "watch_page_status": "NOT_TESTED",
+      "embeddable_api": null,
+      "privacy_status_api": null,
+      "region_restrictions_api": null,
+      "rights": "OFFICIAL_EMBED_ONLY",
+      "local_analysis_allowed": false,
+      "provenance": {
+        "metadata_method": "YOUTUBE_OEMBED",
+        "endpoint": "https://www.youtube.com/oembed",
+        "limitations": "oEmbed supplies neither duration nor playback restrictions; actual play required",
+        "official_channel_reference": "https://www.ittf.com/2025/05/16/everything-you-need-to-know-ittf-world-table-tennis-championships-finals-doha-2025/"
       }
     }
   ]
