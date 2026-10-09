@@ -24,3 +24,17 @@ def test_v04_video_first_home_and_isolated_executable(tmp_path, monkeypatch):
     with TestClient(create_app(tmp_path / "qa.db")) as client:
         health=client.get("/api/health").json()
         assert health["start_page"] == "home" and health["video_first"]
+
+def test_score_navigation_preview_uses_one_build_identity(tmp_path, monkeypatch):
+    monkeypatch.setenv("PTTI_SCORE_NAV_PREVIEW", "1")
+    monkeypatch.setenv("PTTI_PREVIEW_PRODUCT_NAME", "PTTI 比分导航")
+    monkeypatch.setenv("PTTI_PREVIEW_VERSION", "0.1")
+    monkeypatch.setenv("PTTI_PREVIEW_BUILD_ID", "abc123def0")
+    monkeypatch.setenv("PTTI_PREVIEW_COMMIT", "abc123def01234567890")
+    with TestClient(create_app(tmp_path / "qa.db")) as client:
+        health=client.get("/api/health").json()
+    assert health["score_navigation_preview"] is True
+    assert health["product_name"] == "PTTI 比分导航"
+    assert health["version"] == "0.1"
+    assert health["build_id"] == "abc123def0"
+    assert health["build_commit"] == "abc123def01234567890"

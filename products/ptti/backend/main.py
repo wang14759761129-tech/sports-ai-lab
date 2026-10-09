@@ -163,7 +163,28 @@ def create_app(db_path=None):
         payload=dict(id='',metadata=meta.model_dump(),points=rows,validation=report,analysis=analyze(rows),provenance=provenance)
         return dict(validation=report,match=repo.save(payload) if save else payload,provenance=provenance)
     @app.get('/api/health')
-    def health(): return dict(build_commit=os.environ.get('PTTI_PREVIEW_COMMIT'),version=os.environ.get('PTTI_PREVIEW_VERSION') or ('0.1-score-navigation-preview' if os.environ.get('PTTI_SCORE_NAV_PREVIEW')=='1' else ('0.2-video-evidence-ai-bridge-preview' if os.environ.get('PTTI_AI_EVIDENCE_BRIDGE')=='1' else ('0.1-video-evidence-preview' if os.environ.get('PTTI_EVIDENCE_PREVIEW')=='1' else ('0.2.0-professional-preview' if os.environ.get('PTTI_PREVIEW')=='1' else '0.2.0-dev')))),score_navigation_preview=os.environ.get('PTTI_SCORE_NAV_PREVIEW')=='1',video_first=os.environ.get('PTTI_MATCH_LIBRARY_PREVIEW')=='1',start_page='home' if os.environ.get('PTTI_MATCH_LIBRARY_PREVIEW')=='1' else 'videoEvidence' if os.environ.get('PTTI_EVIDENCE_PREVIEW')=='1' else 'home',schema_version=SCHEMA_VERSION,analytics_version=ANALYTICS_VERSION,adapter_version='0.1.1')
+    def health():
+        score_navigation = os.environ.get('PTTI_SCORE_NAV_PREVIEW') == '1'
+        commit = os.environ.get('PTTI_PREVIEW_COMMIT')
+        version = os.environ.get('PTTI_PREVIEW_VERSION') or (
+            '0.1' if score_navigation else
+            '0.2-video-evidence-ai-bridge-preview' if os.environ.get('PTTI_AI_EVIDENCE_BRIDGE') == '1' else
+            '0.1-video-evidence-preview' if os.environ.get('PTTI_EVIDENCE_PREVIEW') == '1' else
+            '0.2.0-professional-preview' if os.environ.get('PTTI_PREVIEW') == '1' else '0.2.0-dev'
+        )
+        build_id = os.environ.get('PTTI_PREVIEW_BUILD_ID') or (commit[:10] if commit else None)
+        product_name = os.environ.get('PTTI_PREVIEW_PRODUCT_NAME') or (
+            'PTTI 比分导航' if score_navigation else 'PTTI'
+        )
+        return dict(
+            product_name=product_name, version=version, build_id=build_id,
+            build_commit=commit, score_navigation_preview=score_navigation,
+            video_first=os.environ.get('PTTI_MATCH_LIBRARY_PREVIEW') == '1',
+            start_page='home' if os.environ.get('PTTI_MATCH_LIBRARY_PREVIEW') == '1'
+            else 'videoEvidence' if os.environ.get('PTTI_EVIDENCE_PREVIEW') == '1' else 'home',
+            schema_version=SCHEMA_VERSION, analytics_version=ANALYTICS_VERSION,
+            adapter_version='0.1.1',
+        )
     @app.get('/api/settings')
     def settings(): return Settings.model_validate(repo.settings()).model_dump()
     @app.put('/api/settings')

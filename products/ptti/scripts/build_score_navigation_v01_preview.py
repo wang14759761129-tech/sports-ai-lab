@@ -11,6 +11,8 @@ import psutil
 
 ROOT = Path(__file__).resolve().parents[1]
 NAME = "PTTI-Score-Navigation-v0.1-Preview"
+PRODUCT_NAME = "PTTI 比分导航"
+VERSION = "0.1"
 MIN_AVAILABLE_RAM_BYTES = 2 * 1024**3
 
 
@@ -28,7 +30,8 @@ def main():
     target = build_root / f"score-navigation-v01-{commit[:10]}"
     target.mkdir(parents=True, exist_ok=False)
     info = {
-        "version": "0.1-score-navigation-preview", "commit": commit,
+        "product_name": PRODUCT_NAME, "version": VERSION,
+        "build_id": commit[:10], "commit": commit,
         "source_tree_dirty": False, "environment": "DEVELOPMENT",
         "build_available_ram_bytes": available_ram,
         "database": "%LOCALAPPDATA%/PTTI-Dev/ScoreNavigation-v01-Preview/matches.db",
@@ -61,7 +64,7 @@ def main():
     folder = target / "dist" / NAME
     shutil.copy2(info_path, folder / "build-info.json")
     (folder / "START-HERE.txt").write_text(
-        "PTTI 比分导航 v0.1 · Windows 开发预览\n\n"
+        f"{PRODUCT_NAME} v{VERSION} Preview · build {commit[:10]}\n\n"
         f"完整解压后双击 {NAME}.exe；请保留旁边的 _internal 文件夹。\n"
         "在比赛录像页面选择你有权使用的本机录像。播放器内可按局、比分和关键分建立人工索引。\n"
         "分前比分由用户填写；比分牌出现时间与这一分开始时间分开记录。未知信息请保留未知。\n"

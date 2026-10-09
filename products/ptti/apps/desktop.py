@@ -91,6 +91,9 @@ def main():
                 if executable in {'ptti-video-evidence-v0.3-preview','ptti-match-library-v0.4-preview','ptti-score-navigation-v0.1-preview'}:
                     os.environ['PTTI_PREVIEW_VERSION']=build_info['version']
                     os.environ['PTTI_PREVIEW_COMMIT']=build_info['commit']
+                    if executable=='ptti-score-navigation-v0.1-preview':
+                        os.environ['PTTI_PREVIEW_PRODUCT_NAME']=build_info.get('product_name','PTTI 比分导航')
+                        os.environ['PTTI_PREVIEW_BUILD_ID']=build_info.get('build_id',build_info['commit'][:10])
                 runtime_home=build_info.get('local_vision_runtime_home')
                 if runtime_home and (Path(runtime_home)/'vision_worker/balltrack.py').is_file():
                     os.environ['PTTI_VISION_HOME']=runtime_home
@@ -134,7 +137,7 @@ def main():
         except ValueError: pass
     print('PTTI Desktop URL: '+url,flush=True)
     stem=Path(sys.executable).stem.casefold()
-    title=('PTTI · 比分导航 v0.1 Preview · '+os.environ.get('PTTI_PREVIEW_COMMIT','UNKNOWN')[:10] if stem=='ptti-score-navigation-v0.1-preview' else ('PTTI · 比赛录像库 v0.4 Preview · '+os.environ.get('PTTI_PREVIEW_COMMIT','UNKNOWN')[:10] if stem=='ptti-match-library-v0.4-preview' else ('PTTI · Video Evidence v0.3 Preview · '+os.environ.get('PTTI_PREVIEW_COMMIT','UNKNOWN')[:10]) if stem=='ptti-video-evidence-v0.3-preview' else
+    title=(f"{os.environ.get('PTTI_PREVIEW_PRODUCT_NAME','PTTI 比分导航')} v{os.environ.get('PTTI_PREVIEW_VERSION','0.1')} Preview · {os.environ.get('PTTI_PREVIEW_BUILD_ID',os.environ.get('PTTI_PREVIEW_COMMIT','UNKNOWN')[:10])}" if stem=='ptti-score-navigation-v0.1-preview' else ('PTTI · 比赛录像库 v0.4 Preview · '+os.environ.get('PTTI_PREVIEW_COMMIT','UNKNOWN')[:10] if stem=='ptti-match-library-v0.4-preview' else ('PTTI · Video Evidence v0.3 Preview · '+os.environ.get('PTTI_PREVIEW_COMMIT','UNKNOWN')[:10]) if stem=='ptti-video-evidence-v0.3-preview' else
            'PTTI · AI 证据复盘 Preview' if 'video-evidence-ai-bridge-preview' in stem else
            'PTTI · 视频证据复盘 Preview' if 'video-evidence-preview' in stem else
            'PTTI · Vision v2 Person Preview' if 'vision-v2-person-preview' in stem else
