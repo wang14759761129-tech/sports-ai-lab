@@ -18,12 +18,14 @@ try{
  assert.equal(filterFeed(rows,{view:'feedHistory'}).length,1,'Official link not a verified watch history');
  assert.equal(filterFeed(rows,{view:'feedFavorites',favorites:['official:real']}).length,1);
  assert.equal(durationLabel(null),'时长未核实');
- const {allowedEmbed,BilibiliPlayerAdapter,YouTubePlayerAdapter,preferredSources}=await import(pathToFileURL(join(folder,'onlinePlayers.js')));
+ const {allowedEmbed,embeddingMode,BilibiliPlayerAdapter,YouTubePlayerAdapter,preferredSources}=await import(pathToFileURL(join(folder,'onlinePlayers.js')));
  assert.equal(allowedEmbed({provider:'YOUTUBE',video_source:{provider:'YOUTUBE',source_id:'H77vNFk3neg',embed_permission:'UNKNOWN',playback_type:'OFFICIAL_EMBED'}}),null);
  assert.equal(officialAction({...rows[1],source:{playback_status:'EMBED_VERIFIED'}}),'SOURCE_LINK','Legacy labels cannot grant embedding permission');
  assert.equal(BilibiliPlayerAdapter.embedURL('https://evil.invalid'),null);
  assert.equal(YouTubePlayerAdapter.embedURL('bad'),null);
  assert.equal(allowedEmbed({provider:'BILIBILI',video_source:{provider:'BILIBILI',source_id:'BV1nb421H7jB',embed_permission:'ALLOWED',playback_type:'OFFICIAL_EMBED'}}),'https://player.bilibili.com/player.html?bvid=BV1nb421H7jB&autoplay=0');
+ assert.equal(embeddingMode({provider:'BILIBILI',video_source:{provider:'BILIBILI',source_id:'BV1nb421H7jB',embed_permission:'ALLOWED',playback_type:'OFFICIAL_EMBED'}}),'BILIBILI_IFRAME','Allowed Bilibili embed still requires actual playback review');
+ assert.equal(embeddingMode({provider:'BILIBILI',video_source:{provider:'BILIBILI',source_id:'BV1nb421H7jB',embed_permission:'UNKNOWN',playback_type:'OFFICIAL_PAGE'}}),'UNAVAILABLE');
  const verified={kind:'OFFICIAL',source:{provider:'YOUTUBE',video_source:{playback_verified:true}}},unverified={kind:'OFFICIAL',source:{provider:'BILIBILI',video_source:{playback_verified:false}}};
  assert.equal(preferredSources([unverified,verified],'BILIBILI')[0],verified,'Region preference never promotes unverified playback');
  console.log('14 passed, 0 failed: feed contracts, adapter permissions and conservative source preference');

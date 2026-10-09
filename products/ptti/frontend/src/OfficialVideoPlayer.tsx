@@ -1,5 +1,5 @@
 import {useEffect,useRef,useState} from 'react';
-import {allowedEmbed,onlineAdapter} from './onlinePlayers';
+import {allowedEmbed,embeddingMode,onlineAdapter} from './onlinePlayers';
 
 let apiPromise:Promise<void>|null=null;
 function loadOfficialAPI(){
@@ -14,7 +14,9 @@ function loadOfficialAPI(){
 export default function OfficialVideoPlayer({source,onBack}:{source:any;onBack:()=>void}){
  const mount=useRef<HTMLDivElement>(null),[status,setStatus]=useState('等待官方播放器加载 · 尚未验证播放');
  useEffect(()=>{let live=true;let player:any;const timeout=setTimeout(()=>{if(live)setStatus('官方播放器加载超时，请检查网络或打开官方来源')},12000);
-  if(!allowedEmbed(source)||onlineAdapter(source.provider)?.name!=='YouTube'){clearTimeout(timeout);setStatus('请在官方平台观看 · 嵌入权限或播放尚未核验');return()=>{live=false}};
+  const mode=embeddingMode(source);
+  if(mode==='UNAVAILABLE'){clearTimeout(timeout);setStatus('请在官方平台观看 · 嵌入权限或播放尚未核验');return()=>{live=false}};
+  if(mode==='BILIBILI_IFRAME'){clearTimeout(timeout);setStatus('官方嵌入许可已记录 · 实际播放待人工验证');return()=>{live=false}};
   loadOfficialAPI().then(()=>{if(!live||!mount.current)return;const child=document.createElement('div');mount.current.appendChild(child);player=new (window as any).YT.Player(child,{videoId:source.video_source.source_id,width:'100%',height:'100%',playerVars:{origin:window.location.origin,playsinline:1},events:{onReady:()=>{if(live){clearTimeout(timeout);setStatus('官方播放器已加载 · 点击播放以验证')}} ,onStateChange:(event:any)=>{if(live&&event.data===1)setStatus('本次会话已实际播放 · 官方嵌入视频')},onError:(event:any)=>{if(live){clearTimeout(timeout);setStatus(`官方播放不可用（${event.data}），请打开官方来源；不会提取视频流`)}}}})}).catch(error=>{if(live)setStatus(error.message)});
   return()=>{live=false;clearTimeout(timeout);player?.destroy();mount.current?.replaceChildren()};
  },[source.video_id]);
