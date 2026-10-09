@@ -20,10 +20,13 @@ class ScoreTimestampEvidenceInput(BaseModel):
 
 class ScoreMomentInput(BaseModel):
     video_asset_id: str
-    game_number: int = Field(ge=1, le=20)
-    point_number: int = Field(ge=1)
+    record_kind: Literal['POINT', 'SCOREBOARD_OBSERVATION'] = 'POINT'
+    game_number: int | None = Field(default=1, ge=1, le=20)
+    point_number: int | None = Field(default=1, ge=1)
     score_a_before: int | None = Field(default=None, ge=0, le=200)
     score_b_before: int | None = Field(default=None, ge=0, le=200)
+    observed_score_a: int | None = Field(default=None, ge=0, le=200)
+    observed_score_b: int | None = Field(default=None, ge=0, le=200)
     point_start_ms: int | None = Field(default=None, ge=0)
     point_end_ms: int | None = Field(default=None, gt=0)
     score_display_ms: int | None = Field(default=None, ge=0)
@@ -78,12 +81,16 @@ def score_router(store):
             match = store.repo.get_professional_match(row['match_id']) if row.get('match_id') else None
             if event and (not match or event.casefold() not in match.get('event_name', '').casefold()): continue
             if year is not None and (not match or not str(match.get('event_date') or '').startswith(str(year))): continue
-            if game is not None and row['game_number'] != game: continue
-            if score_a is not None and row['score_a_before'] != score_a: continue
-            if score_b is not None and row['score_b_before'] != score_b: continue
+            if game is not None and row.get('game_number') != game: continue
+            if score_a is not None or score_b is not None:
+                before_matches = ((score_a is None or row.get('score_a_before') == score_a)
+                                  and (score_b is None or row.get('score_b_before') == score_b))
+                observed_matches = ((score_a is None or row.get('observed_score_a') == score_a)
+                                    and (score_b is None or row.get('observed_score_b') == score_b))
+                if not before_matches and not observed_matches: continue
             if status and row['verification_status'] != status: continue
             flags = score_flags(row['score_a_before'], row['score_b_before'], row.get('games_a_before'),
-                                row.get('games_b_before'), row.get('match_best_of')) if row['score_a_before'] is not None and row['score_b_before'] is not None else None
+                                row.get('games_b_before'), row.get('match_best_of')) if row.get('record_kind') != 'SCOREBOARD_OBSERVATION' and row.get('score_a_before') is not None and row.get('score_b_before') is not None else None
             if critical == 'GAME_POINT' and (not flags or not (flags['game_point_a'] or flags['game_point_b'])): continue
             if critical == 'DEUCE' and (not flags or not flags['deuce']): continue
             if critical == 'MATCH_POINT' and (not flags or flags['match_point'] != True): continue
@@ -91,7 +98,7 @@ def score_router(store):
             result.append({**row, 'flags': flags, 'video_title': video['title'],
                            'availability_status': store.availability(video)['availability_status']})
         return sorted(result, key=lambda r: (
-            r['video_id'], r['game_number'],
+            r['video_id'], r.get('game_number') or 0, r.get('point_number') or 0,
             r['point_start_ms'] is None, r['point_start_ms'] or 0,
         ))
 
@@ -102,6 +109,22 @@ def score_router(store):
         if store.availability(video)['availability_status'] != 'AVAILABLE':
             raise HTTPException(400, '原视频不可用，请先重新关联')
         has_bounds = value.point_start_ms is not None and value.point_end_ms is not None
+        if (value.observed_score_a is None) != (value.observed_score_b is None):
+            raise HTTPException(400, '画面观察比分必须同时记录两方，或都保留未知')
+        if value.record_kind == 'SCOREBOARD_OBSERVATION':
+            if (value.game_number is not None or value.point_number is not None
+                    or value.score_a_before is not None or value.score_b_before is not None
+                    or value.games_a_before is not None or value.games_b_before is not None
+                    or value.match_best_of is not None
+                    or value.point_start_ms is not None or value.point_end_ms is not None
+                    or value.score_display_ms is None
+                    or value.observed_score_a is None or value.observed_score_b is None
+                    or value.point_winner_id != 'UNKNOWN' or value.server_id != 'UNKNOWN'
+                    or value.player_a_id != 'UNKNOWN' or value.player_b_id != 'UNKNOWN'
+                    or value.verification_status == 'CONFIRMED'):
+                raise HTTPException(400, '比分画面观察只能保存观察时刻和画面比分，不得声称局分、分前比分、分界或得分方')
+        elif value.game_number is None or value.point_number is None:
+            raise HTTPException(400, '逐分记录必须填写局数与分序号')
         if value.verification_status == 'CONFIRMED' and (not has_bounds or value.score_a_before is None or value.score_b_before is None):
             raise HTTPException(400, '确认前请填写比分并标记本分完整起止范围')
         timestamp_values = {
@@ -142,12 +165,13 @@ def score_router(store):
                 raise HTTPException(404, '比分索引不存在')
             if old and (old['video_id'] != value.video_asset_id or old['updated_at'] != value.expected_updated_at):
                 raise HTTPException(409, '记录已被更新或视频身份改变，请重新加载')
-            if any(r.get('schema') == 'SCORE_MOMENT_V1' and r.get('video_id') == video['video_id']
+            if value.record_kind == 'POINT' and any(r.get('schema') == 'SCORE_MOMENT_V1' and r.get('record_kind', 'POINT') == 'POINT' and r.get('video_id') == video['video_id']
                    and r.get('game_number') == value.game_number and r.get('point_number') == value.point_number
                    and r.get('point_id') != identity for r in all_rows):
                 raise HTTPException(409, '本局这个分序号已存在，请打开原记录修改')
-            if value.point_number > 1:
+            if value.record_kind == 'POINT' and value.point_number > 1:
                 previous = [r for r in all_rows if r.get('schema') == 'SCORE_MOMENT_V1'
+                            and r.get('record_kind', 'POINT') == 'POINT'
                             and r.get('video_id') == video['video_id'] and r.get('game_number') == value.game_number
                             and r.get('point_number') == value.point_number - 1 and r.get('verification_status') == 'CONFIRMED']
                 if previous and value.point_winner_id == 'UNKNOWN' and value.score_a_before is not None:
@@ -198,14 +222,16 @@ def score_router(store):
                    'match_id': video.get('match_id'), 'start_ms': value.point_start_ms,
                    'end_ms': value.point_end_ms, 'score_a': value.score_a_before,
                    'score_b': value.score_b_before, 'tags': [], 'evidence_ids': [],
-                   'source': 'MANUAL_SCORE_INDEX', 'created_at': old['created_at'] if old else now,
+                   'source': 'MANUAL_SCORE_OBSERVATION' if value.record_kind == 'SCOREBOARD_OBSERVATION' else 'MANUAL_SCORE_INDEX',
+                   'created_at': old['created_at'] if old else now,
                    'updated_at': now, 'submitted_body': body,
                    'field_evidence': field_evidence,
                    'correction_history': [*(old or {}).get('correction_history', []),
                                           {'recorded_at': now, 'action': 'CREATE' if old is None else 'EDIT',
                                            'before': old, 'after': body}],
             'provenance': {'timestamp_basis': 'USER_MARKED_VIDEO_TIME',
-                                  'score_semantics': 'BEFORE_POINT', 'automatically_verified': False}}
+                           'score_semantics': 'OBSERVED_ON_SCREEN' if value.record_kind == 'SCOREBOARD_OBSERVATION' else 'BEFORE_POINT',
+                           'automatically_verified': False}}
             db.execute('INSERT INTO evidence_points VALUES (?,?) ON CONFLICT(point_id) DO UPDATE SET payload=excluded.payload',
                        (row['point_id'], json.dumps(row, ensure_ascii=False)))
             db.execute('INSERT INTO evidence_audit VALUES (?,?,?,?,?)',

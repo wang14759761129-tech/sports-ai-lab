@@ -170,6 +170,67 @@ def test_unbounded_observation_keeps_independent_timestamp_evidence(score_client
     assert client.post("/api/video-evidence/scores/playlist", json=[row["point_id"]]).status_code == 400
 
 
+def test_observed_score_is_separate_from_pre_point_score(score_client):
+    client, videos, _ = score_client
+    video = videos[0][0]
+    payload = body(video, score_a_before=None, score_b_before=None,
+                   point_start_ms=None, point_end_ms=None, score_display_ms=24000,
+                   verification_status="REVIEW_REQUIRED",
+                   field_evidence={"score_display_ms": {
+                       "source": "USER_CONFIRMED_EXISTING_VALUE",
+                       "verification_status": "REVIEW_REQUIRED",
+                   }}, request_id="observed-board-score")
+    payload["observed_score_a"] = 11
+    payload["observed_score_b"] = 6
+    created = client.post("/api/video-evidence/scores", json=payload)
+    assert created.status_code == 200, created.text
+    row = created.json()
+    assert row["score_a_before"] is None and row["score_b_before"] is None
+    assert row["observed_score_a"] == 11 and row["observed_score_b"] == 6
+    assert row["verification_status"] == "REVIEW_REQUIRED"
+    assert row["point_start_ms"] is None and row["point_end_ms"] is None
+    assert row["point_winner_id"] == "UNKNOWN"
+    assert client.post("/api/video-evidence/scores/playlist", json=[row["point_id"]]).status_code == 400
+
+
+def test_standalone_scoreboard_observation_has_no_point_identity(score_client):
+    client, videos, _ = score_client
+    video = videos[0][0]
+    payload = body(video, verification_status="REVIEW_REQUIRED",
+                   score_a_before=None, score_b_before=None,
+                   point_start_ms=None, point_end_ms=None, score_display_ms=24000,
+                   field_evidence={"score_display_ms": {
+                       "source": "USER_MARKED_PLAYHEAD",
+                       "verification_status": "REVIEW_REQUIRED",
+                   }}, request_id="standalone-board-observation")
+    payload.update({"record_kind": "SCOREBOARD_OBSERVATION", "game_number": None,
+                    "point_number": None, "observed_score_a": 11, "observed_score_b": 6})
+    created = client.post("/api/video-evidence/scores", json=payload)
+    assert created.status_code == 200, created.text
+    row = created.json()
+    assert row["record_kind"] == "SCOREBOARD_OBSERVATION"
+    assert row["game_number"] is None and row["point_number"] is None
+    assert row["score_a_before"] is None and row["score_b_before"] is None
+    assert (row["observed_score_a"], row["observed_score_b"]) == (11, 6)
+    assert row["flags"] is None and row["point_winner_id"] == "UNKNOWN"
+    assert row["verification_status"] == "REVIEW_REQUIRED"
+    assert client.get("/api/video-evidence/scores", params={"score_a": 11, "score_b": 6}).json()[0]["point_id"] == row["point_id"]
+    assert client.post("/api/video-evidence/scores/playlist", json=[row["point_id"]]).status_code == 400
+
+
+def test_standalone_scoreboard_observation_rejects_point_claims(score_client):
+    client, videos, _ = score_client
+    video = videos[0][0]
+    payload = body(video, verification_status="REVIEW_REQUIRED",
+                   score_a_before=None, score_b_before=None,
+                   point_start_ms=None, point_end_ms=None, score_display_ms=24000,
+                   request_id="invalid-board-observation")
+    payload.update({"record_kind": "SCOREBOARD_OBSERVATION", "game_number": None,
+                    "point_number": None, "observed_score_a": 11, "observed_score_b": 6,
+                    "point_winner_id": "A"})
+    assert client.post("/api/video-evidence/scores", json=payload).status_code == 400
+
+
 def test_changed_confirmed_time_is_downgraded_and_audited(score_client):
     client, videos, _ = score_client
     video = videos[0][0]

@@ -11,7 +11,7 @@ try {
     '--target','ES2022','--module','ES2022','--strict','--skipLibCheck','--outDir',folder],{encoding:'utf8'});
   assert.equal(result.status,0,result.stdout+result.stderr);
   writeFileSync(join(folder,'package.json'),'{"type":"module"}');
-  const {observationAnchorMs,observationSeekMs,canPlayConfirmedScore,isUnboundedScoreObservation}=await import(
+  const {observationAnchorMs,observationSeekMs,canPlayConfirmedScore,isUnboundedScoreObservation,scoreObservationLabel}=await import(
     pathToFileURL(join(folder,'scoreObservation.js')));
   const observation={point_start_ms:null,point_end_ms:null,score_display_ms:24000,
     verification_status:'REVIEW_REQUIRED',availability_status:'AVAILABLE'};
@@ -28,5 +28,10 @@ try {
     point_start_ms:1000,point_end_ms:2000,availability_status:'MISSING_FILE'}),false);
   assert.equal(isUnboundedScoreObservation(observation),true,'unbounded pending rows are labeled as observations');
   assert.equal(isUnboundedScoreObservation({...observation,point_start_ms:1000}),false);
-  console.log('10 passed, 0 failed: observation anchor, pre-roll, zero, and confirmed playback guard');
+  assert.equal(isUnboundedScoreObservation({record_kind:'SCOREBOARD_OBSERVATION',verification_status:'REJECTED'}),true,
+    'a rejected scoreboard observation remains distinct from a formal point');
+  assert.equal(scoreObservationLabel({record_kind:'SCOREBOARD_OBSERVATION',observed_score_a:11,
+    observed_score_b:6,score_a_before:null,score_b_before:null}),'画面比分 11:6',
+    'observed board score is not presented as pre-point score');
+  console.log('12 passed, 0 failed: observation anchor, pre-roll, zero, and confirmed playback guard');
 } finally { rmSync(folder,{recursive:true,force:true}); }
