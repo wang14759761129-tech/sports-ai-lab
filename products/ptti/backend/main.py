@@ -181,6 +181,7 @@ def create_app(db_path=None):
             build_commit=commit, score_navigation_preview=score_navigation,
             video_first=os.environ.get('PTTI_MATCH_LIBRARY_PREVIEW') == '1',
             video_feed=os.environ.get('PTTI_VIDEO_FEED_PREVIEW') == '1',
+            dual_source_preview=os.environ.get('PTTI_DUAL_SOURCE_PREVIEW') == '1',
             start_page='home' if os.environ.get('PTTI_MATCH_LIBRARY_PREVIEW') == '1'
             else 'videoEvidence' if os.environ.get('PTTI_EVIDENCE_PREVIEW') == '1' else 'home',
             schema_version=SCHEMA_VERSION, analytics_version=ANALYTICS_VERSION,

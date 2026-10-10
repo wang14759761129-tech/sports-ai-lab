@@ -94,7 +94,7 @@ function OpenTTDataset(){
    <p className="small">数据保存在 PTTI-Dev 研究目录。原始标签保留；回合边界由发球与结束标注推导，并明确标作 DERIVED。</p>
   </>}</Card>
 }
-function previewBuildLabel(build:any){if(build.score_navigation_preview){const id=build.build_id||build.build_commit?.slice(0,10);return `${build.product_name||'PTTI 比分导航'} v${build.version||'0.1'} Preview${id?` · ${id}`:''}`}return build.video_first?`比赛库 ${build.version||'开发预览'}`:build.start_page==='videoEvidence'?`视频证据 ${build.version||'预览版'}`:'v0.2 Professional Preview'}
+function previewBuildLabel(build:any){const id=build.build_id||build.build_commit?.slice(0,10);if(build.score_navigation_preview||build.dual_source_preview){return `${build.product_name||'PTTI'} v${build.version||'开发预览'} Preview${id?` · ${id}`:''}`}return build.video_first?`比赛库 ${build.version||'开发预览'}`:build.start_page==='videoEvidence'?`视频证据 ${build.version||'预览版'}`:'v0.2 Professional Preview'}
 function App(){
  const [feedQuery,setFeedQuery]=useState('');
  const [page,setPage]=useState('home'),[library,setLibrary]=useState<any[]>([]),[match,setMatch]=useState<Match|null>(null),[settings,setSettings]=useState<Settings>(defaults),[ready,setReady]=useState(false),[onboarding,setOnboarding]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(''),[errorDetail,setErrorDetail]=useState(''),[toast,setToast]=useState(''),[versions,setVersions]=useState<any>({}),[section,setSection]=useState('overview');

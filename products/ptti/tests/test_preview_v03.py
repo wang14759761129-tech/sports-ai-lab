@@ -1,4 +1,4 @@
-from apps.desktop import is_development_preview
+from apps.desktop import configure_dual_source_preview, is_development_preview
 from backend.main import create_app
 from fastapi.testclient import TestClient
 
@@ -51,3 +51,36 @@ def test_video_feed_preview_identity_and_isolation(tmp_path, monkeypatch):
     monkeypatch.setenv("PTTI_MATCH_LIBRARY_PREVIEW", "1")
     with TestClient(create_app(tmp_path / "qa.db")) as client:
         assert client.get("/api/health").json()["video_feed"] is True
+
+
+def test_dual_source_preview_is_registered_and_uses_dedicated_dev_database(tmp_path, monkeypatch):
+    assert is_development_preview("PTTI-Dual-Source-v0.6.1-Preview.exe")
+    preview_env = {"PTTI_DB": "C:/PTTI/matches.db", "PTTI_SCORE_NAV_PREVIEW": "1"}
+    configure_dual_source_preview(tmp_path, preview_env)
+    assert preview_env["PTTI_ENV"] == "development"
+    assert preview_env["PTTI_DB"] == str(
+        tmp_path / "PTTI-Dev" / "DualSource-v061-Preview" / "matches.db"
+    )
+    assert preview_env["PTTI_SCORE_NAV_PREVIEW"] == "0"
+    assert preview_env["PTTI_MATCH_LIBRARY_PREVIEW"] == "1"
+    assert preview_env["PTTI_VIDEO_FEED_PREVIEW"] == "1"
+
+
+def test_dual_source_health_exposes_single_build_identity(tmp_path, monkeypatch):
+    monkeypatch.setenv("PTTI_DUAL_SOURCE_PREVIEW", "1")
+    monkeypatch.setenv("PTTI_MATCH_LIBRARY_PREVIEW", "1")
+    monkeypatch.setenv("PTTI_VIDEO_FEED_PREVIEW", "1")
+    monkeypatch.setenv("PTTI_PREVIEW_PRODUCT_NAME", "PTTI 双来源比赛观看")
+    monkeypatch.setenv("PTTI_PREVIEW_VERSION", "0.6.1")
+    monkeypatch.setenv("PTTI_PREVIEW_BUILD_ID", "abc123def0")
+    monkeypatch.setenv("PTTI_PREVIEW_COMMIT", "abc123def01234567890")
+    with TestClient(create_app(tmp_path / "qa.db")) as client:
+        health = client.get("/api/health").json()
+    assert health["dual_source_preview"] is True
+    assert health["video_feed"] is True
+    assert health["video_first"] is True
+    assert health["start_page"] == "home"
+    assert health["product_name"] == "PTTI 双来源比赛观看"
+    assert health["version"] == "0.6.1"
+    assert health["build_id"] == "abc123def0"
+    assert health["build_commit"] == "abc123def01234567890"
