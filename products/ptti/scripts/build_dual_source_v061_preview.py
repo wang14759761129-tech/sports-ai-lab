@@ -12,11 +12,30 @@ from pathlib import Path
 import psutil
 
 ROOT = Path(__file__).resolve().parents[1]
-NAME = "PTTI-Dual-Source-v0.6.1-Preview"
-PRODUCT_NAME = "PTTI 双来源比赛观看"
-VERSION = "0.6.1"
-BUILD_PREFIX = "dual-source-v061"
-DATABASE_SUBDIR = "DualSource-v061-Preview"
+BUILD_PROFILES = {
+    "dual-source-v061": {
+        "name": "PTTI-Dual-Source-v0.6.1-Preview",
+        "product_name": "PTTI 双来源比赛观看",
+        "version": "0.6.1",
+        "build_prefix": "dual-source-v061",
+        "database_subdir": "DualSource-v061-Preview",
+    },
+    "personal-library-r3": {
+        "name": "PTTI-Personal-Match-Library-R3-Preview",
+        "product_name": "PTTI Personal Match Library",
+        "version": "0.6.1-R3",
+        "build_prefix": "personal-library-r3",
+        "database_subdir": "PersonalMatchLibrary-R3-Preview",
+    },
+}
+PROFILE = os.environ.get("PTTI_PREVIEW_PROFILE", "dual-source-v061")
+if PROFILE not in BUILD_PROFILES:
+    raise ValueError(f"Unknown preview build profile: {PROFILE}")
+NAME = BUILD_PROFILES[PROFILE]["name"]
+PRODUCT_NAME = BUILD_PROFILES[PROFILE]["product_name"]
+VERSION = BUILD_PROFILES[PROFILE]["version"]
+BUILD_PREFIX = BUILD_PROFILES[PROFILE]["build_prefix"]
+DATABASE_SUBDIR = BUILD_PROFILES[PROFILE]["database_subdir"]
 MIN_START_RAM_BYTES = int(2.5 * 1024**3)
 HARD_RAM_FLOOR_BYTES = 2 * 1024**3
 

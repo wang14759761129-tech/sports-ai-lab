@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from apps.desktop import configure_dual_source_preview, is_development_preview
 from backend.main import create_app
 from fastapi.testclient import TestClient
@@ -64,6 +66,20 @@ def test_dual_source_preview_is_registered_and_uses_dedicated_dev_database(tmp_p
     assert preview_env["PTTI_SCORE_NAV_PREVIEW"] == "0"
     assert preview_env["PTTI_MATCH_LIBRARY_PREVIEW"] == "1"
     assert preview_env["PTTI_VIDEO_FEED_PREVIEW"] == "1"
+
+
+def test_personal_match_library_r3_has_own_identity_and_build_profile():
+    from scripts.build_dual_source_v061_preview import BUILD_PROFILES
+
+    profile = BUILD_PROFILES["personal-library-r3"]
+    assert profile["name"] == "PTTI-Personal-Match-Library-R3-Preview"
+    assert profile["product_name"] == "PTTI Personal Match Library"
+    assert profile["version"] == "0.6.1-R3"
+    assert profile["database_subdir"] == "PersonalMatchLibrary-R3-Preview"
+    assert is_development_preview(profile["name"] + ".exe")
+    env = {}
+    configure_dual_source_preview(Path("C:/qa"), env, profile["database_subdir"])
+    assert env["PTTI_DB"] == str(Path("C:/qa") / "PTTI-Dev" / "PersonalMatchLibrary-R3-Preview" / "matches.db")
 
 
 def test_dual_source_health_exposes_single_build_identity(tmp_path, monkeypatch):
