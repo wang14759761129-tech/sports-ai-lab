@@ -87,21 +87,34 @@ def stop_process_tree(process: subprocess.Popen) -> None:
 
 
 def run_packager(command: list[str], log_path: Path) -> None:
-    with log_path.open("w", encoding="utf-8") as log:
+    with log_path.open("w", encoding="utf-8") as log, log_path.with_suffix('.resources.jsonl').open('w', encoding='utf-8') as resources:
         process = subprocess.Popen(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
-        while process.poll() is None:
-            available = psutil.virtual_memory().available
-            if available < HARD_RAM_FLOOR_BYTES:
-                log.write(
-                    f"\nSAFE STOP: available RAM fell below the 2 GiB hard floor "
-                    f"({available / 1024**3:.2f} GiB).\n"
-                )
-                log.flush()
+        try:
+            while process.poll() is None:
+                available = psutil.virtual_memory().available
+                workers = []
+                try:
+                    parent = psutil.Process(process.pid)
+                    for worker in [parent, *parent.children(recursive=True)]:
+                        try:
+                            workers.append({'pid': worker.pid, 'name': worker.name(), 'rss': worker.memory_info().rss})
+                        except psutil.Error:
+                            pass
+                except psutil.Error:
+                    pass
+                resources.write(json.dumps({'timestamp': datetime.now(timezone.utc).isoformat(),
+                                            'available_ram': available, 'workers': workers}) + '\n')
+                resources.flush()
+                if available < HARD_RAM_FLOOR_BYTES:
+                    log.write(f"\nSAFE STOP [{log_path.stem}]: available RAM below 2 GiB ({available / 1024**3:.2f} GiB).\n")
+                    log.flush()
+                    raise RuntimeError(f"{log_path.stem} stopped safely below the 2 GiB hard floor")
+                time.sleep(1)
+            if process.returncode:
+                raise subprocess.CalledProcessError(process.returncode, command)
+        finally:
+            if process.poll() is None:
                 stop_process_tree(process)
-                raise RuntimeError("Packaging stopped safely after available RAM crossed below 2 GiB")
-            time.sleep(1)
-        if process.returncode:
-            raise subprocess.CalledProcessError(process.returncode, command)
 
 
 def main() -> None:
