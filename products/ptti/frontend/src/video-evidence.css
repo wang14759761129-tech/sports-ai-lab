@@ -138,3 +138,20 @@
 .score-results article[data-evidence-status=REJECTED]{border-left:3px solid var(--unknown)}
 .score-results .actions{justify-content:flex-end}
 .vep-strip{background:var(--surface-elevated)}
+
+.cinema-workspace .vep-workspace{display:block;position:relative}
+.cinema-workspace>.page-title{display:none}
+.cinema-workspace .vep-video{width:100%;height:min(calc(100dvh - 220px),56.25vw);max-height:none;object-fit:contain;background:#000;border-radius:0}
+.cinema-workspace .vep-center>.card:first-child>h2{font-size:18px;margin:8px 0}
+.cinema-workspace .vep-missing{min-height:min(65vh,560px);display:flex;flex-direction:column;align-items:center;justify-content:center;background:#101010}
+.cinema-workspace .vep-controls{gap:8px;flex-wrap:wrap}
+.cinema-analysis .vep-library,.cinema-analysis .vep-editor{max-width:960px;margin:16px auto}
+.cinema-analysis .vep-center>.score-navigation{max-width:960px;margin:16px auto}
+.cinema-workspace:fullscreen{overflow:auto;background:var(--bg);padding:12px}
+.cinema-workspace:fullscreen .vep-video{height:calc(100dvh - 150px)}
+@media(min-width:1500px){.cinema-analysis .vep-workspace{padding-right:360px}.cinema-analysis .vep-editor{position:absolute;right:0;top:0;width:340px;max-height:calc(100dvh - 100px);overflow:auto}.cinema-analysis .vep-video{height:min(calc(100dvh - 220px),calc((100vw - 408px)*.5625))}}
+@media(max-width:650px){.cinema-workspace .vep-video{height:56.25vw}.cinema-workspace .vep-controls input{max-width:110px}}
+
+.cinema-analysis .vep-workspace{display:flex;flex-direction:column}.cinema-analysis .vep-center{order:0}.cinema-analysis .vep-library{order:2}.cinema-analysis .vep-editor{order:1}.cinema-workspace>.actions select{max-width:280px}.cinema-workspace .vep-controls:focus-within{opacity:1}
+
+.cinema-workspace>.actions{margin:8px 0;gap:8px;align-items:center}.cinema-workspace>.actions button{min-height:32px;padding:6px 10px;font-size:12px}.cinema-workspace>.actions label{display:flex;gap:8px;align-items:center;font-size:12px}.cinema-workspace>.actions select{margin:0;min-height:32px}

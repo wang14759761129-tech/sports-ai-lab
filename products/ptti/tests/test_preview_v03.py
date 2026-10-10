@@ -96,3 +96,11 @@ def test_dark_studio_preview_preserves_previous_preview_database(tmp_path):
     assert studio_env["PTTI_DB"] == str(tmp_path / "PTTI-Dev" / "DarkStudio-v07-Preview" / "matches.db")
     assert studio_env["PTTI_ENV"] == "development"
     assert studio_env["PTTI_VIDEO_FEED_PREVIEW"] == "1"
+
+
+def test_cinema_preview_isolated_from_previous_previews(tmp_path):
+    assert is_development_preview("PTTI-Cinema-v0.7.1-Preview.exe")
+    env = {}
+    configure_dual_source_preview(tmp_path, env, database_subdir="Cinema-v071-Preview")
+    assert env["PTTI_DB"] == str(tmp_path / "PTTI-Dev" / "Cinema-v071-Preview" / "matches.db")
+    assert env["PTTI_ENV"] == "development"

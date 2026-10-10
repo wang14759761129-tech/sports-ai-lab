@@ -68,3 +68,5 @@
 .feed-watch:hover .feed-cover img{transform:scale(1.025)}
 
 .feed-evidence-summary{margin:8px 0 18px}.feed-evidence-summary summary{font-size:11px;color:var(--muted)}
+
+.cinema-shelf{margin:24px 0}.cinema-shelf h2{font-size:18px;margin:0 0 14px}.cinema-shelf .feed-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr))}.feed-cover img{object-fit:cover}.feed-video:hover{transform:translateY(-2px)}@media(prefers-reduced-motion:reduce){.feed-video:hover{transform:none}}
