@@ -13,6 +13,7 @@ import psutil
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD_PROFILES = {
+    "video-first-r4": {"name": "PTTI-Video-First-R4-Preview", "product_name": "PTTI Video First R4", "version": "0.6.1-R4", "build_prefix": "video-first-r4", "database_subdir": "VideoFirst-R4-Preview"},
     "dual-source-v061": {
         "name": "PTTI-Dual-Source-v0.6.1-Preview",
         "product_name": "PTTI 双来源比赛观看",

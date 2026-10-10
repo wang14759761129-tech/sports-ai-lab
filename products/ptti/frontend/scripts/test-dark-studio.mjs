@@ -25,7 +25,7 @@ assert.doesNotMatch(withoutSearch,/搜索已收录比赛视频/,'No decorative s
 assert.doesNotMatch(withoutSearch,/观看历史|收藏/,'Only supported feed entries are exposed');
 for(const file of readdirSync('src').filter(name=>name.endsWith('.css'))){postcss.parse(readFileSync(`src/${file}`,'utf8'),{from:file});}
 const tokens=readFileSync('src/design-tokens.css','utf8');
-assert.match(tokens,/--bg:\s*#0f0f0f/);
+assert.match(tokens,/--bg:\s*#0a0a0a/);
 assert.match(tokens,/--confirmed:/);assert.match(tokens,/--warning:/);assert.match(tokens,/--unknown:/);
 assert.match(readFileSync('src/style.css','utf8'),/prefers-reduced-motion/);
 const player=readFileSync('src/VideoEvidencePlayer.tsx','utf8');
@@ -33,5 +33,5 @@ assert.match(player,/requestFullscreen/);
 assert.match(player,/initialScoreTarget\)setShowTools\(true\)/);
 assert.match(player,/只有人工确认且起止完整/);
 assert.match(readFileSync('src/video-evidence.css','utf8'),/object-fit:contain/);
-assert.match(readFileSync('src/main.tsx','utf8'),/s.start_page==='home'\?'videoEvidence'/);
+assert.match(readFileSync('src/main.tsx','utf8'),/s.start_page==='home'\?'home'/);
 console.log('17 checks passed: shell accessibility, supported navigation, dark tokens, CSS syntax and reduced motion');
