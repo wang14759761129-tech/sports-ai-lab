@@ -1,6 +1,7 @@
 """Video-first catalogue and opt-in, bounded local indexing. No model or GT reads."""
 import json
 import hashlib
+import os
 import shutil
 import subprocess
 import tempfile
@@ -23,6 +24,13 @@ from vision.quality import video_metadata
 
 VIDEO_STATES = {"LOCAL_READY", "AUTHORIZED_REMOTE_PLAYABLE", "OFFICIAL_EMBED_ALLOWED",
                 "SOURCE_LINK_ONLY", "RIGHTS_REQUIRED", "UNAVAILABLE"}
+SUPPORTED_VIDEO_EXTENSIONS = {".mp4", ".mov", ".mkv", ".avi"}
+KNOWN_UNSUPPORTED_VIDEO_EXTENSIONS = {".wmv", ".flv", ".webm", ".m4v", ".mpeg", ".mpg", ".ts", ".mts"}
+
+
+def _is_link_or_junction(path: Path) -> bool:
+    is_junction = getattr(path, "is_junction", None)
+    return path.is_symlink() or bool(is_junction and is_junction())
 
 
 class VideoSourceProvider:
@@ -43,14 +51,24 @@ class VideoSourceProvider:
 
 class FolderInput(BaseModel):
     path: str = Field(min_length=1, max_length=4000)
-    rights_status: str = Field(pattern="^(USER_OWNED|LICENSED|RESEARCH_NONCOMMERCIAL)$")
+    rights_status: str = Field(pattern="^(USER_OWNED|LICENSED|RESEARCH_NONCOMMERCIAL|USER_SELF_CAPTURED|LICENSED_FOR_ANALYSIS|PERSONAL_VIEW_ONLY|PENDING_REVIEW)$")
     rights_confirmed: bool
     source_note: str = Field(min_length=1, max_length=2000)
 
 
 class ConfirmInput(BaseModel):
-    candidate_id: str
+    candidate_id: str = Field(min_length=1, max_length=64)
     match_id: str | None = None
+    title: str | None = Field(default=None, max_length=200)
+    match_type: str = Field(default="UNKNOWN", pattern="^(MS|WS|MD|WD|XD|UNKNOWN)$")
+    event_name: str | None = Field(default=None, max_length=300)
+    event_year: int | None = Field(default=None, ge=1900, le=2200)
+    match_date: str | None = Field(default=None, max_length=10)
+    player_a: str | None = Field(default=None, max_length=120)
+    player_b: str | None = Field(default=None, max_length=120)
+    content_type: str = Field(default="UNKNOWN", pattern="^(FULL_MATCH|HIGHLIGHTS|SESSION|CLIP|UNKNOWN)$")
+    rights_status: str | None = Field(default=None, pattern="^(USER_OWNED|LICENSED|RESEARCH_NONCOMMERCIAL|USER_SELF_CAPTURED|LICENSED_FOR_ANALYSIS|PERSONAL_VIEW_ONLY|PENDING_REVIEW)$")
+    source_note: str | None = Field(default=None, max_length=2000)
 
 
 class MappingInput(BaseModel):
@@ -122,53 +140,94 @@ class LocalMediaIndexer:
         self.save(row)
         try:
             existing = self.store.list("evidence_videos")
-            # Deliberately non-recursive: user chooses the exact folder. No huge tree walks.
-            for path in Path(row["path"]).iterdir():
-                if self.stop.is_set():
-                    row.update(status="INTERRUPTED", message="索引安全停止；可以重新扫描")
+            known_hashes = {v.get("source_sha256"): v.get("video_id") for v in existing if v.get("source_sha256")}
+            seen_candidates = {}
+            root = Path(row["path"]).resolve(strict=True)
+            # Only descend from the folder the user explicitly chose. Never follow
+            # directory symlinks/reparse points out of that tree.
+            visited_directories = 0
+            visited_files = 0
+            for current, directories, filenames in os.walk(root, followlinks=False):
+                visited_directories += 1
+                if visited_directories > 5000:
+                    row["errors"].append("目录数量超过 5000 个安全上限；请按子目录分批扫描")
                     break
-                if path.is_symlink() or not path.is_file() or path.suffix.lower() not in {".mp4", ".mov", ".mkv", ".avi"}:
-                    continue
-                if "extendedopenttgames" in str(path).lower() and (path.stem.lower() == "game_5" or path.stem.lower().startswith("test")):
-                    continue  # Research holdout/test remain inaccessible in this sprint.
-                if len(row["candidates"]) >= 500:
-                    row["errors"].append("本次最多索引 500 个视频，请分文件夹处理")
+                base = Path(current)
+                directories[:] = sorted(d for d in directories if not _is_link_or_junction(base / d))
+                for filename in sorted(filenames, key=str.casefold):
+                    path = base / filename
+                    visited_files += 1
+                    if visited_files > 50000:
+                        row["errors"].append("文件数量超过 50000 个扫描安全上限；请按子目录分批扫描")
+                        break
+                    if self.stop.is_set():
+                        row.update(status="INTERRUPTED", message="索引安全停止；可以重新扫描")
+                        break
+                    if _is_link_or_junction(path) or not path.is_file():
+                        continue
+                    if path.suffix.lower() in KNOWN_UNSUPPORTED_VIDEO_EXTENSIONS:
+                        if len(row["errors"]) < 50:
+                            row["errors"].append(f"{path.relative_to(root)}：暂不支持此视频格式（{path.suffix.lower()}）")
+                        continue
+                    if path.suffix.lower() not in SUPPORTED_VIDEO_EXTENSIONS:
+                        continue
+                    if "extendedopenttgames" in str(path).lower() and (path.stem.lower() == "game_5" or path.stem.lower().startswith("test")):
+                        continue  # Research holdout/test remain inaccessible in this sprint.
+                    if len(row["candidates"]) >= 500:
+                        row["errors"].append("本次最多索引 500 个视频，请分文件夹处理")
+                        break
+                    try:
+                        resolved = path.resolve(strict=True)
+                        if not resolved.is_relative_to(root):
+                            raise ValueError("视频路径超出用户选择的文件夹")
+                        stat = resolved.stat()
+                        same = next((v for v in existing if Path(v["original_path"]) == resolved and
+                                     v["file_size"] == stat.st_size and v["mtime_ns"] == stat.st_mtime_ns), None)
+                        media = video_metadata(resolved)
+                        sha = same.get("source_sha256") if same else None
+                        if not sha:
+                            sha = digest_file(resolved, self.stop)
+                        after = resolved.stat()
+                        if (stat.st_size, stat.st_mtime_ns) != (after.st_size, after.st_mtime_ns):
+                            raise ValueError("视频在索引中改变，请稍后重试")
+                        known_video_id = known_hashes.get(sha)
+                        duplicate_of = None if known_video_id else seen_candidates.get(sha)
+                        known_video = next((v for v in existing if v.get("video_id") == known_video_id), None)
+                        matches = self.store.repo.professional_matches()
+                        suggestions = []
+                        filename_folded = resolved.stem.casefold()
+                        for m in matches:
+                            people = [self.store.repo.get_athlete(m[key]) for key in ("player_a_id", "player_b_id")]
+                            if all(any(str(p.get(k) or "__missing__").casefold() in filename_folded for k in
+                                       ("canonical_name_zh", "canonical_name_en")) for p in people):
+                                suggestions.append(m["match_id"])
+                        candidate = {"candidate_id": str(uuid.uuid4()), "path": str(resolved),
+                            "relative_path": str(resolved.relative_to(root)), "filename": resolved.name,
+                            "sha256": sha, "size": stat.st_size, "mtime_ns": stat.st_mtime_ns,
+                            "media": media, "existing_video_id": known_video_id or (same["video_id"] if same else None),
+                            "existing_title": (known_video or same or {}).get("title"),
+                            "existing_metadata": (known_video or same or {}).get("personal_library", {}),
+                            "existing_rights_status": (known_video or same or {}).get("rights_status"),
+                            "existing_source_note": (known_video or same or {}).get("source_note"),
+                            "duplicate_of_candidate_id": duplicate_of,
+                            "suggested_match_ids": suggestions, "status": "REVIEW_REQUIRED"}
+                        row["candidates"].append(candidate)
+                        seen_candidates.setdefault(sha, candidate["candidate_id"])
+                        if known_video_id is None and same:
+                            known_video_id = same["video_id"]
+                        if known_video_id:
+                            known_hashes[sha] = known_video_id
+                    except InterruptedError:
+                        row.update(status="INTERRUPTED", message="索引安全停止")
+                        break
+                    except Exception as exc:
+                        if len(row["errors"]) < 50:
+                            row["errors"].append(f"{path.relative_to(root)}：媒体无法解码或读取失败（{type(exc).__name__}）")
+                    self.save(row)
+                if row["status"] == "INTERRUPTED" or len(row["candidates"]) >= 500 or visited_files > 50000:
                     break
-                try:
-                    resolved = path.resolve(strict=True)
-                    stat = resolved.stat()
-                    same = next((v for v in existing if Path(v["original_path"]) == resolved and
-                                 v["file_size"] == stat.st_size and v["mtime_ns"] == stat.st_mtime_ns), None)
-                    media = video_metadata(resolved)
-                    sha = same.get("source_sha256") if same else None
-                    if not sha:
-                        sha = digest_file(resolved, self.stop)
-                    after = resolved.stat()
-                    if (stat.st_size, stat.st_mtime_ns) != (after.st_size, after.st_mtime_ns):
-                        raise ValueError("视频在索引中改变，请稍后重试")
-                    known = next((v for v in existing if v.get("source_sha256") == sha), same)
-                    matches = self.store.repo.professional_matches()
-                    suggestions = []
-                    filename = resolved.stem.casefold()
-                    for m in matches:
-                        people = [self.store.repo.get_athlete(m[key]) for key in ("player_a_id", "player_b_id")]
-                        if all(any(str(p.get(k) or "__missing__").casefold() in filename for k in
-                                   ("canonical_name_zh", "canonical_name_en")) for p in people):
-                            suggestions.append(m["match_id"])
-                    row["candidates"].append({"candidate_id": str(uuid.uuid4()), "path": str(resolved),
-                        "filename": resolved.name, "sha256": sha, "size": stat.st_size,
-                        "mtime_ns": stat.st_mtime_ns, "media": media,
-                        "existing_video_id": known["video_id"] if known else None,
-                        "suggested_match_ids": suggestions, "status": "REVIEW_REQUIRED"})
-                except InterruptedError:
-                    row.update(status="INTERRUPTED", message="索引安全停止")
-                    break
-                except Exception as exc:
-                    if len(row["errors"]) < 50:
-                        row["errors"].append(f"{path.name}：读取失败（{type(exc).__name__}）")
-                self.save(row)
-            else:
-                row.update(status="COMPLETED", message="索引完成；请确认关联，不会根据文件名自动绑定")
+            if row["status"] != "INTERRUPTED":
+                row.update(status="COMPLETED", message="预览完成；确认前不会登记录像或绑定比赛")
             if row["status"] == "RUNNING":
                 row.update(status="COMPLETED", message="索引完成，请检查提示")
         except Exception as exc:
@@ -183,6 +242,16 @@ class LocalMediaIndexer:
             item = next((c for c in job["candidates"] if c["candidate_id"] == value.candidate_id), None)
             if not item:
                 raise ValueError("视频候选不存在")
+            if item.get("registered_video_id"):
+                return self.store.get("evidence_videos", "video_id", item["registered_video_id"])
+            if item.get("duplicate_of_candidate_id"):
+                canonical = next(c for c in job["candidates"] if c["candidate_id"] == item["duplicate_of_candidate_id"])
+                if not canonical.get("registered_video_id"):
+                    raise ValueError("请先确认同内容的首个文件；重复文件不会重复登记")
+                item["registered_video_id"] = canonical["registered_video_id"]
+                item["status"] = "DUPLICATE_REUSED"
+                self.save(job)
+                return self.store.get("evidence_videos", "video_id", item["registered_video_id"])
             match = self.store.repo.get_professional_match(value.match_id) if value.match_id else None
             if value.match_id and not match:
                 raise ValueError("比赛不存在，不能关联")
@@ -201,11 +270,38 @@ class LocalMediaIndexer:
                     video = {**video, "match_id": value.match_id,
                              "athlete_ids": [match["player_a_id"], match["player_b_id"]] if match else [],
                              "mapping_source": "USER_CONFIRMED"}
-                    self.store.save("evidence_videos", "video_id", video, "USER_CONFIRMED_MATCH_MAPPING")
+                metadata = dict(video.get("personal_library") or {})
+                fields = {"match_type": value.match_type, "event_name": value.event_name,
+                          "event_year": value.event_year, "match_date": value.match_date,
+                          "player_a": value.player_a, "player_b": value.player_b,
+                          "content_type": value.content_type}
+                for key, field in fields.items():
+                    if key in value.model_fields_set:
+                        metadata[key] = field.strip() if isinstance(field, str) and field.strip() else field
+                metadata.setdefault("match_type", "UNKNOWN")
+                metadata.setdefault("content_type", "UNKNOWN")
+                metadata.setdefault("completeness_status", "NOT_VERIFIED")
+                update = {**video, "personal_library": metadata}
+                if value.title and value.title.strip():
+                    update["title"] = value.title.strip()
+                if value.rights_status:
+                    update["rights_status"] = value.rights_status
+                if value.source_note and value.source_note.strip():
+                    update["source_note"] = value.source_note.strip()
+                if update != video:
+                    video = self.store.save("evidence_videos", "video_id", update,
+                        "PERSONAL_LIBRARY_METADATA_REVIEW")
             else:
-                video = self.store.register(VideoInput(path=str(path), title=path.stem, match_id=value.match_id,
-                    rights_status=job["rights_status"], rights_confirmed=True, source_note=job["source_note"]))
+                video = self.store.register(VideoInput(path=str(path), title=(value.title or path.stem), match_id=value.match_id,
+                    rights_status=value.rights_status or job["rights_status"], rights_confirmed=True,
+                    source_note=value.source_note or job["source_note"],
+                    match_type=value.match_type, event_name=value.event_name, event_year=value.event_year,
+                    match_date=value.match_date, player_a=value.player_a, player_b=value.player_b,
+                    content_type=value.content_type))
                 # Already hashed during indexing; keep the ordinary registrar's background check too.
+            item["registered_video_id"] = video["video_id"]
+            item["status"] = "REGISTERED"
+            self.save(job)
             return video
 
 

@@ -39,5 +39,11 @@ try{
  assert.equal(filterFeed(rows,{category:'完整比赛'}).length,1,'Only independently verified completeness enters the verified category');
  assert.ok(rows.find(v=>v.key==='official:real').subtitle.includes('在官方平台观看'),'External source is presented as platform viewing');
  assert.equal(filterFeed(rows,{content:'CLIP'}).length,1,'The Bilibili source title is categorized as a clip, not a full match');
- console.log('23 passed, 0 failed: feed contracts, adapter permissions and conservative source preference');
+ const personal=feedVideos({videos:[{video_id:'personal',title:'本地用户录像',availability_status:'AVAILABLE',duration_ms:60000,rights_status:'PERSONAL_VIEW_ONLY',personal_library:{match_type:'WD',event_name:'用户手填赛事',event_year:2024,player_a:'组合甲',player_b:'组合乙',content_type:'FULL_MATCH',completeness_status:'NOT_VERIFIED'}}]});
+ assert.equal(filterFeed(personal,{category:'女双'}).length,1,'Personal folder metadata supports discipline filtering');
+ assert.equal(filterFeed(personal,{year:'2024'}).length,1,'Personal folder metadata supports year filtering');
+ assert.equal(filterFeed(personal,{event:'用户手填赛事',query:'组合乙'}).length,1,'Search uses only manually supplied event and player metadata');
+ assert.equal(filterFeed(personal,{category:'完整比赛'}).length,0,'A user content label does not verify full-match completeness');
+ assert.ok(personal[0].subtitle.includes('仅个人观看')&&personal[0].subtitle.includes('完整性未核实'));
+ console.log('28 passed, 0 failed: feed contracts, local metadata filters, rights states and conservative completeness');
 }finally{rmSync(folder,{recursive:true,force:true});}

@@ -101,9 +101,17 @@ class VideoInput(BaseModel):
     path: str = Field(min_length=1, max_length=4000)
     title: str = Field(default="", max_length=200)
     match_id: str | None = None
-    rights_status: Literal["USER_OWNED", "LICENSED", "RESEARCH_NONCOMMERCIAL"]
+    rights_status: Literal["USER_OWNED", "LICENSED", "RESEARCH_NONCOMMERCIAL", "USER_SELF_CAPTURED",
+                           "LICENSED_FOR_ANALYSIS", "PERSONAL_VIEW_ONLY", "PENDING_REVIEW"]
     rights_confirmed: Literal[True]
     source_note: str = Field(min_length=1, max_length=2000)
+    match_type: Literal["MS", "WS", "MD", "WD", "XD", "UNKNOWN"] = "UNKNOWN"
+    event_name: str | None = Field(default=None, max_length=300)
+    event_year: int | None = Field(default=None, ge=1900, le=2200)
+    match_date: str | None = Field(default=None, pattern=r"^\d{4}-\d{2}-\d{2}$", max_length=10)
+    player_a: str | None = Field(default=None, max_length=120)
+    player_b: str | None = Field(default=None, max_length=120)
+    content_type: Literal["FULL_MATCH", "HIGHLIGHTS", "SESSION", "CLIP", "UNKNOWN"] = "UNKNOWN"
 
 
 class RelinkInput(BaseModel):
@@ -288,6 +296,16 @@ class EvidenceStore:
             "hash_status": "PENDING",
             "rights_status": value.rights_status,
             "source_note": value.source_note,
+            "personal_library": {
+                "match_type": value.match_type,
+                "event_name": value.event_name.strip() if value.event_name and value.event_name.strip() else None,
+                "event_year": value.event_year,
+                "match_date": value.match_date,
+                "player_a": value.player_a.strip() if value.player_a and value.player_a.strip() else None,
+                "player_b": value.player_b.strip() if value.player_b and value.player_b.strip() else None,
+                "content_type": value.content_type,
+                "completeness_status": "NOT_VERIFIED",
+            },
             "imported_at": utc_now(),
             "availability_status": "AVAILABLE",
             "athlete_ids": (
@@ -453,6 +471,8 @@ class EvidenceStore:
         video = self.availability(video)
         if video.get("availability_status") != "AVAILABLE" or video.get("hash_status") != "VERIFIED":
             raise ValueError("请先恢复原视频并完成 SHA256 校验")
+        if video.get("rights_status") not in {"LICENSED_FOR_ANALYSIS", "LICENSED", "RESEARCH_NONCOMMERCIAL"}:
+            raise ValueError("当前权利状态未包含本机 AI 分析许可；请先核实并单独更新授权")
         if str(package_path).startswith(("\\\\", "//")):
             raise ValueError("请选择本机上的冻结结果包 JSONL")
         path = Path(package_path).expanduser().resolve(strict=True)

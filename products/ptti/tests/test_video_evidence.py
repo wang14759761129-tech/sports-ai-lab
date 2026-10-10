@@ -39,9 +39,11 @@ def library(tmp_path, monkeypatch):
     value = VideoInput(
         path=str(source),
         title="训练赛",
-        rights_status="USER_OWNED",
+        # This synthetic QA fixture explicitly exercises the non-commercial
+        # research package path; it is not a real match or playback sample.
+        rights_status="RESEARCH_NONCOMMERCIAL",
         rights_confirmed=True,
-        source_note="本人拍摄",
+        source_note="合成测试素材，仅用于非商业研究单元测试",
     )
     video = store.register(value)
     for _ in range(100):

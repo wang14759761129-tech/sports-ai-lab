@@ -99,6 +99,66 @@ def test_folder_candidates_do_not_auto_bind_filename(workspace):
     assert (root / "do-not-read.db").read_bytes() == b"NOT_A_VIDEO"
 
 
+def test_recursive_folder_preview_records_metadata_and_registers_duplicate_once(workspace):
+    client, root, _tmp = workspace
+    nested = root / "Season 2025" / "Round 2"
+    nested.mkdir(parents=True)
+    # Same bytes deliberately test duplicate identity only; this is not media playback evidence.
+    (nested / "same-content.mkv").write_bytes((root / "王楚钦 Felix LEBRUN.mp4").read_bytes())
+    (nested / "notes.txt").write_text("not media", encoding="utf-8")
+    row = scan(client, root)
+    assert row["status"] == "COMPLETED"
+    assert len(row["candidates"]) == 2
+    assert {Path(c["relative_path"]) for c in row["candidates"]} == {
+        Path("王楚钦 Felix LEBRUN.mp4"), Path("Season 2025") / "Round 2" / "same-content.mkv"
+    }
+    duplicate = next(c for c in row["candidates"] if c["relative_path"].endswith("same-content.mkv"))
+    assert duplicate["duplicate_of_candidate_id"]
+    assert client.get("/api/video-evidence/videos").json() == []  # Preview does not import.
+
+    original = next(c for c in row["candidates"] if not c["duplicate_of_candidate_id"])
+    response = client.post(f'/api/video-evidence/library/folders/{row["scan_id"]}/confirm', json={
+        "candidate_id": original["candidate_id"], "match_type": "MD", "event_name": "用户填写赛事",
+        "event_year": 2025, "player_a": "组合 A", "player_b": "组合 B",
+        "content_type": "FULL_MATCH", "rights_status": "PERSONAL_VIEW_ONLY",
+        "source_note": "获准个人观看，不允许分析或传播",
+    })
+    assert response.status_code == 200, response.text
+    video = response.json()
+    assert video["personal_library"] == {
+        "match_type": "MD", "event_name": "用户填写赛事", "event_year": 2025,
+        "match_date": None, "player_a": "组合 A", "player_b": "组合 B",
+        "content_type": "FULL_MATCH", "completeness_status": "NOT_VERIFIED",
+    }
+    duplicate_response = client.post(f'/api/video-evidence/library/folders/{row["scan_id"]}/confirm', json={
+        "candidate_id": duplicate["candidate_id"], "rights_status": "PERSONAL_VIEW_ONLY",
+        "source_note": "相同内容复用",
+    })
+    assert duplicate_response.status_code == 200
+    assert duplicate_response.json()["video_id"] == video["video_id"]
+    repeated = client.post(f'/api/video-evidence/library/folders/{row["scan_id"]}/confirm', json={
+        "candidate_id": original["candidate_id"], "match_type": "MD", "rights_status": "PERSONAL_VIEW_ONLY",
+        "source_note": "获准个人观看，不允许分析或传播",
+    })
+    assert repeated.json()["video_id"] == video["video_id"]
+    assert len(client.get("/api/video-evidence/videos").json()) == 1
+
+
+def test_duplicate_cannot_be_registered_before_its_canonical_candidate(workspace):
+    client, root, _tmp = workspace
+    nested = root / "nested"
+    nested.mkdir()
+    (nested / "duplicate.mp4").write_bytes((root / "王楚钦 Felix LEBRUN.mp4").read_bytes())
+    row = scan(client, root)
+    duplicate = next(c for c in row["candidates"] if c["duplicate_of_candidate_id"])
+    response = client.post(f'/api/video-evidence/library/folders/{row["scan_id"]}/confirm', json={
+        "candidate_id": duplicate["candidate_id"]
+    })
+    assert response.status_code == 400
+    assert "先确认" in response.json()["detail"]
+    assert client.get("/api/video-evidence/videos").json() == []
+
+
 def test_confirm_is_idempotent_and_mapping_requires_explicit_review(workspace):
     client, root, _tmp = workspace
     row = scan(client, root)
@@ -161,6 +221,28 @@ def test_permissions_and_network_share_fail_closed(workspace):
     for changes in ({"rights_confirmed": False}, {"path": r"\\server\share"}, {"source_note": " "}):
         body = {"path": str(root), "rights_confirmed": True, "rights_status": "LICENSED", "source_note": "许可"}
         assert client.post("/api/video-evidence/library/folders", json={**body, **changes}).status_code == 400
+
+
+@pytest.mark.parametrize("rights_status", ["PERSONAL_VIEW_ONLY", "PENDING_REVIEW", "USER_SELF_CAPTURED"])
+def test_personal_or_unresolved_rights_cannot_start_ai_evidence_import(workspace, rights_status):
+    client, root, _tmp = workspace
+    response = client.post("/api/video-evidence/videos", json={
+        "path": str(root / "王楚钦 Felix LEBRUN.mp4"), "title": "仅权利状态测试",
+        "rights_status": rights_status, "rights_confirmed": True,
+        "source_note": "合成工程测试；不代表真实比赛授权",
+    })
+    assert response.status_code == 200, response.text
+    video_id = response.json()["video_id"]
+    for _ in range(100):
+        row = next(v for v in client.get("/api/video-evidence/videos").json() if v["video_id"] == video_id)
+        if row["hash_status"] == "VERIFIED":
+            break
+        time.sleep(.01)
+    rejected = client.post("/api/video-evidence/imports", json={
+        "video_id": video_id, "path": str(root / "not-read.jsonl")
+    })
+    assert rejected.status_code == 400
+    assert "未包含本机 AI 分析许可" in rejected.json()["detail"]
 
 
 def test_remote_urls_never_claim_media_rights():
