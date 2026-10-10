@@ -6,7 +6,7 @@ try{
  const r=spawnSync(process.execPath,['node_modules/typescript/bin/tsc','src/feedCatalog.ts','src/onlinePlayers.ts','--target','ES2022','--module','ES2022','--strict','--skipLibCheck','--outDir',folder],{encoding:'utf8'});assert.equal(r.status,0,r.stdout+r.stderr);writeFileSync(join(folder,'package.json'),' {"type":"module"}');
  const {feedVideos,filterFeed,officialAction,durationLabel}=await import(pathToFileURL(join(folder,'feedCatalog.js')));
  const official={video_id:'real',title:'Publisher claims full match',full_match:true,video_source:{is_full_match:null},athlete_names:['孙颖莎'],event_name:'WTT Macao 2024',discipline:'WS',playback_status:'EMBED_BLOCKED',watch_page_status:'NOT_TESTED',source_url:'https://www.youtube.com/watch?v=real'};
- const limited={...official,video_id:'limited',full_match:false,source_key:'BILIBILI:limited',discipline:'MD',athlete_names:[]};
+ const limited={...official,video_id:'limited',full_match:false,content_type:'CLIP',source_key:'BILIBILI:limited',discipline:'MD',athlete_names:[]};
  const verifiedFull={...official,video_id:'verified',title:'Verified full match',athlete_names:[],discipline:'UNKNOWN',video_source:{is_full_match:true}};
  const rows=feedVideos({videos:[{video_id:'local',title:'local',availability_status:'AVAILABLE',duration_ms:1000,last_opened_at:'now'},{video_id:'missing',availability_status:'MISSING_FILE'}],official_videos:[official,official,{...official,video_id:'highlight',full_match:false},limited,verifiedFull]});
  assert.equal(rows.length,4,'Show source links while keeping missing media and unindexed highlights out');
@@ -35,5 +35,9 @@ try{
  assert.equal(filterFeed(added,{year:'2025',platform:'YOUTUBE',content:'FULL_MATCH'}).length,2);
  assert.equal(filterFeed(added,{category:'完整比赛'}).length,0);
  assert.equal(filterFeed(added,{year:'2024'}).length,0);
- console.log('19 passed, 0 failed: feed contracts, adapter permissions and conservative source preference');
+ assert.equal(filterFeed(rows,{content:'FULL_MATCH'}).length,2,'Legacy title claims remain searchable without becoming verified complete matches');
+ assert.equal(filterFeed(rows,{category:'完整比赛'}).length,1,'Only independently verified completeness enters the verified category');
+ assert.ok(rows.find(v=>v.key==='official:real').subtitle.includes('在官方平台观看'),'External source is presented as platform viewing');
+ assert.equal(filterFeed(rows,{content:'CLIP'}).length,1,'The Bilibili source title is categorized as a clip, not a full match');
+ console.log('23 passed, 0 failed: feed contracts, adapter permissions and conservative source preference');
 }finally{rmSync(folder,{recursive:true,force:true});}

@@ -38,6 +38,10 @@ def configure_dual_source_preview(local_app_data, environ=None, database_subdir=
     })
 
 class DesktopAPI:
+    def open_official_video(self, requested_url):
+        from apps.external_links import open_official_video_url
+        return open_official_video_url(requested_url)
+
     def select_evidence_video(self):
         result=webview.windows[0].create_file_dialog(
             webview.FileDialog.OPEN, allow_multiple=False,

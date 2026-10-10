@@ -1,22 +1,29 @@
-import {useEffect,useState} from 'react';
+import {useEffect,useState,type MouseEvent} from 'react';
 import {Empty} from './ui';
-import {feedVideos,filterFeed,durationLabel} from './feedCatalog';
+import {feedVideos,filterFeed,durationLabel,officialAction} from './feedCatalog';
 import type {FeedVideo} from './feedCatalog';
 import OfficialVideoPlayer from './OfficialVideoPlayer';
 import MatchSourcePanel from './MatchSourcePanel';
 import {preferredSources} from './onlinePlayers';
 import './video-feed.css';
 
-function Thumbnail({video}:{video:FeedVideo}){
+function Thumbnail({video,external=false}:{video:FeedVideo;external?:boolean}){
  const [failed,setFailed]=useState(!video.thumbnail);
- return <div className="feed-cover">{failed?<span className="feed-missing">封面暂不可用</span>:<img src={video.thumbnail} alt={video.title} loading="lazy" onError={()=>setFailed(true)}/>}<span className="feed-play" aria-hidden="true">▶</span><small>{durationLabel(video.duration)}</small></div>;
+ return <div className="feed-cover">{failed?<span className="feed-missing">封面暂不可用</span>:<img src={video.thumbnail} alt={video.title} loading="lazy" onError={()=>setFailed(true)}/>}<span className={external?'feed-external':'feed-play'} aria-hidden="true">{external?'↗':'▶'}</span><small>{durationLabel(video.duration)}</small></div>;
 }
 export default function VideoFeed({page,revision,query,onPlay,onTools,navigate}:{page:string;revision:number;query:string;onPlay:(id:string)=>void;onTools:()=>void;navigate:(page:string)=>void}){
  const [preference,setPreference]=useState('');
  const [year,setYear]=useState(''),[platform,setPlatform]=useState(''),[content,setContent]=useState('');
  const [matchChoice,setMatchChoice]=useState(''),[mappingBusy,setMappingBusy]=useState(false);
- const [data,setData]=useState<any>(null),[error,setError]=useState(''),[category,setCategory]=useState('全部'),[athlete,setAthlete]=useState(''),[event,setEvent]=useState(''),[favorites,setFavorites]=useState<string[]>([]),[official,setOfficial]=useState<any>(null);
+ const [data,setData]=useState<any>(null),[error,setError]=useState(''),[category,setCategory]=useState('全部'),[athlete,setAthlete]=useState(''),[event,setEvent]=useState(''),[favorites,setFavorites]=useState<string[]>([]),[official,setOfficial]=useState<any>(null),[visibleCount,setVisibleCount]=useState(12);
  useEffect(()=>{let live=true;setOfficial(null);setAthlete('');setEvent('');setCategory('全部');fetch('/api/video-evidence/library').then(async r=>{if(!r.ok)throw Error('比赛视频目录暂不可用');const d=await r.json();if(live){setData(d);setFavorites(d.feed_favorites||[]);setError('')}}).catch(e=>{if(live)setError(e.message)});return()=>{live=false}},[page,revision]);
+ useEffect(()=>setVisibleCount(12),[page,revision,query,category,athlete,event,year,platform,content]);
+ function openOfficialOnDesktop(event:MouseEvent<HTMLAnchorElement>,url:string){
+  const api=(window as any).pywebview?.api;
+  if(typeof api?.open_official_video!=='function')return;
+  event.preventDefault();
+  Promise.resolve(api.open_official_video(url)).then((opened:boolean)=>{if(!opened)setError('系统浏览器未能打开官方来源，请重试或复制链接在浏览器打开')}).catch(()=>setError('系统浏览器未能打开官方来源，请重试或复制链接在浏览器打开'));
+ }
  async function bookmark(key:string){try{const r=await fetch('/api/video-evidence/library/feed/favorite',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({key,saved:!favorites.includes(key)})});if(!r.ok)throw Error('收藏未保存，请重试');const d=await r.json();setFavorites(d.favorites)}catch(e:any){setError(e.message)}}
  if(!data)return <Empty title={error||'正在打开比赛视频'} text=""/>;
  if(official){const match=data.matches.find((m:any)=>m.match_id===official.match_id);return <><OfficialVideoPlayer source={official} onBack={()=>setOfficial(null)}/>{match?<MatchSourcePanel match={match} data={data} onPlay={onPlay} onRefresh={async()=>{const r=await fetch('/api/video-evidence/library');if(!r.ok)throw Error('关联刷新失败');setData(await r.json())}}/>:<details><summary>核对这条来源对应的比赛</summary><p>不能按标题或文件名自动确认，不能将研究样本关联不相干的职业比赛。</p><select aria-label="核对来源比赛" value={matchChoice} onChange={e=>setMatchChoice(e.target.value)}><option value="">选择已收录比赛</option>{data.matches.map((m:any)=><option key={m.match_id} value={m.match_id}>{m.event_name} · {m.event_date} · {m.players.player_a.canonical_name_zh} / {m.players.player_b.canonical_name_zh}</option>)}</select><button disabled={!matchChoice||mappingBusy} onClick={async()=>{if(!window.confirm('已观看并核对是同一场比赛？此操作不确认录像完整性或分析许可。'))return;setMappingBusy(true);try{const r=await fetch(`/api/video-evidence/library/matches/${encodeURIComponent(matchChoice)}/online-sources`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({provider:official.provider==='BILIBILI'?'BILIBILI':'YOUTUBE',source_id:official.video_source.source_id,title:official.title,user_confirmed_match:true})});if(!r.ok)throw Error('关联未保存');const fresh=await fetch('/api/video-evidence/library');if(!fresh.ok)throw Error('刷新失败');setData(await fresh.json());setOfficial({...official,match_id:matchChoice})}catch(e:any){setError(e.message)}finally{setMappingBusy(false)}}}>人工核对后关联</button></details>}<button onClick={onTools}>关联本地录像以使用专业复盘</button>{error&&<p role="alert">{error}</p>}</>};
@@ -35,11 +42,12 @@ export default function VideoFeed({page,revision,query,onPlay,onTools,navigate}:
   <div className="feed-caption"><span>{page==='feedFavorites'?'我的收藏':page==='feedHistory'?'本机观看历史':athlete?(stars.find((a:any)=>a.athlete_id===athlete)?.canonical_name_zh||athlete)+' · 比赛视频':event||query?'视频搜索结果':'为你发现比赛'} · {rows.length} 条</span><small>{all.filter(v=>v.kind==='LOCAL').length} 份本地录像 · {all.filter(v=>v.kind==='OFFICIAL').length} 条平台来源</small></div>
   <details className="feed-evidence-summary"><summary>来源状态与观看许可</summary><p className="feed-source-status" role="status">当前在线来源：已验证内播 {rows.filter(v=>v.kind==='OFFICIAL'&&v.source.video_source?.playback_verified&&v.source.video_source?.playback_type!=='OFFICIAL_PAGE').length} · 已验证外部播放 {rows.filter(v=>v.kind==='OFFICIAL'&&v.source.video_source?.playback_verified&&v.source.video_source?.playback_type==='OFFICIAL_PAGE').length} · 已核实完整比赛 {rows.filter(v=>v.kind==='OFFICIAL'&&v.source.video_source?.is_full_match===true).length} · 允许 Vision 分析 {rows.filter(v=>v.kind==='OFFICIAL'&&v.source.video_source?.analysis_permission==='ALLOWED').length}。其余为来源线索，完整性与播放待核验。</p></details>
   {error&&<p role="alert">{error}</p>}
-  {shelves.map(shelf=><section className="cinema-shelf" key={shelf.title}><h2>{shelf.title}</h2><div className="feed-grid">{shelf.items.map(v=><article className="feed-video" key={v.key}>
-   {v.kind==='LOCAL'||v.kind==='OFFICIAL'?<button className="feed-watch" onClick={()=>{if(v.kind==='LOCAL'){fetch(`/api/video-evidence/library/videos/${v.source.video_id}/opened`,{method:'POST'}).catch(()=>{});onPlay(v.source.video_id)}else setOfficial(v.source)}}><Thumbnail video={v}/><strong>{v.title}</strong><span>{v.event}{v.source.round_label?' · '+v.source.round_label:''}</span><em>{v.subtitle}</em></button>:<a className="feed-watch" href={v.source.source_url} target="_blank" rel="noreferrer" title="打开官方来源页面；本机播放状态尚未核验"><Thumbnail video={v}/><strong>{v.title}</strong><span>{v.event}{v.source.round_label?' · '+v.source.round_label:''}</span><em>{v.subtitle} ↗</em><small>YouTube · World Table Tennis · 完整性待核验</small></a>}
+  {shelves.map(shelf=>{const items=showShelf(shelf.items,visibleCount);return <section className="cinema-shelf" key={shelf.title}><h2>{shelf.title}</h2><div className="feed-grid">{items.map(v=><article className="feed-video" key={v.key}>
+   {v.kind==='LOCAL'?<button className="feed-watch" onClick={()=>{fetch(`/api/video-evidence/library/videos/${v.source.video_id}/opened`,{method:'POST'}).catch(()=>{});onPlay(v.source.video_id)}}><Thumbnail video={v}/><strong>{v.title}</strong><span>{v.event}{v.source.round_label?' · '+v.source.round_label:''}</span><em>{v.subtitle}</em></button>:officialAction(v)==='EMBED'?<button className="feed-watch" onClick={()=>setOfficial(v.source)}><Thumbnail video={v}/><strong>{v.title}</strong><span>{v.event}{v.source.round_label?' · '+v.source.round_label:''}</span><em>在 PTTI 内打开官方播放器</em><small>{v.source.source_publisher||v.source.channel||'官方来源'} · 完整性待核验</small></button>:<a className="feed-watch" href={v.source.source_url} target="_blank" rel="noopener noreferrer" title={`在官方 ${v.source.provider==='BILIBILI'?'Bilibili':'YouTube'} 页面观看`} onClick={event=>openOfficialOnDesktop(event,v.source.source_url)}><Thumbnail video={v} external/><strong>{v.title}</strong><span>{v.event}{v.source.round_label?' · '+v.source.round_label:''}</span><em>在官方平台观看 ↗</em><small>{v.source.source_publisher||v.source.channel||'官方来源'} · {v.subtitle}</small></a>}
    <button className="feed-save" aria-label={(favorites.includes(v.key)?'取消收藏 ':'收藏 ')+v.title} aria-pressed={favorites.includes(v.key)} onClick={()=>bookmark(v.key)}>{favorites.includes(v.key)?'★':'☆'}</button>
-  </article>)}</div></section>)}
+  </article>)}</div>{shelf.items.length>items.length&&<button className="feed-load-more" onClick={()=>setVisibleCount(n=>n+12)}>显示更多 {shelf.items.length-items.length} 条</button>}</section>})}
   {!rows.length&&<Empty title={page==='feedHistory'?'还没有本机观看记录':page==='feedFavorites'?'还没有收藏的比赛':'当前分类尚无已收录视频'} text="只展示真实来源；试试全部比赛或收录自己的录像。"/>}
   <div className="feed-end">已显示全部 {rows.length} 条真实来源，不重复填充推荐。<details><summary>来源与播放说明</summary><p>官方封面由官方嵌入元数据提供。未实测的来源不计入可播放数量；错误 150 表示嵌入被禁止，与区域限制分开记录。本机研究录像仅限非商业研究。官方链接不授予下载或 Vision 分析权利。</p><button onClick={onTools}>本地索引与次级比赛资料</button></details></div>
  </div>;
 }
+function showShelf<T>(items:T[],limit:number){return items.slice(0,limit)}
