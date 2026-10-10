@@ -127,6 +127,7 @@ def main():
                 if executable in {'ptti-video-evidence-v0.3-preview','ptti-match-library-v0.4-preview','ptti-score-navigation-v0.1-preview','ptti-video-first-v0.5-preview','ptti-video-first-v0.5.1-preview','ptti-dual-source-v0.6.1-preview','ptti-personal-match-library-r3-preview','ptti-video-first-r4-preview','ptti-dark-studio-v0.7-preview','ptti-cinema-v0.7.1-preview'}:
                     os.environ['PTTI_PREVIEW_VERSION']=build_info['version']
                     os.environ['PTTI_PREVIEW_COMMIT']=build_info['commit']
+                    os.environ['PTTI_PREVIEW_BUILT_AT']=build_info.get('built_at','')
                     if executable in {'ptti-score-navigation-v0.1-preview','ptti-video-first-v0.5-preview','ptti-video-first-v0.5.1-preview','ptti-dual-source-v0.6.1-preview','ptti-personal-match-library-r3-preview','ptti-video-first-r4-preview','ptti-dark-studio-v0.7-preview','ptti-cinema-v0.7.1-preview'}:
                         os.environ['PTTI_PREVIEW_PRODUCT_NAME']=build_info.get('product_name','PTTI 比分导航')
                         os.environ['PTTI_PREVIEW_BUILD_ID']=build_info.get('build_id',build_info['commit'][:10])
@@ -165,6 +166,27 @@ def main():
             urllib.request.urlopen(url+'/api/health',timeout=.2); break
         except Exception: time.sleep(.1)
     else: raise RuntimeError('Local PTTI server did not start')
+    update_stop = threading.Event()
+    def update_discovery():
+        from backend.desktop_updates import check_release
+        while not update_stop.is_set():
+            check_release('preview')
+            update_stop.wait(1800)
+    if os.environ.get('PTTI_DESKTOP_DEPLOY_ROOT') and '--deployment-health-check' not in sys.argv:
+        threading.Thread(target=update_discovery, daemon=True).start()
+    if '--deployment-health-check' in sys.argv:
+        import json
+        try:
+            with urllib.request.urlopen(url+'/api/health', timeout=5) as response:
+                report = json.load(response)
+            qa = Path(os.environ['PTTI_PREVIEW_QA_DB']).resolve()
+            if not qa.is_relative_to(Path(__import__('tempfile').gettempdir()).resolve()):
+                raise RuntimeError('Health check requires temporary QA database')
+            qa.with_suffix('.health.json').write_text(json.dumps(report), encoding='utf8')
+        finally:
+            server.should_exit=True
+            thread.join(timeout=5)
+        return
     width,height=1366,768
     requested=os.environ.get('PTTI_WINDOW_SIZE','')
     if requested:
@@ -187,7 +209,7 @@ def main():
            'PTTI · 个人乒乓球比赛分析'))
     webview.create_window(title,url,width=width,height=height,min_size=(1024,640),js_api=DesktopAPI())
     try: webview.start()
-    finally: server.should_exit=True; thread.join(timeout=5)
+    finally: update_stop.set(); server.should_exit=True; thread.join(timeout=5)
 
 if __name__=='__main__':
     try: main()

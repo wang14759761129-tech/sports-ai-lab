@@ -178,6 +178,7 @@ def create_app(db_path=None):
         )
         return dict(
             product_name=product_name, version=version, build_id=build_id,
+            built_at=os.environ.get("PTTI_PREVIEW_BUILT_AT"),
             build_commit=commit, score_navigation_preview=score_navigation,
             video_first=os.environ.get('PTTI_MATCH_LIBRARY_PREVIEW') == '1',
             video_feed=os.environ.get('PTTI_VIDEO_FEED_PREVIEW') == '1',
@@ -189,6 +190,17 @@ def create_app(db_path=None):
         )
     @app.get('/api/settings')
     def settings(): return Settings.model_validate(repo.settings()).model_dump()
+    @app.get('/api/desktop-updates')
+    def desktop_update_status():
+        from backend.desktop_updates import status
+        root = os.environ.get('PTTI_DESKTOP_DEPLOY_ROOT', str(Path(os.environ.get('LOCALAPPDATA', Path.home())) / 'PTTI-Cinema'))
+        return status(root, os.environ.get('PTTI_PREVIEW_COMMIT'))
+    @app.get('/api/desktop-updates/check')
+    def desktop_update_check(channel: str = 'preview'):
+        from backend.desktop_updates import check_release
+        if channel not in {'preview', 'stable'}:
+            raise HTTPException(422, 'Unknown update channel')
+        return check_release(channel)
     @app.put('/api/settings')
     def save_settings(value:Settings):
         repo.save_settings(value.model_dump());return value

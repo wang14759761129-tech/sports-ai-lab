@@ -134,6 +134,8 @@ def main() -> None:
         "version": VERSION,
         "build_id": commit[:10],
         "commit": commit,
+        "built_at": datetime.now(timezone.utc).isoformat(),
+        "channel": "preview",
         "source_tree_dirty": False,
         "environment": "DEVELOPMENT",
         "build_available_ram_bytes": available_ram,
