@@ -223,7 +223,7 @@ def test_permissions_and_network_share_fail_closed(workspace):
         assert client.post("/api/video-evidence/library/folders", json={**body, **changes}).status_code == 400
 
 
-@pytest.mark.parametrize("rights_status", ["PERSONAL_VIEW_ONLY", "PENDING_REVIEW", "USER_SELF_CAPTURED"])
+@pytest.mark.parametrize("rights_status", ["PERSONAL_VIEW_ONLY", "PENDING_REVIEW", "USER_SELF_CAPTURED", "USER_OWNED", "LICENSED"])
 def test_personal_or_unresolved_rights_cannot_start_ai_evidence_import(workspace, rights_status):
     client, root, _tmp = workspace
     response = client.post("/api/video-evidence/videos", json={

@@ -471,7 +471,7 @@ class EvidenceStore:
         video = self.availability(video)
         if video.get("availability_status") != "AVAILABLE" or video.get("hash_status") != "VERIFIED":
             raise ValueError("请先恢复原视频并完成 SHA256 校验")
-        if video.get("rights_status") not in {"LICENSED_FOR_ANALYSIS", "LICENSED", "RESEARCH_NONCOMMERCIAL"}:
+        if video.get("rights_status") not in {"LICENSED_FOR_ANALYSIS", "RESEARCH_NONCOMMERCIAL"}:
             raise ValueError("当前权利状态未包含本机 AI 分析许可；请先核实并单独更新授权")
         if str(package_path).startswith(("\\\\", "//")):
             raise ValueError("请选择本机上的冻结结果包 JSONL")
