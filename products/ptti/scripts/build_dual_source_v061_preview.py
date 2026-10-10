@@ -102,7 +102,8 @@ def main() -> None:
     if missing:
         raise RuntimeError(f"Missing required media tools: {', '.join(missing)}")
 
-    build_root = Path(os.environ.get("PTTI_PREVIEW_BUILD_ROOT", ROOT / "build")).resolve()
+    default_build_root = Path(os.environ.get("LOCALAPPDATA", Path.home())) / "PTTI-Builds"
+    build_root = Path(os.environ.get("PTTI_PREVIEW_BUILD_ROOT", default_build_root)).resolve()
     build_id = f"{commit[:10]}-{datetime.now(timezone.utc):%Y%m%dT%H%M%SZ}"
     target = build_root / f"dual-source-v061-{build_id}"
     target.mkdir(parents=True, exist_ok=False)
