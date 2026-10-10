@@ -1,0 +1,42 @@
+{
+  "reviewed_at": "2026-10-10T10:04:02.176314+00:00",
+  "scope": "WD_ONLY",
+  "surface": "BROWSER_IAB",
+  "entries": [
+    {
+      "video_id": "O241nV8y4Dc",
+      "result": "ACTUAL_PLAYBACK_VERIFIED",
+      "observed_playing_times": [
+        5.717423,
+        17.399361
+      ],
+      "duration_seconds": 902.881,
+      "limitation": "官方页短段比赛画面已核验；可能先播放广告，请使用平台提供的跳过按钮。整场完整性未核验。"
+    },
+    {
+      "video_id": "ekvDMPZDF4o",
+      "result": "ACTUAL_PLAYBACK_VERIFIED",
+      "observed_playing_times": [
+        0.0,
+        7.289547
+      ],
+      "duration_seconds": 1785.321,
+      "limitation": "官方页短段比赛画面已核验；不是 PTTI 内播或整场完整性验收。"
+    },
+    {
+      "video_id": "gxLOCVeMCM0",
+      "result": "REGION_RESTRICTED",
+      "observed_playing_times": [],
+      "limitation": "本次官方页显示：上传用户已禁止在你的国家/地区播放此视频。"
+    }
+  ],
+  "tv_tokyo_review": {
+    "catalog_url": "https://www.tv-tokyo.co.jp/wttc2025/movies/wd/index.html",
+    "detail_url": "https://www.tv-tokyo.co.jp/wttc2025/movies/wd/detail.html?movid=rIQGl5_irSE",
+    "watch_url": "https://www.youtube.com/watch?v=rIQGl5_irSE",
+    "title": "【フルマッチ】準決勝 張本美和/木原美悠 vs 王曼昱/蒯曼｜世界卓球2025 女子ダブルス",
+    "publisher": "テレ東卓球チャンネル",
+    "result": "REGION_RESTRICTED",
+    "added_to_catalog": false
+  }
+}
