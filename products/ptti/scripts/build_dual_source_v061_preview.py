@@ -15,6 +15,8 @@ ROOT = Path(__file__).resolve().parents[1]
 NAME = "PTTI-Dual-Source-v0.6.1-Preview"
 PRODUCT_NAME = "PTTI 双来源比赛观看"
 VERSION = "0.6.1"
+BUILD_PREFIX = "dual-source-v061"
+DATABASE_SUBDIR = "DualSource-v061-Preview"
 MIN_START_RAM_BYTES = int(2.5 * 1024**3)
 HARD_RAM_FLOOR_BYTES = 2 * 1024**3
 
@@ -105,7 +107,7 @@ def main() -> None:
     default_build_root = Path(os.environ.get("LOCALAPPDATA", Path.home())) / "PTTI-Builds"
     build_root = Path(os.environ.get("PTTI_PREVIEW_BUILD_ROOT", default_build_root)).resolve()
     build_id = f"{commit[:10]}-{datetime.now(timezone.utc):%Y%m%dT%H%M%SZ}"
-    target = build_root / f"dual-source-v061-{build_id}"
+    target = build_root / f"{BUILD_PREFIX}-{build_id}"
     target.mkdir(parents=True, exist_ok=False)
     info = {
         "product_name": PRODUCT_NAME,
@@ -117,7 +119,7 @@ def main() -> None:
         "build_available_ram_bytes": available_ram,
         "startup_ram_recommended_bytes": MIN_START_RAM_BYTES,
         "runtime_ram_hard_floor_bytes": HARD_RAM_FLOOR_BYTES,
-        "database": "%LOCALAPPDATA%/PTTI-Dev/DualSource-v061-Preview/matches.db",
+        "database": f"%LOCALAPPDATA%/PTTI-Dev/{DATABASE_SUBDIR}/matches.db",
         "official_release": False,
         "production_database": "NOT_ACCESSED",
         "media_included": False,
@@ -163,7 +165,7 @@ def main() -> None:
         f"完整解压后双击 {NAME}.exe；请保留旁边的 _internal 文件夹。\n"
         "首页可查看在线来源入口；受平台登录、嵌入或观看权限限制时，请使用官方观看页面。\n"
         "本地专业复盘仅适用于你有权使用的本机录像；不同视频版本的时间轴相互独立。\n"
-        "预览数据保存在 %LOCALAPPDATA%\\PTTI-Dev\\DualSource-v061-Preview\\matches.db。\n"
+        f"预览数据保存在 %LOCALAPPDATA%\\PTTI-Dev\\{DATABASE_SUBDIR}\\matches.db。\n"
         "本预览不含比赛视频、模型权重或正式个人数据库；内置示例数据为合成样例。\n"
         "无法打开时请确认完整解压，并已安装 Microsoft Edge WebView2 Runtime。\n",
         encoding="utf-8",

@@ -84,3 +84,15 @@ def test_dual_source_health_exposes_single_build_identity(tmp_path, monkeypatch)
     assert health["version"] == "0.6.1"
     assert health["build_id"] == "abc123def0"
     assert health["build_commit"] == "abc123def01234567890"
+
+
+def test_dark_studio_preview_preserves_previous_preview_database(tmp_path):
+    assert is_development_preview("PTTI-Dark-Studio-v0.7-Preview.exe")
+    previous_env = {}
+    studio_env = {}
+    configure_dual_source_preview(tmp_path, previous_env)
+    configure_dual_source_preview(tmp_path, studio_env, database_subdir="DarkStudio-v07-Preview")
+    assert previous_env["PTTI_DB"] != studio_env["PTTI_DB"]
+    assert studio_env["PTTI_DB"] == str(tmp_path / "PTTI-Dev" / "DarkStudio-v07-Preview" / "matches.db")
+    assert studio_env["PTTI_ENV"] == "development"
+    assert studio_env["PTTI_VIDEO_FEED_PREVIEW"] == "1"
