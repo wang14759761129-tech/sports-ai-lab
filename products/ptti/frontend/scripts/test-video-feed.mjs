@@ -28,5 +28,12 @@ try{
  assert.equal(embeddingMode({provider:'BILIBILI',video_source:{provider:'BILIBILI',source_id:'BV1nb421H7jB',embed_permission:'UNKNOWN',playback_type:'OFFICIAL_PAGE'}}),'UNAVAILABLE');
  const verified={kind:'OFFICIAL',source:{provider:'YOUTUBE',video_source:{playback_verified:true}}},unverified={kind:'OFFICIAL',source:{provider:'BILIBILI',video_source:{playback_verified:false}}};
  assert.equal(preferredSources([unverified,verified],'BILIBILI')[0],verified,'Region preference never promotes unverified playback');
- console.log('14 passed, 0 failed: feed contracts, adapter permissions and conservative source preference');
+ const imported={...official,video_id:'r1',discipline:'WD',event_year:2025,content_type:'FULL_MATCH',provider:'YOUTUBE_OFFICIAL',source_key:'YOUTUBE:r1'};
+ const added=feedVideos({videos:[],official_videos:[imported,{...imported,video_id:'r2',discipline:'MD'}]});
+ assert.equal(filterFeed(added,{category:'女双'}).length,1);
+ assert.equal(filterFeed(added,{category:'男双'}).length,1);
+ assert.equal(filterFeed(added,{year:'2025',platform:'YOUTUBE',content:'FULL_MATCH'}).length,2);
+ assert.equal(filterFeed(added,{category:'完整比赛'}).length,0);
+ assert.equal(filterFeed(added,{year:'2024'}).length,0);
+ console.log('19 passed, 0 failed: feed contracts, adapter permissions and conservative source preference');
 }finally{rmSync(folder,{recursive:true,force:true});}

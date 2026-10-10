@@ -17,6 +17,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 from backend.video_sources import official_source, source_counts
+from backend.catalog_import import CatalogBatch, import_entries
 from backend.video_evidence import VideoInput, digest_file, utc_now
 from vision.quality import video_metadata
 
@@ -221,6 +222,12 @@ def library_router(store):
 
     router = APIRouter(prefix="/library", lifespan=lifespan)
 
+    @router.post("/catalog/import")
+    def import_catalog(value: CatalogBatch):
+        if store.repo.guard.mode not in {"test", "development"}:
+            raise HTTPException(403, "Catalog import is limited to isolated development environments")
+        return import_entries(store.repo, value.entries)
+
     @router.get("")
     def catalog():
         videos = [store.availability(v) for v in store.list("evidence_videos")]
@@ -243,6 +250,10 @@ def library_router(store):
         official = [{**row, "video_source": official_source(row)} for row in official]
         added = store.list("media_online_sources")
         for row in added:
+            if row.get("source_verified_at"):
+                checked = datetime.fromisoformat(row["source_verified_at"])
+                if not 0 <= (datetime.now(timezone.utc)-checked).total_seconds() <= 30*86400:
+                    continue
             known = next((r for r in official if r["video_id"] == row["video_source"]["source_id"]
                           and r["provider"].removesuffix("_OFFICIAL") == row["provider"]), None)
             if known:

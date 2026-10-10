@@ -70,3 +70,5 @@
 .feed-evidence-summary{margin:8px 0 18px}.feed-evidence-summary summary{font-size:11px;color:var(--muted)}
 
 .cinema-shelf{margin:24px 0}.cinema-shelf h2{font-size:18px;margin:0 0 14px}.cinema-shelf .feed-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr))}.feed-cover img{object-fit:cover}.feed-video:hover{transform:translateY(-2px)}@media(prefers-reduced-motion:reduce){.feed-video:hover{transform:none}}
+
+.cinema-library-filters{display:flex;flex-wrap:wrap;gap:12px;margin:10px 0}.cinema-library-filters label{display:flex;align-items:center;gap:8px;font-size:12px}.cinema-library-filters select{max-width:250px;margin:0}
