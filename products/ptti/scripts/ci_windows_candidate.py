@@ -53,6 +53,10 @@ def main():
             raise RuntimeError('2.5 GiB start resource guard')
         if shutil.disk_usage(output).free < 3 * 1024**3:
             raise RuntimeError('3 GiB free disk required')
+        result['media_tools'] = {
+            tool: subprocess.check_output([tool, '-version'], text=True).splitlines()[0]
+            for tool in ('ffmpeg', 'ffprobe')
+        }
         run_packager([sys.executable, '-m', 'pytest', '-q',
                       '--junitxml', str(reports / 'pytest.xml')], reports / 'pytest.log')
         run_packager([sys.executable, '-m', 'pip', 'check'], reports / 'pip-check.log')

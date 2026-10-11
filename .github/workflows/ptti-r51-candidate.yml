@@ -37,9 +37,15 @@ jobs:
           exit $LASTEXITCODE
       - name: Install FFmpeg on isolated runner
         run: |
-          choco install ffmpeg --version=7.1.1 -y --no-progress
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          'C:\ProgramData\chocolatey\bin' >> $env:GITHUB_PATH
+          # Match the already-tested local 8.1.1 full build, including ffprobe.
+          $archive = Join-Path $env:RUNNER_TEMP 'ffmpeg-8.1.1.zip'
+          Invoke-WebRequest 'https://github.com/GyanD/codexffmpeg/releases/download/8.1.1/ffmpeg-8.1.1-full_build.zip' -OutFile $archive
+          if ((Get-FileHash $archive -Algorithm SHA256).Hash.ToLowerInvariant() -ne '49b28c5f16addd40239a66949973458769b7056fb7752c30ac0d53389d09a552') { throw 'FFmpeg release archive integrity mismatch' }
+          $media = Join-Path $env:RUNNER_TEMP 'ptti-ffmpeg'
+          Expand-Archive $archive $media
+          $bin = Join-Path $media 'ffmpeg-8.1.1-full_build\bin'
+          if (!(Test-Path (Join-Path $bin 'ffprobe.exe'))) { throw 'Missing pinned ffprobe' }
+          $bin >> $env:GITHUB_PATH
       - name: Full regression, candidate build and isolated health check
         env:
           PTTI_PREVIEW_PROFILE: video-first-r4
