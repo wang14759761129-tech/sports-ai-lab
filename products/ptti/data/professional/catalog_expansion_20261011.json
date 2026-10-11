@@ -1,0 +1,56 @@
+{
+  "entries": [
+    {
+      "video_id": "nXwsn2IN9tI",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=nXwsn2IN9tI",
+      "original_title": "FULL MATCH | Shah/Thakkar vs Duda/Qiu | MD Final | #WTTFozdoIguacu 2025",
+      "display_title": "Shah/Thakkar vs Duda/Qiu",
+      "event": "WTTFozdoIguacu 2025",
+      "event_year": 2025,
+      "match_type": "MD",
+      "round": "Final",
+      "pair_a": "Shah/Thakkar",
+      "pair_b": "Duda/Qiu",
+      "source_publisher": "World Table Tennis",
+      "content_type": "FULL_MATCH",
+      "completeness_verified": false,
+      "permission_status": "REFERENCE_ONLY",
+      "playback_status": "NOT_TESTED",
+      "source_verified_at": "2026-10-11T14:20:10.069154+00:00",
+      "provenance": {
+        "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+        "category_evidence": "MD Final in publisher title",
+        "publisher_url": "https://www.youtube.com/@wttglobal",
+        "full_match_evidence": "TITLE_CLAIM_ONLY",
+        "notice": "Reference links only; no download, embedding, analysis or redistribution permission inferred; region UNKNOWN"
+      }
+    },
+    {
+      "video_id": "ZmwzPe0hRII",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=ZmwzPe0hRII",
+      "original_title": "Kim/Ryu vs Goda/Meshref | WD Final | #WTTLagos 2025",
+      "display_title": "Kim/Ryu vs Goda/Meshref",
+      "event": "WTTLagos 2025",
+      "event_year": 2025,
+      "match_type": "WD",
+      "round": "Final",
+      "pair_a": "Kim/Ryu",
+      "pair_b": "Goda/Meshref",
+      "source_publisher": "World Table Tennis",
+      "content_type": "UNKNOWN",
+      "completeness_verified": false,
+      "permission_status": "REFERENCE_ONLY",
+      "playback_status": "NOT_TESTED",
+      "source_verified_at": "2026-10-11T14:20:10.069154+00:00",
+      "provenance": {
+        "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+        "category_evidence": "WD Final in publisher title",
+        "publisher_url": "https://www.youtube.com/@wttglobal",
+        "full_match_evidence": "TITLE_CLAIM_ONLY",
+        "notice": "Reference links only; no download, embedding, analysis or redistribution permission inferred; region UNKNOWN"
+      }
+    }
+  ]
+}

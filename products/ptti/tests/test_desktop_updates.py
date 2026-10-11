@@ -8,6 +8,42 @@ from pathlib import Path
 import pytest
 
 from backend.desktop_updates import active, install, manifest, verify, status, check_release
+from backend.desktop_updates import validate_release_acceptance
+
+
+@pytest.mark.parametrize('gate', ['automated_tests', 'native_cinema', 'native_vision',
+                                  'resource_guard', 'rollback_integrity'])
+def test_release_acceptance_requires_every_gate(tmp_path, gate):
+    folder = package(tmp_path, 'reviewed')
+    value = manifest(folder)
+    record = {'schema': 1, 'commit': value['commit'], 'files': value['files'],
+              'reviewer': 'QA test fixture - not a real human review',
+              'reviewed_at': '2026-10-11T00:00:00Z',
+              'gates': {name: 'PASS' for name in ['automated_tests', 'native_cinema',
+                  'native_vision', 'resource_guard', 'rollback_integrity']}}
+    assert validate_release_acceptance(folder, record) == value
+    record['gates'][gate] = 'NOT_TESTED'
+    with pytest.raises(ValueError, match='incomplete'):
+        validate_release_acceptance(folder, record)
+
+
+def test_release_acceptance_rejects_changed_package(tmp_path):
+    folder = package(tmp_path, 'reviewed')
+    value = manifest(folder)
+    record = {'schema': 1, 'commit': value['commit'], 'files': value['files']}
+    (folder / 'app.exe').write_bytes(b'different package')
+    with pytest.raises(ValueError, match='exact package'):
+        validate_release_acceptance(folder, record)
+
+
+def test_archived_manifest_can_be_verified_and_installed(tmp_path):
+    folder = package(tmp_path, 'archived')
+    expected = manifest(folder)
+    (folder / 'manifest.json').write_text(json.dumps(expected), encoding='utf8')
+    assert manifest(folder) == expected
+    assert verify(folder, expected).is_file()
+    installed = install(tmp_path / 'install', folder, lambda *args: None)
+    assert installed['manifest'] == expected
 
 
 def package(tmp_path, label):

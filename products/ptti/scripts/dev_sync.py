@@ -12,7 +12,7 @@ import psutil
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from backend.desktop_updates import install, digest  # noqa: E402
+from backend.desktop_updates import install, digest, validate_release_acceptance  # noqa: E402
 from scripts.build_dual_source_v061_preview import run_packager  # noqa: E402
 
 
@@ -82,6 +82,14 @@ def main():
             if proc.poll() is None:
                 from scripts.build_dual_source_v061_preview import stop_process_tree
                 stop_process_tree(proc)
+    # A successful build/health check is not native playback acceptance.
+    acceptance_path = os.environ.get('PTTI_RELEASE_ACCEPTANCE')
+    if not acceptance_path:
+        raise RuntimeError(f'CANDIDATE_READY: native release acceptance required; package={folder}')
+    record = json.loads(Path(acceptance_path).read_text(encoding='utf8'))
+    validate_release_acceptance(folder, record)
+    if psutil.virtual_memory().available < 2.5 * 1024**3:
+        raise RuntimeError('DESKTOP_UPDATE_PENDING: activation needs 2.5 GiB RAM')
     activated = install(deploy, folder, health)
     print(json.dumps({'status': 'DESKTOP_UPDATED', 'activation': activated['manifest']['commit'],
                       'running_instances': 'UNCHANGED; new target used on next launch'}, ensure_ascii=False))

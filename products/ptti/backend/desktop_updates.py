@@ -25,6 +25,23 @@ def digest(path):
     return value.hexdigest()
 
 
+def validate_release_acceptance(folder, record):
+    """Local review record only; never an authentication policy for remote packages."""
+    value = manifest(folder)
+    required = {'automated_tests', 'native_cinema', 'native_vision',
+                'resource_guard', 'rollback_integrity'}
+    if record.get('schema') != 1 or record.get('commit') != value['commit']:
+        raise ValueError('Release acceptance identity mismatch')
+    if record.get('files') != value['files']:
+        raise ValueError('Release acceptance must bind the exact package files')
+    if not record.get('reviewer') or not record.get('reviewed_at'):
+        raise ValueError('Named reviewer and review timestamp required')
+    gates = record.get('gates', {})
+    if any(gates.get(name) != 'PASS' for name in required):
+        raise ValueError('Native release acceptance incomplete')
+    return value
+
+
 def atomic_json(path, payload):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -53,6 +70,8 @@ def manifest(folder):
         if path.is_symlink():
             raise ValueError('Symlinks are forbidden')
         if path.is_file():
+            if path == folder / 'manifest.json':
+                continue  # The external manifest cannot hash itself.
             if path.suffix.lower() in FORBIDDEN or path.name.lower() in {'.env', 'auth.json', 'cookies.txt'}:
                 raise ValueError('Database, media, weights or credentials cannot be deployed')
             files[path.relative_to(folder).as_posix()] = digest(path)
