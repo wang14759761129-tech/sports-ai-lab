@@ -74,3 +74,10 @@ Next: implement reproducible Cinema fixes and explicit local-only lab navigation
 - Import now closes the upload and removes only its newly created, not-submitted file on failure. Existing uploads and accepted worker inputs are preserved. Model/timeline semantics are unchanged.
 - Regression run: 17 targeted backend tests passed, including rejection cleanup and accepted-input retention. Source compilation and diff whitespace checks passed. One pre-existing Starlette/httpx deprecation warning remains.
 - No new real match/trajectory evidence or GUI acceptance was produced. Full regression and deployment remain pending resource headroom.
+
+## Continuation — reachable analysis results
+
+- Lab Analysis Results now presents the existing completed-analysis component directly, with each job's overlay and JSON/HTML exports. It no longer shows a duplicate diagnostics panel.
+- The existing list and data-fetch logic are reused; no second result database, fake output or automatic cross-source overlay is introduced. The raw player remains a mounted sibling.
+- Existing request errors are displayed outside the Ball tab so failed result loading cannot hide behind that tab.
+- JSX transpilation checked both changed components (0 syntax errors). Current frontend checks: studio 17 and feed 31 passed. Full TypeScript/Vite, actual interaction and current-code full regression remain pending RAM headroom.
