@@ -868,10 +868,13 @@ def router(repo=None, data_root=None):
         return lab_inventory()
 
     @api.get('/doctor')
-    def environment(): return doctor(service.config)
+    def environment():
+        guard_debug_inference('cpu')
+        return doctor(service.config)
 
     @api.get('/v2/modules')
     def vision_v2_modules():
+        guard_debug_inference('cpu')
         runtime=doctor(service.config)
         worker=runtime.get('worker') or {}
         installed=worker.get('modules') or {}

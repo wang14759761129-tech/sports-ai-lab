@@ -69,3 +69,15 @@ def test_debug_execution_guard_blocks_before_start(monkeypatch):
     with pytest.raises(HTTPException) as error:
         guard_debug_inference()
     assert error.value.status_code==503
+
+
+def test_lab_heavy_diagnostics_refuse_low_ram_before_probe(tmp_path, monkeypatch):
+    monkeypatch.setenv('PTTI_VISION_LAB_DEV_ONLY', '1')
+    monkeypatch.setattr('backend.vision_lab.psutil.virtual_memory',
+                        lambda: SimpleNamespace(available=1024**3))
+    calls = []
+    monkeypatch.setattr('backend.vision_api.doctor', lambda *a: calls.append('probe') or {})
+    with TestClient(create_app(tmp_path/'qa.db')) as client:
+        for route in ['/api/vision/doctor', '/api/vision/v2/modules']:
+            assert client.get(route).status_code == 503
+    assert calls == []

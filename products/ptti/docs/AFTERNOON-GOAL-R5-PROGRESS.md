@@ -89,3 +89,10 @@ Next: implement reproducible Cinema fixes and explicit local-only lab navigation
 - Added the same deterministic Doctor fixture to this contract test, retaining every baseline/state/hash assertion and all test cases. No production probe, inference algorithm or resource threshold changed.
 - Targeted scene/module suite: 8 passed in 2.58 s. The stopped process tree was gone on verification; old activation pointer remains f8a07e6.
 - Deployment attempt log: local PTTI-Cinema/logs/1791697078071277200 (not uploaded; may contain machine paths). Current-code full regression must still finish after this test-isolation correction.
+
+## Continuation — heavy diagnostic guard and complete evidence matrix
+
+- Confirmed and reproduced Lab heavy Doctor returning success despite low RAM; added the existing controlled resource guard before /doctor and /v2/modules probes. Lightweight /lab remains available without loading Torch.
+- Latest regression: 26 targeted backend tests passed, one existing deprecation warning. No inference/model/threshold changes.
+- Added docs/PTTI-AFTERNOON-GOAL-R5-REPORT.md as explicitly IN PROGRESS, covering the whole objective, actual module paths/statuses, content count 0 additions, incomplete real smoke/GUI/full regression and unchanged desktop activation. This report does not assert task completion.
+- Second full-suite attempt also stopped safely at 1.99 GiB before completion. Do not repeatedly restart full regression without adequate stable headroom.
