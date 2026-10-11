@@ -76,11 +76,20 @@ Current verification on the final source changes:
 - Browser harness syntax check: **passed**.
 - Real local browser playback regression: **9 checks passed** across Cinema and Vision, with the evidence detailed above.
 - Resource sampler tests are part of the full Python suite; the earlier focused run also reported 4 passed.
-- `git diff --check`: passed before final report update; will be rerun before commit.
-- Windows candidate Preview build, launcher activation, and native GUI validation: **NOT_RUN**. The installed R4 remains active and the fixed launcher pointer was not changed.
+- `git diff --check`: passed on the final report and source diff before commit.
+- Windows Preview candidate: **BUILT AND VERIFIED**; details below. The active launcher pointer was not changed.
+- Native GUI validation: **NOT_TESTED**.
+
+## Windows candidate Preview
+
+An independent R4-profile candidate was built from commit `ae802c253cb4ca10a3104b6539fd25946ed2c7f8` under `C:\PTTI-R5.1-Candidates\video-first-r4-ae802c253c-20261011T091454Z\dist\PTTI-Video-First-R4-Preview`. The EXE is 8,108,838 bytes with SHA256 `8ca6915b602043c588eac8ba8113779f537c451648369ea0da36aac4c4100a32`; the complete package is 496,902,101 bytes and contains `_internal`. All 9 frontend distribution files matched their packaged counterparts by SHA256. `build-info.json` identifies the expected commit and `source_tree_dirty=false`.
+
+The build started with 3.50 GiB available RAM, reached a 3.32 GiB minimum in the build resource log, and used a sampled peak aggregate build-worker RSS of 0.18 GiB. The package contains no research video, model weights, or production database. An isolated `--deployment-health-check` process then exited 0 and reported the same commit, product, and version. Its 290,816-byte QA database was created under `%TEMP%` at `ptti-r51-health-44fdef1f9276490e8304402165b427c8\matches.db`; available RAM reached a 3.44 GiB minimum. An initial health-check invocation used a path outside `%TEMP%` and produced no report; the application guard prevented it from using that database, and the check passed after moving to a fresh temporary location.
+
+The candidate EXE was not opened as a visible native window and was not activated in the fixed launcher. The existing R4 remains the active desktop version and its process was left running.
 
 ## Gate
 
 `R5.1_STABILITY_PLAYBACK_PARTIAL`
 
-The full Python and frontend regressions pass, and the browser-hosted local video paths are verified after fixing Vision media cleanup. There is still no native GUI run, no new Windows candidate package, no repeated per-scenario memory profile, no process-level playback peak measurement, and no verified analysis overlay. The active R4 desktop, launcher pointer, databases, and user records remain unchanged.
+The full Python and frontend regressions pass, browser-hosted local video paths are verified after fixing Vision media cleanup, and an isolated Windows candidate passes package identity and startup health checks. There is still no native GUI run, no repeated per-scenario memory profile, no process-level playback peak measurement, and no verified analysis overlay. The active R4 desktop, launcher pointer, databases, and user records remain unchanged.
