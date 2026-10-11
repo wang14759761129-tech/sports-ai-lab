@@ -73,10 +73,18 @@ def test_chinese_report_preserves_user_content_and_uncertainty(tmp_path):
         assert c.get('/api/matches/'+saved['id']+'/export').json()['provenance']['original_points']==saved['provenance']['original_points']
 def test_original_icon_has_multiple_valid_sizes():
     raw=Path('assets/ptti.ico').read_bytes();reserved,kind,count=struct.unpack_from('<HHH',raw)
-    assert reserved==0 and kind==1 and count==6
+    assert reserved==0 and kind==1 and 6<=count<=10
+    sizes=set()
     for i in range(count):
+        width,height=struct.unpack_from('<BB',raw,6+i*16)
+        sizes.add((width or 256,height or 256))
         *_,length,offset=struct.unpack_from('<BBBBHHII',raw,6+i*16)
         assert raw[offset:offset+8]==b'\x89PNG\r\n\x1a\n' and len(raw[offset:offset+length])==length
+    assert {(16,16),(32,32),(48,48),(256,256)}<=sizes
+
+def test_cinema_browser_and_executable_share_selected_icon():
+    assert Path('frontend/public/ptti.ico').read_bytes()==Path('assets/ptti.ico').read_bytes()
+    assert 'href="/ptti.ico"' in Path('frontend/index.html').read_text(encoding='utf8')
 def test_release_powershell_scripts_parse():
     scripts=['scripts/INSTALL.ps1','scripts/UNINSTALL.ps1','scripts/package_release.ps1']
     for script in scripts:
