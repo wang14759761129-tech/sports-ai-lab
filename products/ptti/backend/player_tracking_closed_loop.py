@@ -111,7 +111,7 @@ def _player_tracking_validation_manifest(localappdata: str | Path | None = None)
 def list_closed_loop_samples(localappdata: str | Path | None = None, *, verify_hashes: bool = True) -> list[dict[str, Any]]:
     research = _research_root(localappdata)
     manifest = _manifest(localappdata)
-    validation = _player_tracking_validation_manifest(localappdata)
+    validation = None if os.environ.get('PTTI_VISION_LAB_DEV_ONLY') == '1' else _player_tracking_validation_manifest(localappdata)
     source_manifests = [(manifest, "DEVELOPMENT")]
     if validation is not None:
         source_manifests.append((validation, "FROZEN_VALIDATION"))
@@ -120,6 +120,8 @@ def list_closed_loop_samples(localappdata: str | Path | None = None, *, verify_h
     source_rows = [(row, role) for source_manifest, role in source_manifests
                    for row in source_manifest.get("videos", [])]
     for row, evaluation_role in source_rows:
+        if os.environ.get('PTTI_VISION_LAB_DEV_ONLY') == '1' and row.get('match_id') not in {'game_1', 'game_2', 'game_3'}:
+            continue  # Exclude locked/calibration footage before stat/hash or seed reads.
         clip = row.get("clip") or {}
         video_id = row.get("video_id")
         if (not isinstance(video_id, str) or not SAMPLE_ID.fullmatch(video_id)

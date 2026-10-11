@@ -841,6 +841,8 @@ def router(repo=None, data_root=None):
         repo.update_professional_video_analysis(match_id,value)
 
     lab_state = {'enabled': os.environ.get('VISION_DEBUG_MODE') == '1'}
+    if lab_state['enabled'] and repo is not None and repo.guard.mode in {'development', 'test'}:
+        os.environ['PTTI_VISION_LAB_DEV_ONLY'] = '1'
 
     @api.get('/lab')
     def lab_inventory():
@@ -858,6 +860,7 @@ def router(repo=None, data_root=None):
         if set(value) != {'enabled'} or type(value['enabled']) is not bool:
             raise HTTPException(422, 'Explicit boolean required')
         lab_state['enabled'] = value['enabled']
+        os.environ['PTTI_VISION_LAB_DEV_ONLY'] = '1' if value['enabled'] else '0'
         return lab_inventory()
 
     @api.get('/doctor')

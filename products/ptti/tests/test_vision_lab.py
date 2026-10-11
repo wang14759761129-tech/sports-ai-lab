@@ -24,6 +24,7 @@ def test_light_inventory_does_not_load_models_or_labels(tmp_path, monkeypatch):
 
 def test_debug_opt_in_and_production_rejection(tmp_path, monkeypatch):
     monkeypatch.delenv('VISION_DEBUG_MODE', raising=False)
+    monkeypatch.setenv('PTTI_VISION_LAB_DEV_ONLY', '0')
     monkeypatch.setattr('backend.vision_lab.shutil.which', lambda name: None)
     app = create_app(tmp_path/'qa.db')
     with TestClient(app) as client:
@@ -39,3 +40,20 @@ def test_inventory_gpu_errors_stay_errors(tmp_path, monkeypatch):
     monkeypatch.setattr('backend.vision_lab.subprocess.run', lambda *a, **kw: SimpleNamespace(stdout='', returncode=1))
     config = SimpleNamespace(worker_python=tmp_path/'missing', model_root=tmp_path/'models')
     assert inventory(config, tmp_path, tmp_path, 'test')['gpu']['state'] == 'ERROR'
+
+
+def test_lab_excludes_game5_before_hashing(tmp_path, monkeypatch):
+    from backend import player_tracking_closed_loop as loop
+    monkeypatch.setenv('PTTI_VISION_LAB_DEV_ONLY', '1')
+    monkeypatch.setattr(loop, '_research_root', lambda *args: tmp_path)
+    monkeypatch.setattr(loop, '_manifest', lambda *args: {'videos':[{'video_id':'game_5-t60','match_id':'game_5',
+        'official_split':'TRAIN','seed_screening':{'status':'SEEDS_READY'},
+        'clip':{'file':'qa-locked.mp4','sha256':'0'*64,'bytes':9}}]})
+    monkeypatch.setattr(loop, '_player_tracking_validation_manifest', lambda *args: None)
+    def forbidden(*args):
+        raise AssertionError('Locked footage must not be hashed')
+    monkeypatch.setattr(loop, '_sha', forbidden)
+    folder=tmp_path/'datasets/extended-openttgames'
+    folder.mkdir(parents=True)
+    (folder/'qa-locked.mp4').write_bytes(b'QA_ONLY__')
+    assert loop.list_closed_loop_samples()==[]
