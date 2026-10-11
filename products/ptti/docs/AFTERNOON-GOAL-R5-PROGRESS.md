@@ -81,3 +81,11 @@ Next: implement reproducible Cinema fixes and explicit local-only lab navigation
 - The existing list and data-fetch logic are reused; no second result database, fake output or automatic cross-source overlay is introduced. The raw player remains a mounted sibling.
 - Existing request errors are displayed outside the Ball tab so failed result loading cannot hide behind that tab.
 - JSX transpilation checked both changed components (0 syntax errors). Current frontend checks: studio 17 and feed 31 passed. Full TypeScript/Vite, actual interaction and current-code full regression remain pending RAM headroom.
+
+## Full regression attempt and isolated test probe
+
+- Current-code dev-sync actually ran the complete suite through 593 completed test cases, then safely stopped at 1.95 GiB available RAM during case 594. This is an interrupted run, not 599 passed.
+- Resource log showed a new Python child rising from 215,564,288 to 461,291,520 RSS bytes. Collection order and source identify case 594 as the synthetic scene-baseline API test, which called the real Doctor/Torch probe without isolation. Adjacent API tests already mocked that probe.
+- Added the same deterministic Doctor fixture to this contract test, retaining every baseline/state/hash assertion and all test cases. No production probe, inference algorithm or resource threshold changed.
+- Targeted scene/module suite: 8 passed in 2.58 s. The stopped process tree was gone on verification; old activation pointer remains f8a07e6.
+- Deployment attempt log: local PTTI-Cinema/logs/1791697078071277200 (not uploaded; may contain machine paths). Current-code full regression must still finish after this test-isolation correction.

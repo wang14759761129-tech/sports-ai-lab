@@ -135,8 +135,11 @@ def test_scene_api_exposes_frozen_person_baseline_and_separate_unrun_rtmdet(tmp_
     import hashlib
     import json
     from fastapi.testclient import TestClient
+    import backend.vision_api as vision_api
     from backend.main import create_app
 
+    # This API contract test uses synthetic manifests, not the machine's Torch runtime.
+    monkeypatch.setattr(vision_api, "doctor", lambda config: {"worker": {"modules": {}}})
     local = tmp_path / "local"
     monkeypatch.setenv("LOCALAPPDATA", str(local))
     root = local / "PTTI-Dev" / "vision-v2" / "scene-bootstrap"
