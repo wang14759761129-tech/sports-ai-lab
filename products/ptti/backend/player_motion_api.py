@@ -16,6 +16,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 from backend.player_motion import (TRACKING_JOB_ID, load_tracking_evidence,
+                                   tracking_job_path,
                                    list_motion_exclusions, motion_metrics,
                                    player_motion_job_root, player_motion_root,
                                    record_motion_exclusion,
@@ -51,8 +52,8 @@ def _local() -> Path:
 
 
 def _worker_paths():
-    configured = os.environ.get("PTTI_VISION_HOME")
-    product_root = Path(configured).resolve() if configured else Path(__file__).resolve().parents[1]
+    from backend.vision_api import _worker_product_root
+    product_root = _worker_product_root()
     runtime_root = player_motion_root(_local())
     python = runtime_root / "venv" / "Scripts" / "python.exe"
     script = product_root / "vision_worker" / "player_motion_rtmpose.py"
@@ -60,6 +61,19 @@ def _worker_paths():
     if not python.is_file() or not script.is_file() or not model.is_file():
         raise HTTPException(503, "隔离姿态运行环境或模型权重尚未准备好。")
     return product_root, script, python
+
+
+def _guard_lab_job(tracking_job_id):
+    if os.environ.get('PTTI_VISION_LAB_DEV_ONLY') != '1':
+        return
+    if not TRACKING_JOB_ID.fullmatch(tracking_job_id):
+        raise HTTPException(422, '追踪任务编号无效。')
+    try:
+        manifest = json.loads(tracking_job_path(tracking_job_id, _local()).read_text(encoding='utf8'))
+    except (OSError, ValueError):
+        raise HTTPException(409, '无法核验 DEV 追踪任务来源。') from None
+    if manifest.get('match_id') not in {'game_1', 'game_2', 'game_3'}:
+        raise HTTPException(403, '本地 Lab 只允许 DEV game_1–3；其他来源保持锁定。')
 
 
 def _tracking_jobs():
@@ -75,6 +89,8 @@ def _tracking_jobs():
             try:
                 value = json.loads(path.read_text(encoding="utf-8"))
                 if value.get("job_id") != folder.name or not supports_pose_tracking_manifest(value):
+                    continue
+                if os.environ.get('PTTI_VISION_LAB_DEV_ONLY') == '1' and value.get('match_id') not in {'game_1','game_2','game_3'}:
                     continue
                 row = {"tracking_job_id": folder.name, "sample_id": value.get("sample_id"),
                        "match_id": value.get("match_id"), "duration_seconds": value.get("duration_seconds"),
@@ -135,6 +151,7 @@ def router() -> APIRouter:
     @api.post("/player-motion/jobs/{tracking_job_id}")
     def start(tracking_job_id: str):
         guard_debug_inference()
+        _guard_lab_job(tracking_job_id)
         if not TRACKING_JOB_ID.fullmatch(tracking_job_id):
             raise HTTPException(422, "追踪任务编号无效。")
         try:
@@ -182,6 +199,7 @@ def router() -> APIRouter:
 
     @api.get("/player-motion/jobs/{tracking_job_id}")
     def status(tracking_job_id: str):
+        _guard_lab_job(tracking_job_id)
         if not TRACKING_JOB_ID.fullmatch(tracking_job_id):
             raise HTTPException(422, "姿态任务编号无效。")
         root = player_motion_job_root(tracking_job_id, _local())
@@ -197,6 +215,7 @@ def router() -> APIRouter:
 
     @api.get("/player-motion/jobs/{tracking_job_id}/result")
     def result(tracking_job_id: str):
+        _guard_lab_job(tracking_job_id)
         if not TRACKING_JOB_ID.fullmatch(tracking_job_id):
             raise HTTPException(422, "姿态任务编号无效。")
         path = player_motion_job_root(tracking_job_id, _local()) / "player_motion.json"
@@ -243,6 +262,7 @@ def router() -> APIRouter:
 
     @api.get("/player-motion/jobs/{tracking_job_id}/source")
     def source(tracking_job_id: str):
+        _guard_lab_job(tracking_job_id)
         if not TRACKING_JOB_ID.fullmatch(tracking_job_id):
             raise HTTPException(422, "追踪任务编号无效。")
         try:
@@ -257,6 +277,7 @@ def router() -> APIRouter:
 
     @api.get("/player-motion/jobs/{tracking_job_id}/assets/{asset_name}")
     def asset(tracking_job_id: str, asset_name: str):
+        _guard_lab_job(tracking_job_id)
         if not TRACKING_JOB_ID.fullmatch(tracking_job_id):
             raise HTTPException(422, "姿态任务编号无效。")
         if asset_name != "player_motion_overlay.mp4" and not re.fullmatch(r"pose-frame-\d{5}\.jpg", asset_name):
