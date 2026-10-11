@@ -213,7 +213,7 @@ async function main() {
     assert(analysisDisabled, 'Vision Analysis View must remain unavailable without source-bound verified results');
     record('vision_seek_rates_fullscreen_and_no_fake_analysis', visionFullscreen === 'PASS' ? 'PASS' : 'NOT_TESTED', { target_seconds: 2.5, actual_seconds: seekResult, seek_error_ms: visionSeekErrorMs, rates: [0.25, 0.5, 1], fullscreen: visionFullscreen, analysis_view: 'CORRECTLY_DISABLED_NO_VERIFIED_RESULT' });
 
-    await cdp.evaluate("window.__pttiVisionVideoForCleanup = document.querySelector('.vision-player video')");
+    await cdp.evaluate("window.__pttiVisionVideoForCleanup = document.querySelector('.vision-player video'); true");
     assert(await clickButton('返回 Cinema', '.vision-player button'), 'Vision return-to-Cinema control is missing');
     await waitFor(async () => cdp.evaluate("!!document.querySelector('.feed-grid') && !document.querySelector('.vision-player')"), 'return to Cinema feed');
     const cleanup = await cdp.evaluate("(()=>{const v=window.__pttiVisionVideoForCleanup;return v?{paused:v.paused,src_attribute:v.getAttribute('src'),current_src:v.currentSrc,network_state:v.networkState}:null})()");
@@ -260,7 +260,7 @@ async function main() {
       }
     }
     record('cinema_play_pause_seek_rate_fullscreen', cinemaFullscreen === 'PASS' ? 'PASS' : 'NOT_TESTED', { advanced_to_seconds: cinemaAdvance.currentTime, paused_delta_seconds: Math.abs(cinemaPausedAfter - cinemaPausedAt), seek_target_seconds: 5.25, seek_actual_seconds: cinemaSeek, seek_error_ms: cinemaSeekErrorMs, playback_rate: rateSelect, fullscreen: cinemaFullscreen });
-    await cdp.evaluate("window.__pttiCinemaVideoForCleanup = document.querySelector('.vep-video')");
+    await cdp.evaluate("window.__pttiCinemaVideoForCleanup = document.querySelector('.vep-video'); true");
     assert(await clickButton('视频', '.cinema-nav button'), 'Top navigation has no video entry to return from Cinema player');
     await waitFor(async () => cdp.evaluate("!!document.querySelector('.feed-grid') && !document.querySelector('.vep-video')"), 'return to video feed');
     const cinemaCleanup = await cdp.evaluate("(()=>{const v=window.__pttiCinemaVideoForCleanup;return v?{paused:v.paused,src_attribute:v.getAttribute('src'),current_src:v.currentSrc,network_state:v.networkState}:null})()");
