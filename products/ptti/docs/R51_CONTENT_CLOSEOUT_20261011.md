@@ -29,7 +29,7 @@ disabled; the existing integrity fallback is not a claim of launch-crash recover
 
 ## Content expansion actually executed
 
-Eleven explicit source links were manually reviewed and queried serially through
+Sixteen explicit source links were manually reviewed and queried serially through
 the existing public official oEmbed metadata method, with two-second spacing.
 Publisher identity was checked against World Table Tennis / @wttglobal.
 No video streams were requested or downloaded. External discovery pages were
@@ -45,13 +45,17 @@ title is recorded as a claim, not as verified completeness. The China Smash
 Sun Yingsha versus Wang Manyu title does not claim FULL MATCH and therefore
 content_type remains UNKNOWN.
 
-The existing 19-entry isolated TEST library was required to exist before import.
-The normal catalog API imported all eleven without conflict. Repeating that
-batch inserted zero and reported eleven duplicates. The resulting library API
-returns 30 unique references: MS 12, WS 9, MD 4, WD 4, XD 1.
-The new entries comprise MS 5 and WS 6; doubles entries are preserved, not
-duplicated to inflate totals. Each new entry retains an independent source
+The isolated library contained 19 entries before this round's imports. The
+follow-up batches added sixteen unique links total and recognized the eleven
+previously imported links as duplicates. Repeating the final batch inserted
+zero and reported sixteen duplicates. The resulting library API returns 35
+unique references: MS 12, WS 9, MD 6, WD 6, XD 2. Since the initial 19-entry
+state, the net additions are MS 5, WS 6, MD 2, WD 2 and XD 1. Each entry retains an independent source
 timeline, null match mapping, unverified playback and denied analysis rights.
+
+The last five included [Wang/Sun vs Huang/Chen, XD Final, China Smash 2025](https://www.youtube.com/watch?v=lQlw6B9uK3Y), [Sun/Wang vs Harimoto/Odo, WD Final, Europe Smash 2025](https://www.youtube.com/watch?v=gHS-9_mqE2A), [Huang/Wen vs Lin/Wang, MD semifinal, China Smash 2025](https://www.youtube.com/watch?v=LJcPKmgLijc), [Zhou/Chen vs Lin/Wang, MD Final, China Smash 2025](https://www.youtube.com/watch?v=btPhCu7kW1w), and [Kuai/Wang vs Chen/Qian, WD semifinal, China Smash 2025](https://www.youtube.com/watch?v=ThE8xkQAcuk). Official-channel metadata is corroborated by the [WTT official event directory](https://www.worldtabletennis.com/eventInfo?eventId=3085&innerselectedTab=Completed&selectedTab=Overview).
+Neither link has been tested for watch-page playback, embedding, territorial
+availability, license for analysis, or match completeness.
 
 This count applies to the existing OS-temporary isolated content database.
 The active desktop database remains unchanged at its previously reported 18
