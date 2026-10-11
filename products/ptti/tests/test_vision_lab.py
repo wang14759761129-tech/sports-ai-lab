@@ -57,3 +57,14 @@ def test_lab_excludes_game5_before_hashing(tmp_path, monkeypatch):
     folder.mkdir(parents=True)
     (folder/'qa-locked.mp4').write_bytes(b'QA_ONLY__')
     assert loop.list_closed_loop_samples()==[]
+
+
+def test_debug_execution_guard_blocks_before_start(monkeypatch):
+    import pytest
+    from fastapi import HTTPException
+    from backend.vision_lab import guard_debug_inference
+    monkeypatch.setenv('PTTI_VISION_LAB_DEV_ONLY','1')
+    monkeypatch.setattr('backend.vision_lab.psutil.virtual_memory',lambda:SimpleNamespace(available=1024**3))
+    with pytest.raises(HTTPException) as error:
+        guard_debug_inference()
+    assert error.value.status_code==503

@@ -35,3 +35,11 @@ Next: implement reproducible Cinema fixes and explicit local-only lab navigation
 - Runtime.json for pose records historical CUDA verification; it is not a fresh smoke test.
 - Tokyo TV link/copyright policy checked at https://www.tv-tokyo.co.jp/index/company/link.html . Default deep-link bulk catalogue reuse is not granted. YouTube API policies checked; no credential or recognized-owner authority established. New valid content remains 0; rights audit is ongoing, no bulk scraping.
 - Full sprint regression, visual/player QA, real tiny inference, full module inventory, content review and final desktop sync still pending. Goal remains active; do not label this checkpoint complete.
+
+## Safety audit follow-up
+- Interrupted own milestone sync before activation after discovering that the legacy sample list hashes all historical clips. No full-regression success claimed for that interrupted run; old desktop pointer retained.
+- Lab debug now restricts sample resolution to DEV game_1–3 before file stat/hash and omits frozen-validation enumeration. Official TEST benchmark is rejected in Lab mode.
+- Added a regression proving locked game_5 fixture is never hashed. Existing non-Lab behavior remains compatible.
+- Read-only tracking/Pose UI can open under low resources; seed detection, tracking start/reacquisition and Pose execution are guarded server-side in Lab mode (3.5 GiB RAM and 3 GiB GPU free before a CUDA start). Rights and identity gates remain unchanged.
+- Latest related run: 24 Python tests passed. Frontend build needs rerun after this safety follow-up. Live browser/native QA, content expansion, real smoke and final dev-sync remain pending.
+- Recent commits before follow-up: 7a66204 / 1ab1e0e / 313055d / 81a5613. Full objective still active.

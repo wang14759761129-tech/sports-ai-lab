@@ -6,6 +6,24 @@ import sys
 from pathlib import Path
 
 import psutil
+from fastapi import HTTPException
+
+
+def guard_debug_inference(device='cuda'):
+    if os.environ.get('PTTI_VISION_LAB_DEV_ONLY') != '1':
+        return
+    if psutil.virtual_memory().available < 3.5 * 1024**3:
+        raise HTTPException(503, '受控实验暂停：至少需要 3.5 GiB 可用 RAM，运行中 2 GiB 守卫不变。')
+    if device != 'cpu':
+        try:
+            result = subprocess.run(['nvidia-smi','--query-gpu=memory.free','--format=csv,noheader,nounits'],
+                                    capture_output=True,text=True,timeout=4,
+                                    creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+            free = int(result.stdout.splitlines()[0]) if result.returncode == 0 else 0
+        except (OSError, ValueError, IndexError, subprocess.TimeoutExpired):
+            free = 0
+        if free < 3072:
+            raise HTTPException(503, '受控 GPU 实验暂停：无法确认至少 3 GiB 空闲显存。')
 
 
 def debug_allowed(mode):

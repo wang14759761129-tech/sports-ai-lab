@@ -15,6 +15,7 @@ from vision.config import VisionConfig
 from vision.schema import Source
 from vision.doctor import doctor
 from backend.full_match_pipeline import FullMatchService
+from backend.vision_lab import guard_debug_inference
 from backend.vision_v2 import ModuleAvailability, VisionModuleManager
 from backend.scene_bootstrap import (REVIEW_ROLES, apply_review, frame_review_priority,
                                      temporal_player_presence, assign_near_far_candidates)
@@ -293,6 +294,7 @@ def router(repo=None, data_root=None):
 
     @api.post('/v2/player-tracking/closed-loop/seed-detections')
     def closed_loop_seed_detections(value: ClosedLoopSeedDetectionRequest):
+        guard_debug_inference()
         try:
             samples = list_closed_loop_samples(closed_loop_local_root())
             sample = next((item for item in samples if item['sample_id'] == value.sample_id), None)
@@ -346,6 +348,7 @@ def router(repo=None, data_root=None):
 
     @api.post('/v2/player-tracking/closed-loop/jobs')
     def start_closed_loop(value: ClosedLoopStartRequest):
+        guard_debug_inference()
         try:
             job_id, root, seed = create_closed_loop_job(
                 sample_id=value.sample_id, frame_index=value.frame_index,
@@ -567,6 +570,7 @@ def router(repo=None, data_root=None):
 
     @api.post('/v2/player-tracking/closed-loop/jobs/{job_id}/reacquisitions')
     def closed_loop_reacquisition(job_id: str, value: ClosedLoopReacquisitionRequest):
+        guard_debug_inference()
         try:
             return queue_reacquisition(job_id=job_id, role=value.role,
                                        candidate_id=value.candidate_id,
@@ -932,6 +936,8 @@ def router(repo=None, data_root=None):
 
     @api.post('/benchmark')
     def benchmark(value: BenchmarkRequest):
+        if os.environ.get('PTTI_VISION_LAB_DEV_ONLY') == '1':
+            raise HTTPException(403, '本地 Lab 锁定官方 TEST；请使用获授权的 DEV 短片。')
         try:
             video, gt, source = DatasetManager(service.config).benchmark()
             return service.submit(video, source, gt, value.device)

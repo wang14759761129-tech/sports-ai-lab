@@ -10,6 +10,7 @@ import threading
 from pathlib import Path
 from typing import Literal
 
+from backend.vision_lab import guard_debug_inference
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
@@ -133,6 +134,7 @@ def router() -> APIRouter:
 
     @api.post("/player-motion/jobs/{tracking_job_id}")
     def start(tracking_job_id: str):
+        guard_debug_inference()
         if not TRACKING_JOB_ID.fullmatch(tracking_job_id):
             raise HTTPException(422, "追踪任务编号无效。")
         try:
