@@ -30,6 +30,7 @@ def test_debug_opt_in_and_production_rejection(tmp_path, monkeypatch):
     with TestClient(app) as client:
         assert client.get('/api/vision/lab').json()['debug_enabled'] is False
         assert client.post('/api/vision/lab/debug', json={'enabled': True}).json()['debug_enabled']
+        assert client.post('/api/vision/benchmark', json={'device':'cuda'}).status_code == 403
         assert client.post('/api/vision/lab/debug', json={'enabled': 'true'}).status_code == 422
         app.state.repository.guard.mode = 'production'
         assert client.post('/api/vision/lab/debug', json={'enabled': True}).status_code == 403
