@@ -1,0 +1,19 @@
+import {lazy,Suspense,useEffect,useState,type ReactNode} from 'react';
+const PlayerTrackingPreview=lazy(()=>import('./PlayerTrackingPreview'));
+const PlayerMotionPanel=lazy(()=>import('./PlayerMotionPanel'));
+
+const tabs=[['ball','Ball Tracking'],['players','Player Tracking'],['pose','2D Player Motion'],['events','Hit / Events'],['score','Score & Rally'],['scene','Scene / Calibration'],['results','Analysis Results'],['doctor','Diagnostics & Logs']];
+export default function VisionDeveloperLab({ballTools,onOpenTool}:{ballTools:ReactNode;onOpenTool:(page:string)=>void}){
+ const [tab,setTab]=useState('doctor'),[state,setState]=useState<any>(null),[error,setError]=useState(''),[busy,setBusy]=useState(false);
+ async function refresh(){setBusy(true);setError('');try{const r=await fetch('/api/vision/lab');if(!r.ok)throw Error('实验室诊断暂不可用');setState(await r.json())}catch(e:any){setError(e.message)}finally{setBusy(false)}}
+ useEffect(()=>{let live=true;fetch('/api/vision/lab').then(async r=>{if(!r.ok)throw Error('实验室诊断暂不可用');return r.json()}).then(v=>{if(live)setState(v)}).catch(e=>{if(live)setError(e.message)});return()=>{live=false}},[]);
+ async function toggle(){setBusy(true);setError('');try{const r=await fetch('/api/vision/lab/debug',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({enabled:!state?.debug_enabled})});if(!r.ok)throw Error('仅本地 DEV / TEST 环境允许开启调试');setState(await r.json())}catch(e:any){setError(e.message)}finally{setBusy(false)}}
+ const canRun=state?.debug_enabled&&state?.controlled_inference_resource_ready;
+ return <section className="vision-developer-lab"><header><h2>Vision Lab · 开发者实验室</h2><span className="badge">RESEARCH PREVIEW</span><p>原视频继续播放；模块使用独立来源和时间轴。实验入口不代表算法通过验收。</p></header><div className="actions"><button disabled={busy} onClick={refresh}>刷新诊断</button><button disabled={busy||!state?.debug_available} onClick={toggle}>{state?.debug_enabled?'关闭本地调试':'开启本地调试'}</button></div><nav className="tabs" aria-label="Vision Lab 模块">{tabs.map(([id,label])=><button key={id} aria-pressed={tab===id} onClick={()=>setTab(id)}>{label}</button>)}</nav>{error&&<p role="alert">{error}</p>}
+ {(tab==='doctor'||tab==='results')&&<><p>环境：{state?.environment||'读取中'} · GPU：{state?.gpu?.state||'UNKNOWN'} · CUDA：{state?.gpu?.cuda||'NOT_PROBED'} · 可用 RAM：{state?`${(state.available_ram_bytes/1024**3).toFixed(2)} GiB`:'—'}</p>{state?.gpu?.devices?.map((g:any)=><p key={g.name}>{g.name} · 显存空闲 {g.free_mib} / {g.total_mib} MiB · 驱动 {g.driver}</p>)}<div className="vision-module-grid">{state?.modules?.map((m:any)=><article className="vision-module" key={m.id}><h3>{m.name}</h3><p>代码：{m.code_exists?'存在':'未找到'} · 运行时：{m.runtime}</p><p>权重：{m.model} · {m.model_bytes??'—'} bytes</p><p>Gate：{m.research_gate} · 本轮 Smoke：{m.smoke_test}</p></article>)}</div><p>诊断只检查本机文件和显卡，不加载权重、不读取数据集标注。来源 SHA 与时间轴未绑定时，不生成 Analysis View。</p><button onClick={()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='ptti-vision-lab-diagnostics.json';a.click();URL.revokeObjectURL(u)}} disabled={!state}>导出无媒体诊断 JSON</button></>}
+ {['players','pose'].includes(tab)&&(!canRun?<p role="status">{!state?.debug_enabled?'请先开启本地调试。':'受控推理需至少 3.5 GiB 启动余量；当前保留只读诊断。'} 不会绕过来源许可、种子确认或质量 Gate。</p>:<Suspense fallback={<p>正在打开现有研究工具…</p>}>{tab==='players'?<PlayerTrackingPreview/>:<PlayerMotionPanel/>}</Suspense>)}
+ {tab==='ball'&&<><p>仅使用获授权短片；本轮不运行官方 TEST 或整场推理。</p><fieldset disabled={!canRun}>{ballTools}</fieldset></>}
+ {['events','score'].includes(tab)&&<><p>复用已有候选事件与比分观察复核。OBSERVED 不等于 CONFIRMED；未知时间和得分者保持未知。</p><button onClick={()=>onOpenTool('videoEvidence')}>打开视频证据与比分复核</button></>}
+ {tab==='scene'&&<><p>场景候选、校准和人工修正复用现有工作区；球台框与角色不自动成为真值。</p><button onClick={()=>onOpenTool('videoCenter')}>打开场景与校准工作区</button></>}
+ </section>;
+}

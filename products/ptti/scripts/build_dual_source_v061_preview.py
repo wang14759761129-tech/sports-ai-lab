@@ -149,6 +149,7 @@ def main() -> None:
         "commit": commit,
         "built_at": datetime.now(timezone.utc).isoformat(),
         "channel": "preview",
+        "local_vision_runtime_home": str(ROOT),
         "source_tree_dirty": False,
         "environment": "DEVELOPMENT",
         "build_available_ram_bytes": available_ram,

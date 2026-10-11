@@ -93,6 +93,15 @@ def _worker_product_root():
     product_root = Path(configured).resolve() if configured else Path(__file__).resolve().parents[1]
     if not (product_root/'vision_worker').is_dir():
         raise HTTPException(503, '本机隔离追踪代码目录不可用。')
+    expected = os.environ.get('PTTI_PREVIEW_COMMIT')
+    if configured and expected and getattr(__import__('sys'), 'frozen', False):
+        try:
+            actual = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=product_root, text=True, timeout=3).strip()
+            dirty = subprocess.check_output(['git', 'status', '--porcelain'], cwd=product_root, text=True, timeout=3).strip()
+        except (OSError, subprocess.SubprocessError):
+            raise HTTPException(503, '无法核验隔离 worker 源码版本；原视频仍可观看。') from None
+        if actual != expected or dirty:
+            raise HTTPException(409, '隔离 worker 源码与当前 Preview 不一致，请先同步桌面版本。')
     return product_root
 
 
@@ -830,6 +839,26 @@ def router(repo=None, data_root=None):
         if state=='complete':value['analysis_id']=(job.get('result') or {}).get('analysis_id')
         if state=='failed':value['error']=job.get('error')
         repo.update_professional_video_analysis(match_id,value)
+
+    lab_state = {'enabled': os.environ.get('VISION_DEBUG_MODE') == '1'}
+
+    @api.get('/lab')
+    def lab_inventory():
+        from backend.vision_lab import inventory
+        mode = repo.guard.mode if repo is not None else 'production'
+        return inventory(service.config, Path(os.environ.get('PTTI_VISION_HOME', Path(__file__).resolve().parents[1])),
+                         Path(os.environ.get('LOCALAPPDATA', Path.home())), mode, lab_state['enabled'])
+
+    @api.post('/lab/debug')
+    def lab_debug(value: dict):
+        from backend.vision_lab import debug_allowed
+        mode = repo.guard.mode if repo is not None else 'production'
+        if not debug_allowed(mode):
+            raise HTTPException(403, 'Vision Debug is local DEV/TEST only')
+        if set(value) != {'enabled'} or type(value['enabled']) is not bool:
+            raise HTTPException(422, 'Explicit boolean required')
+        lab_state['enabled'] = value['enabled']
+        return lab_inventory()
 
     @api.get('/doctor')
     def environment(): return doctor(service.config)
