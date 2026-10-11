@@ -1,0 +1,64 @@
+name: PTTI R5.1 Windows candidate
+on:
+  push:
+    branches: [codex/ptti-r5-1-stability-playback]
+    paths: ['products/ptti/**', '.github/workflows/ptti-r51-candidate.yml']
+permissions:
+  contents: read
+concurrency:
+  group: ptti-r51-candidate-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  candidate:
+    if: github.repository == 'wang14759761129-tech/sports-ai-lab'
+    runs-on: windows-2022
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: products/ptti
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.10'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.14.0'
+      - name: Install pinned app dependencies
+        run: |
+          python -m pip install pip==25.0.1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m pip install -r requirements.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm ci --prefix frontend
+          exit $LASTEXITCODE
+      - name: Install FFmpeg on isolated runner
+        run: |
+          choco install ffmpeg --version=7.1.1 -y --no-progress
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          'C:\ProgramData\chocolatey\bin' >> $env:GITHUB_PATH
+      - name: Full regression, candidate build and isolated health check
+        env:
+          PTTI_PREVIEW_PROFILE: video-first-r4
+          PTTI_CI_OUTPUT: ${{ runner.temp }}/ptti-r51-candidate
+          PTTI_EXPECTED_COMMIT: ${{ github.sha }}
+        run: python scripts/ci_windows_candidate.py
+      - name: Upload reports even on failure
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ptti-r51-reports-${{ github.sha }}
+          path: ${{ runner.temp }}/ptti-r51-candidate/reports
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Upload verified candidate only
+        if: success()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ptti-r51-package-${{ github.sha }}
+          path: ${{ runner.temp }}/ptti-r51-candidate/package
+          if-no-files-found: error
+          retention-days: 7
