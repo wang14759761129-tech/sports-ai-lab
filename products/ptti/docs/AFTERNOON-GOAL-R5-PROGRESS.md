@@ -96,3 +96,13 @@ Next: implement reproducible Cinema fixes and explicit local-only lab navigation
 - Latest regression: 26 targeted backend tests passed, one existing deprecation warning. No inference/model/threshold changes.
 - Added docs/PTTI-AFTERNOON-GOAL-R5-REPORT.md as explicitly IN PROGRESS, covering the whole objective, actual module paths/statuses, content count 0 additions, incomplete real smoke/GUI/full regression and unchanged desktop activation. This report does not assert task completion.
 - Second full-suite attempt also stopped safely at 1.99 GiB before completion. Do not repeatedly restart full regression without adequate stable headroom.
+
+## Final deployment completed
+
+- Stable full regression after the deterministic Doctor fixture: 600 passed, one Starlette/httpx deprecation warning. No test cases skipped; earlier guarded attempts stopped below 2 GiB and do not count.
+- Frontend scripts: feed 31, studio 17, score time 5, score observation 12, review queue 9 (74 pass). TypeScript project check and Vite production build passed; 650 modules transformed. pip check passed.
+- Windows package built from 5cc753886b112305736fcc14ea77b37662726c9f; EXE SHA256 fca3bdf09a96e3d95a1f676ea63793909057c6e8a1d95d0a9274d3c3fc6738ab; _internal has 78 files. Packaged QA health passed and dev-sync atomically activated it.
+- The same `PTTI Cinema.lnk` launcher started the new EXE. Native process path/window title and health endpoint match commit 5cc753886b. Native visual page interaction is still NOT_TESTED.
+- Read-only live DB audit found professional_matches=6, professional_sources=26, media_online_sources=9, recent_views=1, favorites=0, evidence_collections=0, evidence_points=0; database timestamp unchanged from 2026-10-10 18:05:31.
+- Live library still has 18 public sources (MS7/WS3/MD4/WD3/XD1), 0 verified complete matches, 0 internal-playback verified sources, 0 analysis-permitted sources. Content additions 0 because no approved bulk catalogue/API basis. No model smoke ran; CUDA remains unprobed and weights unloaded.
+- Final requirements and evidence were appended to docs/PTTI-AFTERNOON-GOAL-R5-REPORT.md. Overall product sprint remains PARTIAL for human native visual QA, lawful content expansion and real guarded model smoke; desktop deployment gate itself passed.

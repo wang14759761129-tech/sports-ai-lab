@@ -1,6 +1,6 @@
 # PTTI AFTERNOON GOAL R5 — evidence report (IN PROGRESS)
 
-This is a live delivery report, not a completion claim. The full objective remains active. No research or product quality gate is upgraded.
+This report records the completed R5 source and desktop deployment work plus remaining evidence gaps. The content target was attempted under the stated rights constraints; no unsupported research or product quality gate is upgraded.
 
 ## A. Executive summary
 
@@ -59,3 +59,31 @@ Frozen Hit config remains SHA256 fb42c70ab44bb4b919242e6c14de493507fb5aa17ac4a20
 1. With stable memory headroom, finish current-code full regression/TypeScript/Vite and existing dev-sync; retain old pointer on any failure.
 2. Execute bounded authorized DEV source/player/model QA, then native human acceptance separately; capture real screenshots and job provenance.
 3. Obtain approved catalogue/API or reviewed rights-holder list before content additions; update each availability count with real evidence.
+
+
+## Final execution evidence — 2026-10-11
+
+### UI and library
+
+- Fixed desktop shortcut `C:\Users\wang\OneDrive\Desktop\PTTI Cinema.lnk` still targets the stable PowerShell launcher at `%LOCALAPPDATA%\PTTI-Cinema\launcher.ps1`.
+- Starting that exact shortcut launched `PTTI-Video-First-R4-Preview.exe` PID 31012 from `C:\Users\wang\AppData\Local\PTTI-Cinema\versions\5cc753886b11-b2623e68\`; native window title: `PTTI Video First R4 v0.6.1-R4 Preview · 5cc753886b`.
+- `GET /api/health` on the running app returned `build_commit=5cc753886b112305736fcc14ea77b37662726c9f`, `video_first=true`, `video_feed=true`, `dual_source_preview=true`. Lightweight `/api/vision/lab` returned development mode, debug disabled, 5 modules, weights not loaded and labels not read.
+- The live library response reports 18 public records: MS7 / WS3 / MD4 / WD3 / XD1; FULL_MATCH label 9, but verified complete matches 0; external playback historical records 8, internal playback verified 0, embed denied 2, analysis permitted 0. Status buckets: EMBED_BLOCKED 2, EMBED_NOT_TESTED 6, NOT_TESTED 5, RESTRICTED 4, SOURCE_LINK_ONLY 1. No new records were added. These catalog statuses are existing evidence records, not fresh playback tests.
+- QA database was read using SQLite read-only mode at `%LOCALAPPDATA%\PTTI-Dev\VideoFirst-R4-Preview\matches.db`: professional_matches 6, professional_sources 26, media_online_sources 9, media_recent_views 1, favorites 0, evidence_collections 0, evidence_points 0. Its recorded last-write time remained 2026-10-10 18:05:31 during this verification. No Production DB was opened.
+- Native process launch is verified. Visual inspection of the Cinema grid, clicking pages, and real-media playback inside the native window remain `NOT_TESTED`; no native window automation was available. Browser/API evidence is not counted as native visual acceptance.
+
+### Current-code validation and deployment
+
+- Full Python suite: **600 passed**, 1 Starlette/httpx deprecation warning, 375.71 seconds. The previous two guarded runs were stopped before completion and are not counted.
+- Frontend contract checks: feed 31, Studio 17, score-time 5, score-observation 12, review queue 9; **74 passed** total.
+- `npm run build` (TypeScript project check plus Vite production build): passed; Vite transformed 650 modules. `pip check`: “No broken requirements found.”
+- Safe Windows build completed from commit `5cc753886b112305736fcc14ea77b37662726c9f`; build-time available RAM 3,876,368,384 bytes. EXE: `C:\PTTI-Cinema-Builds\video-first-r4-5cc753886b-20261011T063033Z\dist\PTTI-Video-First-R4-Preview\PTTI-Video-First-R4-Preview.exe`; SHA256 `fca3bdf09a96e3d95a1f676ea63793909057c6e8a1d95d0a9274d3c3fc6738ab`; 8,108,838 bytes. `_internal` contains 78 files; distribution folder 496,880,398 bytes.
+- Isolated packaged health check passed. The launcher atomically activated commit `5cc753886b112305736fcc14ea77b37662726c9f`; existing older versions remain available for rollback. Remote install remains disabled.
+- Frozen Hit configuration was rehashed: `fb42c70ab44bb4b919242e6c14de493507fb5aa17ac4a203c6a9e870a1c047f3`.
+- No authorized public-catalogue/API basis was available for adding 50 new items. Content additions remain 0 rather than scraping or inventing records. Model smoke remains NOT_RUN_THIS_SESSION: the deployed app's lightweight diagnostic reports CUDA NOT_PROBED, weights not loaded and the controlled inference RAM threshold unmet. No new visual result or research gate is claimed.
+
+### Gate and remaining human check
+
+`CODE_COMMITTED=YES`; `TESTS_PASSED=YES` (600 Python + 74 frontend checks + TypeScript/Vite + pip check); `WINDOWS_BUILD_VERIFIED=YES`; `DESKTOP_UPDATED=YES`; `NATIVE_PROCESS_START_VERIFIED=YES`; `NATIVE_VISUAL_QA=NOT_TESTED`; `VISION_MODEL_SMOKE=NOT_RUN`; `AUTHORIZED_CONTENT_ADDITIONS=0`.
+
+The desktop deployment itself is complete. The broader afternoon objective remains **PARTIAL** until a person visually checks the native four-column Cinema page and playback flow, authorized real Vision samples receive guarded smoke tests, and a permissible catalogue source is available for content expansion. Product research gates remain unchanged.
