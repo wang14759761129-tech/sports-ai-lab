@@ -7,6 +7,12 @@ import webview
 import os
 from pathlib import Path
 
+def desktop_window_title(executable_name, legacy_title, build_commit=None):
+    if Path(executable_name).stem.casefold() == 'ptti-video-first-r4-preview':
+        build = str(build_commit or '').strip()[:10]
+        return 'PTTI Cinema · ' + (build or 'Preview')
+    return legacy_title
+
 def is_development_preview(executable_name):
     stem=Path(executable_name).stem.casefold()
     return stem in {'ptti-professional-preview-v0.2','ptti-scene-bootstrap-preview-v2',
@@ -207,6 +213,7 @@ def main():
            'PTTI · Vision Lab v2 Scene Bootstrap Preview' if 'scene-bootstrap-preview' in stem or 'vision-lab-v2-scene-preview' in stem else
            'PTTI · Professional Preview v0.2' if 'professional-preview' in stem else
            'PTTI · 个人乒乓球比赛分析'))
+    title=desktop_window_title(sys.executable,title,os.environ.get('PTTI_PREVIEW_COMMIT'))
     webview.create_window(title,url,width=width,height=height,min_size=(1024,640),js_api=DesktopAPI())
     try: webview.start()
     finally: update_stop.set(); server.should_exit=True; thread.join(timeout=5)

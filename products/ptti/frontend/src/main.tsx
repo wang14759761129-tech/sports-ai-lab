@@ -95,7 +95,7 @@ function OpenTTDataset(){
    <p className="small">数据保存在 PTTI-Dev 研究目录。原始标签保留；回合边界由发球与结束标注推导，并明确标作 DERIVED。</p>
   </>}</Card>
 }
-function previewBuildLabel(build:any){const id=build.build_id||build.build_commit?.slice(0,10);if(build.score_navigation_preview||build.dual_source_preview){return `${build.product_name||'PTTI'} v${build.version||'开发预览'} Preview${id?` · ${id}`:''}`}return build.video_first?`比赛库 ${build.version||'开发预览'}`:build.start_page==='videoEvidence'?`视频证据 ${build.version||'预览版'}`:'v0.2 Professional Preview'}
+function previewBuildLabel(build:any){const id=build.build_id||build.build_commit?.slice(0,10);if(build.video_first)return `PTTI Cinema${id?` · ${id}`:' · Preview'}`;if(build.score_navigation_preview||build.dual_source_preview){return `${build.product_name||'PTTI'} v${build.version||'开发预览'} Preview${id?` · ${id}`:''}`}return build.start_page==='videoEvidence'?`视频证据 ${build.version||'预览版'}`:'v0.2 Professional Preview'}
 function App(){
  const [feedQuery,setFeedQuery]=useState('');
  const [page,setPage]=useState('home'),[library,setLibrary]=useState<any[]>([]),[match,setMatch]=useState<Match|null>(null),[settings,setSettings]=useState<Settings>(defaults),[ready,setReady]=useState(false),[onboarding,setOnboarding]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(''),[errorDetail,setErrorDetail]=useState(''),[toast,setToast]=useState(''),[versions,setVersions]=useState<any>({}),[section,setSection]=useState('overview');
@@ -111,7 +111,7 @@ function App(){
  async function work(fn:()=>Promise<void>){setBusy(true);setError('');try{await fn()}catch(e){setError('操作未完成，请检查文件或重试。已有比赛不会被重置。');setErrorDetail(String(e))}finally{setBusy(false)}}
   useEffect(()=>{(async()=>{try{const [s,h,l,a,g]=await Promise.all([api('/settings'),api('/health'),api('/matches'),api('/preview/workspace'),api('/player-groups')]);setSettings(s);setVersions(h);setPage(h.video_first&&s.start_page==='home'?'home':h.start_page||'home');setLibrary(l);setAthletes(a.athletes);setPlayerGroups(g);setProMatches(a.matches);setOnboarding(!s.onboarding_complete&&!h.video_first);}catch(e){setError('本地数据无法读取。请关闭应用后重试，或查看启动日志。');setErrorDetail(String(e))}finally{setReady(true)}})()},[]);
  useEffect(()=>{document.documentElement.dataset.theme=settings.theme==='light'?'light':'dark'},[settings.theme]);
- useEffect(()=>{document.title=versions.product_name?`${versions.product_name} v${versions.version||''} Preview`:'PTTI · Dark Studio'},[versions.product_name,versions.version]);
+ useEffect(()=>{document.title=versions.video_first?'PTTI Cinema':versions.product_name?`${versions.product_name} v${versions.version||''} Preview`:'PTTI · Dark Studio'},[versions.product_name,versions.version,versions.video_first]);
  useEffect(()=>{if(!toast)return;const timer=setTimeout(()=>setToast(''),4500);return()=>clearTimeout(timer)},[toast]);
  async function preferences(change:Partial<Settings>){const value={...settings,...change};await work(async()=>{const saved=await api('/settings',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(value)});setSettings(saved);setToast('设置已保存')})}
   async function finishOnboarding(action:string){await work(async()=>{const s=await api('/settings',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({...settings,onboarding_complete:true})});setSettings(s);setOnboarding(false);if(action==='sample')await sample();else if(action==='start')navigate(versions.start_page||'home')})}
