@@ -56,3 +56,14 @@ Next: implement reproducible Cinema fixes and explicit local-only lab navigation
 - Continue lawful content review; WTT static homepage yielded no reusable directory and ITTF returned 403; do not circumvent. Existing 18 retained, new entries 0. No bulk-import permission or API ownership authority established.
 - Then complete page/function audit, full current regression, safe report/commits/push and existing dev-sync. Final report artifact and requirement-by-requirement completion audit remain pending.
 - Never report this stage as full goal completion or a 4–6 hour completed sprint. Goal stays ACTIVE.
+
+## 2026-10-11 continuation — analysis permission and source scope
+
+- Checkpoint before this change: `43b2194deb88575bdb35fc0f8265e365791865c0`.
+- Pose execution, status, source and asset endpoints now validate Lab DEV job scope before source evidence is loaded. Packaged Pose workers share the checked clean-source commit contract.
+- Confirmed independent Ball import gap: the UI previously required explicit analysis permission only for linked matches. Independent imports now request permission and a source note; Lab API rejects missing permission/notes and checks resources before receiving the upload.
+- This does not change model weights, frozen inference rules, source timing or research gates.
+- Current run: 14 backend targeted tests passed; frontend feed 31, studio 17, score time 5, score observation 12, review queue 9 checks passed (74 total). No full-suite result is claimed.
+- Available physical RAM measured at 1.23 GiB. No heavy build or GPU inference started, no user programs terminated. Deployment remains pending; previous active Preview is preserved.
+- Content additions remain 0; legal source access/aggregation basis remains unresolved. Native R5 GUI and full model smoke tests remain unverified.
+- Next: obtain resource headroom, complete current-code TypeScript/Vite/full regression, remaining real QA and guarded dev-sync. Full goal is not complete.

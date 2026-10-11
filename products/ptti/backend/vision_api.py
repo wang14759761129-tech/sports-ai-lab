@@ -944,9 +944,15 @@ def router(repo=None, data_root=None):
         except ValueError as exc: raise HTTPException(422, str(exc))
 
     @api.post('/import')
-    async def ingest(file: UploadFile = File(...), source: str = Form(...), device: str = Form('cuda')):
+    async def ingest(file: UploadFile = File(...), source: str = Form(...), device: str = Form('cuda'),
+                     rights_confirmed: bool = Form(False)):
         try: metadata = Source.model_validate_json(source)
         except ValueError: raise HTTPException(422, '请填写有效来源与授权信息')
+        if os.environ.get('PTTI_VISION_LAB_DEV_ONLY') == '1':
+            if not rights_confirmed or not metadata.rights_notes.strip():
+                raise HTTPException(422, '请明确确认分析许可，并填写来源与授权说明')
+            from backend.vision_lab import guard_debug_inference
+            guard_debug_inference(device)
         suffix = __import__('pathlib').Path(file.filename or '').suffix.lower()
         if suffix not in {'.mp4', '.mov', '.mkv', '.avi'}: raise HTTPException(422, '请选择受支持的本地视频')
         destination = service.config.output_root.parent / 'user_uploads' / (str(uuid.uuid4()) + suffix)
