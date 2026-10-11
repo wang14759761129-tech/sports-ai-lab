@@ -54,7 +54,7 @@ def main():
     os.environ['PTTI_PREVIEW_PROFILE'] = 'video-first-r4'
     build_root = Path(os.environ.get('PTTI_DEV_BUILD_ROOT', 'C:/PTTI-Cinema-Builds'))
     os.environ['PTTI_PREVIEW_BUILD_ROOT'] = str(build_root)
-    run_packager([sys.executable, 'scripts/build_dual_source_v061_preview.py'], logdir / 'build.log')
+    run_packager([sys.executable, 'scripts/build_dual_source_v061_preview.py'], logdir / 'windows-build.log')
     folders = list(build_root.glob('*/dist/PTTI-Video-First-R4-Preview'))
     folder = max(folders, key=lambda p: p.stat().st_mtime_ns)
     if json.loads((folder / 'build-info.json').read_text())['commit'] != expected_commit:
