@@ -958,17 +958,25 @@ def router(repo=None, data_root=None):
         destination = service.config.output_root.parent / 'user_uploads' / (str(uuid.uuid4()) + suffix)
         destination.parent.mkdir(parents=True, exist_ok=True)
         total = 0
-        with destination.open('xb') as output:
-            while chunk := await file.read(1024 * 1024):
-                total += len(chunk)
-                if total > 2 * 1024**3: raise HTTPException(413, '当前实验版限制视频为 2 GiB；未开始分析')
-                output.write(chunk)
+        created = submitted = False
         try:
+            with destination.open('xb') as output:
+                created = True
+                while chunk := await file.read(1024 * 1024):
+                    total += len(chunk)
+                    if total > 2 * 1024**3: raise HTTPException(413, '当前实验版限制视频为 2 GiB；未开始分析')
+                    output.write(chunk)
             quality = service.inspect(destination)
-            return dict(job=service.submit(destination, metadata, device=device), **quality)
+            job = service.submit(destination, metadata, device=device)
+            submitted = True
+            return dict(job=job, **quality)
         except subprocess.CalledProcessError:
             raise HTTPException(422, '视频无法读取。请确认文件未损坏，并使用 MP4、MOV、MKV 或 AVI 视频。')
         except (ValueError, OSError) as exc: raise HTTPException(422, str(exc))
+        finally:
+            await file.close()
+            if created and not submitted:
+                destination.unlink(missing_ok=True)
 
     @api.post('/professional-matches/{match_id}/balltrack-clip')
     async def analyze_professional_clip(match_id: str, file: UploadFile = File(...),

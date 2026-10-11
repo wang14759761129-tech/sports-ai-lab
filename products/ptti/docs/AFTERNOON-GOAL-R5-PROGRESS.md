@@ -67,3 +67,10 @@ Next: implement reproducible Cinema fixes and explicit local-only lab navigation
 - Available physical RAM measured at 1.23 GiB. No heavy build or GPU inference started, no user programs terminated. Deployment remains pending; previous active Preview is preserved.
 - Content additions remain 0; legal source access/aggregation basis remains unresolved. Native R5 GUI and full model smoke tests remain unverified.
 - Next: obtain resource headroom, complete current-code TypeScript/Vite/full regression, remaining real QA and guarded dev-sync. Full goal is not complete.
+
+## Continuation — rejected upload cleanup
+
+- Reproduced a real failure: rejected media inspection and rejected job submission both left the new upload on disk (2 failing regression cases before repair).
+- Import now closes the upload and removes only its newly created, not-submitted file on failure. Existing uploads and accepted worker inputs are preserved. Model/timeline semantics are unchanged.
+- Regression run: 17 targeted backend tests passed, including rejection cleanup and accepted-input retention. Source compilation and diff whitespace checks passed. One pre-existing Starlette/httpx deprecation warning remains.
+- No new real match/trajectory evidence or GUI acceptance was produced. Full regression and deployment remain pending resource headroom.
