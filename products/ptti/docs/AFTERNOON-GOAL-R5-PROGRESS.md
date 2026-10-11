@@ -43,3 +43,16 @@ Next: implement reproducible Cinema fixes and explicit local-only lab navigation
 - Read-only tracking/Pose UI can open under low resources; seed detection, tracking start/reacquisition and Pose execution are guarded server-side in Lab mode (3.5 GiB RAM and 3 GiB GPU free before a CUDA start). Rights and identity gates remain unchanged.
 - Latest related run: 24 Python tests passed. Frontend build needs rerun after this safety follow-up. Live browser/native QA, content expansion, real smoke and final dev-sync remain pending.
 - Recent commits before follow-up: 7a66204 / 1ab1e0e / 313055d / 81a5613. Full objective still active.
+
+## Live diagnostic checkpoint / continuation
+- Current checkpoint SHA before this note: 1d892d0c2f6382deeb7a492e655d97faf93b9c33; remote verified equal, source tree clean then.
+- Own TEST source service started from a backup of the isolated R4 QA DB; GET /api/vision/lab returned 200 with debug default OFF.
+- Actual files found: BallTrack checkpoint 46,585,585 bytes; SAM2 Small 184,416,285; RTMPose ONNX 55,685,444; Grounding DINO 933,400,872; RT-DETR 80,904,152. All runtime executables present. These are presence/size observations, not checksum/load acceptance.
+- Actual GPU: RTX 5060 Laptop, total 8151 MiB, free 6215 MiB, driver 616.64; CUDA runtime NOT_PROBED.
+- RAM during live diagnostic: ~2.06 GiB. Own TEST server was stopped normally; later available RAM ~2.15 GiB. No heavy inference, official TEST or GAME_5 source read performed.
+- dev-sync at 1d892d0 stopped at startup preflight (2.38 GiB <2.5 GiB); no new EXE or activation. Prior completed deployment f8a07e6 remains authoritative.
+- Browser/native screenshots and current-code player QA are still NOT_TESTED. Do not treat the successful intermediate frontend build as final safety-follow-up QA.
+- First priority on resume: verify current resources/HEAD; finish current-code frontend build, live source-player and lab browser QA; inspect module tasks/diagnostics without locked footage; run tiny authorized DEV smoke only with >=3.5 GiB RAM and adequate GPU headroom.
+- Continue lawful content review; WTT static homepage yielded no reusable directory and ITTF returned 403; do not circumvent. Existing 18 retained, new entries 0. No bulk-import permission or API ownership authority established.
+- Then complete page/function audit, full current regression, safe report/commits/push and existing dev-sync. Final report artifact and requirement-by-requirement completion audit remain pending.
+- Never report this stage as full goal completion or a 4–6 hour completed sprint. Goal stays ACTIVE.
