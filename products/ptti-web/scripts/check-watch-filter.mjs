@@ -26,6 +26,7 @@ assert.deepEqual(filterMatchRecords(matches, { watchFilter: 'verified-video' }).
 assert.deepEqual(filterMatchRecords(matches, { watchFilter: 'event-page' }).map(({ id }) => id), [eventMatch.id]);
 assert.deepEqual(filterMatchRecords(matches, { watchFilter: 'source-only' }).map(({ id }) => id), [sourceOnly.id]);
 assert.deepEqual(filterMatchRecords(matches, { watchFilter: 'unverified' }).map(({ id }) => id), [eventMatch.id, sourceOnly.id]);
+assert.equal(counts.unverified, counts['event-page'] + counts['source-only'], 'no-playback-evidence is an independent axis that overlaps event/source route types');
 assert.equal(filterMatchRecords(matches, { query: '樊振东' }).some(({ id }) => id === fanLin.id), true, 'Chinese alias search should find the match');
 assert.equal(filterMatchRecords(matches, { query: 'Fan Zhendong' }).some(({ id }) => id === fanLin.id), true, 'English player search should find the match');
 assert.equal(filterMatchRecords(matches, { discipline: 'WS' }).length, 2, 'discipline filtering should still work');
@@ -57,9 +58,10 @@ const [appSource, cssSource, i18nSource] = await Promise.all([
   readFile(resolve(root, 'src/style.css'), 'utf8'),
   readFile(resolve(root, 'src/i18n.ts'), 'utf8'),
 ]);
-for (const key of ['filter.watchStatus', 'filter.watch.all', 'filter.watch.verified', 'filter.watch.event', 'filter.watch.source', 'filter.watch.unverified']) {
+for (const key of ['filter.watchStatus', 'filter.watch.all', 'filter.watch.verified', 'filter.watch.event', 'filter.watch.source', 'filter.watch.unverified', 'filter.watchOverlapHint']) {
   assert.equal(i18nSource.match(new RegExp(`'${key.replaceAll('.', '\\.')}'\\s*:`, 'g'))?.length, 2, `${key} must have both Chinese and English copy`);
 }
+assert.match(appSource, /filter\.watchOverlapHint/, 'route and playback-status overlap must be explained in the visible UI');
 assert.match(cssSource, /\.match-art\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9/s, 'match art must retain a 16:9 branded placeholder');
 assert.doesNotMatch(appSource, /<img\b|<iframe\b|<video\b/i, 'Cinema must not introduce unlicensed imagery or embedded media');
 assert.doesNotMatch(cssSource, /url\(\s*https?:/i, 'CSS must not fetch unreviewed external cover art');

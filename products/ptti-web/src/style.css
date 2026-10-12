@@ -97,6 +97,7 @@ h1, h2, h3, p { margin-top: 0; }
 .search-field input { padding-left: 38px; }
 .watch-filter-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: 11px 0 3px; }
 .watch-filter-label { margin-right: 4px; color: var(--ptti-faint); font-size: 11px; font-weight: 650; }
+.watch-filter-hint { flex-basis: 100%; color: var(--ptti-faint); font-size: 10px; line-height: 1.45; }
 .watch-filter-chip { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: 8px; padding: 7px 12px; border: 1px solid var(--ptti-border); border-radius: 999px; background: var(--ptti-surface); color: var(--ptti-muted); font-size: 11px; white-space: nowrap; transition: background var(--ptti-duration), color var(--ptti-duration), border-color var(--ptti-duration); }
 .watch-filter-chip:hover { border-color: #55575d; color: var(--ptti-text); }
 .watch-filter-chip.active { border-color: #e5394355; background: var(--ptti-accent-soft); color: #ff9298; }

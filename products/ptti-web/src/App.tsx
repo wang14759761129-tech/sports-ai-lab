@@ -276,6 +276,7 @@ function App() {
                 <span>{t(watchFilterMessages[filter])}</span><span className="filter-count">{watchCounts[filter]}</span>
               </button>
             ))}
+            <span className="watch-filter-hint">{t('filter.watchOverlapHint')}</span>
           </div>
 
           <div className="results-meta" aria-live="polite">
