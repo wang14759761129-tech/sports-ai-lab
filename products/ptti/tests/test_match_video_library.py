@@ -99,6 +99,30 @@ def test_folder_candidates_do_not_auto_bind_filename(workspace):
     assert (root / "do-not-read.db").read_bytes() == b"NOT_A_VIDEO"
 
 
+def test_completed_folder_scan_is_returned_after_backend_restart(tmp_path, monkeypatch):
+    media = {"duration": 12.0, "fps": 30.0, "width": 640, "height": 360, "codec": "h264"}
+    monkeypatch.setattr("backend.match_library.video_metadata", lambda _path: media)
+    monkeypatch.setattr("backend.video_evidence.video_metadata", lambda _path: media)
+    root = tmp_path / "synthetic-session"
+    root.mkdir()
+    (root / "synthetic-review.mp4").write_bytes(b"ENGINEERING_QA_SYNTHETIC_ONLY")
+    database = tmp_path / "qa-matches.db"
+
+    with TestClient(create_app(database)) as client:
+        original = scan(client, root)
+
+    assert original["status"] == "COMPLETED"
+    assert original["candidates"][0]["status"] == "REVIEW_REQUIRED"
+
+    with TestClient(create_app(database)) as resumed:
+        restored = resumed.get("/api/video-evidence/library/folders").json()
+
+    assert [row["scan_id"] for row in restored] == [original["scan_id"]]
+    assert restored[0]["status"] == "COMPLETED"
+    assert restored[0]["candidates"][0]["candidate_id"] == original["candidates"][0]["candidate_id"]
+    assert restored[0]["candidates"][0]["status"] == "REVIEW_REQUIRED"
+
+
 def test_recursive_folder_preview_records_metadata_and_registers_duplicate_once(workspace):
     client, root, _tmp = workspace
     nested = root / "Season 2025" / "Round 2"
