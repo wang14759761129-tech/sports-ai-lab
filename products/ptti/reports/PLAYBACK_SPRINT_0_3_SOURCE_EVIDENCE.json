@@ -1,0 +1,21 @@
+{
+  "qa_database": "C:\\Users\\wang\\AppData\\Local\\Temp\\ptti-playback-sprint03-brg2wlv9\\matches.db",
+  "original_qa_database": "READ_ONLY_SQLITE_BACKUP",
+  "api_status": 200,
+  "videos": [
+    {
+      "video_id": "35d991ea-e610-487c-985a-7d5bf949ba5f",
+      "title": "Extended OpenTTGames TRAIN game_1 · 非商业研究素材",
+      "rights_status": "RESEARCH_NONCOMMERCIAL",
+      "source_sha256": "1297b3db91f2e3e160337643695dff07eabf9785ea2d88c2f7b59687ba511148",
+      "hash_status": "VERIFIED",
+      "availability_status": "AVAILABLE"
+    }
+  ],
+  "cinema_vision_same_ids": true,
+  "preserved_proxy_host_status": 200,
+  "mismatched_origin_status": 403,
+  "native_request_failure_root_cause": "NOT_CONFIRMED",
+  "evidence_scope": "IN_PROCESS_HTTP_CONTRACT; NOT_NATIVE_GUI",
+  "snapshot_sha256": "79125d0fc1f85f1089e7d14f71105ef7fb34390ff7eac91f5516d2c8a07230fe"
+}

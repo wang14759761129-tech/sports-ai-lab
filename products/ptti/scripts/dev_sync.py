@@ -40,7 +40,8 @@ def main():
     steps = [[sys.executable, '-m', 'pytest', '-q'], [sys.executable, '-m', 'pip', 'check']]
     for index, command in enumerate(steps):
         run_packager(command, logdir / f'backend-{index}.log')
-    for name in ['test:feed', 'test:studio', 'test:review', 'test:score', 'test:score-observation', 'build']:
+    for name in ['test:feed', 'test:studio', 'test:review', 'test:score', 'test:score-observation',
+                 'test:official-playback', 'test:vision-source-recovery', 'test:qa-proxy', 'build']:
         with (logdir / f'{name.replace(":", "-")}.log').open('w') as out:
             process = subprocess.Popen([npm, 'run', name], cwd=ROOT / 'frontend', stdout=out, stderr=subprocess.STDOUT)
             while process.poll() is None:

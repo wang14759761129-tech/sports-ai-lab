@@ -20,6 +20,25 @@ from backend.video_evidence import (
 )
 
 
+def test_vision_source_listing_preserves_proxy_host_and_rights(library):
+    _store, repo, video, _source = library
+    app = FastAPI()
+    app.include_router(evidence_router(repo, "test"))
+    with TestClient(app) as client:
+        # Vite forwards the browser Host, not its upstream target's Host.
+        headers = {"Host": "127.0.0.1:53103", "Origin": "http://127.0.0.1:53103"}
+        response = client.get("/api/video-evidence/videos", headers=headers)
+        assert response.status_code == 200
+        row = next(row for row in response.json() if row["video_id"] == video["video_id"])
+        assert row["rights_status"] == "RESEARCH_NONCOMMERCIAL"
+        assert row["source_sha256"] == video["source_sha256"]
+        assert row["hash_status"] == "VERIFIED"
+        assert row["availability_status"] == "AVAILABLE"
+        # Both foreign sites and a mismatched local port remain rejected.
+        for origin in ("https://evil.example", "http://127.0.0.1:8773", "null"):
+            assert client.get("/api/video-evidence/videos", headers={**headers, "Origin": origin}).status_code == 403
+
+
 @pytest.fixture
 def library(tmp_path, monkeypatch):
     monkeypatch.setattr(
