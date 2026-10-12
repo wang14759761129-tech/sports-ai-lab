@@ -45,6 +45,10 @@ def configure_dual_source_preview(local_app_data, environ=None, database_subdir=
     })
 
 class DesktopAPI:
+    def record_playback_diagnostic(self, payload):
+        from backend.playback_diagnostics import record_ui_state
+        return record_ui_state(payload)
+
     def open_official_video(self, requested_url):
         from apps.external_links import open_official_video_url
         return open_official_video_url(requested_url)
@@ -120,6 +124,8 @@ def main():
                 import tempfile
                 candidate=Path(qa_database).resolve()
                 if not candidate.is_relative_to(Path(tempfile.gettempdir()).resolve()):
+                    from backend.playback_diagnostics import record_qa_database_rejected
+                    record_qa_database_rejected()
                     raise RuntimeError('Preview QA database must be inside OS temp')
                 os.environ['PTTI_DB']=str(candidate)
                 os.environ['PTTI_ENV']='test'
@@ -172,6 +178,9 @@ def main():
             urllib.request.urlopen(url+'/api/health',timeout=.2); break
         except Exception: time.sleep(.1)
     else: raise RuntimeError('Local PTTI server did not start')
+    from backend.playback_diagnostics import record_server_started
+    database_location = 'os_temp_qa' if os.environ.get('PTTI_PREVIEW_QA_DB') else 'ptti_dev'
+    record_server_started(port, database_location)
     update_stop = threading.Event()
     def update_discovery():
         from backend.desktop_updates import check_release

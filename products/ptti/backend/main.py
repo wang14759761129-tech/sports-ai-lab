@@ -139,6 +139,28 @@ def create_app(db_path=None):
     app.include_router(preview_router(repo, Path(resolved_db).parent, mode))
     from backend.video_evidence import evidence_router
     app.include_router(evidence_router(repo, mode))
+
+    @app.middleware('http')
+    async def playback_response_diagnostics(request, call_next):
+        path = request.url.path
+        playback_route = (
+            path == '/api/video-evidence/videos'
+            or re.fullmatch(r'/api/video-evidence/videos/[^/]+/media', path)
+        )
+        if not playback_route:
+            return await call_next(request)
+        request.state.playback_diagnostic_recorded = False
+        from backend.playback_diagnostics import record_backend_request
+        try:
+            response = await call_next(request)
+        except Exception:
+            if not request.state.playback_diagnostic_recorded:
+                record_backend_request(request, status=500, reason='server_exception')
+            raise
+        if response.status_code >= 400 and not request.state.playback_diagnostic_recorded:
+            record_backend_request(request, status=response.status_code, reason='http_error')
+        return response
+
     app.state.database_diagnostics=database_banner(resolved_db,mode)
     @app.get('/api/diagnostics/database',include_in_schema=False)
     def database_diagnostics():

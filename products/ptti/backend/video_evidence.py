@@ -908,24 +908,36 @@ def _review_export_html(payload):
 
 
 def evidence_router(repo, mode):
+    from backend.playback_diagnostics import record_backend_request, record_media_response, record_source_response
+
     def local_only(request: Request):
+        diagnostic_route = (
+            request.url.path == "/api/video-evidence/videos"
+            or re.fullmatch(r"/api/video-evidence/videos/[^/]+/media", request.url.path)
+        )
+
+        def reject(status: int, reason: str, message: str):
+            if diagnostic_route:
+                record_backend_request(request, status=status, reason=reason)
+            raise HTTPException(status, message)
+
         host = request.url.hostname
         origin = request.headers.get("origin")
         if host not in {"127.0.0.1", "localhost", "testserver"}:
-            raise HTTPException(403, "仅允许本机访问")
+            reject(403, "non_loopback_host", "仅允许本机访问")
         if (
             mode != "test"
             and request.client
             and request.client.host not in {"127.0.0.1", "::1"}
         ):
-            raise HTTPException(403, "仅允许本机访问")
+            reject(403, "non_loopback_client", "仅允许本机访问")
         if origin and (urlsplit(origin).scheme, urlsplit(origin).netloc) != (
             request.url.scheme,
             request.url.netloc,
         ):
-            raise HTTPException(403, "不允许跨站访问本机文件")
+            reject(403, "origin_mismatch", "不允许跨站访问本机文件")
         if mode == "production":
-            raise HTTPException(503, "证据播放器仅在隔离 Preview 中开放")
+            reject(503, "production_mode", "证据播放器仅在隔离 Preview 中开放")
 
     store = EvidenceStore(repo) if mode != "production" else None
 
@@ -944,7 +956,7 @@ def evidence_router(repo, mode):
     )
 
     @router.get("/videos")
-    def videos():
+    def videos(request: Request):
         rows = [store.availability(row) for row in store.list("evidence_videos")]
         for row in rows:
             if (
@@ -952,6 +964,7 @@ def evidence_router(repo, mode):
                 and row["availability_status"] == "AVAILABLE"
             ):
                 store.queue_hash(row["video_id"])
+        record_source_response(request, rows)
         return rows
 
     @router.get("/videos/{video_id}/export")
@@ -997,6 +1010,7 @@ def evidence_router(repo, mode):
     def media(video_id: str, request: Request):
         row = store.availability(store.get("evidence_videos", "video_id", video_id))
         if row["availability_status"] != "AVAILABLE":
+            record_media_response(request, status=409)
             raise HTTPException(
                 409,
                 {
@@ -1010,6 +1024,7 @@ def evidence_router(repo, mode):
         if requested:
             match = re.fullmatch(r"bytes=(\d*)-(\d*)", requested.strip())
             if not match or not any(match.groups()):
+                record_media_response(request, status=416)
                 return Response(
                     status_code=416, headers={"Content-Range": f"bytes */{size}"}
                 )
@@ -1025,6 +1040,7 @@ def evidence_router(repo, mode):
                 or not size
                 or (not left and int(right) == 0)
             ):
+                record_media_response(request, status=416)
                 return Response(
                     status_code=416, headers={"Content-Range": f"bytes */{size}"}
                 )
@@ -1042,6 +1058,7 @@ def evidence_router(repo, mode):
         content_type = (
             mimetypes.guess_type(row["original_path"])[0] or "application/octet-stream"
         )
+        record_media_response(request, status=status, media_type=content_type)
         if request.method == "HEAD":
             return Response(
                 status_code=status, headers=headers, media_type=content_type
