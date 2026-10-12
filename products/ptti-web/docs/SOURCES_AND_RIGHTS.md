@@ -25,3 +25,7 @@ The curated list is static. It does not claim real-time or automatic updates. Th
 ## Rights handling
 
 PTTI uses text labels, match facts and links to the original publishers. It does not download, copy, proxy, screen-capture or host official match video. It does not use player likenesses or third-party thumbnails. No embedded player is used because embed permission has not been checked. Users must follow the destination publisher’s own territory, account, subscription and copyright terms.
+
+## Sprint 0.2 route labels
+
+The UI distinguishes three destinations: an official event page, an official video page, and source information only. The action text describes the destination. Every current record remains playback-unverified, and a source-only record has no match-specific watch URL. No media is embedded or hosted.

@@ -1,13 +1,14 @@
 {
   "name": "ptti-web-mvp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 127.0.0.1 --port 4173 --strictPort",
+    "dev": "vite --host 127.0.0.1 --port 4174 --strictPort",
     "build": "tsc -b && vite build",
     "check:sources": "node scripts/check-sources.mjs",
-    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort"
+    "check:feedback": "node scripts/check-feedback.mjs",
+    "preview": "vite preview --host 127.0.0.1 --port 4174 --strictPort"
   },
   "dependencies": {
     "react": "^19.0.0",

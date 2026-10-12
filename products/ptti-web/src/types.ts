@@ -1,6 +1,9 @@
 export type Discipline = 'MS' | 'WS' | 'MD' | 'WD' | 'XD';
 
 export type SourceStatus = 'official-listing-found' | 'no-verified-route';
+export type MatchRouteType = 'event-page' | 'video-page' | 'source-only';
+export type PulseTopic = 'highlight' | 'player' | 'event';
+export type FeedbackIssue = 'none' | 'find-match' | 'official-link' | 'unclear-page' | 'mobile-display' | 'other';
 
 export interface MatchRecord {
   id: string;
@@ -12,6 +15,7 @@ export interface MatchRecord {
   players: string[];
   result?: string;
   platform: string;
+  routeType: MatchRouteType;
   platformUrl: string | null;
   videoOriginalUrl: string | null;
   sourceStatus: SourceStatus;
@@ -26,6 +30,7 @@ export interface MatchRecord {
 export interface PulseItem {
   id: string;
   category: 'Official highlight' | 'Player feature' | 'Event discussion';
+  topic: PulseTopic;
   title: string;
   publisher: string;
   platform: string;
@@ -59,6 +64,7 @@ export interface FeedbackEntry {
   role: 'fan' | 'athlete' | 'coach' | 'other';
   foundMatch: 'yes' | 'partly' | 'no';
   clickOutcome: 'opened' | 'blocked' | 'not-tried';
+  issueCategory?: FeedbackIssue;
   statusClarity: number;
   friction: string;
   returnIntent: 'yes' | 'unsure' | 'no';

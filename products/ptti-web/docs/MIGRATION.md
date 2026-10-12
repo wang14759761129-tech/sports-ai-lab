@@ -31,3 +31,10 @@ The source QA record is retained in `docs/QA.md`. Its checks describe the source
 - Cinema's official WTT event link opened a new tab at its configured `worldtabletennis.com/eventInfo` URL. The official page contained the WTT Finals Doha 2023 listing and the named players. No video URL exists for the sample, and `playbackTested` remains `false`.
 
 The public sample stays separate from the desktop app and does not access its database, player, Vision API, or Launcher.
+
+## Sprint 0.2 continuation
+
+- Confirmed the destination is the sports-ai-lab remote and the requested codex/ptti-web-mvp-v0-1 branch at HEAD d3d1c50aeab2693a96b9731892c8812e9605c3f8 before changes.
+- Continued only in C:\PTTI-Worktrees\web-mvp-v0-1; no repository migration, reset, or change to another development worktree was performed.
+- The independent Web app now starts on strict loopback port 4174 and does not import desktop, playback, Vision, backend, or Launcher modules.
+- Sprint 0.2 verification is recorded in docs/QA.md.

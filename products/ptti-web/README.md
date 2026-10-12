@@ -1,4 +1,4 @@
-# PTTI Web MVP v0.1
+# PTTI Web MVP v0.2
 
 An independent, browser-first PTTI pilot for finding table tennis matches, opening official source pages, and browsing a small set of source-attributed stories. It is a static Vite app; it does not call the desktop FastAPI service or access its SQLite data.
 
@@ -12,14 +12,28 @@ npm install
 npm run dev
 ```
 
-Open <http://127.0.0.1:4173>. The app binds to loopback on its own strict port. To produce the static site build, run `npm run build`; output is written to `dist/` within this product directory. No public deployment is configured.
+Open <http://127.0.0.1:4174>. The app binds to loopback on its own strict port. To produce the static site build, run `npm run build`; output is written to `dist/` within this product directory. No public deployment is configured.
+
+## Language and content
+
+- Simplified Chinese is the first-visit default. The language switch updates the current page immediately and restores the chosen language after refresh.
+- Player names and official event names keep their recognizable original spelling. Interface descriptions, filters, status labels, and feedback controls use one shared dictionary in src/i18n.ts.
+- Pulse is manually curated, not a live feed. Categories without a reviewed source show an empty-state explanation; no popularity ranking is claimed without evidence.
+- Cinema routes are explicitly classified as an official event page, an official video page, or source information only. A route link never implies playback was tested.
+
+## Language and content
+
+- Simplified Chinese is the first-visit default. The language switch updates the current page immediately and restores the chosen language after refresh.
+- Player names and official event names keep their recognizable original spelling. Interface descriptions, filters, status labels, and feedback controls use one shared dictionary in src/i18n.ts.
+- Pulse is manually curated, not a live feed. Categories without a reviewed source show an empty-state explanation; no popularity ranking is claimed without evidence.
+- Cinema routes are explicitly classified as an official event page, an official video page, or source information only. A route link never implies playback was tested.
 
 ## Pages
 
 - **Cinema**: player search, discipline, tournament, platform and source-status filters; official source route cards; explicit playback and territory status.
 - **Pulse**: a small static selection of WTT-published items with publisher attribution and original links. There is no live feed.
 - **Stars**: source-backed public profiles with event and story links. Individual social accounts are shown only with a clear verification label.
-- **Feedback**: a short exit survey stored in the current browser only, with JSON export. It asks for no name or email.
+- **Feedback**: a bilingual exit survey stored in the current browser only, with issue categories and JSON export. It asks for no name or email and sends nothing to a server.
 
 ## Source and status rules
 

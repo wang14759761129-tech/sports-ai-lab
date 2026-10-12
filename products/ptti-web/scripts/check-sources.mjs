@@ -43,15 +43,28 @@ for (const [index, match] of matches.entries()) {
   check(Array.isArray(match.sourceEvidence) && match.sourceEvidence.length > 0, `${label}: evidence URL is required`);
   check(match.playbackTested === false, `${label}: do not mark playback tested without a recorded test`);
   check(match.embedAllowed !== true, `${label}: this pilot must not embed media`);
+  check(['event-page', 'video-page', 'source-only'].includes(match.routeType), `${label}: route type must be explicit`);
   for (const url of [match.platformUrl, match.videoOriginalUrl, ...match.sourceEvidence]) checkUrl(url, `${label} URL`);
-  if (match.sourceStatus === 'official-listing-found') {
-    check(Boolean(match.platformUrl || match.videoOriginalUrl), `${label}: official listing needs an outbound route`);
-  } else if (match.sourceStatus === 'no-verified-route') {
+  if (match.routeType === 'event-page') {
+    check(Boolean(match.platformUrl) && !match.videoOriginalUrl, `${label}: event route must point to an official event page`);
+  } else if (match.routeType === 'video-page') {
+    check(Boolean(match.videoOriginalUrl), `${label}: video route must point to an original video page`);
+  } else if (match.routeType === 'source-only') {
     check(!match.platformUrl && !match.videoOriginalUrl, `${label}: no-route status cannot have a watch URL`);
+  } else {
+    check(false, `${label}: unknown route type`);
+  }
+  if (match.sourceStatus === 'official-listing-found') {
+    check(match.routeType !== 'source-only', `${label}: source-only records cannot claim a watch route`);
+  } else if (match.sourceStatus === 'no-verified-route') {
+    check(match.routeType === 'source-only', `${label}: a no-route record must be source-only`);
   } else {
     check(false, `${label}: unknown source status`);
   }
 }
+
+check(!/playbackTested:\s*true/.test(contentSource), 'Do not mark Pulse playback tested without a recorded test');
+check(appSource.includes('target="_blank" rel="noopener noreferrer"'), 'External links must use safe new-tab attributes');
 
 for (const file of [contentSource, appSource]) {
   check(!/<iframe\b|<video\b/i.test(file), 'Do not embed or host media in this pilot');

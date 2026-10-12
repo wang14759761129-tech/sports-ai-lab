@@ -4,6 +4,7 @@ export const pulseItems: PulseItem[] = [
   {
     id: 'wtt-doha-day-3-top-points',
     category: 'Official highlight',
+    topic: 'highlight',
     title: 'Top Points of Day 3 · WTT Finals Men Doha 2023',
     publisher: 'World Table Tennis',
     platform: 'YouTube',
@@ -18,6 +19,7 @@ export const pulseItems: PulseItem[] = [
   {
     id: 'wtt-alvaro-robles-feature',
     category: 'Player feature',
+    topic: 'player',
     title: 'WTT Champions debutant Alvaro Robles is brewing success one chapter at a time',
     publisher: 'WTT Team',
     platform: 'World Table Tennis',
@@ -31,6 +33,7 @@ export const pulseItems: PulseItem[] = [
   {
     id: 'wtt-busan-final-preview',
     category: 'Event discussion',
+    topic: 'event',
     title: 'Reign versus rise: France and China set for the Busan men’s team final',
     publisher: 'WTT Team',
     platform: 'World Table Tennis',
