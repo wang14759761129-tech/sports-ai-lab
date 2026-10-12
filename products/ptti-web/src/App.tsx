@@ -3,7 +3,9 @@ import { pulseItems, starProfiles } from './data/content';
 import { appendFeedback, readFeedback } from './feedback-storage.mjs';
 import { LOCALE_STORAGE_KEY, matchNote, message, pulseCopy, readSavedLocale, starCopy } from './i18n';
 import type { Locale, MessageKey } from './i18n';
-import type { Discipline, FeedbackEntry, FeedbackIssue, MatchRecord, MatchRouteType, PulseTopic, SourceStatus } from './types';
+import { filterMatchRecords, getMatchDestination, getWatchFilterCounts, hasVerifiedVisualPlayback } from './watch-filter.mjs';
+import type { WatchFilter } from './watch-filter.mjs';
+import type { Discipline, FeedbackEntry, FeedbackIssue, MatchRecord, MatchRouteType, PulseTopic } from './types';
 
 type Page = 'cinema' | 'pulse' | 'stars' | 'feedback';
 type PulseFilter = 'all' | 'highlight' | 'video' | 'player' | 'training' | 'international' | 'event';
@@ -42,13 +44,12 @@ const disciplineMessages: Record<Discipline, MessageKey> = {
   WD: 'discipline.WD',
   XD: 'discipline.XD',
 };
-const playerAliases: Record<string, string> = {
-  'Fan Zhendong': '樊振东',
-  'Wang Chuqin': '王楚钦',
-  'Lin Gaoyuan': '林高远',
-  'Wang Yidi': '王艺迪',
-  'Sun Yingsha': '孙颖莎',
-  'Chen Xingtong': '陈幸同',
+const watchFilterMessages: Record<WatchFilter, MessageKey> = {
+  all: 'filter.watch.all',
+  'verified-video': 'filter.watch.verified',
+  'event-page': 'filter.watch.event',
+  'source-only': 'filter.watch.source',
+  unverified: 'filter.watch.unverified',
 };
 
 function ExternalLink({ href, children, className = '' }: { href: string; children: React.ReactNode; className?: string }) {
@@ -104,7 +105,7 @@ function App() {
   const [discipline, setDiscipline] = useState('all');
   const [event, setEvent] = useState('all');
   const [source, setSource] = useState('all');
-  const [status, setStatus] = useState<'all' | SourceStatus>('all');
+  const [watchFilter, setWatchFilter] = useState<WatchFilter>('all');
   const [pulseFilter, setPulseFilter] = useState<PulseFilter>('all');
   const [feedbackCount, setFeedbackCount] = useState(() => readFeedback(localStorage).length);
   const [feedbackSaved, setFeedbackSaved] = useState(false);
@@ -143,23 +144,20 @@ function App() {
 
   const events = useMemo(() => [...new Set(matches.map((match) => match.eventCategory))].sort(), [matches]);
   const sources = useMemo(() => [...new Set(matches.map((match) => match.platform))].sort(), [matches]);
-  const filteredMatches = useMemo(() => {
-    const query = search.trim().toLocaleLowerCase();
-    return matches.filter((match) => {
-      const names = match.players.flatMap((player) => [player, playerAliases[player] ?? '']);
-      const eventAlias = match.event.toLowerCase().includes('doha')
-        ? '多哈'
-        : match.event.toLowerCase().includes('singapore')
-          ? '新加坡'
-          : match.event.toLowerCase().includes('chongqing') ? '重庆' : '';
-      const searchable = [match.event, eventAlias, match.round, ...names, match.discipline].join(' ').toLocaleLowerCase();
-      return (!query || searchable.includes(query))
-        && (discipline === 'all' || match.discipline === discipline)
-        && (event === 'all' || match.eventCategory === event)
-        && (source === 'all' || match.platform === source)
-        && (status === 'all' || match.sourceStatus === status);
-    });
-  }, [matches, search, discipline, event, source, status]);
+  const watchCounts = useMemo(() => getWatchFilterCounts(matches, {
+    query: search,
+    discipline,
+    event,
+    platform: source,
+  }), [matches, search, discipline, event, source]);
+  const verifiedVideoCount = watchCounts['verified-video'];
+  const filteredMatches = useMemo(() => filterMatchRecords(matches, {
+    query: search,
+    discipline,
+    event,
+    platform: source,
+    watchFilter,
+  }), [matches, search, discipline, event, source, watchFilter]);
 
   const filteredPulse = useMemo(() => pulseItems.filter((item) => {
     if (pulseFilter === 'all') return true;
@@ -179,7 +177,12 @@ function App() {
     setDiscipline('all');
     setEvent('all');
     setSource('all');
-    setStatus('all');
+    setWatchFilter('all');
+  }
+
+  function showVerifiedVideos() {
+    setWatchFilter('verified-video');
+    document.getElementById('match-heading')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function saveFeedback(entry: FeedbackEntry): boolean {
@@ -240,12 +243,16 @@ function App() {
               <p className="eyebrow">{t('cinema.kicker')}</p>
               <h1 id="cinema-title">{t('cinema.title.first')}<br /><em>{t('cinema.title.second')}</em></h1>
               <p className="hero-description">{t('cinema.description')}</p>
-              <button className="button button-primary" onClick={() => document.getElementById('match-search')?.focus()}>{t('cinema.action')} <span aria-hidden="true">↓</span></button>
+              <div className="hero-actions">
+                <button className="button button-primary" onClick={() => document.getElementById('match-search')?.focus()}>{t('cinema.action')} <span aria-hidden="true">↓</span></button>
+                <button className="button button-secondary" onClick={showVerifiedVideos}>{t('cinema.watchVerified')} <strong>{verifiedVideoCount}</strong></button>
+              </div>
+              <p className="hero-watch-note">{t('cinema.watchVerifiedHint')}</p>
             </div>
             <div className="hero-feature" aria-label={t('cinema.feature.label')}>
               <div className="court-lines" aria-hidden="true"><span /><span /><i /></div>
               <div className="feature-label">{t('cinema.feature.label')} <span>{t('cinema.feature.sample')}</span></div>
-              <div className="feature-stat"><strong>{matches.length.toString().padStart(2, '0')}</strong><span>{t('cinema.feature.routes')}</span></div>
+              <div className="feature-stat"><strong>{verifiedVideoCount.toString().padStart(2, '0')}</strong><span>{t('cinema.feature.verifiedCount')}</span></div>
               <div className="feature-foot"><span>{t('cinema.feature.official')}</span><span>{t('cinema.feature.playback')}</span></div>
             </div>
           </section>
@@ -260,8 +267,16 @@ function App() {
             <label><span className="sr-only">{t('filter.discipline')}</span><select value={discipline} onChange={(e) => setDiscipline(e.target.value)}>{disciplines.map(([value, key]) => <option key={value} value={value}>{t(key)}</option>)}</select></label>
             <label><span className="sr-only">{t('filter.event')}</span><select value={event} onChange={(e) => setEvent(e.target.value)}><option value="all">{t('filter.event.all')}</option>{events.map((item) => <option key={item} value={item}>{eventCategoryLabel(locale, item)}</option>)}</select></label>
             <label><span className="sr-only">{t('filter.platform')}</span><select value={source} onChange={(e) => setSource(e.target.value)}><option value="all">{t('filter.platform.all')}</option>{sources.map((item) => <option key={item} value={item}>{platformLabel(locale, item)}</option>)}</select></label>
-            <label><span className="sr-only">{t('filter.status')}</span><select value={status} onChange={(e) => setStatus(e.target.value as 'all' | SourceStatus)}><option value="all">{t('filter.status.all')}</option><option value="official-listing-found">{t('filter.status.official')}</option><option value="no-verified-route">{t('filter.status.none')}</option></select></label>
           </section>
+
+          <div className="watch-filter-toolbar" role="group" aria-label={t('filter.watchStatus')}>
+            <span className="watch-filter-label">{t('filter.watchStatus')}</span>
+            {(Object.keys(watchFilterMessages) as WatchFilter[]).map((filter) => (
+              <button key={filter} type="button" className={watchFilter === filter ? 'watch-filter-chip active' : 'watch-filter-chip'} aria-pressed={watchFilter === filter} onClick={() => setWatchFilter(filter)}>
+                <span>{t(watchFilterMessages[filter])}</span><span className="filter-count">{watchCounts[filter]}</span>
+              </button>
+            ))}
+          </div>
 
           <div className="results-meta" aria-live="polite">
             <span>{loading ? t('results.loading') : filteredMatches.length + ' ' + t(filteredMatches.length === 1 ? 'results.one' : 'results.many')}</span>
@@ -310,12 +325,16 @@ function App() {
 }
 
 function MatchCard({ match, locale }: { match: MatchRecord; locale: Locale }) {
-  const route = match.routeType === 'video-page'
-    ? match.videoOriginalUrl
-    : match.routeType === 'event-page' ? match.platformUrl : match.sourceEvidence[0];
-  const buttonKey: MessageKey = match.routeType === 'video-page'
+  const destination = getMatchDestination(match);
+  const verifiedVisualPlayback = hasVerifiedVisualPlayback(match);
+  const buttonKey: MessageKey = destination?.type === 'video-page'
     ? 'source.videoButton'
-    : match.routeType === 'event-page' ? 'source.eventButton' : 'source.onlyButton';
+    : destination?.type === 'event-page' ? 'source.eventButton' : 'source.onlyButton';
+  const playbackKey: MessageKey = verifiedVisualPlayback
+    ? 'source.playback.verified'
+    : match.playbackStatus === 'RESTRICTED' ? 'source.playback.restricted'
+      : match.playbackStatus === 'PLAYBACK_FAIL' ? 'source.playback.failed'
+        : 'source.playback.pending';
   const evidenceUrl = match.sourceEvidence[0];
   const region = match.regionRestriction.toLowerCase().startsWith('unknown')
     ? message(locale, 'source.regionUnknown')
@@ -323,10 +342,14 @@ function MatchCard({ match, locale }: { match: MatchRecord; locale: Locale }) {
   return <article className="match-card">
     <div className="match-art" aria-hidden="true"><div className="match-art-top"><span>PTTI</span><span>{match.eventYear}</span></div><div className="table-mark"><span /><i /><b /></div><div className="match-art-bottom"><span>{message(locale, disciplineMessages[match.discipline])}</span><span>{roundLabel(locale, match.round)}</span></div></div>
     <div className="match-card-body"><div className="card-meta"><span>{eventCategoryLabel(locale, match.eventCategory)}</span><span>{message(locale, disciplineMessages[match.discipline])} · {roundLabel(locale, match.round)}</span></div><h3>{match.players.map((player, index) => <span key={player}>{index > 0 && <span className="versus"> vs </span>}{player}</span>)}</h3><p className="event-name">{match.event}</p>{match.result && <p className="result-line">{localizedResult(locale, match.result)}</p>}
-      <div className="source-status"><span className={match.sourceStatus === 'official-listing-found' ? 'status-dot found' : 'status-dot pending'} />{message(locale, match.sourceStatus === 'official-listing-found' ? 'source.status.found' : 'source.status.none')}</div>
-      <div className="source-detail"><span>{message(locale, 'source.platform')}</span><strong>{platformLabel(locale, match.platform)}</strong><span>{message(locale, 'source.routeLabel')}</span><strong>{routeTypeLabel(locale, match.routeType)}</strong><span>{message(locale, 'source.playback.label')}</span><strong>{message(locale, match.playbackTested ? 'source.playback.verified' : 'source.playback.pending')}</strong><span>{message(locale, 'source.lastChecked')}</span><strong>{new Date(match.lastVerifiedAt + 'T00:00:00').toLocaleDateString(locale)}</strong><span>{message(locale, 'source.region')}</span><strong>{region}</strong><span>{message(locale, 'source.embed')}</span><strong>{match.embedAllowed === null ? message(locale, 'source.embedUnknown') : match.embedAllowed ? message(locale, 'source.embedAllowed') : message(locale, 'source.embedNo')}</strong></div>
+      <div className="match-status-row" aria-label={message(locale, 'source.statusLabel')}>
+        <span className={'route-badge route-' + (destination?.type ?? 'unavailable')}>{routeTypeLabel(locale, match.routeType)}</span>
+        <span className={'playback-badge playback-' + match.playbackStatus.toLowerCase() + (verifiedVisualPlayback ? ' visual-verified' : '')}>{message(locale, playbackKey)}</span>
+      </div>
+      <div className="source-detail"><span>{message(locale, 'source.platform')}</span><strong>{platformLabel(locale, match.platform)}</strong><span>{message(locale, 'source.routeLabel')}</span><strong>{routeTypeLabel(locale, match.routeType)}</strong><span>{message(locale, 'source.lastChecked')}</span><strong>{new Date(match.lastVerifiedAt + 'T00:00:00').toLocaleDateString(locale)}</strong><span>{message(locale, 'source.region')}</span><strong>{region}</strong><span>{message(locale, 'source.embed')}</span><strong>{match.embedAllowed === null ? message(locale, 'source.embedUnknown') : match.embedAllowed ? message(locale, 'source.embedAllowed') : message(locale, 'source.embedNo')}</strong></div>
+      {verifiedVisualPlayback && <p className="playback-evidence-note">{message(locale, 'source.playback.verifiedHint')}</p>}
       <p className="match-note">{matchNote(locale, match.id)}</p>
-      <div className="match-actions">{route ? <ExternalLink className={match.routeType === 'source-only' ? 'button button-outline' : 'button button-primary'} href={route}>{message(locale, buttonKey)} <span aria-hidden="true">↗</span></ExternalLink> : <span className="no-route" role="status">{message(locale, 'source.noRoute')}</span>}{evidenceUrl && evidenceUrl !== route && <ExternalLink className="evidence-link" href={evidenceUrl}>{message(locale, 'source.evidence')}</ExternalLink>}</div>
+      <div className="match-actions">{destination ? <ExternalLink className={destination.type === 'video-page' ? 'button button-primary' : 'button button-outline'} href={destination.url}>{message(locale, buttonKey)} <span aria-hidden="true">↗</span></ExternalLink> : <span className="no-route" role="status">{message(locale, 'source.noRoute')}</span>}{evidenceUrl && evidenceUrl !== destination?.url && <ExternalLink className="evidence-link" href={evidenceUrl}>{message(locale, 'source.evidence')}</ExternalLink>}</div>
     </div>
   </article>;
 }
