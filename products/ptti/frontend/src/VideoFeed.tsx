@@ -14,7 +14,8 @@ function rememberScroll(){try{const saved=feedContext();sessionStorage.setItem('
 
 function Thumbnail({video,external=false}:{video:FeedVideo;external?:boolean}){
  const [failed,setFailed]=useState(!video.thumbnail);
- return <div className="feed-cover">{failed?<span className="feed-missing">封面暂不可用</span>:<img src={video.thumbnail} alt={video.title} loading="lazy" onError={()=>setFailed(true)}/>}<span className={external?'feed-external':'feed-play'} aria-hidden="true">{external?'↗':'▶'}</span><small>{durationLabel(video.duration)}</small></div>;
+ useEffect(()=>setFailed(!video.thumbnail),[video.thumbnail]);
+ return <div className="feed-cover">{failed?<span className="feed-missing">{video.thumbnailFallbackLabel||'封面暂不可用'}</span>:<img src={video.thumbnail} alt="" aria-hidden="true" loading="lazy" decoding="async" onError={()=>setFailed(true)}/>}<span className={external?'feed-external':'feed-play'} aria-hidden="true">{external?'↗':'▶'}</span><small>{durationLabel(video.duration)}</small></div>;
 }
 export default function VideoFeed({page,revision,query,onPlay,onTools,navigate}:{page:string;revision:number;query:string;onPlay:(id:string)=>void;onTools:()=>void;navigate:(page:string)=>void}){
  const [preference,setPreference]=useState('');

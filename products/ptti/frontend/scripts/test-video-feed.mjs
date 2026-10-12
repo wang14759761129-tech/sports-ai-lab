@@ -10,6 +10,16 @@ try{
  const verifiedFull={...official,video_id:'verified',title:'Verified full match',athlete_names:[],discipline:'UNKNOWN',video_source:{is_full_match:true}};
  const rows=feedVideos({videos:[{video_id:'local',title:'local',availability_status:'AVAILABLE',duration_ms:1000,last_opened_at:'now'},{video_id:'missing',availability_status:'MISSING_FILE'}],official_videos:[official,official,{...official,video_id:'highlight',full_match:false},limited,verifiedFull]});
  assert.equal(rows.length,4,'Show source links while keeping missing media and unindexed highlights out');
+ const thumbnailSource={...official,video_id:'cover-review',thumbnail_url:'https://i.ytimg.com/vi/cover-review/hqdefault.jpg'};
+ const unapprovedCover=feedVideos({videos:[],official_videos:[thumbnailSource]})[0];
+ assert.equal(unapprovedCover.thumbnail,'','Official cover is not shown without explicit display permission');
+ assert.equal(unapprovedCover.thumbnailFallbackLabel,'官方封面展示许可未核实');
+ const approvedCover=feedVideos({videos:[],official_videos:[{...thumbnailSource,thumbnail_display_permission:'ALLOWED'}]})[0];
+ assert.equal(approvedCover.thumbnail,thumbnailSource.thumbnail_url,'Explicitly permitted HTTPS covers can display');
+ const nestedApprovedCover=feedVideos({videos:[],official_videos:[{...thumbnailSource,video_source:{provenance:{thumbnail_display_permission:'ALLOWED'}}}]})[0];
+ assert.equal(nestedApprovedCover.thumbnail,thumbnailSource.thumbnail_url,'Permission from the canonical source record is honored');
+ const insecureCover=feedVideos({videos:[],official_videos:[{...thumbnailSource,thumbnail_display_permission:'ALLOWED',thumbnail_url:'http://images.example.invalid/cover.jpg'}]})[0];
+ assert.equal(insecureCover.thumbnail,'','Cover permission does not enable insecure HTTP image loading');
  assert.equal(officialAction(rows.find(v=>v.key==='official:real')),'SOURCE_LINK','Known embedding failure must bypass iframe');
  assert.deepEqual(officialWatchState({playback_status:'EMBED_BLOCKED'}),{state:'no-embed',label:'NO EMBED · 官方平台观看'});
  assert.equal(officialWatchState({playback_status:'SOURCE_LINK_ONLY',playback_limitation:'登录/试看提示'}).state,'restricted','Explicit login or preview limits remain visible as restricted');
@@ -53,5 +63,5 @@ try{
  assert.equal(filterFeed(personal,{event:'用户手填赛事',query:'组合乙'}).length,1,'Search uses only manually supplied event and player metadata');
  assert.equal(filterFeed(personal,{category:'完整比赛'}).length,0,'A user content label does not verify full-match completeness');
  assert.ok(personal[0].subtitle.includes('仅个人观看')&&personal[0].subtitle.includes('完整性未核实'));
- console.log('35 passed, 0 failed: feed contracts, local metadata filters, rights states and conservative completeness');
+ console.log('Feed contracts passed: cover permission, local metadata filters, rights states and conservative completeness');
 }finally{rmSync(folder,{recursive:true,force:true});}
