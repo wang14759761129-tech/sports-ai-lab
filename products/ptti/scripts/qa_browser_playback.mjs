@@ -151,9 +151,10 @@ async function main() {
         mediaResponses.push({ status: event.response.status, contentRange: event.response.headers['content-range'] || null });
       }
     });
-    await waitFor(async () => cdp.evaluate("document.readyState === 'complete' && !!document.querySelector('.studio-topbar')"), 'Cinema homepage');
-    await waitFor(async () => cdp.evaluate(`document.title.includes(${JSON.stringify(health.product_name)})`), 'PTTI startup hydration');
-    record('home_loaded', 'PASS', { product: health.product_name, build_commit: health.build_commit });
+    await waitFor(async () => cdp.evaluate("document.readyState === 'complete' && !!document.querySelector('.studio-topbar')"), 'Cinema shell');
+    await waitFor(async () => cdp.evaluate("document.title.startsWith('PTTI') && !!document.querySelector('.feed-grid')"), 'Cinema feed hydration');
+    const documentTitle = await cdp.evaluate('document.title');
+    record('home_loaded', 'PASS', { product: health.product_name, document_title: documentTitle, build_commit: health.build_commit, version_flags: { video_first: health.video_first, video_feed: health.video_feed } });
 
     const clickButton = async (label, selector = 'button', userGesture = false) => cdp.evaluate(`(()=>{const e=[...document.querySelectorAll(${JSON.stringify(selector)})].find(x=>x.textContent.trim()===${JSON.stringify(label)});if(!e)return false;e.click();return true})()`, { userGesture });
     const selectVideo = async () => cdp.evaluate(`(()=>{const e=document.querySelector('.vision-player select');if(!e)return false;const s=Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,'value').set;s.call(e,${JSON.stringify(source.video_id)});e.dispatchEvent(new Event('input',{bubbles:true}));e.dispatchEvent(new Event('change',{bubbles:true}));return e.value})()`);
@@ -268,7 +269,7 @@ async function main() {
 
     const final = {
       schema_version: 1,
-      scenario: 'R5.1 local DEV game_1 browser playback regression',
+      scenario: 'PTTI Cinema local DEV game_1 browser playback regression',
       status: results.some((item) => item.status === 'FAIL') ? 'FAIL' : 'PASS',
       build_commit: health.build_commit,
       video_id: source.video_id,

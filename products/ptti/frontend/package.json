@@ -10,6 +10,7 @@
     "test:score": "node scripts/test-score-time.mjs",
     "test:score-observation": "node scripts/test-score-observation.mjs",
     "test:feed": "node scripts/test-video-feed.mjs",
+    "test:official-playback": "node scripts/test-official-playback.mjs",
     "test:studio": "node scripts/test-dark-studio.mjs"
   },
   "dependencies": {

@@ -3,6 +3,8 @@ import {Empty} from './ui';
 import {feedVideos,filterFeed,durationLabel,officialAction} from './feedCatalog';
 import type {FeedVideo} from './feedCatalog';
 import OfficialVideoPlayer from './OfficialVideoPlayer';
+import OfficialLinkRecovery from './OfficialLinkRecovery';
+import {openOfficialLink} from './officialPlayback';
 import MatchSourcePanel from './MatchSourcePanel';
 import {preferredSources} from './onlinePlayers';
 import './video-feed.css';
@@ -28,9 +30,9 @@ export default function VideoFeed({page,revision,query,onPlay,onTools,navigate}:
  useEffect(()=>{if(data&&!official){const frame=requestAnimationFrame(()=>window.scrollTo(0,feedContext().scroll||0));return()=>cancelAnimationFrame(frame)}},[!!data,!!official]);
  function openOfficialOnDesktop(event:MouseEvent<HTMLAnchorElement>,url:string){
   const api=(window as any).pywebview?.api;
-  if(typeof api?.open_official_video!=='function')return;
-  event.preventDefault();
-  Promise.resolve(api.open_official_video(url)).then((opened:boolean)=>{if(!opened)setError('系统浏览器未能打开官方来源，请重试或复制链接在浏览器打开')}).catch(()=>setError('系统浏览器未能打开官方来源，请重试或复制链接在浏览器打开'));
+  void openOfficialLink(event,url,typeof api?.open_official_video==='function'?value=>api.open_official_video(value):undefined).then(result=>{
+   if(result==='FAILED')setError('系统浏览器未能打开官方来源；可复制卡片旁的官方链接后手动打开');
+  });
  }
  async function bookmark(key:string){try{const r=await fetch('/api/video-evidence/library/feed/favorite',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({key,saved:!favorites.includes(key)})});if(!r.ok)throw Error('收藏未保存，请重试');const d=await r.json();setFavorites(d.favorites)}catch(e:any){setError(e.message)}}
  if(!data)return <Empty title={error||'正在打开比赛视频'} text=""/>;
@@ -51,6 +53,7 @@ export default function VideoFeed({page,revision,query,onPlay,onTools,navigate}:
   {error&&<p role="alert">{error}</p>}
   {shelves.map(shelf=>{const items=showShelf(shelf.items,visibleCount);return <section className="cinema-shelf" key={shelf.title}>{shelf.title&&<h2>{shelf.title}</h2>}<div className="feed-grid">{items.map(v=><article className="feed-video" key={v.key}>
    {v.kind==='LOCAL'?<button className="feed-watch" onClick={()=>{rememberScroll();fetch(`/api/video-evidence/library/videos/${v.source.video_id}/opened`,{method:'POST'}).catch(()=>{});onPlay(v.source.video_id)}}><Thumbnail video={v}/><strong>{v.title}</strong><span>{v.event}{v.source.round_label?' · '+v.source.round_label:''}</span><em>LOCAL PLAYABLE</em></button>:officialAction(v)==='EMBED'?<button className="feed-watch" onClick={()=>{rememberScroll();setOfficial(v.source)}}><Thumbnail video={v}/><strong>{v.title}</strong><span>{v.event}{v.source.round_label?' · '+v.source.round_label:''}</span><em>在 PTTI 内打开官方播放器</em><small>{v.source.source_publisher||v.source.channel||'官方来源'} · 完整性待核验</small></button>:<a className="feed-watch" href={v.source.source_url} target="_blank" rel="noopener noreferrer" title={`在官方 ${v.source.provider==='BILIBILI'?'Bilibili':'YouTube'} 页面观看`} onClick={event=>openOfficialOnDesktop(event,v.source.source_url)}><Thumbnail video={v} external/><strong>{v.title}</strong><span>{v.event}{v.source.round_label?' · '+v.source.round_label:''}</span><em>{v.source.playback_status==='RESTRICTED'?'RESTRICTED':'OFFICIAL PLATFORM'} ↗</em><small>{v.source.source_publisher||v.source.channel||'官方来源'} · {v.subtitle}</small></a>}
+   {v.kind==='OFFICIAL'&&officialAction(v)!=='EMBED'&&<OfficialLinkRecovery url={v.source.source_url}/>}
    <button className="feed-save" aria-label={(favorites.includes(v.key)?'取消收藏 ':'收藏 ')+v.title} aria-pressed={favorites.includes(v.key)} onClick={()=>bookmark(v.key)}>{favorites.includes(v.key)?'★':'☆'}</button>
   </article>)}</div>{shelf.items.length>items.length&&<button className="feed-load-more" onClick={()=>setVisibleCount(n=>n+12)}>显示更多 {shelf.items.length-items.length} 条</button>}</section>})}
   {!rows.length&&<Empty title={page==='feedHistory'?'还没有本机观看记录':page==='feedFavorites'?'还没有收藏的比赛':'没有找到符合条件的比赛'} text="只展示真实来源；试试全部比赛或收录自己的录像。"/>}

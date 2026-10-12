@@ -34,6 +34,12 @@ def test_desktop_bridge_opens_validated_url_in_system_browser(monkeypatch):
     assert opened == ["https://www.youtube.com/watch?v=WoqgXTjZNSk"]
 
 
+def test_desktop_bridge_reports_system_browser_failure(monkeypatch):
+    monkeypatch.setattr(external_links.webbrowser, "open_new_tab", lambda _url: False)
+
+    assert DesktopAPI().open_official_video("https://www.youtube.com/watch?v=WoqgXTjZNSk") is False
+
+
 def test_desktop_bridge_never_passes_untrusted_url_to_browser(monkeypatch):
     opened = []
     monkeypatch.setattr(external_links.webbrowser, "open_new_tab", lambda url: opened.append(url) or True)
