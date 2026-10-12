@@ -17,6 +17,7 @@ from backend.health_check import (
 from apps.desktop import report_health_startup_failure
 from scripts.build_dual_source_v061_preview import PackagerTimeoutError, run_packager
 from scripts.ci_windows_candidate import (
+    pytest_failure_message,
     record_health_timeout,
     sanitize_pytest_artifacts,
     summarize_pytest_report,
@@ -190,6 +191,9 @@ def test_ci_pytest_summary_classifies_collection_and_masks_machine_paths(tmp_pat
         "skipped": 0,
         "failure_reason": "database_path_guard_rejected_temp_root",
     }
+    assert pytest_failure_message(summary) == (
+        "pytest failed: database_path_guard_rejected_temp_root"
+    )
     sanitize_pytest_artifacts(
         [junit, log], [('OS_TEMP', os_temp), ('RUNNER_TEMP', runner_temp)]
     )

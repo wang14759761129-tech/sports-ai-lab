@@ -108,10 +108,12 @@ def summarize_pytest_report(xml_path):
         reason = 'pytest_test_failure'
     elif errors:
         reason = 'pytest_test_error'
+    elif tests == 0:
+        reason = 'pytest_collected_no_tests'
     else:
         reason = 'none'
     return {
-        'status': 'passed' if not (errors or failures) else 'failed',
+        'status': 'passed' if tests and not (errors or failures) else 'failed',
         'collection': 'failed' if collection_errors else 'completed',
         'collected_cases': tests,
         'collection_errors': len(collection_errors),
@@ -120,6 +122,22 @@ def summarize_pytest_report(xml_path):
         'skipped': skipped,
         'failure_reason': reason,
     }
+
+
+def pytest_failure_message(summary):
+    reason = summary.get('failure_reason')
+    allowed = {
+        'database_path_guard_rejected_temp_root',
+        'pytest_collection_error',
+        'pytest_collected_no_tests',
+        'pytest_test_failure',
+        'pytest_test_error',
+        'junit_report_missing',
+        'junit_report_invalid',
+    }
+    if reason not in allowed:
+        reason = 'pytest_process_failed'
+    return f'pytest failed: {reason}'
 
 
 def sanitize_pytest_artifacts(paths, roots):
@@ -187,6 +205,11 @@ def main():
         try:
             run_packager([sys.executable, '-m', 'pytest', '-q',
                           '--junitxml', str(pytest_xml)], pytest_log)
+        except subprocess.CalledProcessError:
+            result['pytest'] = summarize_pytest_report(pytest_xml)
+            result['error_type'] = 'CalledProcessError'
+            result['exit_reason'] = result['pytest']['failure_reason']
+            raise SystemExit(pytest_failure_message(result['pytest'])) from None
         except Exception:
             result['pytest'] = summarize_pytest_report(pytest_xml)
             raise
