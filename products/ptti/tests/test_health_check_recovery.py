@@ -1,6 +1,8 @@
 import json
 import sys
+import tempfile
 import time
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import pytest
@@ -14,7 +16,12 @@ from backend.health_check import (
 )
 from apps.desktop import report_health_startup_failure
 from scripts.build_dual_source_v061_preview import PackagerTimeoutError, run_packager
-from scripts.ci_windows_candidate import record_health_timeout, verify_health_check_result
+from scripts.ci_windows_candidate import (
+    record_health_timeout,
+    sanitize_pytest_artifacts,
+    summarize_pytest_report,
+    verify_health_check_result,
+)
 
 
 def test_health_result_is_accepted_only_after_successful_exit_and_matching_identity(tmp_path):
@@ -140,3 +147,57 @@ def test_actions_runner_temp_is_accepted_as_the_guarded_database_root(tmp_path):
         testing=True,
     )
     assert Path(resolved) == runner_temp / "ptti-ci-qa" / "matches.db"
+
+
+def test_health_check_remains_strictly_bound_to_runner_temp(tmp_path):
+    runner_temp = tmp_path / "runner-temp"
+    runner_temp.mkdir()
+    runner_database = runner_temp / "ptti-ci-qa" / "matches.db"
+    os_temp_database = Path(tempfile.gettempdir()) / "ptti-health-check-not-runner-temp.db"
+
+    assert validate_qa_database_path(runner_database, runner_temp) == runner_database.resolve()
+    with pytest.raises(HealthCheckError) as caught:
+        validate_qa_database_path(os_temp_database, runner_temp)
+    assert caught.value.reason == "qa_database_outside_temp"
+
+
+def test_ci_pytest_summary_classifies_collection_and_masks_machine_paths(tmp_path):
+    os_temp = tmp_path / "os-temp-private-root"
+    runner_temp = tmp_path / "runner-temp-private-root"
+    reports = tmp_path / "reports"
+    reports.mkdir()
+    junit = reports / "pytest.xml"
+    log = reports / "pytest.log"
+    suites = ET.Element("testsuites")
+    suite = ET.SubElement(suites, "testsuite", tests="1", errors="1", failures="0", skipped="0")
+    case = ET.SubElement(suite, "testcase", classname="", name="tests.test_bootstrap")
+    error = ET.SubElement(case, "error", message="collection failure")
+    error.text = (
+        f"PRODUCTION_DATABASE_WRITE_GUARD: {os_temp / 'bootstrap.db'} is outside "
+        f"{runner_temp}"
+    )
+    junit.write_bytes(ET.tostring(suites, encoding="utf-8", xml_declaration=True))
+    log.write_text(f"{os_temp}\\bootstrap.db rejected by {runner_temp}", encoding="utf-8")
+
+    summary = summarize_pytest_report(junit)
+    assert summary == {
+        "status": "failed",
+        "collection": "failed",
+        "collected_cases": 1,
+        "collection_errors": 1,
+        "test_errors": 0,
+        "test_failures": 0,
+        "skipped": 0,
+        "failure_reason": "database_path_guard_rejected_temp_root",
+    }
+    sanitize_pytest_artifacts(
+        [junit, log], [('OS_TEMP', os_temp), ('RUNNER_TEMP', runner_temp)]
+    )
+
+    sanitized_log = log.read_text(encoding="utf-8")
+    sanitized_junit = junit.read_text(encoding="utf-8")
+    assert str(os_temp) not in sanitized_log + sanitized_junit
+    assert str(runner_temp) not in sanitized_log + sanitized_junit
+    assert "[OS_TEMP]" in sanitized_log
+    assert "[RUNNER_TEMP]" in sanitized_log
+    ET.fromstring(sanitized_junit)

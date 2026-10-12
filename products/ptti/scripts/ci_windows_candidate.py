@@ -1,10 +1,12 @@
 """Build-only CI companion to dev_sync. Never install or activate a version."""
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
 import tempfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -78,6 +80,65 @@ def record_health_timeout(report_path):
     return True
 
 
+def summarize_pytest_report(xml_path):
+    """Return collection and failure counts without copying raw tracebacks into metadata."""
+    path = Path(xml_path)
+    if not path.is_file():
+        return {'status': 'report_missing', 'collection': 'unknown', 'failure_reason': 'junit_report_missing'}
+    try:
+        root = ET.parse(path).getroot()
+    except (OSError, ET.ParseError):
+        return {'status': 'report_invalid', 'collection': 'unknown', 'failure_reason': 'junit_report_invalid'}
+
+    suites = list(root.iter('testsuite'))
+    tests = sum(int(suite.get('tests', 0)) for suite in suites)
+    errors = sum(int(suite.get('errors', 0)) for suite in suites)
+    failures = sum(int(suite.get('failures', 0)) for suite in suites)
+    skipped = sum(int(suite.get('skipped', 0)) for suite in suites)
+    collection_errors = [
+        node for node in root.iter('error')
+        if node.get('message', '').casefold() == 'collection failure'
+    ]
+    error_text = '\n'.join(node.text or '' for node in root.iter('error'))
+    if collection_errors and 'PRODUCTION_DATABASE_WRITE_GUARD' in error_text:
+        reason = 'database_path_guard_rejected_temp_root'
+    elif collection_errors:
+        reason = 'pytest_collection_error'
+    elif failures:
+        reason = 'pytest_test_failure'
+    elif errors:
+        reason = 'pytest_test_error'
+    else:
+        reason = 'none'
+    return {
+        'status': 'passed' if not (errors or failures) else 'failed',
+        'collection': 'failed' if collection_errors else 'completed',
+        'collected_cases': tests,
+        'collection_errors': len(collection_errors),
+        'test_errors': max(0, errors - len(collection_errors)),
+        'test_failures': failures,
+        'skipped': skipped,
+        'failure_reason': reason,
+    }
+
+
+def sanitize_pytest_artifacts(paths, roots):
+    """Mask machine-specific roots in logs and JUnit while preserving relative evidence."""
+    replacements = {}
+    for label, root in roots:
+        value = str(Path(root).resolve())
+        replacements[value] = label
+        replacements[value.replace('\\', '/')] = label
+    for path in paths:
+        path = Path(path)
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding='utf-8', errors='replace')
+        for value, label in sorted(replacements.items(), key=lambda item: len(item[0]), reverse=True):
+            text = re.sub(re.escape(value), f'[{label}]', text, flags=re.IGNORECASE)
+        path.write_text(text, encoding='utf-8')
+
+
 def main():
     if sys.platform != 'win32' or os.environ.get('GITHUB_ACTIONS') != 'true':
         raise RuntimeError('This build-only command requires an isolated Windows Actions runner')
@@ -90,7 +151,13 @@ def main():
     reports = output / 'reports'
     reports.mkdir()
     result = {'source_commit': expected, 'activation': 'NOT_ATTEMPTED',
-              'native_gui': 'NOT_TESTED', 'status': 'FAILED'}
+              'native_gui': 'NOT_TESTED', 'status': 'FAILED',
+              'database_path_roots': {
+                  'pytest_bootstrap': 'OS_TEMP',
+                  'test_database_allowlist': ['OS_TEMP', 'RUNNER_TEMP'],
+                  'deployment_health_check': 'RUNNER_TEMP only',
+              },
+              'pytest': {'status': 'not_started', 'collection': 'unknown'}}
     try:
         validate_source(expected)
         if psutil.virtual_memory().available < MIN_START_RAM_BYTES:
@@ -115,8 +182,22 @@ def main():
             tool: subprocess.check_output([tool, '-version'], text=True).splitlines()[0]
             for tool in ('ffmpeg', 'ffprobe')
         }
-        run_packager([sys.executable, '-m', 'pytest', '-q',
-                      '--junitxml', str(reports / 'pytest.xml')], reports / 'pytest.log')
+        pytest_xml = reports / 'pytest.xml'
+        pytest_log = reports / 'pytest.log'
+        try:
+            run_packager([sys.executable, '-m', 'pytest', '-q',
+                          '--junitxml', str(pytest_xml)], pytest_log)
+        except Exception:
+            result['pytest'] = summarize_pytest_report(pytest_xml)
+            raise
+        else:
+            result['pytest'] = summarize_pytest_report(pytest_xml)
+        finally:
+            sanitize_pytest_artifacts(
+                [pytest_log, pytest_xml],
+                [('OS_TEMP', tempfile.gettempdir()), ('RUNNER_TEMP', temp),
+                 ('WORKSPACE', ROOT), ('PYTHON_ROOT', sys.prefix)],
+            )
         run_packager([sys.executable, '-m', 'pip', 'check'], reports / 'pip-check.log')
         for name in ['test:feed', 'test:studio', 'test:review', 'test:score', 'test:score-observation', 'build']:
             if name == 'build':

@@ -64,6 +64,7 @@ def test_repository_test_mode_rejects_non_temp_path(monkeypatch,tmp_path):
 
 def test_actions_pytest_bootstrap_os_temp_is_accepted(tmp_path):
     from backend.database import ProductionDatabaseGuard
+    from backend.temp_paths import is_within_test_temp
 
     os_temp_db = Path(tempfile.gettempdir()) / 'ptti-test-bootstrap-regression' / 'bootstrap.db'
     outside_db = Path(__file__).resolve().parents[1] / 'not-a-database.db'
@@ -85,6 +86,103 @@ def test_actions_pytest_bootstrap_os_temp_is_accepted(tmp_path):
             environ={**env, 'PTTI_ENV': 'test', 'PTTI_DB': str(outside_db)},
             testing=True,
         )
+
+
+def test_runner_temp_boundary_is_canonical_and_rejects_prefix_and_traversal(tmp_path):
+    from backend.database import ProductionDatabaseGuard
+    from backend.temp_paths import is_within_test_temp
+
+    workspace = Path(__file__).resolve().parents[1]
+    runner_temp = workspace / 'isolated-runner-temp'
+    runner_db = runner_temp / 'qa' / 'matches.db'
+    prefix_spoof = workspace / 'isolated-runner-temp-evil' / 'matches.db'
+    traversal = runner_temp / '..' / 'outside.db'
+    env = {
+        'GITHUB_ACTIONS': 'true',
+        'RUNNER_TEMP': str(runner_temp),
+        'LOCALAPPDATA': str(tmp_path / 'local-app-data'),
+    }
+
+    assert is_within_test_temp(runner_db, env)
+    assert not is_within_test_temp(prefix_spoof, env)
+    assert not is_within_test_temp(traversal, env)
+    assert not is_within_test_temp(runner_temp, env)
+    assert ProductionDatabaseGuard('test', env).validate(runner_db) == runner_db.resolve()
+    assert Path(resolve_database_path(
+        environ={**env, 'PTTI_ENV': 'test', 'PTTI_DB': str(runner_db)},
+        testing=True,
+    )) == runner_db.resolve()
+    for rejected in (prefix_spoof, traversal):
+        with pytest.raises(RuntimeError, match='PRODUCTION_DATABASE_WRITE_GUARD'):
+            resolve_database_path(
+                environ={**env, 'PTTI_ENV': 'test', 'PTTI_DB': str(rejected)},
+                testing=True,
+            )
+
+
+def test_test_temp_allowlist_does_not_apply_to_production_mode(tmp_path):
+    runner_temp = tmp_path / 'runner-temp'
+    runner_temp.mkdir()
+    local = tmp_path / 'local-app-data'
+    production = local / 'PTTI' / 'matches.db'
+    with pytest.raises(RuntimeError, match='production database path must'):
+        resolve_database_path(
+            environ={
+                'GITHUB_ACTIONS': 'true',
+                'RUNNER_TEMP': str(runner_temp),
+                'LOCALAPPDATA': str(local),
+                'PTTI_ENV': 'production',
+                'PTTI_DB': str(runner_temp / 'matches.db'),
+            },
+            testing=False,
+        )
+    assert not production.exists()
+
+
+def test_symlink_into_protected_database_is_rejected_without_writing(tmp_path):
+    from backend.database import ProductionDatabaseGuard
+
+    local = tmp_path / 'local-app-data'
+    production = local / 'PTTI' / 'matches.db'
+    production.parent.mkdir(parents=True)
+    production.write_bytes(b'protected-test-marker')
+    link = tmp_path / 'linked.db'
+    junction = None
+    try:
+        os.symlink(production, link)
+    except OSError as exc:
+        if getattr(exc, 'winerror', None) == 1314:
+            junction = tmp_path / 'protected-directory-link'
+            result = subprocess.run(
+                ['cmd.exe', '/c', 'mklink', '/J', str(junction), str(production.parent)],
+                capture_output=True,
+                text=True,
+                timeout=10,
+            )
+            if result.returncode:
+                pytest.skip('Windows symlink and junction creation are unavailable')
+            link = junction / production.name
+        else:
+            raise
+
+    try:
+        env = {
+            'GITHUB_ACTIONS': 'true',
+            'RUNNER_TEMP': str(tmp_path / 'runner-temp'),
+            'LOCALAPPDATA': str(local),
+        }
+        assert link.resolve() == production.resolve()
+        with pytest.raises(RuntimeError, match='PRODUCTION_DATABASE_WRITE_GUARD'):
+            ProductionDatabaseGuard('test', env).validate(link)
+        with pytest.raises(RuntimeError, match='PRODUCTION_DATABASE_WRITE_GUARD'):
+            resolve_database_path(
+                environ={**env, 'PTTI_ENV': 'test', 'PTTI_DB': str(link)},
+                testing=True,
+            )
+        assert production.read_bytes() == b'protected-test-marker'
+    finally:
+        if junction is not None and junction.exists():
+            os.rmdir(junction)
 
 
 @pytest.mark.parametrize('view',['private','unknown'])

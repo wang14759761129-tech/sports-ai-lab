@@ -21,8 +21,9 @@ def is_within_test_temp(path, environ=None) -> bool:
         roots.append(Path(runner_temp).expanduser().resolve(strict=False))
     for root in roots:
         try:
-            candidate.relative_to(root)
-            return True
+            relative = candidate.relative_to(root)
+            if relative.parts:
+                return True
         except ValueError:
             continue
     return False
