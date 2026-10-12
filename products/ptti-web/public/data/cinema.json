@@ -1,0 +1,89 @@
+[
+  {
+    "id": "doha-2023-ms-final",
+    "event": "WTT Finals Men Doha 2023",
+    "eventCategory": "WTT Finals",
+    "eventYear": 2023,
+    "discipline": "MS",
+    "round": "Final",
+    "players": ["Fan Zhendong", "Wang Chuqin"],
+    "result": "Wang Chuqin won 4–0",
+    "platform": "World Table Tennis (WTT)",
+    "platformUrl": "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES",
+    "videoOriginalUrl": null,
+    "sourceStatus": "official-listing-found",
+    "playbackTested": false,
+    "regionRestriction": "Unknown. WTT may direct viewers to a local broadcaster; availability can vary by territory.",
+    "embedAllowed": null,
+    "lastVerifiedAt": "2026-10-12",
+    "sourceEvidence": [
+      "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES"
+    ],
+    "note": "WTT's event page lists this match in its related video catalogue. The official event page is the route; direct clip playback has not been tested."
+  },
+  {
+    "id": "doha-2023-ms-sf-fan-lin",
+    "event": "WTT Finals Men Doha 2023",
+    "eventCategory": "WTT Finals",
+    "eventYear": 2023,
+    "discipline": "MS",
+    "round": "Semifinal",
+    "players": ["Fan Zhendong", "Lin Gaoyuan"],
+    "platform": "World Table Tennis (WTT)",
+    "platformUrl": "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES",
+    "videoOriginalUrl": null,
+    "sourceStatus": "official-listing-found",
+    "playbackTested": false,
+    "regionRestriction": "Unknown. WTT may direct viewers to a local broadcaster; availability can vary by territory.",
+    "embedAllowed": null,
+    "lastVerifiedAt": "2026-10-12",
+    "sourceEvidence": [
+      "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES"
+    ],
+    "note": "WTT's event page lists this match in its related video catalogue. The official event page is the route; direct clip playback has not been tested."
+  },
+  {
+    "id": "singapore-2021-ws-final-wang-sun",
+    "event": "WTT Cup Finals Singapore 2021",
+    "eventCategory": "WTT Cup Finals",
+    "eventYear": 2021,
+    "discipline": "WS",
+    "round": "Final",
+    "players": ["Wang Yidi", "Sun Yingsha"],
+    "platform": "World Table Tennis (WTT) · YouTube",
+    "platformUrl": "https://www.youtube.com/watch?v=XHGCGiAyKkc",
+    "videoOriginalUrl": "https://www.youtube.com/watch?v=XHGCGiAyKkc",
+    "sourceStatus": "official-listing-found",
+    "playbackTested": false,
+    "regionRestriction": "Unknown. WTT may direct viewers to a local broadcaster; availability can vary by territory.",
+    "embedAllowed": null,
+    "lastVerifiedAt": "2026-10-12",
+    "sourceEvidence": [
+      "https://www.worldtabletennis.com/eventInfo?eventId=2536&selectedTab=Overview",
+      "https://www.youtube.com/watch?v=XHGCGiAyKkc"
+    ],
+    "note": "WTT's verified YouTube channel lists the full women's final. The original video is linked directly; playback has not been tested."
+  },
+  {
+    "id": "chongqing-2025-ws-final-sun-chen",
+    "event": "WTT Champions Chongqing 2025",
+    "eventCategory": "WTT Champions",
+    "eventYear": 2025,
+    "discipline": "WS",
+    "round": "Final",
+    "players": ["Sun Yingsha", "Chen Xingtong"],
+    "result": "Sun Yingsha won 4–0",
+    "platform": "WTT result article (evidence only)",
+    "platformUrl": null,
+    "videoOriginalUrl": null,
+    "sourceStatus": "no-verified-route",
+    "playbackTested": false,
+    "regionRestriction": "Unknown",
+    "embedAllowed": null,
+    "lastVerifiedAt": "2026-10-12",
+    "sourceEvidence": [
+      "https://www.worldtabletennis.com/description?artId=4731"
+    ],
+    "note": "WTT confirms the event and result. This sample does not have a verified match-specific watch URL, so no watch button is offered."
+  }
+]
