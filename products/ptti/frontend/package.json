@@ -10,6 +10,7 @@
     "test:score": "node scripts/test-score-time.mjs",
     "test:score-observation": "node scripts/test-score-observation.mjs",
     "test:feed": "node scripts/test-video-feed.mjs",
+    "test:folder-scan-status": "node scripts/test-folder-scan-status.mjs",
     "test:official-playback": "node scripts/test-official-playback.mjs",
     "test:vision-source-recovery": "node scripts/test-vision-source-recovery.mjs",
     "test:qa-proxy": "node scripts/test-qa-proxy.mjs",
