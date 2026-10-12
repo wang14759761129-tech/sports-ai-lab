@@ -25,3 +25,22 @@ The Web app currently has teal surfaces and a lime accent (`src/style.css`), whi
 ## Boundary
 
 This is an integration proposal only. It does not copy desktop components, modify the Premium Design worktree, alter playback/Vision/security code, or grant image, embedding, or commercial-use rights. A later shared token/component handoff should specify the stable CSS variable names and the cover-permission field shape before code is integrated.
+
+## Sprint 0.5 Web token mapping (proposal; not applied)
+
+The reviewed source commit `ae9b84e8da5e9ebd91fceabc2eaa17c67e070ba9` is available as a Git object in the independent worktree. Values below were read from that committed `design-tokens.css`; no dirty Premium worktree files were used. The Web app currently keeps its own `--ptti-*` variables in `src/style.css`.
+
+| Web-owned token | Current Web value | Premium V1.1 target | Integration note |
+| --- | --- | --- | --- |
+| `--ptti-bg` | `#0b1012` | `--bg: #0a0a0a` | Match the near-black page background. |
+| `--ptti-surface` | `#11191c` | `--surface-muted: #111215` or `--card: #151619` | Choose per existing hierarchy; do not flatten raised cards. |
+| `--ptti-surface-raised` | `#172124` | `--surface-elevated: #1b1d21` | Preserve the current hierarchy using charcoal. |
+| `--ptti-border` | `#29383b` | `--border: #292b30` | Use across nav, filters and cards. |
+| `--ptti-text` | `#f4f6f3` | `--text: #f4f4f5` | Near-white text. |
+| `--ptti-muted` / `--ptti-faint` | `#a1b1ae` / `#71827f` | `--muted: #a2a4aa` | Review low-emphasis Chinese copy contrast before mapping both to one target. |
+| `--ptti-accent` / `--ptti-accent-ink` | `#b8ff69` / `#10170c` | `--brand: #e53943` / `--accent-ink: #fff` | Replace lime with Premium red within this Web app only. |
+| `--ptti-warning` | `#ffc878` | `--warning: #f0be64` | Keep warning distinct from playback-confirmed status. |
+| status colors (to add only if needed) | currently component-specific | `--confirmed: #79d8a5`, `--error: #ff9292`, `--error-bg: #321e20` | Use for status/error semantics; retain current accurate Chinese source labels. |
+| focus / motion / radius | focus uses accent; local radii 3–5px; transitions 150ms | `--focus-ring: 0 0 0 3px #e5394352`, `--duration: 180ms`, `--radius: 14px` | Apply to Web controls after checking 390px layout; do not force 14px onto every small control. |
+
+Suggested minimal sequence: map colors/focus first in the Web-owned stylesheet; retain the Web navigation, language control, search and source router; then tune selected container radius and motion. Keep the CSS-built 16:9 PTTI placeholder. No official cover image, thumbnail or video embed is permitted by this mapping. External official-video `PLAYBACK_PASS` remains browser evidence only and is not Windows-native playback acceptance.

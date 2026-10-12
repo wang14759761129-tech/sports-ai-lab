@@ -6,4 +6,5 @@
 - No video is embedded. There is no DRM, sign-in, subscription or territory bypass.
 - User feedback is stored in local browser storage and exported only after a user action. The form asks for no contact details and limits free text to 500 characters.
 - React renders user-entered text as text, not HTML.
-- Before a public HTTPS deployment, add deployment-specific security headers and review the hosting provider, data retention, privacy notice and current external-link inventory. This build is not deployed.
+- A Cloudflare Pages `_headers` policy is prepared at `public/_headers` and is copied into the production build. It has not been tested on a Pages response because no deployment exists. Review the preview-specific `noindex` and all header rules before any formal public release.
+- The Cloudflare static-preview plan is in `docs/CLOUDFLARE_PREVIEW_PLAN.md`. Hosting account log configuration and retention were not inspected and remain unknown. No Cloudflare project, GitHub app permission, deployment, API token or public URL has been created.
