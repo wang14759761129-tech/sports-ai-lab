@@ -7,13 +7,13 @@ Scope: read-only comparison of Premium Design, Web MVP, and Playback branches. N
 
 All three worktrees share merge base `2c87a6433437f39bf85a9439cccf99709cce887e`.
 
-| Line | Worktree | Branch | Current local / remote HEAD | State at review |
+| Line | Worktree | Branch | HEAD used for comparison | State |
 |---|---|---|---|---|
-| Premium Design | `C:\PTTI-Worktrees\premium-design-v1` | `codex/ptti-premium-design-v1` | `ae9b84e8da5e9ebd91fceabc2eaa17c67e070ba9` | Clean before this closeout; final V1.1 review changes are now local to this worktree |
+| Premium Design | `C:\PTTI-Worktrees\premium-design-v1` | `codex/ptti-premium-design-v1` | `ae9b84e8da5e9ebd91fceabc2eaa17c67e070ba9` | Comparison anchored before closeout; final V1.1 work is committed on this branch |
 | Web MVP | `C:\PTTI-Worktrees\web-mvp-v0-1` | `codex/ptti-web-mvp-v0-1` | `8bae01c672dc77efb2a8ca80621d80638542bcc3` | Clean; local equals remote |
 | Playback | `C:\PTTI-Worktrees\playback-recovery-sprint-0-3` | `codex/ptti-playback-recovery-sprint-0-3` | `836d6b02084a697d92c56a6af00948601527f39e` | Clean; local equals remote |
 
-The Web branch has advanced beyond the previously supplied `481eb362…` to `8bae01c…`; later commits add verified direct-match routes, Sprint 0.3 checks and Sprint 0.4 browser observations for two official WTT video pages. Its latest commit updates the Web-owned match data, playback evidence fields, QA and rights notes. Playback has advanced beyond the previously supplied `d12d1a9…` to `836d6b0…`, which adds a Windows candidate CI workflow and its plan. The review used the current local and remote refs; neither branch was reset or modified.
+The Web branch has advanced beyond the previously supplied `481eb362…` to `8bae01c…`; later commits add verified direct-match routes, Sprint 0.3 checks and Sprint 0.4 browser observations for two official WTT video pages. Its latest commit updates the Web-owned match data, playback evidence fields, QA and rights notes. Playback has advanced beyond the previously supplied `d12d1a9…` to `836d6b0…`, which adds a Windows candidate CI workflow and its plan. The comparison read these current refs. Web and Playback worktrees were not changed; Premium closeout work stayed on its own branch.
 
 ## Histories and changed paths
 
