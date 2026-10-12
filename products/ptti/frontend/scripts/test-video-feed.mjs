@@ -4,13 +4,17 @@ import {tmpdir} from 'node:os';import {join} from 'node:path';import {spawnSync}
 const folder=mkdtempSync(join(tmpdir(),'ptti-feed-'));
 try{
  const r=spawnSync(process.execPath,['node_modules/typescript/bin/tsc','src/feedCatalog.ts','src/onlinePlayers.ts','--target','ES2022','--module','ES2022','--strict','--skipLibCheck','--outDir',folder],{encoding:'utf8'});assert.equal(r.status,0,r.stdout+r.stderr);writeFileSync(join(folder,'package.json'),' {"type":"module"}');
- const {feedVideos,filterFeed,officialAction,durationLabel}=await import(pathToFileURL(join(folder,'feedCatalog.js')));
+ const {feedVideos,filterFeed,officialAction,officialWatchState,durationLabel}=await import(pathToFileURL(join(folder,'feedCatalog.js')));
  const official={video_id:'real',title:'Publisher claims full match',full_match:true,video_source:{is_full_match:null},athlete_names:['孙颖莎'],event_name:'WTT Macao 2024',discipline:'WS',playback_status:'EMBED_BLOCKED',watch_page_status:'NOT_TESTED',source_url:'https://www.youtube.com/watch?v=real'};
  const limited={...official,video_id:'limited',full_match:false,content_type:'CLIP',source_key:'BILIBILI:limited',discipline:'MD',athlete_names:[]};
  const verifiedFull={...official,video_id:'verified',title:'Verified full match',athlete_names:[],discipline:'UNKNOWN',video_source:{is_full_match:true}};
  const rows=feedVideos({videos:[{video_id:'local',title:'local',availability_status:'AVAILABLE',duration_ms:1000,last_opened_at:'now'},{video_id:'missing',availability_status:'MISSING_FILE'}],official_videos:[official,official,{...official,video_id:'highlight',full_match:false},limited,verifiedFull]});
  assert.equal(rows.length,4,'Show source links while keeping missing media and unindexed highlights out');
  assert.equal(officialAction(rows.find(v=>v.key==='official:real')),'SOURCE_LINK','Known embedding failure must bypass iframe');
+ assert.deepEqual(officialWatchState({playback_status:'EMBED_BLOCKED'}),{state:'no-embed',label:'NO EMBED · 官方平台观看'});
+ assert.equal(officialWatchState({playback_status:'SOURCE_LINK_ONLY',playback_limitation:'登录/试看提示'}).state,'restricted','Explicit login or preview limits remain visible as restricted');
+ assert.equal(officialWatchState({video_source:{playback_verified:true,playback_type:'OFFICIAL_PAGE'}}).state,'observed','Observed official-page playback is not mislabeled as an in-app embed');
+ assert.equal(officialWatchState({playback_status:'EMBED_NOT_TESTED'}).state,'unverified','Untested sources remain clearly unverified');
  assert.equal(filterFeed(rows,{category:'女单'}).length,1);
  assert.equal(filterFeed(rows,{athlete:'孙颖莎'}).length,1);
  assert.equal(filterFeed(rows,{category:'奥运'}).length,0,'No invented category content');
@@ -49,5 +53,5 @@ try{
  assert.equal(filterFeed(personal,{event:'用户手填赛事',query:'组合乙'}).length,1,'Search uses only manually supplied event and player metadata');
  assert.equal(filterFeed(personal,{category:'完整比赛'}).length,0,'A user content label does not verify full-match completeness');
  assert.ok(personal[0].subtitle.includes('仅个人观看')&&personal[0].subtitle.includes('完整性未核实'));
- console.log('31 passed, 0 failed: feed contracts, local metadata filters, rights states and conservative completeness');
+ console.log('35 passed, 0 failed: feed contracts, local metadata filters, rights states and conservative completeness');
 }finally{rmSync(folder,{recursive:true,force:true});}
