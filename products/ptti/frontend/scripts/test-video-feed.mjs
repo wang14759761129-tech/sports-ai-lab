@@ -4,7 +4,7 @@ import {tmpdir} from 'node:os';import {join} from 'node:path';import {spawnSync}
 const folder=mkdtempSync(join(tmpdir(),'ptti-feed-'));
 try{
  const r=spawnSync(process.execPath,['node_modules/typescript/bin/tsc','src/feedCatalog.ts','src/onlinePlayers.ts','--target','ES2022','--module','ES2022','--strict','--skipLibCheck','--outDir',folder],{encoding:'utf8'});assert.equal(r.status,0,r.stdout+r.stderr);writeFileSync(join(folder,'package.json'),' {"type":"module"}');
- const {feedVideos,filterFeed,officialAction,officialWatchState,durationLabel}=await import(pathToFileURL(join(folder,'feedCatalog.js')));
+ const {feedVideos,filterFeed,officialAction,officialWatchState,durationLabel,fallbackCoverContext}=await import(pathToFileURL(join(folder,'feedCatalog.js')));
  const official={video_id:'real',title:'Publisher claims full match',full_match:true,video_source:{is_full_match:null},athlete_names:['孙颖莎'],event_name:'WTT Macao 2024',discipline:'WS',playback_status:'EMBED_BLOCKED',watch_page_status:'NOT_TESTED',source_url:'https://www.youtube.com/watch?v=real'};
  const limited={...official,video_id:'limited',full_match:false,content_type:'CLIP',source_key:'BILIBILI:limited',discipline:'MD',athlete_names:[]};
  const verifiedFull={...official,video_id:'verified',title:'Verified full match',athlete_names:[],discipline:'UNKNOWN',video_source:{is_full_match:true}};
@@ -14,6 +14,8 @@ try{
  const unapprovedCover=feedVideos({videos:[],official_videos:[thumbnailSource]})[0];
  assert.equal(unapprovedCover.thumbnail,'','Official cover is not shown without explicit display permission');
  assert.equal(unapprovedCover.thumbnailFallbackLabel,'官方封面展示许可未核实');
+ assert.deepEqual(fallbackCoverContext(unapprovedCover),{event:'WTT Macao 2024',category:'女单',participants:'孙颖莎'},'Fallback cover uses only the existing catalog metadata and labels its nature in the UI');
+ assert.deepEqual(fallbackCoverContext(feedVideos({videos:[],official_videos:[{video_id:'unknown',title:'unknown',full_match:true,source_key:'YOUTUBE:unknown'}]})[0]),{event:'赛事未核实',category:'项目待核实',participants:'阵容待核实'});
  const approvedCover=feedVideos({videos:[],official_videos:[{...thumbnailSource,thumbnail_display_permission:'ALLOWED'}]})[0];
  assert.equal(approvedCover.thumbnail,thumbnailSource.thumbnail_url,'Explicitly permitted HTTPS covers can display');
  const nestedApprovedCover=feedVideos({videos:[],official_videos:[{...thumbnailSource,video_source:{provenance:{thumbnail_display_permission:'ALLOWED'}}}]})[0];

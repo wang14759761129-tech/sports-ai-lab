@@ -1,6 +1,6 @@
 import {useEffect,useState,type MouseEvent} from 'react';
 import {Empty} from './ui';
-import {feedVideos,filterFeed,durationLabel,officialAction,officialWatchState} from './feedCatalog';
+import {feedVideos,filterFeed,durationLabel,officialAction,officialWatchState,fallbackCoverContext} from './feedCatalog';
 import type {FeedVideo} from './feedCatalog';
 import OfficialVideoPlayer from './OfficialVideoPlayer';
 import OfficialLinkRecovery from './OfficialLinkRecovery';
@@ -15,7 +15,11 @@ function rememberScroll(){try{const saved=feedContext();sessionStorage.setItem('
 function Thumbnail({video,external=false}:{video:FeedVideo;external?:boolean}){
  const [failed,setFailed]=useState(!video.thumbnail);
  useEffect(()=>setFailed(!video.thumbnail),[video.thumbnail]);
- return <div className="feed-cover">{failed?<span className="feed-missing">{video.thumbnailFallbackLabel||'封面暂不可用'}</span>:<img src={video.thumbnail} alt="" aria-hidden="true" loading="lazy" decoding="async" onError={()=>setFailed(true)}/>}<span className={external?'feed-external':'feed-play'} aria-hidden="true">{external?'↗':'▶'}</span><small>{durationLabel(video.duration)}</small></div>;
+ const context=fallbackCoverContext(video);
+ return <div className="feed-cover">{failed?<div className="feed-cover-fallback" role="img" aria-label={`PTTI 品牌占位，非比赛画面；目录信息：${context.event}，${context.category}，${context.participants}`}>
+  <svg className="feed-cover-art" viewBox="0 0 240 135" aria-hidden="true"><path d="M12 107C60 15 151 17 213 74"/><path d="M9 120C69 51 153 44 230 90"/><path d="M18 126C91 83 167 77 229 104"/><g transform="translate(153 48) rotate(34)"><ellipse cx="0" cy="0" rx="28" ry="36"/><path d="M-10 30h20v36a10 10 0 0 1-20 0z"/></g><circle cx="207" cy="46" r="7"/></svg>
+  <div className="feed-cover-copy"><span className="feed-cover-kicker">PTTI · VIDEO INDEX</span><strong>{context.event}</strong><span>{context.category} · {context.participants}</span><small>{video.thumbnailFallbackLabel||'封面暂不可用'} · 非比赛画面</small></div>
+ </div>:<img src={video.thumbnail} alt="" aria-hidden="true" loading="lazy" decoding="async" onError={()=>setFailed(true)}/>}<span className={external?'feed-external':'feed-play'} aria-hidden="true">{external?'↗':'▶'}</span><small>{durationLabel(video.duration)}</small></div>;
 }
 export default function VideoFeed({page,revision,query,onPlay,onTools,navigate}:{page:string;revision:number;query:string;onPlay:(id:string)=>void;onTools:()=>void;navigate:(page:string)=>void}){
  const [preference,setPreference]=useState('');

@@ -1,4 +1,8 @@
 export type FeedVideo = {key:string; kind:'LOCAL'|'OFFICIAL'; title:string; subtitle:string; thumbnail:string; thumbnailFallbackLabel?:string; duration:number|null; athletes:string[]; athleteNames:string[]; event:string; category:string; opened:string|null; searchText?:string; source:any};
+const categoryLabel:Record<string,string>={MS:'男单',WS:'女单',MD:'男双',WD:'女双',XD:'混双'};
+export function fallbackCoverContext(video:Pick<FeedVideo,'event'|'category'|'athleteNames'>){
+ return {event:video.event||'赛事未核实',category:categoryLabel[video.category]||'项目待核实',participants:video.athleteNames.length?video.athleteNames.slice(0,2).join(' / '):'阵容待核实'};
+}
 export function feedVideos(data:any):FeedVideo[]{
  const local:FeedVideo[]=(data.videos||[]).filter((v:any)=>v.availability_status==='AVAILABLE').map((v:any)=>{const metadata=v.personal_library||{};return {key:'local:'+v.video_id,kind:'LOCAL',title:v.title,subtitle:`本地引用 · ${rightsLabel(v.rights_status)} · ${metadata.completeness_status==='HUMAN_VERIFIED_COMPLETE'?'完整性已人工核实':'完整性未核实'}`,thumbnail:`/api/video-evidence/library/videos/${v.video_id}/thumbnail`,thumbnailFallbackLabel:'本地封面暂不可用',duration:v.duration_ms/1000,athletes:v.athlete_ids||[],athleteNames:[metadata.player_a,metadata.player_b].filter(Boolean),event:metadata.event_name||v.match_id&&data.matches.find((m:any)=>m.match_id===v.match_id)?.event_name||'赛事未核实',category:metadata.match_type||'UNKNOWN',opened:v.last_opened_at,source:v}});
  const seen=new Set<string>();
