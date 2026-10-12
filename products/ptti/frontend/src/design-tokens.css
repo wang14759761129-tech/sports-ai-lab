@@ -1,21 +1,24 @@
 :root {
   color-scheme: dark;
   --bg: #0a0a0a;
-  --sidebar: #181818;
-  --card: #202020;
+  --sidebar: #111215;
+  --card: #151619;
   --surface: var(--card);
-  --surface-muted: #181818;
-  --surface-elevated: #282828;
-  --surface-hover: #343434;
-  --text: #f1f1f1;
+  --surface-muted: #111215;
+  --surface-elevated: #1b1d21;
+  --surface-hover: #24262b;
+  --text: #f4f4f5;
   --text-primary: var(--text);
-  --muted: #a7a7a7;
+  --muted: #a2a4aa;
   --text-secondary: var(--muted);
-  --border: #303030;
+  --border: #292b30;
   --line: var(--border);
-  --accent: #76baff;
-  --accent-ink: #071725;
-  --soft: #1d2b38;
+  --brand: #e53943;
+  --brand-hover: #f04a53;
+  --brand-soft: #321619;
+  --accent: var(--brand);
+  --accent-ink: #fff;
+  --soft: var(--brand-soft);
   --confirmed: #79d8a5;
   --confirmed-bg: #172a20;
   --warning: #f0be64;
@@ -28,9 +31,10 @@
   --chart-a: var(--accent);
   --chart-b: var(--warning);
   --player-black: #000;
-  --radius: 12px;
-  --duration: 160ms;
-  --shadow: 0 12px 40px #0006;
+  --radius: 14px;
+  --duration: 180ms;
+  --shadow: 0 20px 56px #0008;
+  --focus-ring: 0 0 0 3px #e5394352;
 }
 /* Existing explicit light preferences remain available; system now defaults to Studio dark. */
 :root[data-theme=light] {
