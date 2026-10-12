@@ -1,5 +1,23 @@
 # PTTI Web MVP user test plan
 
+## Sprint 0.4 seed-user status and invitation
+
+As of 2026-10-12, no seed users are available or recruited and no real user sessions have been run. Initial target is 1–3 seed users, then the larger target below: 5 fans, 3 athletes/enthusiasts and 2 coaches. Do not count developer or agent checks as participant sessions.
+
+For this local-only build, invite participants to use the device where `http://127.0.0.1:4174/` is already running. Do not expose the dev server to a public network. A facilitator can share this invitation:
+
+> 想请你用 5 分钟试用一个乒乓球找赛网页。请按页面提示自己搜索比赛、查看官方来源并试着打开；我会观察哪里不清楚。无需提供姓名、联系方式或账号信息。反馈只保存在这台设备的浏览器里，不会自动发送到线上。
+
+Have the participant operate the mouse/keyboard themselves. Use the five-minute flow below. Record only a participant code and the requested task outcomes. If the publisher asks for login, payment, location permission, regional verification or a CAPTCHA, stop there and record only the visible gate type; do not enter credentials, personal data or payment information. Export the local JSON only with the participant's agreement.
+
+## Optional remote preview — plan only, not deployed
+
+If seed users cannot attend the device running localhost, the lowest-scope preview is to build only `products/ptti-web` and host its static `dist/` output on Cloudflare Pages Free with the generated `pages.dev` HTTPS address. Cloudflare currently lists Pages Free at $0/month; its documentation lists up to 500 builds/month and 20,000 files on Free. No custom domain needs to be purchased for a small trial. Recheck plan terms and limits before any deployment: [Pages pricing](https://www.cloudflare.com/en-ca/developer-platform/products/pages/) · [Pages limits](https://developers.cloudflare.com/pages/platform/limits/).
+
+This would be a public URL, not a private invitation site. A safe preview would contain only the Web build, its four public match records, source links and authored text/placeholder. Do not deploy the monorepo root, desktop assets, private videos, databases, secrets, authenticated APIs or Vision services. Keep feedback in browser `localStorage`; do not add a form endpoint, analytics SDK or server-side feedback store. Participants would export JSON only with consent and hand it directly to the facilitator. Hosting infrastructure can still process ordinary request metadata such as client IP and request time; Cloudflare's documentation describes HTTP request logs and available fields. See [request logs](https://developers.cloudflare.com/logs/reference/).
+
+Deployment remains gated on explicit user approval because anyone with the `pages.dev` URL could access the preview and the hosting provider would process network request metadata. No account, project, URL or deployment has been created for this plan.
+
 ## Recruitment target
 
 - 5 ordinary table tennis fans

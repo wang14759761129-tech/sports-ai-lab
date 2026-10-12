@@ -1,4 +1,4 @@
-# PTTI Web MVP v0.3
+# PTTI Web MVP v0.4
 
 An independent, browser-first PTTI pilot for finding table tennis matches, opening official source pages, and browsing a small set of source-attributed stories. It is a static Vite app; it does not call the desktop FastAPI service or access its SQLite data.
 

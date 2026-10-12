@@ -41,7 +41,8 @@ for (const [index, match] of matches.entries()) {
   check(['MS', 'WS', 'MD', 'WD', 'XD'].includes(match.discipline), `${label}: unsupported discipline`);
   check(Array.isArray(match.players) && match.players.length >= 2, `${label}: at least two players are required`);
   check(Array.isArray(match.sourceEvidence) && match.sourceEvidence.length > 0, `${label}: evidence URL is required`);
-  check(match.playbackTested === false, `${label}: do not mark playback tested without a recorded test`);
+  check(['PLAYBACK_PASS', 'PLAYBACK_FAIL', 'RESTRICTED', 'NOT_TESTED'].includes(match.playbackStatus), `${label}: playback status must be explicit`);
+  check(match.playbackTested === (match.playbackStatus !== 'NOT_TESTED'), `${label}: playback boolean and status must agree`);
   check(match.embedAllowed !== true, `${label}: this pilot must not embed media`);
   check(['event-page', 'video-page', 'source-only'].includes(match.routeType), `${label}: route type must be explicit`);
   for (const url of [match.platformUrl, match.videoOriginalUrl, ...match.sourceEvidence]) checkUrl(url, `${label} URL`);
@@ -54,6 +55,16 @@ for (const [index, match] of matches.entries()) {
     check(!match.platformUrl && !match.videoOriginalUrl, `${label}: no-route status cannot have a watch URL`);
   } else {
     check(false, `${label}: unknown route type`);
+  }
+  if (match.playbackStatus === 'PLAYBACK_PASS') {
+    const evidence = match.playbackEvidence;
+    check(match.routeType === 'video-page', `${label}: playback pass requires a direct video page`);
+    check(evidence?.finalUrl === match.videoOriginalUrl, `${label}: playback evidence must identify the tested original URL`);
+    check(Number.isFinite(evidence?.timeAtFirstObservationSeconds) && Number.isFinite(evidence?.timeAtFinalObservationSeconds) && evidence.timeAtFinalObservationSeconds - evidence.timeAtFirstObservationSeconds >= 5, `${label}: playback pass requires at least five seconds of timeline advancement`);
+    check(evidence?.visualFramesChanged === true, `${label}: playback pass requires observed frame changes`);
+    check(typeof evidence?.audibleOutputConfirmed === 'boolean' && typeof evidence?.territory === 'string', `${label}: playback evidence must state audio and territory limits`);
+  } else if (match.playbackStatus === 'NOT_TESTED') {
+    check(!match.playbackEvidence, `${label}: untested sources must not carry playback evidence`);
   }
   if (match.sourceStatus === 'official-listing-found') {
     check(match.routeType !== 'source-only', `${label}: source-only records cannot claim a watch route`);

@@ -14,6 +14,7 @@
     "videoOriginalUrl": null,
     "sourceStatus": "official-listing-found",
     "playbackTested": false,
+    "playbackStatus": "NOT_TESTED",
     "regionRestriction": "Unknown. WTT may direct viewers to a local broadcaster; availability can vary by territory.",
     "embedAllowed": null,
     "lastVerifiedAt": "2026-10-12",
@@ -35,7 +36,24 @@
     "platformUrl": "https://www.youtube.com/watch?v=qIXmFTzXcs0",
     "videoOriginalUrl": "https://www.youtube.com/watch?v=qIXmFTzXcs0",
     "sourceStatus": "official-listing-found",
-    "playbackTested": false,
+    "playbackTested": true,
+    "playbackStatus": "PLAYBACK_PASS",
+    "playbackEvidence": {
+      "testedAt": "2026-10-12",
+      "finalUrl": "https://www.youtube.com/watch?v=qIXmFTzXcs0",
+      "pageTitle": "Fan Zhendong vs Lin Gaoyuan | MS SF | WTT Finals Men Doha 2023",
+      "publisher": "World Table Tennis (verified YouTube channel)",
+      "timeAtFirstObservationSeconds": 2,
+      "timeAtFinalObservationSeconds": 61,
+      "visualFramesChanged": true,
+      "loginPromptSeen": false,
+      "regionPromptSeen": false,
+      "verificationPromptSeen": false,
+      "playerUnmuted": true,
+      "playerVolumePercent": 100,
+      "audibleOutputConfirmed": false,
+      "territory": "UNKNOWN"
+    },
     "regionRestriction": "Unknown. WTT may direct viewers to a local broadcaster; availability can vary by territory.",
     "embedAllowed": null,
     "lastVerifiedAt": "2026-10-12",
@@ -43,7 +61,7 @@
       "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES",
       "https://www.youtube.com/watch?v=qIXmFTzXcs0"
     ],
-    "note": "WTT's official event page lists this specific semifinal video, and the official WTT YouTube channel has the matching video page. Actual playback has not been tested."
+    "note": "Visual playback was observed in the current browser session: the image changed and the timeline advanced from 0:02 to 1:01. No login, region, or verification prompt appeared. The player was unmuted at 100%; physical audio output was not independently confirmed. Territory remains unknown."
   },
   {
     "id": "singapore-2021-ws-final-wang-sun",
@@ -58,7 +76,24 @@
     "platformUrl": "https://www.youtube.com/watch?v=XHGCGiAyKkc",
     "videoOriginalUrl": "https://www.youtube.com/watch?v=XHGCGiAyKkc",
     "sourceStatus": "official-listing-found",
-    "playbackTested": false,
+    "playbackTested": true,
+    "playbackStatus": "PLAYBACK_PASS",
+    "playbackEvidence": {
+      "testedAt": "2026-10-12",
+      "finalUrl": "https://www.youtube.com/watch?v=XHGCGiAyKkc",
+      "pageTitle": "Wang Yidi vs Sun Yingsha | WTT Cup Finals Singapore 2021 | WS | F",
+      "publisher": "World Table Tennis (verified YouTube channel)",
+      "timeAtFirstObservationSeconds": 2,
+      "timeAtFinalObservationSeconds": 20,
+      "visualFramesChanged": true,
+      "loginPromptSeen": false,
+      "regionPromptSeen": false,
+      "verificationPromptSeen": false,
+      "playerUnmuted": true,
+      "playerVolumePercent": 100,
+      "audibleOutputConfirmed": false,
+      "territory": "UNKNOWN"
+    },
     "regionRestriction": "Unknown. WTT may direct viewers to a local broadcaster; availability can vary by territory.",
     "embedAllowed": null,
     "lastVerifiedAt": "2026-10-12",
@@ -66,7 +101,7 @@
       "https://www.worldtabletennis.com/eventInfo?eventId=2536&selectedTab=Overview",
       "https://www.youtube.com/watch?v=XHGCGiAyKkc"
     ],
-    "note": "WTT's verified YouTube channel lists the full women's final. The original video is linked directly; playback has not been tested."
+    "note": "Visual playback was observed in the current browser session: the image changed and the timeline advanced from 0:02 to 0:20. No login, region, or verification prompt appeared. The player was unmuted at 100%; physical audio output was not independently confirmed. Territory remains unknown."
   },
   {
     "id": "chongqing-2025-ws-final-sun-chen",
@@ -83,6 +118,7 @@
     "videoOriginalUrl": null,
     "sourceStatus": "no-verified-route",
     "playbackTested": false,
+    "playbackStatus": "NOT_TESTED",
     "regionRestriction": "Unknown",
     "embedAllowed": null,
     "lastVerifiedAt": "2026-10-12",

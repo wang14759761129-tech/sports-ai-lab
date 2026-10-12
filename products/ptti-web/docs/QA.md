@@ -56,3 +56,17 @@ Validated 2026-10-12 in the sports-ai-lab destination worktree. Four Cinema reco
 - Updated source checks require video-page records to use the same direct URL as both `platformUrl` and `videoOriginalUrl`, and to include that URL in source evidence.
 - Pulse item audit: one official highlight compilation (not a match replay) and two WTT articles. Stars facts link to WTT event/article sources; the Wang Chuqin Weibo profile remains labelled candidate because platform verification is absent.
 - The official source pages were opened, but no “play” control was activated and no media decode or regional availability was tested. Browser screenshot export remains unavailable under the existing safety boundary; no bypass was attempted.
+
+## Sprint 0.4 — Playback observation and design integration preparation
+
+Validated 2026-10-12 in the current Codex in-app browser and independent Web worktree.
+
+- Fan Zhendong vs Lin Gaoyuan: final URL stayed `https://www.youtube.com/watch?v=qIXmFTzXcs0`; the page title matched the semifinal and the publisher was the verified World Table Tennis channel. After pressing Play, the visible match frames changed and the timeline advanced from 0:02 to 1:01. No login, region, or verification prompt appeared. Visual playback: PLAYBACK_PASS.
+- Wang Yidi vs Sun Yingsha: final URL stayed `https://www.youtube.com/watch?v=XHGCGiAyKkc`; title and verified publisher matched the women's final. After pressing Play, visible match frames changed and the timeline advanced from 0:02 to 0:20. No login, region, or verification prompt appeared. Visual playback: PLAYBACK_PASS.
+- Both player UIs showed unmuted at 100%. Actual speaker output was not independently confirmed. The browser's geographic territory was not identified; territory availability remains UNKNOWN. No gate was bypassed and no video or screenshot asset was saved.
+- Cinema retains the Fan–Wang event-page route and the Sun–Chen WTT article source-only route. Their playback status remains NOT_TESTED.
+- No seed users were available; no real user session or feedback result was recorded. The test plan now contains invitation copy and local-device instructions for the first 1–3 participants.
+- The specified Premium Design commit `ae9b84e8da5e9ebd91fceabc2eaa17c67e070ba9` was reviewed from committed Git objects only. Its worktree had unrelated uncommitted changes; those were not inspected or modified. A minimal Web token, navigation, cover, status/error and mobile integration plan is in `docs/PREMIUM_DESIGN_INTEGRATION.md`.
+- The optional remote preview is a plan only. Cloudflare Pages Free static hosting is estimated at $0/month for this small trial using the provider's generated HTTPS subdomain, with no custom domain, Functions, database or online feedback collection. It is not deployed pending explicit user approval. The deployment and request-metadata notes are in `docs/USER_TEST_PLAN.md`.
+- After the 0.4 changes, `npm run build` passed (TypeScript plus Vite), `npm run check:sources` passed 111 checks across four matches, `npm run check:feedback` passed, and `npm audit --audit-level=low` reported 0 vulnerabilities. The source checker now requires direct URL and at-least-five-second timeline/frame evidence for any `PLAYBACK_PASS` status.
+- The local page at `http://127.0.0.1:4174/` was reloaded and visibly showed the two video records as “画面播放已实测”; the event-page and source-only records remained untested. Browser screenshot captures were used for visual observation of the video frames but not saved or exported as files.

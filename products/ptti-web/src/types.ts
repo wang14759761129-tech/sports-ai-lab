@@ -2,8 +2,26 @@ export type Discipline = 'MS' | 'WS' | 'MD' | 'WD' | 'XD';
 
 export type SourceStatus = 'official-listing-found' | 'no-verified-route';
 export type MatchRouteType = 'event-page' | 'video-page' | 'source-only';
+export type PlaybackStatus = 'PLAYBACK_PASS' | 'PLAYBACK_FAIL' | 'RESTRICTED' | 'NOT_TESTED';
 export type PulseTopic = 'highlight' | 'player' | 'event';
 export type FeedbackIssue = 'none' | 'find-match' | 'official-link' | 'unclear-page' | 'mobile-display' | 'other';
+
+export interface PlaybackEvidence {
+  testedAt: string;
+  finalUrl: string;
+  pageTitle: string;
+  publisher: string;
+  timeAtFirstObservationSeconds: number;
+  timeAtFinalObservationSeconds: number;
+  visualFramesChanged: boolean;
+  loginPromptSeen: boolean;
+  regionPromptSeen: boolean;
+  verificationPromptSeen: boolean;
+  playerUnmuted: boolean;
+  playerVolumePercent: number;
+  audibleOutputConfirmed: boolean;
+  territory: string;
+}
 
 export interface MatchRecord {
   id: string;
@@ -20,6 +38,8 @@ export interface MatchRecord {
   videoOriginalUrl: string | null;
   sourceStatus: SourceStatus;
   playbackTested: boolean;
+  playbackStatus: PlaybackStatus;
+  playbackEvidence?: PlaybackEvidence;
   regionRestriction: string;
   embedAllowed: boolean | null;
   lastVerifiedAt: string;
