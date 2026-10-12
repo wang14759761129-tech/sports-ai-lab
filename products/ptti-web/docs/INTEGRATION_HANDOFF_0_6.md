@@ -8,7 +8,7 @@ Web HEAD at handoff: `843d54928bd6820b14fae572800e2dee6e6ae634`
 
 ## Contract comparison status
 
-The read-only comparison used `ptti.match-media/0.1` at `C:\PTTI-Worktrees\integration-preview-sprint-0-1`, branch `codex/ptti-integration-preview-sprint-0-1`, local HEAD `b06d77cc89e3fcc290e61c3c0195658b539dd623`. That worktree has uncommitted changes to `contracts/match-media-v0.1.schema.json` and `adapters.py`; treat the mapping below as a comparison to its current working draft, not a frozen release contract. No file in that worktree was edited.
+The read-only comparison used `ptti.match-media/0.1` at `C:\PTTI-Worktrees\integration-preview-sprint-0-1`, branch `codex/ptti-integration-preview-sprint-0-1`, local HEAD `c18e80e5d1daf79651099664556e7e2813f25ab2` (clean at inspection). This is the current committed integration snapshot, not a released/frozen production contract. No file in that worktree was edited.
 
 The contract is a root object with required `contract_version`, `matches`, `video_sources`, `local_video_assets`, and `timeline_mappings`. The Web projection emits one match and one source per Web record; local assets and timeline mappings remain empty. The existing shared adapter owns this conversion; Web should supply source facts and preserve unknowns, without implementing another adapter.
 
@@ -46,7 +46,7 @@ Optional match fields are `match_date`, `participant_names_unassigned`, and `res
 
 Web `PLAYBACK_PASS` is gated locally on an official video-page route, exact final URL match, changed frames, at least five seconds of timeline progress, official publisher title, and no observed login/region/verification prompt. It is a visual observation in the specified test browser only. Audio output was not independently confirmed; PTTI embed permission and cross-region availability remain unknown. This cannot be labelled `EMBED_PLAYBACK_PASS` or `DESKTOP_NATIVE_PLAYBACK_PASS`.
 
-The current shared adapter draft accepts same-host final URLs and any positive timeline advancement (`last > first`) for external visual pass. Web uses an exact URL match and a five-second minimum. Align this validation in the shared adapter before treating the two gates as equivalent. The contract has no dedicated audio-output field, and the current adapter leaves `notes` empty for a visual pass; preserve the audio uncertainty in notes or a future versioned field.
+The shared adapter at `c18e80e5d1daf79651099664556e7e2813f25ab2` accepts same-host final URLs and any positive timeline advancement (`last > first`) for external visual pass, with changed frames and a checked date. Web uses an exact URL match and a five-second minimum. Align this validation in the shared adapter before treating the two gates as equivalent. The contract has no dedicated audio-output field, and the current adapter leaves `notes` empty for a visual pass; preserve the audio uncertainty in notes or a future versioned field.
 
 ## Public, minimized four-record sample set
 
