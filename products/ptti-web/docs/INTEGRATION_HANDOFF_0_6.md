@@ -4,7 +4,7 @@ Date: 2026-10-12
 
 Web branch: `codex/ptti-web-mvp-v0-1`
 
-Web HEAD at handoff: `843d54928bd6820b14fae572800e2dee6e6ae634`
+Web data snapshot mapped: `843d54928bd6820b14fae572800e2dee6e6ae634`
 
 ## Contract comparison status
 
