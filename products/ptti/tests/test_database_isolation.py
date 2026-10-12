@@ -62,6 +62,31 @@ def test_repository_test_mode_rejects_non_temp_path(monkeypatch,tmp_path):
         ProductionDatabaseGuard('test',{'LOCALAPPDATA':str(tmp_path)}).validate(tmp_path/'outside.db')
 
 
+def test_actions_pytest_bootstrap_os_temp_is_accepted(tmp_path):
+    from backend.database import ProductionDatabaseGuard
+
+    os_temp_db = Path(tempfile.gettempdir()) / 'ptti-test-bootstrap-regression' / 'bootstrap.db'
+    outside_db = Path(__file__).resolve().parents[1] / 'not-a-database.db'
+    env = {
+        'GITHUB_ACTIONS': 'true',
+        'RUNNER_TEMP': str(tmp_path / 'runner-temp'),
+        'LOCALAPPDATA': str(tmp_path / 'local-app-data'),
+    }
+    assert ProductionDatabaseGuard('test', env).validate(os_temp_db) == os_temp_db.resolve()
+    with pytest.raises(RuntimeError, match='under OS temp'):
+        ProductionDatabaseGuard('test', env).validate(outside_db)
+    resolved = resolve_database_path(
+        environ={**env, 'PTTI_ENV': 'test', 'PTTI_DB': str(os_temp_db)},
+        testing=True,
+    )
+    assert Path(resolved) == os_temp_db.resolve()
+    with pytest.raises(RuntimeError, match='system temporary directory'):
+        resolve_database_path(
+            environ={**env, 'PTTI_ENV': 'test', 'PTTI_DB': str(outside_db)},
+            testing=True,
+        )
+
+
 @pytest.mark.parametrize('view',['private','unknown'])
 def test_production_physical_view_must_be_known_and_exact(tmp_path,monkeypatch,view):
     import backend.database as module

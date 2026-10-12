@@ -15,7 +15,7 @@ from pydantic import BaseModel, Field
 from core.engine import ingest, analyze, SCHEMA_VERSION, ANALYTICS_VERSION
 from backend.repository import Repository
 from backend.database import ProductionDatabaseGuard, database_banner
-from backend.temp_paths import resolve_temp_root
+from backend.temp_paths import is_within_test_temp
 from core.importing import import_csv
 from backend.professional import GroupMembershipUpdate, ProfessionalMatchInput
 from backend.fullmatch import (SUPPORTED_VIDEO_SUFFIXES, file_sha256, scan_wtt_inbox,
@@ -68,11 +68,8 @@ def resolve_database_path(db_path=None, environ=None, testing=None):
         chosen=Path(configured).expanduser().resolve(strict=False)
         if _same_path(chosen,production):
             raise RuntimeError(f'{PRODUCTION_DATABASE_WRITE_GUARD}: tests cannot open the production database')
-        temporary=resolve_temp_root(env)
-        try:
-            chosen.relative_to(temporary)
-        except ValueError as exc:
-            raise RuntimeError(f'{PRODUCTION_DATABASE_WRITE_GUARD}: test databases must be under the system temporary directory') from exc
+        if not is_within_test_temp(chosen, env):
+            raise RuntimeError(f'{PRODUCTION_DATABASE_WRITE_GUARD}: test databases must be under the system temporary directory')
     elif mode=='development':
         chosen=Path(configured).expanduser().resolve(strict=False) if configured is not None else (local/'PTTI-Dev'/'matches.db').resolve(strict=False)
         if _same_path(chosen,production):
