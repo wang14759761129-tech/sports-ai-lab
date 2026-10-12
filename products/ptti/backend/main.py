@@ -5,7 +5,6 @@ import os
 import re
 import subprocess
 import sys
-import tempfile
 import uuid
 from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
@@ -16,6 +15,7 @@ from pydantic import BaseModel, Field
 from core.engine import ingest, analyze, SCHEMA_VERSION, ANALYTICS_VERSION
 from backend.repository import Repository
 from backend.database import ProductionDatabaseGuard, database_banner
+from backend.temp_paths import resolve_temp_root
 from core.importing import import_csv
 from backend.professional import GroupMembershipUpdate, ProfessionalMatchInput
 from backend.fullmatch import (SUPPORTED_VIDEO_SUFFIXES, file_sha256, scan_wtt_inbox,
@@ -68,7 +68,7 @@ def resolve_database_path(db_path=None, environ=None, testing=None):
         chosen=Path(configured).expanduser().resolve(strict=False)
         if _same_path(chosen,production):
             raise RuntimeError(f'{PRODUCTION_DATABASE_WRITE_GUARD}: tests cannot open the production database')
-        temporary=Path(tempfile.gettempdir()).resolve(strict=False)
+        temporary=resolve_temp_root(env)
         try:
             chosen.relative_to(temporary)
         except ValueError as exc:
@@ -121,6 +121,9 @@ class ImportResult(BaseModel):
     provenance: dict = Field(default_factory=dict)
 
 def create_app(db_path=None):
+    if os.environ.get('PTTI_HEALTH_CHECK_MODE') == '1':
+        from backend.health_check import set_health_stage
+        set_health_stage('backend_initialization')
     app=FastAPI(title='PTTI',version='0.2.0-dev')
     resolved_db=resolve_database_path(db_path)
     app.state.database_path=resolved_db

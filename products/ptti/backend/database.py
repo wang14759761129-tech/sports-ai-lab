@@ -6,7 +6,8 @@ import os
 from pathlib import Path
 import subprocess
 import sys
-import tempfile
+import tempfile  # Kept as a shared module reference for existing temp-root test injection.
+from backend.temp_paths import resolve_temp_root
 
 GUARD = 'PRODUCTION_DATABASE_WRITE_GUARD'
 
@@ -71,7 +72,7 @@ class ProductionDatabaseGuard:
         if self.mode in ('test','development') and protected:
             raise RuntimeError(f'{GUARD}: FATAL {self.mode} cannot open a production database or MSIX alias: {path}')
         if self.mode=='test':
-            try: path.relative_to(Path(tempfile.gettempdir()).resolve())
+            try: path.relative_to(resolve_temp_root(self.environment))
             except ValueError as exc:
                 raise RuntimeError(f'{GUARD}: FATAL test database must be under OS temp') from exc
         if self.mode=='production':

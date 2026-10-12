@@ -12,8 +12,9 @@ sys.path.insert(0, str(ROOT))
 
 from backend.desktop_updates import digest, manifest, verify  # noqa: E402
 from scripts.build_dual_source_v061_preview import (  # noqa: E402
-    MIN_START_RAM_BYTES, run_packager,
+    MIN_START_RAM_BYTES, PackagerTimeoutError, run_packager,
 )
+from backend.health_check import safe_error_type  # noqa: E402
 import psutil  # noqa: E402
 
 
@@ -32,6 +33,49 @@ def validate_source(expected):
     if any(Path(p).suffix.lower() in forbidden for p in tracked):
         raise RuntimeError('Tracked sensitive/media file')
     return actual
+
+
+def verify_health_check_result(report_path, qa_db, temp_root, expected_commit, returncode):
+    """Require the child exit, health payload, source identity, and paths to agree."""
+    root = Path(temp_root).resolve()
+    report = Path(report_path).resolve()
+    database = Path(qa_db).resolve()
+    try:
+        report.relative_to(root)
+        database.relative_to(root)
+    except ValueError as exc:
+        raise RuntimeError('Health result or QA database outside runner temp') from exc
+    if returncode != 0:
+        raise RuntimeError('Health check did not exit normally')
+    if database.suffix.casefold() not in {'.db', '.sqlite', '.sqlite3'} or not database.is_file():
+        raise RuntimeError('Health check QA database is missing or invalid')
+    try:
+        value = json.loads(report.read_text(encoding='utf-8'))
+    except (OSError, ValueError) as exc:
+        raise RuntimeError('Health result is missing or invalid') from exc
+    if value.get('status') != 'success' or value.get('stage') != 'normal_exit' or value.get('exit_code') != 0:
+        raise RuntimeError('Health result does not confirm normal exit')
+    if value.get('database_location') != 'runner_temp':
+        raise RuntimeError('Health result does not confirm isolated QA database')
+    health = value.get('health')
+    if not isinstance(health, dict) or health.get('build_commit') != expected_commit:
+        raise RuntimeError('Health result source commit mismatch')
+    return health
+
+
+def record_health_timeout(report_path):
+    """Turn the last safe stage snapshot into a bounded-timeout failure record."""
+    report = Path(report_path)
+    try:
+        value = json.loads(report.read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        return False
+    if value.get('status') != 'running':
+        return False
+    value.update(status='failed', exit_code=124,
+                 error_type='PackagerTimeoutError', exit_reason='health_check_timeout')
+    report.write_text(json.dumps(value, sort_keys=True), encoding='utf-8')
+    return True
 
 
 def main():
@@ -108,11 +152,21 @@ def main():
             if not qa_root.is_relative_to(temp):
                 raise RuntimeError('QA database directory must remain inside RUNNER_TEMP')
             qa_db = Path(qa) / 'matches.db'
-            os.environ['PTTI_PREVIEW_QA_DB'] = str(qa_db)
-            run_packager([str(exe), '--deployment-health-check'], reports / 'health.log')
-            health = json.loads(qa_db.with_suffix('.health.json').read_text(encoding='utf8'))
-            if health['build_commit'] != expected:
-                raise RuntimeError('Health identity mismatch')
+            health_report = reports / 'health-check.json'
+            health_env = os.environ.copy()
+            health_env.update({
+                'PTTI_PREVIEW_QA_DB': str(qa_db),
+                'PTTI_HEALTH_CHECK_MODE': '1',
+                'PTTI_HEALTH_CHECK_RESULT': str(health_report),
+                'PTTI_EXPECTED_COMMIT': expected,
+            })
+            health_returncode = run_packager(
+                [str(exe), '--deployment-health-check'], reports / 'health.log',
+                timeout_seconds=120, env=health_env,
+            )
+            health = verify_health_check_result(
+                health_report, qa_db, temp, expected, health_returncode,
+            )
             (reports / 'health.json').write_text(json.dumps(health, indent=2), encoding='utf8')
             result['qa_database'] = 'RUNNER_TEMP/ptti-ci-qa-*/matches.db (removed after health check)'
         validate_source(expected)
@@ -122,7 +176,19 @@ def main():
         (folder / 'manifest.json').write_text(json.dumps(value, indent=2), encoding='utf8')
         shutil.copytree(folder, output / 'package')
     except Exception as exc:
-        result['error'] = str(exc)
+        result['error_type'] = safe_error_type(exc)
+        result['exit_reason'] = getattr(exc, 'reason', 'candidate_validation_failed')
+        health_report = reports / 'health-check.json'
+        if isinstance(exc, PackagerTimeoutError):
+            result['health_timeout_recorded'] = record_health_timeout(health_report)
+        if health_report.is_file():
+            try:
+                health_value = json.loads(health_report.read_text(encoding='utf-8'))
+                result['health_stage'] = health_value.get('stage')
+                result['health_error_type'] = health_value.get('error_type')
+                result['health_exit_reason'] = health_value.get('exit_reason')
+            except (OSError, ValueError):
+                result['health_report'] = 'invalid'
         raise
     finally:
         (reports / 'candidate-report.json').write_text(

@@ -41,6 +41,10 @@ MIN_START_RAM_BYTES = int(2.5 * 1024**3)
 HARD_RAM_FLOOR_BYTES = 2 * 1024**3
 
 
+class PackagerTimeoutError(TimeoutError):
+    """A bounded child process exceeded its caller's deadline."""
+
+
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:
@@ -50,8 +54,14 @@ def sha256_file(path: Path) -> str:
 
 
 def stop_process_tree(process: subprocess.Popen) -> None:
+    """Stop only the process tree rooted at the Popen owned by this caller."""
+    if process.poll() is not None:
+        return
     try:
         parent = psutil.Process(process.pid)
+        expected_create_time = getattr(process, "_ptti_create_time", None)
+        if expected_create_time is not None and abs(parent.create_time() - expected_create_time) > 0.01:
+            return
         children = parent.children(recursive=True)
     except psutil.Error:
         children = []
@@ -61,34 +71,51 @@ def stop_process_tree(process: subprocess.Popen) -> None:
         except psutil.Error:
             pass
     try:
-        psutil.wait_procs(children, timeout=5)
-    except psutil.Error:
-        pass
-    try:
         process.terminate()
     except OSError:
         pass
+    for child in children:
+        try:
+            child.terminate()
+        except psutil.Error:
+            pass
+    alive = []
     try:
-        process.wait(timeout=10)
+        _, alive = psutil.wait_procs(children, timeout=3)
+    except psutil.Error:
+        pass
+    try:
+        process.wait(timeout=3)
     except subprocess.TimeoutExpired:
-        for child in children:
-            try:
-                child.kill()
-            except psutil.Error:
-                pass
+        pass
+    for child in alive:
         try:
-            process.kill()
-        except OSError:
+            child.kill()
+        except psutil.Error:
             pass
+    try:
+        process.kill()
+    except OSError:
+        pass
+    try:
+        process.wait(timeout=3)
+    except subprocess.TimeoutExpired:
+        pass
+    if alive:
         try:
-            process.wait(timeout=5)
-        except subprocess.TimeoutExpired:
+            psutil.wait_procs(alive, timeout=3)
+        except psutil.Error:
             pass
 
 
-def run_packager(command: list[str], log_path: Path) -> None:
+def run_packager(command: list[str], log_path: Path, *, timeout_seconds=None, env=None) -> int:
+    started = time.monotonic()
     with log_path.open("w", encoding="utf-8") as log, log_path.with_suffix('.resources.jsonl').open('w', encoding='utf-8') as resources:
-        process = subprocess.Popen(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
+        process = subprocess.Popen(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, env=env)
+        try:
+            process._ptti_create_time = psutil.Process(process.pid).create_time()
+        except psutil.Error:
+            process._ptti_create_time = None
         try:
             while process.poll() is None:
                 available = psutil.virtual_memory().available
@@ -109,9 +136,16 @@ def run_packager(command: list[str], log_path: Path) -> None:
                     log.write(f"\nSAFE STOP [{log_path.stem}]: available RAM below 2 GiB ({available / 1024**3:.2f} GiB).\n")
                     log.flush()
                     raise RuntimeError(f"{log_path.stem} stopped safely below the 2 GiB hard floor")
-                time.sleep(1)
+                elapsed = time.monotonic() - started
+                if timeout_seconds is not None and elapsed >= timeout_seconds:
+                    log.write(f"\nSAFE STOP [{log_path.stem}]: bounded process deadline exceeded.\n")
+                    log.flush()
+                    raise PackagerTimeoutError(f"{log_path.stem} exceeded its bounded deadline")
+                sleep_for = 1 if timeout_seconds is None else max(0.01, min(1, timeout_seconds - elapsed))
+                time.sleep(sleep_for)
             if process.returncode:
                 raise subprocess.CalledProcessError(process.returncode, command)
+            return process.returncode
         finally:
             if process.poll() is None:
                 stop_process_tree(process)

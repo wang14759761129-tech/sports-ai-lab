@@ -1,9 +1,3 @@
-import socket
-import threading
-import time
-import urllib.request
-import uvicorn
-import webview
 import os
 from pathlib import Path
 
@@ -83,8 +77,34 @@ class DesktopAPI:
         os.startfile(str(folder))
         return True
 
+
+def report_health_startup_failure(exc, reporter):
+    """Persist a sanitized failure and return the non-zero unattended exit code."""
+    reporter.fail(exc, exit_code=2)
+    return 2
+
 def main():
     import sys
+    from backend.health_check import (
+        HealthCheckError, HealthCheckReporter, fetch_health_json,
+        is_health_check_mode, set_active_reporter, set_health_stage,
+        validate_qa_database_path,
+    )
+    health_mode = is_health_check_mode()
+    reporter = HealthCheckReporter.from_environment() if health_mode else None
+    if reporter is not None:
+        set_active_reporter(reporter)
+        os.environ['PTTI_HEALTH_CHECK_MODE'] = '1'
+        set_health_stage('startup')
+    set_health_stage('importing_runtime') if health_mode else None
+    import socket
+    import threading
+    import time
+    import urllib.request
+    import uvicorn
+    if not health_mode:
+        import webview
+        globals()['webview'] = webview
     if getattr(sys, 'frozen', False):
         executable=Path(sys.executable).stem.casefold()
         if is_development_preview(sys.executable):
@@ -120,13 +140,18 @@ def main():
             os.environ['PTTI_EVIDENCE_PREVIEW']='1' if executable in {'ptti-video-evidence-preview','ptti-video-evidence-ai-bridge-preview','ptti-video-evidence-v0.3-preview','ptti-match-library-v0.4-preview','ptti-score-navigation-v0.1-preview','ptti-video-first-v0.5-preview','ptti-video-first-v0.5.1-preview'} else '0'
             os.environ['PTTI_AI_EVIDENCE_BRIDGE']='1' if executable in {'ptti-video-evidence-ai-bridge-preview','ptti-video-evidence-v0.3-preview','ptti-match-library-v0.4-preview','ptti-score-navigation-v0.1-preview','ptti-video-first-v0.5-preview','ptti-video-first-v0.5.1-preview'} else '0'
             qa_database=os.environ.get('PTTI_PREVIEW_QA_DB')
+            if health_mode:
+                set_health_stage('qa_database_validation')
+                if not qa_database:
+                    raise HealthCheckError('qa_database_outside_temp')
             if qa_database:
-                import tempfile
-                candidate=Path(qa_database).resolve()
-                if not candidate.is_relative_to(Path(tempfile.gettempdir()).resolve()):
+                from backend.temp_paths import resolve_temp_root
+                try:
+                    candidate=validate_qa_database_path(qa_database, resolve_temp_root())
+                except HealthCheckError:
                     from backend.playback_diagnostics import record_qa_database_rejected
                     record_qa_database_rejected()
-                    raise RuntimeError('Preview QA database must be inside OS temp')
+                    raise
                 os.environ['PTTI_DB']=str(candidate)
                 os.environ['PTTI_ENV']='test'
             os.environ['PTTI_RESEARCH_DATA_ROOT']=str(local/'PTTI-Dev')
@@ -166,10 +191,15 @@ def main():
         os.environ['PTTI_ENV']='development'
         local=Path(os.environ.get('LOCALAPPDATA',Path.home()))
         os.environ.setdefault('PTTI_DB',str(local/'PTTI-Dev'/'matches.db'))
+    if health_mode:
+        set_health_stage('importing_backend')
     from backend.main import app
-    webview.settings['ALLOW_DOWNLOADS']=True
+    if not health_mode:
+        webview.settings['ALLOW_DOWNLOADS']=True
     with socket.socket() as s:
         s.bind(('127.0.0.1',0)); port=s.getsockname()[1]
+    if health_mode:
+        set_health_stage('service_starting')
     server=uvicorn.Server(uvicorn.Config(app,host='127.0.0.1',port=port,log_config=None))
     thread=threading.Thread(target=server.run,daemon=True); thread.start()
     url=f'http://127.0.0.1:{port}'
@@ -178,6 +208,8 @@ def main():
             urllib.request.urlopen(url+'/api/health',timeout=.2); break
         except Exception: time.sleep(.1)
     else: raise RuntimeError('Local PTTI server did not start')
+    if health_mode:
+        set_health_stage('service_ready')
     from backend.playback_diagnostics import record_server_started
     database_location = 'os_temp_qa' if os.environ.get('PTTI_PREVIEW_QA_DB') else 'ptti_dev'
     record_server_started(port, database_location)
@@ -189,18 +221,20 @@ def main():
             update_stop.wait(1800)
     if os.environ.get('PTTI_DESKTOP_DEPLOY_ROOT') and '--deployment-health-check' not in sys.argv:
         threading.Thread(target=update_discovery, daemon=True).start()
-    if '--deployment-health-check' in sys.argv:
-        import json
+    if health_mode:
         try:
-            with urllib.request.urlopen(url+'/api/health', timeout=5) as response:
-                report = json.load(response)
-            qa = Path(os.environ['PTTI_PREVIEW_QA_DB']).resolve()
-            if not qa.is_relative_to(Path(__import__('tempfile').gettempdir()).resolve()):
-                raise RuntimeError('Health check requires temporary QA database')
-            qa.with_suffix('.health.json').write_text(json.dumps(report), encoding='utf8')
+            set_health_stage('http_check')
+            health = fetch_health_json(url+'/api/health', timeout=5)
+            expected_commit = os.environ.get('PTTI_EXPECTED_COMMIT')
+            if expected_commit and health.get('build_commit') != expected_commit:
+                raise HealthCheckError('health_commit_mismatch')
         finally:
             server.should_exit=True
             thread.join(timeout=5)
+        if thread.is_alive():
+            raise HealthCheckError('service_shutdown_timeout')
+        set_health_stage('result_write')
+        reporter.succeed(health, exit_code=0)
         return
     width,height=1366,768
     requested=os.environ.get('PTTI_WINDOW_SIZE','')
@@ -229,7 +263,20 @@ def main():
 
 if __name__=='__main__':
     try: main()
-    except Exception:
+    except Exception as exc:
+        import sys
+        from backend.health_check import (
+            HealthCheckReporter, get_active_reporter, is_health_check_mode,
+        )
+        if is_health_check_mode():
+            reporter = get_active_reporter()
+            try:
+                reporter = reporter or HealthCheckReporter.from_environment()
+                exit_code = report_health_startup_failure(exc, reporter)
+            except Exception:
+                # Never fall through to a GUI prompt in unattended health-check mode.
+                exit_code = 2
+            raise SystemExit(exit_code) from None
         import traceback
         import os
         from pathlib import Path
