@@ -53,6 +53,20 @@ def main():
             raise RuntimeError('2.5 GiB start resource guard')
         if shutil.disk_usage(output).free < 3 * 1024**3:
             raise RuntimeError('3 GiB free disk required')
+        node = shutil.which('node.exe') or shutil.which('node')
+        npm = shutil.which('npm.cmd') or shutil.which('npm')
+        if not node or not npm:
+            raise RuntimeError('Pinned Node.js/npm unavailable')
+        result['build_environment'] = {
+            'python': sys.version.split()[0],
+            'pip': subprocess.check_output([sys.executable, '-m', 'pip', '--version'], text=True).strip(),
+            'node': subprocess.check_output([node, '--version'], text=True).strip(),
+            'npm': subprocess.check_output([npm, '--version'], text=True).strip(),
+            'frontend_lock_sha256': digest(ROOT / 'frontend/package-lock.json'),
+            'ffmpeg_archive_sha256': os.environ.get('PTTI_FFMPEG_ARCHIVE_SHA256'),
+            'workflow_run_id': os.environ.get('GITHUB_RUN_ID'),
+            'workflow_ref': os.environ.get('GITHUB_WORKFLOW_REF'),
+        }
         result['media_tools'] = {
             tool: subprocess.check_output([tool, '-version'], text=True).splitlines()[0]
             for tool in ('ffmpeg', 'ffprobe')
@@ -60,10 +74,11 @@ def main():
         run_packager([sys.executable, '-m', 'pytest', '-q',
                       '--junitxml', str(reports / 'pytest.xml')], reports / 'pytest.log')
         run_packager([sys.executable, '-m', 'pip', 'check'], reports / 'pip-check.log')
-        npm = shutil.which('npm.cmd')
-        if not npm:
-            raise RuntimeError('npm unavailable')
         for name in ['test:feed', 'test:studio', 'test:review', 'test:score', 'test:score-observation', 'build']:
+            if name == 'build':
+                for required_test in ['test:official-playback', 'test:vision-source-recovery', 'test:qa-proxy']:
+                    run_packager([npm, '--prefix', 'frontend', 'run', required_test],
+                                 reports / (required_test.replace(':', '-') + '.log'))
             run_packager([npm, '--prefix', 'frontend', 'run', name],
                          reports / (name.replace(':', '-') + '.log'))
         run_packager([sys.executable, '-m', 'compileall', '-q', 'apps', 'backend', 'scripts'],
@@ -88,7 +103,10 @@ def main():
                 folder / '_internal/frontend/dist' / source.relative_to(ROOT / 'frontend/dist')
             ):
                 raise RuntimeError('Packaged frontend mismatch')
-        with tempfile.TemporaryDirectory(prefix='ptti-ci-qa-') as qa:
+        with tempfile.TemporaryDirectory(prefix='ptti-ci-qa-', dir=temp) as qa:
+            qa_root = Path(qa).resolve()
+            if not qa_root.is_relative_to(temp):
+                raise RuntimeError('QA database directory must remain inside RUNNER_TEMP')
             qa_db = Path(qa) / 'matches.db'
             os.environ['PTTI_PREVIEW_QA_DB'] = str(qa_db)
             run_packager([str(exe), '--deployment-health-check'], reports / 'health.log')
@@ -96,6 +114,7 @@ def main():
             if health['build_commit'] != expected:
                 raise RuntimeError('Health identity mismatch')
             (reports / 'health.json').write_text(json.dumps(health, indent=2), encoding='utf8')
+            result['qa_database'] = 'RUNNER_TEMP/ptti-ci-qa-*/matches.db (removed after health check)'
         validate_source(expected)
         result.update(status='BUILD_VERIFIED_NATIVE_ACCEPTANCE_PENDING',
                       exe_sha256=digest(exe), manifest=value,
