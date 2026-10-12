@@ -100,7 +100,13 @@ def summarize_pytest_report(xml_path):
         if node.get('message', '').casefold() == 'collection failure'
     ]
     error_text = '\n'.join(node.text or '' for node in root.iter('error'))
-    if collection_errors and 'PRODUCTION_DATABASE_WRITE_GUARD' in error_text:
+    guard_rejected_temp = (
+        'PRODUCTION_DATABASE_WRITE_GUARD' in error_text
+        and any(marker in error_text.casefold() for marker in (
+            'under the system temporary directory', 'under os temp',
+        ))
+    )
+    if collection_errors and guard_rejected_temp:
         reason = 'database_path_guard_rejected_temp_root'
     elif collection_errors:
         reason = 'pytest_collection_error'

@@ -174,8 +174,8 @@ def test_ci_pytest_summary_classifies_collection_and_masks_machine_paths(tmp_pat
     case = ET.SubElement(suite, "testcase", classname="", name="tests.test_bootstrap")
     error = ET.SubElement(case, "error", message="collection failure")
     error.text = (
-        f"PRODUCTION_DATABASE_WRITE_GUARD: {os_temp / 'bootstrap.db'} is outside "
-        f"{runner_temp}"
+        f"PRODUCTION_DATABASE_WRITE_GUARD: {os_temp / 'bootstrap.db'} must be under "
+        "the system temporary directory"
     )
     junit.write_bytes(ET.tostring(suites, encoding="utf-8", xml_declaration=True))
     log.write_text(f"{os_temp}\\bootstrap.db rejected by {runner_temp}", encoding="utf-8")
