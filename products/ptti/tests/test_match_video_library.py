@@ -259,7 +259,13 @@ def test_recent_views_survive_application_restart_without_mutating_evidence(work
     row = scan(client, root)
     video = client.post(f'/api/video-evidence/library/folders/{row["scan_id"]}/confirm',
                        json={"candidate_id": row["candidates"][0]["candidate_id"]}).json()
-    assert client.post(f'/api/video-evidence/library/videos/{video["video_id"]}/opened').status_code == 200
+    opened_url = f'/api/video-evidence/library/videos/{video["video_id"]}/opened'
+    assert client.post(opened_url, headers={"Origin": "http://testserver"}).status_code == 200
+    # The local-file API intentionally rejects a Vite page origin forwarded
+    # unchanged by the 5173 -> 8765 development proxy. Packaged QA should use
+    # the backend's same-origin static app instead of weakening this guard.
+    cross_origin = client.post(opened_url, headers={"Origin": "http://127.0.0.1:5173"})
+    assert cross_origin.status_code == 403
     with TestClient(create_app(tmp / "library.db")) as restarted:
         catalog = restarted.get("/api/video-evidence/library").json()
         assert catalog["videos"][0]["last_opened_at"]
