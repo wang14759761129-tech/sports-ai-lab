@@ -30,19 +30,20 @@
     "discipline": "MS",
     "round": "Semifinal",
     "players": ["Fan Zhendong", "Lin Gaoyuan"],
-    "platform": "World Table Tennis (WTT)",
-    "routeType": "event-page",
-    "platformUrl": "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES",
-    "videoOriginalUrl": null,
+    "platform": "World Table Tennis (WTT) · YouTube",
+    "routeType": "video-page",
+    "platformUrl": "https://www.youtube.com/watch?v=qIXmFTzXcs0",
+    "videoOriginalUrl": "https://www.youtube.com/watch?v=qIXmFTzXcs0",
     "sourceStatus": "official-listing-found",
     "playbackTested": false,
     "regionRestriction": "Unknown. WTT may direct viewers to a local broadcaster; availability can vary by territory.",
     "embedAllowed": null,
     "lastVerifiedAt": "2026-10-12",
     "sourceEvidence": [
-      "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES"
+      "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES",
+      "https://www.youtube.com/watch?v=qIXmFTzXcs0"
     ],
-    "note": "WTT's event page lists this match in its related video catalogue. The official event page is the route; direct clip playback has not been tested."
+    "note": "WTT's official event page lists this specific semifinal video, and the official WTT YouTube channel has the matching video page. Actual playback has not been tested."
   },
   {
     "id": "singapore-2021-ws-final-wang-sun",

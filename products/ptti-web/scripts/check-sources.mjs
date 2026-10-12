@@ -48,7 +48,8 @@ for (const [index, match] of matches.entries()) {
   if (match.routeType === 'event-page') {
     check(Boolean(match.platformUrl) && !match.videoOriginalUrl, `${label}: event route must point to an official event page`);
   } else if (match.routeType === 'video-page') {
-    check(Boolean(match.videoOriginalUrl), `${label}: video route must point to an original video page`);
+    check(Boolean(match.videoOriginalUrl) && match.platformUrl === match.videoOriginalUrl, `${label}: video route must point directly to its original video page`);
+    check(match.sourceEvidence.includes(match.videoOriginalUrl), `${label}: direct video page must be recorded as source evidence`);
   } else if (match.routeType === 'source-only') {
     check(!match.platformUrl && !match.videoOriginalUrl, `${label}: no-route status cannot have a watch URL`);
   } else {
