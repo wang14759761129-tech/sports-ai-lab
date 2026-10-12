@@ -1,5 +1,5 @@
 {
-  "qa_database": "C:\\Users\\wang\\AppData\\Local\\Temp\\ptti-playback-sprint03-brg2wlv9\\matches.db",
+  "qa_database": "PRIVATE_TEMP_QA_PATH_REDACTED",
   "original_qa_database": "READ_ONLY_SQLITE_BACKUP",
   "api_status": 200,
   "videos": [
