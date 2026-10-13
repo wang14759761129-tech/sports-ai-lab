@@ -36,6 +36,105 @@ def scan(client, root):
     pytest.fail("index worker did not finish")
 
 
+def test_single_file_preview_does_not_scan_siblings_or_register(workspace, monkeypatch):
+    client, root, _tmp = workspace
+    selected = root / "selected.MP4"
+    selected.write_bytes(b"SELECTED_SYNTHETIC_ONLY")
+    nested = root / "unselected"
+    nested.mkdir()
+    (nested / "sibling.mp4").write_bytes(b"DO_NOT_INSPECT")
+    def no_directory_walk(*_args, **_kwargs):
+        pytest.fail("single-file preview must not enumerate the parent directory")
+    monkeypatch.setattr("backend.match_library.os.walk", no_directory_walk)
+    response = client.post("/api/video-evidence/library/files", json={
+        "path": str(selected), "rights_status": "PERSONAL_VIEW_ONLY",
+        "rights_confirmed": True, "source_note": "Synthetic engineering QA"})
+    assert response.status_code == 200, response.text
+    for _ in range(100):
+        row = client.get("/api/video-evidence/library/folders").json()[0]
+        if row["status"] == "COMPLETED":
+            break
+        time.sleep(.01)
+    assert row["status"] == "COMPLETED"
+    assert [c["filename"] for c in row["candidates"]] == [selected.name]
+    assert row["candidates"][0]["status"] == "REVIEW_REQUIRED"
+    assert len(row["candidates"][0]["sha256"]) == 64
+    assert client.get("/api/video-evidence/library").json()["videos"] == []
+    result = client.post(f'/api/video-evidence/library/folders/{row["scan_id"]}/confirm', json={
+        "candidate_id": row["candidates"][0]["candidate_id"],
+        "rights_status": "PERSONAL_VIEW_ONLY", "source_note": "Synthetic engineering QA"})
+    assert result.status_code == 200, result.text
+    assert result.json()["rights_status"] == "PERSONAL_VIEW_ONLY"
+
+
+@pytest.mark.parametrize("kind", ["folder", "missing", "unsupported", "unconfirmed", "holdout", "network"])
+def test_single_file_preview_rejects_invalid_selection(workspace, kind):
+    client, root, _tmp = workspace
+    path = root / "selected.mp4"
+    path.write_bytes(b"SYNTHETIC_ONLY")
+    if kind == "folder": path = root
+    if kind == "missing": path = root / "missing.mp4"
+    if kind == "network": path = "//unreachable.invalid/share/video.mp4"
+    if kind == "unsupported":
+        path = root / "private.db"
+        path.write_bytes(b"NOT_MEDIA")
+    if kind == "holdout":
+        path = root / "ExtendedOpenTTGames" / "game_5.mp4"
+        path.parent.mkdir()
+        path.write_bytes(b"HOLDOUT_MUST_NOT_BE_READ")
+    response = client.post("/api/video-evidence/library/files", json={
+        "path": str(path), "rights_status": "PENDING_REVIEW",
+        "rights_confirmed": kind != "unconfirmed", "source_note": "Engineering QA"})
+    assert response.status_code == 400
+    assert client.get("/api/video-evidence/library/folders").json() == []
+
+
+@pytest.mark.parametrize("linked", ["file", "parent"])
+def test_single_file_preview_rejects_linked_path_before_decode(workspace, monkeypatch, linked):
+    client, root, _tmp = workspace
+    selected = root / "selected.mp4"
+    selected.write_bytes(b"SYNTHETIC_ONLY")
+    target = selected if linked == "file" else root
+    monkeypatch.setattr("backend.match_library._is_link_or_junction", lambda p: p == target)
+    response = client.post("/api/video-evidence/library/files", json={
+        "path": str(selected), "rights_status": "PERSONAL_VIEW_ONLY",
+        "rights_confirmed": True, "source_note": "Engineering QA"})
+    assert response.status_code == 400
+    assert client.get("/api/video-evidence/library/folders").json() == []
+
+
+def test_single_file_decode_error_is_reported_without_registration(workspace, monkeypatch):
+    client, root, _tmp = workspace
+    selected = root / "corrupt.mp4"
+    selected.write_bytes(b"NOT_REAL_MEDIA")
+    def fail(_path):
+        raise ValueError("decode failed")
+    monkeypatch.setattr("backend.match_library.video_metadata", fail)
+    response = client.post("/api/video-evidence/library/files", json={
+        "path": str(selected), "rights_status": "PERSONAL_VIEW_ONLY",
+        "rights_confirmed": True, "source_note": "Engineering QA"})
+    assert response.status_code == 200
+    for _ in range(100):
+        row = client.get("/api/video-evidence/library/folders").json()[0]
+        if row["status"] not in {"QUEUED", "RUNNING"}: break
+        time.sleep(.01)
+    assert row["status"] == "COMPLETED"
+    assert row["candidates"] == []
+    assert len(row["errors"]) == 1
+    assert client.get("/api/video-evidence/library").json()["videos"] == []
+
+
+def test_review_rejects_path_that_became_a_link_after_preview(workspace, monkeypatch):
+    client, root, _tmp = workspace
+    row = scan(client, root)
+    item = row["candidates"][0]
+    monkeypatch.setattr("backend.match_library._is_link_or_junction", lambda p: p == Path(item["path"]))
+    result = client.post(f'/api/video-evidence/library/folders/{row["scan_id"]}/confirm', json={
+        "candidate_id": item["candidate_id"], "rights_status": "PERSONAL_VIEW_ONLY"})
+    assert result.status_code == 400
+    assert client.get("/api/video-evidence/library").json()["videos"] == []
+
+
 def test_catalog_preserves_real_metadata_and_does_not_invent_media(workspace):
     client, _root, _tmp = workspace
     result = client.get("/api/video-evidence/library").json()

@@ -117,20 +117,38 @@ class LocalMediaIndexer:
         self.stop.set()
         self.worker.shutdown(wait=True, cancel_futures=True)
 
-    def start(self, value):
+    def start(self, value, *, single_file=False):
         if not value.rights_confirmed or not value.source_note.strip():
             raise ValueError("请确认文件夹内视频的使用权限并填写来源")
-        if value.path.startswith("\\\\"):
+        if value.path.startswith(("\\\\", "//")):
             raise ValueError("只支持本机视频文件夹")
-        root = Path(value.path).expanduser().resolve(strict=True)
-        if not root.is_dir():
-            raise ValueError("请选择存在的视频文件夹")
+        selected = None
+        if single_file:
+            chosen = Path(value.path).expanduser()
+            if not chosen.is_absolute():
+                raise ValueError("请选择本机视频文件")
+            if any(_is_link_or_junction(p) for p in (chosen, *chosen.parents)):
+                raise ValueError("不支持符号链接或连接目录中的视频")
+            selected = chosen.resolve(strict=True)
+            if not selected.is_file() or selected.suffix.lower() not in SUPPORTED_VIDEO_EXTENSIONS:
+                raise ValueError("请选择受支持的本机视频文件")
+            if "extendedopenttgames" in str(selected).lower() and (
+                selected.stem.lower() == "game_5" or selected.stem.lower().startswith("test")
+            ):
+                raise ValueError("本轮不读取研究保留或测试素材")
+            root = selected.parent
+        else:
+            root = Path(value.path).expanduser().resolve(strict=True)
+            if not root.is_dir():
+                raise ValueError("请选择存在的视频文件夹")
         with self.lock:
             if any(r["status"] in {"QUEUED", "RUNNING"} for r in self.store.list("media_scan_jobs")):
                 raise ValueError("已有文件夹正在索引，请等待完成")
             row = {"scan_id": str(uuid.uuid4()), "path": str(root), "status": "QUEUED",
                    "rights_status": value.rights_status, "source_note": value.source_note,
                    "created_at": utc_now(), "candidates": [], "errors": [], "message": "等待后台索引"}
+            if selected is not None:
+                row["selected_file"] = str(selected)
             self.save(row)
             self.worker.submit(self.scan, row)
         return row
@@ -143,11 +161,18 @@ class LocalMediaIndexer:
             known_hashes = {v.get("source_sha256"): v.get("video_id") for v in existing if v.get("source_sha256")}
             seen_candidates = {}
             root = Path(row["path"]).resolve(strict=True)
+            selected = Path(row["selected_file"]) if row.get("selected_file") else None
+            if selected is not None:
+                if any(_is_link_or_junction(p) for p in (selected, *selected.parents)) or not selected.is_file():
+                    raise ValueError("所选视频已移动或路径改变，请重新选择")
+                if selected.resolve(strict=True).parent != root:
+                    raise ValueError("所选视频超出预览目录")
             # Only descend from the folder the user explicitly chose. Never follow
             # directory symlinks/reparse points out of that tree.
             visited_directories = 0
             visited_files = 0
-            for current, directories, filenames in os.walk(root, followlinks=False):
+            entries = [(root, [], [selected.name])] if selected is not None else os.walk(root, followlinks=False)
+            for current, directories, filenames in entries:
                 visited_directories += 1
                 if visited_directories > 5000:
                     row["errors"].append("目录数量超过 5000 个安全上限；请按子目录分批扫描")
@@ -256,6 +281,10 @@ class LocalMediaIndexer:
             if value.match_id and not match:
                 raise ValueError("比赛不存在，不能关联")
             path = Path(item["path"])
+            if any(_is_link_or_junction(p) for p in (path, *path.parents)):
+                raise ValueError("视频路径已改变为符号链接或连接目录，请重新选择")
+            if not path.resolve(strict=True).is_relative_to(Path(job["path"]).resolve(strict=True)):
+                raise ValueError("视频路径超出原预览目录，请重新选择")
             if not path.is_file() or digest_file(path, self.stop) != item["sha256"]:
                 raise ValueError("视频已移动或改变，请重新扫描")
             video = next((v for v in self.store.list("evidence_videos") if v.get("source_sha256") == item["sha256"] or
@@ -435,6 +464,13 @@ def library_router(store):
     def start(value: FolderInput):
         try:
             return indexer.start(value)
+        except (ValueError, OSError) as exc:
+            raise HTTPException(400, str(exc)) from exc
+
+    @router.post("/files")
+    def preview_file(value: FolderInput):
+        try:
+            return indexer.start(value, single_file=True)
         except (ValueError, OSError) as exc:
             raise HTTPException(400, str(exc)) from exc
 
