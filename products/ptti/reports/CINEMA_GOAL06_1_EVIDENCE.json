@@ -1,0 +1,129 @@
+{
+  "source_commit": "550a410e7fc71eb425f39a618277f209515a4ef8",
+  "exe_sha256": "a9928b798bda83e9a5dc5a8f111be503c4cd48723ffd73a65eb9eb721f7d0b23",
+  "original_db_sha256_before": "264eb32ff3f9760f6db71e86dd2f0cc04c3d9267c0ccc63584cda05e7d0b9714",
+  "quick_check": "ok",
+  "original_db_unchanged": true,
+  "api_on_isolated_copy": [
+    {
+      "path": "/api/video-evidence/library/folders",
+      "http_status": 200,
+      "seconds": 0.086,
+      "shape": "array",
+      "scan_statuses": [
+        "COMPLETED"
+      ]
+    },
+    {
+      "path": "/api/video-evidence/library",
+      "http_status": 200,
+      "seconds": 3.24,
+      "shape": "object",
+      "scan_statuses": null
+    },
+    {
+      "path": "/api/video-evidence/library/folders",
+      "http_status": 200,
+      "seconds": 0.065,
+      "shape": "array",
+      "scan_statuses": [
+        "COMPLETED"
+      ]
+    }
+  ],
+  "folders_fixture": [
+    {
+      "scan_id": "qa-scan",
+      "path": "C:/isolated-synthetic-fixture",
+      "status": "COMPLETED",
+      "rights_status": "PENDING_REVIEW",
+      "source_note": "synthetic engineering fixture",
+      "created_at": "2026-10-13T13:24:00+00:00",
+      "candidates": [
+        {
+          "candidate_id": "qa-candidate",
+          "path": "C:/isolated-synthetic-fixture/synthetic-review.mp4",
+          "relative_path": "synthetic-review.mp4",
+          "filename": "synthetic-review.mp4",
+          "sha256": "0f7fd8d7849866f9bfa7904f678923309f68b02712a0a3d48dd335cb1fb5a571",
+          "size": 3066758,
+          "mtime_ns": 1791793367393437700,
+          "media": {
+            "width": 640,
+            "height": 360,
+            "fps": 30.0,
+            "duration": 12.0,
+            "codec": "h264",
+            "bitrate": 2044505,
+            "frame_count": 360,
+            "aspect_ratio": "16:9",
+            "orientation_degrees": 0,
+            "pixel_format": "yuv420p",
+            "profile": "Constrained Baseline",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "audio_streams": [
+              {
+                "codec": "aac",
+                "sample_rate": "48000",
+                "channels": 1,
+                "channel_layout": "mono"
+              }
+            ],
+            "rate_variable": false
+          },
+          "existing_video_id": null,
+          "existing_title": null,
+          "existing_metadata": {},
+          "existing_rights_status": null,
+          "existing_source_note": null,
+          "duplicate_of_candidate_id": null,
+          "suggested_match_ids": [],
+          "status": "REVIEW_REQUIRED"
+        }
+      ],
+      "errors": [],
+      "message": "预览完成；确认前不会登记录像或绑定比赛",
+      "selected_file": "C:/isolated-synthetic-fixture/synthetic-review.mp4"
+    }
+  ],
+  "native_request_trace": "NOT_CAPTURED; existing native diagnostic only records server start",
+  "native_gui_this_round": "NOT_TESTED",
+  "manifest_sha256": "88fe54bdc3509471b943ff0035a943f83696b038746690c5dee54690381eb545",
+  "startup_identity": {
+    "environment": "TEST",
+    "build_commit": "550a410e7fc71eb425f39a618277f209515a4ef8",
+    "build_id": "550a410e7f",
+    "database_location": "os_temp_qa"
+  },
+  "native_server_start": {
+    "event": "desktop_server_started",
+    "time_utc": "2026-10-13T13:24:09Z",
+    "port": 56567,
+    "database_location": "os_temp_qa"
+  },
+  "original_db_sha256_after": "264eb32ff3f9760f6db71e86dd2f0cc04c3d9267c0ccc63584cda05e7d0b9714",
+  "regression_before_fix": {
+    "result": "FAIL",
+    "assertion": "COMPLETED + REVIEW_REQUIRED must render despite a catalog response slower than the polling interval",
+    "exit_code": 1
+  },
+  "regression_after_fix": {
+    "result": "PASS",
+    "component_scenarios": 8,
+    "native_gui": "NOT_TESTED"
+  },
+  "current_counts": {
+    "registered_videos": 0,
+    "user_matches": 0,
+    "seeded_professional_metadata": 6
+  },
+  "synthetic_media_accessible": true,
+  "synthetic_media_sha_matches_scan": true,
+  "python_tests": {
+    "passed": 54,
+    "failures": 0,
+    "errors": 0,
+    "duration_seconds": 155.93,
+    "warning": "existing Starlette/httpx deprecation"
+  }
+}

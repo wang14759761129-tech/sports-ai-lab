@@ -12,8 +12,8 @@ const title=(m:any)=>`${name(m.players?.player_a)} vs ${name(m.players?.player_b
 const rights=(s:string)=>({USER_SELF_CAPTURED:'本人拍摄 · 不代表可公开或训练',USER_OWNED:'本人拥有使用权',LICENSED:'许可范围待核对',LICENSED_FOR_ANALYSIS:'获准本机分析',PERSONAL_VIEW_ONLY:'仅个人观看 · 不用于分析',PENDING_REVIEW:'授权待核实 · 仅本机登记',RESEARCH_NONCOMMERCIAL:'研究素材 · 仅非商业使用'}[s]||'授权待核实');
 const roundName=(s:string)=>({"Men's Singles Final":'男子单打决赛',"Men's Singles Semifinal":'男子单打半决赛',"Men's Singles Round of 64":'男子单打64强'} as Record<string,string>)[s]||s||'轮次未核实';
 const eventName=(s:string)=>({'ITTF Men’s & Women’s World Cup Macao 2026':'2026 澳门国际乒联世界杯','WTT Champions Chongqing 2025 Presented by AITO':'2025 重庆冠军赛','China Smash 2025':'2025 中国大满贯','WTT Star Contender Doha 2025':'2025 多哈球星挑战赛','Europe Smash - Sweden 2026':'2026 瑞典欧洲大满贯','WTT Finals Hong Kong 2025':'2025 香港总决赛'} as Record<string,string>)[s]||s;
-async function request(path:string,body?:unknown,method='POST'){
- const r=await fetch('/api/video-evidence/library'+path,body===undefined?{}:{method,headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+async function request(path:string,body?:unknown,method='POST',signal?:AbortSignal){
+ const r=await fetch('/api/video-evidence/library'+path,{...(body===undefined?{}:{method,headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}),signal});
  const d=await r.json();if(!r.ok)throw new Error(typeof d.detail==='string'?d.detail:'操作未完成，请重试');return d;
 }
 function ScoreSearch({athleteId,matchId,onOpenScore,onPlaylist}:{athleteId?:string;matchId?:string;onOpenScore:(row:any)=>void;onPlaylist:(ids:string[])=>void}){
@@ -29,10 +29,25 @@ export default function MatchVideoLibrary({page,revision,onOpenVideo,onOpenScore
  const [scans,setScans]=useState<any[]>([]),[mapping,setMapping]=useState<Record<string,string>>({}),[existing,setExisting]=useState(''),[limit,setLimit]=useState(20),[notice,setNotice]=useState('');
  const [candidateMeta,setCandidateMeta]=useState<Record<string,any>>({}),[selectedCandidates,setSelectedCandidates]=useState<string[]>([]);
  const [inputKind,setInputKind]=useState<'file'|'folder'>('folder'),[activeScanId,setActiveScanId]=useState('');
- const generation=useRef(0),locked=useRef(false);
- const refresh=async()=>{const g=++generation.current;const [d,s]=await Promise.all([request(''),request('/folders')]);if(g===generation.current){setData(d);setScans(s.sort((a:any,b:any)=>b.created_at.localeCompare(a.created_at)))} };
- useEffect(()=>{setAthlete(null);setMatch(null);setSearch('');refresh().catch(e=>setError(e.message));return()=>{generation.current++}},[page,revision]);
- useEffect(()=>{if(!scans.some(s=>['RUNNING','QUEUED'].includes(s.status)))return;const timer=setInterval(()=>refresh().catch(e=>setError(e.message)),2000);return()=>clearInterval(timer)},[scans]);
+ const generation=useRef(0),scanRequest=useRef(0),catalogRequest=useRef(0),locked=useRef(false);
+ const refreshScans=async(signal?:AbortSignal)=>{
+  const g=generation.current,id=++scanRequest.current;
+  try{const s=await request('/folders',undefined,'GET',signal);
+   if(g!==generation.current||id!==scanRequest.current||signal?.aborted)return;
+   if(!Array.isArray(s))throw Error('预览列表格式异常，请重新读取');
+   setScans(s.sort((a:any,b:any)=>b.created_at.localeCompare(a.created_at)));
+  }catch(e){if(g===generation.current&&id===scanRequest.current&&!signal?.aborted)throw e}
+ };
+ const refresh=async()=>{const g=generation.current,id=++catalogRequest.current;await Promise.all([
+  request('').then(d=>{if(g===generation.current&&id===catalogRequest.current)setData(d)}),refreshScans()
+ ])};
+ useEffect(()=>{const g=++generation.current;setAthlete(null);setMatch(null);setSearch('');refresh().catch(e=>{if(g===generation.current)setError(e.message)});return()=>{generation.current++}},[page,revision]);
+ useEffect(()=>{
+  if(!scans.some(s=>['RUNNING','QUEUED'].includes(s.status)))return;
+  let live=true,timer:ReturnType<typeof setTimeout>;const controller=new AbortController();
+  const poll=async()=>{try{await refreshScans(controller.signal)}catch(e:any){if(live)setError(e.message)}finally{if(live)timer=setTimeout(poll,2000)}};
+  timer=setTimeout(poll,2000);return()=>{live=false;clearTimeout(timer);controller.abort()};
+ },[scans,page,revision]);
  useEffect(()=>{const next={...candidateMeta};let changed=false;for(const scan of scans)for(const item of scan.candidates||[])if(!next[item.candidate_id]){const saved=item.existing_metadata||{};next[item.candidate_id]={title:item.existing_title||item.filename.replace(/\.[^.]+$/,''),match_type:saved.match_type||'UNKNOWN',event_name:saved.event_name||'',event_year:saved.event_year||'',match_date:saved.match_date||'',player_a:saved.player_a||'',player_b:saved.player_b||'',content_type:saved.content_type||'UNKNOWN',rights_status:item.existing_rights_status||scan.rights_status||'PENDING_REVIEW',source_note:item.existing_source_note||scan.source_note||''};changed=true}if(changed)setCandidateMeta(next)},[scans]);
  useEffect(()=>{if(!folderOpen)return;const previous=savedFolderDefaults(scans,path);if(previous){setPath(previous.selected_file||previous.path);setInputKind(previous.selected_file?'file':'folder');setPermission(previous.rights_status);setSourceNote(previous.source_note);setConfirmed(false)}},[folderOpen,scans,path]);
  async function act(fn:()=>Promise<void>){if(locked.current)return;locked.current=true;setBusy(true);setError('');try{await fn()}catch(e:any){setError(e.message)}finally{locked.current=false;setBusy(false)}}
