@@ -163,6 +163,16 @@ def sanitize_pytest_artifacts(paths, roots):
         path.write_text(text, encoding='utf-8')
 
 
+def run_frontend_checks(npm, reports):
+    """All frontend gates must finish before production assets are built."""
+    for name in ['test:feed', 'test:studio', 'test:review', 'test:score',
+                 'test:score-observation', 'test:official-playback',
+                 'test:vision-source-recovery', 'test:qa-proxy',
+                 'test:folder-scan-status', 'build']:
+        run_packager([npm, '--prefix', 'frontend', 'run', name],
+                     reports / (name.replace(':', '-') + '.log'))
+
+
 def main():
     if sys.platform != 'win32' or os.environ.get('GITHUB_ACTIONS') != 'true':
         raise RuntimeError('This build-only command requires an isolated Windows Actions runner')
@@ -228,13 +238,7 @@ def main():
                  ('WORKSPACE', ROOT), ('PYTHON_ROOT', sys.prefix)],
             )
         run_packager([sys.executable, '-m', 'pip', 'check'], reports / 'pip-check.log')
-        for name in ['test:feed', 'test:studio', 'test:review', 'test:score', 'test:score-observation', 'build']:
-            if name == 'build':
-                for required_test in ['test:official-playback', 'test:vision-source-recovery', 'test:qa-proxy']:
-                    run_packager([npm, '--prefix', 'frontend', 'run', required_test],
-                                 reports / (required_test.replace(':', '-') + '.log'))
-            run_packager([npm, '--prefix', 'frontend', 'run', name],
-                         reports / (name.replace(':', '-') + '.log'))
+        run_frontend_checks(npm, reports)
         run_packager([sys.executable, '-m', 'compileall', '-q', 'apps', 'backend', 'scripts'],
                      reports / 'compile.log')
         run_packager(['git', 'diff', '--check'], reports / 'diff-check.log')

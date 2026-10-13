@@ -34,3 +34,24 @@ def test_local_machine_cannot_run_ci_command(monkeypatch):
     monkeypatch.delenv('GITHUB_ACTIONS', raising=False)
     with pytest.raises(RuntimeError, match='isolated Windows Actions'):
         candidate.main()
+
+
+def test_import_regression_runs_before_frontend_build(monkeypatch, tmp_path):
+    calls = []
+    monkeypatch.setattr(candidate, 'run_packager', lambda command, log: calls.append(command[-1]))
+    candidate.run_frontend_checks('npm', tmp_path)
+    assert 'test:folder-scan-status' in calls
+    assert calls[-1] == 'build'
+    assert len(calls) == len(set(calls))
+
+
+def test_failed_import_regression_stops_build(monkeypatch, tmp_path):
+    calls = []
+    def run(command, log):
+        calls.append(command[-1])
+        if command[-1] == 'test:folder-scan-status':
+            raise RuntimeError('import regression failed')
+    monkeypatch.setattr(candidate, 'run_packager', run)
+    with pytest.raises(RuntimeError, match='import regression failed'):
+        candidate.run_frontend_checks('npm', tmp_path)
+    assert 'build' not in calls

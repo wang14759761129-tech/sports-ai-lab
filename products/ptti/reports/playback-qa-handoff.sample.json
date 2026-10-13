@@ -1,0 +1,50 @@
+{
+  "schema": "ptti.internal-playback-qa-evidence/1",
+  "public_match_contract": false,
+  "fixture_kind": "SYNTHETIC_ENGINEERING_ONLY",
+  "official_match_id": null,
+  "artifact": {
+    "actions_run_id": "38218170457",
+    "source_commit": "d6d62c103adafb2a12a996c8d6e73fffb3d41c63",
+    "zip_sha256": "8fd44778916fcdb7fb06d44b9e33b7704575f1b23f53eff0f22d83659a284e6f",
+    "exe_sha256": "b569e9841ee849e83cc66770e2e5e4afc17041257d71c872710eaa73177eccf7",
+    "manifest_sha256": "e28273b0314dec302bd5a1b9324400668c2ba7f108bb004abcdb968e2600c514",
+    "build_info_sha256": "40abf8175af051482528ec98a3197f1e54110ae70b946df46b699f7fc5838361",
+    "hash_verification": "READ_ONLY_RECHECK_GOAL05"
+  },
+  "media": {
+    "source_sha256": "0f7fd8d7849866f9bfa7904f678923309f68b02712a0a3d48dd335cb1fb5a571",
+    "actual_bytes_match_registered_sha": true,
+    "duration_ms": 12000,
+    "rights_status": "PERSONAL_VIEW_ONLY",
+    "analysis_permission": "DENIED"
+  },
+  "native_results": {
+    "provenance": "CREATOR_EXPLICIT_CONFIRMATION_IN_GOAL04",
+    "play_12_seconds": "PASS",
+    "pause": "PASS",
+    "forward": "PASS",
+    "backward": "PASS",
+    "seek": "PASS",
+    "normal_window_close": "PASS",
+    "vision_algorithm": "NOT_TESTED",
+    "chrome_final_url": "NOT_TESTED",
+    "clipboard_value_in_this_handoff": "NOT_TESTED"
+  },
+  "screenshots": {
+    "reference": "PRIOR_CONVERSATION_INLINE_CAPTURES",
+    "standalone_screenshot_files_in_handoff": false
+  },
+  "new_rc": {
+    "artifact_exists": false,
+    "exe_sha256": null,
+    "native_ui_acceptance": "NOT_TESTED",
+    "vision_accuracy": "NOT_TESTED"
+  },
+  "privacy": {
+    "private_paths_included": false,
+    "database_included": false,
+    "media_included": false,
+    "credentials_included": false
+  }
+}
