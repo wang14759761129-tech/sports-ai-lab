@@ -149,4 +149,16 @@ inputInLabel(folder,/文件夹完整路径/,'input').props.onChange({target:{val
 inputInLabel(folder,/我确认可以在本机读取/,'input').props.onChange({target:{checked:true}});await folder.settle();
 await button(folder,'读取视频并预览').props.onClick();await folder.settle();folderRows=[{...completed,selected_file:undefined}];await folder.advance(2000);
 assert.match(text(folder.tree()),/预览完成/);assert.match(text(folder.tree()),/synthetic-review\.mp4/);folder.unmount();
-console.log('8 component scenarios PASS: slow catalog, restore, serialized polling, FAILED, stale response/unmount, HTTP error, single-file/consent/path failure/duplicate click, folder parity');
+// Progress HTTP timeout must be recoverable, not an endless spinner or rescan.
+let timeoutReads=0;
+const timed=host(url=>url.endsWith('/folders')
+ ?{value:++timeoutReads<3?[{...completed,status:'RUNNING',candidates:[]}]:[completed],delay:timeoutReads===2?25000:0}
+ :{value:catalog});
+await timed.start();await open(timed);await timed.advance(17000);
+assert.match(text(timed.tree()),/读取扫描进度超时/);assert.match(text(timed.tree()),/后台可能仍在运行/);
+assert(!timed.calls.some(c=>c.options?.method==='POST'),'Communication timeout must not restart scanning');
+await timed.advance(2000);assert.match(text(timed.tree()),/预览完成/);
+assert.doesNotMatch(text(timed.tree()),/读取扫描进度超时/,'Recovered preview clears its prior timeout without hiding other failures');
+await timed.advance(10000);assert(nodes(timed.tree()).some(n=>n.type==='h3'&&text(n)==='预览完成'),'Late timed-out RUNNING must not overwrite COMPLETED');
+assert(timed.calls.filter(c=>c.url.endsWith('/folders')).every(c=>c.options.cache==='no-store'));timed.unmount();
+console.log('9 component scenarios PASS: previous 8 plus HTTP timeout/retry/no rescan/no stale overwrite');

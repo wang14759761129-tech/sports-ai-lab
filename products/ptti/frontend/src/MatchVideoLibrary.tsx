@@ -2,6 +2,7 @@ import {useEffect,useRef,useState} from 'react';
 import {Card,Empty,Modal,PageHeader} from './ui';
 import {savedFolderDefaults} from './libraryPlayback';
 import {folderScanCountText,pendingVideoReviews,canRegisterLocalVideo,selectFolderPreview,updateVideoReview} from './folderScanStatus';
+import {readScanPreviews} from './scanPreviewRequest';
 import {canPlayConfirmedScore,isUnboundedScoreObservation,observationAnchorMs,scoreObservationLabel,scoreObservationStatusLabel} from './scoreObservation';
 import './match-video-library.css';
 import VideoDiscovery from './VideoDiscovery';
@@ -29,14 +30,15 @@ export default function MatchVideoLibrary({page,revision,onOpenVideo,onOpenScore
  const [scans,setScans]=useState<any[]>([]),[mapping,setMapping]=useState<Record<string,string>>({}),[existing,setExisting]=useState(''),[limit,setLimit]=useState(20),[notice,setNotice]=useState('');
  const [candidateMeta,setCandidateMeta]=useState<Record<string,any>>({}),[selectedCandidates,setSelectedCandidates]=useState<string[]>([]);
  const [inputKind,setInputKind]=useState<'file'|'folder'>('folder'),[activeScanId,setActiveScanId]=useState('');
- const generation=useRef(0),scanRequest=useRef(0),catalogRequest=useRef(0),locked=useRef(false);
+ const generation=useRef(0),scanRequest=useRef(0),catalogRequest=useRef(0),scanError=useRef(''),locked=useRef(false);
  const refreshScans=async(signal?:AbortSignal)=>{
   const g=generation.current,id=++scanRequest.current;
-  try{const s=await request('/folders',undefined,'GET',signal);
+  try{const s=await readScanPreviews(signal);
    if(g!==generation.current||id!==scanRequest.current||signal?.aborted)return;
    if(!Array.isArray(s))throw Error('预览列表格式异常，请重新读取');
    setScans(s.sort((a:any,b:any)=>b.created_at.localeCompare(a.created_at)));
-  }catch(e){if(g===generation.current&&id===scanRequest.current&&!signal?.aborted)throw e}
+   const previousError=scanError.current;setError(current=>current===previousError?'':current);scanError.current='';
+  }catch(e:any){if(g===generation.current&&id===scanRequest.current&&!signal?.aborted){scanError.current=e.message;throw e}}
  };
  const refresh=async()=>{const g=generation.current,id=++catalogRequest.current;await Promise.all([
   request('').then(d=>{if(g===generation.current&&id===catalogRequest.current)setData(d)}),refreshScans()

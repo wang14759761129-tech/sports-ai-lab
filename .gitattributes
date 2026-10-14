@@ -6,3 +6,4 @@ products/ptti/configs/evidence-fusion/HIT_EVENT_V0_3_FROZEN_CONFIG.json.sha256 t
 products/ptti/configs/evidence-fusion/HIT_EVENT_V0_3_CALIBRATION_EXECUTION_PROVENANCE.json text eol=lf
 products/ptti/configs/evidence-fusion/HIT_EVENT_V0_2_DRAFT_CONFIG.json text eol=lf
 products/ptti/configs/evidence-fusion/HIT_EVENT_V0_2_DEV_PRIORS.json text eol=lf
+products/ptti/scripts/PTTI-RC-Diagnostics.cmd text eol=crlf
