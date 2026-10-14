@@ -159,6 +159,9 @@ assert.match(text(timed.tree()),/读取扫描进度超时/);assert.match(text(ti
 assert(!timed.calls.some(c=>c.options?.method==='POST'),'Communication timeout must not restart scanning');
 await timed.advance(2000);assert.match(text(timed.tree()),/预览完成/);
 assert.doesNotMatch(text(timed.tree()),/读取扫描进度超时/,'Recovered preview clears its prior timeout without hiding other failures');
+assert(button(timed,'确认授权并登记播放').props.disabled,'Timeout recovery cannot grant review consent');
+await button(timed,'确认授权并登记播放').props.onClick();await timed.settle();
+assert(!timed.calls.some(c=>c.url.endsWith('/confirm')),'Even a direct handler call cannot bypass the review gate after recovery');
 await timed.advance(10000);assert(nodes(timed.tree()).some(n=>n.type==='h3'&&text(n)==='预览完成'),'Late timed-out RUNNING must not overwrite COMPLETED');
 assert(timed.calls.filter(c=>c.url.endsWith('/folders')).every(c=>c.options.cache==='no-store'));timed.unmount();
 console.log('9 component scenarios PASS: previous 8 plus HTTP timeout/retry/no rescan/no stale overwrite');
