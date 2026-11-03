@@ -1,0 +1,31 @@
+{
+  "schema": "ptti.native-candidate-preparation/0.1",
+  "status": "NOT_BUILT",
+  "baseline_commit": "4468b26d7b0ca8630381b00c477d76892b32d601",
+  "candidate_source": "RESOLVE_THIS_FILE_CONTAINING_COMMIT_WITH_GIT",
+  "exe_sha256": null,
+  "profile": "video-first-r4",
+  "builder": "products/ptti/scripts/build_dual_source_v061_preview.py",
+  "builder_sha256": "5c67e3b2763a7c75282ede20f32e7f76b2c55782c2677216de30f7614d232d13",
+  "desktop_entry_sha256": "73a40b5f7ba396665e82aa4cd4b6cf7c39498418359ab459feb8f5aa414a3bdd",
+  "external_links_sha256": "df836948b829be3ac9b2c5e35cdd1eff9d717a272c0778fdd3159fed00697d8f",
+  "dependency_versions_observed": {"pywebview":"6.2.1","pyinstaller":"6.22.3","fastapi":"0.142.2","uvicorn":"0.54.0","psutil":"7.2.2"},
+  "heavy_preflight": {"status":"BLOCKED","reason":"HEAVY_START_BUDGET_NOT_MET","available_bytes":960655360,"required_start_gib":2.5,"retry_performed":false},
+  "required_isolation": {
+    "PTTI_PREVIEW_BUILD_ROOT":"NEW_UNIQUE_ISOLATED_DIRECTORY",
+    "PTTI_PREVIEW_QA_DB":"NEW_DATABASE_UNDER_OS_TEMP_ONLY",
+    "LOCALAPPDATA":"DEDICATED_QA_DIRECTORY",
+    "webview_profile":"DEDICATED_QA_ONLY_NO_FORMAL_PROFILE_REUSE",
+    "formal_launcher_change":false,
+    "old_goal107_launcher_reusable_unchanged":false
+  },
+  "known_native_gates": [
+    "desktop.py uses random localhost port. Browser localStorage persistence is not evidence of persistence across Native restarts.",
+    "Installed pywebview start defaults private_mode=true. Existing desktop entry does not explicitly configure persistent profile. Host must verify isolated profile and stable origin before claiming restart persistence.",
+    "Native external link bridge permits YouTube v query only. Moment Cards timestamp query t is rejected; canonical official page fallback remains available. No gate was expanded.",
+    "Normal distribution media gate remains approved photographic covers=0. Founder QA remote thumbnails and review control are development-only, not a distribution grant.",
+    "Native official playback, WebView2 behavior, persistent records and candidate rollback require separate Host QA after resources permit."
+  ],
+  "changes_to_host_or_core": false,
+  "rollback": "Keep installed R4 and formal launcher unchanged; reject the isolated candidate without touching user data."
+}
