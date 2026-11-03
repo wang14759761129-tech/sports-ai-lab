@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.local/contracts/personal-discovery/0.1",
+  "title": "PTTI local personal discovery profile 0.1",
+  "description": "Local-only explicit open requests and trusted user-local playback progress. No query, path, media bytes, external-player progress, or duplicate favorites.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "profile_id", "recently_opened", "local_progress"],
+  "properties": {
+    "schema_version": { "const": "ptti.personal-discovery/0.1" },
+    "profile_id": { "type": "string", "minLength": 1, "maxLength": 100, "pattern": "^[^/\\\\]+$" },
+    "recently_opened": {
+      "type": "array", "maxItems": 50, "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["record_kind", "record_id", "open_requested_at"],
+        "properties": {
+          "record_kind": { "enum": ["MatchIdentity", "MediaSource", "VideoAsset", "Moment", "Rally", "PointEvent"] },
+          "record_id": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "open_requested_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "local_progress": {
+      "type": "array", "maxItems": 100, "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["video_asset_id", "asset_sha256", "position_seconds", "duration_seconds", "asset_kind", "availability", "identity_method", "playback_rights", "rights_evidence_id", "updated_at"],
+        "properties": {
+          "video_asset_id": { "type": "string", "minLength": 1, "maxLength": 256, "pattern": "^[^/\\\\]+$" },
+          "asset_sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" },
+          "position_seconds": { "type": "number", "minimum": 0 },
+          "duration_seconds": { "type": "number", "exclusiveMinimum": 0 },
+          "asset_kind": { "const": "USER_LOCAL" },
+          "availability": { "const": "AVAILABLE" },
+          "identity_method": { "const": "VERIFIED_SHA256" },
+          "playback_rights": { "const": "USER_CONFIRMED" },
+          "rights_evidence_id": { "type": "string", "minLength": 1, "maxLength": 256, "pattern": "^[^/\\\\]+$" },
+          "updated_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}

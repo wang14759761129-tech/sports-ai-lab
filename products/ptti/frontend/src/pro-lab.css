@@ -1,0 +1,24 @@
+.pro-lab{max-width:1000px;margin:0 auto}
+.pro-lab-header{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid #ffffff20;padding:4px 0 12px;margin-bottom:12px}
+.pro-lab-header h2{margin:0;font-size:22px}.pro-lab-kicker{margin:0 0 3px;color:var(--accent)!important;font-size:10px!important;letter-spacing:.12em}
+.pro-lab p{color:var(--muted);font-size:13px;line-height:1.6}
+.pro-lab video{width:100%;max-height:540px;background:#000;border-radius:12px}
+.pro-lab-file{display:block;margin:14px 0}.pro-lab-current{overflow-wrap:anywhere}.pro-lab-empty{padding:24px;border:1px dashed #ffffff30;border-radius:8px}
+.pro-lab-form{display:grid;gap:12px;background:var(--card);border-radius:12px;padding:16px;margin:16px 0}
+.pro-lab-form label{display:flex;flex-direction:column;gap:6px;font-size:13px}
+.pro-lab-form input,.pro-lab-form textarea{margin:0;width:100%}
+.pro-lab-form textarea{min-height:72px;resize:vertical}
+.pro-lab-presets,.pro-lab-form-actions,.pro-lab-note-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.pro-lab-presets button{font-size:12px;padding:4px 8px}
+.pro-lab-error{color:#ff8a8a}
+.pro-lab-status{color:#a8e5c0!important}.pro-lab-notes{margin-top:18px}.pro-lab-list-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.pro-lab-list-heading h3{margin:0}
+.pro-lab-list-heading label{display:flex;align-items:center;gap:7px;font-size:12px}.pro-lab-list-heading select{margin:0}.pro-lab-actions{display:flex;gap:12px;align-items:center;margin:12px 0}
+.pro-lab-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.pro-lab-note{background:var(--card);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:7px;min-width:0}
+.pro-lab-time{font-size:20px;font-variant-numeric:tabular-nums;text-align:left}
+.pro-lab-tag{display:inline-block;font-size:12px;padding:2px 8px;background:var(--surface-elevated);border-radius:12px;margin-right:6px}
+.pro-lab-note p{white-space:pre-wrap;margin:0}
+.pro-lab-legacy{margin-top:18px;padding:12px;border:1px solid #ffffff20;border-radius:8px}.pro-lab-legacy article{padding:10px 0;border-top:1px solid #ffffff15;overflow-wrap:anywhere}
+.pro-lab button:focus-visible,.pro-lab input:focus-visible,.pro-lab textarea:focus-visible,.pro-lab select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:950px){.pro-lab-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.pro-lab-list{grid-template-columns:1fr}}

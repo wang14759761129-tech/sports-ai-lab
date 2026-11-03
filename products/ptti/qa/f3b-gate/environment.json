@@ -1,0 +1,14 @@
+{
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.13.14",
+  "node": "v24.15.0",
+  "npm": "11.12.1",
+  "validated_parent": "8167457f03501b67b0b98a9400ca8bd57fb3ccb9",
+  "installed_vite": "7.3.7",
+  "package_sha256": {
+    "package.json": "42ab0b6f1af04a552b3a14f20c011041696d0113fbaaa6a5520c689873885451",
+    "package-lock.json": "096754e7e101047fbcb16392fe25aadd9de1463e9da3165dc65e355712492e4a"
+  },
+  "product_runtime_diff": [],
+  "package_hash_scope": "Actual validated Windows working-tree bytes (CRLF); committed Git LF hashes are in security-review.json."
+}
