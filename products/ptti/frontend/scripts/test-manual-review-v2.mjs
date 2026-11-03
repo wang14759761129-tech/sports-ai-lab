@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {createReviewV2,validateReviewV2} from '../src/manualReviewV2.mjs';
+const media={identity:{kind:'SHA256',value:'a'.repeat(64)},duration_seconds:20};
+const mark={id:'mark-1',seconds:12.34,tag:'serve',note:'manual note'};
+const review=createReviewV2(media,[mark]);
+assert.deepEqual(validateReviewV2(JSON.parse(JSON.stringify(review)),media),review);
+assert.equal(review.association,'NO_MATCH_ASSOCIATION');
+assert.throws(()=>validateReviewV2(review,{...media,identity:{kind:'SHA256',value:'b'.repeat(64)}}),/MEDIA_IDENTITY_MISMATCH/);
+assert.throws(()=>createReviewV2(media,[mark,mark]),/INVALID_MARK/);
+assert.throws(()=>createReviewV2(media,[{...mark,seconds:21}]),/INVALID_MARK/);
+assert.throws(()=>createReviewV2({...media,identity:{kind:'SHA256',value:'unknown'}},[mark]),/INVALID_MEDIA_IDENTITY/);
+assert.throws(()=>validateReviewV2({...review,association:'REAL_MATCH'}),/INVALID_REVIEW/);
+assert.equal(createReviewV2({identity:{kind:'SESSION',value:'abcdefghijklmnop'},duration_seconds:1},[]).media.identity.kind,'SESSION');
+console.log('PASS manual review v2 identity, annotations, isolation, export and negative cases');

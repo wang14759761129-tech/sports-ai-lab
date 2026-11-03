@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {createLocalVideoSessionManager} from '../src/localVideoSession.mjs';
+const deferred=()=>{let resolve;const promise=new Promise(r=>resolve=r);return {promise,resolve}};
+const first=deferred(),second=deferred(),released=[];const bindings=[];
+const manager=createLocalVideoSessionManager({open:(f)=>f==='a'?first.promise:second.promise,bind:x=>{bindings.push(x.identity);return {release:()=>released.push('binding:'+x.identity)}}});
+const a=manager.select('a');const b=manager.select('b');
+second.resolve({identity:'b',release:()=>released.push('url:b')});assert.deepEqual(await b,{status:'ready',identity:'b'});
+first.resolve({identity:'a',release:()=>released.push('url:a')});assert.deepEqual(await a,{status:'cancelled'});assert.deepEqual(bindings,['b']);assert.equal(manager.isCurrent('a'),false);assert.equal(manager.isCurrent('b'),true);
+manager.cancel();manager.cancel();assert.deepEqual(released,['url:a','binding:b','url:b']);assert.equal(manager.isCurrent('b'),false);manager.close();await assert.rejects(manager.select('x'),/closed/);
+const bindWait=deferred();const clean=[];const mgr=createLocalVideoSessionManager({open:async()=>({identity:'c',release:()=>clean.push('url')}),bind:()=>bindWait.promise});const c=mgr.select('c');await Promise.resolve();mgr.close();bindWait.resolve({release:()=>clean.push('binding')});assert.deepEqual(await c,{status:'cancelled'});assert.deepEqual(clean,['binding','url']);
+const failure=[];const failed=createLocalVideoSessionManager({open:async()=>({identity:'d',release:()=>failure.push('url')}),bind:()=>{throw Error('binding failed')}});await assert.rejects(failed.select('d'),/binding failed/);assert.deepEqual(failure,['url']);
+console.log('PASS selection race, cancellation, binding failure and exactly-once resource release');

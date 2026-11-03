@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import { identifyLocalVideo, openLocalVideo } from '../src/localVideoIdentity.mjs';
+const a = new File([new Uint8Array(2100000)], 'a.mp4', {type:'video/mp4'});
+const b = new File([new Uint8Array(2099999), new Uint8Array([1])], 'a.mp4', {type:'video/mp4'});
+const a2 = new File([new Uint8Array(2100000)], 'other.mp4', {type:'video/mp4'});
+const progress=[];const x=await identifyLocalVideo(a,{onProgress:(n)=>progress.push(n)});
+assert.deepEqual(x,await identifyLocalVideo(a2));assert.notEqual(x.digest,(await identifyLocalVideo(b)).digest);assert.equal(progress.length,2);
+const ctl=new AbortController();ctl.abort();await assert.rejects(identifyLocalVideo(a,{signal:ctl.signal}),{name:'AbortError'});
+await assert.rejects(openLocalVideo(new File(['bad'],'x.txt',{type:'text/plain'})),/format/);
+const item=await openLocalVideo(a,{video:{canPlayType:()=> 'maybe'}});assert.ok(item.url.startsWith('blob:'));item.release();item.release();
+console.log('PASS local video identity, changed content, bounded chunks, cancellation, type, and URL release');
