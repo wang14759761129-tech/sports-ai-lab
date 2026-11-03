@@ -1,0 +1,13 @@
+# Motion Twin and Rally Coach: local evidence foundation
+
+Status: contract prototype only. No pose model or video was run by this branch; fixture points in unit tests are synthetic and are not PoseEvidence from real inference. No training diagnosis, 3D result, athlete similarity or voice recognition is claimed.
+
+PoseEvidence v1: schema `ptti.pose-evidence/1`, `source=MODEL_INFERENCE`, exact source `video_sha256`, model name and model SHA256, duration, topology (`MEDIAPIPE_POSE_33` or `HALPE_26`), normalized image-space coordinates, strictly increasing frame times, confidence 0..1 and null for unobserved points. Topologies are separate: never fill 26 to 33 by fabrication. Record input resolution in the consuming result so image-plane angles undo the coordinate aspect ratio. Angles are 2D projections, not anatomical 3D measurements. Low confidence or occlusion yields no angle and an explicit cannot-determine response.
+
+Rally: identity and manually asserted interval with `MANUAL_USER_RECORDED`; controller seeks to start, checks current time, pauses at end. The pure decision function does not operate a player and is not proof of playback. User correction records should preserve original evidence and add timestamp, author role, explanation and corrected interval; persistence and GUI not implemented.
+
+Existing RTMPose worker requires a verified RTMPose HALPE-26 model, isolated dependencies and an eligible hash-verified tracking job; model checkpoint license is not separately established. It is not equivalent to a 33-point model. For a 33-point real experiment obtain an explicitly permitted model/runtime and a user-designated authorized clip, run locally in a bounded isolated environment, hash source/model, record versions, frames and model limits, then validate and render without changing original footage. No automatic downloads or uploads.
+
+V2 reference comparison must reject incompatible handedness, action, camera, incoming ball context and lens/crop; speed, anthropometry and perspective require explicit treatment. No percentage similarity without professional validation. Future push-to-talk requires separate microphone consent, visibly active capture and local/remote processing disclosure. No automatic in-rally interruption or real-time coaching until latency, noise, accuracy and safety are tested.
+
+Pro Lab integration: keep playback ownership in Pro Lab, validate evidence and source hash before binding, render only sufficient-confidence joints, allow manual rally selection and reversible corrections; clear overlay on file switch. Avoid persisting source media, posing private data as professional-match evidence, or connecting production DB. GUI, real inference, overlay, 3 rallies and audio are NOT_TESTED.

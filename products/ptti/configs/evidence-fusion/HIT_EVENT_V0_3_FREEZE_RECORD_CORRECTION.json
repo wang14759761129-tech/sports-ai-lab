@@ -1,0 +1,10 @@
+{
+  "schema": "ptti-freeze-record-correction-v1",
+  "corrected_at": "2026-10-07T18:40:33+00:00",
+  "file": "configs\\evidence-fusion\\HIT_EVENT_V0_3_FROZEN_CONFIG.json",
+  "previous_file_sha256": "57142a43d60e502f52088b4d93e3817f9dc0c9eec5750176d12858e209cd38ec",
+  "previous_source_commit": "a005f6f8e32a8f6c9e4c2e1eeb4db9a4756e1bb6",
+  "correct_source_commit": "a005f6ffd5490ecf2ad7e3100d7fd4a3eb3f3c28",
+  "reason": "Source commit was transcribed incorrectly during record creation; verified against git rev-parse before any commit of the freeze artifact.",
+  "status": "CORRECTED_BEFORE_FREEZE_COMMIT"
+}
