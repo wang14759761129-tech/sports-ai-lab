@@ -1,0 +1,326 @@
+{
+  "source_commit": "1b30e8ea0f8a90a745fb6c30105599f0334fdf7c",
+  "source_branch": "main",
+  "history_preserved": false,
+  "snapshot_only": true,
+  "build": "NOT_TESTED",
+  "GUI": "NOT_TESTED",
+  "policy": "PTTI public screened snapshot v2; independent root commits, original history LOCAL_ONLY; workflows excluded",
+  "files": [
+    {
+      "path": ".gitignore",
+      "source_blob": "2fbc69724161a105774629186993fe2ff28c134e",
+      "source_sha256": "50f6202e4c71e91dd981575a16dff79b8c13376cce00ee07246d74473910c8fa",
+      "safe_sha256": "50f6202e4c71e91dd981575a16dff79b8c13376cce00ee07246d74473910c8fa",
+      "transformed": false
+    },
+    {
+      "path": "PROJECT_ROADMAP.md",
+      "source_blob": "4e8bb4a6f94dcdffe4dbf535935a0e92ffdb350c",
+      "source_sha256": "da862529a4fe96a81f289f135b3b1f49ecbf36298781b3f86b5accdc6a9a2322",
+      "safe_sha256": "da862529a4fe96a81f289f135b3b1f49ecbf36298781b3f86b5accdc6a9a2322",
+      "transformed": false
+    },
+    {
+      "path": "README.md",
+      "source_blob": "b0cc55ab91db4f08b724f5a71c9ad63f5c084e96",
+      "source_sha256": "73f3cf9ff9fafe974093c79ff7b6917f82450a2b6c745fbfb3ac61701ddeea5a",
+      "safe_sha256": "73f3cf9ff9fafe974093c79ff7b6917f82450a2b6c745fbfb3ac61701ddeea5a",
+      "transformed": false
+    },
+    {
+      "path": "RESEARCH_LOG.md",
+      "source_blob": "8901d4c6fc1341271adcc954685706b3781c8af5",
+      "source_sha256": "0df6b50267a5025677e73747ad0a4f24650a3ab68a56b84a19d05aee0c8466b0",
+      "safe_sha256": "0df6b50267a5025677e73747ad0a4f24650a3ab68a56b84a19d05aee0c8466b0",
+      "transformed": false
+    },
+    {
+      "path": "RESEARCH_STANDARDS.md",
+      "source_blob": "ff3a0bb59af4f04c59b0fd2de79764a219c52e63",
+      "source_sha256": "b0d41c89b5ae6d9a3214a193fd8596c048ae3661323ae528261eac9d10feb487",
+      "safe_sha256": "b0d41c89b5ae6d9a3214a193fd8596c048ae3661323ae528261eac9d10feb487",
+      "transformed": false
+    },
+    {
+      "path": "projects/001-serve-description/README.md",
+      "source_blob": "d1a9dc291b2eb6eb31ca7c7c4c0ad696ad29344e",
+      "source_sha256": "64543f26690e0905f2a6f9df4b7361b140c2f5910e526687158fdb256c58a320",
+      "safe_sha256": "64543f26690e0905f2a6f9df4b7361b140c2f5910e526687158fdb256c58a320",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/README.md",
+      "source_blob": "8db6694962cc290089f28566129ae924127a1a8a",
+      "source_sha256": "62f628588f397b2da02a73023db8f29a9d58f5147ce16321ff364eba1efabbb7",
+      "safe_sha256": "62f628588f397b2da02a73023db8f29a9d58f5147ce16321ff364eba1efabbb7",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/analysis/README.md",
+      "source_blob": "251b8d0bb90393522022e287103ea62ac84b598c",
+      "source_sha256": "9b4361ddebeca40570c4043339000328c5f34fb3648384aff0c287bc85235edc",
+      "safe_sha256": "9b4361ddebeca40570c4043339000328c5f34fb3648384aff0c287bc85235edc",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/analysis/analyze_match.py",
+      "source_blob": "8fb3762449968aaca47ef95294bd7081041a946d",
+      "source_sha256": "ad85d4ac1aa9f900339c489127979cdace8da38fa69a6a28b86b8a6c2f063030",
+      "safe_sha256": "ad85d4ac1aa9f900339c489127979cdace8da38fa69a6a28b86b8a6c2f063030",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/analysis/results.md",
+      "source_blob": "589429544b1f7b19701422c422bb17f26fb3a889",
+      "source_sha256": "fd5ccc68bd1e3b4164ff0a6041cb7495c72507b34d01d961ce70c949669abce7",
+      "safe_sha256": "fd5ccc68bd1e3b4164ff0a6041cb7495c72507b34d01d961ce70c949669abce7",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/notes/README.md",
+      "source_blob": "df3d675daee2d7dd707159867df1f9c404fac338",
+      "source_sha256": "3880fa436876aecfc84501b7166d1db2b2b9b805358f674d50f013ffadaaac19",
+      "safe_sha256": "3880fa436876aecfc84501b7166d1db2b2b9b805358f674d50f013ffadaaac19",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/notes/RESEARCH_LOG.md",
+      "source_blob": "37ba8e53c7543b9972bcca5a2d305d59902514c3",
+      "source_sha256": "fa3e5f761694a8a982f797abd26cdda54e764f276deb5f9a73c5cfedb5f1f8cc",
+      "safe_sha256": "fa3e5f761694a8a982f797abd26cdda54e764f276deb5f9a73c5cfedb5f1f8cc",
+      "transformed": false
+    },
+    {
+      "path": "reports/README.md",
+      "source_blob": "d637fd3d54e42e97a7d72cab44de4179ed2b74ab",
+      "source_sha256": "7efb4c647b17ac8389ae1c81e0e41383316c2e9145f124216b1e9ba67c93bab5",
+      "safe_sha256": "7efb4c647b17ac8389ae1c81e0e41383316c2e9145f124216b1e9ba67c93bab5",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/ANALYSIS_PLAN.md",
+      "source_blob": "52731b41eefa8656b4392b3d1b001f9265c20323",
+      "source_sha256": "ef775a8baa66d6430f7dc02a5863c9aa4dac054627afd9bf278d605846c22f43",
+      "safe_sha256": "ef775a8baa66d6430f7dc02a5863c9aa4dac054627afd9bf278d605846c22f43",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/ANNOTATION_BURDEN.md",
+      "source_blob": "4276b1289258e6f3c5dba0f129f9bf0a0ff998de",
+      "source_sha256": "cbb31f37b51ea3474b311d09309b877639e5dda0ca4c9f152afcefba9fea79f8",
+      "safe_sha256": "cbb31f37b51ea3474b311d09309b877639e5dda0ca4c9f152afcefba9fea79f8",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/ANNOTATION_GUIDE.md",
+      "source_blob": "6b79c30c2b6217deb2443fbc8be9c338eaf6e5cf",
+      "source_sha256": "f26cead12a52e9ec8bc7e051136cde557a1a4330cc97ef2a949719b6e7fc0162",
+      "safe_sha256": "f26cead12a52e9ec8bc7e051136cde557a1a4330cc97ef2a949719b6e7fc0162",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/CHANGELOG.md",
+      "source_blob": "014f71f89b8f7be5036ddc82403837a8a7e9932f",
+      "source_sha256": "9012f53b2396af4f300bddf17a6e093b9d7bf374e08c355ebcd0ac9ad6363411",
+      "safe_sha256": "9012f53b2396af4f300bddf17a6e093b9d7bf374e08c355ebcd0ac9ad6363411",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/DATA_SCHEMA.md",
+      "source_blob": "7d4e835b58d08e77a241ade5309c2d1ed96a62cf",
+      "source_sha256": "436ac163733018be6c454ce54dbfca31f0264537593ce3d602f277c8cb660cc0",
+      "safe_sha256": "436ac163733018be6c454ce54dbfca31f0264537593ce3d602f277c8cb660cc0",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/INTER_RATER_RELIABILITY.md",
+      "source_blob": "32228098fe388bf2f77302544e16db22ad902fde",
+      "source_sha256": "dca400d2c7c3a0f0036602f0cfee5801169fcdff02a2dd515028f6cdefca2fae",
+      "safe_sha256": "dca400d2c7c3a0f0036602f0cfee5801169fcdff02a2dd515028f6cdefca2fae",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/LIMITATIONS.md",
+      "source_blob": "94bb616e83901ae1fb8794df205341fac478d27c",
+      "source_sha256": "178da1b1e352daada979b7961c2f7bcfb4804cce231fc9578d948f31c834dc1b",
+      "safe_sha256": "178da1b1e352daada979b7961c2f7bcfb4804cce231fc9578d948f31c834dc1b",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/OBSERVABILITY_MATRIX.md",
+      "source_blob": "0ca84f852ebab9252c99818db32f4ccbd0169b65",
+      "source_sha256": "2b75a2339773948b9aa1406a55ddb9e8eef7300b19bb283c0e4b006c6a7e144a",
+      "safe_sha256": "2b75a2339773948b9aa1406a55ddb9e8eef7300b19bb283c0e4b006c6a7e144a",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_1B_REPORT.md",
+      "source_blob": "f4a7cfbbcfe5a32fecc033bebb237ac1ee466646",
+      "source_sha256": "b2bf0af013e9fdaeb7fc82acfd45a3d822b1930d91878edd57abd0430e981d56",
+      "safe_sha256": "b2bf0af013e9fdaeb7fc82acfd45a3d822b1930d91878edd57abd0430e981d56",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_1C_REPORT.md",
+      "source_blob": "266e7cbb31841e715186f0e133f4ea6c2f0e2f6d",
+      "source_sha256": "fb473164d3c31474bc00d88e1c1a0d48316798bc4a8bd32c84bc39ce4c1bfee4",
+      "safe_sha256": "fb473164d3c31474bc00d88e1c1a0d48316798bc4a8bd32c84bc39ce4c1bfee4",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_1_REPORT.md",
+      "source_blob": "4d614aa7d8600d2f2c9662998d1ef6fafc0efe2b",
+      "source_sha256": "c13e7c86e30c198d0cc7aa0e674ac0b16d1f720c5b385bc8404c49322816067e",
+      "safe_sha256": "c13e7c86e30c198d0cc7aa0e674ac0b16d1f720c5b385bc8404c49322816067e",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_2_PLAN.md",
+      "source_blob": "0a94eebf49476eaaba1e4f9c4e3e8b6d78d88b83",
+      "source_sha256": "fe4873b14767074f8b1a7c69b3026bdc52a2a1805d32cb1ecf7311161f293d2b",
+      "safe_sha256": "fe4873b14767074f8b1a7c69b3026bdc52a2a1805d32cb1ecf7311161f293d2b",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_2_REPORT.md",
+      "source_blob": "22c43ad1798178d14e1b98a2455365c0b314bfea",
+      "source_sha256": "7732deff6c10b38964e7a1d0b3337a152d1d72dfeaf048aa5888a6d97dc7f1e0",
+      "safe_sha256": "7732deff6c10b38964e7a1d0b3337a152d1d72dfeaf048aa5888a6d97dc7f1e0",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_PLAN.md",
+      "source_blob": "7f9097f471178d20d4971f1523641b85fe9877ec",
+      "source_sha256": "816c300cbe1e96feadd31f1bcc511b21ba2cc749b9bb1de7446546900f9db8c5",
+      "safe_sha256": "816c300cbe1e96feadd31f1bcc511b21ba2cc749b9bb1de7446546900f9db8c5",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PROTOCOL.md",
+      "source_blob": "473107be74e3609fb1611596c5ea907d3df6b2f4",
+      "source_sha256": "2e7a97e618ead486e486dad317ace678bb240e5db53443947e904e37a7c8c823",
+      "safe_sha256": "2e7a97e618ead486e486dad317ace678bb240e5db53443947e904e37a7c8c823",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/README.md",
+      "source_blob": "305c5ee7d76c34d531536df61ae9f23a17659271",
+      "source_sha256": "eb772496f9bf146b1031231487e9948230ebb5674b62ce2dab3cc23a23e960d0",
+      "safe_sha256": "eb772496f9bf146b1031231487e9948230ebb5674b62ce2dab3cc23a23e960d0",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/RESEARCH_QUESTION.md",
+      "source_blob": "7ae5daca02c8605a1d328d824081ae91620ef64b",
+      "source_sha256": "ca91ccea1699665409d34781ac7a73b5b68115ca450dacde5c31f5df9c95e5c4",
+      "safe_sha256": "ca91ccea1699665409d34781ac7a73b5b68115ca450dacde5c31f5df9c95e5c4",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/VIDEO_SOURCE_SCORECARD.md",
+      "source_blob": "cc713b7d133e5cae9afeaea88100581f1c4c1803",
+      "source_sha256": "9e57ca8135525c571d1294fd3e2d090a30577b1822270d4c601e9d1bfedaf732",
+      "safe_sha256": "9e57ca8135525c571d1294fd3e2d090a30577b1822270d4c601e9d1bfedaf732",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/analysis/README.md",
+      "source_blob": "52087f2107a0477860dcf4277428a1fdd7d9f114",
+      "source_sha256": "3f327b79e61d0b3e88e5a66767b3440db49c496a50c74ae62e044e044209a95b",
+      "safe_sha256": "3f327b79e61d0b3e88e5a66767b3440db49c496a50c74ae62e044e044209a95b",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/analysis/data_quality_report.md",
+      "source_blob": "ff0b8149b38b63600452f3f55a7a6d54e401a252",
+      "source_sha256": "ad2a2891bc5745ef7c9ee4ef130e955f299f3ba982804f6ab7f13ff4b43d4779",
+      "safe_sha256": "ad2a2891bc5745ef7c9ee4ef130e955f299f3ba982804f6ab7f13ff4b43d4779",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/analysis/scripts/summarize_points.py",
+      "source_blob": "2f5364007e362417a51e361fe6a08f1e1d11bb23",
+      "source_sha256": "9957d2312f0fb26b37e5d3ebddd6aa5b259e2e6593102afe4f05d15a03f9a8ec",
+      "safe_sha256": "9957d2312f0fb26b37e5d3ebddd6aa5b259e2e6593102afe4f05d15a03f9a8ec",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/analysis/scripts/validate_data.py",
+      "source_blob": "84bbf1ade30175e8baf8d8c8b537fdda669be003",
+      "source_sha256": "a722f6c324eee74766c21a9d141d6a1a092d661294195d3822b6d63f611e0171",
+      "safe_sha256": "a722f6c324eee74766c21a9d141d6a1a092d661294195d3822b6d63f611e0171",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/figures/README.md",
+      "source_blob": "9c847b1e76021db92d6bf90d6b80af86e76eefcc",
+      "source_sha256": "5c89a4c27ca3579305d5c25e3e8d934f0c95b96c37835be5559603e753812aa8",
+      "safe_sha256": "5c89a4c27ca3579305d5c25e3e8d934f0c95b96c37835be5559603e753812aa8",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/notes/README.md",
+      "source_blob": "a666d26cd80ffc41bbb01b0f5f82517cadca2884",
+      "source_sha256": "458396503dbf72dcbbea31f6f3168ac596a01d8273d71805b63941506833c937",
+      "safe_sha256": "458396503dbf72dcbbea31f6f3168ac596a01d8273d71805b63941506833c937",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/notes/annotation_time.md",
+      "source_blob": "a91be13ff856d4a8a0ada34fff3f7ac49102453c",
+      "source_sha256": "1b52b0c68d3be2a485943eb0c7a40536df27679a71251262370af45749b9c59e",
+      "safe_sha256": "1b52b0c68d3be2a485943eb0c7a40536df27679a71251262370af45749b9c59e",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/notes/pilot_1_early_observations.md",
+      "source_blob": "42f6dd46705eaeac386d6b9abd94c39a4381291f",
+      "source_sha256": "9b21593bc867ae6de701521ed7c42982e91362f644bf4f02462a8dccb13bf0cf",
+      "safe_sha256": "9b21593bc867ae6de701521ed7c42982e91362f644bf4f02462a8dccb13bf0cf",
+      "transformed": false
+    }
+  ],
+  "excluded": [
+    {
+      "path": "data/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/data/DATA_DICTIONARY.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/data/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/data/match_scores.csv",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/processed/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/raw/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/raw/match_001_metadata.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/raw/match_001_points.csv",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/sample/example_points.csv",
+      "reason": "private/data/runtime/archive/third-party path"
+    }
+  ]
+}
