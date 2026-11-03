@@ -1,0 +1,214 @@
+{
+  "assessment": {
+    "failures": [],
+    "status": "SIMULATED_ONLY",
+    "time_seconds": 15.0
+  },
+  "binding": {
+    "binding_version": "ptti.source-version-binding/0.1",
+    "evidence_refs": [
+      "synthetic-binding-test-only"
+    ],
+    "hash_status": "VERIFIED",
+    "local_asset_id": "fixture-local-licensed-01",
+    "observation_pts": 230400,
+    "origin_pts": 0,
+    "review_status": "HUMAN_VERIFIED",
+    "reviewed_at": "2026-10-13T00:00:00Z",
+    "source_id": "web-source:synthetic-binding-sandbox",
+    "source_version_id": "fixture-version-01",
+    "source_version_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "time_base": {
+      "denominator": 15360,
+      "numerator": 1
+    },
+    "time_basis": "SOURCE_PTS",
+    "timeline_id": "fixture-timeline-01"
+  },
+  "classification": "SYNTHETIC_ONLY_NOT_REAL_MATCH",
+  "contract": {
+    "contract_version": "ptti.match-media/0.2",
+    "local_video_assets": [
+      {
+        "availability": "AVAILABLE",
+        "desktop_playback": {
+          "app_git_sha": null,
+          "checked_at": null,
+          "evidence_ref": null,
+          "notes": "",
+          "package_sha256": null,
+          "source_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "status": "NOT_TESTED"
+        },
+        "local_asset_id": "fixture-local-licensed-01",
+        "local_locator_ref": "local-asset:fixture-local-licensed-01",
+        "match_id": "web-match:synthetic-binding-sandbox",
+        "provenance": {
+          "evidence_refs": [
+            "synthetic-association-01"
+          ],
+          "method": "synthetic-fixture:desktop-local-asset-adapter",
+          "recorded_at": null,
+          "review_status": "VERIFIED",
+          "reviewer_ref": null,
+          "source_urls": []
+        },
+        "rights": {
+          "basis_urls": [],
+          "embedding": "UNKNOWN",
+          "external_viewing": "UNKNOWN",
+          "local_analysis": "ALLOWED",
+          "metadata_listing": "UNKNOWN",
+          "model_training": "UNKNOWN",
+          "redistribution": "UNKNOWN",
+          "reviewed_at": null,
+          "thumbnail_display": "UNKNOWN"
+        },
+        "source_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "timeline": {
+          "duration_ms": 120000,
+          "frame_rate": {
+            "denominator": 1,
+            "numerator": 120
+          },
+          "time_base": {
+            "denominator": 15360,
+            "numerator": 1
+          },
+          "timeline_id": "fixture-timeline-01"
+        },
+        "vision_result": {
+          "checked_at": null,
+          "notes": "",
+          "result_ref": null,
+          "source_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "status": "NO_VERIFIED_RESULT",
+          "timeline_id": "fixture-timeline-01"
+        }
+      }
+    ],
+    "matches": [
+      {
+        "discipline": "UNKNOWN",
+        "event": {
+          "event_id": null,
+          "name": "PTTI synthetic binding sandbox",
+          "year": null
+        },
+        "identity_status": "VERIFIED",
+        "match_date": null,
+        "match_id": "web-match:synthetic-binding-sandbox",
+        "participant_names_unassigned": [
+          "Synthetic A",
+          "Synthetic B"
+        ],
+        "participants": [],
+        "provenance": {
+          "evidence_refs": [],
+          "method": "synthetic-fixture:web-match-record-adapter",
+          "recorded_at": null,
+          "review_status": "VERIFIED",
+          "reviewer_ref": null,
+          "source_urls": [
+            "https://fixture.example.test/video/sandbox"
+          ]
+        },
+        "result": null,
+        "round": null
+      }
+    ],
+    "timeline_mappings": [],
+    "video_sources": [
+      {
+        "canonical_url": "https://fixture.example.test/video/sandbox",
+        "content_type": "UNKNOWN",
+        "discipline": "UNKNOWN",
+        "evidence": {
+          "desktop_native_playback": {
+            "app_git_sha": null,
+            "checked_at": null,
+            "evidence_ref": null,
+            "notes": "",
+            "package_sha256": null,
+            "source_sha256": null,
+            "status": "NOT_TESTED"
+          },
+          "embed_playback": {
+            "checked_at": null,
+            "error_code": null,
+            "evidence_ref": null,
+            "notes": "",
+            "status": "NOT_TESTED"
+          },
+          "external_video_page": {
+            "audio_confirmation_observed": null,
+            "audio_status": "UNKNOWN",
+            "checked_at": null,
+            "evidence_ref": null,
+            "final_url": null,
+            "login_prompt_seen": null,
+            "notes": "",
+            "page_title": null,
+            "publisher": null,
+            "publisher_verified": null,
+            "region_prompt_seen": null,
+            "requested_url": "https://fixture.example.test/video/sandbox",
+            "source_evidence_urls": [],
+            "source_evidence_verified": null,
+            "status": "NOT_TESTED",
+            "territory": null,
+            "time_first_seconds": null,
+            "time_last_seconds": null,
+            "title_matches_match": null,
+            "url_exact_match": null,
+            "validation_failures": [],
+            "verification_prompt_seen": null,
+            "visual_frames_changed": null
+          },
+          "page_access": {
+            "checked_at": null,
+            "final_url": null,
+            "http_status": null,
+            "notes": "",
+            "status": "NOT_TESTED"
+          }
+        },
+        "match_id": "web-match:synthetic-binding-sandbox",
+        "match_link_status": "UNKNOWN",
+        "platform": "SYNTHETIC",
+        "provenance": {
+          "evidence_refs": [],
+          "method": "synthetic-fixture:web-match-record-adapter",
+          "recorded_at": null,
+          "review_status": "UNKNOWN",
+          "reviewer_ref": null,
+          "source_urls": [
+            "https://fixture.example.test/video/sandbox"
+          ]
+        },
+        "published_at": null,
+        "publisher": null,
+        "resource_kind": "VIDEO_PAGE",
+        "rights": {
+          "basis_urls": [],
+          "embedding": "UNKNOWN",
+          "external_viewing": "UNKNOWN",
+          "local_analysis": "UNKNOWN",
+          "metadata_listing": "UNKNOWN",
+          "model_training": "UNKNOWN",
+          "redistribution": "UNKNOWN",
+          "reviewed_at": null,
+          "thumbnail_display": "UNKNOWN"
+        },
+        "source_id": "web-source:synthetic-binding-sandbox",
+        "territory": {
+          "notes": "",
+          "status": "UNKNOWN",
+          "territories": []
+        },
+        "thumbnail_url": null,
+        "verified_at": null
+      }
+    ]
+  }
+}

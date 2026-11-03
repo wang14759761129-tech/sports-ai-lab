@@ -1,0 +1,1091 @@
+{
+  "contract_version": "ptti.fan-inspiration/0.1",
+  "generated_at": "2026-10-20T00:00:00Z",
+  "view": "STRICT_PUBLIC_METADATA_LINKS_ONLY",
+  "input_identity": {
+    "base_contract": "ptti.match-library-index/0.1",
+    "base_sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+    "goal17_delta_contract": "ptti.goal17.1-match-video-additions/0.1",
+    "goal17_delta_sha256": "6f05d1fc48fb74ffc305abe20fd9152973bd96bb009fe6a183d42c031a31198a",
+    "goal22_supplement_sha256": "43136eace93e9650ec73dd589abda00ee46addcaf80160b9bfc17250aeaa28db"
+  },
+  "clips": [
+    {
+      "source_id": "video-source:youtube:xef0VQVV-OE",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=xef0VQVV-OE",
+      "original_title": "Top Points of Day 1 | #WTTYokohama 2025",
+      "published_at": "2025-08-07",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [],
+      "athlete_names": [],
+      "athlete_association_status": "UNASSIGNED_EVENT_LEVEL",
+      "event_id": "wtt-event:3094",
+      "event_name": "WTT Champions Yokohama 2025",
+      "event_year": 2025,
+      "match_id": null,
+      "video_category": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "UNKNOWN",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T00:00:00Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "video-source:youtube:WF0H02Br3LE",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=WF0H02Br3LE",
+      "original_title": "Top Points of Day 3 | #WTTYokohama 2025",
+      "published_at": "2025-08-09",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [],
+      "athlete_names": [],
+      "athlete_association_status": "UNASSIGNED_EVENT_LEVEL",
+      "event_id": "wtt-event:3094",
+      "event_name": "WTT Champions Yokohama 2025",
+      "event_year": 2025,
+      "match_id": null,
+      "video_category": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "UNKNOWN",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T00:00:00Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "video-source:youtube:zfrkMx5DdRo",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=zfrkMx5DdRo",
+      "original_title": "Top Points of Day 4 | #WTTYokohama 2025",
+      "published_at": "2025-08-10",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [],
+      "athlete_names": [],
+      "athlete_association_status": "UNASSIGNED_EVENT_LEVEL",
+      "event_id": "wtt-event:3094",
+      "event_name": "WTT Champions Yokohama 2025",
+      "event_year": 2025,
+      "match_id": null,
+      "video_category": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "UNKNOWN",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T00:00:00Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "video-source:youtube:fa2j70xjqoU",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=fa2j70xjqoU",
+      "original_title": "Top Points of Day 5 | #WTTYokohama 2025",
+      "published_at": "2025-08-11",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [],
+      "athlete_names": [],
+      "athlete_association_status": "UNASSIGNED_EVENT_LEVEL",
+      "event_id": "wtt-event:3094",
+      "event_name": "WTT Champions Yokohama 2025",
+      "event_year": 2025,
+      "match_id": null,
+      "video_category": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "UNKNOWN",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T00:00:00Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "video-source:youtube:0820Zo3UaGM",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=0820Zo3UaGM",
+      "original_title": "Top 10 Points | Presented by DHS | #WTTYokohama 2025",
+      "published_at": "2025-08-29",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [],
+      "athlete_names": [],
+      "athlete_association_status": "UNASSIGNED_EVENT_LEVEL",
+      "event_id": "wtt-event:3094",
+      "event_name": "WTT Champions Yokohama 2025",
+      "event_year": 2025,
+      "match_id": null,
+      "video_category": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "UNKNOWN",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T00:00:00Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "video-source:youtube:y9AYI43XtMI",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=y9AYI43XtMI",
+      "original_title": "Top Points of Qualifying | #WTTDoha 2025",
+      "published_at": "2025-01-07",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [],
+      "athlete_names": [],
+      "athlete_association_status": "UNASSIGNED_EVENT_LEVEL",
+      "event_id": "wtt-event:3083",
+      "event_name": "WTT Star Contender Doha 2025",
+      "event_year": 2025,
+      "match_id": null,
+      "video_category": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "UNKNOWN",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T00:00:00Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "video-source:youtube:YNtnXjGiAcQ",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=YNtnXjGiAcQ",
+      "original_title": "Top Points of Day 4 | #WTTDoha 2025",
+      "published_at": "2025-01-11",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [],
+      "athlete_names": [],
+      "athlete_association_status": "UNASSIGNED_EVENT_LEVEL",
+      "event_id": "wtt-event:3083",
+      "event_name": "WTT Star Contender Doha 2025",
+      "event_year": 2025,
+      "match_id": null,
+      "video_category": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "UNKNOWN",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T00:00:00Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "video-source:youtube:JZhxfSdn3E4",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=JZhxfSdn3E4",
+      "original_title": "Top 10 Points | #WTTDoha 2025",
+      "published_at": "2025-01-24",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [],
+      "athlete_names": [],
+      "athlete_association_status": "UNASSIGNED_EVENT_LEVEL",
+      "event_id": "wtt-event:3083",
+      "event_name": "WTT Star Contender Doha 2025",
+      "event_year": 2025,
+      "match_id": null,
+      "video_category": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "UNKNOWN",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T00:00:00Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "video-source:youtube:AgIDgIo7bSY",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=AgIDgIo7bSY",
+      "original_title": "Top Points of Qualifying | #EuropeSmash 2025",
+      "published_at": "2025-08-16",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [],
+      "athlete_names": [],
+      "athlete_association_status": "UNASSIGNED_EVENT_LEVEL",
+      "event_id": "wtt-event:3128",
+      "event_name": "Europe Smash - Sweden 2025",
+      "event_year": 2025,
+      "match_id": null,
+      "video_category": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "UNKNOWN",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T00:00:00Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "video-source:youtube:DRWntK5EJj0",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=DRWntK5EJj0",
+      "original_title": "The Highlights Show | #WTTChongqing 2025",
+      "published_at": "2025-03-26",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [],
+      "athlete_names": [],
+      "athlete_association_status": "UNASSIGNED_EVENT_LEVEL",
+      "event_id": null,
+      "event_name": "WTT Champions Chongqing 2025 Presented by AITO",
+      "event_year": 2025,
+      "match_id": null,
+      "video_category": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "UNKNOWN",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T00:00:00Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "video-source:youtube:-rlqmtZyP5E",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=-rlqmtZyP5E",
+      "original_title": "Top 10 Points of 2025 | WTT 2025 Wrapped",
+      "published_at": "2026-01-03",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [],
+      "athlete_names": [],
+      "athlete_association_status": "UNASSIGNED_EVENT_LEVEL",
+      "event_id": null,
+      "event_name": "WTT 2025 season roundup",
+      "event_year": 2025,
+      "match_id": null,
+      "video_category": "SEASON_HIGHLIGHTS_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "NOT_APPLICABLE",
+        "metadata_status": "CURRENT_SEARCH_METADATA_SURFACED",
+        "metadata_checked_at": "2026-10-20T00:00:00Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED_EXTERNAL_LINK_ONLY",
+        "external_viewing": "ALLOWED_WITHIN_PLATFORM_LINK_SHARING_SCOPE",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_GRANTED_PENDING_APPROVAL",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    }
+  ],
+  "match_watch_sources": [
+    {
+      "source_id": "video-source:youtube:0QgbtsBWZhk",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+      "original_title": "FULL MATCH | Wang Chuqin vs Felix Lebrun | MS Final | #ChinaSmash 2025",
+      "published_at": null,
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [
+        "athlete:121558",
+        "athlete:135977"
+      ],
+      "athlete_names": [
+        "WANG Chuqin",
+        "Felix LEBRUN"
+      ],
+      "athlete_association_status": "MATCH_LINKED",
+      "event_id": "wtt-event:3098",
+      "event_name": "China Smash 2025",
+      "event_year": 2025,
+      "match_id": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+      "video_category": "FULL_MATCH_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "HUMAN_VERIFIED",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T00:00:00Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "video-source:youtube:jv_XQ6oKaDU",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=jv_XQ6oKaDU",
+      "original_title": "Tomokazu Harimoto vs Jonathan Groth | MS Final | WTT Star Contender Doha 2025",
+      "published_at": "2025-01-11",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [
+        "athlete:123980",
+        "athlete:112409"
+      ],
+      "athlete_names": [
+        "Tomokazu HARIMOTO",
+        "Jonathan GROTH"
+      ],
+      "athlete_association_status": "MATCH_LINKED",
+      "event_id": "wtt-event:3083",
+      "event_name": "WTT Star Contender Doha 2025",
+      "event_year": 2025,
+      "match_id": "pro:wtt:doha-star-contender-2025:harimoto-jonathan-groth",
+      "video_category": "MATCH_SPECIFIC_TYPE_UNKNOWN",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "HUMAN_VERIFIED",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T10:46:06Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "video-source:youtube:lb4UMbE8Pfs",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=lb4UMbE8Pfs",
+      "original_title": "Chen Xingtong vs Wang Manyu | WS F | WTT Finals Fukuoka 2024",
+      "published_at": "2024-11-24",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [],
+      "athlete_names": [
+        "Chen Xingtong",
+        "Wang Manyu"
+      ],
+      "athlete_association_status": "UNMAPPED_TITLE_NAMES",
+      "event_id": "wtt-event:2947",
+      "event_name": "WTT Finals Fukuoka 2024",
+      "event_year": 2024,
+      "match_id": "pro:wtt:wtt-finals-fukuoka-2024:chen-xingtong-wang-manyu-ws-final",
+      "video_category": "MATCH_SPECIFIC_TYPE_UNKNOWN",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "HUMAN_VERIFIED",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T10:46:06Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "video-source:youtube:ttUevnAZSEY",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=ttUevnAZSEY",
+      "original_title": "FULL MATCH | Sun Yingsha vs Wang Manyu | WS Final | #ChinaSmash 2025",
+      "published_at": "2025-10-06",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [
+        "athlete:131163",
+        "athlete:121411"
+      ],
+      "athlete_names": [
+        "SUN Yingsha",
+        "WANG Manyu"
+      ],
+      "athlete_association_status": "MATCH_LINKED",
+      "event_id": "wtt-event:3098",
+      "event_name": "China Smash 2025",
+      "event_year": 2025,
+      "match_id": "pro:wtt:china-smash-2025:sun-yingsha-wang-manyu-ws-final",
+      "video_category": "FULL_MATCH_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "HUMAN_VERIFIED",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T10:56:58Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "video-source:youtube:cDccQqVlMnc",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=cDccQqVlMnc",
+      "original_title": "FULL MATCH | Wang Chuqin vs Lin Yun-Ju | MS Final | #WTTSingapore2026",
+      "published_at": "2026-03-02",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [
+        "athlete:121558",
+        "athlete:121582"
+      ],
+      "athlete_names": [
+        "WANG Chuqin",
+        "LIN Yun-Ju"
+      ],
+      "athlete_association_status": "MATCH_LINKED",
+      "event_id": null,
+      "event_name": "Singapore Smash 2026",
+      "event_year": 2026,
+      "match_id": "pro:wtt:singapore-smash-2026:wang-chuqin-lin-yun-ju-ms-final",
+      "video_category": "FULL_MATCH_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "HUMAN_VERIFIED",
+        "metadata_status": "VERIFIED_METADATA_BASELINE",
+        "metadata_checked_at": "2026-10-18T10:56:58Z",
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "youtube:ywX9mUJ8NtI",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=ywX9mUJ8NtI",
+      "original_title": "FULL MATCH | Lin Shidong vs Benedikt Duda | MS R16 | WTT Champions Doha 2026",
+      "published_at": "2026-01-09",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [
+        "athlete:137237"
+      ],
+      "athlete_names": [
+        "Lin Shidong",
+        "Benedikt Duda"
+      ],
+      "athlete_association_status": "MATCH_LINKED",
+      "event_id": null,
+      "event_name": null,
+      "event_year": null,
+      "match_id": "match:ptti:wtt-doha-2026:ms-r16:lin-shidong-benedikt-duda",
+      "video_category": "FULL_MATCH_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "TITLE_ASSOCIATION_VISUAL_NOT_TESTED",
+        "metadata_status": "NOT_TESTED",
+        "metadata_checked_at": null,
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED_EXTERNAL_LINK_ONLY",
+        "external_viewing": "ALLOWED_WITHIN_PLATFORM_LINK_SHARING_SCOPE",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_GRANTED_PENDING_APPROVAL",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    },
+    {
+      "source_id": "youtube:Kbhf47vb3eE",
+      "platform": "YOUTUBE",
+      "original_url": "https://www.youtube.com/watch?v=Kbhf47vb3eE",
+      "original_title": "FULL MATCH | Lin Shidong vs Jang Woojin | MS SF | WTT Champions Doha 2026",
+      "published_at": "2026-01-12",
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "athlete_ids": [
+        "athlete:137237"
+      ],
+      "athlete_names": [
+        "Lin Shidong",
+        "Jang Woojin"
+      ],
+      "athlete_association_status": "MATCH_LINKED",
+      "event_id": null,
+      "event_name": null,
+      "event_year": null,
+      "match_id": "match:ptti:wtt-doha-2026:ms-sf:lin-shidong-jang-woojin",
+      "video_category": "FULL_MATCH_TITLE_CLAIM",
+      "full_match_completeness": "UNVERIFIED",
+      "verification": {
+        "publisher_identity": "VERIFIED",
+        "source_identity": "VERIFIED",
+        "match_link": "TITLE_ASSOCIATION_VISUAL_NOT_TESTED",
+        "metadata_status": "NOT_TESTED",
+        "metadata_checked_at": null,
+        "official_page_open": "NOT_TESTED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "territory": "UNKNOWN"
+      },
+      "rights": {
+        "public_listing": "ALLOWED_EXTERNAL_LINK_ONLY",
+        "external_viewing": "ALLOWED_WITHIN_PLATFORM_LINK_SHARING_SCOPE",
+        "embed": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display": "NOT_GRANTED_PENDING_APPROVAL",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      }
+    }
+  ],
+  "international_reactions": [
+    {
+      "reaction_id": "reaction:fr:lemonde:china-smash-2025-ms-final",
+      "related_match_id": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+      "content_kind": "SINGLE_MEDIA_REPORT",
+      "publisher": "Le Monde",
+      "source_url": "https://www.lemonde.fr/sport/article/2025/10/05/felix-lebrun-battu-avec-les-honneurs-en-finale-du-grand-smash-de-pekin_6644541_3242.html",
+      "source_title": "Félix Lebrun battu avec les honneurs en finale du Grand Smash de Pékin",
+      "published_at": "2025-10-05",
+      "language": "fr",
+      "summary_zh": "《世界报》的单篇赛后报道记载，Félix Lebrun在China Smash男单决赛中负于王楚钦，并称他成为首位进入Grand Smash决赛的法国选手。",
+      "credibility": {
+        "source_class": "ESTABLISHED_NATIONAL_NEWSROOM",
+        "confidence_scope": "HIGH_FOR_ATTRIBUTING_THIS_ARTICLE_ONLY",
+        "audience_representativeness": "NOT_CLAIMED"
+      },
+      "rights": {
+        "public_listing": "FACTUAL_SUMMARY_AND_OUTBOUND_LINK_ONLY",
+        "article_republication": "NOT_GRANTED",
+        "image_reuse": "NOT_GRANTED"
+      }
+    }
+  ],
+  "gear_dossiers": [
+    {
+      "match_id": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+      "participants": [
+        {
+          "athlete_id": "athlete:121558",
+          "athlete_name": "WANG Chuqin",
+          "match_specific_status": "NOT_VERIFIED",
+          "items": [
+            {
+              "category": "JERSEY",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "SHOES",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "BLADE",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "RUBBER",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            }
+          ]
+        },
+        {
+          "athlete_id": "athlete:135977",
+          "athlete_name": "Felix LEBRUN",
+          "match_specific_status": "NOT_VERIFIED",
+          "items": [
+            {
+              "category": "JERSEY",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "SHOES",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "BLADE",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "RUBBER",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            }
+          ]
+        }
+      ],
+      "evidence_status": "NOT_VERIFIED_FOR_SPECIFIC_MATCH",
+      "public_note": "本场球衣、球鞋、底板和胶皮均没有足以绑定到该场比赛的核验记录；不依据品牌产品页或未核实画面推断。"
+    },
+    {
+      "match_id": "pro:wtt:china-smash-2025:sun-yingsha-wang-manyu-ws-final",
+      "participants": [
+        {
+          "athlete_id": "athlete:131163",
+          "athlete_name": "SUN Yingsha",
+          "match_specific_status": "NOT_VERIFIED",
+          "items": [
+            {
+              "category": "JERSEY",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "SHOES",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "BLADE",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "RUBBER",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            }
+          ]
+        },
+        {
+          "athlete_id": "athlete:121411",
+          "athlete_name": "WANG Manyu",
+          "match_specific_status": "NOT_VERIFIED",
+          "items": [
+            {
+              "category": "JERSEY",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "SHOES",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "BLADE",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "RUBBER",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            }
+          ]
+        }
+      ],
+      "evidence_status": "NOT_VERIFIED_FOR_SPECIFIC_MATCH",
+      "public_note": "本场球衣、球鞋、底板和胶皮均没有足以绑定到该场比赛的核验记录；不依据品牌产品页或未核实画面推断。"
+    },
+    {
+      "match_id": "pro:wtt:singapore-smash-2026:wang-chuqin-lin-yun-ju-ms-final",
+      "participants": [
+        {
+          "athlete_id": "athlete:121558",
+          "athlete_name": "WANG Chuqin",
+          "match_specific_status": "NOT_VERIFIED",
+          "items": [
+            {
+              "category": "JERSEY",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "SHOES",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "BLADE",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "RUBBER",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            }
+          ]
+        },
+        {
+          "athlete_id": "athlete:121582",
+          "athlete_name": "LIN Yun-Ju",
+          "match_specific_status": "NOT_VERIFIED",
+          "items": [
+            {
+              "category": "JERSEY",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "SHOES",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "BLADE",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            },
+            {
+              "category": "RUBBER",
+              "brand": null,
+              "model": null,
+              "status": "UNKNOWN"
+            }
+          ]
+        }
+      ],
+      "evidence_status": "NOT_VERIFIED_FOR_SPECIFIC_MATCH",
+      "public_note": "本场球衣、球鞋、底板和胶皮均没有足以绑定到该场比赛的核验记录；不依据品牌产品页或未核实画面推断。"
+    }
+  ],
+  "watch_routes": [
+    {
+      "mode": "OFFICIAL_EMBED",
+      "priority": 1,
+      "state": "BLOCKED_NO_EXPLICIT_EMBED_PERMISSION",
+      "source_ids": [],
+      "playback_evidence": "NOT_TESTED",
+      "fallback_behavior": "不创建iframe；embed permission未知或未授予时，显示官方外链选项（如果该来源单独满足外链条件）。"
+    },
+    {
+      "mode": "OFFICIAL_PAGE",
+      "priority": 2,
+      "state": "OUTBOUND_LINKS_REGISTERED_PLAYBACK_NOT_TESTED",
+      "source_ids": [
+        "video-source:youtube:0QgbtsBWZhk",
+        "video-source:youtube:jv_XQ6oKaDU",
+        "video-source:youtube:lb4UMbE8Pfs",
+        "video-source:youtube:xef0VQVV-OE",
+        "video-source:youtube:WF0H02Br3LE",
+        "video-source:youtube:zfrkMx5DdRo",
+        "video-source:youtube:fa2j70xjqoU",
+        "video-source:youtube:0820Zo3UaGM",
+        "video-source:youtube:y9AYI43XtMI",
+        "video-source:youtube:YNtnXjGiAcQ",
+        "video-source:youtube:JZhxfSdn3E4",
+        "video-source:youtube:AgIDgIo7bSY",
+        "video-source:youtube:DRWntK5EJj0",
+        "video-source:youtube:ttUevnAZSEY",
+        "video-source:youtube:cDccQqVlMnc",
+        "youtube:ywX9mUJ8NtI",
+        "youtube:Kbhf47vb3eE",
+        "video-source:youtube:-rlqmtZyP5E"
+      ],
+      "playback_evidence": "NOT_TESTED",
+      "fallback_behavior": "由用户选择打开原始官方平台页；外部浏览器打开、画面播放、地区可用性仍分别未测试。"
+    },
+    {
+      "mode": "AUTHORIZED_SOURCE",
+      "priority": 3,
+      "state": "NO_AUTHORIZED_SOURCE_REGISTERED",
+      "source_ids": [],
+      "playback_evidence": "NOT_TESTED",
+      "fallback_behavior": "没有独立授权转播方记录时不显示该选项，也不从官方外链推导授权。"
+    },
+    {
+      "mode": "REPLAY",
+      "priority": 4,
+      "state": "OFFICIAL_REPLAY_LINKS_NOT_PLAYBACK_VERIFIED",
+      "source_ids": [
+        "video-source:youtube:0QgbtsBWZhk",
+        "video-source:youtube:ttUevnAZSEY",
+        "video-source:youtube:cDccQqVlMnc",
+        "youtube:ywX9mUJ8NtI",
+        "youtube:Kbhf47vb3eE"
+      ],
+      "playback_evidence": "NOT_TESTED",
+      "fallback_behavior": "保留原站链接并显示标题类型；高光不替代整场，FULL_MATCH标题不等于完整性或可播放验证。"
+    },
+    {
+      "mode": "LIVE_SCORE",
+      "priority": 5,
+      "state": "NO_LIVE_SCORE_VERIFIED",
+      "source_ids": [],
+      "playback_evidence": "NOT_TESTED",
+      "fallback_behavior": "没有当前LIVE_VERIFIED比分源时隐藏实时比分状态；不得将赛事页或历史赛果标成直播。"
+    }
+  ],
+  "notice": "Metadata and official outbound links only. No embed, thumbnail, download, local analysis, article reproduction, media redistribution, playback, or complete-watch permission is granted by this package."
+}

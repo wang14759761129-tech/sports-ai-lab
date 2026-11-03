@@ -1,0 +1,44 @@
+{
+  "record_version": "ptti.goal22-main-review-register/0.1",
+  "as_of": "2026-10-20",
+  "not_public": true,
+  "review_notes": [
+    {
+      "topic": "clip-source-check",
+      "source_url": "https://www.youtube.com/watch?v=-rlqmtZyP5E",
+      "observation": "Read-only web search surfaced the exact WTT title, verified World Table Tennis publisher, 2026-01-03 publication date and WTT copyright notice; direct page open returned a web-tool internal error, so system-browser open and playback remain NOT_TESTED.",
+      "decision": "ADMIT_METADATA_AND_OFFICIAL_OUTBOUND_LINK_ONLY",
+      "source_evidence": "https://www.youtube.com/watch?v=-rlqmtZyP5E"
+    },
+    {
+      "topic": "international-reaction",
+      "source_url": "https://www.lemonde.fr/sport/article/2025/10/05/felix-lebrun-battu-avec-les-honneurs-en-finale-du-grand-smash-de-pekin_6644541_3242.html",
+      "observation": "Read-only page fetch exposed the French article and publication date 2025-10-05. Only an original concise Chinese summary and outbound link are admitted; article text and imagery are not reproduced.",
+      "decision": "ADMIT_SINGLE_ARTICLE_SUMMARY_AND_LINK; NOT_A_FAN_POLL",
+      "source_evidence": "https://www.lemonde.fr/sport/article/2025/10/05/felix-lebrun-battu-avec-les-honneurs-en-finale-du-grand-smash-de-pekin_6644541_3242.html"
+    },
+    {
+      "topic": "international-reaction-blocked-candidate",
+      "source_url": "https://www.lequipe.fr/Tennis-de-table/Actualites/Felix-lebrun-apres-sa-defaite-en-finale-du-grand-smash-de-pekin-face-a-wang-chuqin-il-etait-au-dessus-pendant-l-ensemble-du-match/1599242",
+      "observation": "Search result metadata surfaced, but direct read-only fetch returned HTTP 403. No alternate access method used and no content admitted to the public package.",
+      "decision": "INTERNAL_ONLY_BLOCKED_403",
+      "source_evidence": "https://www.lequipe.fr/Tennis-de-table/Actualites/Felix-lebrun-apres-sa-defaite-en-finale-du-grand-smash-de-pekin-face-a-wang-chuqin-il-etait-au-dessus-pendant-l-ensemble-du-match/1599242"
+    },
+    {
+      "topic": "gear-match-specific-review",
+      "observation": "Three dossiers cover China Smash 2025 men's singles final, China Smash 2025 women's singles final, and Singapore Smash 2026 men's singles final. No jersey, footwear, blade, or rubber entry was promoted to a match-specific fact. Official DHS product pages and a Butterfly Lin Yun-Ju equipment/sponsorship page are athlete/product-level references, not evidence that a particular model was used in the selected match. No visual inference was made.",
+      "indirect_sources_reviewed": [
+        "https://dhssportsusa.com/products/dhs-sun-yingsha-classic-series-table-tennis-racket",
+        "https://dhssportsusa.com/products/dhs-wang-cq-national-edition-table-tennis-rubber",
+        "https://www.butterfly-global.com/en/sponsoring/detail/lin-yunju.html",
+        "https://butterflyonline.com/lin-yun-ju-x-zyre-03-interview/"
+      ],
+      "decision": "KEEP_ALL_SELECTED_MATCH_GEAR_UNKNOWN_UNTIL_MATCH_SPECIFIC_SOURCE"
+    },
+    {
+      "topic": "source-boundaries",
+      "observation": "The 17 inherited source rows preserve their existing baseline verification and rights states. Current web research updated no source playback status. New WTT season compilation is not match-bound. No cover image, thumbnail, media bytes, or article text is included in the strict public package.",
+      "decision": "STRICT_PUBLIC_LINK_ONLY; PLAYBACK_NOT_TESTED"
+    }
+  ]
+}

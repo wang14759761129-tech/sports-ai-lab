@@ -1,0 +1,1244 @@
+{
+  "dataset_class": "SIMULATED_ONLY",
+  "san": {
+    "head": "6b8ee235191b0f686d4f47f0d3d2340aba78a0f7",
+    "worktree_clean": true,
+    "consumer_module_sha256": "b851dcc2533e2f59d170543cb7e7953c1c64fa6e567422180dcc14aeb5d2d0e1"
+  },
+  "engine_sha256": "89f19894c4d1313b7dc8a9fc613b2e1e33343ada7de10994d1b192278fa0e234",
+  "golden_comparisons": [
+    {
+      "input_contract_version": "ptti.quick-annotation/0.1",
+      "input_sha256": "e69ce39b2f0442f587b533ebfc454a2e5261b18420cc2b2a026585e561bc6522",
+      "input_fixture": "fixtures/quick-annotation-v0.1-valid-simulated.json",
+      "status": "PASS",
+      "expected_shared_counts": {
+        "total_points": 5,
+        "known_winner_points": 4,
+        "score_by_winner": {
+          "PLAYER_A": 2,
+          "PLAYER_B": 2
+        },
+        "reviewable_points": 0,
+        "independently_verified_media_points": 0,
+        "reviewable_by_winner": {
+          "PLAYER_A": 0,
+          "PLAYER_B": 0
+        },
+        "known_serve_side": 0,
+        "known_third_ball_attack": 2
+      },
+      "san_result": {
+        "summary": {
+          "total_points": 5,
+          "known_winner_points": 4,
+          "score_by_winner": {
+            "PLAYER_A": 2,
+            "PLAYER_B": 2
+          },
+          "reviewable_points": 0,
+          "independently_verified_media_points": 0,
+          "reviewable_by_winner": {
+            "PLAYER_A": 0,
+            "PLAYER_B": 0
+          },
+          "known_serve_side": 0,
+          "known_third_ball_attack": 2
+        },
+        "imported_duration_checked_known_winner_ranges": 4,
+        "imported_observed_stage_count": 0,
+        "current_session_media_loaded": false
+      },
+      "engine_duration_checked_ranges": 4,
+      "engine_stage": {
+        "contract_version": "ptti.quick-annotation-stage-stats/0.1",
+        "status": "NOT_AVAILABLE_INPUT_V0_1",
+        "numerator": {},
+        "denominator": 0,
+        "sample_count": 5,
+        "missing_count": 5,
+        "computation_rule": "v0.1 has no observed_rally_stage field; stage is not inferred from other fields.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "NOT_ESTIMABLE",
+        "display_caution_threshold": 5,
+        "threshold_is_significance_test": false
+      },
+      "independently_verified_source_count": 0,
+      "source_count_is_not_media_point_count": true,
+      "not_consumed_by_san": [
+        "statistics sidecar",
+        "serve/receive win rates",
+        "third-ball success/conversion",
+        "key-point rates",
+        "configurable sample-status policy",
+        "aggregated observed-stage distribution"
+      ]
+    },
+    {
+      "input_contract_version": "ptti.quick-annotation/0.2",
+      "input_sha256": "9dfdbf75c6b3dfd801ca0e8e35b92a93eb74411ba16c4f79cbe347cd63bd69f7",
+      "input_fixture": "fixtures/quick-annotation-v0.2-valid-simulated.json",
+      "status": "PASS",
+      "expected_shared_counts": {
+        "total_points": 5,
+        "known_winner_points": 4,
+        "score_by_winner": {
+          "PLAYER_A": 2,
+          "PLAYER_B": 2
+        },
+        "reviewable_points": 0,
+        "independently_verified_media_points": 0,
+        "reviewable_by_winner": {
+          "PLAYER_A": 0,
+          "PLAYER_B": 0
+        },
+        "known_serve_side": 0,
+        "known_third_ball_attack": 1
+      },
+      "san_result": {
+        "summary": {
+          "total_points": 5,
+          "known_winner_points": 4,
+          "score_by_winner": {
+            "PLAYER_A": 2,
+            "PLAYER_B": 2
+          },
+          "reviewable_points": 0,
+          "independently_verified_media_points": 0,
+          "reviewable_by_winner": {
+            "PLAYER_A": 0,
+            "PLAYER_B": 0
+          },
+          "known_serve_side": 0,
+          "known_third_ball_attack": 1
+        },
+        "imported_duration_checked_known_winner_ranges": 2,
+        "imported_observed_stage_count": 3,
+        "current_session_media_loaded": false
+      },
+      "engine_duration_checked_ranges": 2,
+      "engine_stage": {
+        "contract_version": "ptti.quick-annotation-stage-stats/0.1",
+        "status": "USER_OBSERVED_DRAFT",
+        "numerator": {
+          "END_AFTER_1_2_CONTACTS": 1,
+          "END_AFTER_3_4_CONTACTS": 1,
+          "END_AFTER_5_PLUS_CONTACTS": 1
+        },
+        "denominator": 3,
+        "sample_count": 5,
+        "missing_count": 2,
+        "computation_rule": "Counts only explicitly supplied coarse user-observed stage buckets; no exact rally_length, third-ball action, or outcome is inferred.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE",
+        "display_caution_threshold": 5,
+        "threshold_is_significance_test": false
+      },
+      "independently_verified_source_count": 0,
+      "source_count_is_not_media_point_count": true,
+      "not_consumed_by_san": [
+        "statistics sidecar",
+        "serve/receive win rates",
+        "third-ball success/conversion",
+        "key-point rates",
+        "configurable sample-status policy",
+        "aggregated observed-stage distribution"
+      ]
+    }
+  ],
+  "complete_games": [
+    {
+      "name": "complete-11-9",
+      "input_sha256": "261a8c09a4026f4336b8d60b8feabf65353eb7ebabf041ec02a353611c43ae8f",
+      "stats": {
+        "contract_version": "ptti.quick-annotation-stats/0.1",
+        "input_contract_version": "ptti.quick-annotation/0.2",
+        "draft_status": "SIMULATED_ONLY",
+        "evidence_status": "SIMULATED_ONLY",
+        "dataset": {
+          "dataset_id": "SIMULATED_ONLY:goal10-4-training-acceptance",
+          "dataset_class": "SIMULATED_ONLY",
+          "match_id": "SIMULATED_ONLY:quick-match-v02-001",
+          "match_link_status": "NOT_APPLICABLE_SIMULATED",
+          "source_id": "SIMULATED_ONLY:source-v02-001",
+          "source_link_status": "USER_SELECTED_UNVERIFIED",
+          "rights_status": "UNKNOWN",
+          "source_video_sha256": null,
+          "timeline_id": null,
+          "pts": null,
+          "time_base": null,
+          "vision_status": "NOT_TESTED"
+        },
+        "sample": {
+          "point_count": 20,
+          "protocol_sequence_valid": true,
+          "score_known_count": 20,
+          "score_unknown_count": 0,
+          "score_before_trace_known_count": 20,
+          "game_count": 1,
+          "game_counts": {
+            "1": {
+              "point_count": 20,
+              "known_winner_count": 20,
+              "player_wins": 11,
+              "opponent_wins": 9
+            }
+          }
+        },
+        "metrics": {
+          "score_record_coverage": {
+            "numerator": 20,
+            "denominator": 20,
+            "sample_count": 20,
+            "missing_count": 0,
+            "value": 1.0,
+            "computation_rule": "explicit point_winner player/opponent records / all supplied point rows; video time is not required.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "DESCRIPTIVE_ONLY",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false
+          },
+          "recorded_point_wins": {
+            "numerator": {
+              "player": 11,
+              "opponent": 9
+            },
+            "denominator": 20,
+            "sample_count": 20,
+            "missing_count": 0,
+            "value": null,
+            "computation_rule": "counts only explicit player/opponent winners; it does not assert match identity or match completion.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "DESCRIPTIVE_ONLY",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false
+          },
+          "time_range_coverage": {
+            "numerator": 0,
+            "denominator": 20,
+            "sample_count": 20,
+            "missing_count": 20,
+            "value": 0.0,
+            "computation_rule": "known-winner point rows with both endpoints range-checked against user-reported duration / known-winner rows; timestamps remain UNBOUND.",
+            "evidence_status": "UNBOUND_OR_UNKNOWN",
+            "sample_status": "DESCRIPTIVE_ONLY",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false,
+            "all_range_checked_point_rows": 0
+          },
+          "timeline_bound_review_coverage": {
+            "numerator": 0,
+            "denominator": 20,
+            "sample_count": 20,
+            "missing_count": 20,
+            "value": 0.0,
+            "computation_rule": "quick annotation never binds source SHA, timeline_id, PTS, or time_base; no row is counted as confirmed video-reviewable.",
+            "evidence_status": "NOT_ESTABLISHED_UNBOUND",
+            "sample_status": "DESCRIPTIVE_ONLY",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false
+          },
+          "server_point_win_rate": {
+            "numerator": 9,
+            "denominator": 20,
+            "sample_count": 20,
+            "missing_count": 0,
+            "value": 0.45,
+            "computation_rule": "known serving-side wins / rows with both serving side and point winner known.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "DESCRIPTIVE_ONLY",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false
+          },
+          "receiver_point_win_rate": {
+            "numerator": 11,
+            "denominator": 20,
+            "sample_count": 20,
+            "missing_count": 0,
+            "value": 0.55,
+            "computation_rule": "known receiving-side wins / rows with both receiving side and point winner known.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "DESCRIPTIVE_ONLY",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false
+          },
+          "tactical_fields": {
+            "serve_side": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 20,
+              "missing_count": 20,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed serve_side; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 20,
+              "unclear_count": 0
+            },
+            "serve_length": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 20,
+              "missing_count": 20,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed serve_length; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 20,
+              "unclear_count": 0
+            },
+            "serve_location": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 20,
+              "missing_count": 20,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed serve_location; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 20,
+              "unclear_count": 0
+            },
+            "serve_spin": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 20,
+              "missing_count": 20,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed serve_spin; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 20,
+              "unclear_count": 0
+            },
+            "receive_type": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 20,
+              "missing_count": 20,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed receive_type; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 20,
+              "unclear_count": 0
+            },
+            "receive_location": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 20,
+              "missing_count": 20,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed receive_location; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 20,
+              "unclear_count": 0
+            },
+            "third_ball_attack": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 20,
+              "missing_count": 20,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed third_ball_attack; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 20,
+              "unclear_count": 0
+            },
+            "third_ball_side": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 20,
+              "missing_count": 20,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed third_ball_side; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 20,
+              "unclear_count": 0
+            },
+            "third_ball_outcome": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 20,
+              "missing_count": 20,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed third_ball_outcome; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 20,
+              "unclear_count": 0
+            },
+            "rally_length": {
+              "numerator": 0,
+              "denominator": 0,
+              "sample_count": 20,
+              "missing_count": 20,
+              "value": null,
+              "computation_rule": "sum of explicitly observed exact rally_length values / number of exact observed values; no stage bucket is converted to exact length.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 20,
+              "unclear_count": 0
+            }
+          },
+          "third_ball_attack_rate": {
+            "numerator": 0,
+            "denominator": 0,
+            "sample_count": 20,
+            "missing_count": 20,
+            "value": null,
+            "computation_rule": "explicit third_ball_attack=yes / explicitly classified yes-or-no rows; unknown/unclear do not enter the denominator.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "NOT_ESTIMABLE",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false,
+            "unknown_count": 20,
+            "unclear_count": 0,
+            "not_applicable_count": 0
+          },
+          "third_ball_immediate_success": {
+            "numerator": 0,
+            "denominator": 0,
+            "sample_count": 0,
+            "missing_count": 0,
+            "value": null,
+            "computation_rule": "explicit successful third_ball_outcome / explicitly successful-or-unsuccessful outcomes among observed attack=yes rows; this is not the point-win rate.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "NOT_ESTIMABLE",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false,
+            "not_applicable_count": 0
+          },
+          "third_ball_server_point_conversion": {
+            "numerator": 0,
+            "denominator": 0,
+            "sample_count": 0,
+            "missing_count": 0,
+            "value": null,
+            "computation_rule": "serving-side wins / explicitly observed third_ball_attack=yes rows with known server and winner; remains a human-draft observation.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "NOT_ESTIMABLE",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false
+          },
+          "key_point_player_win_rate": {
+            "numerator": 4,
+            "denominator": 6,
+            "sample_count": 6,
+            "missing_count": 0,
+            "value": 0.666667,
+            "computation_rule": "player wins / known winners among rule-derived close-score candidates; candidate status is not independent confirmation.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "DESCRIPTIVE_ONLY",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false
+          }
+        },
+        "rally_stage_distribution": {
+          "contract_version": "ptti.quick-annotation-stage-stats/0.1",
+          "status": "USER_OBSERVED_DRAFT",
+          "numerator": {},
+          "denominator": 0,
+          "sample_count": 20,
+          "missing_count": 20,
+          "computation_rule": "Counts only explicitly supplied coarse user-observed stage buckets; no exact rally_length, third-ball action, or outcome is inferred.",
+          "evidence_status": "SIMULATED_ONLY",
+          "sample_status": "NOT_ESTIMABLE",
+          "display_caution_threshold": 5,
+          "threshold_is_significance_test": false
+        },
+        "review_candidates": [],
+        "limitations": [
+          "These are descriptive statistics over explicit quick-draft rows; they are not an audited training report.",
+          "Known point winners remain in score counts even when timestamps are absent or unbound.",
+          "Range-checked timestamps do not establish source identity, timeline binding, PTS, or time_base.",
+          "Unknown and unclear tactical values are excluded from known-technique denominators and counted as missing.",
+          "Sample caution threshold is a product display rule only; it is not a significance test and does not support causal claims.",
+          "No Vision analysis or independently verified video evidence is claimed."
+        ],
+        "automatic_formal_report_promotion": false,
+        "automatic_vision_promotion": false
+      },
+      "trace": [
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p001",
+          "score_before": {
+            "player": 0,
+            "opponent": 0
+          },
+          "server": "player",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p002",
+          "score_before": {
+            "player": 1,
+            "opponent": 0
+          },
+          "server": "player",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p003",
+          "score_before": {
+            "player": 1,
+            "opponent": 1
+          },
+          "server": "opponent",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p004",
+          "score_before": {
+            "player": 2,
+            "opponent": 1
+          },
+          "server": "opponent",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p005",
+          "score_before": {
+            "player": 2,
+            "opponent": 2
+          },
+          "server": "player",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p006",
+          "score_before": {
+            "player": 3,
+            "opponent": 2
+          },
+          "server": "player",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p007",
+          "score_before": {
+            "player": 3,
+            "opponent": 3
+          },
+          "server": "opponent",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p008",
+          "score_before": {
+            "player": 4,
+            "opponent": 3
+          },
+          "server": "opponent",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p009",
+          "score_before": {
+            "player": 4,
+            "opponent": 4
+          },
+          "server": "player",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p010",
+          "score_before": {
+            "player": 5,
+            "opponent": 4
+          },
+          "server": "player",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p011",
+          "score_before": {
+            "player": 5,
+            "opponent": 5
+          },
+          "server": "opponent",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p012",
+          "score_before": {
+            "player": 6,
+            "opponent": 5
+          },
+          "server": "opponent",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p013",
+          "score_before": {
+            "player": 6,
+            "opponent": 6
+          },
+          "server": "player",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p014",
+          "score_before": {
+            "player": 7,
+            "opponent": 6
+          },
+          "server": "player",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p015",
+          "score_before": {
+            "player": 7,
+            "opponent": 7
+          },
+          "server": "opponent",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p016",
+          "score_before": {
+            "player": 8,
+            "opponent": 7
+          },
+          "server": "opponent",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p017",
+          "score_before": {
+            "player": 8,
+            "opponent": 8
+          },
+          "server": "player",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p018",
+          "score_before": {
+            "player": 9,
+            "opponent": 8
+          },
+          "server": "player",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p019",
+          "score_before": {
+            "player": 9,
+            "opponent": 9
+          },
+          "server": "opponent",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p020",
+          "score_before": {
+            "player": 10,
+            "opponent": 9
+          },
+          "server": "opponent",
+          "winner": "player"
+        }
+      ]
+    },
+    {
+      "name": "deuce-12-10",
+      "input_sha256": "ea0921db6827d3e523587c5883d6fbccd9419065c98fe8db5706572391847aeb",
+      "stats": {
+        "contract_version": "ptti.quick-annotation-stats/0.1",
+        "input_contract_version": "ptti.quick-annotation/0.2",
+        "draft_status": "SIMULATED_ONLY",
+        "evidence_status": "SIMULATED_ONLY",
+        "dataset": {
+          "dataset_id": "SIMULATED_ONLY:goal10-4-training-acceptance",
+          "dataset_class": "SIMULATED_ONLY",
+          "match_id": "SIMULATED_ONLY:quick-match-v02-001",
+          "match_link_status": "NOT_APPLICABLE_SIMULATED",
+          "source_id": "SIMULATED_ONLY:source-v02-001",
+          "source_link_status": "USER_SELECTED_UNVERIFIED",
+          "rights_status": "UNKNOWN",
+          "source_video_sha256": null,
+          "timeline_id": null,
+          "pts": null,
+          "time_base": null,
+          "vision_status": "NOT_TESTED"
+        },
+        "sample": {
+          "point_count": 22,
+          "protocol_sequence_valid": true,
+          "score_known_count": 22,
+          "score_unknown_count": 0,
+          "score_before_trace_known_count": 22,
+          "game_count": 1,
+          "game_counts": {
+            "1": {
+              "point_count": 22,
+              "known_winner_count": 22,
+              "player_wins": 12,
+              "opponent_wins": 10
+            }
+          }
+        },
+        "metrics": {
+          "score_record_coverage": {
+            "numerator": 22,
+            "denominator": 22,
+            "sample_count": 22,
+            "missing_count": 0,
+            "value": 1.0,
+            "computation_rule": "explicit point_winner player/opponent records / all supplied point rows; video time is not required.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "DESCRIPTIVE_ONLY",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false
+          },
+          "recorded_point_wins": {
+            "numerator": {
+              "player": 12,
+              "opponent": 10
+            },
+            "denominator": 22,
+            "sample_count": 22,
+            "missing_count": 0,
+            "value": null,
+            "computation_rule": "counts only explicit player/opponent winners; it does not assert match identity or match completion.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "DESCRIPTIVE_ONLY",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false
+          },
+          "time_range_coverage": {
+            "numerator": 0,
+            "denominator": 22,
+            "sample_count": 22,
+            "missing_count": 22,
+            "value": 0.0,
+            "computation_rule": "known-winner point rows with both endpoints range-checked against user-reported duration / known-winner rows; timestamps remain UNBOUND.",
+            "evidence_status": "UNBOUND_OR_UNKNOWN",
+            "sample_status": "DESCRIPTIVE_ONLY",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false,
+            "all_range_checked_point_rows": 0
+          },
+          "timeline_bound_review_coverage": {
+            "numerator": 0,
+            "denominator": 22,
+            "sample_count": 22,
+            "missing_count": 22,
+            "value": 0.0,
+            "computation_rule": "quick annotation never binds source SHA, timeline_id, PTS, or time_base; no row is counted as confirmed video-reviewable.",
+            "evidence_status": "NOT_ESTABLISHED_UNBOUND",
+            "sample_status": "DESCRIPTIVE_ONLY",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false
+          },
+          "server_point_win_rate": {
+            "numerator": 11,
+            "denominator": 22,
+            "sample_count": 22,
+            "missing_count": 0,
+            "value": 0.5,
+            "computation_rule": "known serving-side wins / rows with both serving side and point winner known.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "DESCRIPTIVE_ONLY",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false
+          },
+          "receiver_point_win_rate": {
+            "numerator": 11,
+            "denominator": 22,
+            "sample_count": 22,
+            "missing_count": 0,
+            "value": 0.5,
+            "computation_rule": "known receiving-side wins / rows with both receiving side and point winner known.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "DESCRIPTIVE_ONLY",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false
+          },
+          "tactical_fields": {
+            "serve_side": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 22,
+              "missing_count": 22,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed serve_side; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 22,
+              "unclear_count": 0
+            },
+            "serve_length": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 22,
+              "missing_count": 22,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed serve_length; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 22,
+              "unclear_count": 0
+            },
+            "serve_location": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 22,
+              "missing_count": 22,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed serve_location; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 22,
+              "unclear_count": 0
+            },
+            "serve_spin": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 22,
+              "missing_count": 22,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed serve_spin; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 22,
+              "unclear_count": 0
+            },
+            "receive_type": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 22,
+              "missing_count": 22,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed receive_type; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 22,
+              "unclear_count": 0
+            },
+            "receive_location": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 22,
+              "missing_count": 22,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed receive_location; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 22,
+              "unclear_count": 0
+            },
+            "third_ball_attack": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 22,
+              "missing_count": 22,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed third_ball_attack; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 22,
+              "unclear_count": 0
+            },
+            "third_ball_side": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 22,
+              "missing_count": 22,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed third_ball_side; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 22,
+              "unclear_count": 0
+            },
+            "third_ball_outcome": {
+              "numerator": {},
+              "denominator": 0,
+              "sample_count": 22,
+              "missing_count": 22,
+              "value": null,
+              "computation_rule": "category counts for explicitly observed third_ball_outcome; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 22,
+              "unclear_count": 0
+            },
+            "rally_length": {
+              "numerator": 0,
+              "denominator": 0,
+              "sample_count": 22,
+              "missing_count": 22,
+              "value": null,
+              "computation_rule": "sum of explicitly observed exact rally_length values / number of exact observed values; no stage bucket is converted to exact length.",
+              "evidence_status": "SIMULATED_ONLY",
+              "sample_status": "NOT_ESTIMABLE",
+              "display_caution_threshold": 5,
+              "threshold_is_significance_test": false,
+              "not_applicable_count": 0,
+              "unknown_count": 22,
+              "unclear_count": 0
+            }
+          },
+          "third_ball_attack_rate": {
+            "numerator": 0,
+            "denominator": 0,
+            "sample_count": 22,
+            "missing_count": 22,
+            "value": null,
+            "computation_rule": "explicit third_ball_attack=yes / explicitly classified yes-or-no rows; unknown/unclear do not enter the denominator.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "NOT_ESTIMABLE",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false,
+            "unknown_count": 22,
+            "unclear_count": 0,
+            "not_applicable_count": 0
+          },
+          "third_ball_immediate_success": {
+            "numerator": 0,
+            "denominator": 0,
+            "sample_count": 0,
+            "missing_count": 0,
+            "value": null,
+            "computation_rule": "explicit successful third_ball_outcome / explicitly successful-or-unsuccessful outcomes among observed attack=yes rows; this is not the point-win rate.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "NOT_ESTIMABLE",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false,
+            "not_applicable_count": 0
+          },
+          "third_ball_server_point_conversion": {
+            "numerator": 0,
+            "denominator": 0,
+            "sample_count": 0,
+            "missing_count": 0,
+            "value": null,
+            "computation_rule": "serving-side wins / explicitly observed third_ball_attack=yes rows with known server and winner; remains a human-draft observation.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "NOT_ESTIMABLE",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false
+          },
+          "key_point_player_win_rate": {
+            "numerator": 5,
+            "denominator": 8,
+            "sample_count": 8,
+            "missing_count": 0,
+            "value": 0.625,
+            "computation_rule": "player wins / known winners among rule-derived close-score candidates; candidate status is not independent confirmation.",
+            "evidence_status": "SIMULATED_ONLY",
+            "sample_status": "DESCRIPTIVE_ONLY",
+            "display_caution_threshold": 5,
+            "threshold_is_significance_test": false
+          }
+        },
+        "rally_stage_distribution": {
+          "contract_version": "ptti.quick-annotation-stage-stats/0.1",
+          "status": "USER_OBSERVED_DRAFT",
+          "numerator": {},
+          "denominator": 0,
+          "sample_count": 22,
+          "missing_count": 22,
+          "computation_rule": "Counts only explicitly supplied coarse user-observed stage buckets; no exact rally_length, third-ball action, or outcome is inferred.",
+          "evidence_status": "SIMULATED_ONLY",
+          "sample_status": "NOT_ESTIMABLE",
+          "display_caution_threshold": 5,
+          "threshold_is_significance_test": false
+        },
+        "review_candidates": [],
+        "limitations": [
+          "These are descriptive statistics over explicit quick-draft rows; they are not an audited training report.",
+          "Known point winners remain in score counts even when timestamps are absent or unbound.",
+          "Range-checked timestamps do not establish source identity, timeline binding, PTS, or time_base.",
+          "Unknown and unclear tactical values are excluded from known-technique denominators and counted as missing.",
+          "Sample caution threshold is a product display rule only; it is not a significance test and does not support causal claims.",
+          "No Vision analysis or independently verified video evidence is claimed."
+        ],
+        "automatic_formal_report_promotion": false,
+        "automatic_vision_promotion": false
+      },
+      "trace": [
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p001",
+          "score_before": {
+            "player": 0,
+            "opponent": 0
+          },
+          "server": "player",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p002",
+          "score_before": {
+            "player": 1,
+            "opponent": 0
+          },
+          "server": "player",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p003",
+          "score_before": {
+            "player": 1,
+            "opponent": 1
+          },
+          "server": "opponent",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p004",
+          "score_before": {
+            "player": 2,
+            "opponent": 1
+          },
+          "server": "opponent",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p005",
+          "score_before": {
+            "player": 2,
+            "opponent": 2
+          },
+          "server": "player",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p006",
+          "score_before": {
+            "player": 3,
+            "opponent": 2
+          },
+          "server": "player",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p007",
+          "score_before": {
+            "player": 3,
+            "opponent": 3
+          },
+          "server": "opponent",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p008",
+          "score_before": {
+            "player": 4,
+            "opponent": 3
+          },
+          "server": "opponent",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p009",
+          "score_before": {
+            "player": 4,
+            "opponent": 4
+          },
+          "server": "player",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p010",
+          "score_before": {
+            "player": 5,
+            "opponent": 4
+          },
+          "server": "player",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p011",
+          "score_before": {
+            "player": 5,
+            "opponent": 5
+          },
+          "server": "opponent",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p012",
+          "score_before": {
+            "player": 6,
+            "opponent": 5
+          },
+          "server": "opponent",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p013",
+          "score_before": {
+            "player": 6,
+            "opponent": 6
+          },
+          "server": "player",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p014",
+          "score_before": {
+            "player": 7,
+            "opponent": 6
+          },
+          "server": "player",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p015",
+          "score_before": {
+            "player": 7,
+            "opponent": 7
+          },
+          "server": "opponent",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p016",
+          "score_before": {
+            "player": 8,
+            "opponent": 7
+          },
+          "server": "opponent",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p017",
+          "score_before": {
+            "player": 8,
+            "opponent": 8
+          },
+          "server": "player",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p018",
+          "score_before": {
+            "player": 9,
+            "opponent": 8
+          },
+          "server": "player",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p019",
+          "score_before": {
+            "player": 9,
+            "opponent": 9
+          },
+          "server": "opponent",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p020",
+          "score_before": {
+            "player": 10,
+            "opponent": 9
+          },
+          "server": "opponent",
+          "winner": "opponent"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p021",
+          "score_before": {
+            "player": 10,
+            "opponent": 10
+          },
+          "server": "player",
+          "winner": "player"
+        },
+        {
+          "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p022",
+          "score_before": {
+            "player": 11,
+            "opponent": 10
+          },
+          "server": "opponent",
+          "winner": "player"
+        }
+      ]
+    }
+  ],
+  "unexpected_differences": [],
+  "terminal_validation": {
+    "input_fixture": "fixtures/goal10-4-acceptance/post-game-invalid.json",
+    "input_sha256": "aaf33f5be0854811ecba33a9c28d28b5ac30ac1b3967c825bea1c94d7a80ae2c",
+    "integration_rejection": "GAME_ALREADY_ENDED",
+    "san_actual": {
+      "ok": true
+    },
+    "aligned": false,
+    "minimum_handoff": "San must reject a new point when a complete known prior score has ended the game; do not infer completion across gaps/unknown winners."
+  },
+  "status": "COUNT_BASELINES_PASS_VALIDATION_ALIGNMENT_PENDING",
+  "limitations": [
+    "All inputs are SIMULATED_ONLY; no actual video session was loaded.",
+    "Range-valid, session-playable, independently verified sources and native playback are separate evidence.",
+    "Quick snapshots are recomputed on demand; no DB score-to-Quick revision mapping is implemented.",
+    "M2 active queues use 1s polling and 2.5s validation timeout; background throttling can delay detection.",
+    "No browser rendering, Windows playback, Vision, public rights or release acceptance is inferred."
+  ]
+}

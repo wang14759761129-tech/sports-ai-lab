@@ -1,0 +1,364 @@
+{
+  "contract_version": "ptti.quick-annotation-stats/0.1",
+  "input_contract_version": "ptti.quick-annotation/0.2",
+  "draft_status": "SIMULATED_ONLY",
+  "evidence_status": "SIMULATED_ONLY",
+  "dataset": {
+    "dataset_id": "SIMULATED_ONLY:quick-dataset-v02-001",
+    "dataset_class": "SIMULATED_ONLY",
+    "match_id": "SIMULATED_ONLY:quick-match-v02-001",
+    "match_link_status": "NOT_APPLICABLE_SIMULATED",
+    "source_id": "SIMULATED_ONLY:source-v02-001",
+    "source_link_status": "USER_SELECTED_UNVERIFIED",
+    "rights_status": "UNKNOWN",
+    "source_video_sha256": null,
+    "timeline_id": null,
+    "pts": null,
+    "time_base": null,
+    "vision_status": "NOT_TESTED"
+  },
+  "sample": {
+    "point_count": 5,
+    "protocol_sequence_valid": true,
+    "score_known_count": 4,
+    "score_unknown_count": 1,
+    "score_before_trace_known_count": 5,
+    "game_count": 1,
+    "game_counts": {
+      "1": {
+        "point_count": 5,
+        "known_winner_count": 4,
+        "player_wins": 2,
+        "opponent_wins": 2
+      }
+    }
+  },
+  "metrics": {
+    "score_record_coverage": {
+      "numerator": 4,
+      "denominator": 5,
+      "sample_count": 5,
+      "missing_count": 1,
+      "value": 0.8,
+      "computation_rule": "explicit point_winner player/opponent records / all supplied point rows; video time is not required.",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY",
+      "display_caution_threshold": 5,
+      "threshold_is_significance_test": false
+    },
+    "recorded_point_wins": {
+      "numerator": {
+        "player": 2,
+        "opponent": 2
+      },
+      "denominator": 4,
+      "sample_count": 5,
+      "missing_count": 1,
+      "value": null,
+      "computation_rule": "counts only explicit player/opponent winners; it does not assert match identity or match completion.",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "INSUFFICIENT_SAMPLE",
+      "display_caution_threshold": 5,
+      "threshold_is_significance_test": false
+    },
+    "time_range_coverage": {
+      "numerator": 2,
+      "denominator": 4,
+      "sample_count": 4,
+      "missing_count": 2,
+      "value": 0.5,
+      "computation_rule": "known-winner point rows with both endpoints range-checked against user-reported duration / known-winner rows; timestamps remain UNBOUND.",
+      "evidence_status": "RANGE_CHECKED_UNBOUND",
+      "sample_status": "INSUFFICIENT_SAMPLE",
+      "display_caution_threshold": 5,
+      "threshold_is_significance_test": false,
+      "all_range_checked_point_rows": 2
+    },
+    "timeline_bound_review_coverage": {
+      "numerator": 0,
+      "denominator": 4,
+      "sample_count": 4,
+      "missing_count": 4,
+      "value": 0.0,
+      "computation_rule": "quick annotation never binds source SHA, timeline_id, PTS, or time_base; no row is counted as confirmed video-reviewable.",
+      "evidence_status": "NOT_ESTABLISHED_UNBOUND",
+      "sample_status": "INSUFFICIENT_SAMPLE",
+      "display_caution_threshold": 5,
+      "threshold_is_significance_test": false
+    },
+    "server_point_win_rate": {
+      "numerator": 2,
+      "denominator": 4,
+      "sample_count": 5,
+      "missing_count": 1,
+      "value": 0.5,
+      "computation_rule": "known serving-side wins / rows with both serving side and point winner known.",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "INSUFFICIENT_SAMPLE",
+      "display_caution_threshold": 5,
+      "threshold_is_significance_test": false
+    },
+    "receiver_point_win_rate": {
+      "numerator": 2,
+      "denominator": 4,
+      "sample_count": 5,
+      "missing_count": 1,
+      "value": 0.5,
+      "computation_rule": "known receiving-side wins / rows with both receiving side and point winner known.",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "INSUFFICIENT_SAMPLE",
+      "display_caution_threshold": 5,
+      "threshold_is_significance_test": false
+    },
+    "tactical_fields": {
+      "serve_side": {
+        "numerator": {},
+        "denominator": 0,
+        "sample_count": 5,
+        "missing_count": 5,
+        "value": null,
+        "computation_rule": "category counts for explicitly observed serve_side; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "NOT_ESTIMABLE",
+        "display_caution_threshold": 5,
+        "threshold_is_significance_test": false,
+        "not_applicable_count": 0,
+        "unknown_count": 5,
+        "unclear_count": 0
+      },
+      "serve_length": {
+        "numerator": {
+          "short": 1
+        },
+        "denominator": 1,
+        "sample_count": 5,
+        "missing_count": 4,
+        "value": null,
+        "computation_rule": "category counts for explicitly observed serve_length; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE",
+        "display_caution_threshold": 5,
+        "threshold_is_significance_test": false,
+        "not_applicable_count": 0,
+        "unknown_count": 4,
+        "unclear_count": 0
+      },
+      "serve_location": {
+        "numerator": {},
+        "denominator": 0,
+        "sample_count": 5,
+        "missing_count": 5,
+        "value": null,
+        "computation_rule": "category counts for explicitly observed serve_location; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "NOT_ESTIMABLE",
+        "display_caution_threshold": 5,
+        "threshold_is_significance_test": false,
+        "not_applicable_count": 0,
+        "unknown_count": 5,
+        "unclear_count": 0
+      },
+      "serve_spin": {
+        "numerator": {},
+        "denominator": 0,
+        "sample_count": 5,
+        "missing_count": 5,
+        "value": null,
+        "computation_rule": "category counts for explicitly observed serve_spin; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "NOT_ESTIMABLE",
+        "display_caution_threshold": 5,
+        "threshold_is_significance_test": false,
+        "not_applicable_count": 0,
+        "unknown_count": 5,
+        "unclear_count": 0
+      },
+      "receive_type": {
+        "numerator": {},
+        "denominator": 0,
+        "sample_count": 5,
+        "missing_count": 5,
+        "value": null,
+        "computation_rule": "category counts for explicitly observed receive_type; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "NOT_ESTIMABLE",
+        "display_caution_threshold": 5,
+        "threshold_is_significance_test": false,
+        "not_applicable_count": 0,
+        "unknown_count": 5,
+        "unclear_count": 0
+      },
+      "receive_location": {
+        "numerator": {},
+        "denominator": 0,
+        "sample_count": 5,
+        "missing_count": 5,
+        "value": null,
+        "computation_rule": "category counts for explicitly observed receive_location; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "NOT_ESTIMABLE",
+        "display_caution_threshold": 5,
+        "threshold_is_significance_test": false,
+        "not_applicable_count": 0,
+        "unknown_count": 5,
+        "unclear_count": 0
+      },
+      "third_ball_attack": {
+        "numerator": {
+          "yes": 1
+        },
+        "denominator": 1,
+        "sample_count": 5,
+        "missing_count": 4,
+        "value": null,
+        "computation_rule": "category counts for explicitly observed third_ball_attack; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE",
+        "display_caution_threshold": 5,
+        "threshold_is_significance_test": false,
+        "not_applicable_count": 0,
+        "unknown_count": 4,
+        "unclear_count": 0
+      },
+      "third_ball_side": {
+        "numerator": {
+          "forehand": 1
+        },
+        "denominator": 1,
+        "sample_count": 5,
+        "missing_count": 4,
+        "value": null,
+        "computation_rule": "category counts for explicitly observed third_ball_side; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE",
+        "display_caution_threshold": 5,
+        "threshold_is_significance_test": false,
+        "not_applicable_count": 0,
+        "unknown_count": 4,
+        "unclear_count": 0
+      },
+      "third_ball_outcome": {
+        "numerator": {
+          "unsuccessful": 1
+        },
+        "denominator": 1,
+        "sample_count": 5,
+        "missing_count": 4,
+        "value": null,
+        "computation_rule": "category counts for explicitly observed third_ball_outcome; unknown/unclear excluded from denominator and not_applicable is reported separately.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE",
+        "display_caution_threshold": 5,
+        "threshold_is_significance_test": false,
+        "not_applicable_count": 0,
+        "unknown_count": 4,
+        "unclear_count": 0
+      },
+      "rally_length": {
+        "numerator": 0,
+        "denominator": 0,
+        "sample_count": 5,
+        "missing_count": 5,
+        "value": null,
+        "computation_rule": "sum of explicitly observed exact rally_length values / number of exact observed values; no stage bucket is converted to exact length.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "NOT_ESTIMABLE",
+        "display_caution_threshold": 5,
+        "threshold_is_significance_test": false,
+        "not_applicable_count": 0,
+        "unknown_count": 5,
+        "unclear_count": 0
+      }
+    },
+    "third_ball_attack_rate": {
+      "numerator": 1,
+      "denominator": 1,
+      "sample_count": 5,
+      "missing_count": 4,
+      "value": 1.0,
+      "computation_rule": "explicit third_ball_attack=yes / explicitly classified yes-or-no rows; unknown/unclear do not enter the denominator.",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "INSUFFICIENT_SAMPLE",
+      "display_caution_threshold": 5,
+      "threshold_is_significance_test": false,
+      "unknown_count": 4,
+      "unclear_count": 0,
+      "not_applicable_count": 0
+    },
+    "third_ball_immediate_success": {
+      "numerator": 0,
+      "denominator": 1,
+      "sample_count": 1,
+      "missing_count": 0,
+      "value": 0.0,
+      "computation_rule": "explicit successful third_ball_outcome / explicitly successful-or-unsuccessful outcomes among observed attack=yes rows; this is not the point-win rate.",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "INSUFFICIENT_SAMPLE",
+      "display_caution_threshold": 5,
+      "threshold_is_significance_test": false,
+      "not_applicable_count": 0
+    },
+    "third_ball_server_point_conversion": {
+      "numerator": 0,
+      "denominator": 1,
+      "sample_count": 1,
+      "missing_count": 0,
+      "value": 0.0,
+      "computation_rule": "serving-side wins / explicitly observed third_ball_attack=yes rows with known server and winner; remains a human-draft observation.",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "INSUFFICIENT_SAMPLE",
+      "display_caution_threshold": 5,
+      "threshold_is_significance_test": false
+    },
+    "key_point_player_win_rate": {
+      "numerator": 0,
+      "denominator": 0,
+      "sample_count": 0,
+      "missing_count": 0,
+      "value": null,
+      "computation_rule": "player wins / known winners among rule-derived close-score candidates; candidate status is not independent confirmation.",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "NOT_ESTIMABLE",
+      "display_caution_threshold": 5,
+      "threshold_is_significance_test": false
+    }
+  },
+  "rally_stage_distribution": {
+    "contract_version": "ptti.quick-annotation-stage-stats/0.1",
+    "status": "USER_OBSERVED_DRAFT",
+    "numerator": {
+      "END_AFTER_1_2_CONTACTS": 1,
+      "END_AFTER_3_4_CONTACTS": 1,
+      "END_AFTER_5_PLUS_CONTACTS": 1
+    },
+    "denominator": 3,
+    "sample_count": 5,
+    "missing_count": 2,
+    "computation_rule": "Counts only explicitly supplied coarse user-observed stage buckets; no exact rally_length, third-ball action, or outcome is inferred.",
+    "evidence_status": "SIMULATED_ONLY",
+    "sample_status": "INSUFFICIENT_SAMPLE",
+    "display_caution_threshold": 5,
+    "threshold_is_significance_test": false
+  },
+  "review_candidates": [
+    {
+      "point_id": "SIMULATED_ONLY%3Aquick-match-v02-001/g01/p001",
+      "start_ms": 1000,
+      "end_ms": 2800,
+      "observed_labels": {},
+      "status": "REVIEW_CANDIDATE_NOT_VIDEO_BOUND",
+      "limitation": "Compare the explicit draft labels with the actual source only after match/source identity and timeline are independently verified.",
+      "observed_rally_stage": "END_AFTER_1_2_CONTACTS"
+    }
+  ],
+  "limitations": [
+    "These are descriptive statistics over explicit quick-draft rows; they are not an audited training report.",
+    "Known point winners remain in score counts even when timestamps are absent or unbound.",
+    "Range-checked timestamps do not establish source identity, timeline binding, PTS, or time_base.",
+    "Unknown and unclear tactical values are excluded from known-technique denominators and counted as missing.",
+    "Sample caution threshold is a product display rule only; it is not a significance test and does not support causal claims.",
+    "No Vision analysis or independently verified video evidence is claimed."
+  ],
+  "automatic_formal_report_promotion": false,
+  "automatic_vision_promotion": false
+}

@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.invalid/contracts/public-media-manifest-v0.1.schema.json",
+  "title": "PTTI public media rights review manifest v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "generated_at", "view", "strict_public_projection", "assets", "unresolved_leads", "rejected_candidates", "coverage"],
+  "properties": {
+    "contract_version": {"const": "ptti.public-media-manifest/0.1"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "view": {"const": "INTERNAL_MEDIA_RIGHTS_REVIEW"},
+    "strict_public_projection": {
+      "type": "object", "additionalProperties": false,
+      "required": ["eligible_asset_ids", "count", "reason"],
+      "properties": {
+        "eligible_asset_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "count": {"type": "integer", "minimum": 0},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    },
+    "assets": {"type": "array", "items": {"$ref": "#/$defs/asset"}, "uniqueItems": true},
+    "unresolved_leads": {"type": "array", "items": {"$ref": "#/$defs/lead"}},
+    "rejected_candidates": {"type": "array", "items": {"$ref": "#/$defs/rejectedCandidate"}},
+    "coverage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["goal15_star_profiles", "star_profiles_with_candidate_files", "other_named_match_participants", "other_match_participants_with_candidate_files", "goal15_target_people_with_candidate_files", "current_goal15_match_photography", "display_approved_assets", "strict_public_assets", "missing_goal15_star_assets"],
+      "properties": {
+        "goal15_star_profiles": {"type": "integer", "minimum": 0},
+        "star_profiles_with_candidate_files": {"type": "integer", "minimum": 0},
+        "other_named_match_participants": {"type": "integer", "minimum": 0},
+        "other_match_participants_with_candidate_files": {"type": "integer", "minimum": 0},
+        "goal15_target_people_with_candidate_files": {"type": "integer", "minimum": 0},
+        "current_goal15_match_photography": {"type": "integer", "minimum": 0},
+        "display_approved_assets": {"type": "integer", "minimum": 0},
+        "strict_public_assets": {"type": "integer", "minimum": 0},
+        "missing_goal15_star_assets": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  },
+  "$defs": {
+    "dimension": {"type": "object", "additionalProperties": false, "required": ["width", "height"], "properties": {"width": {"type": "integer", "minimum": 1}, "height": {"type": "integer", "minimum": 1}}},
+    "asset": {
+      "type": "object", "additionalProperties": false,
+      "required": ["asset_id", "athlete_ids", "match_id", "match_link_status", "source_page_url", "source_file_url", "photographer", "license", "license_url", "attribution", "image_dimensions", "depicted_athletes", "depiction_status", "crop_review", "actual_event", "rights_review", "commercial_use_review", "display_permission", "media_sha256", "media_sha256_status", "source_metadata_review", "reviewed_at"],
+      "properties": {
+        "asset_id": {"type": "string", "minLength": 1},
+        "athlete_ids": {"type": "array", "items": {"type": ["string", "null"]}},
+        "match_id": {"type": ["string", "null"]},
+        "match_link_status": {"enum": ["NOT_LINKED_DIFFERENT_EVENT", "NOT_LINKED_EVENT_NOT_ESTABLISHED", "NOT_LINKED_NO_DIRECT_EVIDENCE"]},
+        "source_page_url": {"type": "string", "format": "uri", "pattern": "^https://commons\\.wikimedia\\.org/wiki/File:"},
+        "source_file_url": {"type": "string", "format": "uri", "pattern": "^https://commons\\.wikimedia\\.org/wiki/Special:FilePath/"},
+        "photographer": {"type": "string", "minLength": 1},
+        "license": {"type": "string", "minLength": 1},
+        "license_url": {"type": "string", "format": "uri", "pattern": "^https://creativecommons\\.org/licenses/"},
+        "attribution": {"type": "string", "minLength": 1},
+        "image_dimensions": {"$ref": "#/$defs/dimension"},
+        "depicted_athletes": {"type": "array", "items": {"type": "string"}},
+        "depiction_status": {"enum": ["SOURCE_PAGE_CAPTION_ONLY_NOT_VISUALLY_VERIFIED", "SOURCE_PAGE_DESCRIPTION_ONLY_NOT_VISUALLY_VERIFIED"]},
+        "crop_review": {"const": "NOT_TESTED_NO_LOCAL_IMAGE"},
+        "actual_event": {"type": ["string", "null"]},
+        "rights_review": {"type": "string", "minLength": 1},
+        "commercial_use_review": {"type": "string", "minLength": 1},
+        "display_permission": {"const": "NOT_CLEARED"},
+        "media_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "media_sha256_status": {"enum": ["NOT_COMPUTED_NO_DOWNLOAD", "COMPUTED_FROM_REVIEWED_LOCAL_COPY"]},
+        "source_metadata_review": {"type": "string", "minLength": 1},
+        "reviewed_at": {"type": "string", "format": "date"}
+      }
+    },
+    "lead": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_page_url", "photographer", "license", "image_dimensions", "athlete_ids", "depicted_athletes", "status", "display_permission"],
+      "properties": {
+        "source_page_url": {"type": "string", "format": "uri", "pattern": "^https://commons\\.wikimedia\\.org/wiki/File:"},
+        "photographer": {"type": "string"}, "license": {"type": "string"},
+        "image_dimensions": {"$ref": "#/$defs/dimension"},
+        "athlete_ids": {"type": "array", "maxItems": 0},
+        "depicted_athletes": {"type": "array", "maxItems": 0},
+        "status": {"const": "UNRESOLVED_IDENTITY_CATEGORY_ASSOCIATION_NOT_ACCEPTED_AS_DEPICTION_EVIDENCE"},
+        "display_permission": {"const": "NOT_CLEARED"}
+      }
+    },
+    "rejectedCandidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_page_url", "status", "reason"],
+      "properties": {
+        "source_page_url": {"type": "string", "format": "uri", "pattern": "^https://commons\\.wikimedia\\.org/wiki/File:"},
+        "status": {"const": "REJECTED_SOURCE_METADATA_CONTRADICTION"},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

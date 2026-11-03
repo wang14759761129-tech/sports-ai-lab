@@ -1,0 +1,267 @@
+{
+  "contract_version": "ptti.goal17.1-goal16-photo-recheck/0.1",
+  "generated_at": "2026-10-19T06:18:29.526Z",
+  "baseline_public_manifest_sha256": "c05491a64f59ac922d2d85d081eccf3b2853f717ece82c8bcfa3d05608f2c004",
+  "baseline_rights_review_sha256": "9aecae8d1b0bcbdb99bb6142c7bf77531c9a33c50f6121070489a2a9bf271125",
+  "source_candidate_count": 9,
+  "assets": [
+    {
+      "asset_id": "commons:2018-yog:mixed-final-098",
+      "subject_name": "Miu Hirano; Tomokazu Harimoto; Sun Yingsha; Wang Chuqin",
+      "athlete_id": null,
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Table_tennis_at_the_2018_Summer_Youth_Olympics_%E2%80%93_Mixed_Final_Doubles_098.jpg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Table_tennis_at_the_2018_Summer_Youth_Olympics_%E2%80%93_Mixed_Final_Doubles_098.jpg",
+      "photographer": "Marcus Cyron",
+      "license": "CC BY-SA 3.0",
+      "source_dimensions": {
+        "width": 3456,
+        "height": 5184
+      },
+      "identity_review": "File caption names Miu Hirano/Tomokazu Harimoto against Sun Yingsha/Wang Chuqin; no current Goal15 match link is established.",
+      "visual_review": "Original opened at full 3456x5184. The pixels show a table-tennis mixed-doubles scene with two pairs; exact individual identities rely on the file caption and are not independently certified from pixels.",
+      "event_review": "File page caption identifies the 2018 Summer Youth Olympics mixed doubles final; the photo is from a different event than Goal15's five current matches.",
+      "clearance_status": "NOT_CLEARED_PERSONALITY_RIGHTS_WARNING",
+      "actual_file_sha256": null,
+      "actual_file_hash_status": "NOT_MEASURED_ORIGINAL_NOT_STAGED",
+      "use_scenarios": {
+        "athlete_profile_editorial": "NOT_CLEARED_PERSONALITY_RIGHTS_WARNING",
+        "homepage_promotion_or_advertising": "NOT_CLEARED",
+        "exact_match_photograph": "NOT_CLEARED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+        "video_cover_or_thumbnail": "NOT_CLEARED_SEPARATE_PERMISSION_NOT_REVIEWED",
+        "download_or_redistribution_beyond_license": "NOT_CLEARED"
+      },
+      "blockers": [
+        "Commons page has an explicit personality-rights warning for depicted people.",
+        "No model release or subject consent evidence is recorded."
+      ]
+    },
+    {
+      "asset_id": "commons:2018-yog:sun-yingsha-final-061",
+      "subject_name": "Miu Hirano; Sun Yingsha",
+      "athlete_id": "athlete:131163",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Table_tennis_at_the_2018_Summer_Youth_Olympics_%E2%80%93_Women%27s_Singles_Gold_Medal_Match_061.jpg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Table_tennis_at_the_2018_Summer_Youth_Olympics_%E2%80%93_Women%27s_Singles_Gold_Medal_Match_061.jpg",
+      "photographer": "Marcus Cyron",
+      "license": "CC BY-SA 3.0",
+      "source_dimensions": {
+        "width": 5760,
+        "height": 3840
+      },
+      "identity_review": "English caption names Miu Hirano and Sun Yingsha, but the German caption says Beachhandball; the source metadata is internally inconsistent.",
+      "visual_review": "Original opened at full 5760x3840. The pixels show a table-tennis court and an athlete at the table; the opponent identity is not independently certified from pixels.",
+      "event_review": "English caption identifies the 2018 Summer Youth Olympics girls' singles final; contradictory German text remains unresolved.",
+      "clearance_status": "NOT_CLEARED_DESCRIPTION_CONFLICT_AND_PERSONALITY_WARNING",
+      "actual_file_sha256": null,
+      "actual_file_hash_status": "NOT_MEASURED_ORIGINAL_NOT_STAGED",
+      "use_scenarios": {
+        "athlete_profile_editorial": "NOT_CLEARED_DESCRIPTION_CONFLICT_AND_PERSONALITY_WARNING",
+        "homepage_promotion_or_advertising": "NOT_CLEARED",
+        "exact_match_photograph": "NOT_CLEARED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+        "video_cover_or_thumbnail": "NOT_CLEARED_SEPARATE_PERMISSION_NOT_REVIEWED",
+        "download_or_redistribution_beyond_license": "NOT_CLEARED"
+      },
+      "blockers": [
+        "Commons page has an explicit personality-rights warning.",
+        "German and English descriptions conflict on sport/event; requires source correction or independent event evidence."
+      ]
+    },
+    {
+      "asset_id": "commons:munich-2022:felix-lebrun-850-9499",
+      "subject_name": "Félix Lebrun",
+      "athlete_id": "athlete:135977",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:20220818_European_Championships_Munich_2022_Felix_Lebrun_850_9499.jpg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/c/c5/20220818_European_Championships_Munich_2022_Felix_Lebrun_850_9499.jpg",
+      "photographer": "Granada (author metadata also names Julia Engel)",
+      "license": "CC BY-SA 4.0",
+      "source_dimensions": {
+        "width": 5542,
+        "height": 3695
+      },
+      "identity_review": "Source page's caption and depicted-person structured data identify Félix Lebrun; visual content is consistent.",
+      "visual_review": "Original opened at full 5542x3695. Clear table-tennis action photograph; source caption names Félix Lebrun and Munich 2022.",
+      "event_review": "Source page identifies the 2022 European Championships in Munich; not a Goal15 match photograph.",
+      "clearance_status": "NOT_CLEARED_PERSONALITY_RIGHTS_WARNING",
+      "actual_file_sha256": null,
+      "actual_file_hash_status": "NOT_MEASURED_ORIGINAL_NOT_STAGED",
+      "use_scenarios": {
+        "athlete_profile_editorial": "NOT_CLEARED_PERSONALITY_RIGHTS_WARNING",
+        "homepage_promotion_or_advertising": "NOT_CLEARED",
+        "exact_match_photograph": "NOT_CLEARED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+        "video_cover_or_thumbnail": "NOT_CLEARED_SEPARATE_PERMISSION_NOT_REVIEWED",
+        "download_or_redistribution_beyond_license": "NOT_CLEARED"
+      },
+      "blockers": [
+        "Commons page has an explicit personality-rights warning.",
+        "No model release or subject consent evidence is recorded."
+      ]
+    },
+    {
+      "asset_id": "commons:attc-2017:harimoto-1",
+      "subject_name": "Tomokazu Harimoto",
+      "athlete_id": "athlete:123980",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Harimoto_Tomokazu_ATTC2017_1.jpeg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Harimoto_Tomokazu_ATTC2017_1.jpeg",
+      "photographer": "XIAOYU TANG (Flickr source account: Crew of China Sports)",
+      "license": "CC BY-SA 2.0",
+      "source_dimensions": {
+        "width": 4138,
+        "height": 2759
+      },
+      "identity_review": "Commons file description and depicted-person context identify Tomokazu Harimoto; existing public athlete_id athlete:123980 matches the public profile record.",
+      "visual_review": "Original opened at full 4138x2759. Harimoto is pictured in Japanese team kit courtside; this is a profile/context portrait, not an active rally frame. The source description and visible person are consistent. The reviewed 4:5 crop preserves his face and team context.",
+      "event_review": "Filename contains ATTC2017 and the file page date is 2017-04-10; the exact match/opponent is not established. Do not label as a specific match photo.",
+      "clearance_status": "CLEARED_EDITORIAL_PROFILE_ONLY",
+      "actual_file_sha256": "f420e2bd10788514b33e7fc907ea23cd7a87a3b4ae2a46e8e24e2892e3fdd536",
+      "actual_file_hash_status": "VERIFIED_LOCAL_ORIGINAL_MATCHES_RECORDED_SHA256",
+      "use_scenarios": {
+        "athlete_profile_editorial": "CLEARED_SCOPED_RETAIN_EXISTING_GOAL16_PACKAGE",
+        "homepage_promotion_or_advertising": "NOT_CLEARED",
+        "exact_match_photograph": "NOT_CLEARED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+        "video_cover_or_thumbnail": "NOT_CLEARED_SEPARATE_PERMISSION_NOT_REVIEWED",
+        "download_or_redistribution_beyond_license": "NOT_CLEARED"
+      },
+      "blockers": []
+    },
+    {
+      "asset_id": "commons:jonathan-groth-portrait",
+      "subject_name": "Jonathan Groth",
+      "athlete_id": "athlete:112409",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Jonathan_Groth.jpg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/4/46/Jonathan_Groth.jpg",
+      "photographer": "Olav76",
+      "license": "CC BY-SA 4.0",
+      "source_dimensions": {
+        "width": 4928,
+        "height": 3264
+      },
+      "identity_review": "Commons page identifies Jonathan Groth; the existing public match participant record uses athlete_id athlete:112409.",
+      "visual_review": "Original opened at full 4928x3264. A table-tennis player in action at the table is clearly visible; page description identifies Jonathan Groth.",
+      "event_review": "Page date is 2016-07-27 and description mentions a Ready for Rio preparation tournament, but does not explicitly establish this frame's match/event. Keep image event UNKNOWN and do not attach a match_id.",
+      "clearance_status": "CLEARED_EDITORIAL_PROFILE_ONLY",
+      "actual_file_sha256": "2598ed51de49a09162cf592527ecd559d65c108c3a9b20694d67c5213574b85e",
+      "actual_file_hash_status": "VERIFIED_LOCAL_ORIGINAL_MATCHES_RECORDED_SHA256",
+      "use_scenarios": {
+        "athlete_profile_editorial": "CLEARED_SCOPED_RETAIN_EXISTING_GOAL16_PACKAGE",
+        "homepage_promotion_or_advertising": "NOT_CLEARED",
+        "exact_match_photograph": "NOT_CLEARED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+        "video_cover_or_thumbnail": "NOT_CLEARED_SEPARATE_PERMISSION_NOT_REVIEWED",
+        "download_or_redistribution_beyond_license": "NOT_CLEARED"
+      },
+      "blockers": []
+    },
+    {
+      "asset_id": "commons:2018-yog:lin-yun-ju-bronze-544",
+      "subject_name": "Lin Yun-Ju; Kanak Jha",
+      "athlete_id": "athlete:121582",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Table_tennis_at_the_2018_Summer_Youth_Olympics_%E2%80%93_Men%27s_Singles_Bronze_Medal_Match_544.jpg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Table_tennis_at_the_2018_Summer_Youth_Olympics_%E2%80%93_Men%27s_Singles_Bronze_Medal_Match_544.jpg",
+      "photographer": "Marcus Cyron",
+      "license": "CC BY-SA 3.0",
+      "source_dimensions": {
+        "width": 5760,
+        "height": 3840
+      },
+      "identity_review": "File caption names Lin Yun-Ju vs Kanak Jha; scoreboard gives additional event context, but no face-level identity authentication was performed.",
+      "visual_review": "Original opened at full 5760x3840. Wide match photo includes table, players and visible scoreboard; the page-caption context is consistent with a table-tennis match.",
+      "event_review": "Page caption identifies the 2018 Summer Youth Olympics men's singles bronze medal match, Lin Yun-Ju vs Kanak Jha; it is not a current Goal15 match.",
+      "clearance_status": "NOT_CLEARED_PERSONALITY_RIGHTS_WARNING",
+      "actual_file_sha256": null,
+      "actual_file_hash_status": "NOT_MEASURED_ORIGINAL_NOT_STAGED",
+      "use_scenarios": {
+        "athlete_profile_editorial": "NOT_CLEARED_PERSONALITY_RIGHTS_WARNING",
+        "homepage_promotion_or_advertising": "NOT_CLEARED",
+        "exact_match_photograph": "NOT_CLEARED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+        "video_cover_or_thumbnail": "NOT_CLEARED_SEPARATE_PERMISSION_NOT_REVIEWED",
+        "download_or_redistribution_beyond_license": "NOT_CLEARED"
+      },
+      "blockers": [
+        "Commons page has an explicit personality-rights warning for depicted people.",
+        "No model release or subject consent evidence is recorded."
+      ]
+    },
+    {
+      "asset_id": "commons:acttc-2016:chen-xingtong-2",
+      "subject_name": "Chen Xingtong",
+      "athlete_id": null,
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Chen_Xingtong_ACTTC2016_2.jpeg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Chen_Xingtong_ACTTC2016_2.jpeg",
+      "photographer": "XIAOYU TANG (Flickr source account: Crew of China Sports)",
+      "license": "CC BY-SA 2.0",
+      "source_dimensions": {
+        "width": 5184,
+        "height": 3456
+      },
+      "identity_review": "Commons description names Chen Xingtong, but the Goal15 public match package has no canonical athlete_id for her; do not join by name alone.",
+      "visual_review": "Original opened at full 5184x3456. The image shows a women's table-tennis rally; the specific player identity is based on the Commons filename/source description, not independently confirmed by face recognition.",
+      "event_review": "Filename carries ACTTC2016 and page date is 2016-09-20; exact match/opponent is not independently established.",
+      "clearance_status": "NOT_CLEARED_CANONICAL_ATHLETE_ID_UNKNOWN",
+      "actual_file_sha256": null,
+      "actual_file_hash_status": "NOT_MEASURED_ORIGINAL_NOT_STAGED",
+      "use_scenarios": {
+        "athlete_profile_editorial": "NOT_CLEARED_CANONICAL_ATHLETE_ID_UNKNOWN",
+        "homepage_promotion_or_advertising": "NOT_CLEARED",
+        "exact_match_photograph": "NOT_CLEARED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+        "video_cover_or_thumbnail": "NOT_CLEARED_SEPARATE_PERMISSION_NOT_REVIEWED",
+        "download_or_redistribution_beyond_license": "NOT_CLEARED"
+      },
+      "blockers": [
+        "No stable public athlete_id exists in the current Goal15 package; no exact-name join is allowed.",
+        "Public identity binding remains unresolved."
+      ]
+    },
+    {
+      "asset_id": "commons:acttc-2016:wang-manyu-17",
+      "subject_name": "Wang Manyu",
+      "athlete_id": "athlete:121411",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Wang_Manyu_ACTTC2016_17.jpeg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/0/09/Wang_Manyu_ACTTC2016_17.jpeg",
+      "photographer": "XIAOYU TANG (Flickr source account: Crew of China Sports)",
+      "license": "CC BY-SA 2.0",
+      "source_dimensions": {
+        "width": 3456,
+        "height": 5184
+      },
+      "identity_review": "Commons description identifies Wang Manyu and the existing Goal15 profile maps to athlete:121411.",
+      "visual_review": "Original opened at full 3456x5184. A single player in a lime-green kit is visibly at a table-tennis table in a ready/action posture; the source description is consistent with Wang Manyu.",
+      "event_review": "Filename carries ACTTC2016 and page date is 2016-09-28; no exact match/opponent is established, so this is not match-linked.",
+      "clearance_status": "CLEARED_EDITORIAL_PROFILE_ONLY",
+      "actual_file_sha256": "a8e92964a6538136566c4f0140477f9c3eb986e9f86d50215c21e3a0c740b28f",
+      "actual_file_hash_status": "VERIFIED_LOCAL_ORIGINAL_MATCHES_RECORDED_SHA256",
+      "use_scenarios": {
+        "athlete_profile_editorial": "CLEARED_SCOPED_RETAIN_EXISTING_GOAL16_PACKAGE",
+        "homepage_promotion_or_advertising": "NOT_CLEARED",
+        "exact_match_photograph": "NOT_CLEARED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+        "video_cover_or_thumbnail": "NOT_CLEARED_SEPARATE_PERMISSION_NOT_REVIEWED",
+        "download_or_redistribution_beyond_license": "NOT_CLEARED"
+      },
+      "blockers": []
+    },
+    {
+      "asset_id": "commons:acttc-2016:liang-jingkun-8",
+      "subject_name": "Liang Jingkun",
+      "athlete_id": "athlete:119588",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Liang_Jingkun_ACTTC2016_8.jpeg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Liang_Jingkun_ACTTC2016_8.jpeg",
+      "photographer": "XIAOYU TANG (Flickr source account: Crew of China Sports)",
+      "license": "CC BY-SA 2.0",
+      "source_dimensions": {
+        "width": 5184,
+        "height": 3456
+      },
+      "identity_review": "Commons description names Liang Jingkun and the existing Goal15 profile maps to athlete:119588.",
+      "visual_review": "Original opened at full 5184x3456. Liang Jingkun is in a blue/orange kit during play; the incoming ball overlaps part of his face in the original frame. The 4:5 crop overemphasized that overlap, so the public derivative policy preserves the full 3:2 frame instead.",
+      "event_review": "Filename carries ACTTC2016 and page date is 2016-09-20; no exact match/opponent is established, so this is not match-linked.",
+      "clearance_status": "CLEARED_EDITORIAL_PROFILE_ONLY",
+      "actual_file_sha256": "73525784ec787111dfb83b24db217a8ce54705f5fb8b3c83cd491da332f22e00",
+      "actual_file_hash_status": "VERIFIED_LOCAL_ORIGINAL_MATCHES_RECORDED_SHA256",
+      "use_scenarios": {
+        "athlete_profile_editorial": "CLEARED_SCOPED_RETAIN_EXISTING_GOAL16_PACKAGE",
+        "homepage_promotion_or_advertising": "NOT_CLEARED",
+        "exact_match_photograph": "NOT_CLEARED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+        "video_cover_or_thumbnail": "NOT_CLEARED_SEPARATE_PERMISSION_NOT_REVIEWED",
+        "download_or_redistribution_beyond_license": "NOT_CLEARED"
+      },
+      "blockers": []
+    }
+  ]
+}

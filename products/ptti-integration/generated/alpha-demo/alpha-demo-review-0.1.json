@@ -1,0 +1,408 @@
+{
+  "audit_version": "ptti.alpha-demo-audit/0.1",
+  "contract_sha256": "01958acb83d78b458ae625339c7136127bb36d55b3da667f707228896a4e2d6f",
+  "data_origin": "CHECKED_IN_SANITIZED_FIXTURE_SNAPSHOT",
+  "desktop_native_playback_passes": 0,
+  "fresh_external_checks_this_run": 0,
+  "identity_map": {
+    "local_assets": [
+      {
+        "actual_file_sha256": "NOT_TESTED_FIXTURE_DIGEST_ONLY",
+        "association": "UNLINKED_REVIEW_REQUIRED",
+        "local_asset_id": "fixture-local-licensed-01",
+        "local_video_source_edge": "MATCH_GROUP_ONLY_V0_2_HAS_NO_DIRECT_SOURCE_VERSION_ID",
+        "match_id": null,
+        "synthetic_fixture": true,
+        "video_source_ids_for_match": []
+      }
+    ],
+    "match_sources": [
+      {
+        "identity_status": "UNKNOWN",
+        "link_status": "EXPLICIT_SOURCE_RECORD_ID",
+        "match_id": "web-match:chongqing-2025-ws-final-sun-chen",
+        "video_source_ids": [
+          "web-source:chongqing-2025-ws-final-sun-chen"
+        ]
+      },
+      {
+        "identity_status": "UNKNOWN",
+        "link_status": "EXPLICIT_SOURCE_RECORD_ID",
+        "match_id": "web-match:doha-2023-ms-final",
+        "video_source_ids": [
+          "web-source:doha-2023-ms-final"
+        ]
+      },
+      {
+        "identity_status": "UNKNOWN",
+        "link_status": "EXPLICIT_SOURCE_RECORD_ID",
+        "match_id": "web-match:doha-2023-ms-sf-fan-lin",
+        "video_source_ids": [
+          "web-source:doha-2023-ms-sf-fan-lin"
+        ]
+      },
+      {
+        "identity_status": "UNKNOWN",
+        "link_status": "EXPLICIT_SOURCE_RECORD_ID",
+        "match_id": "web-match:singapore-2021-ws-final-wang-sun",
+        "video_source_ids": [
+          "web-source:singapore-2021-ws-final-wang-sun"
+        ]
+      }
+    ],
+    "policy": {
+      "local_asset_id": "Local-only ID; never a public/Web identity and never exported as a path.",
+      "match_id": "Stable only within the originating record namespace; cross-system identity needs an explicit reviewed crosswalk.",
+      "timeline": "No cross-source time conversion without an explicit HUMAN_VERIFIED mapping and evidence.",
+      "video_source_id": "Source-scoped ID; do not merge sources by title, player names, or shared host."
+    }
+  },
+  "integrity": {
+    "local_video_assets": 1,
+    "matches": 4,
+    "status": "PASS",
+    "timeline_mappings": 0,
+    "video_sources": 6
+  },
+  "local_asset_review_queue": [
+    {
+      "current": "SYNTHETIC_FIXTURE_ONLY",
+      "decision": "NOT_TESTED",
+      "evidence_needed": "Select an authorized file, hash the actual bytes, record rights basis and review status; this demo did not read media.",
+      "field": "actual_file_identity_and_rights",
+      "local_asset_id": "fixture-local-licensed-01"
+    }
+  ],
+  "rejected_candidates": [
+    {
+      "decision": "REJECTED_NOT_A_CONTRACT_EDGE",
+      "kind": "timeline_mapping",
+      "mapping_id": "synthetic-offset-only",
+      "offset_ms": null,
+      "reason": "SOURCE_ENDPOINTS_NOT_PRESENT_IN_DEMO",
+      "required": "Exact source IDs, shared reviewed Match identity, and human evidence before any mapping can be added.",
+      "status": "UNKNOWN"
+    },
+    {
+      "decision": "REJECTED",
+      "detail": "LocalVideoAsset source SHA-256 is not verified",
+      "kind": "local_asset_hash",
+      "local_asset_id": "fixture-local-licensed-01",
+      "reason": "LOCAL_SOURCE_SHA256_NOT_VERIFIED",
+      "status": "PENDING"
+    }
+  ],
+  "rights_review_queue": [
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Evidence that PTTI may index this source's match metadata.",
+      "field": "metadata_listing",
+      "source_id": "web-source:doha-2023-ms-final"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Confirm the official destination and permitted link-out use.",
+      "field": "external_viewing",
+      "source_id": "web-source:doha-2023-ms-final"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "An explicit image/display grant or applicable platform policy.",
+      "field": "thumbnail_display",
+      "source_id": "web-source:doha-2023-ms-final"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "An explicit embed grant and a separate successful embed playback test.",
+      "field": "embedding",
+      "source_id": "web-source:doha-2023-ms-final"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Rights-holder evidence covering local analysis of this media.",
+      "field": "local_analysis",
+      "source_id": "web-source:doha-2023-ms-final"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "A separate explicit grant for model training; do not infer from analysis rights.",
+      "field": "model_training",
+      "source_id": "web-source:doha-2023-ms-final"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "A separate explicit grant for copying or redistribution.",
+      "field": "redistribution",
+      "source_id": "web-source:doha-2023-ms-final"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "A dated, territory-specific availability check; UNKNOWN is not global access.",
+      "field": "territory",
+      "source_id": "web-source:doha-2023-ms-final"
+    },
+    {
+      "current": "NOT_TESTED",
+      "decision": "NOT_TESTED",
+      "evidence_needed": "A successful, rights-permitted test in the intended Web player.",
+      "field": "embed_playback",
+      "source_id": "web-source:doha-2023-ms-final"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Confirm whether the page is one complete match, highlights, a session, or an article.",
+      "field": "content_type",
+      "source_id": "web-source:doha-2023-ms-final"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Evidence that PTTI may index this source's match metadata.",
+      "field": "metadata_listing",
+      "source_id": "web-source:doha-2023-ms-sf-fan-lin"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Confirm the official destination and permitted link-out use.",
+      "field": "external_viewing",
+      "source_id": "web-source:doha-2023-ms-sf-fan-lin"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "An explicit image/display grant or applicable platform policy.",
+      "field": "thumbnail_display",
+      "source_id": "web-source:doha-2023-ms-sf-fan-lin"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "An explicit embed grant and a separate successful embed playback test.",
+      "field": "embedding",
+      "source_id": "web-source:doha-2023-ms-sf-fan-lin"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Rights-holder evidence covering local analysis of this media.",
+      "field": "local_analysis",
+      "source_id": "web-source:doha-2023-ms-sf-fan-lin"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "A separate explicit grant for model training; do not infer from analysis rights.",
+      "field": "model_training",
+      "source_id": "web-source:doha-2023-ms-sf-fan-lin"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "A separate explicit grant for copying or redistribution.",
+      "field": "redistribution",
+      "source_id": "web-source:doha-2023-ms-sf-fan-lin"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "A dated, territory-specific availability check; UNKNOWN is not global access.",
+      "field": "territory",
+      "source_id": "web-source:doha-2023-ms-sf-fan-lin"
+    },
+    {
+      "current": "NOT_TESTED",
+      "decision": "NOT_TESTED",
+      "evidence_needed": "A successful, rights-permitted test in the intended Web player.",
+      "field": "embed_playback",
+      "source_id": "web-source:doha-2023-ms-sf-fan-lin"
+    },
+    {
+      "current": "FIXTURE_SNAPSHOT_WITHOUT_EVIDENCE_REFERENCE",
+      "decision": "REVIEW_REQUIRED",
+      "evidence_needed": "A reviewable evidence reference and a fresh check before using this as current proof.",
+      "field": "external_evidence_reference",
+      "source_id": "web-source:doha-2023-ms-sf-fan-lin"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Confirm whether the page is one complete match, highlights, a session, or an article.",
+      "field": "content_type",
+      "source_id": "web-source:doha-2023-ms-sf-fan-lin"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Evidence that PTTI may index this source's match metadata.",
+      "field": "metadata_listing",
+      "source_id": "web-source:singapore-2021-ws-final-wang-sun"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Confirm the official destination and permitted link-out use.",
+      "field": "external_viewing",
+      "source_id": "web-source:singapore-2021-ws-final-wang-sun"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "An explicit image/display grant or applicable platform policy.",
+      "field": "thumbnail_display",
+      "source_id": "web-source:singapore-2021-ws-final-wang-sun"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "An explicit embed grant and a separate successful embed playback test.",
+      "field": "embedding",
+      "source_id": "web-source:singapore-2021-ws-final-wang-sun"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Rights-holder evidence covering local analysis of this media.",
+      "field": "local_analysis",
+      "source_id": "web-source:singapore-2021-ws-final-wang-sun"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "A separate explicit grant for model training; do not infer from analysis rights.",
+      "field": "model_training",
+      "source_id": "web-source:singapore-2021-ws-final-wang-sun"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "A separate explicit grant for copying or redistribution.",
+      "field": "redistribution",
+      "source_id": "web-source:singapore-2021-ws-final-wang-sun"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "A dated, territory-specific availability check; UNKNOWN is not global access.",
+      "field": "territory",
+      "source_id": "web-source:singapore-2021-ws-final-wang-sun"
+    },
+    {
+      "current": "NOT_TESTED",
+      "decision": "NOT_TESTED",
+      "evidence_needed": "A successful, rights-permitted test in the intended Web player.",
+      "field": "embed_playback",
+      "source_id": "web-source:singapore-2021-ws-final-wang-sun"
+    },
+    {
+      "current": "FIXTURE_SNAPSHOT_WITHOUT_EVIDENCE_REFERENCE",
+      "decision": "REVIEW_REQUIRED",
+      "evidence_needed": "A reviewable evidence reference and a fresh check before using this as current proof.",
+      "field": "external_evidence_reference",
+      "source_id": "web-source:singapore-2021-ws-final-wang-sun"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Confirm whether the page is one complete match, highlights, a session, or an article.",
+      "field": "content_type",
+      "source_id": "web-source:singapore-2021-ws-final-wang-sun"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Evidence that PTTI may index this source's match metadata.",
+      "field": "metadata_listing",
+      "source_id": "web-source:chongqing-2025-ws-final-sun-chen"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Confirm the official destination and permitted link-out use.",
+      "field": "external_viewing",
+      "source_id": "web-source:chongqing-2025-ws-final-sun-chen"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "An explicit image/display grant or applicable platform policy.",
+      "field": "thumbnail_display",
+      "source_id": "web-source:chongqing-2025-ws-final-sun-chen"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "An explicit embed grant and a separate successful embed playback test.",
+      "field": "embedding",
+      "source_id": "web-source:chongqing-2025-ws-final-sun-chen"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "Rights-holder evidence covering local analysis of this media.",
+      "field": "local_analysis",
+      "source_id": "web-source:chongqing-2025-ws-final-sun-chen"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "A separate explicit grant for model training; do not infer from analysis rights.",
+      "field": "model_training",
+      "source_id": "web-source:chongqing-2025-ws-final-sun-chen"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "A separate explicit grant for copying or redistribution.",
+      "field": "redistribution",
+      "source_id": "web-source:chongqing-2025-ws-final-sun-chen"
+    },
+    {
+      "current": "UNKNOWN",
+      "decision": "PENDING_REVIEW",
+      "evidence_needed": "A dated, territory-specific availability check; UNKNOWN is not global access.",
+      "field": "territory",
+      "source_id": "web-source:chongqing-2025-ws-final-sun-chen"
+    },
+    {
+      "current": "NOT_TESTED",
+      "decision": "NOT_TESTED",
+      "evidence_needed": "A successful, rights-permitted test in the intended Web player.",
+      "field": "embed_playback",
+      "source_id": "web-source:chongqing-2025-ws-final-sun-chen"
+    }
+  ],
+  "runtime_access": {
+    "database": "NOT_USED",
+    "local_media": "NOT_OPENED",
+    "network": "NOT_USED"
+  },
+  "schema": {
+    "id": "https://ptti.local/contracts/match-media/0.2/schema.json",
+    "status": "PASS"
+  },
+  "stored_external_visual_pass_snapshot_count": 2,
+  "v0_1_consumer": {
+    "code": "UNSUPPORTED_CONTRACT_VERSION",
+    "expected": "ptti.match-media/0.1",
+    "received": "ptti.match-media/0.2",
+    "status": "REJECTED_AS_REQUIRED"
+  },
+  "vision_result_passes": 0,
+  "web_projection": {
+    "local_asset_count": 0,
+    "match_count": 0,
+    "reason": "Every real Web source has UNKNOWN listing or external-view permission; synthetic fixtures are excluded.",
+    "source_count": 0,
+    "status": "SAFE_EMPTY"
+  }
+}

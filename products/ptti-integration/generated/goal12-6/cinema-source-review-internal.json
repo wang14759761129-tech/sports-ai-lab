@@ -1,0 +1,327 @@
+{
+  "contract_version": "ptti.cinema-source-review/0.1",
+  "source_contract_version": "ptti.match-library-index/0.1",
+  "input_contract_version": "ptti.cinema-source-review-input/0.1",
+  "audience": "INTERNAL_REVIEW_ONLY",
+  "generated_at": "2026-10-16T03:26:08Z",
+  "catalog_snapshot": {
+    "unique_video_sources": 35,
+    "registered_match_records": 6,
+    "canonical_video_match_links": 0,
+    "strict_public_video_source_count": 0
+  },
+  "summary": {
+    "selected_sources": 3,
+    "official_pages_http_200": 3,
+    "external_visual_playback_pass": 0,
+    "canonical_match_links": 0,
+    "public_projection_fallback": false
+  },
+  "featured_sources": [
+    {
+      "source_id": "video-source:youtube:0QgbtsBWZhk",
+      "catalog_record_id": "catalog:youtube:0QgbtsBWZhk",
+      "video_id": "0QgbtsBWZhk",
+      "platform": "YOUTUBE",
+      "original_source_url": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "publisher_metadata": {
+        "method": "YOUTUBE_OEMBED_SINGLE_LOOKUP",
+        "checked_at": "2026-10-16T03:26:06.818090+00:00",
+        "title": "FULL MATCH | Wang Chuqin vs Felix Lebrun | MS Final | #ChinaSmash 2025",
+        "author_name": "World Table Tennis",
+        "author_url": "https://www.youtube.com/@wttglobal",
+        "status": "MATCHES_SNAPSHOT_METADATA_AFFILIATION_AND_RIGHTS_SCOPE_NOT_PROVEN"
+      },
+      "match_claim": {
+        "event_name": "China Smash 2025",
+        "event_year": 2025,
+        "discipline": "MS",
+        "round": "Men's Singles Final",
+        "participants": [
+          "Wang Chuqin",
+          "Felix Lebrun"
+        ],
+        "status": "OFFICIAL_RESULT_CORROBORATES_PUBLISHER_TITLE_CLAIM_NOT_VIDEO_ID",
+        "match_date": {
+          "value": null,
+          "status": "UNKNOWN",
+          "local_start_time": null
+        },
+        "event_window": null,
+        "evidence_sources": [
+          {
+            "role": "OFFICIAL_MATCH_RESULT",
+            "url": "https://www.worldtabletennis.com/eventInfo?eventId=3098",
+            "claims": [
+              "China Smash 2025",
+              "Wang Chuqin vs Felix Lebrun",
+              "Men's Singles Final",
+              "4-0 result"
+            ]
+          },
+          {
+            "role": "OFFICIAL_MATCH_RESULT",
+            "url": "https://china-smash.com/description?artId=5479",
+            "claims": [
+              "China Smash 2025 final",
+              "Wang Chuqin vs Felix Lebrun",
+              "Men's Singles Final"
+            ]
+          }
+        ],
+        "official_source_references_video_id": false
+      },
+      "match_link": {
+        "canonical_match_id": null,
+        "status": "UNKNOWN",
+        "unlinked_review_candidate_match_id": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+        "reason": "No official match source directly references this exact video_id and no visual watch-session verified the video content.",
+        "join_policy": "EXACT_EVIDENCE_REQUIRED_NO_AUTOMATIC_JOIN_BY_TITLE_EVENT_OR_PLAYER_NAME"
+      },
+      "watch_status": {
+        "official_page_request": "HTTP_200_PAGE_ONLY",
+        "page_checked_at": "2026-10-15T15:12:03.3289458Z",
+        "external_visual_video_playback": "NOT_TESTED",
+        "external_viewing_rights": "UNKNOWN",
+        "territory_status": "UNKNOWN",
+        "login_or_region_check": "NOT_TESTED",
+        "in_app_embedding_permission": "UNKNOWN",
+        "latest_recorded_embed_technical_status": "BLOCKED_OBSERVED",
+        "in_app_entry": "EXTERNAL_ONLY_PERMISSION_UNVERIFIED",
+        "unavailability_or_limit_reason": "Historical embed attempt returned error 150; current external visual playback and embed status were not tested."
+      },
+      "content_claim": {
+        "publisher_title_claim": "FULL_MATCH",
+        "completeness": "UNVERIFIED",
+        "completeness_status": "UNVERIFIED_TITLE_IS_NOT_COMPLETENESS_EVIDENCE"
+      },
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      },
+      "thumbnail": {
+        "url": null,
+        "display_permission": "UNKNOWN",
+        "presentation": "PTTI_BRAND_PLACEHOLDER_ONLY"
+      },
+      "audience": "INTERNAL_REVIEW_ONLY",
+      "next_evidence_needed": [
+        "DIRECT_OFFICIAL_VIDEO_ID_TO_MATCH_REFERENCE",
+        "HUMAN_WATCH_SESSION_VISUAL_CONTENT_CHECK",
+        "SCOPED_RIGHTS_EVIDENCE_FOR_EACH_USE",
+        "TERRITORY_AND_LOGIN_CHECK",
+        "FULL_MATCH_COMPLETENESS_CHECK"
+      ]
+    },
+    {
+      "source_id": "video-source:youtube:KCGdLksBH7s",
+      "catalog_record_id": "catalog:youtube:KCGdLksBH7s",
+      "video_id": "KCGdLksBH7s",
+      "platform": "YOUTUBE",
+      "original_source_url": "https://www.youtube.com/watch?v=KCGdLksBH7s",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "publisher_metadata": {
+        "method": "YOUTUBE_OEMBED_SINGLE_LOOKUP",
+        "checked_at": "2026-10-16T03:26:07.512921+00:00",
+        "title": "FULL MATCH | Sun Yingsha vs Wang Manyu | WS FINAL | #ITTFWorlds2025",
+        "author_name": "World Table Tennis",
+        "author_url": "https://www.youtube.com/@wttglobal",
+        "status": "MATCHES_SNAPSHOT_METADATA_AFFILIATION_AND_RIGHTS_SCOPE_NOT_PROVEN"
+      },
+      "match_claim": {
+        "event_name": "ITTF World Table Tennis Championships Finals Doha 2025",
+        "event_year": 2025,
+        "discipline": "WS",
+        "round": "Women's Singles Final",
+        "participants": [
+          "Sun Yingsha",
+          "Wang Manyu"
+        ],
+        "status": "OFFICIAL_FINAL_REPORT_MATCHES_PUBLISHER_TITLE_CLAIM_NOT_VIDEO_ID",
+        "match_date": {
+          "value": "2025-05-25",
+          "status": "OFFICIAL_REPORT_DATE",
+          "local_start_time": null
+        },
+        "event_window": {
+          "start": "2025-05-17",
+          "end": "2025-05-25",
+          "status": "OFFICIAL_EVENT_INFO"
+        },
+        "evidence_sources": [
+          {
+            "role": "OFFICIAL_MATCH_RESULT",
+            "url": "https://www.ittf.com/2025/05/25/japan-ends-64-year-mens-doubles-drought-as-wang-chuqin-becomes-the-new-world-champion-in-doha/",
+            "claims": [
+              "25 May 2025",
+              "Doha 2025",
+              "Sun Yingsha vs Wang Manyu Women's Singles Final"
+            ]
+          },
+          {
+            "role": "OFFICIAL_EVENT_INFO",
+            "url": "https://www.ittf.com/tournament/3108/ittf-world-table-tennis-championships-finals-doha-2025/",
+            "claims": [
+              "ITTF World Table Tennis Championships Finals Doha 2025",
+              "event dates 17 to 25 May 2025"
+            ]
+          }
+        ],
+        "official_source_references_video_id": false
+      },
+      "match_link": {
+        "canonical_match_id": null,
+        "status": "UNKNOWN",
+        "unlinked_review_candidate_match_id": null,
+        "reason": "No official match source directly references this exact video_id and no visual watch-session verified the video content.",
+        "join_policy": "EXACT_EVIDENCE_REQUIRED_NO_AUTOMATIC_JOIN_BY_TITLE_EVENT_OR_PLAYER_NAME"
+      },
+      "watch_status": {
+        "official_page_request": "HTTP_200_PAGE_ONLY",
+        "page_checked_at": "2026-10-15T15:12:06.3263976Z",
+        "external_visual_video_playback": "NOT_TESTED",
+        "external_viewing_rights": "UNKNOWN",
+        "territory_status": "UNKNOWN",
+        "login_or_region_check": "NOT_TESTED",
+        "in_app_embedding_permission": "UNKNOWN",
+        "latest_recorded_embed_technical_status": "NOT_TESTED",
+        "in_app_entry": "EXTERNAL_ONLY_PERMISSION_UNVERIFIED",
+        "unavailability_or_limit_reason": "No embed permission evidence and no current visual playback test; keep the direct official link as an external-only action."
+      },
+      "content_claim": {
+        "publisher_title_claim": "FULL_MATCH",
+        "completeness": "UNVERIFIED",
+        "completeness_status": "UNVERIFIED_TITLE_IS_NOT_COMPLETENESS_EVIDENCE"
+      },
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      },
+      "thumbnail": {
+        "url": null,
+        "display_permission": "UNKNOWN",
+        "presentation": "PTTI_BRAND_PLACEHOLDER_ONLY"
+      },
+      "audience": "INTERNAL_REVIEW_ONLY",
+      "next_evidence_needed": [
+        "DIRECT_OFFICIAL_VIDEO_ID_TO_MATCH_REFERENCE",
+        "HUMAN_WATCH_SESSION_VISUAL_CONTENT_CHECK",
+        "SCOPED_RIGHTS_EVIDENCE_FOR_EACH_USE",
+        "TERRITORY_AND_LOGIN_CHECK",
+        "FULL_MATCH_COMPLETENESS_CHECK"
+      ]
+    },
+    {
+      "source_id": "video-source:youtube:O241nV8y4Dc",
+      "catalog_record_id": "catalog:youtube:O241nV8y4Dc",
+      "video_id": "O241nV8y4Dc",
+      "platform": "YOUTUBE",
+      "original_source_url": "https://www.youtube.com/watch?v=O241nV8y4Dc",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "publisher_metadata": {
+        "method": "YOUTUBE_OEMBED_SINGLE_LOOKUP",
+        "checked_at": "2026-10-16T03:26:08.304577+00:00",
+        "title": "FULL MATCH | Nagasaki/Shin vs Diaconu/Xiao | WD SF | #WTTSingapore2026",
+        "author_name": "World Table Tennis",
+        "author_url": "https://www.youtube.com/@wttglobal",
+        "status": "MATCHES_SNAPSHOT_METADATA_AFFILIATION_AND_RIGHTS_SCOPE_NOT_PROVEN"
+      },
+      "match_claim": {
+        "event_name": "Singapore Smash 2026 Presented by Resorts World Sentosa",
+        "event_year": 2026,
+        "discipline": "WD",
+        "round": "Women's Doubles Semifinal",
+        "participants": [
+          "Nagasaki / Shin",
+          "Diaconu / Xiao"
+        ],
+        "status": "PUBLISHER_TITLE_AND_SECONDARY_CATALOG_CORROBORATE_MATCH_CLAIM_NOT_VIDEO_ID",
+        "match_date": {
+          "value": "2026-02-26",
+          "status": "SECONDARY_CATALOG_ONLY",
+          "local_start_time": null
+        },
+        "event_window": {
+          "start": "2026-02-19",
+          "end": "2026-03-01",
+          "status": "OFFICIAL_EVENT_INFO"
+        },
+        "evidence_sources": [
+          {
+            "role": "SECONDARY_STREAMING_CATALOG",
+            "url": "https://www.mewatch.sg/list/WTT-Singapore-Smash-2026-Full-Matches-762560",
+            "claims": [
+              "Women's Doubles Semifinal",
+              "Nagasaki (JPN)/Shin (KOR) vs Diaconu (ROU)/Xiao (ESP)",
+              "26 Feb 2026"
+            ]
+          },
+          {
+            "role": "OFFICIAL_EVENT_INFO",
+            "url": "https://singaporesmash.com/description?artId=5602",
+            "claims": [
+              "Singapore Smash 2026",
+              "event dates 19 February to 1 March 2026"
+            ]
+          }
+        ],
+        "official_source_references_video_id": false
+      },
+      "match_link": {
+        "canonical_match_id": null,
+        "status": "UNKNOWN",
+        "unlinked_review_candidate_match_id": null,
+        "reason": "No official match source directly references this exact video_id and no visual watch-session verified the video content.",
+        "join_policy": "EXACT_EVIDENCE_REQUIRED_NO_AUTOMATIC_JOIN_BY_TITLE_EVENT_OR_PLAYER_NAME"
+      },
+      "watch_status": {
+        "official_page_request": "HTTP_200_PAGE_ONLY",
+        "page_checked_at": "2026-10-15T15:12:09.3372822Z",
+        "external_visual_video_playback": "NOT_TESTED",
+        "external_viewing_rights": "UNKNOWN",
+        "territory_status": "UNKNOWN",
+        "login_or_region_check": "NOT_TESTED",
+        "in_app_embedding_permission": "UNKNOWN",
+        "latest_recorded_embed_technical_status": "NOT_TESTED",
+        "in_app_entry": "EXTERNAL_ONLY_PERMISSION_UNVERIFIED",
+        "unavailability_or_limit_reason": "No embed permission evidence and no current visual playback test; keep the direct official link as an external-only action."
+      },
+      "content_claim": {
+        "publisher_title_claim": "FULL_MATCH",
+        "completeness": "UNVERIFIED",
+        "completeness_status": "UNVERIFIED_TITLE_IS_NOT_COMPLETENESS_EVIDENCE"
+      },
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      },
+      "thumbnail": {
+        "url": null,
+        "display_permission": "UNKNOWN",
+        "presentation": "PTTI_BRAND_PLACEHOLDER_ONLY"
+      },
+      "audience": "INTERNAL_REVIEW_ONLY",
+      "next_evidence_needed": [
+        "DIRECT_OFFICIAL_VIDEO_ID_TO_MATCH_REFERENCE",
+        "HUMAN_WATCH_SESSION_VISUAL_CONTENT_CHECK",
+        "SCOPED_RIGHTS_EVIDENCE_FOR_EACH_USE",
+        "TERRITORY_AND_LOGIN_CHECK",
+        "FULL_MATCH_COMPLETENESS_CHECK"
+      ]
+    }
+  ],
+  "notice": "Internal evidence review only. Page HTTP success is not video playback; publisher metadata is not a rights grant; unknown rights and links remain unknown."
+}
