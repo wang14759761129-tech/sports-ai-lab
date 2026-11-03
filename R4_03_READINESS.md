@@ -1,0 +1,9 @@
+# R4-03 integration readiness (read-only)
+
+R4 base remains 5cc. Foundation contract and Playback projections exist as standalone modules in this candidate, with no UI connection. M1A localPlayback uses ptti.local-video-progress/1 as the progress authority and its bridge requires exact GEX chunk identity, explicit rights evidence and validated Moment association. No separate progress store should be introduced.
+
+P1 MomentCardsPage accepts onPlayLocal(videoId), opens an existing registered local video and explicitly requires manual positioning; this is not an automatic seek. Original R4 has no MomentCards page. A future small secondary entry in an existing original navigation menu can lazy-load the adapted page and return using existing feed session state. It must not import GrandNavigation or replace VideoFeed. The exact menu label/location requires visual review.
+
+M1A ProLab accepts onBack/active/qaMoment and uses localStorage notes plus the existing progress key. Its browser file tuple is not a content hash: exact re-selection and per-video identity guards must remain separate. GEX Moment import uses its own existing local storage evidence format; do not migrate, overwrite, or merge it with Moment Cards notes or SQLite favorites. Integrate only after mapping current origins, keys, permissions, errors and exact video identity, with isolated synthetic-video tests and explicit user consent.
+
+This is a plan, not a runtime integration or GUI validation. Per-page official data links outside the match library remain out of scope and should receive a separate audit before any broad claim that all external links are guarded. Reference URL validation establishes only a safe registered navigation, not the factual truth, final redirected destination, copyright or video permission.
