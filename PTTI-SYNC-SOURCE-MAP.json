@@ -1,0 +1,38 @@
+{
+  "source_commit": "c04fb32df99a15e9ef2bdd0f57307afe1d8c3d21",
+  "source_branch": "master",
+  "history_preserved": false,
+  "snapshot_only": true,
+  "build": "NOT_TESTED",
+  "GUI": "NOT_TESTED",
+  "policy": "PTTI public screened snapshot v2; independent root commits, original history LOCAL_ONLY; workflows excluded",
+  "files": [
+    {
+      "path": ".gitignore",
+      "source_blob": "5961b9be5b9e7ca46a025c2c0a3a9a19bb84b7bf",
+      "source_sha256": "29b51e894d3db48872f65f8f43840abd3ee2858c70f370903d3da3f67d34d083",
+      "safe_sha256": "29b51e894d3db48872f65f8f43840abd3ee2858c70f370903d3da3f67d34d083",
+      "transformed": false
+    },
+    {
+      "path": "Open-PTTI-DevHub.cmd",
+      "source_blob": "96542b71c41af7cf47704503f64ce2a395bac5fc",
+      "source_sha256": "bbfab0759a1cd42e14686f53a6c730a65b8b48f86d2f85b52d80dec05fc134d4",
+      "safe_sha256": "bbfab0759a1cd42e14686f53a6c730a65b8b48f86d2f85b52d80dec05fc134d4",
+      "transformed": false
+    },
+    {
+      "path": "README.md",
+      "source_blob": "d8a0e84a5eface2cff5762a8f890e368643d69a9",
+      "source_sha256": "fa17e558050f547aae77c8555a683d57a93d3a1a1e3561a87f9186666e4bed71",
+      "safe_sha256": "fa17e558050f547aae77c8555a683d57a93d3a1a1e3561a87f9186666e4bed71",
+      "transformed": false
+    }
+  ],
+  "excluded": [
+    {
+      "path": "Update-DevHub.ps1",
+      "reason": "content review blocked: phone"
+    }
+  ]
+}
