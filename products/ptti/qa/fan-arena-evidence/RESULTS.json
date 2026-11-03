@@ -1,0 +1,71 @@
+{
+  "schema": "ptti.qa-results/0.1",
+  "audience": "INTERNAL_FOUNDER_QA_ONLY",
+  "date": "2026-10-26 Asia/Shanghai",
+  "base_commit": "ee988d4eeb0d6b33f6b1b515cbfce2602c9f0422",
+  "patches": {
+    "PATCH-07": {"received_name":"Fan Arena 0.1 补丁..bin","sha256":"2b64bb3e42709137858a86f8d670c19a83186848095d955306ac044182e2a4a2","action":"applied first, then hardened"},
+    "PATCH-08": {"sha256":"5b23486b09258c6face9340ec2e7bb64fb07ba4341af3c1be1304c0f5ff916dd","action":"module hunks applied; VideoFeed hunk excluded and manually integrated against current Main"}
+  },
+  "entry": "http://127.0.0.1:5173/ -> Fan Arena",
+  "environment": {
+    "browser":"Windows Ego Lite Chromium, existing QA page reused",
+    "frontend_service":"existing Founder QA Vite, not restarted",
+    "backend_database":"diagnostics confirmed system-temp QA database before validation",
+    "backend_label":"existing b53f4f5 metadata; not rewritten to impersonate a new EXE",
+    "resource_policy":"Resource Policy V2 light preflight PASS; no new browser instance or native candidate"
+  },
+  "browser_playthrough": {
+    "initial_state":"0:0, no Arena archive",
+    "duplicate_lock":{"predictions":1,"message":"这项预测已锁定，不能重复预测"},
+    "fast_forward":{"score":"9:9","first_point_prediction":"RESOLVED, correct=true","history_count":1},
+    "first_game_point":{"score":"10:9","label":"局点","first_game_point_prediction":"RESOLVED, correct=true","history_count":2},
+    "deuce":{"score":"10:10","label":"平分 · 需领先两分"},
+    "end":{"score":"12:10","status":"FINISHED","history_count":3,"correct":3,"accuracy_percent":100},
+    "refresh":{"score":"12:10","history_count":3,"status":"PASS"},
+    "new_match":{"score":"0:0","current_predictions":0,"history_count":3},
+    "return":{"search":"王楚钦","category":"男单","status":"PASS"},
+    "return_scroll":{"saved":0,"restored":0},
+    "source_status":"SIMULATED_ONLY; fictional players; one game, not a multi-game event"
+  },
+  "storage": {
+    "initializer":"one useState initializer supplies one complete snapshot; no save effect",
+    "strict_mode_first_mount":{"reads":2,"writes":0,"resolved_history":3},
+    "strict_mode_remount":{"cumulative_reads":4,"writes":0,"resolved_history":3},
+    "strict_mode_archive_bytes_unchanged":true,
+    "quota_failure":{"status":"PASS","locked_rows_after_failed_lock":0,"success_message":false,"archive_bytes_unchanged":true},
+    "damaged_archive":{"status":"PASS","writes":0,"advance_disabled":true,"archive_bytes_unchanged":true},
+    "legacy_type_migration":"PASS: FIRST_TO_MATCH_POINT aliases canonical FIRST_TO_GAME_POINT event identity",
+    "duplicate_and_conflict_records":"PASS: dedupe equivalent events; reject conflicting archives; never count a settlement twice"
+  },
+  "regression": {
+    "cinema_wide_columns":4,
+    "viewport_width":1440,
+    "founder_qa_covers":{"loaded":8,"fallback_youtube":0,"bilibili":"independent fallback"},
+    "story":{"match_id":"pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun","saved":true},
+    "moment_cards":"browser entry, backup button and return PASS; existing Node/SSR suites PASS",
+    "pro_lab":"browser file selector, export and return PASS; existing Node/SSR suites PASS; media playback not repeated this sprint",
+    "zero_q_iframe_count":0,
+    "sqlite_persistence":"isolated test_muse_favorite_http.py: 1 passed in 25.64s",
+    "media_distribution":"PASS: approvedAssets=0; no permission expanded",
+    "screenshot":{"status":"BLOCKED","reason":"Page.captureScreenshot CDP timeout; one attempt this sprint"}
+  },
+  "build": {
+    "typescript":"PASS",
+    "vite":"PASS",
+    "main_js_previous_bytes":494628,
+    "main_js_bytes":495071,
+    "main_js_delta_bytes":443,
+    "main_js_sha256":"d591ac65fbd77e67dd2ead50cb21ccb34eb99f5e77be0dbdccff3a828b5badd8",
+    "arena_lazy_js_bytes":13192,
+    "arena_lazy_js_sha256":"b75c518ec1c374922a2b307337b60a8035ebed37cdeaf8b4ff6d5c114bb11100",
+    "arena_requests_before_entry":0,
+    "warning_threshold_modified":false,
+    "node_engine_and_storage":"PASS",
+    "feed_story_favorites_permissions":"PASS",
+    "git_diff_check":"PASS"
+  },
+  "not_tested":["Windows EXE/native integration","official video playback this sprint","new screenshot visual approval"],
+  "protected":["formal R4","Launcher","user database","Journal","private media","San and Playback worktrees"],
+  "push_deploy_release":"NOT_PERFORMED"
+}

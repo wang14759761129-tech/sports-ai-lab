@@ -1,0 +1,22 @@
+# Local playback and Moment handoff
+
+Base: original R4 integration `3ec76c2`; review branch `codex/playback-moments-continue`. Inspect current Git HEAD before integration. This is not merged into MAIN or released. Official YouTube iframe, rights checks and pinned Playback Core are unchanged.
+
+## Scope and identity
+
+The existing Pro Lab HTML5 player accepts a user-selected local file. Progress and Moment records use the existing `SHA256_CHUNKED_CONTENT_V1` content identity and do not bind that file to a public Match ID or upload bytes. Existing Pro Lab notes remain a separate, older metadata-bound format: same metadata may still be ambiguous. Do not conflate them or automatically migrate records.
+
+- Progress key `ptti.local-video-progress/1`: `{schema:1, entries:{[contentId]:{seconds,duration,updatedAt}}}`. Invalid JSON, invalid entry, unavailable storage, invalid bounds or incompatible duration is rejected without overwriting that entry. Resume requires reselecting the same bytes. Identity calculation is asynchronous; the UI warns until progress can be saved. User playback/seek during calculation takes precedence over an older position. Completed videos do not auto-resume at the end. Browser storage can be cleared by its owner and is not a backup.
+- Moments key `ptti.gex06r.local-evidence/1`: entries include video asset identity and manually recorded moments. Create, delete, ordered list, timeline marker, seek, JSON export and validated preview/merge reuse the existing GEX06R evidence contract. Import accepts only the current video identity; duplicates/conflicts are previewed, and no merge occurs until confirmation. It restores moments only, not all evidence types. Stale snapshots are rejected, but localStorage operations are not a cross-tab transaction.
+- Player states: idle, loading, ready, playing, paused, ended, error and blocked. Local media loading errors offer retry. Programmatic playback rejection offers retry; native browser-control failures are not necessarily observable. Fullscreen rejection is reported separately. 0.25x, 0.5x and 1x buttons act on the local video element; support varies by browser.
+- Navigation: original Cinema preserves its existing search/filter and scroll logic. User-visible return behavior has not been verified on this branch. On leaving Pro Lab, the player is paused; stale asynchronous play requests are guarded. Selection URLs are revoked on cleanup; backup download URLs are revoked on success or error. Overlapping timeline markers can visually overlap; the ordered text buttons remain available.
+
+## Evidence and remaining work
+
+PASS at code/test layer: local progress validation, malformed data rejection, resume decisions, mock delayed-play cleanup, download URL cleanup, GEX Moment import/identity/stale/quota cases, Pro Lab SSR and TypeScript. These do not prove real playback, UI layout, precise seek, fullscreen, browser persistence, privacy isolation or native behavior. Browser/Native results and actual media release remain NOT_TESTED. No real-media test has run on this branch. A local recent-video list displays filenames and progress; users must reselect a file. A personal playlist remains unimplemented. Dedicated chapter labels and official-video annotations remain unimplemented. Review multi-tab races, browser resource behavior and supported local-media codecs before integration.
+
+## HOST minimal QA
+
+Use a supported isolated runtime, loopback-only API, temporary database, isolated browser profile and the approved synthetic video. Check exact branch HEAD and resource guards. Select the clip, confirm its content identity, play/pause/seek, record two moments and test marker/list jumps; export and import after cancel/confirm and check duplicate/conflict preview. Close/reopen, reselect identical bytes and verify progress and moments; select a different clip and verify separation. Test rates/fullscreen, media failure/retry, active-page exit and actual audio/resource cleanup. Confirm Cinema search/filter/scroll on return. Do not open third-party media or touch production data. Capture actual timestamps/screenshots and label tests accurately.
+
+An attempted isolated API/Vite service launch was rejected by execution policy in this environment. Do not route around that rejection. HOST must use a supported permitted execution context or report BLOCKED; do not run dev_sync.py, replace a launcher, release, push, or infer GUI PASS from this handoff.

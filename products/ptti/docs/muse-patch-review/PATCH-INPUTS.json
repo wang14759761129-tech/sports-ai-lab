@@ -1,0 +1,21 @@
+{
+  "baseline": "02196f19980915a1ba5f10c244609a26de1564d3",
+  "input_type": "EXTERNAL_REVIEW_NOT_AUTHORITY",
+  "patches": [
+    {
+      "filename": "PATCH-01.patch",
+      "sha256": "cff748be71c28450eb14f2b31744526e1b615e69748032723be7f157fc671ce4",
+      "decision": "ADJUSTED: diagnostics attributes only; no extra cover copy"
+    },
+    {
+      "filename": "PATCH-02.patch",
+      "sha256": "63f95ddc5704ff5ac1c968cef90a918d0f185d9e374f23d5acdc8435da23299d",
+      "decision": "PARTIAL: reject db.commit and static proof; guarded reconcile once after failed mutation"
+    },
+    {
+      "filename": "PATCH-03.patch",
+      "sha256": "c5511be0b498ce5cef54da70e89ca1a67ee3010d9b48e3ae121c2bbdb0ae140e",
+      "decision": "ADJUSTED: robust timestamp parsing, fixed request time, unchanged inclusive 30-day gate, counts-only disclosure"
+    }
+  ]
+}

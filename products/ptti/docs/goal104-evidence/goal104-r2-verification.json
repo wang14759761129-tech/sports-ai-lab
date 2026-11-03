@@ -1,0 +1,16 @@
+{
+  "scope": "NO_EXE_BUILD_NO_GUI_NO_DATABASE",
+  "old_dist_rejection": "FAIL_EXPECTED_WITHHELD_JPEG",
+  "rebuilt_web_dist": "PASS_ZERO_APPROVED_ASSETS",
+  "windows_distribution_input_gate": "PASS_ZERO_APPROVED_ASSETS",
+  "actual_windows_staged_payload_gate": "PASS_NO_EXE_BUILT",
+  "frontend_feed_story_youtube_tests": "PASS",
+  "photo_and_distribution_tests": "PASS",
+  "typescript": "PASS",
+  "vite": "PASS",
+  "python_staging_unittest": "PASS_1_TEST",
+  "native_exe_build": "NOT_TESTED",
+  "native_gui": "NOT_TESTED",
+  "active_manifest_sha256": "eec55f459f6fd4990b0145ccb9b73ea59f1d6ab171400345852434aa078f3aad",
+  "historical_photo_manifest_screenshot_sha": "UNCHANGED"
+}
