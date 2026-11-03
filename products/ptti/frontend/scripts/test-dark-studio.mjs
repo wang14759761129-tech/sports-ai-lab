@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import {readFileSync,readdirSync} from 'node:fs';
+import {createRequire} from 'node:module';
+import ts from 'typescript';
+import postcss from 'postcss';
+import React from 'react';
+import {renderToStaticMarkup} from 'react-dom/server';
+
+const source=readFileSync('src/StudioShell.tsx','utf8').replace(/^import '\.\/studio-shell\.css';$/m,'');
+const result=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX,target:ts.ScriptTarget.ES2022},reportDiagnostics:true});
+assert.equal(result.diagnostics?.length,0,'Shell must parse as valid TSX');
+const module={exports:{}};
+new Function('require','module','exports',result.outputText)(createRequire(import.meta.url),module,module.exports);
+const shell=module.exports.default;
+const props={page:'research',navigate:()=>{},query:'',onQueryChange:()=>{},searchEnabled:true,buildLabel:'QA build',children:React.createElement('p',null,'Evidence remains pending')};
+const html=renderToStaticMarkup(React.createElement(shell,props));
+assert.match(html,/aria-label="PTTI 主导航"/);
+assert.match(html,/aria-current="page"[^>]*>.*?研究中心/s);
+assert.match(html,/aria-label="收起导航" aria-expanded="true"/);
+assert.match(html,/aria-label="搜索已收录比赛视频"/);
+assert.match(html,/Evidence remains pending/);
+const withoutSearch=renderToStaticMarkup(React.createElement(shell,{...props,searchEnabled:false}));
+assert.doesNotMatch(withoutSearch,/搜索已收录比赛视频/,'No decorative search when catalog search is unavailable');
+assert.doesNotMatch(withoutSearch,/观看历史|收藏/,'Only supported feed entries are exposed');
+for(const file of readdirSync('src').filter(name=>name.endsWith('.css'))){postcss.parse(readFileSync(`src/${file}`,'utf8'),{from:file});}
+const tokens=readFileSync('src/design-tokens.css','utf8');
+assert.match(tokens,/--bg:\s*#0f0f0f/);
+assert.match(tokens,/--confirmed:/);assert.match(tokens,/--warning:/);assert.match(tokens,/--unknown:/);
+assert.match(readFileSync('src/style.css','utf8'),/prefers-reduced-motion/);
+console.log('12 checks passed: shell accessibility, supported navigation, dark tokens, CSS syntax and reduced motion');
