@@ -1,0 +1,7 @@
+{
+  "declaration_version": "ptti.training-simulated-declaration/0.1",
+  "dataset_class": "SIMULATED_ONLY",
+  "generator_ref": "goal07-24-point-v1",
+  "csv_sha256": "623d11a7358067c1f35fdfd8cfe9f1dfbd155a6fc126e37e15fe0d367c87785d",
+  "parent_csv_sha256": "f5ec0fddebc5d108a89a42ce2acae0e8d8e12e6bca5fbb8d6b7df26dd9792ee0"
+}

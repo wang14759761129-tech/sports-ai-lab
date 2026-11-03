@@ -1,0 +1,14 @@
+{
+  "top_k": 16,
+  "minimum_response": 0.01,
+  "nms_radius": 5,
+  "beam_width": 12,
+  "response_weight": 0.2,
+  "motion_weight": 1.0,
+  "acceleration_weight": 0.5,
+  "persistence_weight": 0.4,
+  "missing_cost": 0.35,
+  "speed_scale_diagonals_per_second": 3.0,
+  "gap_seconds": 0.1,
+  "interpolation_frames": 0
+}
