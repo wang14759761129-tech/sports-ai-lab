@@ -1,0 +1,37 @@
+{
+  "schema_version": "hit-event-v0.1-lock",
+  "locked": true,
+  "config_sha256": "a263f0702584d325cf0673c5d18a5be76771109ee6aba49e956f3c02630d971e",
+  "config_file_sha256": "cb9e0af4da0da97dd3c564fda8002f83701de5bdeb50a2a06a28188eb71db75d",
+  "algorithm_source_sha256": "bd8b4a04faad943f385bfe5a72c4f53991be1571395c3d925d2522fcd360e0f2",
+  "runner_source_sha256": "7875809df1ad9cc747f3602ed18821a6620d2ec45d9a4964cacf7015d2125ac2",
+  "baseline_commit": "76489ee339f065a2275e09ed4207e39921449c69",
+  "source_tree_state": "UNCOMMITTED_EXPERIMENT",
+  "dataset": "Extended OpenTTGames",
+  "dataset_revision": "36471a76b969a0340df59258a813bf8214e68e7c",
+  "rights": "CC BY-NC-SA 4.0",
+  "commercial_use": false,
+  "split_policy": {
+    "development": [
+      "game_1-t60",
+      "game_2-t60",
+      "game_3-t60"
+    ],
+    "validation": [
+      "game_4-t30",
+      "game_5-t60"
+    ],
+    "official_test_split": "NOT_ACCESSED"
+  },
+  "annotation_sha256": {
+    "game_1": "ef0fdbf0a2dcb0bf1004a2f6a55c71e6dc1fc87939e5fa9aa7a14750dc8c25e0",
+    "game_2": "7466f1f8c46316406ae224a17491354eac89f9cc2de858633b6f893573db4fe7",
+    "game_3": "b15160849fb31d18147faacb81aa45284155064f9c590468a2e7933dba8f60bb",
+    "game_4": "9d6a558a1a933341b9c9beabc8561327da928e387d4fe743a492f76627207271",
+    "game_5": "df691b76600bd8e417322d3732e60507200c6e1d35507b9848ed66deccf44c3f"
+  },
+  "development_run": "20261007T024323_411950Z",
+  "development_metrics_status": "MEASURED_WITHIN_CLIP_ONLY_NO_CROSS_VIDEO_MATCHING",
+  "locked_at": "2026-10-07T02:49:06Z",
+  "production_database": "NOT_ACCESSED"
+}
