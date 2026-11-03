@@ -1,0 +1,34 @@
+{
+  "status": "BALLTRACK_V1_FROZEN_RAW",
+  "default_pipeline": "RacketVision RAW",
+  "default_checkpoint": "products/ptti/models/balltrack_best.pth",
+  "default_checkpoint_sha256": "00d707b9db7a49561c411e4765956e79bcd7c7e20c7a0a535073440b3e972342",
+  "tuned_candidate_checkpoint_sha256": "d325ab5e1a179b3c7369f3cfffd9cf02626020ad4bbf177dd481f6868bdb6775",
+  "tuned_candidate_accepted": false,
+  "decoder": {
+    "threshold": 0.5,
+    "method": "upstream largest thresholded contour bounding-box center",
+    "local_refinement": "disabled",
+    "diagnostic_candidate_nms_radius": 5
+  },
+  "training_config_sha256": "3a66d3525dba5486672ceae32cffc317af4447b0d8a6385e9cd46cf507d14403",
+  "decoder_config_sha256": "59aa6547c77373f0571aaf6741e4856132fe335febb1a1bbeb122932b9d97a47",
+  "split_sha256": "2607ed498522eba8176deca71f5762f6ad110a4afe4b97e645f3cffd53ab2b17",
+  "known_raw_sha256": "d3037c572d5b4335e5cf4f50946c7ef6df1b1f9118ff01807149e1f63d036343",
+  "known_tuned_sha256": "5ebe07bc34e5f83113b430cd22317443a936c6a145f181ae76d7152525b1f4f9",
+  "release_gate": "HISTORICAL_DB_UNVERIFIED",
+  "vision_gate": "BALLTRACK_V1_FROZEN_RAW",
+  "final_untouched": "NOT_SELECTED_OR_RUN; candidate failed KNOWN and available official matches were exposed",
+  "scope": "bounded post-match rally processing only; not live officiating or full-match structure/segmentation",
+  "further_balltrack_v1_tuning": "FROZEN",
+  "training": {
+    "racketvision_commit": "c44af2a08524d3cb54d818f19686f4cdea4d2793",
+    "tti_commit": "f7ce175a23f0a5178909201debaf78e0c3e30e53",
+    "epochs": 10,
+    "best_epoch": 6,
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "training_seconds": 1629.7046981999956
+  }
+}
