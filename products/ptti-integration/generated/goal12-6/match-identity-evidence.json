@@ -1,0 +1,268 @@
+{
+  "report_id": "GOAL12.6-M",
+  "reviewed_at": "2026-10-16T03:26:08Z",
+  "audience": "INTERNAL_REVIEW_ONLY",
+  "method": "MANUAL_OFFICIAL_SOURCE_REVIEW_AND_THREE_SINGLE_VIDEO_OEMBED_LOOKUPS",
+  "policy_reference": {
+    "url": "https://www.youtube.com/static?template=terms",
+    "document_date": "2023-12-15",
+    "checked_at": "2026-10-16T03:26:08Z",
+    "interpretation": "The service terms describe personal non-commercial viewing and the official embeddable player under their conditions. This is not a per-video availability test or a license for independent download, analysis, redistribution, thumbnail reuse, or public catalog publication.",
+    "per_video_rights_upgraded": false
+  },
+  "records": [
+    {
+      "source_id": "video-source:youtube:0QgbtsBWZhk",
+      "video_id": "0QgbtsBWZhk",
+      "oembed_observation": {
+        "checked_at": "2026-10-16T03:26:06.818090+00:00",
+        "http_status": 200,
+        "title": "FULL MATCH | Wang Chuqin vs Felix Lebrun | MS Final | #ChinaSmash 2025",
+        "author_name": "World Table Tennis",
+        "author_url": "https://www.youtube.com/@wttglobal",
+        "embedded_html_present": true
+      },
+      "identity": {
+        "provider_match_id": null,
+        "provider_match_id_status": "UNKNOWN",
+        "registered_match_review_candidate": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+        "event_reference": "https://www.worldtabletennis.com/eventInfo?eventId=3098",
+        "event_reference_scope": "EVENT_ONLY_NOT_MATCH_ID",
+        "event_and_pair_confidence": "OFFICIAL_RESULT_CORROBORATED",
+        "recorded_result": "4-0",
+        "match_date": null,
+        "match_date_status": "UNKNOWN",
+        "local_start_time": null,
+        "official_match_record_video_binding": "UNKNOWN",
+        "binding_reason": "Official result text corroborates the final and participants; no reviewed official result record directly references this exact video ID. Publisher metadata alone does not close the independent match binding."
+      },
+      "supporting_sources": [
+        {
+          "url": "https://china-smash.com/description?artId=5479",
+          "role": "OFFICIAL_RESULT_REPORT",
+          "supports": [
+            "China Smash 2025",
+            "Wang Chuqin vs Felix Lebrun",
+            "MS final",
+            "4-0"
+          ],
+          "does_not_establish": [
+            "provider match ID",
+            "exact video ID link",
+            "match start time",
+            "media rights"
+          ]
+        }
+      ],
+      "excluded_or_limited_sources": [],
+      "next_evidence": [
+        "Obtain an official match-level identifier and an explicit reference to video 0QgbtsBWZhk",
+        "Verify match date and start time from a dated official result or schedule",
+        "Record a real visual watch session and scoped use permissions"
+      ],
+      "canonical_match_id": null,
+      "watch_url": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      },
+      "download_permission": "UNKNOWN_NO_SCOPED_LICENSE_EVIDENCE",
+      "playback": {
+        "metadata_lookup": "PASS_METADATA_ONLY",
+        "external_visual": "NOT_TESTED",
+        "embedding": "NOT_TESTED",
+        "desktop_native": "NOT_TESTED",
+        "vision": "NOT_TESTED",
+        "region": "UNKNOWN",
+        "completeness": "UNVERIFIED",
+        "historical_embed_status": "BLOCKED_OBSERVED",
+        "oembed_html_is_not_playback_or_permission": true
+      }
+    },
+    {
+      "source_id": "video-source:youtube:KCGdLksBH7s",
+      "video_id": "KCGdLksBH7s",
+      "oembed_observation": {
+        "checked_at": "2026-10-16T03:26:07.512921+00:00",
+        "http_status": 200,
+        "title": "FULL MATCH | Sun Yingsha vs Wang Manyu | WS FINAL | #ITTFWorlds2025",
+        "author_name": "World Table Tennis",
+        "author_url": "https://www.youtube.com/@wttglobal",
+        "embedded_html_present": true
+      },
+      "identity": {
+        "provider_match_id": null,
+        "provider_match_id_status": "UNKNOWN",
+        "registered_match_review_candidate": null,
+        "event_reference": "https://www.ittf.com/tournament/3108/ittf-world-/page/4/",
+        "event_reference_scope": "ITTF_TOURNAMENT_NAMESPACE_ONLY_NOT_WTT_MATCH_ID",
+        "event_and_pair_confidence": "OFFICIAL_RESULT_CORROBORATED",
+        "recorded_result": "4-3",
+        "match_date": "2025-05-25",
+        "match_date_status": "OFFICIAL_DATED_FINAL_REPORT",
+        "local_start_time": null,
+        "official_match_record_video_binding": "UNKNOWN",
+        "binding_reason": "The dated ITTF report identifies the WS final, but does not reference KCGdLksBH7s. ITTF tournament number 3108 must not be treated as a WTT event or match ID."
+      },
+      "supporting_sources": [
+        {
+          "url": "https://www.ittf.com/2025/05/25/japan-ends-64-year-mens-doubles-drought-as-wang-chuqin-becomes-the-new-world-champion-in-doha/",
+          "role": "OFFICIAL_DATED_RESULT_REPORT",
+          "supports": [
+            "Doha 2025 WS final",
+            "Sun Yingsha vs Wang Manyu",
+            "2025-05-25",
+            "4-3"
+          ],
+          "does_not_establish": [
+            "provider match ID",
+            "exact video ID link",
+            "match start time",
+            "media rights"
+          ]
+        }
+      ],
+      "excluded_or_limited_sources": [
+        {
+          "url": "https://www.worldtabletennis.com/eventInfo?eventId=3108",
+          "status": "CONFLICTING_DYNAMIC_EVENT_ID_NOT_IDENTITY_EVIDENCE",
+          "observation_method": "SEARCH_INDEX_RESULT_NOT_LIVE_RENDER",
+          "observed_title": "China Smash 2026 Presented by Beijing Shijingshan Culture & Tourism Group",
+          "reason": "Current indexed content conflicts with the previous Doha 2025 use. It is not safe to equate IDs across ITTF and WTT namespaces or treat a dynamic page as immutable. Removed from the new Cinema projection; historical GOAL12.3 remains preserved."
+        }
+      ],
+      "next_evidence": [
+        "Find the exact official Doha WS final result identifier and explicit video reference",
+        "Resolve the WTT dynamic-page identity conflict before reusing its ID",
+        "Record a real visual watch session and scoped use permissions"
+      ],
+      "canonical_match_id": null,
+      "watch_url": "https://www.youtube.com/watch?v=KCGdLksBH7s",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      },
+      "download_permission": "UNKNOWN_NO_SCOPED_LICENSE_EVIDENCE",
+      "playback": {
+        "metadata_lookup": "PASS_METADATA_ONLY",
+        "external_visual": "NOT_TESTED",
+        "embedding": "NOT_TESTED",
+        "desktop_native": "NOT_TESTED",
+        "vision": "NOT_TESTED",
+        "region": "UNKNOWN",
+        "completeness": "UNVERIFIED",
+        "historical_embed_status": "NOT_TESTED",
+        "oembed_html_is_not_playback_or_permission": true
+      }
+    },
+    {
+      "source_id": "video-source:youtube:O241nV8y4Dc",
+      "video_id": "O241nV8y4Dc",
+      "oembed_observation": {
+        "checked_at": "2026-10-16T03:26:08.304577+00:00",
+        "http_status": 200,
+        "title": "FULL MATCH | Nagasaki/Shin vs Diaconu/Xiao | WD SF | #WTTSingapore2026",
+        "author_name": "World Table Tennis",
+        "author_url": "https://www.youtube.com/@wttglobal",
+        "embedded_html_present": true
+      },
+      "identity": {
+        "provider_match_id": null,
+        "provider_match_id_status": "UNKNOWN",
+        "registered_match_review_candidate": null,
+        "event_reference": "https://singaporesmash.com/description?artId=5602",
+        "event_reference_scope": "EVENT_ANNOUNCEMENT_ONLY_NOT_MATCH_ID",
+        "event_and_pair_confidence": "PUBLISHER_TITLE_AND_SECONDARY_CATALOG_ONLY",
+        "recorded_result": null,
+        "match_date": "2026-02-26",
+        "match_date_status": "SECONDARY_CATALOG_ONLY",
+        "local_start_time": null,
+        "official_match_record_video_binding": "UNKNOWN",
+        "binding_reason": "The publisher title names the pairs and WD semifinal. The streaming catalog supplies the date; the official event announcement confirms only the event. No reviewed official match result directly references this video ID. Full athlete identities and athlete IDs remain unbound."
+      },
+      "supporting_sources": [
+        {
+          "url": "https://singaporesmash.com/description?artId=5602",
+          "role": "OFFICIAL_EVENT_ANNOUNCEMENT",
+          "supports": [
+            "Singapore Smash 2026",
+            "2026-02-19 through 2026-03-01 event window"
+          ],
+          "does_not_establish": [
+            "specific semifinal result",
+            "provider match ID",
+            "exact video ID link",
+            "media rights"
+          ]
+        },
+        {
+          "url": "https://www.mewatch.sg/list/WTT-Singapore-Smash-2026-Full-Matches-762560",
+          "role": "SECONDARY_STREAMING_CATALOG",
+          "supports": [
+            "Nagasaki/Shin vs Diaconu/Xiao",
+            "WD semifinal listing",
+            "2026-02-26"
+          ],
+          "does_not_establish": [
+            "WTT match ID",
+            "exact YouTube video ID link",
+            "full athlete identities",
+            "PTTI usage rights"
+          ]
+        }
+      ],
+      "excluded_or_limited_sources": [
+        {
+          "url": "https://forum.tt-news.de/showthread.php?p=3858771",
+          "status": "SECONDARY_EXACT_VIDEO_URL_MENTION_ONLY",
+          "reason": "The forum quotes the exact video ID and title but is not an independent official match result or rights grant. Not used to close the canonical binding."
+        }
+      ],
+      "next_evidence": [
+        "Obtain official WD semifinal result, full athlete identities and provider match ID",
+        "Find an official match record that explicitly references O241nV8y4Dc",
+        "Record a real visual watch session and scoped use permissions"
+      ],
+      "canonical_match_id": null,
+      "watch_url": "https://www.youtube.com/watch?v=O241nV8y4Dc",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED"
+      },
+      "download_permission": "UNKNOWN_NO_SCOPED_LICENSE_EVIDENCE",
+      "playback": {
+        "metadata_lookup": "PASS_METADATA_ONLY",
+        "external_visual": "NOT_TESTED",
+        "embedding": "NOT_TESTED",
+        "desktop_native": "NOT_TESTED",
+        "vision": "NOT_TESTED",
+        "region": "UNKNOWN",
+        "completeness": "UNVERIFIED",
+        "historical_embed_status": "NOT_TESTED",
+        "oembed_html_is_not_playback_or_permission": true
+      }
+    }
+  ],
+  "cinema_contract_version": "ptti.cinema-source-review/0.1",
+  "public_admission": "BLOCKED_NO_SCOPED_PERMISSION_AND_CANONICAL_BINDING",
+  "summary": {
+    "reviewed_sources": 3,
+    "fresh_oembed_metadata_http_200": 3,
+    "canonical_match_video_bindings": 0,
+    "strict_public_sources": 0,
+    "external_visual_playback_pass": 0,
+    "desktop_native_playback_pass": 0
+  }
+}

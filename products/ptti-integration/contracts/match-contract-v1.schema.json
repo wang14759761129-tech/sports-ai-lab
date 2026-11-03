@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://ptti.local/contracts/match-contract-v1.schema.json",
+  "type":"object", "additionalProperties":false,
+  "required":["contract_version","data_origin","match_id","event","participants","match_type","round","match_identity_status","media_sha256","media_sha256_status","sources","evidence_sources"],
+  "properties":{
+    "contract_version":{"const":"ptti.match/1.0"}, "data_origin":{"const":"SOURCE_BACKED"},
+    "match_id":{"type":"string","minLength":1},"event":{"type":"object","required":["name"],"properties":{"name":{"type":"string"}}},
+    "participants":{"type":"array","items":{"type":"object"}},"match_type":{"type":"string"},"round":{"type":"string"},"match_identity_status":{"type":"string"},
+    "media_sha256":{"type":"null"},"media_sha256_status":{"const":"UNKNOWN"},
+    "sources":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["source_id","provider","video_id","official_url","publisher","source_identity_status","evidence_url","evidence_source_ids","media_sha256","media_sha256_status","authorization","availability"],"properties":{
+      "source_id":{"type":"string","minLength":1},"provider":{"const":"YOUTUBE"},"video_id":{"type":"string","pattern":"^[A-Za-z0-9_-]{11}$"},"official_url":{"type":"string","format":"uri"},"publisher":{"type":["string","null"]},"source_identity_status":{"type":"string"},"evidence_url":{"type":"string","format":"uri"},"evidence_source_ids":{"type":"array","items":{"type":"string"}},"media_sha256":{"type":"null"},"media_sha256_status":{"const":"UNKNOWN"},
+      "authorization":{"type":"object","additionalProperties":false,"required":["external_navigation","embedding","download","redistribution"],"properties":{"external_navigation":{"const":"ALLOWED_AS_RECORDED"},"embedding":{"const":"UNKNOWN"},"download":{"const":"NOT_GRANTED"},"redistribution":{"const":"NOT_GRANTED"}}},
+      "availability":{"type":"object","additionalProperties":false,"required":["page","playback","current_session"],"properties":{"page":{"const":"NOT_TESTED"},"playback":{"const":"NOT_TESTED"},"current_session":{"const":"NOT_EVALUATED_CURRENT_SESSION"}}}
+    }}},"evidence_sources":{"type":"array","items":{"type":"object"}}
+  }
+}

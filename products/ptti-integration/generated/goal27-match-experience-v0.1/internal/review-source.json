@@ -1,0 +1,79 @@
+{
+  "contract_version": "ptti.main.match-experience-source-review/0.1",
+  "reviewed_at": "2026-10-22T04:53:38Z",
+  "base_catalog_sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+  "event": {
+    "event_id": "wtt-event:3108",
+    "provider_event_id": "3108",
+    "name": "ITTF World Table Tennis Championships Finals Doha 2025",
+    "year": 2025,
+    "url": "https://www.worldtabletennis.com/eventInfo?eventId=3108"
+  },
+  "match": {
+    "match_id": "match:ittf-doha-2025:ms:wang-chuqin-wong-chun-ting",
+    "provider_match_id": null,
+    "date": null,
+    "match_type": "MS",
+    "round": "UNKNOWN",
+    "participants": [
+      {"side": "A", "athlete_id": "athlete:121558", "name_en": "WANG Chuqin"},
+      {"side": "B", "athlete_id": null, "name_en": "WONG Chun Ting"}
+    ],
+    "recorded_result": {"player_a_games": 4, "player_b_games": 0},
+    "recorded_winner_id": "athlete:121558",
+    "result_status": "OFFICIAL_ITTF_RECAP_CROSSCHECKED",
+    "summary_evidence_source_ids": [
+      "ittf-doha-day4-wang-wong-2025",
+      "wtt-doha-event-3108"
+    ]
+  },
+  "video": {
+    "source_id": "video-source:youtube:suwultS-Jcc",
+    "video_id": "suwultS-Jcc",
+    "title": "Wong Chun Ting vs Wang Chuqin | Match Highlights | #ITTFWorlds2025",
+    "publisher": "World Table Tennis",
+    "publisher_url": "https://www.youtube.com/@wttglobal",
+    "published_at": "2025-05-20",
+    "category": "HIGHLIGHTS",
+    "metadata_evidence_source_id": "wtt-youtube-suwultS-Jcc",
+    "match_identity_evidence_source_ids": [
+      "wtt-youtube-suwultS-Jcc",
+      "ittf-doha-day4-wang-wong-2025"
+    ],
+    "direct_fetch_observation": "Research-tool direct fetch was throttled for YouTube and returned 403 for ITTF. This is not evidence that the links fail in a user's browser; page opening and playback remain NOT_TESTED."
+  },
+  "rights_review": {
+    "public_listing": "ALLOWED",
+    "external_viewing": "ALLOWED",
+    "scope": "OFFICIAL_YOUTUBE_SHARE_URL_ONLY",
+    "embedding": "UNKNOWN",
+    "thumbnail_display": "NOT_ALLOWED",
+    "download": "NOT_GRANTED",
+    "local_analysis": "NOT_GRANTED",
+    "redistribution": "NOT_GRANTED",
+    "rationale": "The official channel provides a public YouTube watch URL. The WTT copyright notice says its content is copyrighted and images may not be reproduced without prior approval. Only an outbound official-platform link is admitted; no media is copied, embedded, downloaded, analyzed or redistributed."
+  },
+  "evidence": [
+    {
+      "source_id": "ittf-doha-day4-wang-wong-2025",
+      "source_type": "OFFICIAL_ITTF_MATCH_REPORT",
+      "url": "https://www.ittf.com/2025/05/20/day-4-underway-mixed-doubles-quarterfinalists-decided-as-singles-action-intensifies/",
+      "retrieved_at": "2026-10-22T04:53:38Z",
+      "description": "ITTF's 20 May 2025 Doha Day 4 report states Wang Chuqin defeated Wong Chun Ting 4-0 and lists game scores 12-10, 11-6, 11-5, 11-7. The report's publication date is not treated as the match date; the match round and provider match ID are not recorded."
+    },
+    {
+      "source_id": "wtt-doha-event-3108",
+      "source_type": "OFFICIAL_WTT_EVENT_RECORD",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3108",
+      "retrieved_at": "2026-10-22T04:53:38Z",
+      "description": "WTT's indexed official event record identifies eventId 3108 as ITTF World Table Tennis Championships Finals Doha 2025. The direct page was not verified in the user's browser."
+    },
+    {
+      "source_id": "wtt-youtube-suwultS-Jcc",
+      "source_type": "OFFICIAL_WTT_VIDEO_METADATA",
+      "url": "https://www.youtube.com/watch?v=suwultS-Jcc",
+      "retrieved_at": "2026-10-22T04:53:38Z",
+      "description": "YouTube search metadata identifies the title Wong Chun Ting vs Wang Chuqin | Match Highlights | #ITTFWorlds2025, publisher World Table Tennis (verified channel), and publication date 20 May 2025. The description includes ©WTT and states images may not be reproduced without prior approval. No frames were viewed."
+    }
+  ]
+}

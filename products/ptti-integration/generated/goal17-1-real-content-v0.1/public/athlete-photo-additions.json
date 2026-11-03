@@ -1,0 +1,172 @@
+{
+  "contract_version": "ptti.goal17.1-athlete-media/0.1",
+  "generated_at": "2026-10-19T06:18:32.062Z",
+  "view": "STRICT_PUBLIC_MEDIA_DELTA",
+  "base_goal16_manifest_sha256": "c05491a64f59ac922d2d85d081eccf3b2853f717ece82c8bcfa3d05608f2c004",
+  "base_goal15_library_sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+  "license_notice": "This additive package contains three images cleared only for factual athlete-profile editorial context with visible credit/source/license and preserved context. No image is linked to a GOAL15 match. Homepage promotion, advertising, endorsement, match-photo, video-cover, download beyond license, AI training and other uses require separate review.",
+  "assets": [
+    {
+      "asset_id": "commons:acttc-2016:wang-chuqin-1",
+      "athlete_id": "athlete:121558",
+      "subject_name": "Wang Chuqin",
+      "match_id": null,
+      "match_link_status": "NOT_LINKED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+      "use_scope": "ATHLETE_PROFILE_EDITORIAL_ONLY",
+      "display_permission": "ALLOWED_SCOPED",
+      "promotion_use": "NOT_CLEARED_NO_ENDORSEMENT_OR_ADVERTISING",
+      "photo_presentation": "PROFILE_CONTEXT_PHOTO",
+      "depicted_athletes": [
+        "Wang Chuqin"
+      ],
+      "actual_event": "2016 All China Table Tennis Championships; exact match/opponent not established",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Wang_Chuqin_ACTTC2016_1.jpeg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Wang_Chuqin_ACTTC2016_1.jpeg",
+      "source_title": "Wang Chuqin ACTTC2016 1.jpeg",
+      "photographer": "XIAOYU TANG (original Flickr account: Crew of China Sports)",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "attribution": "Wang Chuqin ACTTC2016 1.jpeg — Photo by XIAOYU TANG (original Flickr source Crew of China Sports), licensed CC BY-SA 2.0. Source and license links are provided. This factual profile use does not imply endorsement.",
+      "changes_made": "Source converted/resized to WebP responsive derivatives with metadata removed. Derivatives remain under the source ShareAlike license.",
+      "share_alike_required": true,
+      "commercial_use_review": "NOT_CLEARED_ENDORSEMENT_ADVERTISING_OR_PROMOTION",
+      "source_sha256": "099f115434756b081e98d29003b8fca7196e8905e2463ace08141022a7604649",
+      "source_dimensions": {
+        "width": 3061,
+        "height": 2041
+      },
+      "derivatives": [
+        {
+          "path": "assets/wang-chuqin-acttc2016-1-800x1000.webp",
+          "sha256": "6ae3ef5e3a745743e697659a34e6f4788da5ea7c29f01cd1734587a9f14ec946",
+          "width": 800,
+          "height": 1000,
+          "format": "WEBP",
+          "license": "CC BY-SA 2.0",
+          "changes_made": "4:5 center crop, downscaled to responsive WebP, metadata stripped; derivative remains under source license",
+          "metadata_stripped": true
+        },
+        {
+          "path": "assets/wang-chuqin-acttc2016-1-400x500.webp",
+          "sha256": "ff062f8ddf364819951c11b974aa3cac1956fec5552a01c62aa4cff542ff1cf2",
+          "width": 400,
+          "height": 500,
+          "format": "WEBP",
+          "license": "CC BY-SA 2.0",
+          "changes_made": "4:5 center crop, downscaled to responsive WebP, metadata stripped; derivative remains under source license",
+          "metadata_stripped": true
+        }
+      ],
+      "quality_limit": "High-resolution original (3061x2041). Responsive derivatives use a 4:5 center crop; inspect as a player-profile context image, never as a current match photograph."
+    },
+    {
+      "asset_id": "commons:cnsvideo:2024-sun-yingsha-interview-still",
+      "athlete_id": "athlete:131163",
+      "subject_name": "Sun Yingsha",
+      "match_id": null,
+      "match_link_status": "NOT_LINKED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+      "use_scope": "ATHLETE_PROFILE_EDITORIAL_ONLY",
+      "display_permission": "ALLOWED_SCOPED",
+      "promotion_use": "NOT_CLEARED_NO_ENDORSEMENT_OR_ADVERTISING",
+      "photo_presentation": "PROFILE_INTERVIEW_STILL",
+      "depicted_athletes": [
+        "Sun Yingsha"
+      ],
+      "actual_event": "Paris 2024 period CNS interview; not a match photograph",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Sun_Yingsha.png",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Sun_Yingsha.png",
+      "source_title": "Sun Yingsha.png",
+      "photographer": "China News Service (CNS); still captured from the CNS interview video",
+      "license": "CC BY 3.0",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "attribution": "Sun Yingsha.png — China News Service interview still, 11 August 2024; CC BY 3.0. Source interview and license are linked. Resized for profile use; no endorsement is implied.",
+      "changes_made": "Source converted/resized to WebP responsive derivatives with metadata removed. The CC BY 3.0 source license continues to govern the derivatives; voluntary attribution is retained.",
+      "share_alike_required": false,
+      "commercial_use_review": "NOT_CLEARED_ENDORSEMENT_ADVERTISING_OR_PROMOTION",
+      "source_sha256": "35cb98f2d947783c031dd8f4816380008a833171fda1099f02a1b6086f02015e",
+      "source_dimensions": {
+        "width": 498,
+        "height": 648
+      },
+      "derivatives": [
+        {
+          "path": "assets/sun-yingsha-interview-400x520.webp",
+          "sha256": "bd88a045b826408dafff908385a24d2eeba903458abcf30c9b8da59bdd65e337",
+          "width": 400,
+          "height": 520,
+          "format": "WEBP",
+          "license": "CC BY 3.0",
+          "changes_made": "Full-frame or proportional downscale to responsive WebP, metadata stripped; derivative remains under source license",
+          "metadata_stripped": true
+        },
+        {
+          "path": "assets/sun-yingsha-interview-249x324.webp",
+          "sha256": "6fe497b761ad4ed9bf5d149224d1e2abe0f9e0a06b3fdd9a1b50f2854cb5ed8b",
+          "width": 249,
+          "height": 324,
+          "format": "WEBP",
+          "license": "CC BY 3.0",
+          "changes_made": "Full-frame or proportional downscale to responsive WebP, metadata stripped; derivative remains under source license",
+          "metadata_stripped": true
+        }
+      ],
+      "quality_limit": "498x648 source is low resolution relative to a hero image. Do not upscale; maximum suggested CSS width is 249px at DPR 2, and use only in a compact profile context."
+    },
+    {
+      "asset_id": "commons:french-championships-2024:felix-lebrun-doubles-context",
+      "athlete_id": "athlete:135977",
+      "subject_name": "Félix Lebrun",
+      "match_id": null,
+      "match_link_status": "NOT_LINKED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+      "use_scope": "ATHLETE_PROFILE_EDITORIAL_ONLY",
+      "display_permission": "ALLOWED_SCOPED",
+      "promotion_use": "NOT_CLEARED_NO_ENDORSEMENT_OR_ADVERTISING",
+      "photo_presentation": "MULTI_PLAYER_EVENT_CONTEXT",
+      "depicted_athletes": [
+        "Flavien Coton",
+        "Alexandre Cassin",
+        "Alexis Lebrun",
+        "Félix Lebrun"
+      ],
+      "actual_event": "2024 French Table Tennis Championships doubles scene; exact match/video record is not linked",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Flavien_Coton_et_Alexandre_Cassin_contre_F%C3%A9lix_Lebrun_et_Alexis_Lebrun.jpg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/5/53/Flavien_Coton_et_Alexandre_Cassin_contre_F%C3%A9lix_Lebrun_et_Alexis_Lebrun.jpg",
+      "source_title": "Flavien Coton et Alexandre Cassin contre Félix Lebrun et Alexis Lebrun.jpg",
+      "photographer": "Eltito13",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "attribution": "Flavien Coton et Alexandre Cassin contre Félix Lebrun et Alexis Lebrun — photo by Eltito13, dedicated under CC0 1.0. Voluntary credit and source link are retained. The full four-player context is preserved; no endorsement is implied.",
+      "changes_made": "Source converted/resized to WebP responsive derivatives with metadata removed. The CC0 1.0 source license continues to govern the derivatives; voluntary attribution is retained.",
+      "share_alike_required": false,
+      "commercial_use_review": "NOT_CLEARED_ENDORSEMENT_ADVERTISING_OR_PROMOTION",
+      "source_sha256": "eb034fd9d291323345d70a92b7992b8379f888a82ce13e4df1cf1034612c46d8",
+      "source_dimensions": {
+        "width": 2585,
+        "height": 2192
+      },
+      "derivatives": [
+        {
+          "path": "assets/felix-lebrun-french-championships-2024-960x814.webp",
+          "sha256": "f6dafeaa8d87aa5cddb0348ee9284135de246eec604c17fe3f24bbb17b6d3dc9",
+          "width": 960,
+          "height": 814,
+          "format": "WEBP",
+          "license": "CC0 1.0",
+          "changes_made": "Full-frame or proportional downscale to responsive WebP, metadata stripped; derivative remains under source license",
+          "metadata_stripped": true
+        },
+        {
+          "path": "assets/felix-lebrun-french-championships-2024-480x407.webp",
+          "sha256": "e9b2aae379bef35e6bfc3039d2705c7dea84cfcd60d6d145ae0997f0221f1422",
+          "width": 480,
+          "height": 407,
+          "format": "WEBP",
+          "license": "CC0 1.0",
+          "changes_made": "Full-frame or proportional downscale to responsive WebP, metadata stripped; derivative remains under source license",
+          "metadata_stripped": true
+        }
+      ],
+      "quality_limit": "High-resolution 2585x2192 full-frame doubles scene. Keep the full context and caption; do not crop or present as a solo portrait or as a match from the PTTI library."
+    }
+  ]
+}

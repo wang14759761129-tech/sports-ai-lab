@@ -1,0 +1,1034 @@
+{
+  "audience": "STRICT_PUBLIC_METADATA_EXTERNAL_LINK_ONLY",
+  "contract_version": "ptti.cinema-match-projection/0.1",
+  "evidence_sources": [
+    {
+      "description": "WTT official event-result material identifies the China Smash 2025 Men's Singles Final and reports Wang Chuqin defeated Felix Lebrun 4-0 (11-7, 11-2, 11-5, 11-7). The page is dynamic; this review used WTT's indexed event result and did not verify current rendered-page access.",
+      "retrieved_at": "2026-10-18T00:00:00Z",
+      "source_id": "wtt-china-smash-2025-final",
+      "source_type": "OFFICIAL_WTT_EVENT_RESULT",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3098"
+    },
+    {
+      "description": "Official YouTube metadata lists the exact title 'FULL MATCH | Wang Chuqin vs Felix Lebrun | MS Final | #ChinaSmash 2025' and publisher World Table Tennis. This supports a source-metadata association, not a visual-playback or completeness pass. The video description states ©WTT and that images require prior approval for reproduction.",
+      "retrieved_at": "2026-10-18T00:00:00Z",
+      "source_id": "wtt-youtube-full-match-0QgbtsBWZhk",
+      "source_type": "OFFICIAL_YOUTUBE_VIDEO_METADATA",
+      "url": "https://www.youtube.com/watch?v=0QgbtsBWZhk"
+    },
+    {
+      "description": "YouTube Help describes using Copy link to share a video URL elsewhere. This admission uses only the official platform URL as an external navigation link; it does not rely on embed, thumbnail, download, or content-reuse permission.",
+      "retrieved_at": "2026-10-18T00:00:00Z",
+      "source_id": "youtube-share-link-help",
+      "source_type": "PLATFORM_LINK_SHARING_GUIDANCE",
+      "url": "https://support.google.com/youtube/answer/57741?hl=en"
+    },
+    {
+      "description": "The committed professional registry snapshot maps athlete:121558 to WANG Chuqin and this official WTT profile URL. Current page access was not tested. Only the factual name, stable athlete ID, and outbound profile link are projected; no image or biography is included.",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "source_id": "wtt-player-wang-chuqin",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE_REFERENCE",
+      "url": "https://www.worldtabletennis.com/player/121558/WANG-Chuqin"
+    },
+    {
+      "description": "The committed professional registry snapshot maps athlete:135977 to Felix LEBRUN and this official WTT profile URL. Current page access was not tested. Only the factual name, stable athlete ID, and outbound profile link are projected; no image or biography is included.",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "source_id": "wtt-player-felix-lebrun",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE_REFERENCE",
+      "url": "https://www.worldtabletennis.com/player/135977/Felix-LEBRUN"
+    },
+    {
+      "description": "WTT event record identifies WTT Star Contender Doha 2025, event 3083, event dates 6-11 January 2025, and the Men's Singles Final Harimoto vs Groth; result 4-0 with games 11-9, 13-11, 11-9, 11-6. WTT indexed event content was used because the current dynamic page rendered only its consent shell in this session; current page rendering is not marked PASS.",
+      "retrieved_at": "2026-10-18T10:46:06Z",
+      "source_id": "wtt-doha-2025-final-result-3083",
+      "source_type": "OFFICIAL_WTT_EVENT_RESULT",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3083"
+    },
+    {
+      "description": "YouTube metadata identifies the exact title Tomokazu Harimoto vs Jonathan Groth | MS Final | WTT Star Contender Doha 2025, publisher World Table Tennis (verified), published 2025-01-11, and ©WTT. This supports official source identity and the named match association, not visual playback, completeness, territory, embedding, or media-reuse permission.",
+      "retrieved_at": "2026-10-18T10:46:06Z",
+      "source_id": "wtt-youtube-match-jv_XQ6oKaDU",
+      "source_type": "OFFICIAL_YOUTUBE_VIDEO_METADATA",
+      "url": "https://www.youtube.com/watch?v=jv_XQ6oKaDU"
+    },
+    {
+      "description": "WTT event record identifies WTT Finals Fukuoka 2024, event 2947, and lists Chen Xingtong vs Wang Manyu as the Women's Singles Final. WTT result coverage reports Wang Manyu won 4-3 (13-11, 9-11, 4-11, 11-5, 5-11, 11-8, 11-5). Stable athlete IDs and a provider match ID are not asserted. The current dynamic page rendered only its consent shell in this session.",
+      "retrieved_at": "2026-10-18T10:46:06Z",
+      "source_id": "wtt-fukuoka-2024-final-result-2947",
+      "source_type": "OFFICIAL_WTT_EVENT_RESULT",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=2947"
+    },
+    {
+      "description": "YouTube metadata identifies the exact title Chen Xingtong vs Wang Manyu | WS F | WTT Finals Fukuoka 2024, publisher World Table Tennis (verified), published 2024-11-24, and ©WTT. The description states all content is WTT copyright and images may not be reproduced without prior approval. This supports source identity, not visual playback, completeness, embedding, territory, or PTTI reuse rights.",
+      "retrieved_at": "2026-10-18T10:46:06Z",
+      "source_id": "wtt-youtube-match-lb4UMbE8Pfs",
+      "source_type": "OFFICIAL_YOUTUBE_VIDEO_METADATA",
+      "url": "https://www.youtube.com/watch?v=lb4UMbE8Pfs"
+    },
+    {
+      "description": "Official ITTF/WTT API response filtered to CategoryCode SEN and SubEventCode MS; published 5 Oct 2026, week 41.",
+      "retrieved_at": "2026-10-05T16:31:23Z",
+      "source_id": "ittf-wtt-mens-ranking-w41-2026",
+      "source_type": "OFFICIAL_ITTF_WTT_RANKING_API",
+      "url": "https://mobileappapi.worldtabletennis.com/api/cms/GetRankingIndividuals?TopN=200&RankingYear=2026&RankingMonth=10&RankingWeek=41&SubEventCode=MS"
+    },
+    {
+      "description": "China Smash 2025 official event page and result coverage: Wang Chuqin defeated Felix Lebrun 4-0 in the men's singles final (11-7, 11-2, 11-5, 11-7).",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "source_id": "wtt-china-smash-2025-wang-lebrun",
+      "source_type": "OFFICIAL_WTT_EVENT_RESULTS",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3098"
+    },
+    {
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile.",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "source_id": "wtt-profile-121558",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/121558/WANG-Chuqin"
+    },
+    {
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile.",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "source_id": "wtt-profile-123980",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/123980/Tomokazu-HARIMOTO"
+    },
+    {
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile.",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "source_id": "wtt-profile-135977",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/135977/Felix-LEBRUN"
+    },
+    {
+      "description": "Observed claims: event_name_and_provider_event_id, related_video_titles, listed_players_felix_lebrun_wang_chuqin_tomokazu_harimoto.; Limitations: Search-indexed official page content only; this is not a current-session browser open, watchability, match-video identity, or rights grant.",
+      "retrieved_at": "2026-10-18",
+      "source_id": "evidence:wtt-event:3094",
+      "source_type": "OFFICIAL_EVENT_PAGE_SEARCH_INDEX",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3094"
+    },
+    {
+      "description": "Observed claims: event_name_and_provider_event_id, event_dates_2025_01_06_to_2025_01_11, related_video_titles.; Limitations: Search-indexed official page content only; the page also displayed a stale 2024 Day 1 item, which was excluded.",
+      "retrieved_at": "2026-10-18",
+      "source_id": "evidence:wtt-event:3083",
+      "source_type": "OFFICIAL_EVENT_PAGE_SEARCH_INDEX",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3083"
+    },
+    {
+      "description": "Observed claims: event_name_and_provider_event_id, related_video_titles_qualifying_and_days_1_to_7.; Limitations: Search-indexed official page content only; no direct watch IDs resolved for most listed titles.",
+      "retrieved_at": "2026-10-18",
+      "source_id": "evidence:wtt-event:3128",
+      "source_type": "OFFICIAL_EVENT_PAGE_SEARCH_INDEX",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3128"
+    },
+    {
+      "description": "Observed claims: sun_yingsha_chen_xingtong_womens_singles_final_identity_and_result, article_lists_youtube_or_local_broadcaster_watch_routes.; Limitations: Article metadata does not identify a specific full-match video or grant PTTI reuse rights.",
+      "retrieved_at": "2026-10-18",
+      "source_id": "evidence:wtt-article:4731",
+      "source_type": "OFFICIAL_WTT_ARTICLE_SEARCH_INDEX",
+      "url": "https://www.worldtabletennis.com/description?artId=4731"
+    },
+    {
+      "description": "Observed claims: exact_video_title, publisher_world_table_tennis_verified, published_2025_08_07.; Limitations: Search-result metadata only; no playback, embedding, territory or reuse test. Exact observed title: Top Points of Day 1 | #WTTYokohama 2025. Observed publisher: World Table Tennis. Source-reported publish date: 2025-08-07.",
+      "retrieved_at": "2026-10-18",
+      "source_id": "evidence:youtube:xef0VQVV-OE",
+      "source_type": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=xef0VQVV-OE"
+    },
+    {
+      "description": "Observed claims: exact_video_title, publisher_world_table_tennis_verified, published_2025_08_09.; Limitations: Search-result metadata only; no playback, embedding, territory or reuse test. Exact observed title: Top Points of Day 3 | #WTTYokohama 2025. Observed publisher: World Table Tennis. Source-reported publish date: 2025-08-09.",
+      "retrieved_at": "2026-10-18",
+      "source_id": "evidence:youtube:WF0H02Br3LE",
+      "source_type": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=WF0H02Br3LE"
+    },
+    {
+      "description": "Observed claims: exact_video_title, publisher_world_table_tennis_verified, published_2025_08_10.; Limitations: Search-result metadata only; no playback, embedding, territory or reuse test. Exact observed title: Top Points of Day 4 | #WTTYokohama 2025. Observed publisher: World Table Tennis. Source-reported publish date: 2025-08-10.",
+      "retrieved_at": "2026-10-18",
+      "source_id": "evidence:youtube:zfrkMx5DdRo",
+      "source_type": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=zfrkMx5DdRo"
+    },
+    {
+      "description": "Observed claims: exact_video_title, publisher_world_table_tennis_verified, published_2025_08_11.; Limitations: Search-result metadata only; no playback, embedding, territory or reuse test. Exact observed title: Top Points of Day 5 | #WTTYokohama 2025. Observed publisher: World Table Tennis. Source-reported publish date: 2025-08-11.",
+      "retrieved_at": "2026-10-18",
+      "source_id": "evidence:youtube:fa2j70xjqoU",
+      "source_type": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=fa2j70xjqoU"
+    },
+    {
+      "description": "Observed claims: exact_video_title, publisher_world_table_tennis_verified, published_2025_08_29.; Limitations: Search-result metadata only; no playback, embedding, territory or reuse test. Exact observed title: Top 10 Points | Presented by DHS | #WTTYokohama 2025. Observed publisher: World Table Tennis. Source-reported publish date: 2025-08-29.",
+      "retrieved_at": "2026-10-18",
+      "source_id": "evidence:youtube:0820Zo3UaGM",
+      "source_type": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=0820Zo3UaGM"
+    },
+    {
+      "description": "Observed claims: exact_video_title, publisher_world_table_tennis_verified, published_2025_01_07.; Limitations: Search-result metadata only; no playback, embedding, territory or reuse test. Exact observed title: Top Points of Qualifying | #WTTDoha 2025. Observed publisher: World Table Tennis. Source-reported publish date: 2025-01-07.",
+      "retrieved_at": "2026-10-18",
+      "source_id": "evidence:youtube:y9AYI43XtMI",
+      "source_type": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=y9AYI43XtMI"
+    },
+    {
+      "description": "Observed claims: exact_video_title, publisher_world_table_tennis_verified, published_2025_01_11.; Limitations: Search-result metadata only; no playback, embedding, territory or reuse test. Exact observed title: Top Points of Day 4 | #WTTDoha 2025. Observed publisher: World Table Tennis. Source-reported publish date: 2025-01-11.",
+      "retrieved_at": "2026-10-18",
+      "source_id": "evidence:youtube:YNtnXjGiAcQ",
+      "source_type": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=YNtnXjGiAcQ"
+    },
+    {
+      "description": "Observed claims: exact_video_title, publisher_world_table_tennis_verified, published_2025_01_24.; Limitations: Search-result metadata only; no playback, embedding, territory or reuse test. Exact observed title: Top 10 Points | #WTTDoha 2025. Observed publisher: World Table Tennis. Source-reported publish date: 2025-01-24.",
+      "retrieved_at": "2026-10-18",
+      "source_id": "evidence:youtube:JZhxfSdn3E4",
+      "source_type": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=JZhxfSdn3E4"
+    },
+    {
+      "description": "Observed claims: exact_video_title, publisher_world_table_tennis_verified, published_2025_08_16.; Limitations: Search-result metadata only; no playback, embedding, territory or reuse test. Exact observed title: Top Points of Qualifying | #EuropeSmash 2025. Observed publisher: World Table Tennis. Source-reported publish date: 2025-08-16.",
+      "retrieved_at": "2026-10-18",
+      "source_id": "evidence:youtube:AgIDgIo7bSY",
+      "source_type": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=AgIDgIo7bSY"
+    },
+    {
+      "description": "Observed claims: exact_video_title, publisher_world_table_tennis_verified, published_2025_03_26, description_contains_wtt_copyright_and_image_reuse_requires_prior_approval.; Limitations: Search-result metadata and publisher notice only; no playback, embedding, territory or PTTI reuse permission. Exact observed title: The Highlights Show | #WTTChongqing 2025. Observed publisher: World Table Tennis. Source-reported publish date: 2025-03-26.",
+      "retrieved_at": "2026-10-18",
+      "source_id": "evidence:youtube:DRWntK5EJj0",
+      "source_type": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=DRWntK5EJj0"
+    },
+    {
+      "description": "WTT China Smash 2025 official event material identifies the Women's Singles Final and reports Wang Manyu's 4-2 win over Sun Yingsha. Match date is left null in this package.",
+      "retrieved_at": "2026-10-18T10:56:58Z",
+      "source_id": "goal15-wtt-china-smash-2025-ws-final",
+      "source_type": "OFFICIAL_WTT_EVENT_RESULT",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3098"
+    },
+    {
+      "description": "WTT's verified YouTube channel lists the exact title 'FULL MATCH | Sun Yingsha vs Wang Manyu | WS Final | #ChinaSmash 2025', published 2025-10-06. Title claim and source identity only; actual visual playback, full duration/completeness, territory and embed state are not tested. Video description states ©WTT and requires prior approval for image reproduction.",
+      "retrieved_at": "2026-10-18T10:56:58Z",
+      "source_id": "goal15-youtube-ttUevnAZSEY",
+      "source_type": "OFFICIAL_YOUTUBE_VIDEO_METADATA",
+      "url": "https://www.youtube.com/watch?v=ttUevnAZSEY"
+    },
+    {
+      "description": "WTT official Singapore Smash 2026 report identifies the Men's Singles Final and reports Wang Chuqin defeated Lin Yun-Ju 4-0. Provider event ID and exact match date are not recorded because they were not independently resolved here.",
+      "retrieved_at": "2026-10-18T10:56:58Z",
+      "source_id": "goal15-wtt-singapore-smash-2026-ms-final",
+      "source_type": "OFFICIAL_WTT_MATCH_REPORT",
+      "url": "https://www.worldtabletennis.com/description?artId=5957"
+    },
+    {
+      "description": "WTT's verified YouTube channel lists the exact title 'FULL MATCH | Wang Chuqin vs Lin Yun-Ju | MS Final | #WTTSingapore2026', published 2026-03-02. Exact metadata association only; actual visual playback, full duration/completeness, territory and embed state are not tested. Video description states ©WTT and requires prior approval for image reproduction.",
+      "retrieved_at": "2026-10-18T10:56:58Z",
+      "source_id": "goal15-youtube-cDccQqVlMnc",
+      "source_type": "OFFICIAL_YOUTUBE_VIDEO_METADATA",
+      "url": "https://www.youtube.com/watch?v=cDccQqVlMnc"
+    },
+    {
+      "description": "Official ITTF profile identifies SUN Yingsha as player #131163 and China. No portrait is reused.",
+      "retrieved_at": "2026-10-18T10:56:58Z",
+      "source_id": "goal15-ittf-profile-131163",
+      "source_type": "OFFICIAL_ITTF_PLAYER_PROFILE",
+      "url": "https://results.ittf.link/index.php/player-profile/details/59/29264"
+    },
+    {
+      "description": "Official ITTF profile identifies WANG Manyu as player #121411 and China. No portrait is reused.",
+      "retrieved_at": "2026-10-18T10:56:58Z",
+      "source_id": "goal15-ittf-profile-121411",
+      "source_type": "OFFICIAL_ITTF_PLAYER_PROFILE",
+      "url": "https://results.ittf.link/index.php/player-profile/details/59/19634"
+    },
+    {
+      "description": "Official ITTF profile identifies LIN Shidong as player #137237 and China. No portrait is reused.",
+      "retrieved_at": "2026-10-18T10:56:58Z",
+      "source_id": "goal15-ittf-profile-137237",
+      "source_type": "OFFICIAL_ITTF_PLAYER_PROFILE",
+      "url": "https://results.ittf.link/index.php/player-profile/details/59/35272"
+    },
+    {
+      "description": "Official ITTF player-profile search result identifies LIANG Jingkun as player #119588 and China. The direct profile URL returned HTTP 403 in the current web retrieval session; direct page access remains unverified.",
+      "retrieved_at": "2026-10-18T10:56:58Z",
+      "source_id": "goal15-ittf-profile-119588",
+      "source_type": "OFFICIAL_ITTF_PLAYER_PROFILE",
+      "url": "https://results.ittf.link/index.php/player-profile/details/59/18077"
+    },
+    {
+      "description": "Official ITTF profile identifies KUAI Man as player #135049 and China. No portrait is reused.",
+      "retrieved_at": "2026-10-18T10:56:58Z",
+      "source_id": "goal15-ittf-profile-135049",
+      "source_type": "OFFICIAL_ITTF_PLAYER_PROFILE",
+      "url": "https://results.ittf.link/index.php/player-profile/details/59/33096"
+    },
+    {
+      "description": "ITTF's 20 May 2025 Doha Day 4 report states Wang Chuqin defeated Wong Chun Ting 4-0 and lists game scores 12-10, 11-6, 11-5, 11-7. The report's publication date is not treated as the match date; the match round and provider match ID are not recorded.",
+      "retrieved_at": "2026-10-22T04:53:38Z",
+      "source_id": "ittf-doha-day4-wang-wong-2025",
+      "source_type": "OFFICIAL_ITTF_MATCH_REPORT",
+      "url": "https://www.ittf.com/2025/05/20/day-4-underway-mixed-doubles-quarterfinalists-decided-as-singles-action-intensifies/"
+    },
+    {
+      "description": "WTT's indexed official event record identifies eventId 3108 as ITTF World Table Tennis Championships Finals Doha 2025. The direct page was not verified in the user's browser.",
+      "retrieved_at": "2026-10-22T04:53:38Z",
+      "source_id": "wtt-doha-event-3108",
+      "source_type": "OFFICIAL_WTT_EVENT_RECORD",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3108"
+    },
+    {
+      "description": "YouTube search metadata identifies the title Wong Chun Ting vs Wang Chuqin | Match Highlights | #ITTFWorlds2025, publisher World Table Tennis (verified channel), and publication date 20 May 2025. The description includes ©WTT and states images may not be reproduced without prior approval. No frames were viewed.",
+      "retrieved_at": "2026-10-22T04:53:38Z",
+      "source_id": "wtt-youtube-suwultS-Jcc",
+      "source_type": "OFFICIAL_WTT_VIDEO_METADATA",
+      "url": "https://www.youtube.com/watch?v=suwultS-Jcc"
+    }
+  ],
+  "input_sha256": [
+    "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+    "6f05d1fc48fb74ffc305abe20fd9152973bd96bb009fe6a183d42c031a31198a",
+    "05922e4bb8ae3e8ddbe392485f386d28feb025c48ff83d9bd73aca0bd3ec94e3"
+  ],
+  "matches": [
+    {
+      "event": {
+        "competition_level": "WTT_GRAND_SMASH",
+        "date": null,
+        "event_id": "3098",
+        "name": "China Smash 2025"
+      },
+      "evidence_source_ids": [
+        "wtt-china-smash-2025-final",
+        "wtt-china-smash-2025-wang-lebrun",
+        "wtt-player-felix-lebrun",
+        "wtt-player-wang-chuqin",
+        "wtt-youtube-full-match-0QgbtsBWZhk"
+      ],
+      "identity_status": "REGISTERED_WITH_SOURCE_REFERENCES",
+      "match_id": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+      "match_type": "MS",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "participants": [
+        {
+          "athlete_id": "athlete:121558",
+          "name_en": "WANG Chuqin",
+          "side": "A"
+        },
+        {
+          "athlete_id": "athlete:135977",
+          "name_en": "Felix LEBRUN",
+          "side": "B"
+        }
+      ],
+      "round": "Men's Singles Final",
+      "source_ids": [
+        "video-source:youtube:0QgbtsBWZhk"
+      ]
+    },
+    {
+      "event": {
+        "competition_level": "WTT_STAR_CONTENDER",
+        "date": null,
+        "event_end": "2025-01-11",
+        "event_id": "3083",
+        "event_start": "2025-01-06",
+        "event_year": 2025,
+        "name": "WTT Star Contender Doha 2025"
+      },
+      "evidence_source_ids": [
+        "wtt-doha-2025-final-result-3083",
+        "wtt-youtube-match-jv_XQ6oKaDU"
+      ],
+      "identity_status": "REGISTERED_PTTI_MATCH_NO_PROVIDER_MATCH_ID",
+      "match_id": "pro:wtt:doha-star-contender-2025:harimoto-jonathan-groth",
+      "match_type": "MS",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "participants": [
+        {
+          "athlete_id": "athlete:123980",
+          "name_en": "Tomokazu HARIMOTO",
+          "side": "A"
+        },
+        {
+          "athlete_id": "athlete:112409",
+          "name_en": "Jonathan GROTH",
+          "side": "B"
+        }
+      ],
+      "round": "Men's Singles Final",
+      "source_ids": [
+        "video-source:youtube:jv_XQ6oKaDU"
+      ]
+    },
+    {
+      "event": {
+        "competition_level": "WTT_FINALS",
+        "date": null,
+        "event_id": "2947",
+        "event_year": 2024,
+        "name": "WTT Finals Fukuoka 2024"
+      },
+      "evidence_source_ids": [
+        "wtt-fukuoka-2024-final-result-2947",
+        "wtt-youtube-match-lb4UMbE8Pfs"
+      ],
+      "identity_status": "REGISTERED_PTTI_MATCH_NO_PROVIDER_MATCH_ID",
+      "match_id": "pro:wtt:wtt-finals-fukuoka-2024:chen-xingtong-wang-manyu-ws-final",
+      "match_type": "WS",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "participants": [
+        {
+          "athlete_id": null,
+          "name_en": "Chen Xingtong",
+          "side": "A"
+        },
+        {
+          "athlete_id": null,
+          "name_en": "Wang Manyu",
+          "side": "B"
+        }
+      ],
+      "round": "Women's Singles Final",
+      "source_ids": [
+        "video-source:youtube:lb4UMbE8Pfs"
+      ]
+    },
+    {
+      "event": {
+        "competition_level": "WTT_GRAND_SMASH",
+        "date": null,
+        "event_id": "3098",
+        "event_year": 2025,
+        "name": "China Smash 2025",
+        "name_zh": "2025中国大满贯"
+      },
+      "evidence_source_ids": [
+        "goal15-wtt-china-smash-2025-ws-final",
+        "goal15-youtube-ttUevnAZSEY"
+      ],
+      "identity_status": "REGISTERED_PTTI_MATCH_NO_PROVIDER_MATCH_ID",
+      "match_id": "pro:wtt:china-smash-2025:sun-yingsha-wang-manyu-ws-final",
+      "match_type": "WS",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "participants": [
+        {
+          "athlete_id": "athlete:131163",
+          "name_en": "SUN Yingsha",
+          "side": "A"
+        },
+        {
+          "athlete_id": "athlete:121411",
+          "name_en": "WANG Manyu",
+          "side": "B"
+        }
+      ],
+      "round": "Women's Singles Final",
+      "source_ids": [
+        "video-source:youtube:ttUevnAZSEY"
+      ]
+    },
+    {
+      "event": {
+        "competition_level": "WTT_GRAND_SMASH",
+        "date": null,
+        "event_id": null,
+        "event_year": 2026,
+        "name": "Singapore Smash 2026",
+        "name_zh": "2026新加坡大满贯"
+      },
+      "evidence_source_ids": [
+        "goal15-wtt-singapore-smash-2026-ms-final",
+        "goal15-youtube-cDccQqVlMnc"
+      ],
+      "identity_status": "REGISTERED_PTTI_MATCH_NO_PROVIDER_MATCH_ID",
+      "match_id": "pro:wtt:singapore-smash-2026:wang-chuqin-lin-yun-ju-ms-final",
+      "match_type": "MS",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "participants": [
+        {
+          "athlete_id": "athlete:121558",
+          "name_en": "WANG Chuqin",
+          "side": "A"
+        },
+        {
+          "athlete_id": "athlete:121582",
+          "name_en": "LIN Yun-Ju",
+          "side": "B"
+        }
+      ],
+      "round": "Men's Singles Final",
+      "source_ids": [
+        "video-source:youtube:cDccQqVlMnc"
+      ]
+    },
+    {
+      "event": {
+        "date": null,
+        "event_id": "wtt-event:3231",
+        "name": "WTT Champions Doha 2026",
+        "year": 2026
+      },
+      "evidence_source_ids": [
+        "youtube:ywX9mUJ8NtI"
+      ],
+      "identity_status": "OFFICIAL_VIDEO_TITLE_MATCH_ASSOCIATION; VISUAL_MATCH_NOT_TESTED",
+      "match_id": "match:ptti:wtt-doha-2026:ms-r16:lin-shidong-benedikt-duda",
+      "match_type": "MS",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "participants": [
+        {
+          "athlete_id": "athlete:137237",
+          "display_name": "Lin Shidong",
+          "identity_evidence_url": "https://www.youtube.com/watch?v=ywX9mUJ8NtI",
+          "identity_status": "CANONICAL_BASE_PACKAGE_ID"
+        },
+        {
+          "athlete_id": null,
+          "display_name": "Benedikt Duda",
+          "identity_evidence_url": "https://www.youtube.com/watch?v=ywX9mUJ8NtI",
+          "identity_status": "OFFICIAL_VIDEO_TITLE_NAMED_UNMAPPED"
+        }
+      ],
+      "round": "R16",
+      "source_ids": [
+        "youtube:ywX9mUJ8NtI"
+      ]
+    },
+    {
+      "event": {
+        "date": null,
+        "event_id": "wtt-event:3231",
+        "name": "WTT Champions Doha 2026",
+        "year": 2026
+      },
+      "evidence_source_ids": [
+        "youtube:Kbhf47vb3eE"
+      ],
+      "identity_status": "OFFICIAL_VIDEO_TITLE_MATCH_ASSOCIATION; VISUAL_MATCH_NOT_TESTED",
+      "match_id": "match:ptti:wtt-doha-2026:ms-sf:lin-shidong-jang-woojin",
+      "match_type": "MS",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "participants": [
+        {
+          "athlete_id": "athlete:137237",
+          "display_name": "Lin Shidong",
+          "identity_evidence_url": "https://www.youtube.com/watch?v=Kbhf47vb3eE",
+          "identity_status": "CANONICAL_BASE_PACKAGE_ID"
+        },
+        {
+          "athlete_id": null,
+          "display_name": "Jang Woojin",
+          "identity_evidence_url": "https://www.youtube.com/watch?v=Kbhf47vb3eE",
+          "identity_status": "OFFICIAL_VIDEO_TITLE_NAMED_UNMAPPED"
+        }
+      ],
+      "round": "SF",
+      "source_ids": [
+        "youtube:Kbhf47vb3eE"
+      ]
+    },
+    {
+      "event": {
+        "competition_level": "WORLD_CHAMPIONSHIPS",
+        "date": null,
+        "event_id": "wtt-event:3108",
+        "name": "ITTF World Table Tennis Championships Finals Doha 2025"
+      },
+      "evidence_source_ids": [
+        "ittf-doha-day4-wang-wong-2025",
+        "wtt-doha-event-3108"
+      ],
+      "identity_status": "METADATA_CROSSCHECKED_VISUAL_MATCH_NOT_TESTED",
+      "match_id": "match:ittf-doha-2025:ms:wang-chuqin-wong-chun-ting",
+      "match_type": "MS",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "participants": [
+        {
+          "athlete_id": "athlete:121558",
+          "name_en": "WANG Chuqin",
+          "side": "A"
+        },
+        {
+          "athlete_id": null,
+          "name_en": "WONG Chun Ting",
+          "side": "B"
+        }
+      ],
+      "round": "UNKNOWN",
+      "source_ids": [
+        "video-source:youtube:suwultS-Jcc"
+      ]
+    }
+  ],
+  "notice": "Recorded metadata is not live playback, embed, media ownership or verification of authenticity. No media bytes or private paths are included.",
+  "video_sources": [
+    {
+      "content_type_claim": "FULL_MATCH",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "wtt-youtube-full-match-0QgbtsBWZhk",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:0QgbtsBWZhk",
+      "title": "FULL MATCH | Wang Chuqin vs Felix Lebrun | MS Final | #ChinaSmash 2025",
+      "video_id": "0QgbtsBWZhk"
+    },
+    {
+      "content_type_claim": "UNKNOWN",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "wtt-youtube-match-jv_XQ6oKaDU",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=jv_XQ6oKaDU",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": "pro:wtt:doha-star-contender-2025:harimoto-jonathan-groth",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=jv_XQ6oKaDU",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:jv_XQ6oKaDU",
+      "title": "Tomokazu Harimoto vs Jonathan Groth | MS Final | WTT Star Contender Doha 2025",
+      "video_id": "jv_XQ6oKaDU"
+    },
+    {
+      "content_type_claim": "UNKNOWN",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "wtt-youtube-match-lb4UMbE8Pfs",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=lb4UMbE8Pfs",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": "pro:wtt:wtt-finals-fukuoka-2024:chen-xingtong-wang-manyu-ws-final",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=lb4UMbE8Pfs",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:lb4UMbE8Pfs",
+      "title": "Chen Xingtong vs Wang Manyu | WS F | WTT Finals Fukuoka 2024",
+      "video_id": "lb4UMbE8Pfs"
+    },
+    {
+      "content_type_claim": "HIGHLIGHTS",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:xef0VQVV-OE",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=xef0VQVV-OE",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": null,
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=xef0VQVV-OE",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:xef0VQVV-OE",
+      "title": "Top Points of Day 1 | #WTTYokohama 2025",
+      "video_id": "xef0VQVV-OE"
+    },
+    {
+      "content_type_claim": "HIGHLIGHTS",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:WF0H02Br3LE",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=WF0H02Br3LE",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": null,
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=WF0H02Br3LE",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:WF0H02Br3LE",
+      "title": "Top Points of Day 3 | #WTTYokohama 2025",
+      "video_id": "WF0H02Br3LE"
+    },
+    {
+      "content_type_claim": "HIGHLIGHTS",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:zfrkMx5DdRo",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=zfrkMx5DdRo",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": null,
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=zfrkMx5DdRo",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:zfrkMx5DdRo",
+      "title": "Top Points of Day 4 | #WTTYokohama 2025",
+      "video_id": "zfrkMx5DdRo"
+    },
+    {
+      "content_type_claim": "HIGHLIGHTS",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:fa2j70xjqoU",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=fa2j70xjqoU",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": null,
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=fa2j70xjqoU",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:fa2j70xjqoU",
+      "title": "Top Points of Day 5 | #WTTYokohama 2025",
+      "video_id": "fa2j70xjqoU"
+    },
+    {
+      "content_type_claim": "HIGHLIGHTS",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:0820Zo3UaGM",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=0820Zo3UaGM",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": null,
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=0820Zo3UaGM",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:0820Zo3UaGM",
+      "title": "Top 10 Points | Presented by DHS | #WTTYokohama 2025",
+      "video_id": "0820Zo3UaGM"
+    },
+    {
+      "content_type_claim": "HIGHLIGHTS",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "evidence:wtt-event:3083",
+        "evidence:youtube:y9AYI43XtMI",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=y9AYI43XtMI",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": null,
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=y9AYI43XtMI",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:y9AYI43XtMI",
+      "title": "Top Points of Qualifying | #WTTDoha 2025",
+      "video_id": "y9AYI43XtMI"
+    },
+    {
+      "content_type_claim": "HIGHLIGHTS",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "evidence:wtt-event:3083",
+        "evidence:youtube:YNtnXjGiAcQ",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=YNtnXjGiAcQ",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": null,
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=YNtnXjGiAcQ",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:YNtnXjGiAcQ",
+      "title": "Top Points of Day 4 | #WTTDoha 2025",
+      "video_id": "YNtnXjGiAcQ"
+    },
+    {
+      "content_type_claim": "HIGHLIGHTS",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "evidence:wtt-event:3083",
+        "evidence:youtube:JZhxfSdn3E4",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=JZhxfSdn3E4",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": null,
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=JZhxfSdn3E4",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:JZhxfSdn3E4",
+      "title": "Top 10 Points | #WTTDoha 2025",
+      "video_id": "JZhxfSdn3E4"
+    },
+    {
+      "content_type_claim": "HIGHLIGHTS",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "evidence:wtt-event:3128",
+        "evidence:youtube:AgIDgIo7bSY",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=AgIDgIo7bSY",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": null,
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=AgIDgIo7bSY",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:AgIDgIo7bSY",
+      "title": "Top Points of Qualifying | #EuropeSmash 2025",
+      "video_id": "AgIDgIo7bSY"
+    },
+    {
+      "content_type_claim": "HIGHLIGHTS",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "evidence:wtt-article:4731",
+        "evidence:youtube:DRWntK5EJj0",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=DRWntK5EJj0",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": null,
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=DRWntK5EJj0",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:DRWntK5EJj0",
+      "title": "The Highlights Show | #WTTChongqing 2025",
+      "video_id": "DRWntK5EJj0"
+    },
+    {
+      "content_type_claim": "FULL_MATCH",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "goal15-wtt-china-smash-2025-ws-final",
+        "goal15-youtube-ttUevnAZSEY",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=ttUevnAZSEY",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": "pro:wtt:china-smash-2025:sun-yingsha-wang-manyu-ws-final",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=ttUevnAZSEY",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:ttUevnAZSEY",
+      "title": "FULL MATCH | Sun Yingsha vs Wang Manyu | WS Final | #ChinaSmash 2025",
+      "video_id": "ttUevnAZSEY"
+    },
+    {
+      "content_type_claim": "FULL_MATCH",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "goal15-wtt-singapore-smash-2026-ms-final",
+        "goal15-youtube-cDccQqVlMnc",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=cDccQqVlMnc",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": "pro:wtt:singapore-smash-2026:wang-chuqin-lin-yun-ju-ms-final",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=cDccQqVlMnc",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:cDccQqVlMnc",
+      "title": "FULL MATCH | Wang Chuqin vs Lin Yun-Ju | MS Final | #WTTSingapore2026",
+      "video_id": "cDccQqVlMnc"
+    },
+    {
+      "content_type_claim": "FULL_MATCH_TITLE_CLAIM",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "youtube:ywX9mUJ8NtI"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=ywX9mUJ8NtI",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "OFFICIAL_VERIFIED_CHANNEL",
+      "match_id": "match:ptti:wtt-doha-2026:ms-r16:lin-shidong-benedikt-duda",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=ywX9mUJ8NtI",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "youtube:ywX9mUJ8NtI",
+      "title": "FULL MATCH | Lin Shidong vs Benedikt Duda | MS R16 | WTT Champions Doha 2026",
+      "video_id": "ywX9mUJ8NtI"
+    },
+    {
+      "content_type_claim": "FULL_MATCH_TITLE_CLAIM",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "youtube:Kbhf47vb3eE"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=Kbhf47vb3eE",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "OFFICIAL_VERIFIED_CHANNEL",
+      "match_id": "match:ptti:wtt-doha-2026:ms-sf:lin-shidong-jang-woojin",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=Kbhf47vb3eE",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "youtube:Kbhf47vb3eE",
+      "title": "FULL MATCH | Lin Shidong vs Jang Woojin | MS SF | WTT Champions Doha 2026",
+      "video_id": "Kbhf47vb3eE"
+    },
+    {
+      "content_type_claim": "HIGHLIGHTS",
+      "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "download": "NOT_GRANTED",
+      "embedding": "UNKNOWN",
+      "evidence_source_ids": [
+        "wtt-youtube-suwultS-Jcc",
+        "ittf-doha-day4-wang-wong-2025",
+        "youtube-share-link-help"
+      ],
+      "evidence_url": "https://www.youtube.com/watch?v=suwultS-Jcc",
+      "external_navigation": "ALLOWED_AS_RECORDED",
+      "identity_status": "VERIFIED",
+      "match_id": "match:ittf-doha-2025:ms:wang-chuqin-wong-chun-ting",
+      "media_sha256": null,
+      "media_sha256_status": "UNKNOWN",
+      "official_url": "https://www.youtube.com/watch?v=suwultS-Jcc",
+      "page_status": "NOT_TESTED",
+      "playback_status": "NOT_TESTED",
+      "provider": "YOUTUBE",
+      "publisher": "World Table Tennis",
+      "redistribution": "NOT_GRANTED",
+      "source_id": "video-source:youtube:suwultS-Jcc",
+      "title": "Wong Chun Ting vs Wang Chuqin | Match Highlights | #ITTFWorlds2025",
+      "video_id": "suwultS-Jcc"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.invalid/contracts/media-clearance-review-v0.2.schema.json",
+  "title": "PTTI media clearance review v0.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "reviewed_at", "source_manifest", "assets"],
+  "properties": {
+    "contract_version": {"const": "ptti.media-clearance-review/0.2"},
+    "reviewed_at": {"type": "string", "format": "date-time"},
+    "source_manifest": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "asset_count"],
+      "properties": {
+        "path": {"const": "products/ptti-integration/generated/goal16-public-media-v0.1/public-media-manifest.json"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "asset_count": {"const": 9}
+      }
+    },
+    "assets": {"type": "array", "minItems": 9, "maxItems": 9, "items": {"$ref": "#/$defs/asset"}}
+  },
+  "$defs": {
+    "asset": {
+      "type": "object", "additionalProperties": false,
+      "required": ["asset_id", "subject_name", "athlete_id", "source_page_url", "source_file_url", "photographer", "license", "source_dimensions", "visual_review", "identity_review", "event_review", "derivative_policy", "editorial_profile_use", "home_promotion_use", "match_photo_use", "clearance_status", "blockers", "source_sha256", "reviewed_original_relpath"],
+      "properties": {
+        "asset_id": {"type": "string", "minLength": 1},
+        "subject_name": {"type": ["string", "null"]},
+        "athlete_id": {"type": ["string", "null"]},
+        "source_page_url": {"type": "string", "format": "uri", "pattern": "^https://commons\\.wikimedia\\.org/wiki/File:"},
+        "source_file_url": {"type": "string", "format": "uri", "pattern": "^https://upload\\.wikimedia\\.org/wikipedia/commons/"},
+        "photographer": {"type": "string", "minLength": 1},
+        "license": {"enum": ["CC BY-SA 2.0", "CC BY-SA 3.0", "CC BY-SA 4.0"]},
+        "source_dimensions": {"$ref": "#/$defs/dimensions"},
+        "visual_review": {"type": "string", "minLength": 1},
+        "identity_review": {"type": "string", "minLength": 1},
+        "event_review": {"type": "string", "minLength": 1},
+        "derivative_policy": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "object", "additionalProperties": false, "required": ["mode", "centering"], "properties": {"mode": {"enum": ["CENTER_CROP_4_5", "PRESERVE_SOURCE_3_2"]}, "centering": {"type": "array", "prefixItems": [{"type": "number", "minimum": 0, "maximum": 1}, {"type": "number", "minimum": 0, "maximum": 1}], "minItems": 2, "maxItems": 2}}}
+          ]
+        },
+        "editorial_profile_use": {"enum": ["CLEARED_SCOPED", "NOT_CLEARED"]},
+        "home_promotion_use": {"const": "NOT_CLEARED"},
+        "match_photo_use": {"const": "NOT_CLEARED_NO_GOAL15_MATCH_LINK"},
+        "clearance_status": {"enum": ["CLEARED_EDITORIAL_PROFILE_ONLY", "NOT_CLEARED_PERSONALITY_RIGHTS_WARNING", "NOT_CLEARED_DESCRIPTION_CONFLICT_AND_PERSONALITY_WARNING", "NOT_CLEARED_CANONICAL_ATHLETE_ID_UNKNOWN"]},
+        "blockers": {"type": "array", "items": {"type": "string"}},
+        "source_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "reviewed_original_relpath": {"type": ["string", "null"], "pattern": "^products/ptti-integration/generated/goal16-media-clearance-v0\\.2/reviewed-originals/"}
+      },
+      "allOf": [
+        {"if": {"properties": {"clearance_status": {"const": "CLEARED_EDITORIAL_PROFILE_ONLY"}}, "required": ["clearance_status"]}, "then": {"properties": {"editorial_profile_use": {"const": "CLEARED_SCOPED"}, "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "reviewed_original_relpath": {"type": "string"}, "athlete_id": {"type": "string"}, "derivative_policy": {"type": "object"}, "blockers": {"maxItems": 0}}}},
+        {"if": {"properties": {"clearance_status": {"enum": ["NOT_CLEARED_PERSONALITY_RIGHTS_WARNING", "NOT_CLEARED_DESCRIPTION_CONFLICT_AND_PERSONALITY_WARNING", "NOT_CLEARED_CANONICAL_ATHLETE_ID_UNKNOWN"]}}, "required": ["clearance_status"]}, "then": {"properties": {"editorial_profile_use": {"const": "NOT_CLEARED"}, "source_sha256": {"type": "null"}, "reviewed_original_relpath": {"type": "null"}, "derivative_policy": {"type": "null"}, "blockers": {"minItems": 1}}}}
+      ]
+    },
+    "dimensions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {"width": {"type": "integer", "minimum": 1}, "height": {"type": "integer", "minimum": 1}}
+    }
+  }
+}

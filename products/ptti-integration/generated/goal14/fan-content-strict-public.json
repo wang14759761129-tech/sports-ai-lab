@@ -1,0 +1,27 @@
+{
+  "contract_version": "ptti.fan-content-intelligence/0.1",
+  "view": "STRICT_PUBLIC",
+  "generated_at": "2026-10-18T04:30:00Z",
+  "source_manifest": [],
+  "evidence_sources": [],
+  "events": [],
+  "stars": [],
+  "content_candidates": [],
+  "relationships": [],
+  "quality_summary": {
+    "event_count": 0,
+    "star_count": 0,
+    "candidate_count": 0,
+    "exact_video_url_count": 0,
+    "event_page_only_count": 0,
+    "playback_pass_count": 0,
+    "public_eligible_count": 0,
+    "match_video_links": 0,
+    "status_counts": {
+      "playback_NOT_TESTED": 0,
+      "rights_UNKNOWN": 0,
+      "public_INTERNAL_ONLY": 0
+    }
+  },
+  "notice": "No records have scoped, evidenced public-listing permission. This view is empty by design and must not fall back to INTERNAL_REVIEW."
+}

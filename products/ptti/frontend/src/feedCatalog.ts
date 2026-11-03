@@ -1,0 +1,51 @@
+export type FeedVideo = {key:string; kind:'LOCAL'|'OFFICIAL'; title:string; subtitle:string; thumbnail:string; thumbnailFallbackLabel?:string; duration:number|null; athletes:string[]; athleteNames:string[]; event:string; category:string; opened:string|null; searchText?:string; source:any};
+const categoryLabel:Record<string,string>={MS:'男单',WS:'女单',MD:'男双',WD:'女双',XD:'混双'};
+export function fallbackCoverContext(video:Pick<FeedVideo,'event'|'category'|'athleteNames'>){
+ return {event:video.event||'赛事未核实',category:categoryLabel[video.category]||'项目待核实',participants:video.athleteNames.length?video.athleteNames.slice(0,2).join(' / '):'阵容待核实'};
+}
+export function feedMatchId(video:FeedVideo):string|null{
+ const id=video.source?.match_id??video.source?.video_source?.match_id;
+ return typeof id==='string'&&id.length>0?id:null;
+}
+export function matchFavoriteKey(matchId:string){return `match:${matchId}`}
+export function isFeedFavorite(video:FeedVideo,favorites:string[]){
+ const matchId=feedMatchId(video);
+ return favorites.includes(video.key)||(matchId!==null&&favorites.includes(matchFavoriteKey(matchId)));
+}
+export function uniqueFavoriteRows(rows:FeedVideo[],favorites:string[]):FeedVideo[]{
+ const explicit=new Set(favorites);
+ const sourceSavedMatches=new Set(rows.filter(row=>explicit.has(row.key)).map(feedMatchId).filter((id):id is string=>id!==null));
+ const seenMatchOnly=new Set<string>();
+ return rows.filter(row=>{
+  if(explicit.has(row.key))return true;
+  const matchId=feedMatchId(row);
+  if(!matchId||!explicit.has(matchFavoriteKey(matchId))||sourceSavedMatches.has(matchId)||seenMatchOnly.has(matchId))return false;
+  seenMatchOnly.add(matchId);return true;
+ });
+}
+export function feedVideos(data:any):FeedVideo[]{
+ const local:FeedVideo[]=(data.videos||[]).filter((v:any)=>v.availability_status==='AVAILABLE').map((v:any)=>{const metadata=v.personal_library||{};return {key:'local:'+v.video_id,kind:'LOCAL',title:v.title,subtitle:`本地引用 · ${rightsLabel(v.rights_status)} · ${metadata.completeness_status==='HUMAN_VERIFIED_COMPLETE'?'完整性已人工核实':'完整性未核实'}`,thumbnail:`/api/video-evidence/library/videos/${v.video_id}/thumbnail`,thumbnailFallbackLabel:'本地封面暂不可用',duration:v.duration_ms/1000,athletes:v.athlete_ids||[],athleteNames:[metadata.player_a,metadata.player_b].filter(Boolean),event:metadata.event_name||v.match_id&&data.matches.find((m:any)=>m.match_id===v.match_id)?.event_name||'赛事未核实',category:metadata.match_type||'UNKNOWN',opened:v.last_opened_at,source:v}});
+ const seen=new Set<string>();
+ const official:FeedVideo[]=(data.official_videos||[]).filter((v:any)=>{const key=(v.provider||'UNKNOWN')+':'+v.video_id;if(seen.has(key))return false;seen.add(key);return v.full_match===true||!!v.source_key}).map((v:any)=>({key:'official:'+v.video_id,kind:'OFFICIAL',title:v.display_title||v.title,subtitle:(v.source_publisher||v.channel||v.provenance?.publisher||'发布者未记录')+' · '+(v.playback_limitation|| (v.video_source?.playback_type==='OFFICIAL_EMBED'&&v.video_source?.playback_verified?'官方内嵌已验证':v.video_source?.playback_verified?'本次记录曾在官方页播放':v.playback_status==='RESTRICTED'?'官方页面访问受限':'在官方平台观看 · 实际播放待核验')),thumbnail:approvedOfficialThumbnail(v)?v.thumbnail_url:'',thumbnailFallbackLabel:v.thumbnail_url&&!approvedOfficialThumbnail(v)?'官方封面展示许可未核实':'暂无官方封面',duration:v.duration_seconds,athletes:v.athlete_ids||[],athleteNames:v.athlete_names||[],event:v.event_name||'赛事未核实',category:v.discipline||'UNKNOWN',opened:null,source:v}));
+ const names:Record<string,string>={MS:"男单",WS:"女单",MD:"男双",WD:"女双",XD:"混双"};
+ for(const row of [...local,...official]){const linked=(data.athletes||[]).filter((a:any)=>row.athletes.includes(a.athlete_id));const aliases=linked.flatMap((a:any)=>[a.canonical_name_en,a.canonical_name_zh,...(Array.isArray(a.aliases)?a.aliases.filter((v:any)=>typeof v==='string'):[])]).filter(Boolean);row.searchText=[row.title,row.event,...row.athleteNames,...aliases,names[row.category]||row.category,row.source.event_year??row.source.personal_library?.event_year??''].join(' ').toLowerCase()}
+ return [...local,...official.sort((a,b)=>Number(!!b.source.video_source?.playback_verified)-Number(!!a.source.video_source?.playback_verified))];
+}
+function approvedOfficialThumbnail(source:any):boolean{
+ const permissions=[source?.thumbnail_display_permission,source?.provenance?.thumbnail_display_permission,source?.video_source?.provenance?.thumbnail_display_permission];
+ if(!permissions.includes('ALLOWED'))return false;
+ try{return new URL(source.thumbnail_url).protocol==='https:'}catch{return false}
+}
+function rightsLabel(status:string){return ({USER_SELF_CAPTURED:'本人拍摄',USER_OWNED:'本人拥有使用权',LICENSED:'许可待核对',LICENSED_FOR_ANALYSIS:'获准本机分析',PERSONAL_VIEW_ONLY:'仅个人观看',PENDING_REVIEW:'授权待核实',RESEARCH_NONCOMMERCIAL:'研究素材·非商业'})[status]||'授权待核实'}
+export function filterFeed(rows:FeedVideo[],{query='',category='全部',athlete='',event='',view='home',favorites=[],year='',platform='',content=''}:{query?:string;category?:string;athlete?:string;event?:string;view?:string;favorites?:string[];year?:string;platform?:string;content?:string}):FeedVideo[]{
+  return rows.filter(v=>{const contentType=v.kind==='LOCAL'?(v.source.personal_library?.content_type||'UNKNOWN'):(v.source.content_type||(v.source.full_match===true?'FULL_MATCH':'UNKNOWN'));const eventYear=v.source.personal_library?.event_year??v.source.event_year;const complete=v.kind==='LOCAL'?v.source.personal_library?.completeness_status==='HUMAN_VERIFIED_COMPLETE':v.source.video_source?.is_full_match===true;return (!year||String(eventYear)===year)&&(!platform||(v.kind==='LOCAL'?'LOCAL':v.source.provider?.replace('_OFFICIAL',''))===platform)&&(!content||contentType===content)&&(!query||query.trim().toLowerCase().split(/\s+/).filter(Boolean).every(token=>(v.searchText||[v.title,v.event,...v.athleteNames].join(' ').toLowerCase()).includes(token)))&&(!athlete||v.athletes.includes(athlete)||v.athleteNames.includes(athlete))&&(!event||v.event===event)&&(view!=='feedHistory'||!!v.opened)&&(view!=='feedFavorites'||isFeedFavorite(v,favorites))&&(category==='全部'||category==='完整比赛'&&complete||category==='关注球星'&&!!athlete||category==='本地录像'&&v.kind==='LOCAL'||category==='男单'&&v.category==='MS'||category==='女单'&&v.category==='WS'||category==='男双'&&v.category==='MD'||category==='女双'&&v.category==='WD'||category==='混双'&&v.category==='XD'||category==='WTT'&&v.kind==='OFFICIAL'&&/WTT|Smash/i.test(v.event)||category==='世乒赛'&&/Worlds/i.test(v.event)||category==='奥运'&&/Olympic/i.test(v.event))});
+}
+export function officialAction(v:Pick<FeedVideo,'source'>){const s=v.source.video_source;return s?.embed_permission==='ALLOWED'&&s?.playback_type==='OFFICIAL_EMBED'?'EMBED':'SOURCE_LINK';}
+export function officialWatchState(source:any):{state:'restricted'|'no-embed'|'observed'|'unverified';label:string}{
+ const limitation=String(source?.playback_limitation||'');
+ if(source?.playback_status==='RESTRICTED'||/登录|试看|区域|地区/.test(limitation))return {state:'restricted',label:'RESTRICTED · 官方平台观看'};
+ if(source?.playback_status==='EMBED_BLOCKED'||source?.video_source?.embed_permission==='DENIED')return {state:'no-embed',label:'NO EMBED · 官方平台观看'};
+ if(source?.video_source?.playback_verified&&source?.video_source?.playback_type==='OFFICIAL_PAGE')return {state:'observed',label:'OFFICIAL PAGE · 已观察播放'};
+ return {state:'unverified',label:'EXTERNAL WATCH · 待核验'};
+}
+export function durationLabel(seconds:number|null){if(seconds==null)return '时长未核实';return `${Math.floor(seconds/60)}:${String(Math.floor(seconds)%60).padStart(2,'0')}`;}

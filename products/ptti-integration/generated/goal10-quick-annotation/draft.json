@@ -1,0 +1,415 @@
+{
+  "contract_version": "ptti.quick-annotation/0.1",
+  "draft_status": "SIMULATED_ONLY",
+  "evidence_status": "SIMULATED_ONLY",
+  "dataset": {
+    "dataset_id": "SIMULATED_ONLY:quick-dataset-001",
+    "dataset_class": "SIMULATED_ONLY",
+    "match_id": "SIMULATED_ONLY:quick-match-001",
+    "match_link_status": "NOT_APPLICABLE_SIMULATED",
+    "source_id": "SIMULATED_ONLY:source-001",
+    "source_link_status": "USER_SELECTED_UNVERIFIED",
+    "rights_status": "UNKNOWN",
+    "local_analysis_permission": "UNKNOWN",
+    "embed_permission": "UNKNOWN",
+    "source_video_sha256": null,
+    "video_duration_ms": 60000,
+    "duration_evidence_status": "USER_REPORTED_UNVERIFIED",
+    "timeline_id": null,
+    "pts": null,
+    "time_base": null,
+    "vision_status": "NOT_TESTED"
+  },
+  "protocol": {
+    "id": "serve-third-ball-analytics",
+    "version": "0.3",
+    "schema_revision": "1b30e8ea0f8a90a745fb6c30105599f0334fdf7c",
+    "fields": [
+      "match_id",
+      "game_number",
+      "point_number",
+      "server",
+      "receiver",
+      "server_score_before",
+      "receiver_score_before",
+      "serve_side",
+      "serve_length",
+      "serve_location",
+      "serve_spin",
+      "receive_type",
+      "receive_location",
+      "third_ball_attack",
+      "third_ball_side",
+      "third_ball_outcome",
+      "rally_length",
+      "point_winner",
+      "point_outcome",
+      "video_timestamp",
+      "notes"
+    ],
+    "csv_utf8": "match_id,game_number,point_number,server,receiver,server_score_before,receiver_score_before,serve_side,serve_length,serve_location,serve_spin,receive_type,receive_location,third_ball_attack,third_ball_side,third_ball_outcome,rally_length,point_winner,point_outcome,video_timestamp,notes\nSIMULATED_ONLY:quick-match-001,1,1,player,opponent,0,0,unknown,short,unknown,unknown,unknown,unknown,no,not_applicable,not_applicable,unknown,player,win,start_ms=1000;end_ms=5200;binding=UNBOUND,Quick annotation draft; review required.\nSIMULATED_ONLY:quick-match-001,1,2,player,opponent,1,0,unknown,unknown,unknown,unknown,push,unknown,unknown,unknown,unknown,unknown,opponent,loss,start_ms=5600;end_ms=9700;binding=UNBOUND,Quick annotation draft; review required.\nSIMULATED_ONLY:quick-match-001,1,3,opponent,player,1,1,unknown,unknown,unknown,unknown,unknown,unknown,yes,forehand,unsuccessful,unknown,player,win,start_ms=10200;end_ms=15600;binding=UNBOUND,Quick annotation draft; review required.\nSIMULATED_ONLY:quick-match-001,1,4,opponent,player,1,2,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,opponent,loss,start_ms=16000;end_ms=20400;binding=UNBOUND,Quick annotation draft; review required.\nSIMULATED_ONLY:quick-match-001,1,5,player,opponent,2,2,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,8,unknown,unknown,unknown,Quick annotation draft; review required.\n",
+    "rows_parseable": true,
+    "sequence_valid": true,
+    "formal_bundle_validated": false
+  },
+  "points": [
+    {
+      "point_id": "SIMULATED_ONLY%3Aquick-match-001/g01/p001",
+      "protocol_fields": {
+        "match_id": "SIMULATED_ONLY:quick-match-001",
+        "game_number": 1,
+        "point_number": 1,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 0,
+        "receiver_score_before": 0,
+        "serve_side": "unknown",
+        "serve_length": "short",
+        "serve_location": "unknown",
+        "serve_spin": "unknown",
+        "receive_type": "unknown",
+        "receive_location": "unknown",
+        "third_ball_attack": "no",
+        "third_ball_side": "not_applicable",
+        "third_ball_outcome": "not_applicable",
+        "rally_length": "unknown",
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "start_ms=1000;end_ms=5200;binding=UNBOUND",
+        "notes": "Quick annotation draft; review required."
+      },
+      "timestamp": {
+        "start_ms": 1000,
+        "end_ms": 5200,
+        "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+        "timeline_binding": "UNBOUND"
+      },
+      "field_derivation": {
+        "server": "OBSERVED_MATCHES_RULE",
+        "receiver": "DERIVED_OPPOSITE_SIDE",
+        "score": "RULE_DERIVED_FROM_COMPLETE_DECLARED_GAME_AND_KNOWN_WINNERS",
+        "point_outcome": "DERIVED_FROM_EXPLICIT_WINNER",
+        "tactical_labels": "COPIED_ONLY_FROM_OBSERVED_TACTICS"
+      },
+      "score_before_player_opponent": {
+        "player": 0,
+        "opponent": 0
+      },
+      "key_point_status": "NOT_KEY_SCORE",
+      "review_status": "REVIEW_REQUIRED"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Aquick-match-001/g01/p002",
+      "protocol_fields": {
+        "match_id": "SIMULATED_ONLY:quick-match-001",
+        "game_number": 1,
+        "point_number": 2,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 1,
+        "receiver_score_before": 0,
+        "serve_side": "unknown",
+        "serve_length": "unknown",
+        "serve_location": "unknown",
+        "serve_spin": "unknown",
+        "receive_type": "push",
+        "receive_location": "unknown",
+        "third_ball_attack": "unknown",
+        "third_ball_side": "unknown",
+        "third_ball_outcome": "unknown",
+        "rally_length": "unknown",
+        "point_winner": "opponent",
+        "point_outcome": "loss",
+        "video_timestamp": "start_ms=5600;end_ms=9700;binding=UNBOUND",
+        "notes": "Quick annotation draft; review required."
+      },
+      "timestamp": {
+        "start_ms": 5600,
+        "end_ms": 9700,
+        "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+        "timeline_binding": "UNBOUND"
+      },
+      "field_derivation": {
+        "server": "OBSERVED_MATCHES_RULE",
+        "receiver": "DERIVED_OPPOSITE_SIDE",
+        "score": "RULE_DERIVED_FROM_COMPLETE_DECLARED_GAME_AND_KNOWN_WINNERS",
+        "point_outcome": "DERIVED_FROM_EXPLICIT_WINNER",
+        "tactical_labels": "COPIED_ONLY_FROM_OBSERVED_TACTICS"
+      },
+      "score_before_player_opponent": {
+        "player": 1,
+        "opponent": 0
+      },
+      "key_point_status": "NOT_KEY_SCORE",
+      "review_status": "REVIEW_REQUIRED"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Aquick-match-001/g01/p003",
+      "protocol_fields": {
+        "match_id": "SIMULATED_ONLY:quick-match-001",
+        "game_number": 1,
+        "point_number": 3,
+        "server": "opponent",
+        "receiver": "player",
+        "server_score_before": 1,
+        "receiver_score_before": 1,
+        "serve_side": "unknown",
+        "serve_length": "unknown",
+        "serve_location": "unknown",
+        "serve_spin": "unknown",
+        "receive_type": "unknown",
+        "receive_location": "unknown",
+        "third_ball_attack": "yes",
+        "third_ball_side": "forehand",
+        "third_ball_outcome": "unsuccessful",
+        "rally_length": "unknown",
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "start_ms=10200;end_ms=15600;binding=UNBOUND",
+        "notes": "Quick annotation draft; review required."
+      },
+      "timestamp": {
+        "start_ms": 10200,
+        "end_ms": 15600,
+        "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+        "timeline_binding": "UNBOUND"
+      },
+      "field_derivation": {
+        "server": "OBSERVED_MATCHES_RULE",
+        "receiver": "DERIVED_OPPOSITE_SIDE",
+        "score": "RULE_DERIVED_FROM_COMPLETE_DECLARED_GAME_AND_KNOWN_WINNERS",
+        "point_outcome": "DERIVED_FROM_EXPLICIT_WINNER",
+        "tactical_labels": "COPIED_ONLY_FROM_OBSERVED_TACTICS"
+      },
+      "score_before_player_opponent": {
+        "player": 1,
+        "opponent": 1
+      },
+      "key_point_status": "NOT_KEY_SCORE",
+      "review_status": "REVIEW_REQUIRED"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Aquick-match-001/g01/p004",
+      "protocol_fields": {
+        "match_id": "SIMULATED_ONLY:quick-match-001",
+        "game_number": 1,
+        "point_number": 4,
+        "server": "opponent",
+        "receiver": "player",
+        "server_score_before": 1,
+        "receiver_score_before": 2,
+        "serve_side": "unknown",
+        "serve_length": "unknown",
+        "serve_location": "unknown",
+        "serve_spin": "unknown",
+        "receive_type": "unknown",
+        "receive_location": "unknown",
+        "third_ball_attack": "unknown",
+        "third_ball_side": "unknown",
+        "third_ball_outcome": "unknown",
+        "rally_length": "unknown",
+        "point_winner": "opponent",
+        "point_outcome": "loss",
+        "video_timestamp": "start_ms=16000;end_ms=20400;binding=UNBOUND",
+        "notes": "Quick annotation draft; review required."
+      },
+      "timestamp": {
+        "start_ms": 16000,
+        "end_ms": 20400,
+        "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+        "timeline_binding": "UNBOUND"
+      },
+      "field_derivation": {
+        "server": "OBSERVED_MATCHES_RULE",
+        "receiver": "DERIVED_OPPOSITE_SIDE",
+        "score": "RULE_DERIVED_FROM_COMPLETE_DECLARED_GAME_AND_KNOWN_WINNERS",
+        "point_outcome": "DERIVED_FROM_EXPLICIT_WINNER",
+        "tactical_labels": "COPIED_ONLY_FROM_OBSERVED_TACTICS"
+      },
+      "score_before_player_opponent": {
+        "player": 2,
+        "opponent": 1
+      },
+      "key_point_status": "NOT_KEY_SCORE",
+      "review_status": "REVIEW_REQUIRED"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Aquick-match-001/g01/p005",
+      "protocol_fields": {
+        "match_id": "SIMULATED_ONLY:quick-match-001",
+        "game_number": 1,
+        "point_number": 5,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 2,
+        "receiver_score_before": 2,
+        "serve_side": "unknown",
+        "serve_length": "unknown",
+        "serve_location": "unknown",
+        "serve_spin": "unknown",
+        "receive_type": "unknown",
+        "receive_location": "unknown",
+        "third_ball_attack": "unknown",
+        "third_ball_side": "unknown",
+        "third_ball_outcome": "unknown",
+        "rally_length": 8,
+        "point_winner": "unknown",
+        "point_outcome": "unknown",
+        "video_timestamp": "unknown",
+        "notes": "Quick annotation draft; review required."
+      },
+      "timestamp": {
+        "start_ms": null,
+        "end_ms": null,
+        "range_status": "UNKNOWN",
+        "timeline_binding": "UNBOUND"
+      },
+      "field_derivation": {
+        "server": "OBSERVED_MATCHES_RULE",
+        "receiver": "DERIVED_OPPOSITE_SIDE",
+        "score": "RULE_DERIVED_FROM_COMPLETE_DECLARED_GAME_AND_KNOWN_WINNERS",
+        "point_outcome": "UNKNOWN",
+        "tactical_labels": "COPIED_ONLY_FROM_OBSERVED_TACTICS"
+      },
+      "score_before_player_opponent": {
+        "player": 2,
+        "opponent": 2
+      },
+      "key_point_status": "NOT_KEY_SCORE",
+      "review_status": "REVIEW_REQUIRED"
+    }
+  ],
+  "review_queue": {
+    "status": "QUICK_DRAFT_REQUIRES_EXISTING_FORMAL_IMPORT_AND_AUDIT",
+    "unknown_or_unclear_fields": [
+      "point_outcome",
+      "point_winner",
+      "rally_length",
+      "receive_location",
+      "receive_type",
+      "serve_length",
+      "serve_location",
+      "serve_side",
+      "serve_spin",
+      "third_ball_attack",
+      "third_ball_outcome",
+      "third_ball_side",
+      "video_timestamp"
+    ],
+    "items": [
+      {
+        "point_id": "SIMULATED_ONLY%3Aquick-match-001/g01/p001",
+        "code": "QUICK_DRAFT_UNCERTAINTY",
+        "fields": [
+          "serve_side",
+          "serve_location",
+          "serve_spin",
+          "receive_type",
+          "receive_location",
+          "rally_length"
+        ]
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Aquick-match-001/g01/p001",
+        "code": "TIMESTAMP_UNBOUND",
+        "fields": [
+          "video_timestamp"
+        ]
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Aquick-match-001/g01/p002",
+        "code": "QUICK_DRAFT_UNCERTAINTY",
+        "fields": [
+          "serve_side",
+          "serve_length",
+          "serve_location",
+          "serve_spin",
+          "receive_location",
+          "third_ball_attack",
+          "third_ball_side",
+          "third_ball_outcome",
+          "rally_length"
+        ]
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Aquick-match-001/g01/p002",
+        "code": "TIMESTAMP_UNBOUND",
+        "fields": [
+          "video_timestamp"
+        ]
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Aquick-match-001/g01/p003",
+        "code": "QUICK_DRAFT_UNCERTAINTY",
+        "fields": [
+          "serve_side",
+          "serve_length",
+          "serve_location",
+          "serve_spin",
+          "receive_type",
+          "receive_location",
+          "rally_length"
+        ]
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Aquick-match-001/g01/p003",
+        "code": "TIMESTAMP_UNBOUND",
+        "fields": [
+          "video_timestamp"
+        ]
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Aquick-match-001/g01/p004",
+        "code": "QUICK_DRAFT_UNCERTAINTY",
+        "fields": [
+          "serve_side",
+          "serve_length",
+          "serve_location",
+          "serve_spin",
+          "receive_type",
+          "receive_location",
+          "third_ball_attack",
+          "third_ball_side",
+          "third_ball_outcome",
+          "rally_length"
+        ]
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Aquick-match-001/g01/p004",
+        "code": "TIMESTAMP_UNBOUND",
+        "fields": [
+          "video_timestamp"
+        ]
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Aquick-match-001/g01/p005",
+        "code": "QUICK_DRAFT_UNCERTAINTY",
+        "fields": [
+          "serve_side",
+          "serve_length",
+          "serve_location",
+          "serve_spin",
+          "receive_type",
+          "receive_location",
+          "third_ball_attack",
+          "third_ball_side",
+          "third_ball_outcome",
+          "point_winner",
+          "point_outcome",
+          "video_timestamp"
+        ]
+      }
+    ],
+    "existing_training_quality_audit": "NOT_RUN",
+    "automatic_promotion": false
+  },
+  "formal_report_eligibility": {
+    "eligible": false,
+    "blockers": [
+      "formal annotation manifest and annotator/evidence declarations are absent",
+      "source file bytes, source identity, and rights have not been independently checked",
+      "quick timestamps remain free text and are not bound to timeline_id, PTS, or time_base",
+      "quality review has not completed; quick input cannot become a training report automatically"
+    ]
+  }
+}

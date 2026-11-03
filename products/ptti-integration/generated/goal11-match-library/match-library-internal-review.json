@@ -1,0 +1,4595 @@
+{
+  "contract_version": "ptti.match-library-index/0.1",
+  "view": "INTERNAL_REVIEW",
+  "generated_at": "2026-10-15T08:59:44+00:00",
+  "source_manifest": [
+    {
+      "file": "products/ptti/data/professional/catalog_expansion_r1.json",
+      "sha256": "63a2758c22a2d9a3861b741dd6ef31e909ce301f78235940fcf2b1e93606b802"
+    },
+    {
+      "file": "products/ptti/data/professional/catalog_expansion_r51_closeout.json",
+      "sha256": "18df3c3dd97c0b01034e7cd3793465f66a688dc77a4557b1d707c3037e85e92b"
+    },
+    {
+      "file": "products/ptti/data/professional/catalog_expansion_20261011.json",
+      "sha256": "949c62cf88e1009582de5d225d93d871d53a886c87b9c691b7d57b38d2110f30"
+    },
+    {
+      "file": "products/ptti/data/professional/official_video_sources.json",
+      "sha256": "fa1d536610561c673f94392ee2e202b6a7dc6989a4818ee1a58daeb924884dc3"
+    },
+    {
+      "file": "products/ptti/data/professional/registry.json",
+      "sha256": "cad0a26dabd611f76334a3c07e260fd8236d2ba88bdbd65aeb2710e481b242fb"
+    }
+  ],
+  "quality_summary": {
+    "source_snapshot_rows": 36,
+    "unique_video_sources": 35,
+    "duplicate_snapshot_rows_removed": 1,
+    "registered_match_records": 6,
+    "athlete_profiles": 16,
+    "registry_evidence_sources": 26,
+    "video_sources_by_platform": {
+      "BILIBILI": 1,
+      "YOUTUBE": 34
+    },
+    "video_sources_by_match_type": {
+      "MD": 6,
+      "MS": 12,
+      "WD": 6,
+      "WS": 9,
+      "XD": 2
+    },
+    "latest_recorded_playback_status": {
+      "EMBED_BLOCKED": 2,
+      "EMBED_NOT_TESTED": 6,
+      "NOT_TESTED": 23,
+      "RESTRICTED": 3,
+      "SOURCE_LINK_ONLY": 1
+    },
+    "external_visual_playback_observed_limited": 6,
+    "desktop_native_playback_pass": 0,
+    "completeness_verified": 0,
+    "catalog_video_match_links": 0,
+    "public_eligible": {
+      "matches": 0,
+      "video_sources": 0,
+      "stars": 0
+    },
+    "interpretation": "Video source records are not canonical Match records unless an exact evidenced link is present; reference metadata does not grant rights or verify current playback."
+  },
+  "matches": [
+    {
+      "match_id": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+      "identity_status": "REGISTERED_WITH_SOURCE_REFERENCES",
+      "event": {
+        "name": "China Smash 2025",
+        "event_id": "3098",
+        "date": null,
+        "competition_level": "WTT_GRAND_SMASH"
+      },
+      "match_type": "UNKNOWN",
+      "round": "Men's Singles Final",
+      "participants": [
+        {
+          "side": "A",
+          "athlete_id": "athlete:121558",
+          "name_en": "WANG Chuqin"
+        },
+        {
+          "side": "B",
+          "athlete_id": "athlete:135977",
+          "name_en": "Felix LEBRUN"
+        }
+      ],
+      "recorded_result": {
+        "player_a_games": 4,
+        "player_b_games": 0
+      },
+      "recorded_winner_id": "athlete:121558",
+      "result_status": "RECORDED_NOT_REVERIFIED",
+      "reference_url": "https://www.worldtabletennis.com/eventInfo?eventId=3098",
+      "evidence_source_ids": [
+        "wtt-china-smash-2025-wang-lebrun"
+      ],
+      "video_source_ids": [],
+      "match_video_link_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      }
+    },
+    {
+      "match_id": "pro:wtt:doha-star-contender-2025:harimoto-jonathan-groth",
+      "identity_status": "REGISTERED_WITH_SOURCE_REFERENCES",
+      "event": {
+        "name": "WTT Star Contender Doha 2025",
+        "event_id": null,
+        "date": null,
+        "competition_level": "WTT_STAR_CONTENDER"
+      },
+      "match_type": "UNKNOWN",
+      "round": "Men's Singles Final",
+      "participants": [
+        {
+          "side": "A",
+          "athlete_id": "athlete:123980",
+          "name_en": "Tomokazu HARIMOTO"
+        },
+        {
+          "side": "B",
+          "athlete_id": "athlete:112409",
+          "name_en": "Jonathan GROTH"
+        }
+      ],
+      "recorded_result": {
+        "player_a_games": 4,
+        "player_b_games": 0
+      },
+      "recorded_winner_id": "athlete:123980",
+      "result_status": "RECORDED_NOT_REVERIFIED",
+      "reference_url": "https://www.worldtabletennis.com/eventInfo?eventId=3083",
+      "evidence_source_ids": [
+        "wtt-doha-2025-harimoto-groth"
+      ],
+      "video_source_ids": [],
+      "match_video_link_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      }
+    },
+    {
+      "match_id": "pro:ittf:macao-world-cup-2026:wang-matsushima",
+      "identity_status": "REGISTERED_WITH_SOURCE_REFERENCES",
+      "event": {
+        "name": "ITTF Men’s & Women’s World Cup Macao 2026",
+        "event_id": "3379",
+        "date": "2026-04-05",
+        "competition_level": "ITTF_WORLD_CUP"
+      },
+      "match_type": "UNKNOWN",
+      "round": "Men's Singles Final",
+      "participants": [
+        {
+          "side": "A",
+          "athlete_id": "athlete:121558",
+          "name_en": "WANG Chuqin"
+        },
+        {
+          "side": "B",
+          "athlete_id": "athlete:135996",
+          "name_en": "Sora MATSUSHIMA"
+        }
+      ],
+      "recorded_result": {
+        "player_a_games": 4,
+        "player_b_games": 3
+      },
+      "recorded_winner_id": "athlete:121558",
+      "result_status": "RECORDED_NOT_REVERIFIED",
+      "reference_url": "https://www.ittf.com/2026/10/05/sora-matsushima-becomes-first-non-chinese-world-no-1-since-2018/",
+      "evidence_source_ids": [
+        "ittf-macao-world-cup-2026-matsushima-wang",
+        "ittf-macao-wc-2026-result-20260405"
+      ],
+      "video_source_ids": [],
+      "match_video_link_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      }
+    },
+    {
+      "match_id": "pro:wtt:europe-smash-2026:ovtcharov-moregard",
+      "identity_status": "REGISTERED_WITH_SOURCE_REFERENCES",
+      "event": {
+        "name": "Europe Smash - Sweden 2026",
+        "event_id": null,
+        "date": null,
+        "competition_level": "WTT_GRAND_SMASH"
+      },
+      "match_type": "UNKNOWN",
+      "round": "Men's Singles Round of 64",
+      "participants": [
+        {
+          "side": "A",
+          "athlete_id": "athlete:107028",
+          "name_en": "Dimitrij OVTCHAROV"
+        },
+        {
+          "side": "B",
+          "athlete_id": "athlete:122044",
+          "name_en": "Truls MOREGARD"
+        }
+      ],
+      "recorded_result": {
+        "player_a_games": 3,
+        "player_b_games": 0
+      },
+      "recorded_winner_id": "athlete:107028",
+      "result_status": "RECORDED_NOT_REVERIFIED",
+      "reference_url": "https://www.worldtabletennis.com/description?artId=6482",
+      "evidence_source_ids": [
+        "wtt-europe-smash-2026-moregard-ovtcharov"
+      ],
+      "video_source_ids": [],
+      "match_video_link_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      }
+    },
+    {
+      "match_id": "pro:wtt:chongqing-champions-2025:felix-lebrun-yukiya-uda",
+      "identity_status": "REGISTERED_WITH_SOURCE_REFERENCES",
+      "event": {
+        "name": "WTT Champions Chongqing 2025 Presented by AITO",
+        "event_id": null,
+        "date": null,
+        "competition_level": "WTT_CHAMPIONS"
+      },
+      "match_type": "UNKNOWN",
+      "round": "UNKNOWN",
+      "participants": [
+        {
+          "side": "A",
+          "athlete_id": "athlete:135977",
+          "name_en": "Felix LEBRUN"
+        },
+        {
+          "side": "B",
+          "athlete_id": "athlete:122777",
+          "name_en": "Yukiya UDA"
+        }
+      ],
+      "recorded_result": {
+        "player_a_games": 3,
+        "player_b_games": 0
+      },
+      "recorded_winner_id": "athlete:135977",
+      "result_status": "RECORDED_NOT_REVERIFIED",
+      "reference_url": "https://www.worldtabletennis.com/description?artId=4719",
+      "evidence_source_ids": [
+        "wtt-chongqing-2025-lebrun-uda"
+      ],
+      "video_source_ids": [],
+      "match_video_link_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      }
+    },
+    {
+      "match_id": "pro:wtt-finals-hong-kong-2025:harimoto-lin-shidong",
+      "identity_status": "REGISTERED_WITH_SOURCE_REFERENCES",
+      "event": {
+        "name": "WTT Finals Hong Kong 2025",
+        "event_id": null,
+        "date": null,
+        "competition_level": "WTT_FINALS"
+      },
+      "match_type": "UNKNOWN",
+      "round": "Men's Singles Semifinal",
+      "participants": [
+        {
+          "side": "A",
+          "athlete_id": "athlete:123980",
+          "name_en": "Tomokazu HARIMOTO"
+        },
+        {
+          "side": "B",
+          "athlete_id": "athlete:137237",
+          "name_en": "LIN Shidong"
+        }
+      ],
+      "recorded_result": {
+        "player_a_games": 4,
+        "player_b_games": 3
+      },
+      "recorded_winner_id": "athlete:123980",
+      "result_status": "RECORDED_NOT_REVERIFIED",
+      "reference_url": "https://www.worldtabletennis.com/description?artId=5707",
+      "evidence_source_ids": [
+        "wtt-finals-hk-2025-lin-harimoto"
+      ],
+      "video_source_ids": [],
+      "match_video_link_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      }
+    }
+  ],
+  "video_sources": [
+    {
+      "catalog_record_id": "catalog:bilibili:BV1nb421H7jB",
+      "source_id": "video-source:bilibili:BV1nb421H7jB",
+      "video_id": "BV1nb421H7jB",
+      "platform": "BILIBILI",
+      "official_url": "https://www.bilibili.com/video/BV1nb421H7jB/",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "马龙 / 王楚钦 vs 樊振东 / 林高远 · 观众视角片段",
+      "original_title": "马龙 王楚钦VS樊振东 林高远 观众视角 23年亚锦赛",
+      "event": "2023 亚锦赛 · 发布者标题线索",
+      "event_year": null,
+      "match_date": null,
+      "match_type": "MD",
+      "round": "UNKNOWN",
+      "participants_claimed": {
+        "side_a": null,
+        "side_b": null,
+        "unassigned_names": [
+          "马龙",
+          "王楚钦",
+          "樊振东",
+          "林高远"
+        ],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "乒乓球珍藏馆",
+      "publisher_url": null,
+      "publisher_identity_status": "UNKNOWN",
+      "source_verified_at": "2026-10-09T15:57:08.1042839+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "CLIP",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "VISUAL_PASS_LIMITED",
+        "external_observations": [
+          {
+            "snapshot": "official_video_sources.json",
+            "surface": "BROWSER_IAB",
+            "checked_at": null,
+            "page_accessible": true,
+            "visual_playback": "VISUAL_PASS_LIMITED",
+            "observed_result": "ACTUAL_PLAYBACK_VERIFIED",
+            "limitations": "Login and trial-quality banner visible; actual moving match picture beyond 30 seconds observed. Does not establish unrestricted viewing, rights, embedding or complete-match availability.",
+            "observed_playing_times": [
+              0.472329,
+              124.797929
+            ],
+            "full_content_reviewed": false
+          }
+        ],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "SOURCE_LINK_ONLY",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "official_video_sources.json",
+          "recorded_at": "2026-10-09T15:57:08.1042839+00:00",
+          "metadata_method": "MANUAL_PUBLIC_PAGE_REVIEW",
+          "publisher_url": null,
+          "category_evidence": null,
+          "event_evidence": null,
+          "full_match_evidence": null,
+          "availability_evidence": null,
+          "source_notice": "未经作者授权，禁止转载",
+          "playback_status_recorded": "SOURCE_LINK_ONLY"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:0QgbtsBWZhk",
+      "source_id": "video-source:youtube:0QgbtsBWZhk",
+      "video_id": "0QgbtsBWZhk",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "王楚钦 vs 菲利克斯·勒布伦",
+      "original_title": "FULL MATCH | Wang Chuqin vs Felix Lebrun | MS Final | #ChinaSmash 2025",
+      "event": "China Smash 2025",
+      "event_year": null,
+      "match_date": null,
+      "match_type": "MS",
+      "round": "决赛",
+      "participants_claimed": {
+        "side_a": null,
+        "side_b": null,
+        "unassigned_names": [
+          "王楚钦",
+          "菲利克斯·勒布伦"
+        ],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-09T14:18:45.968249+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": true,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "BLOCKED_OBSERVED",
+          "historical_attempts": [
+            {
+              "snapshot": "official_video_sources.json",
+              "technical_status": "BLOCKED_OBSERVED",
+              "permission_status": "UNKNOWN",
+              "historical_attempt": {
+                "result": "FAILED",
+                "error_code": 150,
+                "error_class": "EMBEDDING_DISALLOWED",
+                "verification_label": "NATIVE_PLAYER_OBSERVATION",
+                "date": "2026-10-09"
+              }
+            }
+          ]
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "EMBED_BLOCKED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "official_video_sources.json",
+          "recorded_at": "2026-10-09T14:18:45.968249+00:00",
+          "metadata_method": "YOUTUBE_OEMBED",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": null,
+          "event_evidence": null,
+          "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+          "availability_evidence": null,
+          "source_notice": null,
+          "playback_status_recorded": "EMBED_BLOCKED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:2EAZCIe6tNM",
+      "source_id": "video-source:youtube:2EAZCIe6tNM",
+      "video_id": "2EAZCIe6tNM",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=2EAZCIe6tNM",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Sun Yingsha vs Mima Ito",
+      "original_title": "FULL MATCH | Sun Yingsha vs Mima Ito | WS QF | #EuropeSmash 2025",
+      "event": "EuropeSmash 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "WS",
+      "round": "QF",
+      "participants_claimed": {
+        "side_a": "Sun Yingsha",
+        "side_b": "Mima Ito",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:29:17.277154+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:29:17.277154+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "WS QF in official publisher title",
+          "event_evidence": "#EuropeSmash 2025",
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "Official oEmbed metadata returned; watch-page playback NOT_TESTED",
+          "source_notice": "External official link only; no downloads, thumbnails cached, analysis or public redistribution permission inferred",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:BeYJVN1kBwQ",
+      "source_id": "video-source:youtube:BeYJVN1kBwQ",
+      "video_id": "BeYJVN1kBwQ",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=BeYJVN1kBwQ",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Sun Yingsha vs Wang Manyu",
+      "original_title": "Sun Yingsha vs Wang Manyu | WS Final | #ChinaSmash 2025",
+      "event": "ChinaSmash 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "WS",
+      "round": "Final",
+      "participants_claimed": {
+        "side_a": "Sun Yingsha",
+        "side_b": "Wang Manyu",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:29:11.347888+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "UNKNOWN",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:29:11.347888+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "WS Final in official publisher title",
+          "event_evidence": "#ChinaSmash 2025",
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "Official oEmbed metadata returned; watch-page playback NOT_TESTED",
+          "source_notice": "External official link only; no downloads, thumbnails cached, analysis or public redistribution permission inferred",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:DTPNEl3-2b0",
+      "source_id": "video-source:youtube:DTPNEl3-2b0",
+      "video_id": "DTPNEl3-2b0",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=DTPNEl3-2b0",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "孙颖莎 vs 金娜英",
+      "original_title": "FULL MATCH | Sun Yingsha vs Kim Nayeong | WS R16 | #WTTMacao 2024",
+      "event": "WTT Macao 2024",
+      "event_year": null,
+      "match_date": null,
+      "match_type": "WS",
+      "round": "16强",
+      "participants_claimed": {
+        "side_a": null,
+        "side_b": null,
+        "unassigned_names": [
+          "孙颖莎",
+          "金娜英"
+        ],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-09T14:19:06.168132+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": true,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "VISUAL_PASS_LIMITED",
+        "external_observations": [
+          {
+            "snapshot": "official_video_sources.json",
+            "surface": "BROWSER_IAB",
+            "checked_at": "2026-10-09T15:02:24.527622+00:00",
+            "page_accessible": true,
+            "visual_playback": "VISUAL_PASS_LIMITED",
+            "observed_result": "ACTUAL_PLAYBACK_VERIFIED",
+            "limitations": "Session-specific external playback; no native PTTI embed test, no complete uninterrupted viewing, no licence to download/analyse",
+            "observed_playing_times": [
+              0,
+              10.487318
+            ],
+            "full_content_reviewed": false
+          }
+        ],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "EMBED_NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "official_video_sources.json",
+          "recorded_at": "2026-10-09T14:19:06.168132+00:00",
+          "metadata_method": "YOUTUBE_OEMBED",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": null,
+          "event_evidence": null,
+          "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+          "availability_evidence": null,
+          "source_notice": null,
+          "playback_status_recorded": "EMBED_NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:GfaSz4TKlpc",
+      "source_id": "video-source:youtube:GfaSz4TKlpc",
+      "video_id": "GfaSz4TKlpc",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=GfaSz4TKlpc",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Hugo Calderano vs Wang Chuqin",
+      "original_title": "FULL MATCH | Hugo Calderano vs Wang Chuqin | MS FINAL | #ITTFWorlds2025",
+      "event": "ITTFWorlds2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "MS",
+      "round": "FINAL",
+      "participants_claimed": {
+        "side_a": "Hugo Calderano",
+        "side_b": "Wang Chuqin",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-10T03:52:58.6944857Z",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r1.json",
+          "recorded_at": "2026-10-10T03:52:58.6944857Z",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "MS FINAL",
+          "event_evidence": "#ITTFWorlds2025",
+          "full_match_evidence": "PUBLISHER_TITLE_CLAIM_ONLY",
+          "availability_evidence": null,
+          "source_notice": "No download, thumbnail redistribution or analysis permission; external official page only",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:H77vNFk3neg",
+      "source_id": "video-source:youtube:H77vNFk3neg",
+      "video_id": "H77vNFk3neg",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=H77vNFk3neg",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "王楚钦 vs 马龙",
+      "original_title": "FULL MATCH | WANG Chuqin vs MA Long | MS F | #WTTMacao 2023",
+      "event": "WTT Macao 2023",
+      "event_year": null,
+      "match_date": null,
+      "match_type": "MS",
+      "round": "决赛",
+      "participants_claimed": {
+        "side_a": null,
+        "side_b": null,
+        "unassigned_names": [
+          "王楚钦",
+          "马龙"
+        ],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-09T14:18:59.078088+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": true,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "VISUAL_PASS_LIMITED",
+        "external_observations": [
+          {
+            "snapshot": "official_video_sources.json",
+            "surface": "BROWSER_IAB",
+            "checked_at": "2026-10-09T15:10:39.208616+00:00",
+            "page_accessible": true,
+            "visual_playback": "VISUAL_PASS_LIMITED",
+            "observed_result": "ACTUAL_PLAYBACK_VERIFIED",
+            "limitations": "External current-session playback only; the earlier login-blocked observation is retained; not a download or analysis licence",
+            "observed_playing_times": [
+              0.512458,
+              15.636063
+            ],
+            "full_content_reviewed": false
+          }
+        ],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "EMBED_NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "official_video_sources.json",
+          "recorded_at": "2026-10-09T14:18:59.078088+00:00",
+          "metadata_method": "YOUTUBE_OEMBED",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": null,
+          "event_evidence": null,
+          "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+          "availability_evidence": null,
+          "source_notice": null,
+          "playback_status_recorded": "EMBED_NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:JTUWXpB-NVo",
+      "source_id": "video-source:youtube:JTUWXpB-NVo",
+      "video_id": "JTUWXpB-NVo",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=JTUWXpB-NVo",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "马龙 vs 樊振东",
+      "original_title": "FULL MATCH | MA Long (CHN) vs FAN Zhendong (CHN) | MS F | 2019 ITTF Grand Finals",
+      "event": "ITTF Grand Finals 2019",
+      "event_year": null,
+      "match_date": null,
+      "match_type": "MS",
+      "round": "决赛",
+      "participants_claimed": {
+        "side_a": null,
+        "side_b": null,
+        "unassigned_names": [
+          "马龙",
+          "樊振东"
+        ],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-09T14:18:55.493007+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": true,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "VISUAL_PASS_LIMITED",
+        "external_observations": [
+          {
+            "snapshot": "official_video_sources.json",
+            "surface": "BROWSER_IAB",
+            "checked_at": "2026-10-09T15:12:47.879699+00:00",
+            "page_accessible": true,
+            "visual_playback": "VISUAL_PASS_LIMITED",
+            "observed_result": "ACTUAL_PLAYBACK_VERIFIED",
+            "limitations": "External current-session playback only; earlier login-blocked observation retained; no native embed or analysis licence",
+            "observed_playing_times": [
+              0.21441,
+              49.016291
+            ],
+            "full_content_reviewed": false
+          }
+        ],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "EMBED_NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "official_video_sources.json",
+          "recorded_at": "2026-10-09T14:18:55.493007+00:00",
+          "metadata_method": "YOUTUBE_OEMBED",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": null,
+          "event_evidence": null,
+          "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+          "availability_evidence": null,
+          "source_notice": null,
+          "playback_status_recorded": "EMBED_NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:KCGdLksBH7s",
+      "source_id": "video-source:youtube:KCGdLksBH7s",
+      "video_id": "KCGdLksBH7s",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=KCGdLksBH7s",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Sun Yingsha vs Wang Manyu",
+      "original_title": "FULL MATCH | Sun Yingsha vs Wang Manyu | WS FINAL | #ITTFWorlds2025",
+      "event": "ITTFWorlds2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "WS",
+      "round": "FINAL",
+      "participants_claimed": {
+        "side_a": "Sun Yingsha",
+        "side_b": "Wang Manyu",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:30:22.874122+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:30:22.874122+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "WS FINAL in official publisher title",
+          "event_evidence": "#ITTFWorlds2025",
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "Official oEmbed metadata returned; watch-page playback NOT_TESTED",
+          "source_notice": "External official link only; no downloads, thumbnails cached, analysis or public redistribution permission inferred",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:LJcPKmgLijc",
+      "source_id": "video-source:youtube:LJcPKmgLijc",
+      "video_id": "LJcPKmgLijc",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=LJcPKmgLijc",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Huang/Wen vs Lin/Wang",
+      "original_title": "FULL MATCH | Huang/Wen vs Lin/Wang | MD SF | #ChinaSmash 2025",
+      "event": "China Smash",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "MD",
+      "round": "SF",
+      "participants_claimed": {
+        "side_a": "Huang/Wen",
+        "side_b": "Lin/Wang",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:39:43.971453+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:39:43.971453+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "MD SF in official title",
+          "event_evidence": null,
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "oEmbed metadata returned; watch playback not tested",
+          "source_notice": "Official reference only; no download, analysis or redistribution permission inferred",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:M3sBTPauzfs",
+      "source_id": "video-source:youtube:M3sBTPauzfs",
+      "video_id": "M3sBTPauzfs",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=M3sBTPauzfs",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Sun Yingsha vs Miyuu Kihara",
+      "original_title": "FULL MATCH | Sun Yingsha vs Miyuu Kihara | WS R32 | #SingaporeSmash 2025",
+      "event": "SingaporeSmash 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "WS",
+      "round": "R32",
+      "participants_claimed": {
+        "side_a": "Sun Yingsha",
+        "side_b": "Miyuu Kihara",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:29:25.561584+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:29:25.561584+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "WS R32 in official publisher title",
+          "event_evidence": "#SingaporeSmash 2025",
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "Official oEmbed metadata returned; watch-page playback NOT_TESTED",
+          "source_notice": "External official link only; no downloads, thumbnails cached, analysis or public redistribution permission inferred",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:O241nV8y4Dc",
+      "source_id": "video-source:youtube:O241nV8y4Dc",
+      "video_id": "O241nV8y4Dc",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=O241nV8y4Dc",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Nagasaki/Shin vs Diaconu/Xiao",
+      "original_title": "FULL MATCH | Nagasaki/Shin vs Diaconu/Xiao | WD SF | #WTTSingapore2026",
+      "event": "WTTSingapore2026",
+      "event_year": 2026,
+      "match_date": null,
+      "match_type": "WD",
+      "round": "SF",
+      "participants_claimed": {
+        "side_a": "Nagasaki/Shin",
+        "side_b": "Diaconu/Xiao",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-10T03:53:01.7455296Z",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r1.json",
+          "recorded_at": "2026-10-10T03:53:01.7455296Z",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "WD SF",
+          "event_evidence": "#WTTSingapore2026",
+          "full_match_evidence": "PUBLISHER_TITLE_CLAIM_ONLY",
+          "availability_evidence": null,
+          "source_notice": "No download, thumbnail redistribution or analysis permission; external official page only",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:ThE8xkQAcuk",
+      "source_id": "video-source:youtube:ThE8xkQAcuk",
+      "video_id": "ThE8xkQAcuk",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=ThE8xkQAcuk",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Kuai/Wang vs Chen/Qian",
+      "original_title": "FULL MATCH | Kuai/Wang vs Chen/Qian | WD SF | #ChinaSmash 2025",
+      "event": "China Smash",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "WD",
+      "round": "SF",
+      "participants_claimed": {
+        "side_a": "Kuai/Wang",
+        "side_b": "Chen/Qian",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:39:49.574335+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:39:49.574335+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "WD SF in official title",
+          "event_evidence": null,
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "oEmbed metadata returned; watch playback not tested",
+          "source_notice": "Official reference only; no download, analysis or redistribution permission inferred",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:Vw7lIzIlFa4",
+      "source_id": "video-source:youtube:Vw7lIzIlFa4",
+      "video_id": "Vw7lIzIlFa4",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=Vw7lIzIlFa4",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Hugo Calderano vs Wang Chuqin",
+      "original_title": "FULL MATCH | Hugo Calderano vs Wang Chuqin | MS Final | #WTTMacao 2025",
+      "event": "WTTMacao 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "MS",
+      "round": "Final",
+      "participants_claimed": {
+        "side_a": "Hugo Calderano",
+        "side_b": "Wang Chuqin",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:29:08.812970+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:29:08.812970+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "MS Final in official publisher title",
+          "event_evidence": "#WTTMacao 2025",
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "Official oEmbed metadata returned; watch-page playback NOT_TESTED",
+          "source_notice": "External official link only; no downloads, thumbnails cached, analysis or public redistribution permission inferred",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:VwzuMoxqTQE",
+      "source_id": "video-source:youtube:VwzuMoxqTQE",
+      "video_id": "VwzuMoxqTQE",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=VwzuMoxqTQE",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Lin/Huang vs Wen/Yuan",
+      "original_title": "FULL MATCH | Lin/Huang vs Wen/Yuan | MD Final | #USSmash 2026",
+      "event": "USSmash 2026",
+      "event_year": 2026,
+      "match_date": null,
+      "match_type": "MD",
+      "round": "Final",
+      "participants_claimed": {
+        "side_a": "Lin/Huang",
+        "side_b": "Wen/Yuan",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-10T03:52:59.7314881Z",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r1.json",
+          "recorded_at": "2026-10-10T03:52:59.7314881Z",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "MD Final",
+          "event_evidence": "#USSmash 2026",
+          "full_match_evidence": "PUBLISHER_TITLE_CLAIM_ONLY",
+          "availability_evidence": null,
+          "source_notice": "No download, thumbnail redistribution or analysis permission; external official page only",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:WoqgXTjZNSk",
+      "source_id": "video-source:youtube:WoqgXTjZNSk",
+      "video_id": "WoqgXTjZNSk",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=WoqgXTjZNSk",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Tomokazu Harimoto vs Wang Chuqin",
+      "original_title": "FULL MATCH | Tomokazu Harimoto vs Wang Chuqin | MS Final | #WTTYokohama 2025",
+      "event": "WTTYokohama 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "MS",
+      "round": "Final",
+      "participants_claimed": {
+        "side_a": "Tomokazu Harimoto",
+        "side_b": "Wang Chuqin",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-10T03:52:56.5031210Z",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "RESTRICTED_OBSERVED",
+        "external_observations": [
+          {
+            "snapshot": "catalog_expansion_r1.json",
+            "surface": "BROWSER_IAB",
+            "checked_at": "2026-10-10T04:00:07.229876+00:00",
+            "page_accessible": true,
+            "visual_playback": "RESTRICTED_OBSERVED",
+            "observed_result": "REGION_RESTRICTED",
+            "limitations": null
+          }
+        ],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "RESTRICTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "RESTRICTED_OBSERVED"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r1.json",
+          "recorded_at": "2026-10-10T03:52:56.5031210Z",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "MS Final",
+          "event_evidence": "#WTTYokohama 2025",
+          "full_match_evidence": "PUBLISHER_TITLE_CLAIM_ONLY",
+          "availability_evidence": null,
+          "source_notice": "No download, thumbnail redistribution or analysis permission; external official page only",
+          "playback_status_recorded": "RESTRICTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:X5hp7YM7BIk",
+      "source_id": "video-source:youtube:X5hp7YM7BIk",
+      "video_id": "X5hp7YM7BIk",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=X5hp7YM7BIk",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Sun Yingsha vs Honoka Hashimoto",
+      "original_title": "FULL MATCH | Sun Yingsha vs Honoka Hashimoto | WS R16 | #WTTYokohama 2025",
+      "event": "WTTYokohama 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "WS",
+      "round": "R16",
+      "participants_claimed": {
+        "side_a": "Sun Yingsha",
+        "side_b": "Honoka Hashimoto",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-10T03:52:57.5743652Z",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "RESTRICTED_OBSERVED",
+        "external_observations": [
+          {
+            "snapshot": "catalog_expansion_r1.json",
+            "surface": "BROWSER_IAB",
+            "checked_at": "2026-10-10T04:00:07.229876+00:00",
+            "page_accessible": true,
+            "visual_playback": "RESTRICTED_OBSERVED",
+            "observed_result": "REGION_RESTRICTED",
+            "limitations": null
+          }
+        ],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "RESTRICTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "RESTRICTED_OBSERVED"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r1.json",
+          "recorded_at": "2026-10-10T03:52:57.5743652Z",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "WS R16",
+          "event_evidence": "#WTTYokohama 2025",
+          "full_match_evidence": "PUBLISHER_TITLE_CLAIM_ONLY",
+          "availability_evidence": null,
+          "source_notice": "No download, thumbnail redistribution or analysis permission; external official page only",
+          "playback_status_recorded": "RESTRICTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:X8Jx8rs20FA",
+      "source_id": "video-source:youtube:X8Jx8rs20FA",
+      "video_id": "X8Jx8rs20FA",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=X8Jx8rs20FA",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Lebrun/Lebrun vs Lin/Huang",
+      "original_title": "FULL MATCH | Lebrun/Lebrun vs Lin/Huang | MD Final | #WTTSingapore2026",
+      "event": "WTTSingapore2026",
+      "event_year": 2026,
+      "match_date": null,
+      "match_type": "MD",
+      "round": "Final",
+      "participants_claimed": {
+        "side_a": "Lebrun/Lebrun",
+        "side_b": "Lin/Huang",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-10T03:53:00.7523690Z",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "RESTRICTED_OBSERVED",
+        "external_observations": [
+          {
+            "snapshot": "catalog_expansion_r1.json",
+            "surface": "BROWSER_IAB",
+            "checked_at": "2026-10-10T04:00:07.229876+00:00",
+            "page_accessible": true,
+            "visual_playback": "RESTRICTED_OBSERVED",
+            "observed_result": "REGION_RESTRICTED",
+            "limitations": null
+          }
+        ],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "RESTRICTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "RESTRICTED_OBSERVED"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r1.json",
+          "recorded_at": "2026-10-10T03:53:00.7523690Z",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "MD Final",
+          "event_evidence": "#WTTSingapore2026",
+          "full_match_evidence": "PUBLISHER_TITLE_CLAIM_ONLY",
+          "availability_evidence": null,
+          "source_notice": "No download, thumbnail redistribution or analysis permission; external official page only",
+          "playback_status_recorded": "RESTRICTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:ZALmA5MaqoE",
+      "source_id": "video-source:youtube:ZALmA5MaqoE",
+      "video_id": "ZALmA5MaqoE",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=ZALmA5MaqoE",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Lin Shidong vs Truls Moregard",
+      "original_title": "FULL MATCH | Lin Shidong vs Truls Moregard | MS Final | #EuropeSmash 2025",
+      "event": "EuropeSmash 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "MS",
+      "round": "Final",
+      "participants_claimed": {
+        "side_a": "Lin Shidong",
+        "side_b": "Truls Moregard",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:29:42.373498+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:29:42.373498+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "MS Final in official publisher title",
+          "event_evidence": "#EuropeSmash 2025",
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "Official oEmbed metadata returned; watch-page playback NOT_TESTED",
+          "source_notice": "External official link only; no downloads, thumbnails cached, analysis or public redistribution permission inferred",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:ZmwzPe0hRII",
+      "source_id": "video-source:youtube:ZmwzPe0hRII",
+      "video_id": "ZmwzPe0hRII",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=ZmwzPe0hRII",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Kim/Ryu vs Goda/Meshref",
+      "original_title": "Kim/Ryu vs Goda/Meshref | WD Final | #WTTLagos 2025",
+      "event": "WTTLagos 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "WD",
+      "round": "Final",
+      "participants_claimed": {
+        "side_a": "Kim/Ryu",
+        "side_b": "Goda/Meshref",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:20:10.069154+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "UNKNOWN",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_20261011.json",
+          "recorded_at": "2026-10-11T14:20:10.069154+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "WD Final in publisher title",
+          "event_evidence": null,
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": null,
+          "source_notice": "Reference links only; no download, embedding, analysis or redistribution permission inferred; region UNKNOWN",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:aFs7HJ0NX18",
+      "source_id": "video-source:youtube:aFs7HJ0NX18",
+      "video_id": "aFs7HJ0NX18",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=aFs7HJ0NX18",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "马龙 vs 樊振东",
+      "original_title": "FULL MATCH | MA Long (CHN) vs FAN Zhendong (CHN) | MS F | 2020 ITTF Finals",
+      "event": "ITTF Finals 2020",
+      "event_year": null,
+      "match_date": null,
+      "match_type": "MS",
+      "round": "决赛",
+      "participants_claimed": {
+        "side_a": null,
+        "side_b": null,
+        "unassigned_names": [
+          "马龙",
+          "樊振东"
+        ],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-09T14:18:54.674950+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": true,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [
+          {
+            "snapshot": "official_video_sources.json",
+            "surface": "BROWSER_IAB",
+            "checked_at": null,
+            "page_accessible": null,
+            "visual_playback": "NOT_VERIFIED",
+            "observed_result": "NOT_PLAYABLE_IN_CURRENT_UNAUTHENTICATED_SESSION",
+            "limitations": null,
+            "observed_playing_times": [],
+            "full_content_reviewed": null
+          }
+        ],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "EMBED_NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "official_video_sources.json",
+          "recorded_at": "2026-10-09T14:18:54.674950+00:00",
+          "metadata_method": "YOUTUBE_OEMBED",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": null,
+          "event_evidence": null,
+          "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+          "availability_evidence": null,
+          "source_notice": null,
+          "playback_status_recorded": "EMBED_NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:btPhCu7kW1w",
+      "source_id": "video-source:youtube:btPhCu7kW1w",
+      "video_id": "btPhCu7kW1w",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=btPhCu7kW1w",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Zhou/Chen vs Lin/Wang",
+      "original_title": "FULL MATCH | Zhou/Chen vs Lin/Wang | MD Final | #ChinaSmash 2025",
+      "event": "China Smash",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "MD",
+      "round": "Final",
+      "participants_claimed": {
+        "side_a": "Zhou/Chen",
+        "side_b": "Lin/Wang",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:39:46.869286+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:39:46.869286+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "MD Final in official title",
+          "event_evidence": null,
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "oEmbed metadata returned; watch playback not tested",
+          "source_notice": "Official reference only; no download, analysis or redistribution permission inferred",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:ekfCZiIEYi0",
+      "source_id": "video-source:youtube:ekfCZiIEYi0",
+      "video_id": "ekfCZiIEYi0",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=ekfCZiIEYi0",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "王楚钦 vs 樊振东",
+      "original_title": "FULL MATCH | WANG Chuqin vs FAN Zhendong | MS F | #WTTLjubljana 2023",
+      "event": "WTT Ljubljana 2023",
+      "event_year": null,
+      "match_date": null,
+      "match_type": "MS",
+      "round": "决赛",
+      "participants_claimed": {
+        "side_a": null,
+        "side_b": null,
+        "unassigned_names": [
+          "王楚钦",
+          "樊振东"
+        ],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-09T14:19:01.591146+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": true,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "VISUAL_PASS_LIMITED",
+        "external_observations": [
+          {
+            "snapshot": "official_video_sources.json",
+            "surface": "BROWSER_IAB",
+            "checked_at": "2026-10-09T15:11:49.804077+00:00",
+            "page_accessible": true,
+            "visual_playback": "VISUAL_PASS_LIMITED",
+            "observed_result": "ACTUAL_PLAYBACK_VERIFIED",
+            "limitations": "External current-session playback only; earlier login-blocked observation retained; no native embedding or analysis licence",
+            "observed_playing_times": [
+              0.220873,
+              31.969694
+            ],
+            "full_content_reviewed": false
+          }
+        ],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "EMBED_NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "official_video_sources.json",
+          "recorded_at": "2026-10-09T14:19:01.591146+00:00",
+          "metadata_method": "YOUTUBE_OEMBED",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": null,
+          "event_evidence": null,
+          "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+          "availability_evidence": null,
+          "source_notice": null,
+          "playback_status_recorded": "EMBED_NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:ekvDMPZDF4o",
+      "source_id": "video-source:youtube:ekvDMPZDF4o",
+      "video_id": "ekvDMPZDF4o",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=ekvDMPZDF4o",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Sato / Hashimoto vs Qian / Chen",
+      "original_title": "FULL MATCH | Sato / Hashimoto vs Qian / Chen | WD SF | #WTTFukuoka 2024",
+      "event": "WTTFukuoka 2024",
+      "event_year": 2024,
+      "match_date": null,
+      "match_type": "WD",
+      "round": "SF",
+      "participants_claimed": {
+        "side_a": "Sato / Hashimoto",
+        "side_b": "Qian / Chen",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-10T03:53:02.7174340Z",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r1.json",
+          "recorded_at": "2026-10-10T03:53:02.7174340Z",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "WD SF",
+          "event_evidence": "#WTTFukuoka 2024",
+          "full_match_evidence": "PUBLISHER_TITLE_CLAIM_ONLY",
+          "availability_evidence": null,
+          "source_notice": "No download, thumbnail redistribution or analysis permission; external official page only",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:gHS-9_mqE2A",
+      "source_id": "video-source:youtube:gHS-9_mqE2A",
+      "video_id": "gHS-9_mqE2A",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=gHS-9_mqE2A",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Sun/Wang vs Harimoto/Odo",
+      "original_title": "FULL MATCH | Sun/Wang vs Harimoto/Odo | WD Final | #EuropeSmash 2025",
+      "event": "EuropeSmash",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "WD",
+      "round": "Final",
+      "participants_claimed": {
+        "side_a": "Sun/Wang",
+        "side_b": "Harimoto/Odo",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:38:23.232825+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:38:23.232825+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "WD Final in official publisher title",
+          "event_evidence": null,
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "Metadata returned; watch playback not tested",
+          "source_notice": "Official source reference only; do not infer download, embedding, analysis or redistribution permission",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:gR0a6uskY9g",
+      "source_id": "video-source:youtube:gR0a6uskY9g",
+      "video_id": "gR0a6uskY9g",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=gR0a6uskY9g",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Sun Yingsha vs Satsuki Odo",
+      "original_title": "FULL MATCH | Sun Yingsha vs Satsuki Odo | WS QF | #WTTYokohama 2025",
+      "event": "WTTYokohama 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "WS",
+      "round": "QF",
+      "participants_claimed": {
+        "side_a": "Sun Yingsha",
+        "side_b": "Satsuki Odo",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:29:20.052620+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:29:20.052620+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "WS QF in official publisher title",
+          "event_evidence": "#WTTYokohama 2025",
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "Official oEmbed metadata returned; watch-page playback NOT_TESTED",
+          "source_notice": "External official link only; no downloads, thumbnails cached, analysis or public redistribution permission inferred",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:gxLOCVeMCM0",
+      "source_id": "video-source:youtube:gxLOCVeMCM0",
+      "video_id": "gxLOCVeMCM0",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=gxLOCVeMCM0",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Choi/Shin vs Harimoto/Odo",
+      "original_title": "FULL MATCH | Choi/Shin vs Harimoto/Odo | WD Final | #WTTLjubljana 2025",
+      "event": "WTTLjubljana 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "WD",
+      "round": "Final",
+      "participants_claimed": {
+        "side_a": "Choi/Shin",
+        "side_b": "Harimoto/Odo",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-10T03:53:04.7172532Z",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "PAGE_ACCESSIBLE_VISUAL_NOT_VERIFIED",
+        "external_observations": [
+          {
+            "snapshot": "catalog_expansion_r1.json",
+            "surface": "BROWSER_IAB",
+            "checked_at": "2026-10-10T04:00:07.229876+00:00",
+            "page_accessible": true,
+            "visual_playback": "NOT_VERIFIED",
+            "observed_result": "AD_ONLY_NOT_CONTENT_VERIFIED",
+            "limitations": null
+          }
+        ],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r1.json",
+          "recorded_at": "2026-10-10T03:53:04.7172532Z",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "WD Final",
+          "event_evidence": "#WTTLjubljana 2025",
+          "full_match_evidence": "PUBLISHER_TITLE_CLAIM_ONLY",
+          "availability_evidence": null,
+          "source_notice": "No download, thumbnail redistribution or analysis permission; external official page only",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:iQhVLkcGCFE",
+      "source_id": "video-source:youtube:iQhVLkcGCFE",
+      "video_id": "iQhVLkcGCFE",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=iQhVLkcGCFE",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "林昀儒 / 郑怡静 vs 王楚钦 / 孙颖莎",
+      "original_title": "FULL MATCH | LIN Yun-Ju / CHENG I-Ching vs WANG Chuqin / SUN Yingsha | XD SF | #ITTFWorlds2021",
+      "event": "ITTF Worlds 2021",
+      "event_year": null,
+      "match_date": null,
+      "match_type": "XD",
+      "round": "半决赛",
+      "participants_claimed": {
+        "side_a": null,
+        "side_b": null,
+        "unassigned_names": [
+          "林昀儒",
+          "郑怡静",
+          "王楚钦",
+          "孙颖莎"
+        ],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-09T14:19:09.839368+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": true,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "VISUAL_PASS_LIMITED",
+        "external_observations": [
+          {
+            "snapshot": "official_video_sources.json",
+            "surface": "BROWSER_IAB",
+            "checked_at": "2026-10-09T15:04:37.703193+00:00",
+            "page_accessible": true,
+            "visual_playback": "VISUAL_PASS_LIMITED",
+            "observed_result": "ACTUAL_PLAYBACK_VERIFIED",
+            "limitations": "Session-specific external playback; no Windows PTTI embed verification or full uninterrupted viewing; not a download/analysis licence",
+            "observed_playing_times": [
+              49.76546,
+              85.431804
+            ],
+            "full_content_reviewed": false
+          }
+        ],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "EMBED_NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "official_video_sources.json",
+          "recorded_at": "2026-10-09T14:19:09.839368+00:00",
+          "metadata_method": "YOUTUBE_OEMBED",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": null,
+          "event_evidence": null,
+          "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+          "availability_evidence": null,
+          "source_notice": null,
+          "playback_status_recorded": "EMBED_NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:lQlw6B9uK3Y",
+      "source_id": "video-source:youtube:lQlw6B9uK3Y",
+      "video_id": "lQlw6B9uK3Y",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=lQlw6B9uK3Y",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Wang/Sun vs Huang/Chen",
+      "original_title": "FULL MATCH | Wang/Sun vs Huang/Chen | XD Final | #ChinaSmash 2025",
+      "event": "ChinaSmash",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "XD",
+      "round": "Final",
+      "participants_claimed": {
+        "side_a": "Wang/Sun",
+        "side_b": "Huang/Chen",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:38:20.302805+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:38:20.302805+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "XD Final in official publisher title",
+          "event_evidence": null,
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "Metadata returned; watch playback not tested",
+          "source_notice": "Official source reference only; do not infer download, embedding, analysis or redistribution permission",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:nXwsn2IN9tI",
+      "source_id": "video-source:youtube:nXwsn2IN9tI",
+      "video_id": "nXwsn2IN9tI",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=nXwsn2IN9tI",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Shah/Thakkar vs Duda/Qiu",
+      "original_title": "FULL MATCH | Shah/Thakkar vs Duda/Qiu | MD Final | #WTTFozdoIguacu 2025",
+      "event": "WTTFozdoIguacu 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "MD",
+      "round": "Final",
+      "participants_claimed": {
+        "side_a": "Shah/Thakkar",
+        "side_b": "Duda/Qiu",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:20:10.069154+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r1.json",
+          "recorded_at": "2026-10-10T03:53:03.7152554Z",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "MD Final",
+          "event_evidence": "#WTTFozdoIguacu 2025",
+          "full_match_evidence": "PUBLISHER_TITLE_CLAIM_ONLY",
+          "availability_evidence": null,
+          "source_notice": "No download, thumbnail redistribution or analysis permission; external official page only",
+          "playback_status_recorded": "NOT_TESTED"
+        },
+        {
+          "snapshot": "catalog_expansion_20261011.json",
+          "recorded_at": "2026-10-11T14:20:10.069154+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "MD Final in publisher title",
+          "event_evidence": null,
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": null,
+          "source_notice": "Reference links only; no download, embedding, analysis or redistribution permission inferred; region UNKNOWN",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 2
+    },
+    {
+      "catalog_record_id": "catalog:youtube:onxM0RqVxPc",
+      "source_id": "video-source:youtube:onxM0RqVxPc",
+      "video_id": "onxM0RqVxPc",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=onxM0RqVxPc",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Lin Shidong vs Simon Gauzy",
+      "original_title": "FULL MATCH | Lin Shidong vs Simon Gauzy | MS SF | #EuropeSmash 2025",
+      "event": "EuropeSmash 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "MS",
+      "round": "SF",
+      "participants_claimed": {
+        "side_a": "Lin Shidong",
+        "side_b": "Simon Gauzy",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:29:50.434077+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:29:50.434077+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "MS SF in official publisher title",
+          "event_evidence": "#EuropeSmash 2025",
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "Official oEmbed metadata returned; watch-page playback NOT_TESTED",
+          "source_notice": "External official link only; no downloads, thumbnails cached, analysis or public redistribution permission inferred",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:sB2II9tDaBU",
+      "source_id": "video-source:youtube:sB2II9tDaBU",
+      "video_id": "sB2II9tDaBU",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=sB2II9tDaBU",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Lin Shidong vs Anders Lind",
+      "original_title": "FULL MATCH | Lin Shidong vs Anders Lind | MS QF | #WTTMacao 2025",
+      "event": "WTTMacao 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "MS",
+      "round": "QF",
+      "participants_claimed": {
+        "side_a": "Lin Shidong",
+        "side_b": "Anders Lind",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:29:35.710536+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:29:35.710536+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "MS QF in official publisher title",
+          "event_evidence": "#WTTMacao 2025",
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "Official oEmbed metadata returned; watch-page playback NOT_TESTED",
+          "source_notice": "External official link only; no downloads, thumbnails cached, analysis or public redistribution permission inferred",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:uZ2wVtstweQ",
+      "source_id": "video-source:youtube:uZ2wVtstweQ",
+      "video_id": "uZ2wVtstweQ",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=uZ2wVtstweQ",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Felix Lebrun vs Lin Shidong",
+      "original_title": "FULL MATCH | Felix Lebrun vs Lin Shidong | MS SF | #ChinaSmash 2025",
+      "event": "ChinaSmash 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "MS",
+      "round": "SF",
+      "participants_claimed": {
+        "side_a": "Felix Lebrun",
+        "side_b": "Lin Shidong",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:29:29.244190+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:29:29.244190+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "MS SF in official publisher title",
+          "event_evidence": "#ChinaSmash 2025",
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "Official oEmbed metadata returned; watch-page playback NOT_TESTED",
+          "source_notice": "External official link only; no downloads, thumbnails cached, analysis or public redistribution permission inferred",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:ujgxUl2R7wc",
+      "source_id": "video-source:youtube:ujgxUl2R7wc",
+      "video_id": "ujgxUl2R7wc",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=ujgxUl2R7wc",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Sun Yingsha vs Adriana Diaz",
+      "original_title": "FULL MATCH | Sun Yingsha vs Adriana Diaz | WS QF | #WTTMacao 2025",
+      "event": "WTTMacao 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "WS",
+      "round": "QF",
+      "participants_claimed": {
+        "side_a": "Sun Yingsha",
+        "side_b": "Adriana Diaz",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-11T14:29:14.299876+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "catalog_expansion_r51_closeout.json",
+          "recorded_at": "2026-10-11T14:29:14.299876+00:00",
+          "metadata_method": "YOUTUBE_OEMBED_EXPLICIT_REVIEWED_ALLOWLIST",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": "WS QF in official publisher title",
+          "event_evidence": "#WTTMacao 2025",
+          "full_match_evidence": "TITLE_CLAIM_ONLY",
+          "availability_evidence": "Official oEmbed metadata returned; watch-page playback NOT_TESTED",
+          "source_notice": "External official link only; no downloads, thumbnails cached, analysis or public redistribution permission inferred",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1
+    },
+    {
+      "catalog_record_id": "catalog:youtube:vYsJLPTEIaI",
+      "source_id": "video-source:youtube:vYsJLPTEIaI",
+      "video_id": "vYsJLPTEIaI",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=vYsJLPTEIaI",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "孙颖莎 vs 王曼昱",
+      "original_title": "FULL MATCH | Sun Yingsha vs Wang Manyu | WS Final | #WTTSingapore2026",
+      "event": "WTT Singapore 2026",
+      "event_year": null,
+      "match_date": null,
+      "match_type": "WS",
+      "round": "决赛",
+      "participants_claimed": {
+        "side_a": null,
+        "side_b": null,
+        "unassigned_names": [
+          "孙颖莎",
+          "王曼昱"
+        ],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "RECORDED_NOT_REVERIFIED",
+      "source_verified_at": "2026-10-09T14:18:52.673994+00:00",
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": true,
+        "display_status": "NOT_DISPLAYED_PERMISSION_UNKNOWN"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "BLOCKED_OBSERVED",
+          "historical_attempts": [
+            {
+              "snapshot": "official_video_sources.json",
+              "technical_status": "BLOCKED_OBSERVED",
+              "permission_status": "UNKNOWN",
+              "historical_attempt": {
+                "result": "FAILED",
+                "error_code": 150,
+                "error_class": "EMBEDDING_DISALLOWED",
+                "verification_label": "NATIVE_PLAYER_OBSERVATION",
+                "date": "2026-10-09"
+              }
+            }
+          ]
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "EMBED_BLOCKED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "official_video_sources.json",
+          "recorded_at": "2026-10-09T14:18:52.673994+00:00",
+          "metadata_method": "YOUTUBE_OEMBED",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "category_evidence": null,
+          "event_evidence": null,
+          "full_match_evidence": "OFFICIAL_PUBLISHER_TITLE",
+          "availability_evidence": null,
+          "source_notice": null,
+          "playback_status_recorded": "EMBED_BLOCKED"
+        }
+      ],
+      "snapshot_count": 1
+    }
+  ],
+  "local_video_assets": [],
+  "stars": [
+    {
+      "athlete_id": "athlete:107028",
+      "name_en": "Dimitrij OVTCHAROV",
+      "name_zh": "迪米特里·奥恰洛夫",
+      "association": "GER",
+      "official_profile_url": "https://www.worldtabletennis.com/player/107028/Dimitrij-OVTCHAROV",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "wtt-profile-107028"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:110553",
+      "name_en": "ZHANG Jike",
+      "name_zh": "张继科",
+      "association": "CHN",
+      "official_profile_url": "https://www.worldtabletennis.com/player/110553/ZHANG-Jike",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "wtt-profile-110553"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:112409",
+      "name_en": "Jonathan GROTH",
+      "name_zh": "乔纳森·格罗特",
+      "association": "DEN",
+      "official_profile_url": "https://www.worldtabletennis.com/player/112409/Jonathan-GROTH",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "wtt-profile-112409"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:114715",
+      "name_en": "Dang QIU",
+      "name_zh": "邱党",
+      "association": "GER",
+      "official_profile_url": "https://www.worldtabletennis.com/player/114715/Dang-QIU",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-114715"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:115641",
+      "name_en": "Hugo CALDERANO",
+      "name_zh": "雨果·卡尔德拉诺",
+      "association": "BRA",
+      "official_profile_url": "https://www.worldtabletennis.com/player/115641/Hugo-CALDERANO",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-115641"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:121558",
+      "name_en": "WANG Chuqin",
+      "name_zh": "王楚钦",
+      "association": "CHN",
+      "official_profile_url": "https://www.worldtabletennis.com/player/121558/WANG-Chuqin",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-121558"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:121582",
+      "name_en": "LIN Yun-Ju",
+      "name_zh": "林昀儒",
+      "association": "TPE",
+      "official_profile_url": "https://www.worldtabletennis.com/player/121582/LIN-Yun-Ju",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-121582"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:122044",
+      "name_en": "Truls MOREGARD",
+      "name_zh": "特鲁斯·莫雷加德",
+      "association": "SWE",
+      "official_profile_url": "https://www.worldtabletennis.com/player/122044/Truls-MOREGARD",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-122044"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:122777",
+      "name_en": "Yukiya UDA",
+      "name_zh": "宇田幸矢",
+      "association": "JPN",
+      "official_profile_url": "https://www.worldtabletennis.com/player/122777/Yukiya-UDA",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "wtt-profile-122777"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:123980",
+      "name_en": "Tomokazu HARIMOTO",
+      "name_zh": "张本智和",
+      "association": "JPN",
+      "official_profile_url": "https://www.worldtabletennis.com/player/123980/Tomokazu-HARIMOTO",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-123980"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:132992",
+      "name_en": "Alexis LEBRUN",
+      "name_zh": "艾利克西·勒布伦",
+      "association": "FRA",
+      "official_profile_url": "https://www.worldtabletennis.com/player/132992/Alexis-LEBRUN",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-132992"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:135977",
+      "name_en": "Felix LEBRUN",
+      "name_zh": "菲利克斯·勒布伦",
+      "association": "FRA",
+      "official_profile_url": "https://www.worldtabletennis.com/player/135977/Felix-LEBRUN",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-135977"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:135996",
+      "name_en": "Sora MATSUSHIMA",
+      "name_zh": "松岛辉空",
+      "association": "JPN",
+      "official_profile_url": "https://www.worldtabletennis.com/player/135996/Sora-MATSUSHIMA",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-135996"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:137237",
+      "name_en": "LIN Shidong",
+      "name_zh": "林诗栋",
+      "association": "CHN",
+      "official_profile_url": "https://www.worldtabletennis.com/player/137237/LIN-Shidong",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-137237"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:legacy:fan-zhendong",
+      "name_en": "FAN Zhendong",
+      "name_zh": "樊振东",
+      "association": "CHN",
+      "official_profile_url": null,
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "ittf-fan-zhendong-ranking-withdrawal"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    },
+    {
+      "athlete_id": "athlete:legacy:ma-long",
+      "name_en": "MA Long",
+      "name_zh": "马龙",
+      "association": "CHN",
+      "official_profile_url": null,
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "ittf-ma-long-career"
+      ],
+      "public_listing": "UNKNOWN",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      }
+    }
+  ],
+  "evidence_sources": [
+    {
+      "source_id": "ittf-fan-zhendong-ranking-withdrawal",
+      "source_type": "OFFICIAL_ITTF_PLAYER_CAREER_AND_RANKING_STATUS",
+      "url": "https://www.ittf.com/2025/01/01/ma-long-fan-zhendong-and-chen-meng-withdraw-from-ittf-world-rankings/",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "description": "Fan Zhendong is identified in ITTF coverage; report states withdrawal from ITTF World Rankings."
+    },
+    {
+      "source_id": "ittf-ma-long-career",
+      "source_type": "OFFICIAL_ITTF_PLAYER_CAREER_AND_RANKING_STATUS",
+      "url": "https://www.ittf.com/2025/01/01/ma-long-fan-zhendong-and-chen-meng-withdraw-from-ittf-world-rankings/",
+      "retrieved_at": "2026-10-06T00:00:00Z",
+      "description": "Ma Long is identified in ITTF coverage; report states withdrawal from ITTF World Rankings."
+    },
+    {
+      "source_id": "ittf-macao-wc-2026-result-20260405",
+      "source_type": "OFFICIAL_ITTF_EVENT_RESULTS",
+      "url": "https://worldcupresults.ittf.com/eventInfo?eventId=3379&selectedTab=Draws&subEvt=MSINGLES",
+      "retrieved_at": "2026-10-05T18:30:29Z",
+      "description": "Official ITTF results page lists the men's singles final WANG Chuqin vs Sora Matsushima on 5 April 2026."
+    },
+    {
+      "source_id": "ittf-macao-world-cup-2026-matsushima-wang",
+      "source_type": "OFFICIAL_ITTF_MATCH_REPORT",
+      "url": "https://www.ittf.com/2026/10/05/sora-matsushima-becomes-first-non-chinese-world-no-1-since-2018/",
+      "retrieved_at": "2026-10-05T16:30:00Z",
+      "description": "ITTF report identifies the Macao 2026 World Cup men's singles final; Wang Chuqin defeated Sora Matsushima 4-3."
+    },
+    {
+      "source_id": "ittf-w41-publication",
+      "source_type": "OFFICIAL_ITTF_RANKING_PUBLICATION",
+      "url": "https://www.ittf.com/ittf-table-tennis-world-ranking/",
+      "retrieved_at": "2026-10-05T16:31:00Z",
+      "description": "Official ranking archive identifies week 41 as published 5 October 2026."
+    },
+    {
+      "source_id": "ittf-wtt-mens-ranking-w41-2026",
+      "source_type": "OFFICIAL_ITTF_WTT_RANKING_API",
+      "url": "https://mobileappapi.worldtabletennis.com/api/cms/GetRankingIndividuals?TopN=200&RankingYear=2026&RankingMonth=10&RankingWeek=41&SubEventCode=MS",
+      "retrieved_at": "2026-10-05T16:31:23Z",
+      "description": "Official ITTF/WTT API response filtered to CategoryCode SEN and SubEventCode MS; published 5 Oct 2026, week 41."
+    },
+    {
+      "source_id": "wtt-china-smash-2025-wang-lebrun",
+      "source_type": "OFFICIAL_WTT_EVENT_RESULTS",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3098",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "China Smash 2025 official event page and result coverage: Wang Chuqin defeated Felix Lebrun 4-0 in the men's singles final (11-7, 11-2, 11-5, 11-7)."
+    },
+    {
+      "source_id": "wtt-chongqing-2025-lebrun-uda",
+      "source_type": "OFFICIAL_WTT_MATCH_REPORT",
+      "url": "https://www.worldtabletennis.com/description?artId=4719",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "WTT Champions Chongqing 2025: Felix Lebrun defeated Yukiya Uda 3-0 (11-4, 11-5, 11-9)."
+    },
+    {
+      "source_id": "wtt-doha-2025-harimoto-groth",
+      "source_type": "OFFICIAL_WTT_EVENT_RESULTS",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3083",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "WTT Star Contender Doha 2025 official event/result coverage: Tomokazu Harimoto defeated Jonathan Groth 4-0 in the men's singles final."
+    },
+    {
+      "source_id": "wtt-europe-smash-2026-moregard-ovtcharov",
+      "source_type": "OFFICIAL_WTT_MATCH_REPORT",
+      "url": "https://www.worldtabletennis.com/description?artId=6482",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Europe Smash - Sweden 2026 Round of 64: Dimitrij Ovtcharov defeated Truls Moregard 3-0 (11-9, 11-3, 11-8)."
+    },
+    {
+      "source_id": "wtt-finals-hk-2025-lin-harimoto",
+      "source_type": "OFFICIAL_WTT_MATCH_REPORT",
+      "url": "https://www.worldtabletennis.com/description?artId=5707",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "WTT Finals Hong Kong 2025 men's singles semifinal: Tomokazu Harimoto defeated Lin Shidong 4-3."
+    },
+    {
+      "source_id": "wtt-player-search-api",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE_API",
+      "url": "https://mobileappapi.worldtabletennis.com/api/cms/GetPlayersListWithSearch?searchText=",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official WTT player search API. Individual player queries returned ITTF ID, association, country and date of birth where available."
+    },
+    {
+      "source_id": "wtt-profile-107028",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/107028/Dimitrij-OVTCHAROV",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-110553",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/110553/ZHANG-Jike",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-112409",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/112409/Jonathan-GROTH",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-114715",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/114715/Dang-QIU",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-115641",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/115641/Hugo-CALDERANO",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-121558",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/121558/WANG-Chuqin",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-121582",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/121582/LIN-Yun-Ju",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-122044",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/122044/Truls-MOREGARD",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-122777",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/122777/Yukiya-UDA",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-123980",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/123980/Tomokazu-HARIMOTO",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-132992",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/132992/Alexis-LEBRUN",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-135977",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/135977/Felix-LEBRUN",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-135996",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/135996/Sora-MATSUSHIMA",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    },
+    {
+      "source_id": "wtt-profile-137237",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE",
+      "url": "https://www.worldtabletennis.com/player/137237/LIN-Shidong",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "Official individual WTT athlete profile; used for identity fields available on the profile."
+    }
+  ],
+  "rights_review_queue": [
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:bilibili:BV1nb421H7jB",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:0QgbtsBWZhk",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "thumbnail_display_permission",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:2EAZCIe6tNM",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:BeYJVN1kBwQ",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:DTPNEl3-2b0",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "thumbnail_display_permission",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:GfaSz4TKlpc",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:H77vNFk3neg",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "thumbnail_display_permission",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:JTUWXpB-NVo",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "thumbnail_display_permission",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:KCGdLksBH7s",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:LJcPKmgLijc",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:M3sBTPauzfs",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:O241nV8y4Dc",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:ThE8xkQAcuk",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:Vw7lIzIlFa4",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:VwzuMoxqTQE",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:WoqgXTjZNSk",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:X5hp7YM7BIk",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:X8Jx8rs20FA",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:ZALmA5MaqoE",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:ZmwzPe0hRII",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:aFs7HJ0NX18",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "thumbnail_display_permission",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:btPhCu7kW1w",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:ekfCZiIEYi0",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "thumbnail_display_permission",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:ekvDMPZDF4o",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:gHS-9_mqE2A",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:gR0a6uskY9g",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:gxLOCVeMCM0",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:iQhVLkcGCFE",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "thumbnail_display_permission",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:lQlw6B9uK3Y",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:nXwsn2IN9tI",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:onxM0RqVxPc",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:sB2II9tDaBU",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:uZ2wVtstweQ",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:ujgxUl2R7wc",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "VIDEO_SOURCE",
+      "record_id": "video-source:youtube:vYsJLPTEIaI",
+      "pending_evidence": [
+        "public_listing_permission",
+        "external_viewing_terms",
+        "current_page_availability",
+        "territory_availability",
+        "embedding_permission",
+        "exact_match_link",
+        "thumbnail_display_permission",
+        "desktop_native_playback_evidence"
+      ]
+    },
+    {
+      "record_type": "MATCH",
+      "record_id": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+      "pending_evidence": [
+        "public_listing_permission",
+        "source_freshness_review",
+        "match_type_if_required"
+      ]
+    },
+    {
+      "record_type": "MATCH",
+      "record_id": "pro:wtt:doha-star-contender-2025:harimoto-jonathan-groth",
+      "pending_evidence": [
+        "public_listing_permission",
+        "source_freshness_review",
+        "match_type_if_required"
+      ]
+    },
+    {
+      "record_type": "MATCH",
+      "record_id": "pro:ittf:macao-world-cup-2026:wang-matsushima",
+      "pending_evidence": [
+        "public_listing_permission",
+        "source_freshness_review",
+        "match_type_if_required"
+      ]
+    },
+    {
+      "record_type": "MATCH",
+      "record_id": "pro:wtt:europe-smash-2026:ovtcharov-moregard",
+      "pending_evidence": [
+        "public_listing_permission",
+        "source_freshness_review",
+        "match_type_if_required"
+      ]
+    },
+    {
+      "record_type": "MATCH",
+      "record_id": "pro:wtt:chongqing-champions-2025:felix-lebrun-yukiya-uda",
+      "pending_evidence": [
+        "public_listing_permission",
+        "source_freshness_review",
+        "match_type_if_required"
+      ]
+    },
+    {
+      "record_type": "MATCH",
+      "record_id": "pro:wtt-finals-hong-kong-2025:harimoto-lin-shidong",
+      "pending_evidence": [
+        "public_listing_permission",
+        "source_freshness_review",
+        "match_type_if_required"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:107028",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:110553",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:112409",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:114715",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:115641",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:121558",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:121582",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:122044",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:122777",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:123980",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:132992",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:135977",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:135996",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:137237",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:legacy:fan-zhendong",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    },
+    {
+      "record_type": "ATHLETE_PROFILE",
+      "record_id": "athlete:legacy:ma-long",
+      "pending_evidence": [
+        "public_listing_permission",
+        "equipment_source_if_added",
+        "coach_observation_source_if_added"
+      ]
+    }
+  ],
+  "analysis_compatibility": {
+    "review_targets_version": "ptti.review-targets/0.1",
+    "review_evidence_pack_version": "ptti.review-evidence-pack/0.1",
+    "join_policy": "EXACT_MATCH_ID_AND_SOURCE_ID_WITH_EVIDENCE_ONLY",
+    "automatic_join_by_title_or_player_name": false,
+    "catalog_sources_linked_to_review_data": 0,
+    "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+  },
+  "notice": "Internal review index only. Do not serve this artifact as the public catalog. Source-file hashes identify snapshot bytes only; they do not establish match truth, media rights, current availability, complete-match status, or playback success."
+}

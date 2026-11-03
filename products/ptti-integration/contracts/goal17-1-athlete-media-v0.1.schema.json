@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.invalid/contracts/goal17-1-athlete-media-v0.1.schema.json",
+  "title": "PTTI GOAL17.1 scoped public athlete media delta",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "generated_at", "view", "base_goal16_manifest_sha256", "base_goal15_library_sha256", "license_notice", "assets"],
+  "properties": {
+    "contract_version": {"const": "ptti.goal17.1-athlete-media/0.1"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "view": {"const": "STRICT_PUBLIC_MEDIA_DELTA"},
+    "base_goal16_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "base_goal15_library_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "license_notice": {"type": "string", "minLength": 1},
+    "assets": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/asset"}}
+  },
+  "$defs": {
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["asset_id", "athlete_id", "subject_name", "match_id", "match_link_status", "use_scope", "display_permission", "promotion_use", "photo_presentation", "depicted_athletes", "actual_event", "source_page_url", "source_file_url", "source_title", "photographer", "license", "license_url", "attribution", "changes_made", "share_alike_required", "commercial_use_review", "source_sha256", "source_dimensions", "derivatives", "quality_limit"],
+      "properties": {
+        "asset_id": {"type": "string", "minLength": 1},
+        "athlete_id": {"type": "string", "minLength": 1},
+        "subject_name": {"type": "string", "minLength": 1},
+        "match_id": {"type": "null"},
+        "match_link_status": {"const": "NOT_LINKED_NO_DIRECT_MATCH_PHOTO_EVIDENCE"},
+        "use_scope": {"const": "ATHLETE_PROFILE_EDITORIAL_ONLY"},
+        "display_permission": {"const": "ALLOWED_SCOPED"},
+        "promotion_use": {"const": "NOT_CLEARED_NO_ENDORSEMENT_OR_ADVERTISING"},
+        "photo_presentation": {"enum": ["PROFILE_CONTEXT_PHOTO", "PROFILE_INTERVIEW_STILL", "MULTI_PLAYER_EVENT_CONTEXT"]},
+        "depicted_athletes": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "actual_event": {"type": "string", "minLength": 1},
+        "source_page_url": {"type": "string", "format": "uri", "pattern": "^https://commons\\.wikimedia\\.org/wiki/File:"},
+        "source_file_url": {"type": "string", "format": "uri", "pattern": "^https://upload\\.wikimedia\\.org/wikipedia/commons/"},
+        "source_title": {"type": "string", "minLength": 1},
+        "photographer": {"type": "string", "minLength": 1},
+        "license": {"enum": ["CC BY-SA 2.0", "CC BY 3.0", "CC0 1.0"]},
+        "share_alike_required": {"type": "boolean"},
+        "commercial_use_review": {"const": "NOT_CLEARED_ENDORSEMENT_ADVERTISING_OR_PROMOTION"},
+        "license_url": {"type": "string", "format": "uri"},
+        "attribution": {"type": "string", "minLength": 1},
+        "changes_made": {"type": "string", "minLength": 1},
+        "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_dimensions": {"$ref": "#/$defs/dimensions"},
+        "derivatives": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/derivative"}},
+        "quality_limit": {"type": "string", "minLength": 1}
+      }
+    },
+    "derivative": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "width", "height", "format", "license", "changes_made", "metadata_stripped"],
+      "properties": {
+        "path": {"type": "string", "pattern": "^assets/[^\\\\]+$"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "width": {"type": "integer", "minimum": 1},
+        "height": {"type": "integer", "minimum": 1},
+        "format": {"const": "WEBP"},
+        "license": {"enum": ["CC BY-SA 2.0", "CC BY 3.0", "CC0 1.0"]},
+        "changes_made": {"type": "string", "minLength": 1},
+        "metadata_stripped": {"const": true}
+      }
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {"width": {"type": "integer", "minimum": 1}, "height": {"type": "integer", "minimum": 1}}
+    }
+  }
+}

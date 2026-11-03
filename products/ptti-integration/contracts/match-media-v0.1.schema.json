@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.local/contracts/match-media/0.1/schema.json",
+  "title": "PTTI Match and Media Interchange Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "matches", "video_sources", "local_video_assets", "timeline_mappings"],
+  "properties": {
+    "contract_version": { "const": "ptti.match-media/0.1" },
+    "matches": { "type": "array", "items": { "$ref": "#/$defs/match" } },
+    "video_sources": { "type": "array", "items": { "$ref": "#/$defs/videoSource" } },
+    "local_video_assets": { "type": "array", "items": { "$ref": "#/$defs/localVideoAsset" } },
+    "timeline_mappings": { "type": "array", "items": { "$ref": "#/$defs/timelineMapping" } }
+  },
+  "$defs": {
+    "unknownable": {
+      "type": "string",
+      "enum": ["VERIFIED", "REVIEW_REQUIRED", "UNKNOWN", "NOT_TESTED", "BLOCKED"]
+    },
+    "permission": {
+      "type": "string",
+      "enum": ["ALLOWED", "DENIED", "UNKNOWN", "PENDING_REVIEW"]
+    },
+    "discipline": {
+      "type": "string",
+      "enum": ["MS", "WS", "MD", "WD", "XD", "UNKNOWN"]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "source_urls", "recorded_at", "review_status"],
+      "properties": {
+        "method": { "type": "string", "minLength": 1 },
+        "source_urls": { "type": "array", "items": { "type": "string", "format": "uri" } },
+        "recorded_at": { "$ref": "#/$defs/dateOrDateTime" },
+        "review_status": { "$ref": "#/$defs/unknownable" },
+        "reviewer_ref": { "type": ["string", "null"] },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "string" }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["metadata_listing", "thumbnail_display", "external_viewing", "embedding", "local_analysis", "model_training", "redistribution"],
+      "properties": {
+        "metadata_listing": { "$ref": "#/$defs/permission" },
+        "thumbnail_display": { "$ref": "#/$defs/permission" },
+        "external_viewing": { "$ref": "#/$defs/permission" },
+        "embedding": { "$ref": "#/$defs/permission" },
+        "local_analysis": { "$ref": "#/$defs/permission" },
+        "model_training": { "$ref": "#/$defs/permission" },
+        "redistribution": { "$ref": "#/$defs/permission" },
+        "basis_urls": { "type": "array", "items": { "type": "string", "format": "uri" } },
+        "reviewed_at": { "$ref": "#/$defs/dateOrDateTime" }
+      }
+    },
+    "rational": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator"],
+      "properties": {
+        "numerator": { "type": "integer", "minimum": 1 },
+        "denominator": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "dateOrDateTime": {
+      "anyOf": [
+        { "type": "null" },
+        { "type": "string", "format": "date" },
+        { "type": "string", "format": "date-time" }
+      ]
+    },
+    "match": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["match_id", "identity_status", "event", "discipline", "round", "participants", "provenance"],
+      "properties": {
+        "match_id": { "type": "string", "minLength": 1 },
+        "identity_status": { "$ref": "#/$defs/unknownable" },
+        "event": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["event_id", "name", "year"],
+          "properties": {
+            "event_id": { "type": ["string", "null"] },
+            "name": { "type": ["string", "null"] },
+            "year": { "type": ["integer", "null"], "minimum": 1900, "maximum": 2200 }
+          }
+        },
+        "match_date": { "$ref": "#/$defs/dateOrDateTime" },
+        "discipline": { "$ref": "#/$defs/discipline" },
+        "round": { "type": ["string", "null"] },
+        "participants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["side", "identity_status", "members"],
+            "properties": {
+              "side": { "enum": ["A", "B"] },
+              "identity_status": { "$ref": "#/$defs/unknownable" },
+              "members": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["name", "player_id"],
+                  "properties": {
+                    "name": { "type": ["string", "null"] },
+                    "player_id": { "type": ["string", "null"] }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "participant_names_unassigned": {
+          "type": "array",
+          "description": "Names present in a source record when side or doubles-pair assignment is not established.",
+          "items": { "type": "string" }
+        },
+        "result": { "type": ["string", "null"] },
+        "provenance": { "$ref": "#/$defs/provenance" }
+      }
+    },
+    "pageEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "checked_at"],
+      "properties": {
+        "status": { "enum": ["OFFICIAL_PAGE_ACCESS_PASS", "FAIL", "RESTRICTED", "NOT_TESTED", "UNKNOWN", "BLOCKED", "REVIEW_REQUIRED"] },
+        "checked_at": { "$ref": "#/$defs/dateOrDateTime" },
+        "final_url": { "type": ["string", "null"], "format": "uri" },
+        "http_status": { "type": ["integer", "null"], "minimum": 100, "maximum": 599 },
+        "notes": { "type": "string" }
+      }
+    },
+    "externalPlaybackEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "checked_at"],
+      "properties": {
+        "status": { "enum": ["EXTERNAL_VIDEO_PAGE_VISUAL_PASS", "EXTERNAL_VIDEO_PAGE_VISUAL_FAIL", "RESTRICTED", "NOT_TESTED", "UNKNOWN", "BLOCKED", "REVIEW_REQUIRED"] },
+        "checked_at": { "$ref": "#/$defs/dateOrDateTime" },
+        "final_url": { "type": ["string", "null"], "format": "uri" },
+        "time_first_seconds": { "type": ["number", "null"], "minimum": 0 },
+        "time_last_seconds": { "type": ["number", "null"], "minimum": 0 },
+        "visual_frames_changed": { "type": ["boolean", "null"] },
+        "territory": { "type": ["string", "null"] },
+        "evidence_ref": { "type": ["string", "null"] },
+        "notes": { "type": "string" }
+      }
+    },
+    "embedEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "checked_at"],
+      "properties": {
+        "status": { "enum": ["EMBED_PLAYBACK_PASS", "EMBED_PLAYBACK_FAIL", "DENIED", "NOT_TESTED", "UNKNOWN", "BLOCKED", "REVIEW_REQUIRED"] },
+        "checked_at": { "$ref": "#/$defs/dateOrDateTime" },
+        "error_code": { "type": ["string", "null"] },
+        "evidence_ref": { "type": ["string", "null"] },
+        "notes": { "type": "string" }
+      }
+    },
+    "nativePlaybackEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "checked_at"],
+      "properties": {
+        "status": { "enum": ["DESKTOP_NATIVE_PLAYBACK_PASS", "DESKTOP_NATIVE_PLAYBACK_FAIL", "NOT_TESTED", "UNKNOWN", "BLOCKED", "REVIEW_REQUIRED"] },
+        "checked_at": { "$ref": "#/$defs/dateOrDateTime" },
+        "app_git_sha": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
+        "package_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+        "source_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+        "evidence_ref": { "type": ["string", "null"] },
+        "notes": { "type": "string" }
+      }
+    },
+    "videoSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "match_id", "match_link_status", "resource_kind", "platform", "canonical_url", "publisher", "published_at", "verified_at", "discipline", "content_type", "rights", "territory", "evidence", "provenance"],
+      "properties": {
+        "source_id": { "type": "string", "minLength": 1 },
+        "match_id": { "type": ["string", "null"] },
+        "match_link_status": { "$ref": "#/$defs/unknownable" },
+        "resource_kind": { "enum": ["OFFICIAL_EVENT_PAGE", "OFFICIAL_MATCH_PAGE", "VIDEO_PAGE", "BROADCAST_SESSION", "CLIP", "UNKNOWN"] },
+        "platform": { "type": "string", "minLength": 1 },
+        "canonical_url": { "type": "string", "format": "uri" },
+        "publisher": { "type": ["string", "null"] },
+        "published_at": { "$ref": "#/$defs/dateOrDateTime" },
+        "verified_at": { "$ref": "#/$defs/dateOrDateTime" },
+        "discipline": { "$ref": "#/$defs/discipline" },
+        "content_type": { "enum": ["FULL_MATCH", "HIGHLIGHTS", "SESSION", "CLIP", "ARTICLE", "UNKNOWN"] },
+        "rights": { "$ref": "#/$defs/rights" },
+        "thumbnail_url": { "type": ["string", "null"], "format": "uri" },
+        "territory": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "territories"],
+          "properties": {
+            "status": { "enum": ["ALLOWED", "RESTRICTED", "UNKNOWN", "NOT_TESTED"] },
+            "territories": { "type": "array", "items": { "type": "string" } },
+            "notes": { "type": "string" }
+          }
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["page_access", "external_video_page", "embed_playback", "desktop_native_playback"],
+          "properties": {
+            "page_access": { "$ref": "#/$defs/pageEvidence" },
+            "external_video_page": { "$ref": "#/$defs/externalPlaybackEvidence" },
+            "embed_playback": { "$ref": "#/$defs/embedEvidence" },
+            "desktop_native_playback": { "$ref": "#/$defs/nativePlaybackEvidence" }
+          }
+        },
+        "provenance": { "$ref": "#/$defs/provenance" }
+      }
+    },
+    "localVideoAsset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["local_asset_id", "match_id", "source_sha256", "availability", "local_locator_ref", "timeline", "rights", "desktop_playback", "vision_result", "provenance"],
+      "properties": {
+        "local_asset_id": { "type": "string", "minLength": 1 },
+        "match_id": { "type": ["string", "null"] },
+        "source_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "availability": { "enum": ["AVAILABLE", "MISSING", "ACCESS_DENIED", "UNKNOWN"] },
+        "local_locator_ref": { "type": "string", "minLength": 1, "x-ptti-data-classification": "LOCAL_ONLY_NEVER_EXPORT_TO_WEB" },
+        "timeline": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["timeline_id", "time_base", "frame_rate"],
+          "properties": {
+            "timeline_id": { "type": "string", "minLength": 1 },
+            "time_base": { "anyOf": [{ "$ref": "#/$defs/rational" }, { "type": "null" }] },
+            "frame_rate": { "anyOf": [{ "$ref": "#/$defs/rational" }, { "type": "null" }] },
+            "duration_ms": { "type": ["integer", "null"], "minimum": 0 }
+          }
+        },
+        "rights": { "$ref": "#/$defs/rights" },
+        "desktop_playback": { "$ref": "#/$defs/nativePlaybackEvidence" },
+        "vision_result": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "checked_at", "source_sha256", "timeline_id"],
+          "properties": {
+            "status": { "enum": ["VERIFIED_RESULT_AVAILABLE", "NO_VERIFIED_RESULT", "NOT_TESTED", "UNKNOWN", "BLOCKED", "REVIEW_REQUIRED"] },
+            "checked_at": { "$ref": "#/$defs/dateOrDateTime" },
+            "source_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+            "timeline_id": { "type": ["string", "null"] },
+            "result_ref": { "type": ["string", "null"] },
+            "notes": { "type": "string" }
+          }
+        },
+        "provenance": { "$ref": "#/$defs/provenance" }
+      }
+    },
+    "timelineMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mapping_id", "from_source_id", "to_source_id", "status", "verified_at", "evidence_refs"],
+      "properties": {
+        "mapping_id": { "type": "string", "minLength": 1 },
+        "from_source_id": { "type": "string", "minLength": 1 },
+        "to_source_id": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["HUMAN_VERIFIED", "REVIEW_REQUIRED", "UNKNOWN", "NOT_TESTED"] },
+            "verified_at": { "$ref": "#/$defs/dateOrDateTime" },
+        "offset_ms": { "type": ["number", "null"] },
+        "scale": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

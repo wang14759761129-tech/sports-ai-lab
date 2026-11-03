@@ -1,0 +1,196 @@
+{
+  "contract_version": "ptti.main.match-experience-delta/0.1",
+  "view": "STRICT_PUBLIC_EXTERNAL_LINK_DELTA",
+  "generated_at": "2026-10-22T04:57:20Z",
+  "base_catalog_contract": "ptti.match-library-index/0.1",
+  "base_catalog_sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+  "matches": [
+    {
+      "match_id": "match:ittf-doha-2025:ms:wang-chuqin-wong-chun-ting",
+      "provider_match_id": null,
+      "identity_status": "METADATA_CROSSCHECKED_VISUAL_MATCH_NOT_TESTED",
+      "event": {
+        "name": "ITTF World Table Tennis Championships Finals Doha 2025",
+        "event_id": "wtt-event:3108",
+        "date": null,
+        "competition_level": "WORLD_CHAMPIONSHIPS"
+      },
+      "match_type": "MS",
+      "round": "UNKNOWN",
+      "participants": [
+        {
+          "side": "A",
+          "athlete_id": "athlete:121558",
+          "name_en": "WANG Chuqin"
+        },
+        {
+          "side": "B",
+          "athlete_id": null,
+          "name_en": "WONG Chun Ting"
+        }
+      ],
+      "recorded_result": {
+        "player_a_games": 4,
+        "player_b_games": 0,
+        "game_scores": [
+          [
+            12,
+            10
+          ],
+          [
+            11,
+            6
+          ],
+          [
+            11,
+            5
+          ],
+          [
+            11,
+            7
+          ]
+        ]
+      },
+      "recorded_winner_id": "athlete:121558",
+      "result_status": "OFFICIAL_ITTF_RECAP_CROSSCHECKED",
+      "reference_url": "https://www.worldtabletennis.com/eventInfo?eventId=3108",
+      "evidence_source_ids": [
+        "ittf-doha-day4-wang-wong-2025",
+        "wtt-doha-event-3108"
+      ],
+      "video_source_ids": [
+        "video-source:youtube:suwultS-Jcc"
+      ],
+      "match_video_link_status": "HUMAN_VERIFIED",
+      "rights": {
+        "public_listing": "ALLOWED",
+        "evidence_status": "FACTUAL_MATCH_METADATA_AND_OFFICIAL_LINK_ONLY",
+        "scope": "MATCH_IDENTITY_AND_OFFICIAL_OUTBOUND_LINK_ONLY",
+        "evidence_source_ids": [
+          "ittf-doha-day4-wang-wong-2025",
+          "wtt-doha-event-3108"
+        ]
+      }
+    }
+  ],
+  "video_sources": [
+    {
+      "catalog_record_id": "catalog:goal27:wtt-doha-2025-wang-wong-highlights",
+      "source_id": "video-source:youtube:suwultS-Jcc",
+      "video_id": "suwultS-Jcc",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=suwultS-Jcc",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "source_published_at": "2025-05-20",
+      "title": "Wong Chun Ting vs Wang Chuqin | Match Highlights | #ITTFWorlds2025",
+      "display_title_zh": null,
+      "event": "ITTF World Table Tennis Championships Finals Doha 2025",
+      "event_display_zh": null,
+      "event_year": 2025,
+      "match_type": "MS",
+      "round": "UNKNOWN",
+      "round_zh": null,
+      "participants_claimed": {
+        "side_a": "Wong Chun Ting",
+        "side_b": "Wang Chuqin"
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "source_verified_at": "2026-10-22T04:53:38Z",
+      "source_identity_status": "VERIFIED",
+      "publisher_identity_status": "VERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": "match:ittf-doha-2025:ms:wang-chuqin-wong-chun-ting",
+      "match_link_status": "HUMAN_VERIFIED",
+      "content_type_claim": "HIGHLIGHTS",
+      "completeness_status": "UNVERIFIED",
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "embedding": "UNKNOWN",
+        "download": "NOT_GRANTED",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "SCOPED_EXTERNAL_LINK_ONLY_NO_MEDIA_USE_GRANT",
+        "scope": "OFFICIAL_YOUTUBE_SHARE_URL_ONLY",
+        "evidence_source_ids": [
+          "wtt-youtube-suwultS-Jcc",
+          "ittf-doha-day4-wang-wong-2025",
+          "youtube-share-link-help"
+        ]
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": false,
+        "display_status": "NOT_DISPLAYED"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [
+          {
+            "surface": "OFFICIAL_YOUTUBE_METADATA_SEARCH_RESULT",
+            "checked_at": "2026-10-22T04:53:38Z",
+            "page_accessible": null,
+            "visual_playback": "NOT_TESTED",
+            "observed_result": "Official search metadata names both players and #ITTFWorlds2025; direct tool fetch was throttled, no frames were viewed.",
+            "limitations": "System-browser opening, current territory, login/paywall and playback are not tested; this match highlight is not evidence of a complete match."
+          }
+        ],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "NOT_TESTED",
+          "historical_attempts": []
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "NOT_TESTED",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED"
+      },
+      "provenance": [
+        {
+          "recorded_at": "2026-10-22T04:53:38Z",
+          "metadata_method": "OFFICIAL_YOUTUBE_VIDEO_METADATA_SEARCH_RESULT",
+          "source_id": "wtt-youtube-suwultS-Jcc",
+          "source_rights_scope": "OFFICIAL_YOUTUBE_SHARE_URL_ONLY",
+          "playback_status_recorded": "NOT_TESTED"
+        },
+        {
+          "recorded_at": "2026-10-22T04:53:38Z",
+          "metadata_method": "OFFICIAL_ITTF_MATCH_RECAP_CROSSCHECK",
+          "source_id": "ittf-doha-day4-wang-wong-2025",
+          "source_rights_scope": "OFFICIAL_YOUTUBE_SHARE_URL_ONLY",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ]
+    }
+  ],
+  "evidence_sources": [
+    {
+      "source_id": "ittf-doha-day4-wang-wong-2025",
+      "source_type": "OFFICIAL_ITTF_MATCH_REPORT",
+      "url": "https://www.ittf.com/2025/05/20/day-4-underway-mixed-doubles-quarterfinalists-decided-as-singles-action-intensifies/",
+      "retrieved_at": "2026-10-22T04:53:38Z",
+      "description": "ITTF's 20 May 2025 Doha Day 4 report states Wang Chuqin defeated Wong Chun Ting 4-0 and lists game scores 12-10, 11-6, 11-5, 11-7. The report's publication date is not treated as the match date; the match round and provider match ID are not recorded."
+    },
+    {
+      "source_id": "wtt-doha-event-3108",
+      "source_type": "OFFICIAL_WTT_EVENT_RECORD",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3108",
+      "retrieved_at": "2026-10-22T04:53:38Z",
+      "description": "WTT's indexed official event record identifies eventId 3108 as ITTF World Table Tennis Championships Finals Doha 2025. The direct page was not verified in the user's browser."
+    },
+    {
+      "source_id": "wtt-youtube-suwultS-Jcc",
+      "source_type": "OFFICIAL_WTT_VIDEO_METADATA",
+      "url": "https://www.youtube.com/watch?v=suwultS-Jcc",
+      "retrieved_at": "2026-10-22T04:53:38Z",
+      "description": "YouTube search metadata identifies the title Wong Chun Ting vs Wang Chuqin | Match Highlights | #ITTFWorlds2025, publisher World Table Tennis (verified channel), and publication date 20 May 2025. The description includes ©WTT and states images may not be reproduced without prior approval. No frames were viewed."
+    }
+  ],
+  "notice": "One match-linked WTT highlights external link. The match ID is PTTI-local; no provider match ID is claimed. Official-page access, external playback, completeness, territory, embed, thumbnail, download, local analysis, redistribution, native playback and Vision remain unverified or not granted."
+}

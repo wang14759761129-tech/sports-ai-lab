@@ -1,0 +1,742 @@
+{
+  "contract_version": "ptti.goal19.1-watchability-evidence/0.1",
+  "generated_at": "2026-10-19T10:34:24.054Z",
+  "audience": "SAN_INTERNAL_REVIEW_ADDENDUM",
+  "additive_only": true,
+  "input_identity": {
+    "base_contract": "ptti.match-library-index/0.1",
+    "base_sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+    "goal17_1_delta_contract": "ptti.goal17.1-match-video-additions/0.1",
+    "goal17_1_delta_sha256": "6f05d1fc48fb74ffc305abe20fd9152973bd96bb009fe6a183d42c031a31198a"
+  },
+  "summary": {
+    "source_count": 17,
+    "unique_source_id_count": 17,
+    "unique_target_url_count": 17,
+    "source_match_link_count": 7,
+    "event_level_or_unlinked_count": 10,
+    "current_fetch_title_surfaced_count": 1,
+    "current_fetch_throttled_count": 4,
+    "current_fetch_not_attempted_count": 12,
+    "video_type_claim_counts": {
+      "FULL_MATCH_TITLE_CLAIM": 5,
+      "MATCH_SPECIFIC_TYPE_UNKNOWN": 2,
+      "EVENT_HIGHLIGHTS_TITLE_CLAIM": 10
+    },
+    "match_link_baseline_counts": {
+      "HUMAN_VERIFIED": 5,
+      "UNKNOWN": 10,
+      "OFFICIAL_VIDEO_TITLE_MATCH_ASSOCIATION; VISUAL_MATCH_NOT_TESTED": 2
+    },
+    "external_system_browser_open_count": 0,
+    "direct_video_start_count": 0,
+    "complete_watch_count": 0
+  },
+  "verification_definitions": {
+    "page_exists": "Evidence that page content was retrieved; a title surface is partial evidence only.",
+    "official_target_correct": "Exact title/URL agreement and previously recorded publisher identity; does not imply playback.",
+    "external_system_browser_open": "Must be tested in the user operating system browser; research fetch is not this test.",
+    "video_started": "Requires observed moving video frames or equivalent direct playback evidence.",
+    "complete_watch": "Requires evidence covering the full video; title claims are insufficient."
+  },
+  "supplemental_event_page_fetches": [
+    {
+      "event_id": "3231",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3231",
+      "checked_on": "2026-10-19",
+      "method": "READ_ONLY_WEB_PAGE_FETCH",
+      "status": "PAGE_SHELL_ONLY_CONTENT_NOT_EXPOSED",
+      "note": "The response exposed a cookie-consent/iframe shell only; no draw, result, participant or event-date facts were independently rechecked."
+    },
+    {
+      "event_id": "3098",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3098",
+      "checked_on": "2026-10-19",
+      "method": "READ_ONLY_WEB_PAGE_FETCH",
+      "status": "PAGE_SHELL_ONLY_CONTENT_NOT_EXPOSED",
+      "note": "The response exposed a cookie-consent/iframe shell only; no draw, result, participant or event-date facts were independently rechecked."
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "video-source:youtube:0QgbtsBWZhk",
+      "match_id": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+      "official_target_url": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "HUMAN_VERIFIED",
+      "video_type_claim": "FULL_MATCH_TITLE_CLAIM",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "PAGE_TITLE_SURFACED",
+        "observed_title": "FULL MATCH | Wang Chuqin vs Felix Lebrun | MS Final | #ChinaSmash 2025",
+        "note": "The research fetch surfaced the expected YouTube title. No player frames or playback were observed."
+      },
+      "verification_levels": {
+        "page_exists": "PARTIAL_PAGE_TITLE_SURFACED",
+        "official_target_correct": "PARTIAL_TITLE_MATCH_WITH_BASELINE_VERIFIED_PUBLISHER",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "UNKNOWN_OR_NOT_TESTED",
+        "latest_playback_status": "EMBED_BLOCKED_HISTORICAL",
+        "historical_embed_status": "BLOCKED_OBSERVED_HISTORICAL_ERROR_150",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "UNKNOWN",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T00:00:00Z"
+    },
+    {
+      "source_id": "video-source:youtube:jv_XQ6oKaDU",
+      "match_id": "pro:wtt:doha-star-contender-2025:harimoto-jonathan-groth",
+      "official_target_url": "https://www.youtube.com/watch?v=jv_XQ6oKaDU",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "HUMAN_VERIFIED",
+      "video_type_claim": "MATCH_SPECIFIC_TYPE_UNKNOWN",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "NOT_TESTED_THIS_SPRINT",
+        "observed_title": null,
+        "note": "No current page fetch was attempted for this source in this sprint."
+      },
+      "verification_levels": {
+        "page_exists": "NOT_TESTED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "UNKNOWN",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T10:46:06Z"
+    },
+    {
+      "source_id": "video-source:youtube:lb4UMbE8Pfs",
+      "match_id": "pro:wtt:wtt-finals-fukuoka-2024:chen-xingtong-wang-manyu-ws-final",
+      "official_target_url": "https://www.youtube.com/watch?v=lb4UMbE8Pfs",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "HUMAN_VERIFIED",
+      "video_type_claim": "MATCH_SPECIFIC_TYPE_UNKNOWN",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "NOT_TESTED_THIS_SPRINT",
+        "observed_title": null,
+        "note": "No current page fetch was attempted for this source in this sprint."
+      },
+      "verification_levels": {
+        "page_exists": "NOT_TESTED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "UNKNOWN",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T10:46:06Z"
+    },
+    {
+      "source_id": "video-source:youtube:xef0VQVV-OE",
+      "match_id": null,
+      "official_target_url": "https://www.youtube.com/watch?v=xef0VQVV-OE",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "UNKNOWN",
+      "video_type_claim": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "NOT_TESTED_THIS_SPRINT",
+        "observed_title": null,
+        "note": "No current page fetch was attempted for this source in this sprint."
+      },
+      "verification_levels": {
+        "page_exists": "NOT_TESTED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "UNKNOWN",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T00:00:00Z"
+    },
+    {
+      "source_id": "video-source:youtube:WF0H02Br3LE",
+      "match_id": null,
+      "official_target_url": "https://www.youtube.com/watch?v=WF0H02Br3LE",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "UNKNOWN",
+      "video_type_claim": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "NOT_TESTED_THIS_SPRINT",
+        "observed_title": null,
+        "note": "No current page fetch was attempted for this source in this sprint."
+      },
+      "verification_levels": {
+        "page_exists": "NOT_TESTED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "UNKNOWN",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T00:00:00Z"
+    },
+    {
+      "source_id": "video-source:youtube:zfrkMx5DdRo",
+      "match_id": null,
+      "official_target_url": "https://www.youtube.com/watch?v=zfrkMx5DdRo",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "UNKNOWN",
+      "video_type_claim": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "NOT_TESTED_THIS_SPRINT",
+        "observed_title": null,
+        "note": "No current page fetch was attempted for this source in this sprint."
+      },
+      "verification_levels": {
+        "page_exists": "NOT_TESTED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "UNKNOWN",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T00:00:00Z"
+    },
+    {
+      "source_id": "video-source:youtube:fa2j70xjqoU",
+      "match_id": null,
+      "official_target_url": "https://www.youtube.com/watch?v=fa2j70xjqoU",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "UNKNOWN",
+      "video_type_claim": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "NOT_TESTED_THIS_SPRINT",
+        "observed_title": null,
+        "note": "No current page fetch was attempted for this source in this sprint."
+      },
+      "verification_levels": {
+        "page_exists": "NOT_TESTED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "UNKNOWN",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T00:00:00Z"
+    },
+    {
+      "source_id": "video-source:youtube:0820Zo3UaGM",
+      "match_id": null,
+      "official_target_url": "https://www.youtube.com/watch?v=0820Zo3UaGM",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "UNKNOWN",
+      "video_type_claim": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "NOT_TESTED_THIS_SPRINT",
+        "observed_title": null,
+        "note": "No current page fetch was attempted for this source in this sprint."
+      },
+      "verification_levels": {
+        "page_exists": "NOT_TESTED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "UNKNOWN",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T00:00:00Z"
+    },
+    {
+      "source_id": "video-source:youtube:y9AYI43XtMI",
+      "match_id": null,
+      "official_target_url": "https://www.youtube.com/watch?v=y9AYI43XtMI",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "UNKNOWN",
+      "video_type_claim": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "NOT_TESTED_THIS_SPRINT",
+        "observed_title": null,
+        "note": "No current page fetch was attempted for this source in this sprint."
+      },
+      "verification_levels": {
+        "page_exists": "NOT_TESTED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "UNKNOWN",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T00:00:00Z"
+    },
+    {
+      "source_id": "video-source:youtube:YNtnXjGiAcQ",
+      "match_id": null,
+      "official_target_url": "https://www.youtube.com/watch?v=YNtnXjGiAcQ",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "UNKNOWN",
+      "video_type_claim": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "NOT_TESTED_THIS_SPRINT",
+        "observed_title": null,
+        "note": "No current page fetch was attempted for this source in this sprint."
+      },
+      "verification_levels": {
+        "page_exists": "NOT_TESTED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "UNKNOWN",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T00:00:00Z"
+    },
+    {
+      "source_id": "video-source:youtube:JZhxfSdn3E4",
+      "match_id": null,
+      "official_target_url": "https://www.youtube.com/watch?v=JZhxfSdn3E4",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "UNKNOWN",
+      "video_type_claim": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "NOT_TESTED_THIS_SPRINT",
+        "observed_title": null,
+        "note": "No current page fetch was attempted for this source in this sprint."
+      },
+      "verification_levels": {
+        "page_exists": "NOT_TESTED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "UNKNOWN",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T00:00:00Z"
+    },
+    {
+      "source_id": "video-source:youtube:AgIDgIo7bSY",
+      "match_id": null,
+      "official_target_url": "https://www.youtube.com/watch?v=AgIDgIo7bSY",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "UNKNOWN",
+      "video_type_claim": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "NOT_TESTED_THIS_SPRINT",
+        "observed_title": null,
+        "note": "No current page fetch was attempted for this source in this sprint."
+      },
+      "verification_levels": {
+        "page_exists": "NOT_TESTED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "UNKNOWN",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T00:00:00Z"
+    },
+    {
+      "source_id": "video-source:youtube:DRWntK5EJj0",
+      "match_id": null,
+      "official_target_url": "https://www.youtube.com/watch?v=DRWntK5EJj0",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "UNKNOWN",
+      "video_type_claim": "EVENT_HIGHLIGHTS_TITLE_CLAIM",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "NOT_TESTED_THIS_SPRINT",
+        "observed_title": null,
+        "note": "No current page fetch was attempted for this source in this sprint."
+      },
+      "verification_levels": {
+        "page_exists": "NOT_TESTED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "UNKNOWN",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T00:00:00Z"
+    },
+    {
+      "source_id": "video-source:youtube:ttUevnAZSEY",
+      "match_id": "pro:wtt:china-smash-2025:sun-yingsha-wang-manyu-ws-final",
+      "official_target_url": "https://www.youtube.com/watch?v=ttUevnAZSEY",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "HUMAN_VERIFIED",
+      "video_type_claim": "FULL_MATCH_TITLE_CLAIM",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "BLOCKED_FETCH_THROTTLED",
+        "observed_title": null,
+        "note": "The read-only page fetch returned an online-fetch throttling response; no alternate access route was attempted."
+      },
+      "verification_levels": {
+        "page_exists": "BLOCKED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "NOT_GRANTED",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T10:56:58Z"
+    },
+    {
+      "source_id": "video-source:youtube:cDccQqVlMnc",
+      "match_id": "pro:wtt:singapore-smash-2026:wang-chuqin-lin-yun-ju-ms-final",
+      "official_target_url": "https://www.youtube.com/watch?v=cDccQqVlMnc",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "VERIFIED",
+      "source_identity_baseline": "VERIFIED",
+      "match_link_baseline": "HUMAN_VERIFIED",
+      "video_type_claim": "FULL_MATCH_TITLE_CLAIM",
+      "video_type_evidence": "BASE_PACKAGE_TITLE_METADATA_CLAIM",
+      "claimed_full_match_completeness": "UNVERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "BLOCKED_FETCH_THROTTLED",
+        "observed_title": null,
+        "note": "The read-only page fetch returned an online-fetch throttling response; no alternate access route was attempted."
+      },
+      "verification_levels": {
+        "page_exists": "BLOCKED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN",
+        "thumbnail_display_permission": "NOT_ALLOWED",
+        "download_permission": "NOT_GRANTED",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OPEN_OFFICIAL_PLATFORM_URL",
+        "external_viewing_permission": "ALLOWED"
+      },
+      "source_recorded_at": "2026-10-18T10:56:58Z"
+    },
+    {
+      "source_id": "youtube:ywX9mUJ8NtI",
+      "match_id": "match:ptti:wtt-doha-2026:ms-r16:lin-shidong-benedikt-duda",
+      "official_target_url": "https://www.youtube.com/watch?v=ywX9mUJ8NtI",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "OFFICIAL_VERIFIED_CHANNEL",
+      "source_identity_baseline": "UNKNOWN",
+      "match_link_baseline": "OFFICIAL_VIDEO_TITLE_MATCH_ASSOCIATION; VISUAL_MATCH_NOT_TESTED",
+      "video_type_claim": "FULL_MATCH_TITLE_CLAIM",
+      "video_type_evidence": "TITLE_TEXT_ONLY",
+      "claimed_full_match_completeness": "TITLE_ASSERTS_FULL_MATCH; VISUAL_COMPLETENESS_NOT_VERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "BLOCKED_FETCH_THROTTLED",
+        "observed_title": null,
+        "note": "The read-only page fetch returned an online-fetch throttling response; no alternate access route was attempted."
+      },
+      "verification_levels": {
+        "page_exists": "BLOCKED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "UNKNOWN",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display_permission": "NOT_GRANTED_PENDING_WRITTEN_APPROVAL",
+        "download_permission": "NOT_GRANTED",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OFFICIAL_EXTERNAL_LINK_ONLY",
+        "external_viewing_permission": "UNKNOWN"
+      },
+      "source_recorded_at": "2026-01-09"
+    },
+    {
+      "source_id": "youtube:Kbhf47vb3eE",
+      "match_id": "match:ptti:wtt-doha-2026:ms-sf:lin-shidong-jang-woojin",
+      "official_target_url": "https://www.youtube.com/watch?v=Kbhf47vb3eE",
+      "publisher": "World Table Tennis",
+      "publisher_identity_baseline": "OFFICIAL_VERIFIED_CHANNEL",
+      "source_identity_baseline": "UNKNOWN",
+      "match_link_baseline": "OFFICIAL_VIDEO_TITLE_MATCH_ASSOCIATION; VISUAL_MATCH_NOT_TESTED",
+      "video_type_claim": "FULL_MATCH_TITLE_CLAIM",
+      "video_type_evidence": "TITLE_TEXT_ONLY",
+      "claimed_full_match_completeness": "TITLE_ASSERTS_FULL_MATCH; VISUAL_COMPLETENESS_NOT_VERIFIED",
+      "current_page_fetch": {
+        "checked_on": "2026-10-19",
+        "method": "READ_ONLY_WEB_PAGE_FETCH",
+        "status": "BLOCKED_FETCH_THROTTLED",
+        "observed_title": null,
+        "note": "The read-only page fetch returned an online-fetch throttling response; no alternate access route was attempted."
+      },
+      "verification_levels": {
+        "page_exists": "BLOCKED",
+        "official_target_correct": "NOT_RECONFIRMED_THIS_SPRINT",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "access": {
+        "territory": "UNKNOWN",
+        "login_or_paywall": "UNKNOWN",
+        "latest_playback_status": "NOT_TESTED",
+        "historical_embed_status": "NOT_TESTED",
+        "current_embed_permission": "UNKNOWN_NOT_GRANTED",
+        "thumbnail_display_permission": "NOT_GRANTED_PENDING_WRITTEN_APPROVAL",
+        "download_permission": "NOT_GRANTED",
+        "local_analysis_permission": "NOT_GRANTED",
+        "redistribution_permission": "NOT_GRANTED",
+        "external_watch_route": "OFFICIAL_EXTERNAL_LINK_ONLY",
+        "external_viewing_permission": "UNKNOWN"
+      },
+      "source_recorded_at": "2026-01-12"
+    }
+  ]
+}

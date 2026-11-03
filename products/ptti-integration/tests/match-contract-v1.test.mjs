@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {createMatchContract,parsePinnedMatchContract} from '../runtime/match-contract-v1.mjs';
+const projection=JSON.parse(readFileSync(new URL('../generated/sprint08-cinema-projection-v0.1.json',import.meta.url),'utf8'));
+const id='pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun';
+test('real admitted 0Q match, evidence, rights and unknown media hash',()=>{const m=createMatchContract(projection,id);assert.equal(m.match_id,id);assert.equal(m.sources[0].video_id,'0QgbtsBWZhk');assert.equal(m.media_sha256,null);assert.equal(m.sources[0].availability.playback,'NOT_TESTED');assert.equal(m.sources[0].authorization.embedding,'UNKNOWN');assert.ok(m.evidence_sources.length>0)});
+test('all eight real matches map to exact unique sources',()=>{assert.equal(projection.matches.length,8);for(const m of projection.matches)assert.equal(createMatchContract(projection,m.match_id).sources.length,1)});
+test('synthetic invalid inputs never inherit approval',()=>{for(const mutate of [p=>p.matches[0].source_ids[0]='unknown',p=>p.video_sources[0].match_id='demo:other',p=>p.video_sources[0].official_url='javascript:alert(1)',p=>p.video_sources[0].official_url='https://www.youtube.com.evil.invalid/watch?v=0QgbtsBWZhk',p=>p.video_sources[0].video_id='H77vNFk3neg',p=>p.video_sources[0].media_sha256='a'.repeat(64),p=>p.video_sources[0].embedding='ALLOWED',p=>p.audience='INTERNAL_REVIEW_ONLY',p=>p.matches.push(structuredClone(p.matches[0]))]){const p=structuredClone(projection);mutate(p);assert.throws(()=>createMatchContract(p,id))}});
+test('demo is explicitly synthetic test data, not admitted as a real catalog',()=>{const demo={contract_version:'ptti.cinema-match-projection/0.1',audience:'INTERNAL_REVIEW_ONLY',matches:[{match_id:'demo:synthetic'}],video_sources:[],evidence_sources:[]};assert.throws(()=>createMatchContract(demo,'demo:synthetic'))});
+test('consumer byte boundary accepts exact pinned bytes and rejects altered bytes',async()=>{const bytes=readFileSync(new URL('../generated/sprint08-cinema-projection-v0.1.json',import.meta.url));assert.equal((await parsePinnedMatchContract(bytes,id)).match_id,id);const bad=Buffer.from(bytes);bad[bad.length-2]^=1;await assert.rejects(()=>parsePinnedMatchContract(bad,id),/PROJECTION_SHA_MISMATCH/)});

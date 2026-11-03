@@ -1,0 +1,1888 @@
+{
+  "report_version": "ptti.training-review/0.1",
+  "generated_at": "2026-10-13T00:00:00Z",
+  "dataset": {
+    "dataset_id": "SIMULATED_ONLY:goal07-dataset-v1",
+    "dataset_class": "SIMULATED_ONLY",
+    "match_id": "SIMULATED_ONLY:goal07-match-001",
+    "source_id": null,
+    "local_asset_id": null,
+    "annotation_csv_sha256": "f5ec0fddebc5d108a89a42ce2acae0e8d8e12e6bca5fbb8d6b7df26dd9792ee0",
+    "annotation_bundle_sha256": "48a86acd50237d416c1544344ccbfc496ef073240f3b33dc57d122d937d83e4c",
+    "source_video_sha256": null,
+    "protocol": {
+      "id": "serve-third-ball-analytics",
+      "version": "0.3",
+      "schema_revision": "1b30e8ea0f8a90a745fb6c30105599f0334fdf7c"
+    },
+    "annotation_provenance": {
+      "method": "DETERMINISTIC_ORIGINAL_GENERATOR",
+      "seed": 20261013,
+      "generated_on": "2026-10-13"
+    },
+    "match_link_status": "NOT_APPLICABLE_SIMULATED",
+    "local_analysis_permission": "NOT_APPLICABLE_SIMULATED",
+    "rights_basis_ref": null,
+    "video_timeline": {
+      "status": "UNBOUND",
+      "timeline_id": null,
+      "pts": null,
+      "time_base": null
+    },
+    "evidence_status": "SIMULATED_ONLY",
+    "vision_status": "NOT_TESTED",
+    "event": null,
+    "player_identity": null
+  },
+  "sample": {
+    "point_count": 24,
+    "game_count": 1,
+    "known_score_count": 24,
+    "known_winner_count": 24
+  },
+  "metrics": {
+    "server_point_win_rate": {
+      "key": "server_point_win_rate",
+      "numerator": 13,
+      "denominator": 24,
+      "sample_count": 24,
+      "missing_count": 0,
+      "value": 0.541667,
+      "computation_rule": "已知发球方赢分数 / 发球方与胜者均已知的逐分数。",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY"
+    },
+    "receiver_point_win_rate": {
+      "key": "receiver_point_win_rate",
+      "numerator": 11,
+      "denominator": 24,
+      "sample_count": 24,
+      "missing_count": 0,
+      "value": 0.458333,
+      "computation_rule": "已知接发球方赢分数 / 接发球方与胜者均已知的逐分数。",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY"
+    },
+    "third_ball_attack_rate": {
+      "key": "third_ball_attack_rate",
+      "numerator": 12,
+      "denominator": 18,
+      "sample_count": 20,
+      "missing_count": 2,
+      "value": 0.666667,
+      "computation_rule": "third_ball_attack=yes / (yes+no)；未判定及不适用不加入分母。",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY",
+      "not_applicable_count": 4
+    },
+    "third_ball_point_conversion": {
+      "key": "third_ball_point_conversion",
+      "numerator": 7,
+      "denominator": 12,
+      "sample_count": 12,
+      "missing_count": 0,
+      "value": 0.583333,
+      "computation_rule": "确认第三板进攻后发球方赢分数 / 已知发球方及胜者的第三板进攻逐分数。",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY"
+    },
+    "third_ball_immediate_success": {
+      "key": "third_ball_immediate_success",
+      "numerator": 3,
+      "denominator": 12,
+      "sample_count": 12,
+      "missing_count": 0,
+      "value": 0.25,
+      "computation_rule": "第三板即时successful数 / successful与unsuccessful数；不等同于本分获胜。",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY"
+    },
+    "key_point_player_win_rate": {
+      "key": "key_point_player_win_rate",
+      "numerator": 6,
+      "denominator": 10,
+      "sample_count": 10,
+      "missing_count": 0,
+      "value": 0.6,
+      "computation_rule": "双方分前比分均至少7且差距不超过1的已知胜者逐分中，player获胜数 / 已知胜者数。",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY",
+      "key_point_candidates": 10,
+      "unresolved_score_or_identity": 14
+    },
+    "rally_length_mean": {
+      "key": "rally_length_mean",
+      "numerator": 148,
+      "denominator": 22,
+      "sample_count": 24,
+      "missing_count": 2,
+      "value": 6.727273,
+      "computation_rule": "已判定的击球次数总和 / 击球次数为正整数的逐分数；发球计为第一板。",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY"
+    }
+  },
+  "distributions": {
+    "serve_side": {
+      "key": "serve_side",
+      "numerator": {
+        "backhand": 6,
+        "forehand": 6
+      },
+      "denominator": 12,
+      "sample_count": 24,
+      "missing_count": 12,
+      "value": null,
+      "computation_rule": "各serve_side类别次数 / 已判定的该字段行数；unknown与unclear记入missing_count，not_applicable单列。",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY",
+      "unknown_count": 6,
+      "unclear_count": 6,
+      "not_applicable_count": 0
+    },
+    "serve_length": {
+      "key": "serve_length",
+      "numerator": {
+        "half_long": 4,
+        "long": 4,
+        "short": 4
+      },
+      "denominator": 12,
+      "sample_count": 20,
+      "missing_count": 8,
+      "value": null,
+      "computation_rule": "各serve_length类别次数 / 已判定的该字段行数；unknown与unclear记入missing_count，not_applicable单列。",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY",
+      "unknown_count": 4,
+      "unclear_count": 4,
+      "not_applicable_count": 4
+    },
+    "serve_location": {
+      "key": "serve_location",
+      "numerator": {
+        "backhand": 4,
+        "forehand": 4,
+        "middle": 4
+      },
+      "denominator": 12,
+      "sample_count": 20,
+      "missing_count": 8,
+      "value": null,
+      "computation_rule": "各serve_location类别次数 / 已判定的该字段行数；unknown与unclear记入missing_count，not_applicable单列。",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY",
+      "unknown_count": 4,
+      "unclear_count": 4,
+      "not_applicable_count": 4
+    },
+    "serve_spin": {
+      "key": "serve_spin",
+      "numerator": {
+        "backspin": 4,
+        "mixed": 4,
+        "no_spin": 4,
+        "sidespin": 4,
+        "topspin": 4
+      },
+      "denominator": 20,
+      "sample_count": 24,
+      "missing_count": 4,
+      "value": null,
+      "computation_rule": "各serve_spin类别次数 / 已判定的该字段行数；unknown与unclear记入missing_count，not_applicable单列。",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY",
+      "unknown_count": 4,
+      "unclear_count": 0,
+      "not_applicable_count": 0
+    },
+    "receive_type": {
+      "key": "receive_type",
+      "numerator": {
+        "drive": 4,
+        "flick": 4,
+        "push": 4
+      },
+      "denominator": 12,
+      "sample_count": 20,
+      "missing_count": 8,
+      "value": null,
+      "computation_rule": "各receive_type类别次数 / 已判定的该字段行数；unknown与unclear记入missing_count，not_applicable单列。",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY",
+      "unknown_count": 4,
+      "unclear_count": 4,
+      "not_applicable_count": 4
+    },
+    "receive_location": {
+      "key": "receive_location",
+      "numerator": {
+        "backhand": 4,
+        "forehand": 4,
+        "middle": 4
+      },
+      "denominator": 12,
+      "sample_count": 20,
+      "missing_count": 8,
+      "value": null,
+      "computation_rule": "各receive_location类别次数 / 已判定的该字段行数；unknown与unclear记入missing_count，not_applicable单列。",
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY",
+      "unknown_count": 4,
+      "unclear_count": 4,
+      "not_applicable_count": 4
+    }
+  },
+  "serve_turns": [
+    {
+      "game_number": 1,
+      "server": "player",
+      "point_ids": [
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p001",
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p002"
+      ],
+      "winner_known_count": 2,
+      "server_wins": 1,
+      "metric": {
+        "key": "serve_turn_win_rate",
+        "numerator": 1,
+        "denominator": 2,
+        "sample_count": 2,
+        "missing_count": 0,
+        "value": 0.5,
+        "computation_rule": "本轮发球方赢分数 / 本轮胜者已知的逐分数。",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE"
+      }
+    },
+    {
+      "game_number": 1,
+      "server": "opponent",
+      "point_ids": [
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p003",
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p004"
+      ],
+      "winner_known_count": 2,
+      "server_wins": 1,
+      "metric": {
+        "key": "serve_turn_win_rate",
+        "numerator": 1,
+        "denominator": 2,
+        "sample_count": 2,
+        "missing_count": 0,
+        "value": 0.5,
+        "computation_rule": "本轮发球方赢分数 / 本轮胜者已知的逐分数。",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE"
+      }
+    },
+    {
+      "game_number": 1,
+      "server": "player",
+      "point_ids": [
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p005",
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p006"
+      ],
+      "winner_known_count": 2,
+      "server_wins": 1,
+      "metric": {
+        "key": "serve_turn_win_rate",
+        "numerator": 1,
+        "denominator": 2,
+        "sample_count": 2,
+        "missing_count": 0,
+        "value": 0.5,
+        "computation_rule": "本轮发球方赢分数 / 本轮胜者已知的逐分数。",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE"
+      }
+    },
+    {
+      "game_number": 1,
+      "server": "opponent",
+      "point_ids": [
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p007",
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p008"
+      ],
+      "winner_known_count": 2,
+      "server_wins": 1,
+      "metric": {
+        "key": "serve_turn_win_rate",
+        "numerator": 1,
+        "denominator": 2,
+        "sample_count": 2,
+        "missing_count": 0,
+        "value": 0.5,
+        "computation_rule": "本轮发球方赢分数 / 本轮胜者已知的逐分数。",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE"
+      }
+    },
+    {
+      "game_number": 1,
+      "server": "player",
+      "point_ids": [
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p009",
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p010"
+      ],
+      "winner_known_count": 2,
+      "server_wins": 1,
+      "metric": {
+        "key": "serve_turn_win_rate",
+        "numerator": 1,
+        "denominator": 2,
+        "sample_count": 2,
+        "missing_count": 0,
+        "value": 0.5,
+        "computation_rule": "本轮发球方赢分数 / 本轮胜者已知的逐分数。",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE"
+      }
+    },
+    {
+      "game_number": 1,
+      "server": "opponent",
+      "point_ids": [
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p011",
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p012"
+      ],
+      "winner_known_count": 2,
+      "server_wins": 1,
+      "metric": {
+        "key": "serve_turn_win_rate",
+        "numerator": 1,
+        "denominator": 2,
+        "sample_count": 2,
+        "missing_count": 0,
+        "value": 0.5,
+        "computation_rule": "本轮发球方赢分数 / 本轮胜者已知的逐分数。",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE"
+      }
+    },
+    {
+      "game_number": 1,
+      "server": "player",
+      "point_ids": [
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p013",
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p014"
+      ],
+      "winner_known_count": 2,
+      "server_wins": 1,
+      "metric": {
+        "key": "serve_turn_win_rate",
+        "numerator": 1,
+        "denominator": 2,
+        "sample_count": 2,
+        "missing_count": 0,
+        "value": 0.5,
+        "computation_rule": "本轮发球方赢分数 / 本轮胜者已知的逐分数。",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE"
+      }
+    },
+    {
+      "game_number": 1,
+      "server": "opponent",
+      "point_ids": [
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p015",
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p016"
+      ],
+      "winner_known_count": 2,
+      "server_wins": 1,
+      "metric": {
+        "key": "serve_turn_win_rate",
+        "numerator": 1,
+        "denominator": 2,
+        "sample_count": 2,
+        "missing_count": 0,
+        "value": 0.5,
+        "computation_rule": "本轮发球方赢分数 / 本轮胜者已知的逐分数。",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE"
+      }
+    },
+    {
+      "game_number": 1,
+      "server": "player",
+      "point_ids": [
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p017",
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p018"
+      ],
+      "winner_known_count": 2,
+      "server_wins": 1,
+      "metric": {
+        "key": "serve_turn_win_rate",
+        "numerator": 1,
+        "denominator": 2,
+        "sample_count": 2,
+        "missing_count": 0,
+        "value": 0.5,
+        "computation_rule": "本轮发球方赢分数 / 本轮胜者已知的逐分数。",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE"
+      }
+    },
+    {
+      "game_number": 1,
+      "server": "opponent",
+      "point_ids": [
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p019",
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p020"
+      ],
+      "winner_known_count": 2,
+      "server_wins": 1,
+      "metric": {
+        "key": "serve_turn_win_rate",
+        "numerator": 1,
+        "denominator": 2,
+        "sample_count": 2,
+        "missing_count": 0,
+        "value": 0.5,
+        "computation_rule": "本轮发球方赢分数 / 本轮胜者已知的逐分数。",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE"
+      }
+    },
+    {
+      "game_number": 1,
+      "server": "player",
+      "point_ids": [
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p021"
+      ],
+      "winner_known_count": 1,
+      "server_wins": 1,
+      "metric": {
+        "key": "serve_turn_win_rate",
+        "numerator": 1,
+        "denominator": 1,
+        "sample_count": 1,
+        "missing_count": 0,
+        "value": 1.0,
+        "computation_rule": "本轮发球方赢分数 / 本轮胜者已知的逐分数。",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE"
+      }
+    },
+    {
+      "game_number": 1,
+      "server": "opponent",
+      "point_ids": [
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p022"
+      ],
+      "winner_known_count": 1,
+      "server_wins": 1,
+      "metric": {
+        "key": "serve_turn_win_rate",
+        "numerator": 1,
+        "denominator": 1,
+        "sample_count": 1,
+        "missing_count": 0,
+        "value": 1.0,
+        "computation_rule": "本轮发球方赢分数 / 本轮胜者已知的逐分数。",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE"
+      }
+    },
+    {
+      "game_number": 1,
+      "server": "player",
+      "point_ids": [
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p023"
+      ],
+      "winner_known_count": 1,
+      "server_wins": 1,
+      "metric": {
+        "key": "serve_turn_win_rate",
+        "numerator": 1,
+        "denominator": 1,
+        "sample_count": 1,
+        "missing_count": 0,
+        "value": 1.0,
+        "computation_rule": "本轮发球方赢分数 / 本轮胜者已知的逐分数。",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE"
+      }
+    },
+    {
+      "game_number": 1,
+      "server": "opponent",
+      "point_ids": [
+        "SIMULATED_ONLY%3Agoal07-match-001/g01/p024"
+      ],
+      "winner_known_count": 1,
+      "server_wins": 0,
+      "metric": {
+        "key": "serve_turn_win_rate",
+        "numerator": 0,
+        "denominator": 1,
+        "sample_count": 1,
+        "missing_count": 0,
+        "value": 0.0,
+        "computation_rule": "本轮发球方赢分数 / 本轮胜者已知的逐分数。",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "INSUFFICIENT_SAMPLE"
+      }
+    }
+  ],
+  "game_summaries": [
+    {
+      "game_number": 1,
+      "point_count": 24,
+      "player_wins_recorded": 13,
+      "opponent_wins_recorded": 11,
+      "last_observed_score_after": {
+        "player": 13,
+        "opponent": 11
+      },
+      "score_status": "DERIVED_FROM_KNOWN_ANNOTATIONS"
+    }
+  ],
+  "score_trace": [
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p001",
+      "game_number": 1,
+      "score_before": {
+        "player": 0,
+        "opponent": 0
+      },
+      "score_after": {
+        "player": 1,
+        "opponent": 0
+      },
+      "winner": "player"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p002",
+      "game_number": 1,
+      "score_before": {
+        "player": 1,
+        "opponent": 0
+      },
+      "score_after": {
+        "player": 1,
+        "opponent": 1
+      },
+      "winner": "opponent"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p003",
+      "game_number": 1,
+      "score_before": {
+        "player": 1,
+        "opponent": 1
+      },
+      "score_after": {
+        "player": 2,
+        "opponent": 1
+      },
+      "winner": "player"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p004",
+      "game_number": 1,
+      "score_before": {
+        "player": 2,
+        "opponent": 1
+      },
+      "score_after": {
+        "player": 2,
+        "opponent": 2
+      },
+      "winner": "opponent"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p005",
+      "game_number": 1,
+      "score_before": {
+        "player": 2,
+        "opponent": 2
+      },
+      "score_after": {
+        "player": 3,
+        "opponent": 2
+      },
+      "winner": "player"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p006",
+      "game_number": 1,
+      "score_before": {
+        "player": 3,
+        "opponent": 2
+      },
+      "score_after": {
+        "player": 3,
+        "opponent": 3
+      },
+      "winner": "opponent"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p007",
+      "game_number": 1,
+      "score_before": {
+        "player": 3,
+        "opponent": 3
+      },
+      "score_after": {
+        "player": 4,
+        "opponent": 3
+      },
+      "winner": "player"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p008",
+      "game_number": 1,
+      "score_before": {
+        "player": 4,
+        "opponent": 3
+      },
+      "score_after": {
+        "player": 4,
+        "opponent": 4
+      },
+      "winner": "opponent"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p009",
+      "game_number": 1,
+      "score_before": {
+        "player": 4,
+        "opponent": 4
+      },
+      "score_after": {
+        "player": 5,
+        "opponent": 4
+      },
+      "winner": "player"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p010",
+      "game_number": 1,
+      "score_before": {
+        "player": 5,
+        "opponent": 4
+      },
+      "score_after": {
+        "player": 5,
+        "opponent": 5
+      },
+      "winner": "opponent"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p011",
+      "game_number": 1,
+      "score_before": {
+        "player": 5,
+        "opponent": 5
+      },
+      "score_after": {
+        "player": 6,
+        "opponent": 5
+      },
+      "winner": "player"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p012",
+      "game_number": 1,
+      "score_before": {
+        "player": 6,
+        "opponent": 5
+      },
+      "score_after": {
+        "player": 6,
+        "opponent": 6
+      },
+      "winner": "opponent"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p013",
+      "game_number": 1,
+      "score_before": {
+        "player": 6,
+        "opponent": 6
+      },
+      "score_after": {
+        "player": 7,
+        "opponent": 6
+      },
+      "winner": "player"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p014",
+      "game_number": 1,
+      "score_before": {
+        "player": 7,
+        "opponent": 6
+      },
+      "score_after": {
+        "player": 7,
+        "opponent": 7
+      },
+      "winner": "opponent"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p015",
+      "game_number": 1,
+      "score_before": {
+        "player": 7,
+        "opponent": 7
+      },
+      "score_after": {
+        "player": 8,
+        "opponent": 7
+      },
+      "winner": "player"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p016",
+      "game_number": 1,
+      "score_before": {
+        "player": 8,
+        "opponent": 7
+      },
+      "score_after": {
+        "player": 8,
+        "opponent": 8
+      },
+      "winner": "opponent"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p017",
+      "game_number": 1,
+      "score_before": {
+        "player": 8,
+        "opponent": 8
+      },
+      "score_after": {
+        "player": 9,
+        "opponent": 8
+      },
+      "winner": "player"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p018",
+      "game_number": 1,
+      "score_before": {
+        "player": 9,
+        "opponent": 8
+      },
+      "score_after": {
+        "player": 9,
+        "opponent": 9
+      },
+      "winner": "opponent"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p019",
+      "game_number": 1,
+      "score_before": {
+        "player": 9,
+        "opponent": 9
+      },
+      "score_after": {
+        "player": 10,
+        "opponent": 9
+      },
+      "winner": "player"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p020",
+      "game_number": 1,
+      "score_before": {
+        "player": 10,
+        "opponent": 9
+      },
+      "score_after": {
+        "player": 10,
+        "opponent": 10
+      },
+      "winner": "opponent"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p021",
+      "game_number": 1,
+      "score_before": {
+        "player": 10,
+        "opponent": 10
+      },
+      "score_after": {
+        "player": 11,
+        "opponent": 10
+      },
+      "winner": "player"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p022",
+      "game_number": 1,
+      "score_before": {
+        "player": 11,
+        "opponent": 10
+      },
+      "score_after": {
+        "player": 11,
+        "opponent": 11
+      },
+      "winner": "opponent"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p023",
+      "game_number": 1,
+      "score_before": {
+        "player": 11,
+        "opponent": 11
+      },
+      "score_after": {
+        "player": 12,
+        "opponent": 11
+      },
+      "winner": "player"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p024",
+      "game_number": 1,
+      "score_before": {
+        "player": 12,
+        "opponent": 11
+      },
+      "score_after": {
+        "player": 13,
+        "opponent": 11
+      },
+      "winner": "player"
+    }
+  ],
+  "key_points": [
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p015",
+      "score_before": {
+        "player": 7,
+        "opponent": 7
+      },
+      "winner": "player",
+      "evidence_status": "SIMULATED_ONLY"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p016",
+      "score_before": {
+        "player": 8,
+        "opponent": 7
+      },
+      "winner": "opponent",
+      "evidence_status": "SIMULATED_ONLY"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p017",
+      "score_before": {
+        "player": 8,
+        "opponent": 8
+      },
+      "winner": "player",
+      "evidence_status": "SIMULATED_ONLY"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p018",
+      "score_before": {
+        "player": 9,
+        "opponent": 8
+      },
+      "winner": "opponent",
+      "evidence_status": "SIMULATED_ONLY"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p019",
+      "score_before": {
+        "player": 9,
+        "opponent": 9
+      },
+      "winner": "player",
+      "evidence_status": "SIMULATED_ONLY"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p020",
+      "score_before": {
+        "player": 10,
+        "opponent": 9
+      },
+      "winner": "opponent",
+      "evidence_status": "SIMULATED_ONLY"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p021",
+      "score_before": {
+        "player": 10,
+        "opponent": 10
+      },
+      "winner": "player",
+      "evidence_status": "SIMULATED_ONLY"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p022",
+      "score_before": {
+        "player": 11,
+        "opponent": 10
+      },
+      "winner": "opponent",
+      "evidence_status": "SIMULATED_ONLY"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p023",
+      "score_before": {
+        "player": 11,
+        "opponent": 11
+      },
+      "winner": "player",
+      "evidence_status": "SIMULATED_ONLY"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p024",
+      "score_before": {
+        "player": 12,
+        "opponent": 11
+      },
+      "winner": "player",
+      "evidence_status": "SIMULATED_ONLY"
+    }
+  ],
+  "watchlist": [
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p003",
+      "reason": "该行标注第三板进攻未成功；请复看动作与判定依据。"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p005",
+      "reason": "该行标注第三板进攻未成功；请复看动作与判定依据。"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p007",
+      "reason": "该行标注第三板进攻未成功；请复看动作与判定依据。"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p011",
+      "reason": "该行标注第三板进攻未成功；请复看动作与判定依据。"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p013",
+      "reason": "该行标注第三板进攻未成功；请复看动作与判定依据。"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p015",
+      "reason": "该行标注第三板进攻未成功；请复看动作与判定依据。"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p016",
+      "reason": "关键比分下该行记录为失分；请复看原始录像与标注。"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p018",
+      "reason": "关键比分下该行记录为失分；请复看原始录像与标注。"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p019",
+      "reason": "该行标注第三板进攻未成功；请复看动作与判定依据。"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p020",
+      "reason": "关键比分下该行记录为失分；请复看原始录像与标注。"
+    }
+  ],
+  "point_refs": [
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p001",
+      "game_number": 1,
+      "point_number": 1,
+      "csv_record_number": 2,
+      "annotation_row_sha256": "18cf4f8aa011140d10f8751b0ec0b4a1e311a1b5b7dd8b09b6f431eabe1117f4",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p002",
+      "game_number": 1,
+      "point_number": 2,
+      "csv_record_number": 3,
+      "annotation_row_sha256": "e6d087c1749af5baa67e76abe2e5e088b33fe2795f3b45923512ed1d4b1a2fae",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p003",
+      "game_number": 1,
+      "point_number": 3,
+      "csv_record_number": 4,
+      "annotation_row_sha256": "97dbb989cf9bd71288e5c5f9db9076ae6c98c59be687ceada2791dfb5c9fb760",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p004",
+      "game_number": 1,
+      "point_number": 4,
+      "csv_record_number": 5,
+      "annotation_row_sha256": "ea6b1397ae0936664cb205d788c9a8a9eef689e3f621110a6f26fac7a84c5a9d",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p005",
+      "game_number": 1,
+      "point_number": 5,
+      "csv_record_number": 6,
+      "annotation_row_sha256": "6c9756155e9f7b76a7e48fc345f4d25f913b59e0ecbd749428d9cb25f6340e17",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p006",
+      "game_number": 1,
+      "point_number": 6,
+      "csv_record_number": 7,
+      "annotation_row_sha256": "d5533e4152999c9857c77d9f2ce45ea0ba560cceaca4b4c4444a28a50f986c11",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p007",
+      "game_number": 1,
+      "point_number": 7,
+      "csv_record_number": 8,
+      "annotation_row_sha256": "f8dc58e32eaee2f19253948b8ad134700d3d1221436fe66255256c8e6679cee0",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p008",
+      "game_number": 1,
+      "point_number": 8,
+      "csv_record_number": 9,
+      "annotation_row_sha256": "fcb64cc9147142719c8b64c10f1b46c1c6871b7cc04fb7a71ef8197e28b34094",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p009",
+      "game_number": 1,
+      "point_number": 9,
+      "csv_record_number": 10,
+      "annotation_row_sha256": "0dea36262814be871dd231bbd74951bded1ed232a7af8367d8f6cebe7bb61f93",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p010",
+      "game_number": 1,
+      "point_number": 10,
+      "csv_record_number": 11,
+      "annotation_row_sha256": "d63f252c12ce44bdb111b328ece9f3b7e9b665b20d35c73534e664f463b9cf9b",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p011",
+      "game_number": 1,
+      "point_number": 11,
+      "csv_record_number": 12,
+      "annotation_row_sha256": "b4a77f46c0393422eca289b7f7b4f8fd14706d94935c34f8c9a995cf477b3e95",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p012",
+      "game_number": 1,
+      "point_number": 12,
+      "csv_record_number": 13,
+      "annotation_row_sha256": "b13253dbbb5e112ad33fcaaca76d05723d6a074267fa2e952c3336f7cff3fb52",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p013",
+      "game_number": 1,
+      "point_number": 13,
+      "csv_record_number": 14,
+      "annotation_row_sha256": "f05dbafeb2681701ce5309414b158ce555004f04d762e6eb61ca0f749f1a4b8a",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p014",
+      "game_number": 1,
+      "point_number": 14,
+      "csv_record_number": 15,
+      "annotation_row_sha256": "416454679d86d2395754b89ad5f965765f0e7ff1e90da3bdb59f69a3742b3832",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p015",
+      "game_number": 1,
+      "point_number": 15,
+      "csv_record_number": 16,
+      "annotation_row_sha256": "9e400c922e69363c1176ff0f81ed7d110f97d4326da1ccb61a07d996502c7716",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p016",
+      "game_number": 1,
+      "point_number": 16,
+      "csv_record_number": 17,
+      "annotation_row_sha256": "5ac3e13a916aceb5b1c50f92e571784a4478a7c04b42f578c9e36d31d0a446a3",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p017",
+      "game_number": 1,
+      "point_number": 17,
+      "csv_record_number": 18,
+      "annotation_row_sha256": "12d8137ae373019ff301bb396244f7df324756207f8f72f2ed1a125e11083efa",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p018",
+      "game_number": 1,
+      "point_number": 18,
+      "csv_record_number": 19,
+      "annotation_row_sha256": "18f02c6f19c9466b91d3ecf02d2d0f31dffe4f89cfde27725004ac6ae9c68c9c",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p019",
+      "game_number": 1,
+      "point_number": 19,
+      "csv_record_number": 20,
+      "annotation_row_sha256": "ac534df9426e3365e9eb514927fa358ab04b0b73e4b183288bde85bfe6990d97",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p020",
+      "game_number": 1,
+      "point_number": 20,
+      "csv_record_number": 21,
+      "annotation_row_sha256": "4b7dcc102beab9fc5526b0d79d25e3e1fb60501762b8128f1787d66c7528d1df",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p021",
+      "game_number": 1,
+      "point_number": 21,
+      "csv_record_number": 22,
+      "annotation_row_sha256": "75f276c37552964cc5284bd66e37c7c3aaab9e211e02ed59241fc4ebe3a0c0de",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p022",
+      "game_number": 1,
+      "point_number": 22,
+      "csv_record_number": 23,
+      "annotation_row_sha256": "a2329b3aeebeeef798410a4f66990543b7007b74673954fa5ad7aae6e6052ab2",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p023",
+      "game_number": 1,
+      "point_number": 23,
+      "csv_record_number": 24,
+      "annotation_row_sha256": "4f2e3f942ee6ea2519e50915c5e9e446d9240cefa334b446d205104d3f69ff94",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p024",
+      "game_number": 1,
+      "point_number": 24,
+      "csv_record_number": 25,
+      "annotation_row_sha256": "c2b563f50af3fb3147f86c5c86136d3ec225fb353915e7d850e47b0b81c00301",
+      "video_timestamp_text": "unknown",
+      "timestamp_binding": "UNBOUND_PROTOCOL_TEXT"
+    }
+  ],
+  "point_records": [
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p001",
+      "csv_record_number": 2,
+      "annotation_row_sha256": "18cf4f8aa011140d10f8751b0ec0b4a1e311a1b5b7dd8b09b6f431eabe1117f4",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 1,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 0,
+        "receiver_score_before": 0,
+        "serve_side": "unknown",
+        "serve_length": "unclear",
+        "serve_location": "unclear",
+        "serve_spin": "mixed",
+        "receive_type": "unclear",
+        "receive_location": "unclear",
+        "third_ball_attack": "yes",
+        "third_ball_side": "forehand",
+        "third_ball_outcome": "successful",
+        "rally_length": 5,
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p002",
+      "csv_record_number": 3,
+      "annotation_row_sha256": "e6d087c1749af5baa67e76abe2e5e088b33fe2795f3b45923512ed1d4b1a2fae",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 2,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 1,
+        "receiver_score_before": 0,
+        "serve_side": "unclear",
+        "serve_length": "not_applicable",
+        "serve_location": "not_applicable",
+        "serve_spin": "unknown",
+        "receive_type": "not_applicable",
+        "receive_location": "not_applicable",
+        "third_ball_attack": "no",
+        "third_ball_side": "not_applicable",
+        "third_ball_outcome": "not_applicable",
+        "rally_length": 6,
+        "point_winner": "opponent",
+        "point_outcome": "loss",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p003",
+      "csv_record_number": 4,
+      "annotation_row_sha256": "97dbb989cf9bd71288e5c5f9db9076ae6c98c59be687ceada2791dfb5c9fb760",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 3,
+        "server": "opponent",
+        "receiver": "player",
+        "server_score_before": 1,
+        "receiver_score_before": 1,
+        "serve_side": "forehand",
+        "serve_length": "short",
+        "serve_location": "forehand",
+        "serve_spin": "backspin",
+        "receive_type": "push",
+        "receive_location": "forehand",
+        "third_ball_attack": "yes",
+        "third_ball_side": "backhand",
+        "third_ball_outcome": "unsuccessful",
+        "rally_length": 9,
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p004",
+      "csv_record_number": 5,
+      "annotation_row_sha256": "ea6b1397ae0936664cb205d788c9a8a9eef689e3f621110a6f26fac7a84c5a9d",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 4,
+        "server": "opponent",
+        "receiver": "player",
+        "server_score_before": 1,
+        "receiver_score_before": 2,
+        "serve_side": "backhand",
+        "serve_length": "long",
+        "serve_location": "middle",
+        "serve_spin": "topspin",
+        "receive_type": "flick",
+        "receive_location": "middle",
+        "third_ball_attack": "unclear",
+        "third_ball_side": "unknown",
+        "third_ball_outcome": "unknown",
+        "rally_length": "unknown",
+        "point_winner": "opponent",
+        "point_outcome": "loss",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p005",
+      "csv_record_number": 6,
+      "annotation_row_sha256": "6c9756155e9f7b76a7e48fc345f4d25f913b59e0ecbd749428d9cb25f6340e17",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 5,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 2,
+        "receiver_score_before": 2,
+        "serve_side": "unknown",
+        "serve_length": "half_long",
+        "serve_location": "backhand",
+        "serve_spin": "sidespin",
+        "receive_type": "drive",
+        "receive_location": "backhand",
+        "third_ball_attack": "yes",
+        "third_ball_side": "backhand",
+        "third_ball_outcome": "unsuccessful",
+        "rally_length": 7,
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p006",
+      "csv_record_number": 7,
+      "annotation_row_sha256": "d5533e4152999c9857c77d9f2ce45ea0ba560cceaca4b4c4444a28a50f986c11",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 6,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 3,
+        "receiver_score_before": 2,
+        "serve_side": "unclear",
+        "serve_length": "unknown",
+        "serve_location": "unknown",
+        "serve_spin": "no_spin",
+        "receive_type": "unknown",
+        "receive_location": "unknown",
+        "third_ball_attack": "no",
+        "third_ball_side": "not_applicable",
+        "third_ball_outcome": "not_applicable",
+        "rally_length": 10,
+        "point_winner": "opponent",
+        "point_outcome": "loss",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p007",
+      "csv_record_number": 8,
+      "annotation_row_sha256": "f8dc58e32eaee2f19253948b8ad134700d3d1221436fe66255256c8e6679cee0",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 7,
+        "server": "opponent",
+        "receiver": "player",
+        "server_score_before": 3,
+        "receiver_score_before": 3,
+        "serve_side": "forehand",
+        "serve_length": "unclear",
+        "serve_location": "unclear",
+        "serve_spin": "mixed",
+        "receive_type": "unclear",
+        "receive_location": "unclear",
+        "third_ball_attack": "yes",
+        "third_ball_side": "backhand",
+        "third_ball_outcome": "unsuccessful",
+        "rally_length": 5,
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p008",
+      "csv_record_number": 9,
+      "annotation_row_sha256": "fcb64cc9147142719c8b64c10f1b46c1c6871b7cc04fb7a71ef8197e28b34094",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 8,
+        "server": "opponent",
+        "receiver": "player",
+        "server_score_before": 3,
+        "receiver_score_before": 4,
+        "serve_side": "backhand",
+        "serve_length": "not_applicable",
+        "serve_location": "not_applicable",
+        "serve_spin": "unknown",
+        "receive_type": "not_applicable",
+        "receive_location": "not_applicable",
+        "third_ball_attack": "unknown",
+        "third_ball_side": "unknown",
+        "third_ball_outcome": "unknown",
+        "rally_length": 8,
+        "point_winner": "opponent",
+        "point_outcome": "loss",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p009",
+      "csv_record_number": 10,
+      "annotation_row_sha256": "0dea36262814be871dd231bbd74951bded1ed232a7af8367d8f6cebe7bb61f93",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 9,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 4,
+        "receiver_score_before": 4,
+        "serve_side": "unknown",
+        "serve_length": "short",
+        "serve_location": "forehand",
+        "serve_spin": "backspin",
+        "receive_type": "push",
+        "receive_location": "forehand",
+        "third_ball_attack": "yes",
+        "third_ball_side": "forehand",
+        "third_ball_outcome": "successful",
+        "rally_length": 3,
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p010",
+      "csv_record_number": 11,
+      "annotation_row_sha256": "d63f252c12ce44bdb111b328ece9f3b7e9b665b20d35c73534e664f463b9cf9b",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 10,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 5,
+        "receiver_score_before": 4,
+        "serve_side": "unclear",
+        "serve_length": "long",
+        "serve_location": "middle",
+        "serve_spin": "topspin",
+        "receive_type": "flick",
+        "receive_location": "middle",
+        "third_ball_attack": "no",
+        "third_ball_side": "not_applicable",
+        "third_ball_outcome": "not_applicable",
+        "rally_length": 6,
+        "point_winner": "opponent",
+        "point_outcome": "loss",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p011",
+      "csv_record_number": 12,
+      "annotation_row_sha256": "b4a77f46c0393422eca289b7f7b4f8fd14706d94935c34f8c9a995cf477b3e95",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 11,
+        "server": "opponent",
+        "receiver": "player",
+        "server_score_before": 5,
+        "receiver_score_before": 5,
+        "serve_side": "forehand",
+        "serve_length": "half_long",
+        "serve_location": "backhand",
+        "serve_spin": "sidespin",
+        "receive_type": "drive",
+        "receive_location": "backhand",
+        "third_ball_attack": "yes",
+        "third_ball_side": "backhand",
+        "third_ball_outcome": "unsuccessful",
+        "rally_length": 9,
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p012",
+      "csv_record_number": 13,
+      "annotation_row_sha256": "b13253dbbb5e112ad33fcaaca76d05723d6a074267fa2e952c3336f7cff3fb52",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 12,
+        "server": "opponent",
+        "receiver": "player",
+        "server_score_before": 5,
+        "receiver_score_before": 6,
+        "serve_side": "backhand",
+        "serve_length": "unknown",
+        "serve_location": "unknown",
+        "serve_spin": "no_spin",
+        "receive_type": "unknown",
+        "receive_location": "unknown",
+        "third_ball_attack": "not_applicable",
+        "third_ball_side": "not_applicable",
+        "third_ball_outcome": "not_applicable",
+        "rally_length": 4,
+        "point_winner": "opponent",
+        "point_outcome": "loss",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p013",
+      "csv_record_number": 14,
+      "annotation_row_sha256": "f05dbafeb2681701ce5309414b158ce555004f04d762e6eb61ca0f749f1a4b8a",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 13,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 6,
+        "receiver_score_before": 6,
+        "serve_side": "unknown",
+        "serve_length": "unclear",
+        "serve_location": "unclear",
+        "serve_spin": "mixed",
+        "receive_type": "unclear",
+        "receive_location": "unclear",
+        "third_ball_attack": "yes",
+        "third_ball_side": "backhand",
+        "third_ball_outcome": "unsuccessful",
+        "rally_length": 7,
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p014",
+      "csv_record_number": 15,
+      "annotation_row_sha256": "416454679d86d2395754b89ad5f965765f0e7ff1e90da3bdb59f69a3742b3832",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 14,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 7,
+        "receiver_score_before": 6,
+        "serve_side": "unclear",
+        "serve_length": "not_applicable",
+        "serve_location": "not_applicable",
+        "serve_spin": "unknown",
+        "receive_type": "not_applicable",
+        "receive_location": "not_applicable",
+        "third_ball_attack": "no",
+        "third_ball_side": "not_applicable",
+        "third_ball_outcome": "not_applicable",
+        "rally_length": 10,
+        "point_winner": "opponent",
+        "point_outcome": "loss",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p015",
+      "csv_record_number": 16,
+      "annotation_row_sha256": "9e400c922e69363c1176ff0f81ed7d110f97d4326da1ccb61a07d996502c7716",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 15,
+        "server": "opponent",
+        "receiver": "player",
+        "server_score_before": 7,
+        "receiver_score_before": 7,
+        "serve_side": "forehand",
+        "serve_length": "short",
+        "serve_location": "forehand",
+        "serve_spin": "backspin",
+        "receive_type": "push",
+        "receive_location": "forehand",
+        "third_ball_attack": "yes",
+        "third_ball_side": "backhand",
+        "third_ball_outcome": "unsuccessful",
+        "rally_length": 5,
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p016",
+      "csv_record_number": 17,
+      "annotation_row_sha256": "5ac3e13a916aceb5b1c50f92e571784a4478a7c04b42f578c9e36d31d0a446a3",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 16,
+        "server": "opponent",
+        "receiver": "player",
+        "server_score_before": 7,
+        "receiver_score_before": 8,
+        "serve_side": "backhand",
+        "serve_length": "long",
+        "serve_location": "middle",
+        "serve_spin": "topspin",
+        "receive_type": "flick",
+        "receive_location": "middle",
+        "third_ball_attack": "not_applicable",
+        "third_ball_side": "not_applicable",
+        "third_ball_outcome": "not_applicable",
+        "rally_length": 8,
+        "point_winner": "opponent",
+        "point_outcome": "loss",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p017",
+      "csv_record_number": 18,
+      "annotation_row_sha256": "12d8137ae373019ff301bb396244f7df324756207f8f72f2ed1a125e11083efa",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 17,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 8,
+        "receiver_score_before": 8,
+        "serve_side": "unknown",
+        "serve_length": "half_long",
+        "serve_location": "backhand",
+        "serve_spin": "sidespin",
+        "receive_type": "drive",
+        "receive_location": "backhand",
+        "third_ball_attack": "yes",
+        "third_ball_side": "forehand",
+        "third_ball_outcome": "successful",
+        "rally_length": 3,
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p018",
+      "csv_record_number": 19,
+      "annotation_row_sha256": "18f02c6f19c9466b91d3ecf02d2d0f31dffe4f89cfde27725004ac6ae9c68c9c",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 18,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 9,
+        "receiver_score_before": 8,
+        "serve_side": "unclear",
+        "serve_length": "unknown",
+        "serve_location": "unknown",
+        "serve_spin": "no_spin",
+        "receive_type": "unknown",
+        "receive_location": "unknown",
+        "third_ball_attack": "no",
+        "third_ball_side": "not_applicable",
+        "third_ball_outcome": "not_applicable",
+        "rally_length": "unknown",
+        "point_winner": "opponent",
+        "point_outcome": "loss",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p019",
+      "csv_record_number": 20,
+      "annotation_row_sha256": "ac534df9426e3365e9eb514927fa358ab04b0b73e4b183288bde85bfe6990d97",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 19,
+        "server": "opponent",
+        "receiver": "player",
+        "server_score_before": 9,
+        "receiver_score_before": 9,
+        "serve_side": "forehand",
+        "serve_length": "unclear",
+        "serve_location": "unclear",
+        "serve_spin": "mixed",
+        "receive_type": "unclear",
+        "receive_location": "unclear",
+        "third_ball_attack": "yes",
+        "third_ball_side": "backhand",
+        "third_ball_outcome": "unsuccessful",
+        "rally_length": 9,
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p020",
+      "csv_record_number": 21,
+      "annotation_row_sha256": "4b7dcc102beab9fc5526b0d79d25e3e1fb60501762b8128f1787d66c7528d1df",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 20,
+        "server": "opponent",
+        "receiver": "player",
+        "server_score_before": 9,
+        "receiver_score_before": 10,
+        "serve_side": "backhand",
+        "serve_length": "not_applicable",
+        "serve_location": "not_applicable",
+        "serve_spin": "unknown",
+        "receive_type": "not_applicable",
+        "receive_location": "not_applicable",
+        "third_ball_attack": "not_applicable",
+        "third_ball_side": "not_applicable",
+        "third_ball_outcome": "not_applicable",
+        "rally_length": 4,
+        "point_winner": "opponent",
+        "point_outcome": "loss",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p021",
+      "csv_record_number": 22,
+      "annotation_row_sha256": "75f276c37552964cc5284bd66e37c7c3aaab9e211e02ed59241fc4ebe3a0c0de",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 21,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 10,
+        "receiver_score_before": 10,
+        "serve_side": "unknown",
+        "serve_length": "short",
+        "serve_location": "forehand",
+        "serve_spin": "backspin",
+        "receive_type": "push",
+        "receive_location": "forehand",
+        "third_ball_attack": "yes",
+        "third_ball_side": "backhand",
+        "third_ball_outcome": "unsuccessful",
+        "rally_length": 7,
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p022",
+      "csv_record_number": 23,
+      "annotation_row_sha256": "a2329b3aeebeeef798410a4f66990543b7007b74673954fa5ad7aae6e6052ab2",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 22,
+        "server": "opponent",
+        "receiver": "player",
+        "server_score_before": 10,
+        "receiver_score_before": 11,
+        "serve_side": "unclear",
+        "serve_length": "long",
+        "serve_location": "middle",
+        "serve_spin": "topspin",
+        "receive_type": "flick",
+        "receive_location": "middle",
+        "third_ball_attack": "no",
+        "third_ball_side": "not_applicable",
+        "third_ball_outcome": "not_applicable",
+        "rally_length": 10,
+        "point_winner": "opponent",
+        "point_outcome": "loss",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p023",
+      "csv_record_number": 24,
+      "annotation_row_sha256": "4f2e3f942ee6ea2519e50915c5e9e446d9240cefa334b446d205104d3f69ff94",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 23,
+        "server": "player",
+        "receiver": "opponent",
+        "server_score_before": 11,
+        "receiver_score_before": 11,
+        "serve_side": "forehand",
+        "serve_length": "half_long",
+        "serve_location": "backhand",
+        "serve_spin": "sidespin",
+        "receive_type": "drive",
+        "receive_location": "backhand",
+        "third_ball_attack": "yes",
+        "third_ball_side": "backhand",
+        "third_ball_outcome": "unsuccessful",
+        "rally_length": 5,
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    },
+    {
+      "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p024",
+      "csv_record_number": 25,
+      "annotation_row_sha256": "c2b563f50af3fb3147f86c5c86136d3ec225fb353915e7d850e47b0b81c00301",
+      "fields": {
+        "match_id": "SIMULATED_ONLY:goal07-match-001",
+        "game_number": 1,
+        "point_number": 24,
+        "server": "opponent",
+        "receiver": "player",
+        "server_score_before": 11,
+        "receiver_score_before": 12,
+        "serve_side": "backhand",
+        "serve_length": "unknown",
+        "serve_location": "unknown",
+        "serve_spin": "no_spin",
+        "receive_type": "unknown",
+        "receive_location": "unknown",
+        "third_ball_attack": "not_applicable",
+        "third_ball_side": "not_applicable",
+        "third_ball_outcome": "not_applicable",
+        "rally_length": 8,
+        "point_winner": "player",
+        "point_outcome": "win",
+        "video_timestamp": "unknown",
+        "notes": "SIMULATED_ONLY; deterministic generated row; no video or athlete evidence."
+      }
+    }
+  ],
+  "limitations": [
+    "全部逐分数据为原创模拟数据；不得对应真实比赛、运动员或视频。",
+    "21字段协议的video_timestamp为自由文本，未验证PTS/time_base，报告不提供精确跳转。",
+    "五分门槛仅为展示阈值，不是统计显著性或竞技规律证明。",
+    "报告不含Vision识别结果，也未独立核验版权或比赛身份。"
+  ],
+  "summary_cn": "# PTTI 训练比赛战术复盘\n\n数据集：SIMULATED_ONLY:goal07-dataset-v1；比赛ID：SIMULATED_ONLY:goal07-match-001；证据：SIMULATED_ONLY。\n\n已录入24分；发球方赢分率13/24（54.2%），接发球方赢分率11/24（45.8%）。\n\n第三板进攻率12/18（66.7%），已标注第三板后的发球方赢分率7/12（58.3%）。\n\n已知关键比分的player赢分率6/10（60.0%）；关键分数10。\n\n这些是逐分标注的描述性统计。建议按报告中的point_id复看关键比分及第三板未成功的记录；当前视频时间尚未绑定PTS。\n\n低样本与未知字段见JSON中各指标的sample_status、missing_count及limitations。\n"
+}
