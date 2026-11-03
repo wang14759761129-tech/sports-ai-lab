@@ -1,0 +1,9 @@
+numpy==2.5.3
+opencv-python-headless==5.0.0.93
+onnxruntime-gpu==1.26.0
+tqdm==4.67.1
+colorama==0.4.6
+flatbuffers==25.12.19
+packaging==26.3
+protobuf==7.36.2
+psutil==7.2.2
