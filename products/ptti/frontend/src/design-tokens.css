@@ -1,0 +1,57 @@
+:root {
+  color-scheme: dark;
+  --bg: #0f0f0f;
+  --sidebar: #181818;
+  --card: #202020;
+  --surface: var(--card);
+  --surface-muted: #181818;
+  --surface-elevated: #282828;
+  --surface-hover: #343434;
+  --text: #f1f1f1;
+  --text-primary: var(--text);
+  --muted: #a7a7a7;
+  --text-secondary: var(--muted);
+  --border: #303030;
+  --line: var(--border);
+  --accent: #76baff;
+  --accent-ink: #071725;
+  --soft: #1d2b38;
+  --confirmed: #79d8a5;
+  --confirmed-bg: #172a20;
+  --warning: #f0be64;
+  --review-bg: #30271b;
+  --unknown: #a7a7a7;
+  --error: #ff9292;
+  --error-bg: #321e20;
+  --player-near: #76baff;
+  --player-far: #f0be64;
+  --chart-a: var(--accent);
+  --chart-b: var(--warning);
+  --player-black: #000;
+  --radius: 12px;
+  --duration: 160ms;
+  --shadow: 0 12px 40px #0006;
+}
+/* Existing explicit light preferences remain available; system now defaults to Studio dark. */
+:root[data-theme=light] {
+  color-scheme: light;
+  --bg: #f3f4f6;
+  --sidebar: #e8ebef;
+  --card: #fff;
+  --surface-muted: #edf0f4;
+  --surface-elevated: #f8fafc;
+  --surface-hover: #dfe7f0;
+  --text: #17212c;
+  --muted: #526170;
+  --border: #d1d8e0;
+  --accent: #1267ad;
+  --accent-ink: #fff;
+  --soft: #e1edf9;
+  --confirmed: #157747;
+  --confirmed-bg: #e0f2e7;
+  --warning: #855900;
+  --review-bg: #fff1d2;
+  --unknown: #526170;
+  --error: #b32336;
+  --error-bg: #ffe5e8;
+}
