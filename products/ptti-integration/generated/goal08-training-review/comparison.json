@@ -1,0 +1,14 @@
+{
+  "comparison_version": "ptti.training-review-comparison/0.1",
+  "changed_point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p001",
+  "field": "rally_length",
+  "before": 5,
+  "after": 7,
+  "original_csv_sha256": "f5ec0fddebc5d108a89a42ce2acae0e8d8e12e6bca5fbb8d6b7df26dd9792ee0",
+  "edited_csv_sha256": "623d11a7358067c1f35fdfd8cfe9f1dfbd155a6fc126e37e15fe0d367c87785d",
+  "original_bundle_sha256": "48a86acd50237d416c1544344ccbfc496ef073240f3b33dc57d122d937d83e4c",
+  "edited_bundle_sha256": "f1107f576d7134b01b803c706f2e93a90fb3b92e56bc9443a0d94718476dbf34",
+  "unchanged_server_win_rate": true,
+  "original_rally_length_mean": 6.727273,
+  "edited_rally_length_mean": 6.818182
+}

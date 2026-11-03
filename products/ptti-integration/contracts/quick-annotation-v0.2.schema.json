@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.example/contracts/quick-annotation-v0.2.schema.json",
+  "title": "PTTI Quick Annotation input v0.2",
+  "description": "v0.1-compatible compact input plus an optional user-observed coarse rally-ending bucket. The bucket is never mapped to exact rally_length or third-ball fields.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "dataset_id", "dataset_class", "match_id", "video_context", "rules_context", "points"],
+  "properties": {
+    "contract_version": {"const": "ptti.quick-annotation/0.2"},
+    "dataset_id": {"type": "string", "minLength": 1},
+    "dataset_class": {"enum": ["HUMAN_QUICK_DRAFT", "SIMULATED_ONLY"]},
+    "match_id": {"type": "string", "minLength": 1},
+    "video_context": {"$ref": "#/$defs/videoContext"},
+    "rules_context": {
+      "type": "object", "additionalProperties": false, "required": ["games"],
+      "properties": {"games": {"type": "array", "items": {"$ref": "#/$defs/gameContext"}}}
+    },
+    "points": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/point"}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"dataset_class": {"const": "SIMULATED_ONLY"}}, "required": ["dataset_class"]},
+      "then": {"properties": {
+        "dataset_id": {"type": "string", "pattern": "^SIMULATED_ONLY:.+"},
+        "match_id": {"type": "string", "pattern": "^SIMULATED_ONLY:.+"},
+        "video_context": {"properties": {"source_id": {"oneOf": [
+          {"type": "null"}, {"type": "string", "pattern": "^SIMULATED_ONLY:.+"}
+        ]}}}
+      }}
+    },
+    {
+      "if": {"properties": {"dataset_class": {"const": "HUMAN_QUICK_DRAFT"}}, "required": ["dataset_class"]},
+      "then": {"properties": {
+        "match_id": {"type": "string", "not": {"pattern": "^SIMULATED_ONLY:"}},
+        "video_context": {"properties": {"source_id": {"not": {"pattern": "^SIMULATED_ONLY:"}}}}
+      }}
+    }
+  ],
+  "$defs": {
+    "side": {"enum": ["player", "opponent", "unknown"]},
+    "maybeMillis": {"oneOf": [{"type": "integer", "minimum": 0}, {"type": "null"}]},
+    "videoContext": {
+      "type": "object", "additionalProperties": false, "required": ["source_id", "duration_ms", "duration_status"],
+      "properties": {
+        "source_id": {"oneOf": [{"type": "string", "minLength": 1}, {"type": "null"}]},
+        "duration_ms": {"oneOf": [{"type": "integer", "minimum": 1}, {"type": "null"}]},
+        "duration_status": {"enum": ["PLAYER_METADATA_REPORTED", "UNKNOWN"]}
+      }
+    },
+    "gameContext": {
+      "type": "object", "additionalProperties": false, "required": ["game_number", "coverage", "first_server"],
+      "properties": {
+        "game_number": {"type": "integer", "minimum": 1},
+        "coverage": {"enum": ["COMPLETE_FROM_GAME_START", "PARTIAL_OR_UNKNOWN"]},
+        "first_server": {"$ref": "#/$defs/side"}
+      }
+    },
+    "tactics": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "serve_side": {"enum": ["forehand", "backhand", "unknown", "unclear", "not_applicable"]},
+        "serve_length": {"enum": ["short", "half_long", "long", "unknown", "unclear", "not_applicable"]},
+        "serve_location": {"enum": ["forehand", "middle", "backhand", "unknown", "unclear", "not_applicable"]},
+        "serve_spin": {"enum": ["backspin", "sidespin", "topspin", "no_spin", "mixed", "unknown", "unclear", "not_applicable"]},
+        "receive_type": {"enum": ["push", "flick", "chiquita", "drive", "loop", "long_push", "short_touch", "other", "unknown", "unclear", "not_applicable"]},
+        "receive_location": {"enum": ["forehand", "middle", "backhand", "unknown", "unclear", "not_applicable"]},
+        "third_ball_attack": {"enum": ["yes", "no", "unknown", "unclear", "not_applicable"]},
+        "third_ball_side": {"enum": ["forehand", "backhand", "other", "unknown", "unclear", "not_applicable"]},
+        "third_ball_outcome": {"enum": ["successful", "unsuccessful", "unknown", "unclear", "not_applicable"]},
+        "rally_length": {"oneOf": [{"type": "integer", "minimum": 1}, {"enum": ["unknown"]}]}
+      }
+    },
+    "point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["point_id", "server", "winner", "observed_tactics", "rally_start_ms", "rally_end_ms"],
+      "properties": {
+        "point_id": {"type": "string", "minLength": 1, "pattern": "/g[0-9]{2,}/p[0-9]{3,}$"},
+        "server": {"$ref": "#/$defs/side"},
+        "winner": {"$ref": "#/$defs/side"},
+        "observed_tactics": {"$ref": "#/$defs/tactics"},
+        "rally_start_ms": {"$ref": "#/$defs/maybeMillis"},
+        "rally_end_ms": {"$ref": "#/$defs/maybeMillis"},
+        "observed_rally_stage": {"enum": ["END_AFTER_1_2_CONTACTS", "END_AFTER_3_4_CONTACTS", "END_AFTER_5_PLUS_CONTACTS", "UNKNOWN"]}
+      }
+    }
+  }
+}

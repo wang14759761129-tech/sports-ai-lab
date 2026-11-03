@@ -1,0 +1,802 @@
+{
+  "demo_version": "ptti.match-intelligence-demo/0.1",
+  "evidence_class": "SIMULATED_ONLY",
+  "change": {
+    "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p001",
+    "field": "rally_length",
+    "from": 5,
+    "to": 7,
+    "expected_mean_delta": 0.090909,
+    "actual_mean_delta": 0.090909
+  },
+  "before": {
+    "analysis_version": "ptti.match-intelligence/0.1",
+    "input_sha256": "48a86acd50237d416c1544344ccbfc496ef073240f3b33dc57d122d937d83e4c",
+    "source_protocol": {
+      "id": "serve-third-ball-analytics",
+      "version": "0.3",
+      "schema_revision": "1b30e8ea0f8a90a745fb6c30105599f0334fdf7c"
+    },
+    "dataset": {
+      "dataset_id": "SIMULATED_ONLY:goal07-dataset-v1",
+      "dataset_class": "SIMULATED_ONLY",
+      "match_id": "SIMULATED_ONLY:goal07-match-001",
+      "source_binding": {
+        "status": "NOT_APPLICABLE_SIMULATED",
+        "source_id": null,
+        "source_sha256": null,
+        "timeline_id": null,
+        "time_base": null
+      },
+      "provenance": {
+        "method": "DETERMINISTIC_ORIGINAL_GENERATOR",
+        "seed": 20261013,
+        "generated_on": "2026-10-13"
+      },
+      "human_review_status": "SIMULATED_ONLY"
+    },
+    "summary": {
+      "point_count": 24,
+      "by_game": {
+        "1": 24
+      },
+      "point_wins": {
+        "counts": {
+          "player": 13,
+          "opponent": 11
+        },
+        "denominator": 24,
+        "rates": {
+          "player": {
+            "numerator": 13,
+            "denominator": 24,
+            "value": 0.541667,
+            "status": "DESCRIPTIVE_ONLY"
+          },
+          "opponent": {
+            "numerator": 11,
+            "denominator": 24,
+            "value": 0.458333,
+            "status": "DESCRIPTIVE_ONLY"
+          }
+        },
+        "status": "DESCRIPTIVE_ONLY"
+      },
+      "server_point_win_rate": {
+        "numerator": 13,
+        "denominator": 24,
+        "value": 0.541667,
+        "status": "DESCRIPTIVE_ONLY",
+        "excluded_rows": 0
+      },
+      "serve_distributions": {
+        "serve_side": {
+          "row_count": 24,
+          "eligible_denominator": 24,
+          "observed_denominator": 12,
+          "counts": {
+            "backhand": 6,
+            "forehand": 6
+          },
+          "shares_of_observed": {
+            "backhand": 0.5,
+            "forehand": 0.5
+          },
+          "unknown_count": 6,
+          "unclear_count": 6,
+          "not_applicable_count": 0,
+          "uncertainty_rate": 0.5,
+          "status": "DESCRIPTIVE_ONLY"
+        },
+        "serve_length": {
+          "row_count": 24,
+          "eligible_denominator": 20,
+          "observed_denominator": 12,
+          "counts": {
+            "half_long": 4,
+            "long": 4,
+            "short": 4
+          },
+          "shares_of_observed": {
+            "half_long": 0.333333,
+            "long": 0.333333,
+            "short": 0.333333
+          },
+          "unknown_count": 4,
+          "unclear_count": 4,
+          "not_applicable_count": 4,
+          "uncertainty_rate": 0.4,
+          "status": "DESCRIPTIVE_ONLY"
+        },
+        "serve_location": {
+          "row_count": 24,
+          "eligible_denominator": 20,
+          "observed_denominator": 12,
+          "counts": {
+            "backhand": 4,
+            "forehand": 4,
+            "middle": 4
+          },
+          "shares_of_observed": {
+            "backhand": 0.333333,
+            "forehand": 0.333333,
+            "middle": 0.333333
+          },
+          "unknown_count": 4,
+          "unclear_count": 4,
+          "not_applicable_count": 4,
+          "uncertainty_rate": 0.4,
+          "status": "DESCRIPTIVE_ONLY"
+        },
+        "serve_spin": {
+          "row_count": 24,
+          "eligible_denominator": 24,
+          "observed_denominator": 20,
+          "counts": {
+            "backspin": 4,
+            "mixed": 4,
+            "no_spin": 4,
+            "sidespin": 4,
+            "topspin": 4
+          },
+          "shares_of_observed": {
+            "backspin": 0.2,
+            "mixed": 0.2,
+            "no_spin": 0.2,
+            "sidespin": 0.2,
+            "topspin": 0.2
+          },
+          "unknown_count": 4,
+          "unclear_count": 0,
+          "not_applicable_count": 0,
+          "uncertainty_rate": 0.166667,
+          "status": "DESCRIPTIVE_ONLY"
+        },
+        "receive_type": {
+          "row_count": 24,
+          "eligible_denominator": 20,
+          "observed_denominator": 12,
+          "counts": {
+            "drive": 4,
+            "flick": 4,
+            "push": 4
+          },
+          "shares_of_observed": {
+            "drive": 0.333333,
+            "flick": 0.333333,
+            "push": 0.333333
+          },
+          "unknown_count": 4,
+          "unclear_count": 4,
+          "not_applicable_count": 4,
+          "uncertainty_rate": 0.4,
+          "status": "DESCRIPTIVE_ONLY"
+        },
+        "receive_location": {
+          "row_count": 24,
+          "eligible_denominator": 20,
+          "observed_denominator": 12,
+          "counts": {
+            "backhand": 4,
+            "forehand": 4,
+            "middle": 4
+          },
+          "shares_of_observed": {
+            "backhand": 0.333333,
+            "forehand": 0.333333,
+            "middle": 0.333333
+          },
+          "unknown_count": 4,
+          "unclear_count": 4,
+          "not_applicable_count": 4,
+          "uncertainty_rate": 0.4,
+          "status": "DESCRIPTIVE_ONLY"
+        }
+      },
+      "third_ball_attack_rate": {
+        "numerator": 12,
+        "denominator": 18,
+        "value": 0.666667,
+        "status": "DESCRIPTIVE_ONLY",
+        "unresolved_eligibility": 2,
+        "not_applicable": 4,
+        "unknown": 1,
+        "unclear": 1
+      },
+      "third_ball_attack_side": {
+        "row_count": 12,
+        "eligible_denominator": 12,
+        "observed_denominator": 12,
+        "counts": {
+          "backhand": 9,
+          "forehand": 3
+        },
+        "shares_of_observed": {
+          "backhand": 0.75,
+          "forehand": 0.25
+        },
+        "unknown_count": 0,
+        "unclear_count": 0,
+        "not_applicable_count": 0,
+        "uncertainty_rate": 0.0,
+        "status": "DESCRIPTIVE_ONLY"
+      },
+      "third_ball_immediate_outcome": {
+        "definition": "third_ball_outcome successful / (successful + unsuccessful), among third_ball_attack=yes",
+        "rate": {
+          "numerator": 3,
+          "denominator": 12,
+          "value": 0.25,
+          "status": "DESCRIPTIVE_ONLY",
+          "unknown": 0,
+          "unclear": 0
+        },
+        "distribution": {
+          "row_count": 12,
+          "eligible_denominator": 12,
+          "observed_denominator": 12,
+          "counts": {
+            "successful": 3,
+            "unsuccessful": 9
+          },
+          "shares_of_observed": {
+            "successful": 0.25,
+            "unsuccessful": 0.75
+          },
+          "unknown_count": 0,
+          "unclear_count": 0,
+          "not_applicable_count": 0,
+          "uncertainty_rate": 0.0,
+          "status": "DESCRIPTIVE_ONLY"
+        }
+      },
+      "third_ball_point_conversion": {
+        "definition": "server won the point / confirmed third_ball_attack=yes with known server and point_winner",
+        "numerator": 7,
+        "denominator": 12,
+        "value": 0.583333,
+        "status": "DESCRIPTIVE_ONLY",
+        "excluded_confirmed_attack_rows": 0
+      },
+      "rally_length": {
+        "numerator_sum": 148,
+        "denominator": 22,
+        "mean": 6.727273,
+        "unknown_count": 2,
+        "unclear_count": 0,
+        "not_applicable_count": 0,
+        "status": "DESCRIPTIVE_ONLY"
+      },
+      "display_sample_threshold": {
+        "n": 5,
+        "meaning": "product display rule only; not a research reliability threshold"
+      }
+    },
+    "limitations": [
+      "Descriptive summaries only; no confidence intervals, significance tests, causal claims, or machine learning.",
+      "Third-ball immediate outcome is not point winner; point conversion is computed separately from server and point_winner.",
+      "Protocol v0.3 video_timestamp is preserved as free text; no PTS, time_base, or source timeline mapping is inferred.",
+      "SIMULATED_ONLY data is isolated from real match, athlete, VideoSource, and ptti.match-media records."
+    ],
+    "point_refs": [
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p001",
+        "game_number": 1,
+        "point_number": 1
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p002",
+        "game_number": 1,
+        "point_number": 2
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p003",
+        "game_number": 1,
+        "point_number": 3
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p004",
+        "game_number": 1,
+        "point_number": 4
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p005",
+        "game_number": 1,
+        "point_number": 5
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p006",
+        "game_number": 1,
+        "point_number": 6
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p007",
+        "game_number": 1,
+        "point_number": 7
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p008",
+        "game_number": 1,
+        "point_number": 8
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p009",
+        "game_number": 1,
+        "point_number": 9
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p010",
+        "game_number": 1,
+        "point_number": 10
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p011",
+        "game_number": 1,
+        "point_number": 11
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p012",
+        "game_number": 1,
+        "point_number": 12
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p013",
+        "game_number": 1,
+        "point_number": 13
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p014",
+        "game_number": 1,
+        "point_number": 14
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p015",
+        "game_number": 1,
+        "point_number": 15
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p016",
+        "game_number": 1,
+        "point_number": 16
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p017",
+        "game_number": 1,
+        "point_number": 17
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p018",
+        "game_number": 1,
+        "point_number": 18
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p019",
+        "game_number": 1,
+        "point_number": 19
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p020",
+        "game_number": 1,
+        "point_number": 20
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p021",
+        "game_number": 1,
+        "point_number": 21
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p022",
+        "game_number": 1,
+        "point_number": 22
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p023",
+        "game_number": 1,
+        "point_number": 23
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p024",
+        "game_number": 1,
+        "point_number": 24
+      }
+    ]
+  },
+  "after": {
+    "analysis_version": "ptti.match-intelligence/0.1",
+    "input_sha256": "f1107f576d7134b01b803c706f2e93a90fb3b92e56bc9443a0d94718476dbf34",
+    "source_protocol": {
+      "id": "serve-third-ball-analytics",
+      "version": "0.3",
+      "schema_revision": "1b30e8ea0f8a90a745fb6c30105599f0334fdf7c"
+    },
+    "dataset": {
+      "dataset_id": "SIMULATED_ONLY:edit-a6359d76de875555ef533684",
+      "dataset_class": "SIMULATED_ONLY",
+      "match_id": "SIMULATED_ONLY:goal07-match-001",
+      "source_binding": {
+        "status": "NOT_APPLICABLE_SIMULATED",
+        "source_id": null,
+        "source_sha256": null,
+        "timeline_id": null,
+        "time_base": null
+      },
+      "provenance": {
+        "method": "SIMULATED_INTERACTIVE_EDIT",
+        "parent_dataset_id": "SIMULATED_ONLY:goal07-dataset-v1",
+        "parent_input_sha256": "48a86acd50237d416c1544344ccbfc496ef073240f3b33dc57d122d937d83e4c",
+        "edit": {
+          "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p001",
+          "field": "rally_length",
+          "before": 5,
+          "after": 7
+        }
+      },
+      "human_review_status": "SIMULATED_ONLY"
+    },
+    "summary": {
+      "point_count": 24,
+      "by_game": {
+        "1": 24
+      },
+      "point_wins": {
+        "counts": {
+          "player": 13,
+          "opponent": 11
+        },
+        "denominator": 24,
+        "rates": {
+          "player": {
+            "numerator": 13,
+            "denominator": 24,
+            "value": 0.541667,
+            "status": "DESCRIPTIVE_ONLY"
+          },
+          "opponent": {
+            "numerator": 11,
+            "denominator": 24,
+            "value": 0.458333,
+            "status": "DESCRIPTIVE_ONLY"
+          }
+        },
+        "status": "DESCRIPTIVE_ONLY"
+      },
+      "server_point_win_rate": {
+        "numerator": 13,
+        "denominator": 24,
+        "value": 0.541667,
+        "status": "DESCRIPTIVE_ONLY",
+        "excluded_rows": 0
+      },
+      "serve_distributions": {
+        "serve_side": {
+          "row_count": 24,
+          "eligible_denominator": 24,
+          "observed_denominator": 12,
+          "counts": {
+            "backhand": 6,
+            "forehand": 6
+          },
+          "shares_of_observed": {
+            "backhand": 0.5,
+            "forehand": 0.5
+          },
+          "unknown_count": 6,
+          "unclear_count": 6,
+          "not_applicable_count": 0,
+          "uncertainty_rate": 0.5,
+          "status": "DESCRIPTIVE_ONLY"
+        },
+        "serve_length": {
+          "row_count": 24,
+          "eligible_denominator": 20,
+          "observed_denominator": 12,
+          "counts": {
+            "half_long": 4,
+            "long": 4,
+            "short": 4
+          },
+          "shares_of_observed": {
+            "half_long": 0.333333,
+            "long": 0.333333,
+            "short": 0.333333
+          },
+          "unknown_count": 4,
+          "unclear_count": 4,
+          "not_applicable_count": 4,
+          "uncertainty_rate": 0.4,
+          "status": "DESCRIPTIVE_ONLY"
+        },
+        "serve_location": {
+          "row_count": 24,
+          "eligible_denominator": 20,
+          "observed_denominator": 12,
+          "counts": {
+            "backhand": 4,
+            "forehand": 4,
+            "middle": 4
+          },
+          "shares_of_observed": {
+            "backhand": 0.333333,
+            "forehand": 0.333333,
+            "middle": 0.333333
+          },
+          "unknown_count": 4,
+          "unclear_count": 4,
+          "not_applicable_count": 4,
+          "uncertainty_rate": 0.4,
+          "status": "DESCRIPTIVE_ONLY"
+        },
+        "serve_spin": {
+          "row_count": 24,
+          "eligible_denominator": 24,
+          "observed_denominator": 20,
+          "counts": {
+            "backspin": 4,
+            "mixed": 4,
+            "no_spin": 4,
+            "sidespin": 4,
+            "topspin": 4
+          },
+          "shares_of_observed": {
+            "backspin": 0.2,
+            "mixed": 0.2,
+            "no_spin": 0.2,
+            "sidespin": 0.2,
+            "topspin": 0.2
+          },
+          "unknown_count": 4,
+          "unclear_count": 0,
+          "not_applicable_count": 0,
+          "uncertainty_rate": 0.166667,
+          "status": "DESCRIPTIVE_ONLY"
+        },
+        "receive_type": {
+          "row_count": 24,
+          "eligible_denominator": 20,
+          "observed_denominator": 12,
+          "counts": {
+            "drive": 4,
+            "flick": 4,
+            "push": 4
+          },
+          "shares_of_observed": {
+            "drive": 0.333333,
+            "flick": 0.333333,
+            "push": 0.333333
+          },
+          "unknown_count": 4,
+          "unclear_count": 4,
+          "not_applicable_count": 4,
+          "uncertainty_rate": 0.4,
+          "status": "DESCRIPTIVE_ONLY"
+        },
+        "receive_location": {
+          "row_count": 24,
+          "eligible_denominator": 20,
+          "observed_denominator": 12,
+          "counts": {
+            "backhand": 4,
+            "forehand": 4,
+            "middle": 4
+          },
+          "shares_of_observed": {
+            "backhand": 0.333333,
+            "forehand": 0.333333,
+            "middle": 0.333333
+          },
+          "unknown_count": 4,
+          "unclear_count": 4,
+          "not_applicable_count": 4,
+          "uncertainty_rate": 0.4,
+          "status": "DESCRIPTIVE_ONLY"
+        }
+      },
+      "third_ball_attack_rate": {
+        "numerator": 12,
+        "denominator": 18,
+        "value": 0.666667,
+        "status": "DESCRIPTIVE_ONLY",
+        "unresolved_eligibility": 2,
+        "not_applicable": 4,
+        "unknown": 1,
+        "unclear": 1
+      },
+      "third_ball_attack_side": {
+        "row_count": 12,
+        "eligible_denominator": 12,
+        "observed_denominator": 12,
+        "counts": {
+          "backhand": 9,
+          "forehand": 3
+        },
+        "shares_of_observed": {
+          "backhand": 0.75,
+          "forehand": 0.25
+        },
+        "unknown_count": 0,
+        "unclear_count": 0,
+        "not_applicable_count": 0,
+        "uncertainty_rate": 0.0,
+        "status": "DESCRIPTIVE_ONLY"
+      },
+      "third_ball_immediate_outcome": {
+        "definition": "third_ball_outcome successful / (successful + unsuccessful), among third_ball_attack=yes",
+        "rate": {
+          "numerator": 3,
+          "denominator": 12,
+          "value": 0.25,
+          "status": "DESCRIPTIVE_ONLY",
+          "unknown": 0,
+          "unclear": 0
+        },
+        "distribution": {
+          "row_count": 12,
+          "eligible_denominator": 12,
+          "observed_denominator": 12,
+          "counts": {
+            "successful": 3,
+            "unsuccessful": 9
+          },
+          "shares_of_observed": {
+            "successful": 0.25,
+            "unsuccessful": 0.75
+          },
+          "unknown_count": 0,
+          "unclear_count": 0,
+          "not_applicable_count": 0,
+          "uncertainty_rate": 0.0,
+          "status": "DESCRIPTIVE_ONLY"
+        }
+      },
+      "third_ball_point_conversion": {
+        "definition": "server won the point / confirmed third_ball_attack=yes with known server and point_winner",
+        "numerator": 7,
+        "denominator": 12,
+        "value": 0.583333,
+        "status": "DESCRIPTIVE_ONLY",
+        "excluded_confirmed_attack_rows": 0
+      },
+      "rally_length": {
+        "numerator_sum": 150,
+        "denominator": 22,
+        "mean": 6.818182,
+        "unknown_count": 2,
+        "unclear_count": 0,
+        "not_applicable_count": 0,
+        "status": "DESCRIPTIVE_ONLY"
+      },
+      "display_sample_threshold": {
+        "n": 5,
+        "meaning": "product display rule only; not a research reliability threshold"
+      }
+    },
+    "limitations": [
+      "Descriptive summaries only; no confidence intervals, significance tests, causal claims, or machine learning.",
+      "Third-ball immediate outcome is not point winner; point conversion is computed separately from server and point_winner.",
+      "Protocol v0.3 video_timestamp is preserved as free text; no PTS, time_base, or source timeline mapping is inferred.",
+      "SIMULATED_ONLY data is isolated from real match, athlete, VideoSource, and ptti.match-media records."
+    ],
+    "point_refs": [
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p001",
+        "game_number": 1,
+        "point_number": 1
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p002",
+        "game_number": 1,
+        "point_number": 2
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p003",
+        "game_number": 1,
+        "point_number": 3
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p004",
+        "game_number": 1,
+        "point_number": 4
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p005",
+        "game_number": 1,
+        "point_number": 5
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p006",
+        "game_number": 1,
+        "point_number": 6
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p007",
+        "game_number": 1,
+        "point_number": 7
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p008",
+        "game_number": 1,
+        "point_number": 8
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p009",
+        "game_number": 1,
+        "point_number": 9
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p010",
+        "game_number": 1,
+        "point_number": 10
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p011",
+        "game_number": 1,
+        "point_number": 11
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p012",
+        "game_number": 1,
+        "point_number": 12
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p013",
+        "game_number": 1,
+        "point_number": 13
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p014",
+        "game_number": 1,
+        "point_number": 14
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p015",
+        "game_number": 1,
+        "point_number": 15
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p016",
+        "game_number": 1,
+        "point_number": 16
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p017",
+        "game_number": 1,
+        "point_number": 17
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p018",
+        "game_number": 1,
+        "point_number": 18
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p019",
+        "game_number": 1,
+        "point_number": 19
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p020",
+        "game_number": 1,
+        "point_number": 20
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p021",
+        "game_number": 1,
+        "point_number": 21
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p022",
+        "game_number": 1,
+        "point_number": 22
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p023",
+        "game_number": 1,
+        "point_number": 23
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Agoal07-match-001/g01/p024",
+        "game_number": 1,
+        "point_number": 24
+      }
+    ]
+  }
+}

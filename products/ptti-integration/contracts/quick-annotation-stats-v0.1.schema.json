@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.example/contracts/quick-annotation-stats-v0.1.schema.json",
+  "title": "PTTI Quick Annotation descriptive statistics sidecar v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "input_contract_version", "draft_status", "evidence_status", "dataset", "sample", "metrics", "rally_stage_distribution", "review_candidates", "limitations", "automatic_formal_report_promotion", "automatic_vision_promotion"],
+  "properties": {
+    "contract_version": {"const": "ptti.quick-annotation-stats/0.1"},
+    "input_contract_version": {"enum": ["ptti.quick-annotation/0.1", "ptti.quick-annotation/0.2"]},
+    "draft_status": {"enum": ["LIGHT_ANNOTATION_DRAFT", "SIMULATED_ONLY"]},
+    "evidence_status": {"enum": ["REVIEW_REQUIRED", "SIMULATED_ONLY"]},
+    "dataset": {
+      "type": "object", "additionalProperties": false,
+      "required": ["dataset_id", "dataset_class", "match_id", "match_link_status", "source_id", "source_link_status", "rights_status", "source_video_sha256", "timeline_id", "pts", "time_base", "vision_status"],
+      "properties": {
+        "dataset_id": {"type": "string"}, "dataset_class": {"enum": ["HUMAN_QUICK_DRAFT", "SIMULATED_ONLY"]},
+        "match_id": {"type": "string"}, "match_link_status": {"type": "string"},
+        "source_id": {"type": ["string", "null"]}, "source_link_status": {"type": "string"},
+        "rights_status": {"const": "UNKNOWN"}, "source_video_sha256": {"type": ["string", "null"]},
+        "timeline_id": {"type": ["string", "null"]}, "pts": {"type": ["integer", "null"]},
+        "time_base": {"type": ["string", "null"]}, "vision_status": {"const": "NOT_TESTED"}
+      }
+    },
+    "sample": {
+      "type": "object", "additionalProperties": false,
+      "required": ["point_count", "protocol_sequence_valid", "score_known_count", "score_unknown_count", "score_before_trace_known_count", "game_count", "game_counts"],
+      "properties": {
+        "point_count": {"type": "integer", "minimum": 1}, "protocol_sequence_valid": {"type": "boolean"},
+        "score_known_count": {"type": "integer", "minimum": 0},
+        "score_unknown_count": {"type": "integer", "minimum": 0}, "score_before_trace_known_count": {"type": "integer", "minimum": 0},
+        "game_count": {"type": "integer", "minimum": 1},
+        "game_counts": {"type": "object", "additionalProperties": {"$ref": "#/$defs/gameCounts"}}
+      }
+    },
+    "metrics": {
+      "type": "object", "additionalProperties": false,
+      "required": ["score_record_coverage", "recorded_point_wins", "time_range_coverage", "timeline_bound_review_coverage", "server_point_win_rate", "receiver_point_win_rate", "tactical_fields", "third_ball_attack_rate", "third_ball_immediate_success", "third_ball_server_point_conversion", "key_point_player_win_rate"],
+      "properties": {
+        "score_record_coverage": {"$ref": "#/$defs/metric"}, "recorded_point_wins": {"$ref": "#/$defs/metric"},
+        "time_range_coverage": {"$ref": "#/$defs/metric"}, "timeline_bound_review_coverage": {"$ref": "#/$defs/metric"},
+        "server_point_win_rate": {"$ref": "#/$defs/metric"}, "receiver_point_win_rate": {"$ref": "#/$defs/metric"},
+        "third_ball_attack_rate": {"$ref": "#/$defs/metric"}, "third_ball_immediate_success": {"$ref": "#/$defs/metric"},
+        "third_ball_server_point_conversion": {"$ref": "#/$defs/metric"}, "key_point_player_win_rate": {"$ref": "#/$defs/metric"},
+        "tactical_fields": {"type": "object", "additionalProperties": {"$ref": "#/$defs/metric"}}
+      }
+    },
+    "rally_stage_distribution": {
+      "type": "object", "additionalProperties": false,
+      "required": ["contract_version", "status", "numerator", "denominator", "sample_count", "missing_count", "computation_rule", "evidence_status", "sample_status", "display_caution_threshold", "threshold_is_significance_test"],
+      "properties": {
+        "contract_version": {"const": "ptti.quick-annotation-stage-stats/0.1"},
+        "status": {"enum": ["NOT_AVAILABLE_INPUT_V0_1", "USER_OBSERVED_DRAFT"]},
+        "numerator": {"type": "object", "propertyNames": {"enum": ["END_AFTER_1_2_CONTACTS", "END_AFTER_3_4_CONTACTS", "END_AFTER_5_PLUS_CONTACTS"]}, "additionalProperties": {"type": "integer", "minimum": 0}},
+        "denominator": {"type": "integer", "minimum": 0}, "sample_count": {"type": "integer", "minimum": 0},
+        "missing_count": {"type": "integer", "minimum": 0}, "computation_rule": {"type": "string"},
+        "evidence_status": {"type": "string"}, "sample_status": {"enum": ["NOT_ESTIMABLE", "INSUFFICIENT_SAMPLE", "DESCRIPTIVE_ONLY"]},
+        "display_caution_threshold": {"type": "integer", "minimum": 1}, "threshold_is_significance_test": {"const": false}
+      }
+    },
+    "review_candidates": {"type": "array", "maxItems": 2, "items": {"$ref": "#/$defs/reviewCandidate"}},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "automatic_formal_report_promotion": {"const": false},
+    "automatic_vision_promotion": {"const": false}
+  },
+  "$defs": {
+    "metric": {
+      "type": "object", "additionalProperties": true,
+      "required": ["numerator", "denominator", "sample_count", "missing_count", "value", "computation_rule", "evidence_status", "sample_status", "display_caution_threshold", "threshold_is_significance_test"],
+      "properties": {
+        "numerator": {"anyOf": [{"type": "number", "minimum": 0}, {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}]},
+        "denominator": {"type": "integer", "minimum": 0}, "sample_count": {"type": "integer", "minimum": 0},
+        "missing_count": {"type": "integer", "minimum": 0}, "value": {"type": ["number", "null"]},
+        "computation_rule": {"type": "string"}, "evidence_status": {"type": "string"},
+        "sample_status": {"enum": ["NOT_ESTIMABLE", "INSUFFICIENT_SAMPLE", "DESCRIPTIVE_ONLY"]},
+        "display_caution_threshold": {"type": "integer", "minimum": 1}, "threshold_is_significance_test": {"const": false}
+      }
+    },
+    "gameCounts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["point_count", "known_winner_count", "player_wins", "opponent_wins"],
+      "properties": {"point_count": {"type": "integer"}, "known_winner_count": {"type": "integer"}, "player_wins": {"type": "integer"}, "opponent_wins": {"type": "integer"}}
+    },
+    "reviewCandidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["point_id", "start_ms", "end_ms", "observed_labels", "status", "limitation"],
+      "properties": {
+        "point_id": {"type": "string"}, "start_ms": {"type": "integer", "minimum": 0},
+        "end_ms": {"type": "integer", "minimum": 1}, "observed_labels": {"type": "object"},
+        "observed_rally_stage": {"enum": ["END_AFTER_1_2_CONTACTS", "END_AFTER_3_4_CONTACTS", "END_AFTER_5_PLUS_CONTACTS", "UNKNOWN"]},
+        "status": {"const": "REVIEW_CANDIDATE_NOT_VIDEO_BOUND"}, "limitation": {"type": "string"}
+      }
+    }
+  }
+}
