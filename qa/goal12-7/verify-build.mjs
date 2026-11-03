@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {selectCandidate,verifyCandidate,verifyBuildReceipt} from '../goal12-6/candidate.mjs';
+import {fileHashes,hash} from '../goal12-6/prepare.mjs';
+const selected=await selectCandidate('qa/goal12-7/insight.config.json');await verifyCandidate(selected);
+const receipt=JSON.parse(await readFile(path.join(selected.buildPath,'BUILD_RECEIPT.json'),'utf8'));
+const {verifyPinnedPlaybackCore}=await import(pathToFileURL(path.join(selected.appPath,'src/playback-core-pin.mjs')));const pin=verifyPinnedPlaybackCore(selected.appPath);
+const files=await fileHashes(path.join(selected.buildPath,'dist'));verifyBuildReceipt(selected,receipt,files,pin);
+assert.equal(receipt.artifact_location,path.join(selected.buildPath,'dist'));assert.equal(receipt.validation.typescript,'PASS');assert.equal(receipt.validation.public_isolation,'PASS');
+const manifestBytes=await readFile(path.join(selected.buildPath,'dist/ptti-build-manifest.json'));assert.equal(hash(manifestBytes),receipt.manifest_sha256);const manifest=JSON.parse(manifestBytes);
+assert.equal(manifest.san_commit,selected.candidate);assert.equal(manifest.playback_core_commit,pin.coreCommit);assert.equal(manifest.playback_core_source_sha256,pin.sourceHash);assert.equal(manifest.strict_public_video_source_count,0);assert.equal(manifest.strict_public_web_match_count,0);assert.equal(manifest.internal_cinema_source_review_included,false);
+for(const [file,sha]of Object.entries(manifest.file_sha256))assert.equal(files[file],sha);
+const output={status:'PASS',candidate:selected.candidate,core:pin.coreCommit,build_receipt_sha256:hash(await readFile(path.join(selected.buildPath,'BUILD_RECEIPT.json'))),manifest_sha256:receipt.manifest_sha256,verified_output_files:Object.keys(files).length,artifact_location:receipt.artifact_location,chrome:'NOT_TESTED',runtime_instances_used:[],port_policy:'OS assigned loopback port; no4174/4176/4177 dependency'};
+await writeFile(path.join(selected.buildPath,'QA_RECEIPT_VERIFICATION.json'),JSON.stringify(output,null,2));console.log(JSON.stringify(output));

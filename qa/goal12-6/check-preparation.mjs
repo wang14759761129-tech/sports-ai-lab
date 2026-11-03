@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
+import { readFile } from 'node:fs/promises';
+import { sourceGuard, app, core } from './prepare.mjs';
+import { verifyPinnedPlaybackCore } from '../../products/ptti-web/src/playback-core-pin.mjs';
+import { prepareQuickSource, validateReviewTargets } from '../../products/ptti-web/src/review-targets.mjs';
+sourceGuard(); assert.equal(verifyPinnedPlaybackCore(app).coreCommit,core);
+const source=await prepareQuickSource(await readFile(app+'/scripts/fixtures/review-targets/quick-input.json','utf8'));
+const report=validateReviewTargets(JSON.parse(await readFile(app+'/scripts/fixtures/review-targets/targets.json','utf8')),source);
+assert.equal(source.points.length,19);const target=report.review_targets.find(t=>t.subject_role==='player'&&t.observed_rally_stage==='END_AFTER_3_4_CONTACTS');assert.deepEqual(target.point_ids.map(x=>x.split('/').at(-1)),['p002','p004','p006']);
+const output=execFileSync(process.execPath,['qa/goal12-6/acceptance.mjs'],{encoding:'utf8',windowsHide:true});assert.match(output,/NOT_TESTED.*no server or browser started/);
+console.log('QA preparation PASS: frozen source unchanged; exact Core; actual Golden canonical hash and IDs; safe default. Browser NOT_TESTED.');

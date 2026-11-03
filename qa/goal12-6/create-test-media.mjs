@@ -1,0 +1,12 @@
+import { spawnSync } from 'node:child_process';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import { repo, hash, memory } from './prepare.mjs';
+if(memory()<3) throw Error('BLOCKED: require 3 GiB before generating test media');
+const out=path.join(repo,'.alpha-qa/goal12-6-media'); await mkdir(out,{recursive:true});
+const file=path.join(out,'SYNTHETIC-TEST-PATTERN-60s.mp4');
+const args=['-n','-f','lavfi','-i','testsrc2=size=320x180:rate=12:duration=60','-an','-c:v','libx264','-threads','1','-pix_fmt','yuv420p','-movflags','+faststart',file];
+const result=spawnSync('ffmpeg',args,{windowsHide:true,encoding:'utf8'});
+if(result.status!==0) throw Error('ffmpeg failed or file already exists; inspect output, do not silently overwrite: '+result.stderr);
+await writeFile(path.join(out,'media-receipt.json'),JSON.stringify({classification:'SYNTHETIC_TEST_PATTERN',permission:'SELF_GENERATED_TEST_USE',sha256:hash(await readFile(file)),generator:'ffmpeg lavfi testsrc2',generator_args:args.slice(0,-1),has_real_players:false,has_audio:false},null,2));
+console.log('Synthetic media and receipt ready in '+out+'; not real match video or user acceptance.');

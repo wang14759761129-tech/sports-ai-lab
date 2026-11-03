@@ -1,0 +1,7 @@
+{
+  "config_version": "ptti.qa-candidate/0.1",
+  "name": "goal12-7-insight",
+  "source_commit": "82580591ada031a5943b65756811ab2e2a1633d8",
+  "core_commit": "304eb661b8a16d6af78a70743bb9e1ef1bdb2fbe",
+  "insight_onboarding": true
+}
