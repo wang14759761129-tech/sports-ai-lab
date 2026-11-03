@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ptti.user-watch-feedback/0.1",
+  "title": "PTTI User Reported Watch Feedback",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "evidence_class", "reports"],
+  "properties": {
+    "contract_version": { "const": "ptti.user-watch-feedback/0.1" },
+    "evidence_class": { "const": "USER_REPORTED" },
+    "reports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_class", "report_id", "source_id", "source_url", "tested_at", "playback_started", "login_required", "territory_restricted"],
+        "properties": {
+          "evidence_class": { "const": "USER_REPORTED" },
+          "report_id": { "type": "string", "minLength": 1 },
+          "source_id": { "type": "string", "minLength": 1 },
+          "source_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+          "tested_at": { "type": "string", "format": "date-time" },
+          "playback_started": { "enum": ["YES", "NO", "UNSURE"] },
+          "login_required": { "enum": ["YES", "NO", "UNKNOWN"] },
+          "territory_restricted": { "enum": ["YES", "NO", "UNKNOWN"] }
+        }
+      }
+    }
+  }
+}

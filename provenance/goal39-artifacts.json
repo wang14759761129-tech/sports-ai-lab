@@ -1,0 +1,30 @@
+{
+  "scope": "LOCAL_ONLY_BUILD_OUTPUT_NOT_TRACKED",
+  "tree_sha256": "055f9c116982267ffaebe42fa5733065cb08d30584b98120e9102a26ecb03354",
+  "files": {
+    "assets/ArenaChallengePage-D2EMoTWw.js": "abc82ab239649b0085d47bfa8edd59e17ae9b47236de52880e4b4f1a0b7c0930",
+    "assets/FanSearchOverlay-D3H5EDxO.js": "0b0e45090d10ce17d6dea765c522974c6515f6e187ff22926cda5a2621c028aa",
+    "assets/FanUniversePages-B7jVOd6I.js": "983290750439333d014f103176c65575b3f172ce07366edf987a66f37efd4b2d",
+    "assets/Goal14FanReviewPage-Bav6vZMs.js": "047959f3c658986300b9a4160b65679972b77ce85c6b9a14d87fbe60907825da",
+    "assets/index-C-tzdYVF.js": "137c0fe3581ef875d46a8210a1021eeb54422caf1b7d6402cf0fb86280990783",
+    "assets/index-DfJ04QXU.css": "9c010129ba8cff0cd9d6690d777955df7e1e5dd381d539827bcf3a06aa6547e6",
+    "assets/MatchDetail-BWZRx2JV.js": "576c11ca5e645ed3780a54989f53a89b41529d12cca2f3a4904e84504a6d02ba",
+    "assets/MatchSourceLibrary-C_njRQrk.js": "b3b3b62345a19fb3665af039cd8aa8bd14e8b1025e6019aa8f630d30607731bd",
+    "assets/ProWorkbench-CdNn981F.js": "e07af22814450585974081d95ccfbb71f5140ab0e5b347592e704fcf0f5c3e7b",
+    "data/fan-inspiration-v0.1.json": "702bc12850676ae9eeda39b533ade9cc5f2da0fe8710aa8ebc82f0c2b803c5c9",
+    "data/goal14-fan-content-strict-public.json": "d7174c43a4b165b996acdf3b1ea30d753424457f9e05c8a5c08d2478eb08d646",
+    "data/goal17-athlete-photo-additions.json": "6afb03bcc99cefaca7d8ca26005b728162fe878317e217bd705a9253fd067dc9",
+    "data/goal17-official-match-video-additions.json": "6f05d1fc48fb74ffc305abe20fd9152973bd96bb009fe6a183d42c031a31198a",
+    "data/match-library-strict-public.json": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+    "data/match-reports-v0.1.json": "1354e29f6ace165e1f28757fb5e91b3fb61007863f6e1ddbbd8f4e145cd86f4b",
+    "data/pro-demo-match-intelligence.json": "bf610c7edb6a3f0a0f97e898bad6d32d0dfd319c5085fdb15a71dcb6a5ec8f5d",
+    "data/web-strict-public.json": "61ad55ef42444dab0316fe2545aacbb4aa59667f053725e933d0917ca57e1873",
+    "index.html": "6bd3b33b2426ef13f2d710cde93222406eaa2d8b40a6dc68f924cdb23aab0ac4"
+  },
+  "privacy_checks": {
+    "internal_data_paths_in_output": false,
+    "private_json_emitted": false,
+    "media_payloads_copied": false,
+    "files": 18
+  }
+}

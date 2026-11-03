@@ -1,0 +1,163 @@
+{
+  "parent_commit": "27e72aff9d4602459dc5461bcf46a63622b769ea",
+  "changes": [
+    {
+      "path": ".gitignore",
+      "current_sha256": "36e1b3d1f8ad6d93906d2ab797e67964bee49c4d5839b5b7a6cf5e8ded788cdd",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    },
+    {
+      "path": "README.md",
+      "current_sha256": "f7232574d74b380c3ac3735caf9430f789fcc9bae99ff1220c2959eb631dc704",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    },
+    {
+      "path": "docs/GOAL39-HARDENING.md",
+      "current_sha256": "08122f87548e3679d080ce55651a9eb7ffe9c5d92616069bbcf3e619e1b89c05",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    },
+    {
+      "path": "package-lock.json",
+      "current_sha256": "e5628fb4fc318cb5bb39f09e6896c53da92c49ae574dc83a3ca898aeb4be6c22",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    },
+    {
+      "path": "package.json",
+      "current_sha256": "c73238c81d5e4afdde2ab0eaba32766d91d95c736f5d5d963a87ca37cd451ba3",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    },
+    {
+      "path": "products/ptti-web/scripts/check-fan-gold.mjs",
+      "current_sha256": "a9fec1200febcde9265a1943c30c01f79a4161cbe8f3bd2c6adb1245a551b0cb",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE",
+      "original_source": {
+        "path": "products/ptti-web/scripts/check-fan-gold.mjs",
+        "line": "SAN",
+        "source_commit": "1a86f860c6d19b42fb0324256a7e0e32f0f5721e",
+        "source_path": "products/ptti-web/scripts/check-fan-gold.mjs",
+        "git_blob": "ccc1833a3cf783051ade449b4a5079e697e4bc13",
+        "sha256": "8234396a7bcef151b199e2c35a9dfe650c5d4ae1c5be1271a09507d202b13782",
+        "bytes": 19199
+      }
+    },
+    {
+      "path": "products/ptti-web/scripts/check-match-reports.mjs",
+      "current_sha256": "06ec192dec63dc10cc6bc380e2c54787aed329701f771b963b5cb5481685b847",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE",
+      "original_source": {
+        "path": "products/ptti-web/scripts/check-match-reports.mjs",
+        "line": "SAN",
+        "source_commit": "1a86f860c6d19b42fb0324256a7e0e32f0f5721e",
+        "source_path": "products/ptti-web/scripts/check-match-reports.mjs",
+        "git_blob": "120d61735d70e40a5f4afaf4302931b04cd29937",
+        "sha256": "8ddaff1c7a15e614b43e2a9f3889b65fd8a491ca9ec5f7396346c97311b89766",
+        "bytes": 4321
+      }
+    },
+    {
+      "path": "products/ptti-web/scripts/check-watch-routing.mjs",
+      "current_sha256": "21ef3ddf16cb7f0f791dfab3fb1ffcd2df32b4c20c7ad7e56559a6836f7ea3bc",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE",
+      "original_source": {
+        "path": "products/ptti-web/scripts/check-watch-routing.mjs",
+        "line": "SAN",
+        "source_commit": "1a86f860c6d19b42fb0324256a7e0e32f0f5721e",
+        "source_path": "products/ptti-web/scripts/check-watch-routing.mjs",
+        "git_blob": "b2a54a90bc98afc6a1496384fdc2205ec5d6ea77",
+        "sha256": "e9b293b1d3f39f6a750126fc5f450badfeeabacffb7ed314480e34d9355ad0cc",
+        "bytes": 8168
+      }
+    },
+    {
+      "path": "products/ptti-web/scripts/fixtures/goal14-main-admission.json",
+      "current_sha256": "8c39f4c9f41ccd32fce6a9a9a2510215136708cfe546a054915d468e1c4b9e8f",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE",
+      "explicit_public_source": "provenance/public-text-identities.json"
+    },
+    {
+      "path": "products/ptti-web/scripts/verify-playback-snapshot.mjs",
+      "current_sha256": "6d1dc1d0c23ad54ee63c155988223732f5e9533ff6879c1a6258ce6c4524ced1",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    },
+    {
+      "path": "products/ptti-web/scripts/verify-reviewed-text.mjs",
+      "current_sha256": "e96cec69a054918b1483656b62024410c7951b7a58bbe5b9c493a6b514547ce6",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    },
+    {
+      "path": "products/ptti-web/src/FanCatalogPage.tsx",
+      "current_sha256": "9e1b211ec022a5863fbee3c3eb63e7845bffa8a4c4b3ed17621fa46e182e7b08",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE",
+      "original_source": {
+        "path": "products/ptti-web/src/FanCatalogPage.tsx",
+        "line": "SAN",
+        "source_commit": "1a86f860c6d19b42fb0324256a7e0e32f0f5721e",
+        "source_path": "products/ptti-web/src/FanCatalogPage.tsx",
+        "git_blob": "d1f729b885afc2355c01c3b00ef8ec03cfe824dd",
+        "sha256": "324d3972337f5b79a70959b6a2ad08aad011f58b1837669a252b559a64b41241",
+        "bytes": 77088
+      }
+    },
+    {
+      "path": "products/ptti-web/src/optional-review-evidence.d.mts",
+      "current_sha256": "a05db8c78d5db033580e0c0852e4210ba5e744fd7a216e30f33331cf6ba5ac64",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    },
+    {
+      "path": "products/ptti-web/src/optional-review-evidence.mjs",
+      "current_sha256": "e8a8620c8f6521a2133ec5cb9e654d7d1a87797256a52af2a97f580ef78731d4",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    },
+    {
+      "path": "products/ptti-web/vite.config.ts",
+      "current_sha256": "38895266b7762de3d847434d6bb462e696cf9271d68c7059061ed54c448c9053",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE",
+      "original_source": {
+        "path": "products/ptti-web/vite.config.ts",
+        "line": "SAN",
+        "source_commit": "1a86f860c6d19b42fb0324256a7e0e32f0f5721e",
+        "source_path": "products/ptti-web/vite.config.ts",
+        "git_blob": "8fd6f834c6aadb202d9366b273f3a29a157080cf",
+        "sha256": "021518aa5d7adfd0d356d1f348eb5fd7d9792f9c8ba58765211693714e8bb980",
+        "bytes": 18588
+      }
+    },
+    {
+      "path": "provenance/playback-identity.json",
+      "current_sha256": "cc84f9a87b77a2a39bca5c5bc94e3b8ad2c488ddd0e006b3c09653a016199610",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    },
+    {
+      "path": "provenance/public-text-identities.json",
+      "current_sha256": "15337a5b64af8703cf6de69b583afb662b872f1671034af170c857d0873b2363",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    },
+    {
+      "path": "scripts/audit-baseline.py",
+      "current_sha256": "3ae230d84641e8ed3b6a0fe3676c2a5432295c10530f248e51f06241156ffbf5",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    },
+    {
+      "path": "scripts/build-web-snapshot.mjs",
+      "current_sha256": "28ad6cf8ca7f21f16e663174f7166a092dc9bd3227af3c92dc576b25df67f5da",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    },
+    {
+      "path": "scripts/check-main-schemas.py",
+      "current_sha256": "4a18ff00b96867ec5f0139a2f1d853b1dbf25baffd2814657c0ec42457e09e14",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    },
+    {
+      "path": "tests/safe-baseline.test.mjs",
+      "current_sha256": "a8a02ff414de778c503141c54a61072dd46e83c6679ef63080c431f8663d4be6",
+      "origin": "GOAL39_REVIEWED_LOCAL_CHANGE"
+    }
+  ],
+  "generated_reports": [
+    "goal39-analysis.json",
+    "goal39-artifacts.json",
+    "goal39-validation.json"
+  ],
+  "original_source_map_preserved": true,
+  "private_review_payload_imported": false
+}

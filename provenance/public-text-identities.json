@@ -1,0 +1,79 @@
+{
+  "encoding": "UTF-8 strict",
+  "files": {
+    "public/data/goal14-fan-content-strict-public.json": {
+      "canonical_lf_sha256": "d7174c43a4b165b996acdf3b1ea30d753424457f9e05c8a5c08d2478eb08d646",
+      "checkout_raw_sha256": "f82bb8491d2c3b98a432d6c9cc64f477e26d79a5e8ca6addd34e8a081c36de38",
+      "git_blob": "52f17171f950272770b356f5e83fafaf01d30cc5",
+      "git_blob_sha256": "d7174c43a4b165b996acdf3b1ea30d753424457f9e05c8a5c08d2478eb08d646",
+      "legacy_expected_sha256": "f82bb8491d2c3b98a432d6c9cc64f477e26d79a5e8ca6addd34e8a081c36de38",
+      "source_commit": "1a86f860c6d19b42fb0324256a7e0e32f0f5721e",
+      "source_path": "products/ptti-web/public/data/goal14-fan-content-strict-public.json"
+    },
+    "public/data/match-library-strict-public.json": {
+      "canonical_lf_sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+      "checkout_raw_sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+      "git_blob": "551cc138df0da2386f296c40c59a57c3acee4c61",
+      "git_blob_sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+      "legacy_expected_sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+      "source_commit": "1a86f860c6d19b42fb0324256a7e0e32f0f5721e",
+      "source_path": "products/ptti-web/public/data/match-library-strict-public.json"
+    },
+    "public/data/match-reports-v0.1.json": {
+      "canonical_lf_sha256": "1354e29f6ace165e1f28757fb5e91b3fb61007863f6e1ddbbd8f4e145cd86f4b",
+      "checkout_raw_sha256": "701213d2bfca2e120b31629ef9422f8fd9a21eef4f341a87614b65fd130effa8",
+      "git_blob": "91f362a4f6f346e3d801edc4bb543f83fb0e1526",
+      "git_blob_sha256": "1354e29f6ace165e1f28757fb5e91b3fb61007863f6e1ddbbd8f4e145cd86f4b",
+      "legacy_expected_sha256": "701213d2bfca2e120b31629ef9422f8fd9a21eef4f341a87614b65fd130effa8",
+      "source_commit": "1a86f860c6d19b42fb0324256a7e0e32f0f5721e",
+      "source_path": "products/ptti-web/public/data/match-reports-v0.1.json"
+    },
+    "scripts/contracts/fan-content-delivery-v0.1.schema.json": {
+      "canonical_lf_sha256": "e80445327b417082164fe90e3f23cb16f118dfedfa8349d2049eff9c132396a9",
+      "checkout_raw_sha256": "e80445327b417082164fe90e3f23cb16f118dfedfa8349d2049eff9c132396a9",
+      "git_blob": "81cdbfa1b7b46acea369fb29309a10a994ece26a",
+      "git_blob_sha256": "e80445327b417082164fe90e3f23cb16f118dfedfa8349d2049eff9c132396a9",
+      "legacy_expected_sha256": "e80445327b417082164fe90e3f23cb16f118dfedfa8349d2049eff9c132396a9",
+      "source_commit": "1a86f860c6d19b42fb0324256a7e0e32f0f5721e",
+      "source_path": "products/ptti-web/scripts/contracts/fan-content-delivery-v0.1.schema.json"
+    },
+    "scripts/contracts/fan-content-intelligence-v0.1.schema.json": {
+      "canonical_lf_sha256": "bec45b39cca5aa9c034f2d077a79ecfaf0fc65acfd2bab0e4b8ebcfd82b14d0e",
+      "checkout_raw_sha256": "bec45b39cca5aa9c034f2d077a79ecfaf0fc65acfd2bab0e4b8ebcfd82b14d0e",
+      "git_blob": "72d9a5d79776314051a71e6012bbba5e7cdbfc74",
+      "git_blob_sha256": "bec45b39cca5aa9c034f2d077a79ecfaf0fc65acfd2bab0e4b8ebcfd82b14d0e",
+      "legacy_expected_sha256": "bec45b39cca5aa9c034f2d077a79ecfaf0fc65acfd2bab0e4b8ebcfd82b14d0e",
+      "source_commit": "1a86f860c6d19b42fb0324256a7e0e32f0f5721e",
+      "source_path": "products/ptti-web/scripts/contracts/fan-content-intelligence-v0.1.schema.json"
+    },
+    "scripts/contracts/goal14-main-admission-match-library-index-v0.1.schema.json": {
+      "canonical_lf_sha256": "4d10c5cee7b2ac5c8bb533c71887ddf88431976ebc2d2b055b8e8b6e0ca05415",
+      "checkout_raw_sha256": "4d10c5cee7b2ac5c8bb533c71887ddf88431976ebc2d2b055b8e8b6e0ca05415",
+      "git_blob": "cd54111cc7c6298e97128e09073e4c92e2930c2f",
+      "git_blob_sha256": "4d10c5cee7b2ac5c8bb533c71887ddf88431976ebc2d2b055b8e8b6e0ca05415",
+      "legacy_expected_sha256": "4d10c5cee7b2ac5c8bb533c71887ddf88431976ebc2d2b055b8e8b6e0ca05415",
+      "source_commit": "1a86f860c6d19b42fb0324256a7e0e32f0f5721e",
+      "source_path": "products/ptti-web/scripts/contracts/goal14-main-admission-match-library-index-v0.1.schema.json"
+    },
+    "scripts/contracts/goal15-main-fan-universe-match-library-index-v0.1.schema.json": {
+      "canonical_lf_sha256": "4d10c5cee7b2ac5c8bb533c71887ddf88431976ebc2d2b055b8e8b6e0ca05415",
+      "checkout_raw_sha256": "4d10c5cee7b2ac5c8bb533c71887ddf88431976ebc2d2b055b8e8b6e0ca05415",
+      "git_blob": "cd54111cc7c6298e97128e09073e4c92e2930c2f",
+      "git_blob_sha256": "4d10c5cee7b2ac5c8bb533c71887ddf88431976ebc2d2b055b8e8b6e0ca05415",
+      "legacy_expected_sha256": "4d10c5cee7b2ac5c8bb533c71887ddf88431976ebc2d2b055b8e8b6e0ca05415",
+      "source_commit": "1a86f860c6d19b42fb0324256a7e0e32f0f5721e",
+      "source_path": "products/ptti-web/scripts/contracts/goal15-main-fan-universe-match-library-index-v0.1.schema.json"
+    },
+    "scripts/fixtures/goal14-main-admission.json": {
+      "canonical_lf_sha256": "8c39f4c9f41ccd32fce6a9a9a2510215136708cfe546a054915d468e1c4b9e8f",
+      "checkout_raw_sha256": "1e42763dadbb491b439939ee31d3473241f5efa243a1e7a2f3cc9d3f967013b2",
+      "git_blob": "b601b4a93394aab5623c734430afc9c9ffb81ca5",
+      "git_blob_sha256": "8c39f4c9f41ccd32fce6a9a9a2510215136708cfe546a054915d468e1c4b9e8f",
+      "legacy_expected_sha256": "1e42763dadbb491b439939ee31d3473241f5efa243a1e7a2f3cc9d3f967013b2",
+      "source_commit": "1a86f860c6d19b42fb0324256a7e0e32f0f5721e",
+      "source_path": "products/ptti-web/scripts/fixtures/goal14-main-admission.json"
+    }
+  },
+  "normalization": "Explicit files only; exact approved raw identities plus canonical LF equality",
+  "schema": "ptti.reviewed-public-text/1"
+}

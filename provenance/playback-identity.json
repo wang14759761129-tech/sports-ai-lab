@@ -1,0 +1,14 @@
+{
+  "core_interface": "PTTI Playback Core 304eb661 source pin + watch-routing/0.1 adapter",
+  "files": {
+    "products/ptti/playback-core/CORE_PIN.json": "8f5b2c2bfe5a3bd8da87b2a2c86141927344c0238441345c924d5067b344ce8f",
+    "products/ptti/playback-core/adapters/watchRoutingContract.ts": "1fa1e6100eb85f56cc51819d1e0cffaef500d6fa96bba616f6b281d60bb51619",
+    "products/ptti/playback-core/scripts/test-verify-core-pin.mjs": "c6bbd48214722475cfbef1ad0f30a40e55b5dc6d24bc3c8a6a1d3f25d01e6fbc",
+    "products/ptti/playback-core/scripts/verify-core-pin.mjs": "0df7c93628570540fbc7d1340c7ef7575c288a05aaa8f448d00c6c1d400c95e4",
+    "products/ptti/playback-core/src/index.ts": "a59df06b688d75885bfb8ed51364e73edbaedaaa2b3746b5f7fd1d1edf67caf2"
+  },
+  "identity_mode": "VERIFIED_SOURCE_SNAPSHOT",
+  "initial_snapshot_commit": "27e72aff9d4602459dc5461bcf46a63622b769ea",
+  "schema": "ptti.playback-source-snapshot/1",
+  "source_commit": "b54e1546b7e6c1edc69406582ed68e90988a1910"
+}

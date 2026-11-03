@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.example/contracts/manual-point-annotation-v0.1.schema.json",
+  "title": "PTTI manual point annotation import manifest v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest_version", "dataset_id", "match_id", "source_id", "source_sha256",
+    "annotator_ref", "annotated_at", "evidence_ref", "timestamp_semantics"
+  ],
+  "properties": {
+    "manifest_version": { "const": "ptti.manual-point-annotation/0.1" },
+    "dataset_id": { "type": "string", "minLength": 1 },
+    "match_id": { "type": "string", "minLength": 1, "not": { "pattern": "^SIMULATED_ONLY:" } },
+    "source_id": { "type": "string", "minLength": 1 },
+    "source_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "annotator_ref": { "type": "string", "minLength": 1 },
+    "annotated_at": { "type": "string", "format": "date-time" },
+    "evidence_ref": { "type": "string", "minLength": 1 },
+    "timestamp_semantics": { "const": "PROTOCOL_TEXT_ONLY_UNBOUND" }
+  }
+}

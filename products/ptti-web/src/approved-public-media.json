@@ -1,0 +1,245 @@
+{
+  "contract_version": "ptti.web-public-media-index/0.1",
+  "assets": [
+    {
+      "asset_id": "commons:attc-2017:harimoto-1",
+      "kind": "ATHLETE_PORTRAIT",
+      "subject_id": "athlete:123980",
+      "display_permission": "ALLOWED",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Harimoto_Tomokazu_ATTC2017_1.jpeg",
+      "photographer": "XIAOYU TANG (Flickr source account: Crew of China Sports)",
+      "attribution": "Harimoto Tomokazu ATTC2017 1.jpeg — Photo by XIAOYU TANG (Flickr source account: Crew of China Sports); licensed CC BY-SA 2.0. Source: https://commons.wikimedia.org/wiki/File:Harimoto_Tomokazu_ATTC2017_1.jpeg. License: https://creativecommons.org/licenses/by-sa/2.0/. This use does not imply athlete endorsement.",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "derivative_status": "PERMITTED",
+      "derivative_license": "CC BY-SA 2.0",
+      "derivative_license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "derivative_notice": "Original cropped to 4:5, resized to two responsive dimensions, converted to WebP, and stripped of EXIF metadata; derivatives remain under the same CC BY-SA license.",
+      "context_notice": "Archival athlete profile image, not photography of a listed PTTI match. No endorsement implied.",
+      "actual_event": "Harimoto Tomokazu ATTC2017 1.jpeg",
+      "alt": "Tomokazu Harimoto — archival athlete photograph; Harimoto Tomokazu ATTC2017 1.jpeg",
+      "sizes": "(max-width: 600px) 76vw, 360px",
+      "object_position": "50% 50%",
+      "renditions": [
+        {
+          "src": "/media/goal16/commons-attc-2017-harimoto-1-400x500.webp",
+          "width": 400,
+          "height": 500,
+          "mime_type": "image/webp",
+          "sha256": "5ddf83202af85211f2531cbf4c0117584ee59de0404b30e1c75dffa3f96bdf73"
+        },
+        {
+          "src": "/media/goal16/commons-attc-2017-harimoto-1-800x1000.webp",
+          "width": 800,
+          "height": 1000,
+          "mime_type": "image/webp",
+          "sha256": "5487202af81d1aae6191f5975be282b1407b23d2c307fda4a27310c94eca2440"
+        }
+      ],
+      "depicted_athlete_ids": [
+        "athlete:123980"
+      ],
+      "match_evidence": null
+    },
+    {
+      "asset_id": "commons:acttc-2016:wang-manyu-17",
+      "kind": "ATHLETE_PORTRAIT",
+      "subject_id": "athlete:121411",
+      "display_permission": "ALLOWED",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Wang_Manyu_ACTTC2016_17.jpeg",
+      "photographer": "XIAOYU TANG (Flickr source account: Crew of China Sports)",
+      "attribution": "Wang Manyu ACTTC2016 17.jpeg — Photo by XIAOYU TANG (Flickr source account: Crew of China Sports); licensed CC BY-SA 2.0. Source: https://commons.wikimedia.org/wiki/File:Wang_Manyu_ACTTC2016_17.jpeg. License: https://creativecommons.org/licenses/by-sa/2.0/. This use does not imply athlete endorsement.",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "derivative_status": "PERMITTED",
+      "derivative_license": "CC BY-SA 2.0",
+      "derivative_license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "derivative_notice": "Original cropped to 4:5, resized to two responsive dimensions, converted to WebP, and stripped of EXIF metadata; derivatives remain under the same CC BY-SA license.",
+      "context_notice": "Archival athlete profile image, not photography of a listed PTTI match. No endorsement implied.",
+      "actual_event": "Wang Manyu ACTTC2016 17.jpeg",
+      "alt": "Wang Manyu — archival athlete photograph; Wang Manyu ACTTC2016 17.jpeg",
+      "sizes": "(max-width: 600px) 76vw, 360px",
+      "object_position": "50% 50%",
+      "renditions": [
+        {
+          "src": "/media/goal16/commons-acttc-2016-wang-manyu-17-400x500.webp",
+          "width": 400,
+          "height": 500,
+          "mime_type": "image/webp",
+          "sha256": "501acd623703ba86c8d2ef63d3c0f37592b1646c2f97c9e4063ce250943174a0"
+        },
+        {
+          "src": "/media/goal16/commons-acttc-2016-wang-manyu-17-800x1000.webp",
+          "width": 800,
+          "height": 1000,
+          "mime_type": "image/webp",
+          "sha256": "210a2df9cab17e3433b2b5d28707b3d328b832e38e0da4b5fcfa511363d78a47"
+        }
+      ],
+      "depicted_athlete_ids": [
+        "athlete:121411"
+      ],
+      "match_evidence": null
+    },
+    {
+      "asset_id": "commons:acttc-2016:liang-jingkun-8",
+      "kind": "ATHLETE_PORTRAIT",
+      "subject_id": "athlete:119588",
+      "display_permission": "ALLOWED",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Liang_Jingkun_ACTTC2016_8.jpeg",
+      "photographer": "XIAOYU TANG (Flickr source account: Crew of China Sports)",
+      "attribution": "Liang Jingkun ACTTC2016 8.jpeg — Photo by XIAOYU TANG (Flickr source account: Crew of China Sports); licensed CC BY-SA 2.0. Source: https://commons.wikimedia.org/wiki/File:Liang_Jingkun_ACTTC2016_8.jpeg. License: https://creativecommons.org/licenses/by-sa/2.0/. This use does not imply athlete endorsement.",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "derivative_status": "PERMITTED",
+      "derivative_license": "CC BY-SA 2.0",
+      "derivative_license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "derivative_notice": "Original cropped to 4:5, resized to two responsive dimensions, converted to WebP, and stripped of EXIF metadata; derivatives remain under the same CC BY-SA license.",
+      "context_notice": "Archival athlete profile image, not photography of a listed PTTI match. No endorsement implied.",
+      "actual_event": "Liang Jingkun ACTTC2016 8.jpeg",
+      "alt": "Liang Jingkun — archival athlete photograph; Liang Jingkun ACTTC2016 8.jpeg",
+      "sizes": "(max-width: 600px) 76vw, 360px",
+      "object_position": "50% 50%",
+      "renditions": [
+        {
+          "src": "/media/goal16/commons-acttc-2016-liang-jingkun-8-480x320.webp",
+          "width": 480,
+          "height": 320,
+          "mime_type": "image/webp",
+          "sha256": "1f52a7cb42507b13a69eac6cf89db3dbe7430267df0f3cba61f9bbe312458c93"
+        },
+        {
+          "src": "/media/goal16/commons-acttc-2016-liang-jingkun-8-960x640.webp",
+          "width": 960,
+          "height": 640,
+          "mime_type": "image/webp",
+          "sha256": "0402d89b46e7c8c2cb299bfb54555cc664dfb82ac6917e252bdc4a278b7c0d62"
+        }
+      ],
+      "depicted_athlete_ids": [
+        "athlete:119588"
+      ],
+      "match_evidence": null
+    },
+    {
+      "asset_id": "commons:acttc-2016:wang-chuqin-1",
+      "kind": "ATHLETE_PORTRAIT",
+      "subject_id": "athlete:121558",
+      "display_permission": "ALLOWED",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Wang_Chuqin_ACTTC2016_1.jpeg",
+      "photographer": "XIAOYU TANG (original Flickr account: Crew of China Sports)",
+      "attribution": "Wang Chuqin ACTTC2016 1.jpeg — Photo by XIAOYU TANG (original Flickr source Crew of China Sports), licensed CC BY-SA 2.0. Source and license links are provided. This factual profile use does not imply endorsement.",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "derivative_status": "PERMITTED",
+      "derivative_license": "CC BY-SA 2.0",
+      "derivative_license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "derivative_notice": "Source converted/resized to WebP responsive derivatives with metadata removed. Derivatives remain under the source ShareAlike license.",
+      "context_notice": "High-resolution original (3061x2041). Responsive derivatives use a 4:5 center crop; inspect as a player-profile context image, never as a current match photograph. Archival youth image: athlete was a minor at the time; factual profile only, no promotional or endorsement use.",
+      "actual_event": "2016 All China Table Tennis Championships; exact match/opponent not established",
+      "alt": "Wang Chuqin — 2016 All China Table Tennis Championships; exact match/opponent not established",
+      "sizes": "(max-width: 600px) 76vw, 360px",
+      "object_position": "50% 50%",
+      "renditions": [
+        {
+          "src": "/media/goal17/wang-chuqin-acttc2016-1-800x1000.webp",
+          "width": 800,
+          "height": 1000,
+          "mime_type": "image/webp",
+          "sha256": "6ae3ef5e3a745743e697659a34e6f4788da5ea7c29f01cd1734587a9f14ec946"
+        },
+        {
+          "src": "/media/goal17/wang-chuqin-acttc2016-1-400x500.webp",
+          "width": 400,
+          "height": 500,
+          "mime_type": "image/webp",
+          "sha256": "ff062f8ddf364819951c11b974aa3cac1956fec5552a01c62aa4cff542ff1cf2"
+        }
+      ],
+      "depicted_athlete_ids": [
+        "athlete:121558"
+      ],
+      "match_evidence": null
+    },
+    {
+      "asset_id": "commons:cnsvideo:2024-sun-yingsha-interview-still",
+      "kind": "ATHLETE_PORTRAIT",
+      "subject_id": "athlete:131163",
+      "display_permission": "ALLOWED",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Sun_Yingsha.png",
+      "photographer": "China News Service (CNS); still captured from the CNS interview video",
+      "attribution": "Sun Yingsha.png — China News Service interview still, 11 August 2024; CC BY 3.0. Source interview and license are linked. Resized for profile use; no endorsement is implied.",
+      "license": "CC BY 3.0",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "derivative_status": "PERMITTED",
+      "derivative_license": "CC BY 3.0",
+      "derivative_license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "derivative_notice": "Source converted/resized to WebP responsive derivatives with metadata removed. The CC BY 3.0 source license continues to govern the derivatives; voluntary attribution is retained.",
+      "context_notice": "498x648 source is low resolution relative to a hero image. Do not upscale; maximum suggested CSS width is 249px at DPR 2, and use only in a compact profile context.",
+      "actual_event": "Paris 2024 period CNS interview; not a match photograph",
+      "alt": "Sun Yingsha — Paris 2024 period CNS interview; not a match photograph",
+      "sizes": "(max-width: 600px) 64vw, 249px",
+      "object_position": "50% 50%",
+      "renditions": [
+        {
+          "src": "/media/goal17/sun-yingsha-interview-400x520.webp",
+          "width": 400,
+          "height": 520,
+          "mime_type": "image/webp",
+          "sha256": "bd88a045b826408dafff908385a24d2eeba903458abcf30c9b8da59bdd65e337"
+        },
+        {
+          "src": "/media/goal17/sun-yingsha-interview-249x324.webp",
+          "width": 249,
+          "height": 324,
+          "mime_type": "image/webp",
+          "sha256": "6fe497b761ad4ed9bf5d149224d1e2abe0f9e0a06b3fdd9a1b50f2854cb5ed8b"
+        }
+      ],
+      "depicted_athlete_ids": [
+        "athlete:131163"
+      ],
+      "match_evidence": null
+    },
+    {
+      "asset_id": "commons:french-championships-2024:felix-lebrun-doubles-context",
+      "kind": "ATHLETE_PORTRAIT",
+      "subject_id": "athlete:135977",
+      "display_permission": "ALLOWED",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Flavien_Coton_et_Alexandre_Cassin_contre_F%C3%A9lix_Lebrun_et_Alexis_Lebrun.jpg",
+      "photographer": "Eltito13",
+      "attribution": "Flavien Coton et Alexandre Cassin contre Félix Lebrun et Alexis Lebrun — photo by Eltito13, dedicated under CC0 1.0. Voluntary credit and source link are retained. The full four-player context is preserved; no endorsement is implied.",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "derivative_status": "PERMITTED",
+      "derivative_license": "CC0 1.0",
+      "derivative_license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "derivative_notice": "Source converted/resized to WebP responsive derivatives with metadata removed. The CC0 1.0 source license continues to govern the derivatives; voluntary attribution is retained.",
+      "context_notice": "High-resolution 2585x2192 full-frame doubles scene. Keep the full context and caption; do not crop or present as a solo portrait or as a match from the PTTI library.",
+      "actual_event": "2024 French Table Tennis Championships doubles scene; exact match/video record is not linked",
+      "alt": "Flavien Coton, Alexandre Cassin, Alexis Lebrun, Félix Lebrun — 2024 French Table Tennis Championships doubles scene; exact match/video record is not linked",
+      "sizes": "(max-width: 600px) 76vw, 360px",
+      "object_position": "50% 50%",
+      "renditions": [
+        {
+          "src": "/media/goal17/felix-lebrun-french-championships-2024-960x814.webp",
+          "width": 960,
+          "height": 814,
+          "mime_type": "image/webp",
+          "sha256": "f6dafeaa8d87aa5cddb0348ee9284135de246eec604c17fe3f24bbb17b6d3dc9"
+        },
+        {
+          "src": "/media/goal17/felix-lebrun-french-championships-2024-480x407.webp",
+          "width": 480,
+          "height": 407,
+          "mime_type": "image/webp",
+          "sha256": "e9b2aae379bef35e6bfc3039d2705c7dea84cfcd60d6d145ae0997f0221f1422"
+        }
+      ],
+      "depicted_athlete_ids": [
+        "athlete:135977"
+      ],
+      "match_evidence": null
+    }
+  ]
+}
