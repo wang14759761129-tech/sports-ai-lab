@@ -1,0 +1,4 @@
+sprint08-cinema-projection.json text eol=lf
+match-contract-v1.mjs text eol=lf
+match-contract-v1.d.mts text eol=lf
+vendor/playback/*.ts text eol=lf

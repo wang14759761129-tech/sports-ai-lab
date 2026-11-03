@@ -1,0 +1,563 @@
+{
+  "experiment": "PRETRAINED_NANO_RAW_SPARSE_DEV",
+  "manifest_sha256": "4d28ee9e9c22dacdcf66650c4524d4fa06f49a0a62f6eda29bcc8955c0078b8f",
+  "checkpoint_sha256": "d8d6b9ee57d4d0ed2b1f305163624712a0532cb7bce0c747317984fc5457440d",
+  "license": "Apache-2.0 core Nano",
+  "code_commit": "7433d5919d0f7e72cc6cb78663e0a731afd499e0",
+  "model_version": "1.11.2",
+  "threshold": 0.3,
+  "sports_ball_class_id": 37,
+  "class_selection": "OFFICIAL_NATIVE_PER_DETECTION_CLASS_NAME",
+  "score_semantics": "DETECTOR_SCORE_NOT_CALIBRATED_PROBABILITY",
+  "aggregate": {
+    "RacketVision_RAW": {
+      "metrics_version": "ptti-vision-benchmark-v0.1",
+      "annotation_scope": "SPARSE",
+      "reviewed_frames": 125,
+      "unreviewed_labels": 0,
+      "visible_ball_frames": 115,
+      "detected_ball_frames": 114,
+      "presence_recall": 0.991304347826087,
+      "recall": 0.991304347826087,
+      "precision": 1.0,
+      "f1": 0.9956331877729258,
+      "localization_radius_px": 20,
+      "negative_frames": 10,
+      "false_detections": 0,
+      "missed_visible_frames": 1,
+      "fp_per_annotated_frame": 0.0,
+      "fp_per_min": null,
+      "fn_per_min": null,
+      "center_error_mean_px": 2.2794574132456025,
+      "center_error_median_px": 2.0,
+      "center_error_p95_px": 5.0990195135927845,
+      "normalized_error_mean": 0.001034749645469829,
+      "catastrophic_errors": {
+        "20": 0,
+        "50": 0,
+        "100": 0
+      },
+      "catastrophic_normalized_thresholds": {
+        "20": 0.009078911845047388,
+        "50": 0.02269727961261847,
+        "100": 0.04539455922523694
+      },
+      "trajectory": {
+        "status": "SPARSE_NOT_EVALUABLE",
+        "trajectory_fragment_count": null,
+        "longest_missing_run": null,
+        "recovery_after_gap": null
+      },
+      "definition": "Nearest detection localization; extra or wrongly localized detections are FP. Sparse labels cannot estimate full-video FP/min or FN/min."
+    },
+    "RF_DETR_Nano": {
+      "metrics_version": "ptti-vision-benchmark-v0.1",
+      "annotation_scope": "SPARSE",
+      "reviewed_frames": 125,
+      "unreviewed_labels": 0,
+      "visible_ball_frames": 115,
+      "detected_ball_frames": 12,
+      "presence_recall": 0.10434782608695652,
+      "recall": 0.0782608695652174,
+      "precision": 0.6,
+      "f1": 0.13846153846153847,
+      "localization_radius_px": 20,
+      "negative_frames": 10,
+      "false_detections": 6,
+      "missed_visible_frames": 106,
+      "fp_per_annotated_frame": 0.048,
+      "fp_per_min": null,
+      "fn_per_min": null,
+      "center_error_mean_px": 58.12305257365983,
+      "center_error_median_px": 3.0387535253831572,
+      "center_error_p95_px": 284.1733578709036,
+      "normalized_error_mean": 0.026384703524065613,
+      "catastrophic_errors": {
+        "20": 3,
+        "50": 3,
+        "100": 2
+      },
+      "catastrophic_normalized_thresholds": {
+        "20": 0.009078911845047388,
+        "50": 0.02269727961261847,
+        "100": 0.04539455922523694
+      },
+      "trajectory": {
+        "status": "SPARSE_NOT_EVALUABLE",
+        "trajectory_fragment_count": null,
+        "longest_missing_run": null,
+        "recovery_after_gap": null
+      },
+      "definition": "Nearest detection localization; extra or wrongly localized detections are FP. Sparse labels cannot estimate full-video FP/min or FN/min."
+    }
+  },
+  "decision": "NO_VALUE",
+  "suitability": "PRETRAINED_NOT_SUITABLE",
+  "ranking": [
+    {
+      "rank": 1,
+      "model": "RacketVision_RAW",
+      "f1": 0.9956331877729258,
+      "scope": "DESCRIPTIVE_SAME_DEV_DATA_ONLY"
+    },
+    {
+      "rank": 2,
+      "model": "RF_DETR_Nano",
+      "f1": 0.13846153846153847,
+      "scope": "DESCRIPTIVE_SAME_DEV_DATA_ONLY"
+    }
+  ],
+  "runtime": {
+    "python": "3.12.14",
+    "torch": "2.10.0+cu128",
+    "device": "cpu",
+    "cuda_build": "12.8",
+    "gpu": "NOT_USED_CPU_FALLBACK",
+    "load_seconds_including_imports": 16.39794599999732,
+    "predict_seconds": 22.70853290001105,
+    "predict_fps": 5.50453878065981,
+    "mean_predict_ms": 181.6682632000884,
+    "decode_seconds": 10.376347199926386,
+    "cuda_peak_allocated_bytes": null,
+    "cuda_peak_reserved_bytes": null,
+    "process_peak_rss_bytes": 1501515776,
+    "minimum_system_available_bytes": 2659168256
+  },
+  "downstream_hit": "NOT_EVALUABLE_SPARSE_OBSERVATIONS_AND_NO_ALIGNED_STROKE_GT",
+  "limitations": [
+    "Known TRAIN clips, not untouched generalization",
+    "scene strata unreviewed",
+    "FP/min and FN/min unavailable for sparse labels",
+    "No fine-tuning",
+    "RacketVision runtime not remeasured on this cache comparison"
+  ],
+  "production_database": "NOT_ACCESSED",
+  "training": "NONE",
+  "per_clip": [
+    {
+      "clip": "tabletennis/match20/001",
+      "metrics": {
+        "RacketVision_RAW": {
+          "metrics_version": "ptti-vision-benchmark-v0.1",
+          "annotation_scope": "SPARSE",
+          "reviewed_frames": 25,
+          "unreviewed_labels": 0,
+          "visible_ball_frames": 19,
+          "detected_ball_frames": 18,
+          "presence_recall": 0.9473684210526315,
+          "recall": 0.9473684210526315,
+          "precision": 1.0,
+          "f1": 0.972972972972973,
+          "localization_radius_px": 20,
+          "negative_frames": 6,
+          "false_detections": 0,
+          "missed_visible_frames": 1,
+          "fp_per_annotated_frame": 0.0,
+          "fp_per_min": null,
+          "fn_per_min": null,
+          "center_error_mean_px": 1.5328794969114505,
+          "center_error_median_px": 1.4142135623730951,
+          "center_error_p95_px": 3.358756404393058,
+          "normalized_error_mean": 0.0006958438910769825,
+          "catastrophic_errors": {
+            "20": 0,
+            "50": 0,
+            "100": 0
+          },
+          "catastrophic_normalized_thresholds": {
+            "20": 0.009078911845047388,
+            "50": 0.02269727961261847,
+            "100": 0.04539455922523694
+          },
+          "trajectory": {
+            "status": "SPARSE_NOT_EVALUABLE",
+            "trajectory_fragment_count": null,
+            "longest_missing_run": null,
+            "recovery_after_gap": null
+          },
+          "definition": "Nearest detection localization; extra or wrongly localized detections are FP. Sparse labels cannot estimate full-video FP/min or FN/min."
+        },
+        "RF_DETR_Nano": {
+          "metrics_version": "ptti-vision-benchmark-v0.1",
+          "annotation_scope": "SPARSE",
+          "reviewed_frames": 25,
+          "unreviewed_labels": 0,
+          "visible_ball_frames": 19,
+          "detected_ball_frames": 9,
+          "presence_recall": 0.47368421052631576,
+          "recall": 0.42105263157894735,
+          "precision": 0.7272727272727273,
+          "f1": 0.5333333333333333,
+          "localization_radius_px": 20,
+          "negative_frames": 6,
+          "false_detections": 3,
+          "missed_visible_frames": 11,
+          "fp_per_annotated_frame": 0.12,
+          "fp_per_min": null,
+          "fn_per_min": null,
+          "center_error_mean_px": 51.682605570823284,
+          "center_error_median_px": 2.9106330211013773,
+          "center_error_p95_px": 268.8165367572657,
+          "normalized_error_mean": 0.023461090994992984,
+          "catastrophic_errors": {
+            "20": 1,
+            "50": 1,
+            "100": 1
+          },
+          "catastrophic_normalized_thresholds": {
+            "20": 0.009078911845047388,
+            "50": 0.02269727961261847,
+            "100": 0.04539455922523694
+          },
+          "trajectory": {
+            "status": "SPARSE_NOT_EVALUABLE",
+            "trajectory_fragment_count": null,
+            "longest_missing_run": null,
+            "recovery_after_gap": null
+          },
+          "definition": "Nearest detection localization; extra or wrongly localized detections are FP. Sparse labels cannot estimate full-video FP/min or FN/min."
+        }
+      }
+    },
+    {
+      "clip": "tabletennis/match21/002",
+      "metrics": {
+        "RacketVision_RAW": {
+          "metrics_version": "ptti-vision-benchmark-v0.1",
+          "annotation_scope": "SPARSE",
+          "reviewed_frames": 25,
+          "unreviewed_labels": 0,
+          "visible_ball_frames": 25,
+          "detected_ball_frames": 25,
+          "presence_recall": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "localization_radius_px": 20,
+          "negative_frames": 0,
+          "false_detections": 0,
+          "missed_visible_frames": 0,
+          "fp_per_annotated_frame": 0.0,
+          "fp_per_min": null,
+          "fn_per_min": null,
+          "center_error_mean_px": 1.840316281807625,
+          "center_error_median_px": 1.4142135623730951,
+          "center_error_p95_px": 3.516896552404866,
+          "normalized_error_mean": 0.0008354034644768407,
+          "catastrophic_errors": {
+            "20": 0,
+            "50": 0,
+            "100": 0
+          },
+          "catastrophic_normalized_thresholds": {
+            "20": 0.009078911845047388,
+            "50": 0.02269727961261847,
+            "100": 0.04539455922523694
+          },
+          "trajectory": {
+            "status": "SPARSE_NOT_EVALUABLE",
+            "trajectory_fragment_count": null,
+            "longest_missing_run": null,
+            "recovery_after_gap": null
+          },
+          "definition": "Nearest detection localization; extra or wrongly localized detections are FP. Sparse labels cannot estimate full-video FP/min or FN/min."
+        },
+        "RF_DETR_Nano": {
+          "metrics_version": "ptti-vision-benchmark-v0.1",
+          "annotation_scope": "SPARSE",
+          "reviewed_frames": 25,
+          "unreviewed_labels": 0,
+          "visible_ball_frames": 25,
+          "detected_ball_frames": 2,
+          "presence_recall": 0.08,
+          "recall": 0.04,
+          "precision": 0.3333333333333333,
+          "f1": 0.07142857142857142,
+          "localization_radius_px": 20,
+          "negative_frames": 0,
+          "false_detections": 2,
+          "missed_visible_frames": 24,
+          "fp_per_annotated_frame": 0.08,
+          "fp_per_min": null,
+          "fn_per_min": null,
+          "center_error_mean_px": 39.47195500928063,
+          "center_error_median_px": 39.47195500928063,
+          "center_error_p95_px": 73.03286174213274,
+          "normalized_error_mean": 0.017918119994046775,
+          "catastrophic_errors": {
+            "20": 1,
+            "50": 1,
+            "100": 0
+          },
+          "catastrophic_normalized_thresholds": {
+            "20": 0.009078911845047388,
+            "50": 0.02269727961261847,
+            "100": 0.04539455922523694
+          },
+          "trajectory": {
+            "status": "SPARSE_NOT_EVALUABLE",
+            "trajectory_fragment_count": null,
+            "longest_missing_run": null,
+            "recovery_after_gap": null
+          },
+          "definition": "Nearest detection localization; extra or wrongly localized detections are FP. Sparse labels cannot estimate full-video FP/min or FN/min."
+        }
+      }
+    },
+    {
+      "clip": "tabletennis/match22/002",
+      "metrics": {
+        "RacketVision_RAW": {
+          "metrics_version": "ptti-vision-benchmark-v0.1",
+          "annotation_scope": "SPARSE",
+          "reviewed_frames": 25,
+          "unreviewed_labels": 0,
+          "visible_ball_frames": 23,
+          "detected_ball_frames": 23,
+          "presence_recall": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "localization_radius_px": 20,
+          "negative_frames": 2,
+          "false_detections": 0,
+          "missed_visible_frames": 0,
+          "fp_per_annotated_frame": 0.0,
+          "fp_per_min": null,
+          "fn_per_min": null,
+          "center_error_mean_px": 3.1040965360700628,
+          "center_error_median_px": 2.8284271247461903,
+          "center_error_p95_px": 5.78637318607422,
+          "normalized_error_mean": 0.0014090909404748532,
+          "catastrophic_errors": {
+            "20": 0,
+            "50": 0,
+            "100": 0
+          },
+          "catastrophic_normalized_thresholds": {
+            "20": 0.009078911845047388,
+            "50": 0.02269727961261847,
+            "100": 0.04539455922523694
+          },
+          "trajectory": {
+            "status": "SPARSE_NOT_EVALUABLE",
+            "trajectory_fragment_count": null,
+            "longest_missing_run": null,
+            "recovery_after_gap": null
+          },
+          "definition": "Nearest detection localization; extra or wrongly localized detections are FP. Sparse labels cannot estimate full-video FP/min or FN/min."
+        },
+        "RF_DETR_Nano": {
+          "metrics_version": "ptti-vision-benchmark-v0.1",
+          "annotation_scope": "SPARSE",
+          "reviewed_frames": 25,
+          "unreviewed_labels": 0,
+          "visible_ball_frames": 23,
+          "detected_ball_frames": 1,
+          "presence_recall": 0.043478260869565216,
+          "recall": 0.0,
+          "precision": 0.0,
+          "f1": 0.0,
+          "localization_radius_px": 20,
+          "negative_frames": 2,
+          "false_detections": 1,
+          "missed_visible_frames": 23,
+          "fp_per_annotated_frame": 0.04,
+          "fp_per_min": null,
+          "fn_per_min": null,
+          "center_error_mean_px": 153.38927072794706,
+          "center_error_median_px": 153.38927072794706,
+          "center_error_p95_px": 153.38927072794706,
+          "normalized_error_mean": 0.06963038334575697,
+          "catastrophic_errors": {
+            "20": 1,
+            "50": 1,
+            "100": 1
+          },
+          "catastrophic_normalized_thresholds": {
+            "20": 0.009078911845047388,
+            "50": 0.02269727961261847,
+            "100": 0.04539455922523694
+          },
+          "trajectory": {
+            "status": "SPARSE_NOT_EVALUABLE",
+            "trajectory_fragment_count": null,
+            "longest_missing_run": null,
+            "recovery_after_gap": null
+          },
+          "definition": "Nearest detection localization; extra or wrongly localized detections are FP. Sparse labels cannot estimate full-video FP/min or FN/min."
+        }
+      }
+    },
+    {
+      "clip": "tabletennis/match23/002",
+      "metrics": {
+        "RacketVision_RAW": {
+          "metrics_version": "ptti-vision-benchmark-v0.1",
+          "annotation_scope": "SPARSE",
+          "reviewed_frames": 25,
+          "unreviewed_labels": 0,
+          "visible_ball_frames": 24,
+          "detected_ball_frames": 24,
+          "presence_recall": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "localization_radius_px": 20,
+          "negative_frames": 1,
+          "false_detections": 0,
+          "missed_visible_frames": 0,
+          "fp_per_annotated_frame": 0.0,
+          "fp_per_min": null,
+          "fn_per_min": null,
+          "center_error_mean_px": 2.258786126260313,
+          "center_error_median_px": 2.0,
+          "center_error_p95_px": 4.224710427894041,
+          "normalized_error_mean": 0.0010253660058566732,
+          "catastrophic_errors": {
+            "20": 0,
+            "50": 0,
+            "100": 0
+          },
+          "catastrophic_normalized_thresholds": {
+            "20": 0.009078911845047388,
+            "50": 0.02269727961261847,
+            "100": 0.04539455922523694
+          },
+          "trajectory": {
+            "status": "SPARSE_NOT_EVALUABLE",
+            "trajectory_fragment_count": null,
+            "longest_missing_run": null,
+            "recovery_after_gap": null
+          },
+          "definition": "Nearest detection localization; extra or wrongly localized detections are FP. Sparse labels cannot estimate full-video FP/min or FN/min."
+        },
+        "RF_DETR_Nano": {
+          "metrics_version": "ptti-vision-benchmark-v0.1",
+          "annotation_scope": "SPARSE",
+          "reviewed_frames": 25,
+          "unreviewed_labels": 0,
+          "visible_ball_frames": 24,
+          "detected_ball_frames": 0,
+          "presence_recall": 0.0,
+          "recall": 0.0,
+          "precision": null,
+          "f1": 0.0,
+          "localization_radius_px": 20,
+          "negative_frames": 1,
+          "false_detections": 0,
+          "missed_visible_frames": 24,
+          "fp_per_annotated_frame": 0.0,
+          "fp_per_min": null,
+          "fn_per_min": null,
+          "center_error_mean_px": null,
+          "center_error_median_px": null,
+          "center_error_p95_px": null,
+          "normalized_error_mean": null,
+          "catastrophic_errors": {
+            "20": 0,
+            "50": 0,
+            "100": 0
+          },
+          "catastrophic_normalized_thresholds": {
+            "20": 0.009078911845047388,
+            "50": 0.02269727961261847,
+            "100": 0.04539455922523694
+          },
+          "trajectory": {
+            "status": "SPARSE_NOT_EVALUABLE",
+            "trajectory_fragment_count": null,
+            "longest_missing_run": null,
+            "recovery_after_gap": null
+          },
+          "definition": "Nearest detection localization; extra or wrongly localized detections are FP. Sparse labels cannot estimate full-video FP/min or FN/min."
+        }
+      }
+    },
+    {
+      "clip": "tabletennis/match24/002",
+      "metrics": {
+        "RacketVision_RAW": {
+          "metrics_version": "ptti-vision-benchmark-v0.1",
+          "annotation_scope": "SPARSE",
+          "reviewed_frames": 25,
+          "unreviewed_labels": 0,
+          "visible_ball_frames": 24,
+          "detected_ball_frames": 24,
+          "presence_recall": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "localization_radius_px": 20,
+          "negative_frames": 1,
+          "false_detections": 0,
+          "missed_visible_frames": 0,
+          "fp_per_annotated_frame": 0.0,
+          "fp_per_min": null,
+          "fn_per_min": null,
+          "center_error_mean_px": 2.5272216566892918,
+          "center_error_median_px": 2.23606797749979,
+          "center_error_p95_px": 4.47213595499958,
+          "normalized_error_mean": 0.001147221131698835,
+          "catastrophic_errors": {
+            "20": 0,
+            "50": 0,
+            "100": 0
+          },
+          "catastrophic_normalized_thresholds": {
+            "20": 0.009078911845047388,
+            "50": 0.02269727961261847,
+            "100": 0.04539455922523694
+          },
+          "trajectory": {
+            "status": "SPARSE_NOT_EVALUABLE",
+            "trajectory_fragment_count": null,
+            "longest_missing_run": null,
+            "recovery_after_gap": null
+          },
+          "definition": "Nearest detection localization; extra or wrongly localized detections are FP. Sparse labels cannot estimate full-video FP/min or FN/min."
+        },
+        "RF_DETR_Nano": {
+          "metrics_version": "ptti-vision-benchmark-v0.1",
+          "annotation_scope": "SPARSE",
+          "reviewed_frames": 25,
+          "unreviewed_labels": 0,
+          "visible_ball_frames": 24,
+          "detected_ball_frames": 0,
+          "presence_recall": 0.0,
+          "recall": 0.0,
+          "precision": null,
+          "f1": 0.0,
+          "localization_radius_px": 20,
+          "negative_frames": 1,
+          "false_detections": 0,
+          "missed_visible_frames": 24,
+          "fp_per_annotated_frame": 0.0,
+          "fp_per_min": null,
+          "fn_per_min": null,
+          "center_error_mean_px": null,
+          "center_error_median_px": null,
+          "center_error_p95_px": null,
+          "normalized_error_mean": null,
+          "catastrophic_errors": {
+            "20": 0,
+            "50": 0,
+            "100": 0
+          },
+          "catastrophic_normalized_thresholds": {
+            "20": 0.009078911845047388,
+            "50": 0.02269727961261847,
+            "100": 0.04539455922523694
+          },
+          "trajectory": {
+            "status": "SPARSE_NOT_EVALUABLE",
+            "trajectory_fragment_count": null,
+            "longest_missing_run": null,
+            "recovery_after_gap": null
+          },
+          "definition": "Nearest detection localization; extra or wrongly localized detections are FP. Sparse labels cannot estimate full-video FP/min or FN/min."
+        }
+      }
+    }
+  ]
+}
