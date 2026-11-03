@@ -1,0 +1,491 @@
+{
+  "contract_version": "ptti.match-media/0.2",
+  "local_video_assets": [],
+  "matches": [
+    {
+      "discipline": "MS",
+      "event": {
+        "event_id": "2866",
+        "name": "WTT Finals Men Doha 2023",
+        "year": 2023
+      },
+      "identity_status": "UNKNOWN",
+      "match_date": null,
+      "match_id": "web-match:doha-2023-ms-final",
+      "participant_names_unassigned": [
+        "Fan Zhendong",
+        "Wang Chuqin"
+      ],
+      "participants": [],
+      "provenance": {
+        "evidence_refs": [],
+        "method": "web-match-record-adapter",
+        "recorded_at": null,
+        "review_status": "UNKNOWN",
+        "reviewer_ref": null,
+        "source_urls": [
+          "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES"
+        ]
+      },
+      "result": "Wang Chuqin won 4–0",
+      "round": "Final"
+    },
+    {
+      "discipline": "MS",
+      "event": {
+        "event_id": "2866",
+        "name": "WTT Finals Men Doha 2023",
+        "year": 2023
+      },
+      "identity_status": "UNKNOWN",
+      "match_date": null,
+      "match_id": "web-match:doha-2023-ms-sf-fan-lin",
+      "participant_names_unassigned": [
+        "Fan Zhendong",
+        "Lin Gaoyuan"
+      ],
+      "participants": [],
+      "provenance": {
+        "evidence_refs": [],
+        "method": "web-match-record-adapter",
+        "recorded_at": null,
+        "review_status": "UNKNOWN",
+        "reviewer_ref": null,
+        "source_urls": [
+          "https://www.youtube.com/watch?v=qIXmFTzXcs0",
+          "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES"
+        ]
+      },
+      "result": null,
+      "round": "Semifinal"
+    },
+    {
+      "discipline": "WS",
+      "event": {
+        "event_id": "2536",
+        "name": "WTT Cup Finals Singapore 2021",
+        "year": 2021
+      },
+      "identity_status": "UNKNOWN",
+      "match_date": null,
+      "match_id": "web-match:singapore-2021-ws-final-wang-sun",
+      "participant_names_unassigned": [
+        "Wang Yidi",
+        "Sun Yingsha"
+      ],
+      "participants": [],
+      "provenance": {
+        "evidence_refs": [],
+        "method": "web-match-record-adapter",
+        "recorded_at": null,
+        "review_status": "UNKNOWN",
+        "reviewer_ref": null,
+        "source_urls": [
+          "https://www.youtube.com/watch?v=XHGCGiAyKkc",
+          "https://www.worldtabletennis.com/eventInfo?eventId=2536&selectedTab=Overview"
+        ]
+      },
+      "result": null,
+      "round": "Final"
+    },
+    {
+      "discipline": "WS",
+      "event": {
+        "event_id": null,
+        "name": "WTT Champions Chongqing 2025",
+        "year": 2025
+      },
+      "identity_status": "UNKNOWN",
+      "match_date": null,
+      "match_id": "web-match:chongqing-2025-ws-final-sun-chen",
+      "participant_names_unassigned": [
+        "Sun Yingsha",
+        "Chen Xingtong"
+      ],
+      "participants": [],
+      "provenance": {
+        "evidence_refs": [],
+        "method": "web-match-record-adapter",
+        "recorded_at": null,
+        "review_status": "UNKNOWN",
+        "reviewer_ref": null,
+        "source_urls": [
+          "https://www.worldtabletennis.com/description?artId=4731"
+        ]
+      },
+      "result": "Sun Yingsha won 4–0",
+      "round": "Final"
+    }
+  ],
+  "timeline_mappings": [],
+  "video_sources": [
+    {
+      "canonical_url": "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES",
+      "content_type": "UNKNOWN",
+      "discipline": "MS",
+      "evidence": {
+        "desktop_native_playback": {
+          "app_git_sha": null,
+          "checked_at": null,
+          "evidence_ref": null,
+          "notes": "",
+          "package_sha256": null,
+          "source_sha256": null,
+          "status": "NOT_TESTED"
+        },
+        "embed_playback": {
+          "checked_at": null,
+          "error_code": null,
+          "evidence_ref": null,
+          "notes": "",
+          "status": "NOT_TESTED"
+        },
+        "external_video_page": {
+          "audio_confirmation_observed": null,
+          "audio_status": "UNKNOWN",
+          "checked_at": null,
+          "evidence_ref": null,
+          "final_url": null,
+          "login_prompt_seen": null,
+          "notes": "",
+          "page_title": null,
+          "publisher": null,
+          "publisher_verified": null,
+          "region_prompt_seen": null,
+          "requested_url": "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES",
+          "source_evidence_urls": [
+            "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES"
+          ],
+          "source_evidence_verified": true,
+          "status": "NOT_TESTED",
+          "territory": null,
+          "time_first_seconds": null,
+          "time_last_seconds": null,
+          "title_matches_match": null,
+          "url_exact_match": null,
+          "validation_failures": [],
+          "verification_prompt_seen": null,
+          "visual_frames_changed": null
+        },
+        "page_access": {
+          "checked_at": null,
+          "final_url": null,
+          "http_status": null,
+          "notes": "",
+          "status": "NOT_TESTED"
+        }
+      },
+      "match_id": "web-match:doha-2023-ms-final",
+      "match_link_status": "UNKNOWN",
+      "platform": "World Table Tennis (WTT)",
+      "provenance": {
+        "evidence_refs": [],
+        "method": "web-match-record-adapter",
+        "recorded_at": null,
+        "review_status": "UNKNOWN",
+        "reviewer_ref": null,
+        "source_urls": [
+          "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES"
+        ]
+      },
+      "published_at": null,
+      "publisher": null,
+      "resource_kind": "OFFICIAL_EVENT_PAGE",
+      "rights": {
+        "basis_urls": [],
+        "embedding": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "local_analysis": "UNKNOWN",
+        "metadata_listing": "UNKNOWN",
+        "model_training": "UNKNOWN",
+        "redistribution": "UNKNOWN",
+        "reviewed_at": null,
+        "thumbnail_display": "UNKNOWN"
+      },
+      "source_id": "web-source:doha-2023-ms-final",
+      "territory": {
+        "notes": "Unknown. WTT may direct viewers to a local broadcaster; availability can vary by territory.",
+        "status": "UNKNOWN",
+        "territories": []
+      },
+      "verified_at": "2026-10-12"
+    },
+    {
+      "canonical_url": "https://www.youtube.com/watch?v=qIXmFTzXcs0",
+      "content_type": "UNKNOWN",
+      "discipline": "MS",
+      "evidence": {
+        "desktop_native_playback": {
+          "app_git_sha": null,
+          "checked_at": null,
+          "evidence_ref": null,
+          "notes": "",
+          "package_sha256": null,
+          "source_sha256": null,
+          "status": "NOT_TESTED"
+        },
+        "embed_playback": {
+          "checked_at": null,
+          "error_code": null,
+          "evidence_ref": null,
+          "notes": "",
+          "status": "NOT_TESTED"
+        },
+        "external_video_page": {
+          "audio_confirmation_observed": false,
+          "audio_status": "UNKNOWN",
+          "checked_at": "2026-10-12",
+          "evidence_ref": null,
+          "final_url": "https://www.youtube.com/watch?v=qIXmFTzXcs0",
+          "login_prompt_seen": false,
+          "notes": "",
+          "page_title": "Fan Zhendong vs Lin Gaoyuan | MS SF | WTT Finals Men Doha 2023",
+          "publisher": "World Table Tennis (verified YouTube channel)",
+          "publisher_verified": true,
+          "region_prompt_seen": false,
+          "requested_url": "https://www.youtube.com/watch?v=qIXmFTzXcs0",
+          "source_evidence_urls": [
+            "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES",
+            "https://www.youtube.com/watch?v=qIXmFTzXcs0"
+          ],
+          "source_evidence_verified": true,
+          "status": "EXTERNAL_VIDEO_PAGE_VISUAL_PASS",
+          "territory": "UNKNOWN",
+          "time_first_seconds": 2,
+          "time_last_seconds": 61,
+          "title_matches_match": true,
+          "url_exact_match": true,
+          "validation_failures": [],
+          "verification_prompt_seen": false,
+          "visual_frames_changed": true
+        },
+        "page_access": {
+          "checked_at": "2026-10-12",
+          "final_url": "https://www.youtube.com/watch?v=qIXmFTzXcs0",
+          "http_status": null,
+          "notes": "",
+          "status": "OFFICIAL_PAGE_ACCESS_PASS"
+        }
+      },
+      "match_id": "web-match:doha-2023-ms-sf-fan-lin",
+      "match_link_status": "UNKNOWN",
+      "platform": "World Table Tennis (WTT) · YouTube",
+      "provenance": {
+        "evidence_refs": [],
+        "method": "web-match-record-adapter",
+        "recorded_at": null,
+        "review_status": "UNKNOWN",
+        "reviewer_ref": null,
+        "source_urls": [
+          "https://www.youtube.com/watch?v=qIXmFTzXcs0",
+          "https://www.worldtabletennis.com/eventInfo?eventId=2866&selectedTab=Overview&innerselectedTab=Completed&subEvt=MSINGLES"
+        ]
+      },
+      "published_at": null,
+      "publisher": "World Table Tennis (verified YouTube channel)",
+      "resource_kind": "VIDEO_PAGE",
+      "rights": {
+        "basis_urls": [],
+        "embedding": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "local_analysis": "UNKNOWN",
+        "metadata_listing": "UNKNOWN",
+        "model_training": "UNKNOWN",
+        "redistribution": "UNKNOWN",
+        "reviewed_at": null,
+        "thumbnail_display": "UNKNOWN"
+      },
+      "source_id": "web-source:doha-2023-ms-sf-fan-lin",
+      "territory": {
+        "notes": "Unknown. WTT may direct viewers to a local broadcaster; availability can vary by territory.",
+        "status": "UNKNOWN",
+        "territories": []
+      },
+      "verified_at": "2026-10-12"
+    },
+    {
+      "canonical_url": "https://www.youtube.com/watch?v=XHGCGiAyKkc",
+      "content_type": "UNKNOWN",
+      "discipline": "WS",
+      "evidence": {
+        "desktop_native_playback": {
+          "app_git_sha": null,
+          "checked_at": null,
+          "evidence_ref": null,
+          "notes": "",
+          "package_sha256": null,
+          "source_sha256": null,
+          "status": "NOT_TESTED"
+        },
+        "embed_playback": {
+          "checked_at": null,
+          "error_code": null,
+          "evidence_ref": null,
+          "notes": "",
+          "status": "NOT_TESTED"
+        },
+        "external_video_page": {
+          "audio_confirmation_observed": false,
+          "audio_status": "UNKNOWN",
+          "checked_at": "2026-10-12",
+          "evidence_ref": null,
+          "final_url": "https://www.youtube.com/watch?v=XHGCGiAyKkc",
+          "login_prompt_seen": false,
+          "notes": "",
+          "page_title": "Wang Yidi vs Sun Yingsha | WTT Cup Finals Singapore 2021 | WS | F",
+          "publisher": "World Table Tennis (verified YouTube channel)",
+          "publisher_verified": true,
+          "region_prompt_seen": false,
+          "requested_url": "https://www.youtube.com/watch?v=XHGCGiAyKkc",
+          "source_evidence_urls": [
+            "https://www.worldtabletennis.com/eventInfo?eventId=2536&selectedTab=Overview",
+            "https://www.youtube.com/watch?v=XHGCGiAyKkc"
+          ],
+          "source_evidence_verified": true,
+          "status": "EXTERNAL_VIDEO_PAGE_VISUAL_PASS",
+          "territory": "UNKNOWN",
+          "time_first_seconds": 2,
+          "time_last_seconds": 20,
+          "title_matches_match": true,
+          "url_exact_match": true,
+          "validation_failures": [],
+          "verification_prompt_seen": false,
+          "visual_frames_changed": true
+        },
+        "page_access": {
+          "checked_at": "2026-10-12",
+          "final_url": "https://www.youtube.com/watch?v=XHGCGiAyKkc",
+          "http_status": null,
+          "notes": "",
+          "status": "OFFICIAL_PAGE_ACCESS_PASS"
+        }
+      },
+      "match_id": "web-match:singapore-2021-ws-final-wang-sun",
+      "match_link_status": "UNKNOWN",
+      "platform": "World Table Tennis (WTT) · YouTube",
+      "provenance": {
+        "evidence_refs": [],
+        "method": "web-match-record-adapter",
+        "recorded_at": null,
+        "review_status": "UNKNOWN",
+        "reviewer_ref": null,
+        "source_urls": [
+          "https://www.youtube.com/watch?v=XHGCGiAyKkc",
+          "https://www.worldtabletennis.com/eventInfo?eventId=2536&selectedTab=Overview"
+        ]
+      },
+      "published_at": null,
+      "publisher": "World Table Tennis (verified YouTube channel)",
+      "resource_kind": "VIDEO_PAGE",
+      "rights": {
+        "basis_urls": [],
+        "embedding": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "local_analysis": "UNKNOWN",
+        "metadata_listing": "UNKNOWN",
+        "model_training": "UNKNOWN",
+        "redistribution": "UNKNOWN",
+        "reviewed_at": null,
+        "thumbnail_display": "UNKNOWN"
+      },
+      "source_id": "web-source:singapore-2021-ws-final-wang-sun",
+      "territory": {
+        "notes": "Unknown. WTT may direct viewers to a local broadcaster; availability can vary by territory.",
+        "status": "UNKNOWN",
+        "territories": []
+      },
+      "verified_at": "2026-10-12"
+    },
+    {
+      "canonical_url": "https://www.worldtabletennis.com/description?artId=4731",
+      "content_type": "ARTICLE",
+      "discipline": "WS",
+      "evidence": {
+        "desktop_native_playback": {
+          "app_git_sha": null,
+          "checked_at": null,
+          "evidence_ref": null,
+          "notes": "",
+          "package_sha256": null,
+          "source_sha256": null,
+          "status": "NOT_TESTED"
+        },
+        "embed_playback": {
+          "checked_at": null,
+          "error_code": null,
+          "evidence_ref": null,
+          "notes": "",
+          "status": "NOT_TESTED"
+        },
+        "external_video_page": {
+          "audio_confirmation_observed": null,
+          "audio_status": "UNKNOWN",
+          "checked_at": null,
+          "evidence_ref": null,
+          "final_url": null,
+          "login_prompt_seen": null,
+          "notes": "",
+          "page_title": null,
+          "publisher": null,
+          "publisher_verified": null,
+          "region_prompt_seen": null,
+          "requested_url": "https://www.worldtabletennis.com/description?artId=4731",
+          "source_evidence_urls": [
+            "https://www.worldtabletennis.com/description?artId=4731"
+          ],
+          "source_evidence_verified": false,
+          "status": "NOT_TESTED",
+          "territory": null,
+          "time_first_seconds": null,
+          "time_last_seconds": null,
+          "title_matches_match": null,
+          "url_exact_match": null,
+          "validation_failures": [],
+          "verification_prompt_seen": null,
+          "visual_frames_changed": null
+        },
+        "page_access": {
+          "checked_at": null,
+          "final_url": null,
+          "http_status": null,
+          "notes": "",
+          "status": "NOT_TESTED"
+        }
+      },
+      "match_id": "web-match:chongqing-2025-ws-final-sun-chen",
+      "match_link_status": "UNKNOWN",
+      "platform": "WTT result article (evidence only)",
+      "provenance": {
+        "evidence_refs": [],
+        "method": "web-match-record-adapter",
+        "recorded_at": null,
+        "review_status": "UNKNOWN",
+        "reviewer_ref": null,
+        "source_urls": [
+          "https://www.worldtabletennis.com/description?artId=4731"
+        ]
+      },
+      "published_at": null,
+      "publisher": null,
+      "resource_kind": "UNKNOWN",
+      "rights": {
+        "basis_urls": [],
+        "embedding": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "local_analysis": "UNKNOWN",
+        "metadata_listing": "UNKNOWN",
+        "model_training": "UNKNOWN",
+        "redistribution": "UNKNOWN",
+        "reviewed_at": null,
+        "thumbnail_display": "UNKNOWN"
+      },
+      "source_id": "web-source:chongqing-2025-ws-final-sun-chen",
+      "territory": {
+        "notes": "Unknown",
+        "status": "UNKNOWN",
+        "territories": []
+      },
+      "verified_at": "2026-10-12"
+    }
+  ]
+}

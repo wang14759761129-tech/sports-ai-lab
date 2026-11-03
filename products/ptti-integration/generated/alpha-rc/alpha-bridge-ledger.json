@@ -1,0 +1,102 @@
+{
+  "bridge_version": "ptti.alpha-bridge/0.1",
+  "counts": {
+    "public_sources": 0,
+    "real_local_assets": 0,
+    "real_matches": 4,
+    "real_sources": 4
+  },
+  "input_provenance": {
+    "playback_interface_audit_sha": "7523b9652e97da880132f5799d435bdb06e40d39",
+    "runtime_playback_checks": "NOT_PERFORMED",
+    "snapshot_status": "PINNED_PUBLIC_SNAPSHOT",
+    "web_git_sha": "46f1826d80edf19147cc492e26c5461048841608",
+    "web_snapshot_sha256": "c8f0a47399c45d9a27316179b3c863ba8a68732932068a9620de96765549ab26"
+  },
+  "native_acceptance": {
+    "assessment": {
+      "full_qa": "NOT_TESTED",
+      "missing_bindings": [
+        "app_git_sha",
+        "exe_sha256",
+        "source_sha256",
+        "tested_at",
+        "source_id",
+        "local_asset_id",
+        "verified_source_version_binding"
+      ],
+      "operations": {
+        "fast_forward": "USER_REPORTED_PASS",
+        "fullscreen": "NOT_TESTED",
+        "leave_and_reenter": "NOT_TESTED",
+        "media_release": "NOT_TESTED",
+        "pause": "USER_REPORTED_PASS",
+        "play": "USER_REPORTED_PASS",
+        "playback_rate": "NOT_TESTED",
+        "rewind": "USER_REPORTED_PASS",
+        "seek": "USER_REPORTED_PASS"
+      },
+      "status": "UNBOUND_REVIEW_REQUIRED",
+      "vision_analysis": "NOT_TESTED"
+    },
+    "reported": {
+      "acceptance_version": "ptti.native-acceptance/0.1",
+      "app_git_sha": null,
+      "environment": "WINDOWS_NATIVE",
+      "evidence_ref": "user-goal04-confirmation",
+      "exe_sha256": null,
+      "local_asset_id": null,
+      "notes": "User explicitly confirmed Windows Cinema play/pause/fast-forward/rewind/seek in GOAL 04. Package, source bytes, precise test time and IDs were not supplied. This is not Vision analysis evidence.",
+      "operations": {
+        "fast_forward": "USER_REPORTED_PASS",
+        "fullscreen": "NOT_TESTED",
+        "leave_and_reenter": "NOT_TESTED",
+        "media_release": "NOT_TESTED",
+        "pause": "USER_REPORTED_PASS",
+        "play": "USER_REPORTED_PASS",
+        "playback_rate": "NOT_TESTED",
+        "rewind": "USER_REPORTED_PASS",
+        "seek": "USER_REPORTED_PASS"
+      },
+      "player": "Cinema",
+      "reported_on": "2026-10-13",
+      "source_id": null,
+      "source_sha256": null,
+      "tested_at": null
+    }
+  },
+  "real_associations": [
+    {
+      "local_asset_ids": [],
+      "local_association_status": "NOT_ESTABLISHED",
+      "match_id": "web-match:doha-2023-ms-final",
+      "source_ids": [
+        "web-source:doha-2023-ms-final"
+      ]
+    },
+    {
+      "local_asset_ids": [],
+      "local_association_status": "NOT_ESTABLISHED",
+      "match_id": "web-match:doha-2023-ms-sf-fan-lin",
+      "source_ids": [
+        "web-source:doha-2023-ms-sf-fan-lin"
+      ]
+    },
+    {
+      "local_asset_ids": [],
+      "local_association_status": "NOT_ESTABLISHED",
+      "match_id": "web-match:singapore-2021-ws-final-wang-sun",
+      "source_ids": [
+        "web-source:singapore-2021-ws-final-wang-sun"
+      ]
+    },
+    {
+      "local_asset_ids": [],
+      "local_association_status": "NOT_ESTABLISHED",
+      "match_id": "web-match:chongqing-2025-ws-final-sun-chen",
+      "source_ids": [
+        "web-source:chongqing-2025-ws-final-sun-chen"
+      ]
+    }
+  ]
+}
