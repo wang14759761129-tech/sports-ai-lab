@@ -1,0 +1,81 @@
+import type {Rally} from "./rallyData";
+export const DEMO_RALLIES: Rally[] = [
+  {
+    "id": "demo-rally-1",
+    "media": "23cd872e390f0393489f6ed3322764491c8ea3f76cfc1232852ed0da08b07da3",
+    "event": "demo-1",
+    "time": 0,
+    "server": "A",
+    "winner": "A",
+    "shots": 3,
+    "serve": "短球",
+    "receive": "摆短",
+    "third": "发抢",
+    "note": "虚构演示回合 1"
+  },
+  {
+    "id": "demo-rally-2",
+    "media": "23cd872e390f0393489f6ed3322764491c8ea3f76cfc1232852ed0da08b07da3",
+    "event": "demo-1",
+    "time": 3,
+    "server": "B",
+    "winner": "A",
+    "shots": 4,
+    "serve": "短球",
+    "receive": "摆短",
+    "third": "接发抢攻",
+    "note": "虚构演示回合 2"
+  },
+  {
+    "id": "demo-rally-3",
+    "media": "23cd872e390f0393489f6ed3322764491c8ea3f76cfc1232852ed0da08b07da3",
+    "event": "demo-1",
+    "time": 6,
+    "server": "A",
+    "winner": "B",
+    "shots": 2,
+    "serve": "短球",
+    "receive": "摆短",
+    "third": "摆短",
+    "note": "虚构演示回合 3"
+  },
+  {
+    "id": "demo-rally-4",
+    "media": "23cd872e390f0393489f6ed3322764491c8ea3f76cfc1232852ed0da08b07da3",
+    "event": "demo-1",
+    "time": 9,
+    "server": "B",
+    "winner": "B",
+    "shots": 5,
+    "serve": "短球",
+    "receive": "摆短",
+    "third": "反手相持",
+    "note": "虚构演示回合 4"
+  },
+  {
+    "id": "demo-rally-5",
+    "media": "23cd872e390f0393489f6ed3322764491c8ea3f76cfc1232852ed0da08b07da3",
+    "event": "demo-1",
+    "time": 12,
+    "server": "A",
+    "winner": "A",
+    "shots": 3,
+    "serve": "短球",
+    "receive": "摆短",
+    "third": "发抢",
+    "note": "虚构演示回合 5"
+  },
+  {
+    "id": "demo-rally-6",
+    "media": "23cd872e390f0393489f6ed3322764491c8ea3f76cfc1232852ed0da08b07da3",
+    "event": "demo-1",
+    "time": 15,
+    "server": "B",
+    "winner": "A",
+    "shots": 6,
+    "serve": "短球",
+    "receive": "摆短",
+    "third": "",
+    "note": "虚构演示回合 6"
+  }
+];
