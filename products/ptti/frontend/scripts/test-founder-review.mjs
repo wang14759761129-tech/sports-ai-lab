@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {REVIEW_VIEWS,createReviewReceipt} from '../src/founderReview.mjs';
+assert.equal(REVIEW_VIEWS.length,4);
+const input={views:{cinema:'APPROVED',arena:'NEEDS_CHANGE',pro_lab:'NOT_REVIEWED',narrow:'NOT_REVIEWED'},feedback:'导航很好；局点文字需要更清楚。',privatePath:'MUST_NOT_EXPORT',videoBytes:'MUST_NOT_EXPORT'};
+const receipt=createReviewReceipt(input,{width:1440,height:900,devicePixelRatio:1.5,reducedMotion:true},1);
+assert.equal(receipt.schema,'ptti.founder-review/0.1');
+assert.equal(receipt.evidence_kind,'SELF_REPORTED_VISUAL_FEEDBACK');
+assert.equal(receipt.reviewer_identity,'NOT_VERIFIED');
+assert.equal(receipt.views.arena,'NEEDS_CHANGE');
+assert.equal(receipt.source_commit,null,'dev UI does not invent an exact build identity');
+assert.doesNotMatch(JSON.stringify(receipt),/MUST_NOT_EXPORT|privatePath|videoBytes/);
+assert.throws(()=>createReviewReceipt({...input,views:{...input.views,cinema:'GUI_PASS'}}));
+assert.throws(()=>createReviewReceipt({...input,feedback:'x'.repeat(2001)}));
+assert.throws(()=>createReviewReceipt(input,{width:-1,height:900}));
+console.log('Founder review: four targets, explicit human verdicts, safe metadata-only export and invalid-input refusal PASS');

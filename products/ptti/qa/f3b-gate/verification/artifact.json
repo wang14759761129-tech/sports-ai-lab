@@ -1,0 +1,32 @@
+{
+  "phase": "artifact",
+  "head_before": "8167457f03501b67b0b98a9400ca8bd57fb3ccb9",
+  "started_at": "2026-10-28T08:02:11.848764+00:00",
+  "guard_bytes": 2684354560,
+  "commands": [
+    {
+      "label": "built-media-gate",
+      "argv": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "scripts/check-media-distribution.mjs",
+        "dist"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 2870448128,
+        "available_gib": 2.6733
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.102,
+      "log": "built-media-gate.log",
+      "log_sha256": "5bd1f17e4aeb9c6f815756806cf7977dbf45141819dd46a9bc57613174726b1a",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 2843906048,
+        "available_gib": 2.6486
+      },
+      "raw_log_sha256": "a4e92cc21d7152f4b1d08c470a48733eacad7d84382566aae140d49a7856e985"
+    }
+  ]
+}

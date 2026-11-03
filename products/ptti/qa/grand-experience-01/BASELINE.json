@@ -1,0 +1,38 @@
+{
+  "schema": "ptti.local-checkpoint/0.1",
+  "audience": "INTERNAL_REVIEW_ONLY",
+  "source_commit": "30834c478d6bd37a696feb301b5d1bc802482c99",
+  "local_tag": "checkpoint/grand-experience-01-30834c4",
+  "branch": "codex/goal99-r4-cinema-evolution",
+  "files": [
+    {
+      "path": "products/ptti/frontend/package-lock.json",
+      "sha256": "a56d2241441ae1b11339b7a2ed6bfd13de328ea6870b2b3c32d9d905545012ae"
+    },
+    {
+      "path": "products/ptti/frontend/vite.config.ts",
+      "sha256": "bfe9bb5450ef6ffafb1df9754640e4dcc40b4a29e261a713e735c1ea946f0231"
+    },
+    {
+      "path": "products/ptti/docs/RESOURCE-POLICY-V2.md",
+      "sha256": "d159139a8b9025b18c04c4e6e2d47643d5c012fa7715af7493edf03b09a874a2"
+    },
+    {
+      "path": "products/ptti/qa/fan-arena-evidence/RESULTS.json",
+      "sha256": "580a4425deb70e3512d601f9151f4d49e578b63eb2e1aba815c4d5190b94ccf9"
+    },
+    {
+      "path": "products/ptti/qa/full-speed-evidence/RESULTS.json",
+      "sha256": "852c1a8c0239eea773db8441fdfdf03b230da9c61788f6d7c3af71e4d58c3c30"
+    }
+  ],
+  "runtime": {
+    "frontend": "vite --mode founder-internal-qa --host 127.0.0.1 --port 5173 --strictPort",
+    "backend": "existing loopback QA on 8765; diagnostics must confirm explicit system-temp DB before writes",
+    "database_recovery": "create a new temporary QA database when needed; do not copy or reset a user DB",
+    "browser_data": "retained in place; no export or deletion performed"
+  },
+  "accepted_tests": "See the two pinned RESULTS.json receipts; build, browser and Native evidence remain separate",
+  "rollback": "Revert Grand sprint commits, or create a separate recovery worktree from the local tag. Never reset this worktree or switch the formal launcher.",
+  "hash_basis": "Git blob bytes at the pinned commit; working-copy newline conversion may differ"
+}

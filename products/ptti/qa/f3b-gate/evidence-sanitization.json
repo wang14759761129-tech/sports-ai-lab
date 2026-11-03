@@ -1,0 +1,5 @@
+{
+  "raw_evidence_location": "C:\\PTTI-Worktrees\\ptti-f3b-gate-local-raw-20261028",
+  "shared_logs": "Machine home-directory prefixes masked; raw command output remains locally available outside Git.",
+  "no_secrets_read_or_uploaded": true
+}

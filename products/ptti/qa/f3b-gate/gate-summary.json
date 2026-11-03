@@ -1,0 +1,162 @@
+{
+  "code_result": "CODE_PASS",
+  "parent": "8167457f03501b67b0b98a9400ca8bd57fb3ccb9",
+  "branch": "codex/ptti-goal-f3b-gate",
+  "vite_before": "7.3.6",
+  "vite_after": "7.3.7",
+  "audit_before": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 1,
+    "critical": 0,
+    "total": 1
+  },
+  "audit_after": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "post_upgrade_first_audit": "ENDPOINT_TIMEOUT_RETAINED",
+  "final_audit": "COMPLETED_EXIT_0",
+  "verification": [
+    {
+      "label": "npm-ci",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "foundation",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": 14
+    },
+    {
+      "label": "f3a-adapters",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": 10
+    },
+    {
+      "label": "f3b-projection",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": 14
+    },
+    {
+      "label": "media-distribution",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "feed",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "story",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "favorites",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "moments",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "moment-backup",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "pro-lab",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "arena",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "arena-storage",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "official-theater",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "thumbnail-gate",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "cinema-viewing",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "python-schema",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": 11
+    },
+    {
+      "label": "playback-source-integration",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "typescript-full",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "vite-production",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    },
+    {
+      "label": "diff-check",
+      "status": "PASS",
+      "exit_code": 0,
+      "test_count": null
+    }
+  ],
+  "media_distribution_approved_assets": 0,
+  "remote_recovery": "INCOMPLETE_FULL_SNAPSHOT_AND_SOURCE_BASES_MISSING",
+  "remote_main_readme_checksum": "FAIL_ONE_HEX_CHARACTER_MISMATCH",
+  "gui": "NOT_TESTED",
+  "native": "NOT_TESTED",
+  "playback": "NOT_TESTED",
+  "actual_resume": "NOT_TESTED",
+  "source_runtime_diff_from_F3B": false,
+  "user_storage_accessed": false
+}
