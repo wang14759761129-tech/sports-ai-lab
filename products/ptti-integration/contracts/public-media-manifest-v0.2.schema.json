@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.invalid/contracts/public-media-manifest-v0.2.schema.json",
+  "title": "PTTI strict public editorial media manifest v0.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "generated_at", "view", "clearance_review_sha256", "source_manifest_sha256", "license_notice", "assets"],
+  "properties": {
+    "contract_version": {"const": "ptti.public-media-manifest/0.2"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "view": {"const": "STRICT_PUBLIC_MEDIA"},
+    "clearance_review_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "source_manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "license_notice": {"type": "string", "minLength": 1},
+    "assets": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/asset"}}
+  },
+  "$defs": {
+    "asset": {
+      "type": "object", "additionalProperties": false,
+      "required": ["asset_id", "athlete_id", "subject_name", "match_id", "match_link_status", "use_scope", "promotion_use", "source_page_url", "source_file_url", "source_title", "photographer", "license", "license_url", "attribution", "changes_made", "share_alike_required", "source_sha256", "source_dimensions", "derivatives"],
+      "properties": {
+        "asset_id": {"type": "string", "minLength": 1},
+        "athlete_id": {"type": "string", "minLength": 1},
+        "subject_name": {"type": "string", "minLength": 1},
+        "match_id": {"type": "null"},
+        "match_link_status": {"const": "NOT_LINKED_NO_DIRECT_MATCH_PHOTO_EVIDENCE"},
+        "use_scope": {"const": "ATHLETE_PROFILE_EDITORIAL_ONLY"},
+        "promotion_use": {"const": "NOT_CLEARED_NO_ENDORSEMENT_OR_HOMEPAGE_PROMOTION"},
+        "source_page_url": {"type": "string", "format": "uri", "pattern": "^https://commons\\.wikimedia\\.org/wiki/File:"},
+        "source_file_url": {"type": "string", "format": "uri", "pattern": "^https://upload\\.wikimedia\\.org/wikipedia/commons/"},
+        "source_title": {"type": "string", "minLength": 1},
+        "photographer": {"type": "string", "minLength": 1},
+        "license": {"enum": ["CC BY-SA 2.0", "CC BY-SA 4.0"]},
+        "license_url": {"type": "string", "format": "uri", "pattern": "^https://creativecommons\\.org/licenses/by-sa/"},
+        "attribution": {"type": "string", "minLength": 1},
+        "changes_made": {"type": "string", "minLength": 1},
+        "share_alike_required": {"const": true},
+        "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_dimensions": {"$ref": "#/$defs/dimensions"},
+        "derivatives": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/derivative"}}
+      }
+    },
+    "derivative": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "width", "height", "format", "license", "changes_made", "metadata_stripped"],
+      "properties": {
+        "path": {"type": "string", "pattern": "^assets/(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\]+$"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "width": {"type": "integer", "minimum": 1},
+        "height": {"type": "integer", "minimum": 1},
+        "format": {"const": "WEBP"},
+        "license": {"enum": ["CC BY-SA 2.0", "CC BY-SA 4.0"]},
+        "changes_made": {"enum": ["4:5 center crop; resized; JPEG converted to WebP; EXIF/GPS metadata removed", "3:2 full-frame resize; JPEG converted to WebP; EXIF/GPS metadata removed"]},
+        "metadata_stripped": {"const": true}
+      }
+    },
+    "dimensions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {"width": {"type": "integer", "minimum": 1}, "height": {"type": "integer", "minimum": 1}}
+    }
+  }
+}

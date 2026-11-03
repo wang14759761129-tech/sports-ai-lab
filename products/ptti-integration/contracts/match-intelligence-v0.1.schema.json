@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.example/contracts/match-intelligence-v0.1.schema.json",
+  "title": "PTTI Match Intelligence input bundle v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "dataset", "points"],
+  "properties": {
+    "contract_version": { "const": "ptti.match-intelligence/0.1" },
+    "dataset": { "$ref": "#/$defs/dataset" },
+    "points": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/point" } }
+  },
+  "$defs": {
+    "uncertain": { "enum": ["unknown", "unclear", "not_applicable"] },
+    "uncertainOrText": { "type": "string", "minLength": 1 },
+    "score": { "oneOf": [{ "type": "integer", "minimum": 0 }, { "$ref": "#/$defs/uncertain" }] },
+    "positiveCount": { "oneOf": [{ "type": "integer", "minimum": 1 }, { "$ref": "#/$defs/uncertain" }] },
+    "sourceProtocol": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "version", "schema_revision"],
+      "properties": {
+        "id": { "const": "serve-third-ball-analytics" },
+        "version": { "const": "0.3" },
+        "schema_revision": { "const": "1b30e8ea0f8a90a745fb6c30105599f0334fdf7c" }
+      }
+    },
+    "simulatedProvenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["method", "seed", "generated_on"],
+      "properties": {
+        "method": { "const": "DETERMINISTIC_ORIGINAL_GENERATOR" },
+        "seed": { "type": "integer" },
+        "generated_on": { "type": "string", "format": "date" }
+      }
+    },
+    "simulatedEditValue": {
+      "oneOf": [
+        { "type": "integer", "minimum": 1 },
+        { "type": "string" }
+      ]
+    },
+    "simulatedEditProvenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["method", "parent_dataset_id", "parent_input_sha256", "edit"],
+      "properties": {
+        "method": { "const": "SIMULATED_INTERACTIVE_EDIT" },
+        "parent_dataset_id": { "type": "string", "pattern": "^SIMULATED_ONLY:.+" },
+        "parent_input_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "edit": {
+          "type": "object", "additionalProperties": false,
+          "required": ["point_id", "field", "before", "after"],
+          "properties": {
+            "point_id": { "type": "string", "minLength": 1 },
+            "field": { "enum": ["serve_side", "serve_length", "serve_location", "serve_spin", "receive_type", "receive_location", "third_ball_attack", "third_ball_side", "third_ball_outcome", "rally_length", "video_timestamp", "notes"] },
+            "before": { "$ref": "#/$defs/simulatedEditValue" },
+            "after": { "$ref": "#/$defs/simulatedEditValue" }
+          }
+        }
+      }
+    },
+    "humanProvenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["method", "annotator_ref", "annotated_at", "evidence_ref", "annotation_csv_sha256", "review_status"],
+      "properties": {
+        "method": { "const": "HUMAN_MANUAL" },
+        "annotator_ref": { "type": "string", "minLength": 1 },
+        "annotated_at": { "type": "string", "format": "date-time" },
+        "evidence_ref": { "type": "string", "minLength": 1 },
+        "annotation_csv_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "review_status": { "const": "DECLARED_NOT_INDEPENDENTLY_AUDITED" }
+      }
+    },
+    "simulatedBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "source_id", "source_sha256", "timeline_id", "time_base"],
+      "properties": {
+        "status": { "const": "NOT_APPLICABLE_SIMULATED" },
+        "source_id": { "type": "null" },
+        "source_sha256": { "type": "null" },
+        "timeline_id": { "type": "null" },
+        "time_base": { "type": "null" }
+      }
+    },
+    "humanBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "source_id", "source_sha256", "timeline_id", "time_base", "timestamp_semantics"],
+      "properties": {
+        "status": { "const": "SOURCE_BYTES_HASH_MATCHED_AT_IMPORT" },
+        "source_id": { "type": "string", "minLength": 1 },
+        "source_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "timeline_id": { "type": "null" },
+        "time_base": { "type": "null" },
+        "timestamp_semantics": { "const": "PROTOCOL_TEXT_ONLY_UNBOUND" }
+      }
+    },
+    "dataset": {
+      "type": "object", "additionalProperties": false,
+      "required": ["dataset_id", "dataset_class", "match_id", "source_protocol", "provenance", "source_binding"],
+      "properties": {
+        "dataset_id": { "type": "string", "minLength": 1 },
+        "dataset_class": { "enum": ["SIMULATED_ONLY", "HUMAN_ANNOTATION"] },
+        "match_id": { "type": "string", "minLength": 1 },
+        "source_protocol": { "$ref": "#/$defs/sourceProtocol" },
+        "provenance": { "oneOf": [{ "$ref": "#/$defs/simulatedProvenance" }, { "$ref": "#/$defs/simulatedEditProvenance" }, { "$ref": "#/$defs/humanProvenance" }] },
+        "source_binding": { "oneOf": [{ "$ref": "#/$defs/simulatedBinding" }, { "$ref": "#/$defs/humanBinding" }] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "dataset_class": { "const": "SIMULATED_ONLY" } }, "required": ["dataset_class"] },
+          "then": {
+            "properties": {
+              "match_id": { "pattern": "^SIMULATED_ONLY:" },
+              "provenance": { "oneOf": [{ "$ref": "#/$defs/simulatedProvenance" }, { "$ref": "#/$defs/simulatedEditProvenance" }] },
+              "source_binding": { "$ref": "#/$defs/simulatedBinding" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "dataset_class": { "const": "HUMAN_ANNOTATION" } }, "required": ["dataset_class"] },
+          "then": {
+            "properties": {
+              "match_id": { "not": { "pattern": "^SIMULATED_ONLY:" } },
+              "provenance": { "$ref": "#/$defs/humanProvenance" },
+              "source_binding": { "$ref": "#/$defs/humanBinding" }
+            }
+          }
+        }
+      ]
+    },
+    "point": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "match_id", "game_number", "point_number", "server", "receiver",
+        "server_score_before", "receiver_score_before", "serve_side", "serve_length",
+        "serve_location", "serve_spin", "receive_type", "receive_location",
+        "third_ball_attack", "third_ball_side", "third_ball_outcome", "rally_length",
+        "point_winner", "point_outcome", "video_timestamp", "notes"
+      ],
+      "properties": {
+        "match_id": { "type": "string", "minLength": 1 },
+        "game_number": { "type": "integer", "minimum": 1 },
+        "point_number": { "type": "integer", "minimum": 1 },
+        "server": { "enum": ["player", "opponent", "unknown"] },
+        "receiver": { "enum": ["player", "opponent", "unknown"] },
+        "server_score_before": { "$ref": "#/$defs/score" },
+        "receiver_score_before": { "$ref": "#/$defs/score" },
+        "serve_side": { "enum": ["forehand", "backhand", "unknown", "unclear", "not_applicable"] },
+        "serve_length": { "enum": ["short", "half_long", "long", "unknown", "unclear", "not_applicable"] },
+        "serve_location": { "enum": ["forehand", "middle", "backhand", "unknown", "unclear", "not_applicable"] },
+        "serve_spin": { "enum": ["backspin", "sidespin", "topspin", "no_spin", "mixed", "unknown", "unclear", "not_applicable"] },
+        "receive_type": { "enum": ["push", "flick", "chiquita", "drive", "loop", "long_push", "short_touch", "other", "unknown", "unclear", "not_applicable"] },
+        "receive_location": { "enum": ["forehand", "middle", "backhand", "unknown", "unclear", "not_applicable"] },
+        "third_ball_attack": { "enum": ["yes", "no", "unknown", "unclear", "not_applicable"] },
+        "third_ball_side": { "enum": ["forehand", "backhand", "other", "unknown", "unclear", "not_applicable"] },
+        "third_ball_outcome": { "enum": ["successful", "unsuccessful", "unknown", "unclear", "not_applicable"] },
+        "rally_length": { "$ref": "#/$defs/positiveCount" },
+        "point_winner": { "enum": ["player", "opponent", "unknown"] },
+        "point_outcome": { "enum": ["win", "loss", "unknown"] },
+        "video_timestamp": { "$ref": "#/$defs/uncertainOrText" },
+        "notes": { "$ref": "#/$defs/uncertainOrText" }
+      }
+    }
+  }
+}

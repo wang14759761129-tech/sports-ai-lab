@@ -1,0 +1,22 @@
+[
+  {
+    "module": "SAN",
+    "issue": "vite.config.ts requires original sibling Playback repository HEAD b54e1546, which a new root commit cannot satisfy; no guard edited"
+  },
+  {
+    "module": "SAN",
+    "issue": "Internal review JSON and unapproved media are excluded; dependent builds/checks may fail; no replacement data fabricated"
+  },
+  {
+    "module": "HOST",
+    "issue": "Frozen GOAL23/30 builders require original source commits, static hashes, parent release and local build tools; migration is not a Desktop release"
+  },
+  {
+    "module": "ALL",
+    "issue": "Excluded fixtures/configuration must be reviewed individually before claiming complete build reproducibility"
+  },
+  {
+    "module": "PUBLIC_DATA",
+    "issue": "Four approved public JSON Git blobs use LF; original Windows checkout pins refer to CRLF bytes. Both SHA identities are recorded. Existing raw-byte build guards were not rewritten; portable build requires explicit review."
+  }
+]

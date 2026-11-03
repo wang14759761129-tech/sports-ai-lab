@@ -1,0 +1,10 @@
+{
+  "name": "ptti-reviewed-source-baseline",
+  "version": "0.0.0-local",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/safe-baseline.test.mjs",
+    "build:web:snapshot": "node scripts/build-web-snapshot.mjs",
+    "audit": "python -B scripts/audit-baseline.py"
+  }
+}

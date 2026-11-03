@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PTTI · Fan Universe</title>
+<style>
+:root{color-scheme:light;--ink:#17253a;--muted:#64748b;--line:#dfe7f1;--blue:#1d4ed8}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:"Microsoft YaHei UI","Segoe UI",sans-serif;color:var(--ink);background:#f4f7fb}
+body{display:grid;grid-template-rows:58px 1fr}header{display:flex;align-items:center;gap:14px;padding:0 18px;background:#fff;border-bottom:1px solid var(--line)}
+.brand{font-weight:750;white-space:nowrap}.pill{font-size:12px;color:#0f766e;background:#ccfbf1;border-radius:999px;padding:5px 9px}.spacer{flex:1}.meta{font-size:12px;color:var(--muted);white-space:nowrap}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:9px 14px;background:var(--blue);color:#fff;font-weight:650}button.secondary{background:#eef4ff;color:#2447a5;border:1px solid #d7e4ff}button:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+main{min-height:0}iframe{display:block;width:100%;height:100%;border:0;background:#f4f7fb}#status{position:fixed;right:18px;bottom:18px;z-index:5;max-width:min(560px,calc(100vw - 36px));padding:12px 16px;border-radius:12px;background:#17253a;color:white;box-shadow:0 12px 34px #0f172a33;font-size:13px;line-height:1.45;display:none}
+dialog{max-width:520px;border:1px solid var(--line);border-radius:16px;padding:22px;color:var(--ink);box-shadow:0 20px 60px #0f172a33}dialog::backdrop{background:#0f172a66}dialog h2{margin:0 0 12px;font-size:19px}dialog p{color:#475569;line-height:1.6}dialog footer{display:flex;justify-content:flex-end;margin-top:18px}
+@media(max-width:850px){header{gap:8px;padding:0 10px}.meta{display:none}.brand{font-size:14px}button{padding:8px 10px;font-size:13px}}
+</style>
+</head>
+<body>
+<header><div class="brand">PTTI · Fan Universe</div><span class="pill">桌面候选版</span><span class="meta">Fan build __VERSION__ · San __COMMIT__</span><div class="spacer"></div><button id="version" class="secondary" type="button">版本信息</button><button id="dataInfo" class="secondary" type="button">收藏与笔记</button><button id="native" type="button">Cinema R4（联动待审批）</button></header>
+<main><iframe id="fan" title="PTTI Fan Universe" src="/" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></main>
+<div id="status" role="status" aria-live="polite"></div>
+<dialog id="dataDialog"><h2>收藏与笔记保存在这里</h2><p>Fan 的收藏、关注和笔记保存在这个 PTTI 桌面应用的独立 WebView 配置中，不会自动与 Edge 或 Chrome 同步。需要迁移时，请在 Fan 的“我的角落”使用现有备份导出和导入功能。</p><p>外部官方来源会交给系统浏览器打开；本桌面候选不会把第三方页面伪装成 PTTI 播放器。</p><footer><button id="closeDialog" type="button">知道了</button></footer></dialog>
+<script>
+const statusBox=document.getElementById('status');let statusTimer;
+function showStatus(message){statusBox.textContent=message;statusBox.style.display='block';clearTimeout(statusTimer);statusTimer=setTimeout(()=>statusBox.style.display='none',8000)}
+async function callApi(name,...args){if(!window.pywebview?.api)throw new Error('桌面桥接尚未就绪');return await window.pywebview.api[name](...args)}
+document.getElementById('native').addEventListener('click',async()=>{showStatus('正在检查 R4 联动状态…');try{const r=await callApi('launch_native');showStatus(r.message)}catch(e){showStatus(e.message||'原生入口未启动')}})
+document.getElementById('version').addEventListener('click',async()=>{try{const r=await callApi('version_status');showStatus('候选 '+r.version+' · Fan '+r.fanCommit.slice(0,12)+' · 本地文件与清单校验通过；候选未签名。'+r.update)}catch(e){showStatus(e.message||'版本信息读取失败')}})
+document.getElementById('dataInfo').addEventListener('click',()=>document.getElementById('dataDialog').showModal())
+document.getElementById('closeDialog').addEventListener('click',()=>document.getElementById('dataDialog').close())
+const fanFrame=document.getElementById('fan')
+fanFrame.addEventListener('load',()=>{try{fanFrame.contentDocument.addEventListener('click',async event=>{const link=event.target.closest('a[target="_blank"]');if(!link)return;const url=new URL(link.href);if(!['http:','https:'].includes(url.protocol))return;event.preventDefault();event.stopPropagation();try{const r=await callApi('open_external',url.href);showStatus(r.message)}catch{showStatus('无法打开系统浏览器')}},true)}catch{showStatus('Fan 页面加载完成；外部来源链接由系统浏览器打开')}})
+</script></body></html>
