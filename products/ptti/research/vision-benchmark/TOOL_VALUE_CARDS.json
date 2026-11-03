@@ -1,0 +1,539 @@
+{
+  "version": "0.1",
+  "scores": "ENGINEERING_JUDGMENT_NOT_BENCHMARK_METRICS",
+  "cards": [
+    {
+      "name": "Supervision",
+      "problem_solved": "Repeated detection visualization and video glue",
+      "current_problem_severity": "MEDIUM",
+      "current_solution": "Custom OpenCV/PIL overlay scripts",
+      "before": "Custom schema conversions and drawing",
+      "after": "Isolated overlay experiment; main architecture unchanged",
+      "benefits": {
+        "accuracy": 0,
+        "dev_efficiency": 6,
+        "UX": 3,
+        "stability": 3,
+        "maintainability": 6,
+        "extensibility": 5
+      },
+      "cost": {
+        "learning": 2,
+        "integration": 3,
+        "migration": 0,
+        "performance": 2,
+        "complexity": 2
+      },
+      "risks": {
+        "Windows": "Existing Windows package/workflow audit",
+        "CUDA": "Not required",
+        "Python": "Pin runtime; never migrate validated workers in this experiment",
+        "dependencies": "Research environment only; no desktop dependency",
+        "license": "MIT; no weights",
+        "weights_license": "NO_MODEL_WEIGHTS",
+        "VRAM": "NO_GPU_REQUIREMENT",
+        "project_health": "Official release/source checked 2026-10-07; future health not predicted",
+        "API_stability": "Pinned version; regression test adapter on upgrade",
+        "commercial_use": "Checkpoint/dataset rights separately required; no research data in builds"
+      },
+      "decision": "B_BENCHMARK",
+      "radar": "TRIAL",
+      "evidence_status": "Scores are engineering judgments 0-10, not measured improvement; see experiment reports for actual results",
+      "sources": [
+        "https://github.com/roboflow/supervision"
+      ]
+    },
+    {
+      "name": "RF-DETR",
+      "problem_solved": "Evaluate alternative tiny-ball observations",
+      "current_problem_severity": "BOTTLENECK",
+      "current_solution": "Frozen Official BallTrack RAW",
+      "before": "Sparse ball benchmark exists; full event FP is not ball FP",
+      "after": "Pretrained Nano comparison only; no training or replacement",
+      "benefits": {
+        "accuracy": 3,
+        "dev_efficiency": 1,
+        "UX": 2,
+        "stability": 2,
+        "maintainability": 3,
+        "extensibility": 4
+      },
+      "cost": {
+        "learning": 4,
+        "integration": 4,
+        "migration": 0,
+        "performance": 5,
+        "complexity": 4
+      },
+      "risks": {
+        "Windows": "Native isolated worker; actual acceptance required",
+        "CUDA": "Isolate and verify exact provider/toolchain",
+        "Python": "Pin runtime; never migrate validated workers in this experiment",
+        "dependencies": "Research environment only; no desktop dependency",
+        "license": "Apache-2.0 core Nano; Plus explicitly excluded",
+        "weights_license": "Apache-2.0 core Nano; Plus explicitly excluded",
+        "VRAM": "8GB device; sequential workers; profile before adoption",
+        "project_health": "Official release/source checked 2026-10-07; future health not predicted",
+        "API_stability": "Pinned version; regression test adapter on upgrade",
+        "commercial_use": "Checkpoint/dataset rights separately required; no research data in builds"
+      },
+      "decision": "B_BENCHMARK",
+      "radar": "TRIAL",
+      "evidence_status": "Scores are engineering judgments 0-10, not measured improvement; see experiment reports for actual results",
+      "sources": [
+        "https://github.com/roboflow/rf-detr"
+      ]
+    },
+    {
+      "name": "CVAT",
+      "problem_solved": "Reviewed ball/event GT and reviewer workflow",
+      "current_problem_severity": "BOTTLENECK",
+      "current_solution": "CSV labels and local manual review JSON",
+      "before": "No dense ball truth on full DEV videos",
+      "after": "Task labels/frame maps/XML adapter ready; actual UI task blocked by absent Docker",
+      "benefits": {
+        "accuracy": 8,
+        "dev_efficiency": 7,
+        "UX": 4,
+        "stability": 5,
+        "maintainability": 7,
+        "extensibility": 7
+      },
+      "cost": {
+        "learning": 4,
+        "integration": 4,
+        "migration": 0,
+        "performance": 4,
+        "complexity": 4
+      },
+      "risks": {
+        "Windows": "Existing Windows package/workflow audit",
+        "CUDA": "Not required",
+        "Python": "Pin runtime; never migrate validated workers in this experiment",
+        "dependencies": "Research environment only; no desktop dependency",
+        "license": "MIT core; deployment dependencies separately licensed",
+        "weights_license": "NO_MODEL_WEIGHTS",
+        "VRAM": "NO_GPU_REQUIREMENT",
+        "project_health": "Official release/source checked 2026-10-07; future health not predicted",
+        "API_stability": "Pinned version; regression test adapter on upgrade",
+        "commercial_use": "Checkpoint/dataset rights separately required; no research data in builds"
+      },
+      "decision": "C_LATER",
+      "radar": "TRIAL",
+      "evidence_status": "Scores are engineering judgments 0-10, not measured improvement; see experiment reports for actual results",
+      "sources": [
+        "https://docs.cvat.ai/docs/administration/community/basics/installation/"
+      ]
+    },
+    {
+      "name": "uv",
+      "problem_solved": "Reconstruct isolated worker dependencies",
+      "current_problem_severity": "MEDIUM",
+      "current_solution": "venv + pip requirements",
+      "before": "Several validated environments with separate requirements",
+      "after": "New Supervision worker uv lock + repeated locked sync verified; legacy envs unchanged",
+      "benefits": {
+        "accuracy": 0,
+        "dev_efficiency": 8,
+        "UX": 0,
+        "stability": 6,
+        "maintainability": 8,
+        "extensibility": 7
+      },
+      "cost": {
+        "learning": 2,
+        "integration": 2,
+        "migration": 0,
+        "performance": 1,
+        "complexity": 1
+      },
+      "risks": {
+        "Windows": "Existing Windows package/workflow audit",
+        "CUDA": "Not required",
+        "Python": "Pin runtime; never migrate validated workers in this experiment",
+        "dependencies": "Research environment only; no desktop dependency",
+        "license": "MIT OR Apache-2.0",
+        "weights_license": "NO_MODEL_WEIGHTS",
+        "VRAM": "NO_GPU_REQUIREMENT",
+        "project_health": "Official release/source checked 2026-10-07; future health not predicted",
+        "API_stability": "Pinned version; regression test adapter on upgrade",
+        "commercial_use": "Checkpoint/dataset rights separately required; no research data in builds"
+      },
+      "decision": "A_NOW",
+      "radar": "ADOPT",
+      "evidence_status": "Scores are engineering judgments 0-10, not measured improvement; see experiment reports for actual results",
+      "sources": [
+        "https://docs.astral.sh/uv/"
+      ]
+    },
+    {
+      "name": "Ruff",
+      "problem_solved": "Catch basic errors without broad formatting",
+      "current_problem_severity": "MEDIUM",
+      "current_solution": "pytest and manual review",
+      "before": "No uniform new-research lint gate",
+      "after": "Minimal E4/E7/E9/F config; new research code checked; legacy issues report only",
+      "benefits": {
+        "accuracy": 0,
+        "dev_efficiency": 7,
+        "UX": 0,
+        "stability": 6,
+        "maintainability": 8,
+        "extensibility": 5
+      },
+      "cost": {
+        "learning": 1,
+        "integration": 1,
+        "migration": 0,
+        "performance": 1,
+        "complexity": 1
+      },
+      "risks": {
+        "Windows": "Existing Windows package/workflow audit",
+        "CUDA": "Not required",
+        "Python": "Pin runtime; never migrate validated workers in this experiment",
+        "dependencies": "Research environment only; no desktop dependency",
+        "license": "MIT",
+        "weights_license": "NO_MODEL_WEIGHTS",
+        "VRAM": "NO_GPU_REQUIREMENT",
+        "project_health": "Official release/source checked 2026-10-07; future health not predicted",
+        "API_stability": "Pinned version; regression test adapter on upgrade",
+        "commercial_use": "Checkpoint/dataset rights separately required; no research data in builds"
+      },
+      "decision": "A_NOW",
+      "radar": "ADOPT",
+      "evidence_status": "Scores are engineering judgments 0-10, not measured improvement; see experiment reports for actual results",
+      "sources": [
+        "https://docs.astral.sh/ruff/"
+      ]
+    },
+    {
+      "name": "ONNX Runtime",
+      "problem_solved": "Existing cropped pose GPU inference",
+      "current_problem_severity": "MEDIUM",
+      "current_solution": "ORT CUDA + CPU fallback",
+      "before": "Real RTMPose runs already use ORT",
+      "after": "Keep existing worker; no migration required",
+      "benefits": {
+        "accuracy": 0,
+        "dev_efficiency": 1,
+        "UX": 1,
+        "stability": 5,
+        "maintainability": 5,
+        "extensibility": 6
+      },
+      "cost": {
+        "learning": 1,
+        "integration": 0,
+        "migration": 0,
+        "performance": 1,
+        "complexity": 1
+      },
+      "risks": {
+        "Windows": "Existing Windows package/workflow audit",
+        "CUDA": "Not required",
+        "Python": "Pin runtime; never migrate validated workers in this experiment",
+        "dependencies": "Research environment only; no desktop dependency",
+        "license": "MIT runtime; pose weights license unresolved",
+        "weights_license": "NO_MODEL_WEIGHTS",
+        "VRAM": "NO_GPU_REQUIREMENT",
+        "project_health": "Official release/source checked 2026-10-07; future health not predicted",
+        "API_stability": "Pinned version; regression test adapter on upgrade",
+        "commercial_use": "Checkpoint/dataset rights separately required; no research data in builds"
+      },
+      "decision": "A_NOW",
+      "radar": "ADOPT",
+      "evidence_status": "Scores are engineering judgments 0-10, not measured improvement; see experiment reports for actual results",
+      "sources": [
+        "https://onnxruntime.ai/docs/execution-providers/"
+      ]
+    },
+    {
+      "name": "Windows ML",
+      "problem_solved": "Future Windows EP/runtime shipping",
+      "current_problem_severity": "SOON_BOTTLENECK",
+      "current_solution": "Bundled ORT CUDA and staged model workers",
+      "before": "GPU runtime distribution is heavy",
+      "after": "Assessment only; test supported Windows/EP/device before delivery decision",
+      "benefits": {
+        "accuracy": 0,
+        "dev_efficiency": 3,
+        "UX": 5,
+        "stability": 5,
+        "maintainability": 4,
+        "extensibility": 6
+      },
+      "cost": {
+        "learning": 4,
+        "integration": 6,
+        "migration": 6,
+        "performance": 3,
+        "complexity": 5
+      },
+      "risks": {
+        "Windows": "Native isolated worker; actual acceptance required",
+        "CUDA": "Isolate and verify exact provider/toolchain",
+        "Python": "Pin runtime; never migrate validated workers in this experiment",
+        "dependencies": "Research environment only; no desktop dependency",
+        "license": "Microsoft Windows ML distribution terms; exact shipping package not selected",
+        "weights_license": "Microsoft Windows ML distribution terms; exact shipping package not selected",
+        "VRAM": "8GB device; sequential workers; profile before adoption",
+        "project_health": "Official release/source checked 2026-10-07; future health not predicted",
+        "API_stability": "Pinned version; regression test adapter on upgrade",
+        "commercial_use": "Checkpoint/dataset rights separately required; no research data in builds"
+      },
+      "decision": "C_LATER",
+      "radar": "ASSESS",
+      "evidence_status": "Scores are engineering judgments 0-10, not measured improvement; see experiment reports for actual results",
+      "sources": [
+        "https://learn.microsoft.com/en-us/windows/ai/new-windows-ml/overview"
+      ]
+    },
+    {
+      "name": "DuckDB",
+      "problem_solved": "Future bulk analytical joins over observations",
+      "current_problem_severity": "LOW",
+      "current_solution": "SQLite metadata + streaming JSONL/CSV",
+      "before": "334959 ball rows streamed successfully",
+      "after": "Assess Parquet analytical layer only when query/RAM measurements show a need",
+      "benefits": {
+        "accuracy": 0,
+        "dev_efficiency": 3,
+        "UX": 1,
+        "stability": 3,
+        "maintainability": 4,
+        "extensibility": 6
+      },
+      "cost": {
+        "learning": 3,
+        "integration": 4,
+        "migration": 4,
+        "performance": 2,
+        "complexity": 3
+      },
+      "risks": {
+        "Windows": "Existing Windows package/workflow audit",
+        "CUDA": "Not required",
+        "Python": "Pin runtime; never migrate validated workers in this experiment",
+        "dependencies": "Research environment only; no desktop dependency",
+        "license": "MIT",
+        "weights_license": "NO_MODEL_WEIGHTS",
+        "VRAM": "NO_GPU_REQUIREMENT",
+        "project_health": "Official release/source checked 2026-10-07; future health not predicted",
+        "API_stability": "Pinned version; regression test adapter on upgrade",
+        "commercial_use": "Checkpoint/dataset rights separately required; no research data in builds"
+      },
+      "decision": "C_LATER",
+      "radar": "ASSESS",
+      "evidence_status": "Scores are engineering judgments 0-10, not measured improvement; see experiment reports for actual results",
+      "sources": [
+        "https://duckdb.org/docs/stable/"
+      ]
+    },
+    {
+      "name": "SAM2",
+      "problem_solved": "Body-mask propagation between person anchors",
+      "current_problem_severity": "MEDIUM",
+      "current_solution": "Existing SAM2.1 Hiera Small worker",
+      "before": "Real video runs; continuity remains partial",
+      "after": "Keep existing trial and recovery evidence; no reinstall or size escalation",
+      "benefits": {
+        "accuracy": 4,
+        "dev_efficiency": 0,
+        "UX": 6,
+        "stability": 3,
+        "maintainability": 3,
+        "extensibility": 6
+      },
+      "cost": {
+        "learning": 0,
+        "integration": 1,
+        "migration": 0,
+        "performance": 4,
+        "complexity": 2
+      },
+      "risks": {
+        "Windows": "Native isolated worker; actual acceptance required",
+        "CUDA": "Isolate and verify exact provider/toolchain",
+        "Python": "Pin runtime; never migrate validated workers in this experiment",
+        "dependencies": "Research environment only; no desktop dependency",
+        "license": "Apache-2.0 code/checkpoints; existing pinned provenance",
+        "weights_license": "Apache-2.0 code/checkpoints; existing pinned provenance",
+        "VRAM": "8GB device; sequential workers; profile before adoption",
+        "project_health": "Official release/source checked 2026-10-07; future health not predicted",
+        "API_stability": "Pinned version; regression test adapter on upgrade",
+        "commercial_use": "Checkpoint/dataset rights separately required; no research data in builds"
+      },
+      "decision": "B_BENCHMARK",
+      "radar": "TRIAL",
+      "evidence_status": "Scores are engineering judgments 0-10, not measured improvement; see experiment reports for actual results",
+      "sources": [
+        "https://github.com/facebookresearch/sam2"
+      ]
+    },
+    {
+      "name": "Grounded SAM2",
+      "problem_solved": "Combined text detection and segmentation",
+      "current_problem_severity": "NONE",
+      "current_solution": "Grounding DINO + RT-DETR + SAM2 already isolated",
+      "before": "All component seams already exist",
+      "after": "Duplicate wrapper currently offers no proven product value",
+      "benefits": {
+        "accuracy": 0,
+        "dev_efficiency": 0,
+        "UX": 0,
+        "stability": 0,
+        "maintainability": 0,
+        "extensibility": 1
+      },
+      "cost": {
+        "learning": 3,
+        "integration": 5,
+        "migration": 4,
+        "performance": 4,
+        "complexity": 5
+      },
+      "risks": {
+        "Windows": "Native isolated worker; actual acceptance required",
+        "CUDA": "Isolate and verify exact provider/toolchain",
+        "Python": "Pin runtime; never migrate validated workers in this experiment",
+        "dependencies": "Research environment only; no desktop dependency",
+        "license": "Multiple component licenses/checkpoints require separate review",
+        "weights_license": "Multiple component licenses/checkpoints require separate review",
+        "VRAM": "8GB device; sequential workers; profile before adoption",
+        "project_health": "Official release/source checked 2026-10-07; future health not predicted",
+        "API_stability": "Pinned version; regression test adapter on upgrade",
+        "commercial_use": "Checkpoint/dataset rights separately required; no research data in builds"
+      },
+      "decision": "E_REJECT",
+      "radar": "HOLD",
+      "evidence_status": "Scores are engineering judgments 0-10, not measured improvement; see experiment reports for actual results",
+      "sources": [
+        "https://github.com/IDEA-Research/Grounded-SAM-2"
+      ]
+    },
+    {
+      "name": "MMPose / RTMPose",
+      "problem_solved": "2D motion observations within accepted player tracks",
+      "current_problem_severity": "MEDIUM",
+      "current_solution": "Existing RTMLib RTMPose-m Halpe26 ORT worker",
+      "before": "Near84% Far72% sampled coverage; checkpoint rights unresolved",
+      "after": "Keep research observation UI; no stroke classifier or extra model",
+      "benefits": {
+        "accuracy": 3,
+        "dev_efficiency": 0,
+        "UX": 6,
+        "stability": 3,
+        "maintainability": 3,
+        "extensibility": 6
+      },
+      "cost": {
+        "learning": 0,
+        "integration": 1,
+        "migration": 0,
+        "performance": 2,
+        "complexity": 2
+      },
+      "risks": {
+        "Windows": "Native isolated worker; actual acceptance required",
+        "CUDA": "Isolate and verify exact provider/toolchain",
+        "Python": "Pin runtime; never migrate validated workers in this experiment",
+        "dependencies": "Research environment only; no desktop dependency",
+        "license": "Apache-2.0 code; exact Halpe26 checkpoint license UNKNOWN",
+        "weights_license": "Apache-2.0 code; exact Halpe26 checkpoint license UNKNOWN",
+        "VRAM": "8GB device; sequential workers; profile before adoption",
+        "project_health": "Official release/source checked 2026-10-07; future health not predicted",
+        "API_stability": "Pinned version; regression test adapter on upgrade",
+        "commercial_use": "Checkpoint/dataset rights separately required; no research data in builds"
+      },
+      "decision": "D_RESEARCH_ONLY",
+      "radar": "TRIAL",
+      "evidence_status": "Scores are engineering judgments 0-10, not measured improvement; see experiment reports for actual results",
+      "sources": [
+        "https://github.com/open-mmlab/mmpose"
+      ]
+    },
+    {
+      "name": "LanceDB",
+      "problem_solved": "Possible future semantic video search",
+      "current_problem_severity": "NONE",
+      "current_solution": "No production embedding/search requirement",
+      "before": "No current problem requiring vector store",
+      "after": "Reassess only after Similar Rally/Video Embedding requirement",
+      "benefits": {
+        "accuracy": 0,
+        "dev_efficiency": 0,
+        "UX": 0,
+        "stability": 0,
+        "maintainability": 0,
+        "extensibility": 2
+      },
+      "cost": {
+        "learning": 4,
+        "integration": 5,
+        "migration": 4,
+        "performance": 3,
+        "complexity": 5
+      },
+      "risks": {
+        "Windows": "Existing Windows package/workflow audit",
+        "CUDA": "Not required",
+        "Python": "Pin runtime; never migrate validated workers in this experiment",
+        "dependencies": "Research environment only; no desktop dependency",
+        "license": "Apache-2.0 core; commercial services separate",
+        "weights_license": "NO_MODEL_WEIGHTS",
+        "VRAM": "NO_GPU_REQUIREMENT",
+        "project_health": "Official release/source checked 2026-10-07; future health not predicted",
+        "API_stability": "Pinned version; regression test adapter on upgrade",
+        "commercial_use": "Checkpoint/dataset rights separately required; no research data in builds"
+      },
+      "decision": "C_LATER",
+      "radar": "HOLD",
+      "evidence_status": "Scores are engineering judgments 0-10, not measured improvement; see experiment reports for actual results",
+      "sources": [
+        "https://github.com/lancedb/lancedb"
+      ]
+    },
+    {
+      "name": "llama.cpp",
+      "problem_solved": "Possible local evidence explanation layer",
+      "current_problem_severity": "NONE",
+      "current_solution": "Evidence panels and structured reports",
+      "before": "Insufficient verified tactical facts for grounded LLM advice",
+      "after": "Hold until evidence-query product requirement; no LLM installed",
+      "benefits": {
+        "accuracy": 0,
+        "dev_efficiency": 0,
+        "UX": 0,
+        "stability": 0,
+        "maintainability": 0,
+        "extensibility": 2
+      },
+      "cost": {
+        "learning": 5,
+        "integration": 6,
+        "migration": 4,
+        "performance": 8,
+        "complexity": 6
+      },
+      "risks": {
+        "Windows": "Native isolated worker; actual acceptance required",
+        "CUDA": "Isolate and verify exact provider/toolchain",
+        "Python": "Pin runtime; never migrate validated workers in this experiment",
+        "dependencies": "Research environment only; no desktop dependency",
+        "license": "MIT code; each model has separate rights",
+        "weights_license": "MIT code; each model has separate rights",
+        "VRAM": "8GB device; sequential workers; profile before adoption",
+        "project_health": "Official release/source checked 2026-10-07; future health not predicted",
+        "API_stability": "Pinned version; regression test adapter on upgrade",
+        "commercial_use": "Checkpoint/dataset rights separately required; no research data in builds"
+      },
+      "decision": "C_LATER",
+      "radar": "HOLD",
+      "evidence_status": "Scores are engineering judgments 0-10, not measured improvement; see experiment reports for actual results",
+      "sources": [
+        "https://github.com/ggml-org/llama.cpp"
+      ]
+    }
+  ]
+}
