@@ -1,0 +1,211 @@
+{
+  "source_commit": "a94c39c5672d13857aa3ec25bf2217a80eaa968c",
+  "source_branch": "codex/ptti-gex-001-r1",
+  "history_preserved": false,
+  "snapshot_only": true,
+  "build": "NOT_TESTED",
+  "GUI": "NOT_TESTED",
+  "policy": "PTTI public screened snapshot v2; independent root commits, original history LOCAL_ONLY; workflows excluded",
+  "files": [
+    {
+      "path": ".gitignore",
+      "source_blob": "59b4ff4de266c3607e3f286687a77a36792f51d8",
+      "source_sha256": "0239d39ab08db3c2e55f6513b854126591ef6fa183a85976131b28005d3caad7",
+      "safe_sha256": "0239d39ab08db3c2e55f6513b854126591ef6fa183a85976131b28005d3caad7",
+      "transformed": false
+    },
+    {
+      "path": "README.md",
+      "source_blob": "a3287c63b6ec1746a824fa76c2e36f313d735028",
+      "source_sha256": "304e2c1d63901c4266aaca84b33816208011b05a042ebc7744fb4d1c80f348cc",
+      "safe_sha256": "304e2c1d63901c4266aaca84b33816208011b05a042ebc7744fb4d1c80f348cc",
+      "transformed": false
+    },
+    {
+      "path": "docs/GEX-001-R2-Dispatch.md",
+      "source_blob": "824f0b530d9c87c6e439613e48b4ab940d6a102e",
+      "source_sha256": "0eab15ff846b70bfe394adfdb7a4bd9bc1cf4d3b9c5d9f7d20258a7a36f489cc",
+      "safe_sha256": "f13f75f0bfeff4e5ec9f411250f9e64e0253b226172e7d9c9f9904278b53a957",
+      "transformed": true
+    },
+    {
+      "path": "docs/PTTI_WORK_REPORT.md",
+      "source_blob": "5ee5b6caa9e00ba5f1e48ef035f096ee84d1e3fa",
+      "source_sha256": "ddd07c253a6b19077157b6c0513d87ca8045ec5e8641a8194a120eb90eae17e0",
+      "safe_sha256": "ddd07c253a6b19077157b6c0513d87ca8045ec5e8641a8194a120eb90eae17e0",
+      "transformed": false
+    },
+    {
+      "path": "docs/design/PTTI_ARENA_EXPERIENCE.md",
+      "source_blob": "8d9795751f1a6f101c125d6fb4627be82a8bb664",
+      "source_sha256": "c5d93dfe71abdb8441dd698e70ce387655f69e2866d953e699f6f311c212760d",
+      "safe_sha256": "c5d93dfe71abdb8441dd698e70ce387655f69e2866d953e699f6f311c212760d",
+      "transformed": false
+    },
+    {
+      "path": "docs/design/PTTI_CINEMA_EXPERIENCE.md",
+      "source_blob": "dd03bd3841b32eec33f4ed55c3782de5e7d03964",
+      "source_sha256": "99a16b7bac7151c09411d10028848bbab0ba47745a872ec3e1d54fb4bcc3cfd7",
+      "safe_sha256": "99a16b7bac7151c09411d10028848bbab0ba47745a872ec3e1d54fb4bcc3cfd7",
+      "transformed": false
+    },
+    {
+      "path": "docs/design/PTTI_DESIGN_SYSTEM.md",
+      "source_blob": "1742f006978b7af36270ca93e24c0cf792f7350d",
+      "source_sha256": "63c9b12222928e8808a29b77ff06e3892e98bc3764a369b6f18baf802795caab",
+      "safe_sha256": "63c9b12222928e8808a29b77ff06e3892e98bc3764a369b6f18baf802795caab",
+      "transformed": false
+    },
+    {
+      "path": "docs/design/PTTI_PRO_LAB_EXPERIENCE.md",
+      "source_blob": "8379ef4faa1fe9e8418d4f8f194ea42f4069f201",
+      "source_sha256": "fe8fb2056fe912d37535a4f9716b106bd0a9c47eedf7b082c35bef79830e2a52",
+      "safe_sha256": "fe8fb2056fe912d37535a4f9716b106bd0a9c47eedf7b082c35bef79830e2a52",
+      "transformed": false
+    },
+    {
+      "path": "docs/handoffs/GEX-002-H-HOST.md",
+      "source_blob": "2e81c008cc3532c665deab039f288335b2c8dd4a",
+      "source_sha256": "a86e105a11524d90408b5f2268bc1e19348f25de031c787e78ee479c3b5e70b5",
+      "safe_sha256": "e1d17bc0417dbb3a0a4e3ee0f1896e8416efaa9189c7f21fd496154bdcf2bce8",
+      "transformed": true
+    },
+    {
+      "path": "docs/handoffs/GEX-002-M-MAIN.md",
+      "source_blob": "f9126b907718b7c44d9d1dd74e20ead52b5788dc",
+      "source_sha256": "23278ce7c284ceb53440bee9c25ea74051cde2dfb3cee492bb08bc6f89867313",
+      "safe_sha256": "23278ce7c284ceb53440bee9c25ea74051cde2dfb3cee492bb08bc6f89867313",
+      "transformed": false
+    },
+    {
+      "path": "docs/handoffs/GEX-002-P-PLAYBACK.md",
+      "source_blob": "8769c99701b8506507fafefacc04d39b4fefb992",
+      "source_sha256": "bfe48d3899c65c4ee486d64db9d1688366167654fd68228ae68e7eecaa307fed",
+      "safe_sha256": "bfe48d3899c65c4ee486d64db9d1688366167654fd68228ae68e7eecaa307fed",
+      "transformed": false
+    },
+    {
+      "path": "docs/handoffs/GEX-002-S-SAN.md",
+      "source_blob": "24fc75f17c6bacec5866cfbe900a6b5637e1e47f",
+      "source_sha256": "b0ef306fb10094946e38568f228256df90993d5385f83676ba5a4cc03ad56a25",
+      "safe_sha256": "b0ef306fb10094946e38568f228256df90993d5385f83676ba5a4cc03ad56a25",
+      "transformed": false
+    },
+    {
+      "path": "docs/innovation/PTTI_INNOVATION_REGISTRY.md",
+      "source_blob": "cc49aefbafaefe87210819e11a4f1bf67911ae1c",
+      "source_sha256": "53147169e5c64e52a7dcabf16adb881c4d2d9b4fcff06cf6292c4b3ed5cd7d3b",
+      "safe_sha256": "53147169e5c64e52a7dcabf16adb881c4d2d9b4fcff06cf6292c4b3ed5cd7d3b",
+      "transformed": false
+    },
+    {
+      "path": "docs/operations/PTTI_EXECUTION_REPORTS.md",
+      "source_blob": "a9cf7f465adb3350f61b892f73eecc2cdbbd738f",
+      "source_sha256": "a9325aee9dd6e3ba9fcf3f9d7f7cbb53a428124a5b3e38adfa427512c042543c",
+      "safe_sha256": "a9325aee9dd6e3ba9fcf3f9d7f7cbb53a428124a5b3e38adfa427512c042543c",
+      "transformed": false
+    },
+    {
+      "path": "docs/operations/PTTI_TASK_REGISTER.md",
+      "source_blob": "d7afd904c7c5e723eea50cbaefbfe87373750e26",
+      "source_sha256": "80863ede21bd955879cd9a8bec8adbc816e4460981219d18e4f84714cde9e99f",
+      "safe_sha256": "80863ede21bd955879cd9a8bec8adbc816e4460981219d18e4f84714cde9e99f",
+      "transformed": false
+    },
+    {
+      "path": "docs/operations/PTTI_WORK_LANES.md",
+      "source_blob": "16e1843d1a5ea8ef8a741e60916bc2061f44c778",
+      "source_sha256": "f93002cc3da63b9ff2a7d9a34ba6be8ba20f331c947e528ea553b84f0758dafc",
+      "safe_sha256": "94062d03b3188908751885e23770362f74846f2b25c287981a43ad858ae1d425",
+      "transformed": true
+    },
+    {
+      "path": "docs/strategy/PTTI_DECISION_LOG.md",
+      "source_blob": "6e12857e74a80122b7b3498812adc217b05bb39a",
+      "source_sha256": "48e53af2105ba265b90fb089a9a10abb284c4e31a405062d8d483607cc2acd43",
+      "safe_sha256": "48e53af2105ba265b90fb089a9a10abb284c4e31a405062d8d483607cc2acd43",
+      "transformed": false
+    },
+    {
+      "path": "docs/strategy/PTTI_MASTER_VISION.md",
+      "source_blob": "418ccd2d4b70b9ea25acbe316c2f9f6f38e0f633",
+      "source_sha256": "8214f705bb99384b5bbdb0509fcc0daeabaee21f9b1b615868d83177c66c9c07",
+      "safe_sha256": "8214f705bb99384b5bbdb0509fcc0daeabaee21f9b1b615868d83177c66c9c07",
+      "transformed": false
+    },
+    {
+      "path": "package.json",
+      "source_blob": "a41131509d8a0f76777b49ef60fe314475398bf1",
+      "source_sha256": "ef8df9d6a3f648b0de8792705be8b95f9ee30681cef9a97ef5d474f73d32eacf",
+      "safe_sha256": "ef8df9d6a3f648b0de8792705be8b95f9ee30681cef9a97ef5d474f73d32eacf",
+      "transformed": false
+    },
+    {
+      "path": "server.mjs",
+      "source_blob": "0c06ef9f1686f059191ab3e4150a182c030edf30",
+      "source_sha256": "ac7777a5ca398f736a59329211585dd01252a7c4aa51e4147f183f3763730a54",
+      "safe_sha256": "ac7777a5ca398f736a59329211585dd01252a7c4aa51e4147f183f3763730a54",
+      "transformed": false
+    },
+    {
+      "path": "src/app.mjs",
+      "source_blob": "37308ccd5c4404162dfc60c0f9955c5a9bf66c8e",
+      "source_sha256": "239b4d210c0bc54aab7ae75529ded58607618bb803074f496bcb7bc7523435b8",
+      "safe_sha256": "239b4d210c0bc54aab7ae75529ded58607618bb803074f496bcb7bc7523435b8",
+      "transformed": false
+    },
+    {
+      "path": "src/art.svg",
+      "source_blob": "5ce4a66982851b8e53b0e0a2887aefbce555b291",
+      "source_sha256": "76b8f884516d98e6d73b231e53ce84066abf225331aaa1d156499166fa08a6ee",
+      "safe_sha256": "76b8f884516d98e6d73b231e53ce84066abf225331aaa1d156499166fa08a6ee",
+      "transformed": false
+    },
+    {
+      "path": "src/index.html",
+      "source_blob": "63f84bc50084bd5dee786f32650dfa6dc71dcb65",
+      "source_sha256": "10a1607de5dc1ea24fa2370ebc6d51fd1b55fa1fc7f2cf3520f0c760b50c080e",
+      "safe_sha256": "10a1607de5dc1ea24fa2370ebc6d51fd1b55fa1fc7f2cf3520f0c760b50c080e",
+      "transformed": false
+    },
+    {
+      "path": "src/state.mjs",
+      "source_blob": "2f42a4256758c8ecca283067b5554d440c42237f",
+      "source_sha256": "09e97998af438a7c3980d6273ea1415d4e822433441245d3fb5861e8f3a71e5a",
+      "safe_sha256": "09e97998af438a7c3980d6273ea1415d4e822433441245d3fb5861e8f3a71e5a",
+      "transformed": false
+    },
+    {
+      "path": "src/style.css",
+      "source_blob": "032daf340362aca579d768b2876d3d8b3184cc3e",
+      "source_sha256": "d77eee78afac763acb088576e8ba2668a075b7948954f93f901739f37207587d",
+      "safe_sha256": "d77eee78afac763acb088576e8ba2668a075b7948954f93f901739f37207587d",
+      "transformed": false
+    },
+    {
+      "path": "tests/state.test.mjs",
+      "source_blob": "e7a3af0d9e30974652f55aee8abdce3d79aa8b8b",
+      "source_sha256": "a32ab480683c7ec7618ebd7de134cb54b054784e3eb4b4af5cb3adfbc2d34cd2",
+      "safe_sha256": "a32ab480683c7ec7618ebd7de134cb54b054784e3eb4b4af5cb3adfbc2d34cd2",
+      "transformed": false
+    }
+  ],
+  "excluded": [
+    {
+      "path": "PTTI-GEX-001.html",
+      "reason": "content review blocked: embedded-binary"
+    },
+    {
+      "path": "build.mjs",
+      "reason": "content review blocked: embedded-binary"
+    },
+    {
+      "path": "docs/GEX-001-R1-REPORT.md",
+      "reason": "content review blocked: phone"
+    },
+    {
+      "path": "tests/artifact.test.mjs",
+      "reason": "content review blocked: embedded-binary"
+    }
+  ]
+}
