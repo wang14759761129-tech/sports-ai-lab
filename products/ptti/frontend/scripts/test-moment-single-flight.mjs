@@ -1,0 +1,3 @@
+import assert from 'node:assert/strict';
+import {createSingleFlight} from '../src/singleFlight.mjs';
+let calls=0,finish;const states=[];const flight=createSingleFlight(x=>states.push(x));const first=flight(async()=>{calls++;return await new Promise(r=>finish=r)});const second=await flight(async()=>{calls++;return true});assert.equal(second.status,'BUSY');assert.equal(calls,1);finish('saved');assert.equal((await first).value,'saved');assert.deepEqual(states,[true,false]);await assert.rejects(()=>flight(async()=>{throw Error('verification failed')}));assert.equal((await flight(async()=>42)).value,42);console.log('Moment single-flight duplicate and error recovery PASS');
