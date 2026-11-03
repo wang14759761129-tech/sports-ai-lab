@@ -1,0 +1,5 @@
+# Sprint 06 manual browser acceptance
+
+Open http://127.0.0.1:5199/ in an isolated browser only after the existing memory guards pass. At 1920x1080 capture the wall; search and choose a category, then reset. Open a synthetic card, play/pause, seek to 12.34, enter a unique note and save. Reload the page and reopen the SAME card; select the saved record and check the displayed seeked time. Edit/cancel/edit, delete a test record and inspect chronological ordering. Open another card and confirm no record leakage. Export diagnostics using the page button. Screenshots must be captured from the actual browser; current build has no GUI acceptance.
+
+Automated entry: node scripts/browser-e2e.mjs. Requires an independently approved installed Playwright, Chrome, startup RAM >=3 GiB three times and runtime >=2.5 GiB. Creates a fresh temp profile and writes screenshots/events there. No install or personal profile reuse. Script covers only playback/save/reload/seek; search/edit/delete/API outage remain manual. Script is prepared and syntax-checked, NOT runtime-validated. Do not stop unknown API processes for outage testing.

@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';import {offlineReviewRows,mayUseMedia,exportReview,reviewStatus} from '../src/proLabOffline.mjs';import {DEMO_RALLIES} from '../src/demoRallies.ts';import {stats,encode,decode,csv} from '../src/rallyData.ts';
+const input={event:'demo-1',rows:[],examples:DEMO_RALLIES,unavailable:true,broken:false};const result=offlineReviewRows(input);assert.equal(result.usingExamples,true);assert.equal(result.rows.length,6);assert.equal(input.rows.length,0);const summary=stats(result.rows);assert.deepEqual(summary.wins,{A:4,B:2});assert.equal(summary.n,6);assert.equal(summary.thirdN,5);assert.equal(summary.average,23/6);assert.equal(decode(encode(result.rows,'demo-1'),'demo-1').length,6);assert.equal(csv(result.rows).split('\r\n').length,7);
+assert.equal(offlineReviewRows({...input,event:'demo-2'}).rows.length,0);assert.equal(offlineReviewRows({...input,broken:true}).rows.length,0);assert.equal(offlineReviewRows({...input,unavailable:false}).rows.length,0);assert.equal(offlineReviewRows({...input,rows:[DEMO_RALLIES[0]]}).usingExamples,false);
+assert.equal(mayUseMedia(true,true,false),true);for(const args of [[false,true,false],[true,false,false],[true,true,true]])assert.equal(mayUseMedia(...args),false);
+console.log('PASS offline demo read/export N=6 A=4 B=2 mean=23/6; no writes, no mismatched-event fallback, media gates');
+for (const usingExamples of [true,false]) {const expected=usingExamples?'BUILT_IN_FICTIONAL_DEMO':'LOCAL_SAVED_DEMO'; const j=exportReview('json',result.rows,'demo-1',usingExamples,encode,csv);assert.equal(JSON.parse(j).record_origin,expected);assert.equal(decode(j,'demo-1').length,6);const c=exportReview('csv',result.rows,'demo-1',usingExamples,encode,csv);assert.ok(c.startsWith('record_origin,id,'));assert.equal(c.split('\r\n').slice(1).filter(row=>row.startsWith('"'+expected+'",')).length,6)}
+assert.throws(()=>exportReview('bad',[], 'demo-1',false,encode,csv),/INVALID_EXPORT_FORMAT/);
+console.log('PASS export origin distinguishes fictional examples from saved demo rows');assert.deepEqual(reviewStatus(true,6,false,false,true,true),{source:'内置虚构 DEMO',media:'暂不可用',reason:'媒体身份校验失败或不匹配'});
+assert.deepEqual(reviewStatus(false,2,true,true,false,false),{source:'本机保存记录',media:'已验证可播放',reason:''});
+assert.deepEqual(reviewStatus(false,0,false,false,false,false),{source:'暂无记录',media:'暂不可用',reason:'媒体身份尚未确认'});
+assert.equal(reviewStatus(false,1,true,false,false,true).reason,'媒体加载失败');
+for(const usingExamples of [true,false]) {const status=reviewStatus(usingExamples,6,true,true,false,false);const payload=JSON.parse(exportReview('json',result.rows,'demo-1',usingExamples,encode,csv));assert.equal(payload.record_origin,usingExamples?'BUILT_IN_FICTIONAL_DEMO':'LOCAL_SAVED_DEMO');assert.equal(status.source,usingExamples?'内置虚构 DEMO':'本机保存记录')}
+console.log('PASS independent review source and media statuses, empty state, and export consistency');const source=await (await import('node:fs/promises')).readFile(new URL('../src/ProLabLite.tsx',import.meta.url),'utf8');
+for(const event of ['onWaiting','onStalled','onEmptied','onLoadStart'])assert.match(source,new RegExp(event+'=\\{\\(\\)=>\\{?setCanPlay\\(false\\)'));
+assert.match(source,/播放和使用权未由此确认/);
+console.log('PASS static event wiring invalidates canplay state; real browser events NOT_TESTED');
+assert.match(source,/mayUseMedia\(identity,mediaReady&&canPlay,unavailable\)/);
+assert.match(source,/<li key=\{r\.id\}>\{badges\}/);
+assert.match(source,/保存失败：记录未写入/);
+assert.match(source,/暂无标注。视频就绪后/);
+console.log('PASS static controls and per-row status wiring; browser rendering NOT_TESTED');

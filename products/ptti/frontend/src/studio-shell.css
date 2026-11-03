@@ -1,0 +1,20 @@
+.studio-shell{display:block;min-height:100vh;background:var(--bg)}
+.studio-topbar{height:54px;position:sticky;top:0;z-index:30;display:flex;gap:18px;align-items:center;padding:0 24px;background:var(--bg)}
+.studio-topbar button{border:0;background:transparent}.studio-topbar svg{width:20px;height:20px}.studio-brand{gap:8px!important;padding:0!important;font-size:21px;font-weight:800}.studio-brand-mark{display:grid;place-items:center;width:28px;height:28px;background:var(--accent);color:var(--accent-ink);border-radius:7px}.studio-brand small{display:block;font-size:8px;letter-spacing:2px;color:var(--muted)}
+.cinema-nav{display:flex;align-items:center;gap:4px;min-width:0}.cinema-nav>button{white-space:nowrap;padding:8px 12px;color:var(--muted)}.cinema-nav button[aria-current=page]{color:var(--text);background:var(--surface-hover)}.cinema-more{position:relative}.cinema-more summary{cursor:pointer;padding:8px;white-space:nowrap}.cinema-more>div{position:absolute;top:42px;left:0;min-width:210px;max-width:80vw;padding:8px;background:var(--surface-elevated);border:1px solid var(--border);border-radius:8px}.cinema-more button{display:block;width:100%;text-align:left;overflow-wrap:anywhere}
+.studio-search{display:flex;align-items:center;gap:8px;width:min(340px,25vw);margin-left:auto;border:1px solid var(--border);border-radius:24px;padding:0 12px;background:var(--surface-muted)}.studio-search input{border:0;background:transparent;margin:0;padding:6px 0;min-height:32px;min-width:0}.studio-top-actions{display:flex;gap:6px;margin-left:auto;flex-shrink:0}.studio-main{min-width:0;width:100%;max-width:none;padding:0 24px 24px}.studio-main:focus{outline:none}.studio-skip{position:fixed;top:-100px;left:16px;z-index:100;padding:10px;background:var(--accent);color:var(--accent-ink)}.studio-skip:focus{top:8px}
+@media(max-width:900px){.studio-topbar{gap:8px;padding:0 12px}.cinema-nav>button{padding:8px}.studio-brand small{display:none}.studio-main{padding:0 12px 20px}}
+@media(max-width:650px){.studio-topbar{height:auto;min-height:54px;flex-wrap:wrap;padding:8px 12px}.cinema-nav{order:3;width:100%;overflow-x:auto}.studio-search{flex:1;width:auto}.studio-top-actions button span{display:none}}
+@media print{.studio-topbar,.studio-skip{display:none}.studio-main{padding:0}}
+
+@media(max-width:650px){.studio-topbar{height:54px;min-height:54px;flex-wrap:nowrap;padding:0 10px}.cinema-nav{order:0;width:auto;overflow:visible}.studio-search{width:100px;min-width:60px}.studio-brand{font-size:17px}.studio-brand-mark{width:22px;height:22px}.cinema-nav>button{padding:7px 5px;font-size:12px}}
+/* Keep the original Cinema shell independent of the legacy sidebar layout,
+   regardless of CSS chunk/import order. */
+.shell.studio-shell{display:block;width:100%;min-width:0}
+.studio-shell>.studio-main{width:100%;max-width:none;min-width:0;flex:none}
+.studio-shell>.studio-topbar{width:100%;min-width:0}
+.studio-shell .cinema-nav{flex:0 1 auto}
+.studio-shell .cinema-nav>button{width:auto;flex:0 0 auto;justify-content:center}
+.studio-shell .studio-search{min-width:140px;flex:1 1 240px;max-width:400px}
+@media(max-width:900px){.studio-shell>.studio-topbar{height:auto;min-height:60px;flex-wrap:wrap;padding:12px;gap:12px}.studio-shell .studio-search{max-width:none;min-width:160px}.studio-shell .cinema-nav{flex:0 0 auto}.studio-shell>.studio-main{padding:0 16px 24px}}
+@media(max-width:600px){.studio-shell .studio-search{order:3;width:100%;flex-basis:100%}.studio-shell .cinema-nav{margin-left:auto}.studio-shell>.studio-main{padding:0 12px 20px}}
