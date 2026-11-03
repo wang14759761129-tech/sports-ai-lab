@@ -1,0 +1,50 @@
+import assert from 'node:assert/strict';
+import path from 'node:path';
+import { readFile, writeFile, mkdir, copyFile } from 'node:fs/promises';
+import { spawnSync, spawn } from 'node:child_process';
+import { createHash } from 'node:crypto';
+const root = path.resolve(process.argv[2] || '');
+const manifest = JSON.parse(await readFile(path.join(root,'manifest.json'),'utf8'));
+const url = `http://127.0.0.1:${manifest.default_port}/`;
+const ps = path.join(process.env.SystemRoot,'System32/WindowsPowerShell/v1.0/powershell.exe');
+const qa = path.resolve('.alpha-qa/goal11-2-rc'); await mkdir(qa,{recursive:true});
+const desktop = path.join(process.env.USERPROFILE,'OneDrive/Desktop/PTTI Cinema.lnk');
+const hash = bytes => createHash('sha256').update(bytes).digest('hex');
+const desktopBefore = hash(await readFile(desktop));
+const stableBefore = await (await fetch('http://127.0.0.1:4174/__ptti/health.json')).json();
+const run = (file,...args) => spawnSync(ps,['-NoProfile','-ExecutionPolicy','Bypass','-File',file,...args],{encoding:'utf8',windowsHide:true,timeout:45000});
+const launch = (...args) => run(path.join(root,'Start-PTTI-RC.ps1'),...args);
+let occupied = false; try { await fetch(url); occupied = true; } catch {}
+assert.equal(occupied,false,'Cold test port must be free; do not stop an existing service');
+const checked = launch('-CheckOnly'); assert.notEqual(checked.status,0); assert.match(checked.stderr,/not running/);
+const started = Date.now(); const cold = launch('-NoBrowser'); assert.equal(cold.status,0,cold.stderr);
+const coldMs = Date.now()-started;
+const first = await (await fetch(url+'__ptti/health.json')).json(); assert.equal(first.san_head,manifest.san.commit); assert.equal(first.artifact_id,manifest.artifact_id);
+const pid = () => spawnSync(ps,['-NoProfile','-Command',`(Get-NetTCPConnection -LocalPort ${manifest.default_port} -State Listen).OwningProcess`],{encoding:'utf8',windowsHide:true}).stdout.trim();
+const firstPid = pid();
+for(let i=0;i<2;i++){const reused=launch('-NoBrowser'); assert.equal(reused.status,0,reused.stderr); assert.equal(pid(),firstPid);}
+const healthResponse = await fetch(url+'__ptti/health.json');
+assert(healthResponse.headers.get('content-security-policy').includes('media-src blob:'));
+assert(healthResponse.headers.get('content-security-policy').includes("frame-src 'none'"));
+for(const route of ['@vite/client','app/server.mjs','runtime/node.exe','manifest.json','__ptti/match-library.json','__ptti/bridge.json','.alpha-qa/match-library/internal-review.json']) assert.equal((await fetch(url+route)).status,404,route);
+assert.equal((await fetch(url,{method:'POST'})).status,405);
+assert.equal((await fetch(url,{headers:{Origin:'https://untrusted.example'}})).status,403);
+const catalog=await(await fetch(url+'data/web-strict-public.json')).json(); assert.equal(catalog.matches.length,0);
+const library=await(await fetch(url+'data/match-library-strict-public.json')).json(); assert.equal(library.video_sources.length,0);
+const demo=await(await fetch(url+'__ptti/demo-review.json')).json(); assert.equal(demo.targets.sample.point_count,19); assert.equal(demo.quick.dataset_class,'SIMULATED_ONLY');
+const fixtureCode=`import http from 'node:http'; const s=http.createServer((q,r)=>r.end('{}')); s.listen(0,'127.0.0.1',()=>process.send(s.address().port)); process.on('message',m=>{if(m==='stop')s.close(()=>process.exit(0));});`;
+const fixture=spawn(process.execPath,['--input-type=module','-e',fixtureCode],{stdio:['ignore','pipe','pipe','ipc'],windowsHide:true});
+try {
+ const foreignPort=await new Promise((resolve,reject)=>{fixture.once('message',resolve); fixture.once('error',reject);});
+ const fail=launch('-NoBrowser','-Port',String(foreignPort)); assert.notEqual(fail.status,0); assert.match(fail.stderr,/occupied by another service/);
+ assert.equal((await fetch(`http://127.0.0.1:${foreignPort}/`)).status,200,'foreign service remains untouched');
+} finally { fixture.send('stop'); await new Promise(resolve=>fixture.once('exit',resolve)); }
+const negative=path.join(qa,'bad-integrity'); await mkdir(negative,{recursive:true});
+await copyFile(path.join(root,'Start-PTTI-RC.ps1'),path.join(negative,'Start-PTTI-RC.ps1'));
+await writeFile(path.join(negative,'asset.txt'),'test-only');
+await writeFile(path.join(negative,'manifest.json'),JSON.stringify({contract_version:'ptti.web-rc-manifest/0.1',default_port:manifest.default_port,files:{'asset.txt':'0'.repeat(64)}}));
+const integrity=run(path.join(negative,'Start-PTTI-RC.ps1'),'-CheckOnly'); assert.notEqual(integrity.status,0); assert.match(integrity.stderr,/hash mismatch/);
+assert.equal(hash(await readFile(desktop)),desktopBefore);
+const stableAfter=await(await fetch('http://127.0.0.1:4174/__ptti/health.json')).json(); assert.equal(stableAfter.san_head,stableBefore.san_head);
+await writeFile(path.join(qa,'runtime-report.json'),JSON.stringify({status:'PASS',artifact_id:manifest.artifact_id,source_san:manifest.san.commit,playback:manifest.playback.commit,cold_start_ms:coldMs,pid:firstPid,reuse_same_pid:true,foreign_service_not_stopped:true,integrity_failure_rejected:true,public0:true,internal_sources_absent:true,desktop_hash_unchanged:true,stable_4174_preserved:true,headers_checked:true,rc_url:url,bundled_node:manifest.runtime},null,2));
+console.log(`Portable RC runtime PASS: cold ${coldMs}ms; PID ${firstPid} reused; failures safe; public0; no Vite/worktree runtime; 4174 and desktop unchanged.`);

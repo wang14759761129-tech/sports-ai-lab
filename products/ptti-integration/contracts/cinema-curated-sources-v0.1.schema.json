@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.invalid/contracts/cinema-curated-sources-v0.1.schema.json",
+  "title": "PTTI Cinema Curated Sources v0.1",
+  "type": "object",
+  "required": ["contract_version", "source_contract_version", "audience", "generated_at", "selection_method", "strict_public_fallback", "featured_sources", "notice"],
+  "properties": {
+    "contract_version": {"const": "ptti.cinema-curated-sources/0.1"},
+    "source_contract_version": {"const": "ptti.match-library-index/0.1"},
+    "audience": {"const": "INTERNAL_REVIEW_ONLY"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "selection_method": {"const": "EXPLICIT_SOURCE_ID_ALLOWLIST"},
+    "strict_public_fallback": {"const": false},
+    "notice": {"type": "string"},
+    "featured_sources": {"type": "array", "minItems": 1, "maxItems": 3, "items": {"$ref": "#/$defs/source"}}
+  },
+  "$defs": {
+    "permission": {"enum": ["ALLOWED", "NOT_ALLOWED", "NOT_GRANTED", "UNKNOWN"]},
+    "source": {
+      "type": "object",
+      "required": ["source_id", "catalog_record_id", "platform", "video_id", "official_url", "watch_entry", "match_link", "publisher_check", "external_watch", "content_claim", "completeness", "rights", "thumbnail", "availability", "audience_status", "public_listing"],
+      "properties": {
+        "source_id": {"type": "string"},
+        "catalog_record_id": {"type": "string"},
+        "platform": {"enum": ["YOUTUBE", "BILIBILI"]},
+        "video_id": {"type": "string"},
+        "official_url": {"type": "string", "format": "uri", "pattern": "^https://"},
+        "watch_entry": {"const": "OPEN_OFFICIAL_PLATFORM_URL"},
+        "title": {"type": "string"},
+        "original_title_claim": {"type": ["string", "null"]},
+        "event_claim": {"type": ["string", "null"]},
+        "event_year_claim": {"type": ["integer", "null"]},
+        "discipline_claim": {"enum": ["MS", "WS", "MD", "WD", "XD", "UNKNOWN"]},
+        "round_claim": {"type": ["string", "null"]},
+        "participants_claimed": {"type": ["object", "null"]},
+        "source_identity_status": {"type": "string"},
+        "publisher_check": {"type": "object", "required": ["status", "method", "checked_at", "affiliation_status"], "properties": {"status": {"type": "string"}, "method": {"type": "string"}, "checked_at": {"type": "string", "format": "date-time"}, "affiliation_status": {"const": "NOT_INDEPENDENTLY_VERIFIED"}}, "additionalProperties": false},
+        "event_identity_evidence": {"type": "object"},
+        "match_link": {"type": "object", "required": ["canonical_match_id", "status", "policy"], "properties": {"canonical_match_id": {"type": ["string", "null"]}, "status": {"enum": ["UNKNOWN", "HUMAN_VERIFIED"]}, "policy": {"const": "NO_JOIN_BY_TITLE_EVENT_OR_PLAYER_NAME"}}, "additionalProperties": false},
+        "external_watch": {"type": "object", "required": ["action", "http_head_status", "checked_at", "actual_video_playback", "viewing_rights", "territory"], "properties": {"action": {"const": "OPEN_OFFICIAL_PLATFORM_URL"}, "http_head_status": {"enum": ["HTTP_200", "HTTP_NON_200_REVIEW_REQUIRED"]}, "checked_at": {"type": "string", "format": "date-time"}, "actual_video_playback": {"const": "NOT_TESTED"}, "viewing_rights": {"$ref": "#/$defs/permission"}, "territory": {"type": "string"}}, "additionalProperties": false},
+        "content_claim": {"enum": ["FULL_MATCH", "HIGHLIGHTS", "SESSION", "CLIP", "UNKNOWN"]},
+        "completeness": {"enum": ["VERIFIED", "UNVERIFIED"]},
+        "rights": {"type": "object", "required": ["public_listing", "external_viewing", "thumbnail_display", "embedding", "local_analysis", "redistribution"], "properties": {"public_listing": {"$ref": "#/$defs/permission"}, "external_viewing": {"$ref": "#/$defs/permission"}, "thumbnail_display": {"$ref": "#/$defs/permission"}, "embedding": {"$ref": "#/$defs/permission"}, "local_analysis": {"$ref": "#/$defs/permission"}, "redistribution": {"$ref": "#/$defs/permission"}}, "additionalProperties": true},
+        "thumbnail": {"type": "object", "required": ["url", "display_permission", "presentation"], "properties": {"url": {"type": "null"}, "display_permission": {"$ref": "#/$defs/permission"}, "presentation": {"const": "PTTI_BRAND_PLACEHOLDER_ONLY"}}, "additionalProperties": false},
+        "availability": {"type": "object", "required": ["current_official_page", "current_external_visual_playback", "embedding_permission", "latest_recorded_embed_technical_status", "desktop_native_playback", "vision_analysis", "current_session_eligibility"], "properties": {"current_official_page": {"enum": ["HTTP_200", "HTTP_NON_200_REVIEW_REQUIRED"]}, "current_external_visual_playback": {"const": "NOT_TESTED"}, "embedding_permission": {"$ref": "#/$defs/permission"}, "latest_recorded_embed_technical_status": {"type": "string"}, "desktop_native_playback": {"enum": ["PASS", "NOT_TESTED"]}, "vision_analysis": {"const": "NOT_TESTED"}, "current_session_eligibility": {"const": "NOT_EVALUATED_CURRENT_SESSION"}}, "additionalProperties": false},
+        "audience_status": {"const": "INTERNAL_REFERENCE_ONLY"},
+        "public_listing": {"$ref": "#/$defs/permission"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

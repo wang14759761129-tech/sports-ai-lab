@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ptti.user-watch-playback-reports/0.1",
+  "title": "PTTI User Reported Playback Start Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "evidence_class", "recorded_on", "reports"],
+  "properties": {
+    "contract_version": { "const": "ptti.user-watch-playback-reports/0.1" },
+    "evidence_class": { "const": "USER_REPORTED" },
+    "recorded_on": { "type": "string", "format": "date" },
+    "reports": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["report_id", "source_id", "official_target_url", "evidence_type", "conclusion", "feedback_source", "tested_at"],
+        "properties": {
+          "report_id": { "type": "string", "minLength": 1 },
+          "source_id": { "type": "string", "minLength": 1 },
+          "official_target_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+          "evidence_type": { "const": "USER_REPORTED" },
+          "conclusion": { "const": "STARTED_PLAYBACK" },
+          "feedback_source": { "const": "USER_PROVIDED_IN_REQUEST" },
+          "tested_at": { "type": "null" }
+        }
+      }
+    }
+  }
+}

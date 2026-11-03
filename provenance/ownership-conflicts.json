@@ -1,0 +1,846 @@
+[
+  {
+    "path": "products/ptti-web/.gitignore",
+    "owner": "SAN",
+    "owner_blob": "ec2ff52b17b0f8d7ca21c4d832a37faa3cc791cf",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "f4e2c6d6b88c7ae6274995debbd9393e3444c5d9"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/README.md",
+    "owner": "SAN",
+    "owner_blob": "b14d879a49c9e5eb82af1ccc469caa3053b71336",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "07eb3558ae0a281e9f196e556331eb23173a7f9c"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/index.html",
+    "owner": "SAN",
+    "owner_blob": "0a99d6833783a2ebe664dc23fb570e3d3053764f",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "0b3755e690530cf9fb5cf739a247fb5b7b03ea59"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/package.json",
+    "owner": "SAN",
+    "owner_blob": "7e05d18e1dc488094b9a589638319986c17073d5",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "088bdbb79934630cc135d3731e930f7ac2d5f724"
+      },
+      {
+        "line": "MAIN",
+        "blob": "c0335d27e3666351dda756ddb707dac9e855b19b"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/scripts/check-fan-gold.mjs",
+    "owner": "SAN",
+    "owner_blob": "ccc1833a3cf783051ade449b4a5079e697e4bc13",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "88425b3907092f2488ebfac5fd2599cf29278886"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/scripts/check-fan-navigation.mjs",
+    "owner": "SAN",
+    "owner_blob": "1f52f9a0e3a092adbefe69d3ba94ad17c6a6af5a",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "942f9b6b2cf6e7cdcbcbeb6ea2e18878c2a7ae99"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/scripts/check-goal14-public-isolation.mjs",
+    "owner": "SAN",
+    "owner_blob": "ab508676f0c243ee94c071e513a1c4f3ea7eb992",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "4f885a1e2c04a68833b0470b6df80f99c3f80b46"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/scripts/check-goal15.mjs",
+    "owner": "SAN",
+    "owner_blob": "81678d1957ef4523b3bd2be98a51e39f3775514a",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "ee35f1090e4948ca6b17aa138af818538fd5b0ac"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/scripts/check-preview-package.mjs",
+    "owner": "SAN",
+    "owner_blob": "35339cd15cae0c42bf53d4d6caf6e87c3e73d5a0",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "b3fdb4a6442c22c5636c0d9f1ffa8effbde73fc9"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/scripts/check-sources.mjs",
+    "owner": "SAN",
+    "owner_blob": "7ceb0010226b4ebb7207a3753ad0d3ec9a2c4914",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "dbc2a2b4884604ab7f1865ecb7978670e3b9315e"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/scripts/check-watch-filter.mjs",
+    "owner": "SAN",
+    "owner_blob": "8accbaa6efa0a4b685724f84031f5004aafd6f0f",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "545e4ed9382d136380085a0047a8d31799b3073f"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/scripts/check-watch-routing.mjs",
+    "owner": "SAN",
+    "owner_blob": "b2a54a90bc98afc6a1496384fdc2205ec5d6ea77",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "3508590c0020bd8daf9de84b62753c28edca0b80"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/App.tsx",
+    "owner": "SAN",
+    "owner_blob": "1c93007f99d8544943b2b9dba250bcf36d5eabe1",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "d6c8bc012e4698e10717676eb87b07dfc07b954c"
+      },
+      {
+        "line": "MAIN",
+        "blob": "0b125e71c45ef740e8d1488190fd33d474971dbf"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/FanArtwork.tsx",
+    "owner": "SAN",
+    "owner_blob": "8f146a56b8372bd03bd5495fb0b6172236cb55d2",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "5644928aa1916225a3acb678a11be19fdeff1c45"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/FanCatalogPage.tsx",
+    "owner": "SAN",
+    "owner_blob": "d1f729b885afc2355c01c3b00ef8ec03cfe824dd",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "f8a129979b859caa1577819f05f92d7611e742ee"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/FanUniversePages.tsx",
+    "owner": "SAN",
+    "owner_blob": "939e06b625cf10abe75bb4864fb29ba0e6cbebea",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "636f4e5ab6ba8851abe787d80fb97bdede2a2e3c"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/LocalVideoReview.tsx",
+    "owner": "SAN",
+    "owner_blob": "f7d3298777ebabc4195b13f0540f9d7bccffb731",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "ae0f7c4e6a9298a13c4eabaa69c3b25ec3f7b59b"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/ProWorkbench.tsx",
+    "owner": "SAN",
+    "owner_blob": "cd23e69d7d5245639e87fa33f30be1247d251a9e",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "1d8f3ddd80c41c22dd81a3f1293d3a8990c28ad4"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/PublicFanCatalog.tsx",
+    "owner": "SAN",
+    "owner_blob": "7a748372ef4440b28e91c915cdffb5d5c28be213",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "1427fcc2888f02bff91f2b010400f94b7e13699c"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/env.d.ts",
+    "owner": "SAN",
+    "owner_blob": "c6193a3eae7fa0dcea4814566a9a18a40fcf0834",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "adcbc2c36e49ba69b3b727b8c4e7e60d4f1320ca"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/fan-catalog.d.mts",
+    "owner": "SAN",
+    "owner_blob": "9ef2610eff8f6ef97ef75274bcc0b3bf1eef96df",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "1238a11622e83c3170faf09968f22f6036dd68db"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/fan-catalog.mjs",
+    "owner": "SAN",
+    "owner_blob": "fb24eab4df09521cf13306349ac1a9c521a27368",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "e6c2fa81d0fdabde24a2913271b4257d7811bd66"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/fan-gold.css",
+    "owner": "SAN",
+    "owner_blob": "f45b714656bfe910bb03c2468bc86ce94982d4ea",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "78002831e86536b2d629f36526ed894ba3749328"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/fan-local-data.d.mts",
+    "owner": "SAN",
+    "owner_blob": "6125fb437614846b3bab7e09c9fc4f1cfde95c76",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "ab09a5485efc4b3008f405d3278f4a320a7d6946"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/fan-local-data.mjs",
+    "owner": "SAN",
+    "owner_blob": "ab760ceb5b73e8aea2d53c30116baaa99d6c492d",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "c37899b2ec95c11a933db152abd960e00a283683"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/fan-navigation.d.mts",
+    "owner": "SAN",
+    "owner_blob": "da64458645e1e3315e28c324ffb488ed2c91be0e",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "a3fb248bfdf95cf8d54d1783f9497a0b87df5a67"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/fan-navigation.mjs",
+    "owner": "SAN",
+    "owner_blob": "bbab80f22101cba628e70c958f440380272a1a25",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "dc2a770b723d1f4850546a691a8bbfe816365d50"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/i18n.ts",
+    "owner": "SAN",
+    "owner_blob": "eb8a50ec1e7c9e31795aed074f1e4dda31af312a",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "de66f2ce4eb6446644dbe14943c449e06b13969b"
+      },
+      {
+        "line": "MAIN",
+        "blob": "dd30033fbb11dca87b1930959277c8e39bda807f"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/main.tsx",
+    "owner": "SAN",
+    "owner_blob": "ac3f0e943b9311d4062452df1dd4bcc287309d7f",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "6bb7d6e5825829243eea47dfc977c2988c077411"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/match-location.mjs",
+    "owner": "SAN",
+    "owner_blob": "78063e2584e9761ad489e1430761778941e7b284",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "2df635910dfb742b6a7cca46016fa6ad1d7e0c5e"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/style.css",
+    "owner": "SAN",
+    "owner_blob": "3a99e9cbc879ec3dbcb525ae6cc84aea565b817c",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "5ef24fa156bb87cc2bc008f00e5bb891c1503345"
+      },
+      {
+        "line": "MAIN",
+        "blob": "40a85c8dd0389af1eeaa92ced77647aba8c1da3e"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/types.ts",
+    "owner": "SAN",
+    "owner_blob": "b234a1715c524797711b5f865a36c1d82447a538",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "1a21270b7fd554832eb0d4d498d53b388caac749"
+      },
+      {
+        "line": "MAIN",
+        "blob": "e05fa6fe56ebd413cf0544b5052641eab7377614"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/watch-filter.d.mts",
+    "owner": "SAN",
+    "owner_blob": "68fce75ca9ac0fa0a4cafd38be4e71926fd9cf6c",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "46ec5d29f78a60b599ef4e992a12f5af883dfad6"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/src/watch-filter.mjs",
+    "owner": "SAN",
+    "owner_blob": "a968448eceb7ad49300dbcafd138fb8584341403",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "aa243b7f4ab91708e705030228619cb3b6addce0"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti-web/vite.config.ts",
+    "owner": "SAN",
+    "owner_blob": "8fd6f834c6aadb202d9366b273f3a29a157080cf",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "5d4138eea283630e64997aa14965081cab6b3381"
+      },
+      {
+        "line": "MAIN",
+        "blob": "afd4f97f2fd437a797a8b51642b52cbb9b172195"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/apps/desktop.py",
+    "owner": "PLAYBACK",
+    "owner_blob": "997447f7c6f5757ae3fae50d99282900703564f0",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "a0284e4591b0f70ffafd901ca498566f0278ae78"
+      },
+      {
+        "line": "SAN",
+        "blob": "a0284e4591b0f70ffafd901ca498566f0278ae78"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/backend/database.py",
+    "owner": "PLAYBACK",
+    "owner_blob": "4175132ebd9b529e12eba2147113fea65fc11360",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "3cfbf52126fba481545cdfce26a8813f99346c78"
+      },
+      {
+        "line": "SAN",
+        "blob": "3cfbf52126fba481545cdfce26a8813f99346c78"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/backend/main.py",
+    "owner": "PLAYBACK",
+    "owner_blob": "d297e7865b62704b1c85338c7942513f5d806bbb",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "045369d374da250e26c8e1089471763dd855a0ed"
+      },
+      {
+        "line": "SAN",
+        "blob": "045369d374da250e26c8e1089471763dd855a0ed"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/backend/match_library.py",
+    "owner": "PLAYBACK",
+    "owner_blob": "3e8ae79eaa1b8297398d3c0200755499df654874",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "0a1068a385b5e24ee78288a5ad05595ab7e18ff2"
+      },
+      {
+        "line": "SAN",
+        "blob": "0a1068a385b5e24ee78288a5ad05595ab7e18ff2"
+      },
+      {
+        "line": "MAIN",
+        "blob": "0a1068a385b5e24ee78288a5ad05595ab7e18ff2"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/backend/score_navigation.py",
+    "owner": "PLAYBACK",
+    "owner_blob": "e518facda9ee7867dd4e23421b08d8f4a3fe21ca",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "00a1005e0a7cb3889f0cff7c9b4e5b08332203e1"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/backend/video_evidence.py",
+    "owner": "PLAYBACK",
+    "owner_blob": "33ae3d477ac0f2e721c13c94a0b5af316d186da0",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "9d973b53ff0c872cfd1a90c670c3763bdd6fc618"
+      },
+      {
+        "line": "SAN",
+        "blob": "9d973b53ff0c872cfd1a90c670c3763bdd6fc618"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/frontend/package.json",
+    "owner": "PLAYBACK",
+    "owner_blob": "f078be37429ea7f5db351300c5af60012b039f55",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "f82c7bd0d7ff81564a273a8e3310dccc6aaf8963"
+      },
+      {
+        "line": "SAN",
+        "blob": "f82c7bd0d7ff81564a273a8e3310dccc6aaf8963"
+      },
+      {
+        "line": "MAIN",
+        "blob": "51f43eed458f98dab6a62c516e8f49bd4948c4ab"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/frontend/scripts/test-dark-studio.mjs",
+    "owner": "PLAYBACK",
+    "owner_blob": "7c5ef45b98492d1331778c04481f70ff0b7a9c38",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "f4f5454ae5f6c9e019e975dff16a1f2e2dab4639"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/frontend/scripts/test-video-feed.mjs",
+    "owner": "PLAYBACK",
+    "owner_blob": "ecd4ee0be7cd9967b04f3c5b420c6085eb3bde0c",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "a7b081fc7327daf2b3a5bd81c914ed8d39f982fc"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/frontend/src/MatchVideoLibrary.tsx",
+    "owner": "PLAYBACK",
+    "owner_blob": "eb8d0c7817c70e19055d92f2213f9fa4d7f788de",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "520d26b272ddeb21cbcbe50eca8f5bb7c5ad4781"
+      },
+      {
+        "line": "SAN",
+        "blob": "520d26b272ddeb21cbcbe50eca8f5bb7c5ad4781"
+      },
+      {
+        "line": "MAIN",
+        "blob": "520d26b272ddeb21cbcbe50eca8f5bb7c5ad4781"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/frontend/src/VideoEvidencePlayer.tsx",
+    "owner": "PLAYBACK",
+    "owner_blob": "d46228231946d1d82b2bd5e2ff0fa6155b98901f",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "cd51a318e7bf1e8a5d678f01230d143637728c61"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/frontend/src/VideoFeed.tsx",
+    "owner": "PLAYBACK",
+    "owner_blob": "e58772f9dffbf85d8d43fd8ab549ea69711b542a",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "963f743f09064bf066ee3f1f9fc511ffbadf60fe"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/frontend/src/VisionPlayer.tsx",
+    "owner": "PLAYBACK",
+    "owner_blob": "0f639bbc1305cca5f8df96cf59eefe7c3cf2c7cf",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "ada0995e6b84551573882ac84619ebe1fc6e4975"
+      },
+      {
+        "line": "SAN",
+        "blob": "ada0995e6b84551573882ac84619ebe1fc6e4975"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/frontend/src/design-tokens.css",
+    "owner": "PLAYBACK",
+    "owner_blob": "2fcd079aa570181e71569634cadcee111246c1da",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "bb7a7ecbceaa9e0629359d013c2212402d0ccd2f"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/frontend/src/feedCatalog.ts",
+    "owner": "PLAYBACK",
+    "owner_blob": "276ecf90a56bbd7095d8f281687ec16049c9eb38",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "748d013d347079872a742eba6412b294c5d4dc65"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/frontend/src/studio-shell.css",
+    "owner": "PLAYBACK",
+    "owner_blob": "c19c248f3958d9da4ea0edf8424f99cd34f48559",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "88f61379cb415e59fa13e992039f993b6bb5ac5f"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/frontend/src/video-feed.css",
+    "owner": "PLAYBACK",
+    "owner_blob": "ab1750cccf8470fcbf4602e062fb2dfea31af04a",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "16922346e87b3e115c98484ae49708ceaa12e381"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/frontend/vite.config.ts",
+    "owner": "PLAYBACK",
+    "owner_blob": "40599a7ca5a665eadb64819012f771fb58783a92",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "4875f9cb2406e28e4e9cdcdc439be664dec84f2e"
+      },
+      {
+        "line": "SAN",
+        "blob": "4875f9cb2406e28e4e9cdcdc439be664dec84f2e"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/scripts/build_dual_source_v061_preview.py",
+    "owner": "PLAYBACK",
+    "owner_blob": "486c299824a0014d958ca6ada879035ff0620f6b",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "bd5084713b49d9f1e0f94545f001aa09bd3c94c6"
+      },
+      {
+        "line": "SAN",
+        "blob": "bd5084713b49d9f1e0f94545f001aa09bd3c94c6"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/scripts/ci_windows_candidate.py",
+    "owner": "PLAYBACK",
+    "owner_blob": "937f88eaf2fa7738bfda704735022a574536cc4c",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "c4a24eb42bcbfd652075038af7459eb86029d9ff"
+      },
+      {
+        "line": "SAN",
+        "blob": "c4a24eb42bcbfd652075038af7459eb86029d9ff"
+      },
+      {
+        "line": "MAIN",
+        "blob": "e33f1ac54a529a4058ec195dca5ff95dc56f398c"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/scripts/dev_sync.py",
+    "owner": "PLAYBACK",
+    "owner_blob": "4fa4ed4eb987cea533a931956ad9f97b9f4e65c7",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "99418c2757fd7dc1b606e71adb45269f71316b7c"
+      },
+      {
+        "line": "SAN",
+        "blob": "99418c2757fd7dc1b606e71adb45269f71316b7c"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/tests/test_ci_windows_candidate.py",
+    "owner": "PLAYBACK",
+    "owner_blob": "ed7645ac90f2e64090b3ae0df1f26e57168fb2b8",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "09bcfd8d08a6214d9a64455115825aaa9ee4b98f"
+      },
+      {
+        "line": "SAN",
+        "blob": "09bcfd8d08a6214d9a64455115825aaa9ee4b98f"
+      },
+      {
+        "line": "MAIN",
+        "blob": "09bcfd8d08a6214d9a64455115825aaa9ee4b98f"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/tests/test_database_isolation.py",
+    "owner": "PLAYBACK",
+    "owner_blob": "79e4ea012dd257b572876e17a63a5b2b7e61f463",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "7ddc61a95e7511ef7e08539d2348c684b4dfc706"
+      },
+      {
+        "line": "SAN",
+        "blob": "7ddc61a95e7511ef7e08539d2348c684b4dfc706"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/tests/test_match_video_library.py",
+    "owner": "PLAYBACK",
+    "owner_blob": "64e1ce453b35a250ebdd52bd08bbf429065b185b",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "79ddccecbf6a1802c8037e2681db72392e59e829"
+      },
+      {
+        "line": "SAN",
+        "blob": "79ddccecbf6a1802c8037e2681db72392e59e829"
+      },
+      {
+        "line": "MAIN",
+        "blob": "79ddccecbf6a1802c8037e2681db72392e59e829"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/tests/test_score_navigation.py",
+    "owner": "PLAYBACK",
+    "owner_blob": "b69f496af233e86736aefedd4a4ab1a9881b1ed4",
+    "other_versions": [
+      {
+        "line": "MAIN",
+        "blob": "1eaafa00be71abb561a2504806c9c1fab3c23809"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  },
+  {
+    "path": "products/ptti/tests/test_video_evidence.py",
+    "owner": "PLAYBACK",
+    "owner_blob": "9a7aa4a91a5796c41c6873b352c7322c0c152612",
+    "other_versions": [
+      {
+        "line": "HOST",
+        "blob": "25fe062a23e876d5d02b833d963109b396da4a52"
+      },
+      {
+        "line": "SAN",
+        "blob": "25fe062a23e876d5d02b833d963109b396da4a52"
+      }
+    ],
+    "resolution": "OWNER_ONLY_NO_OVERLAY; cross-line integration NOT_VALIDATED"
+  }
+]

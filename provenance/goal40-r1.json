@@ -1,0 +1,20 @@
+{
+  "task": "GOAL40-R1",
+  "input_commit": "34f4494863c602d7981a8d1cf60c0c33b5fa80a2",
+  "historical_initial_commit": "27e72aff9d4602459dc5461bcf46a63622b769ea",
+  "history_mode": "NEW_INDEPENDENT_ROOT_NO_ANCESTRY",
+  "historical_provenance": "Existing source and GOAL39 manifests describe historical input identities; this record supersedes the current hash for the authorized About copy change.",
+  "source_change": {
+    "path": "products/ptti/frontend/src/main.tsx",
+    "input_sha256": "d0de7053d0876a107145053748fd98dcbef54af0d8cf49eca6545864cad19259",
+    "current_sha256": "0a14712b4e973526e4f10a44b46fe31abd955e3267e7884f3371e6bb172e85da",
+    "purpose": "Neutral professional product description; no interface or behavior change."
+  },
+  "byte_identical_input_files": 598,
+  "input_tracked_files": 599,
+  "output_files": 600,
+  "build_status": "PARTIAL_INHERITED",
+  "gui_status": "NOT_TESTED_INHERITED",
+  "release_approved": false,
+  "push_authorized": false
+}

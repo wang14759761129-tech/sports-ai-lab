@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.invalid/contracts/fan-content-intelligence-v0.1.schema.json",
+  "title": "PTTI Fan Content Intelligence v0.1",
+  "type": "object",
+  "required": ["contract_version", "view", "generated_at", "source_manifest", "evidence_sources", "events", "stars", "content_candidates", "relationships", "quality_summary", "notice"],
+  "properties": {
+    "contract_version": {"const": "ptti.fan-content-intelligence/0.1"},
+    "view": {"enum": ["INTERNAL_REVIEW", "STRICT_PUBLIC"]},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "source_manifest": {"type": "array", "items": {"type": "object", "required": ["logical_name", "sha256"], "properties": {"logical_name": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}, "additionalProperties": false}},
+    "evidence_sources": {"type": "array", "items": {"$ref": "#/$defs/evidenceSource"}},
+    "events": {"type": "array", "items": {"$ref": "#/$defs/event"}},
+    "stars": {"type": "array", "items": {"$ref": "#/$defs/star"}},
+    "content_candidates": {"type": "array", "items": {"$ref": "#/$defs/contentCandidate"}},
+    "relationships": {"type": "array", "items": {"$ref": "#/$defs/relationship"}},
+    "quality_summary": {"$ref": "#/$defs/summary"},
+    "notice": {"type": "string"}
+  },
+  "$defs": {
+    "rights": {
+      "type": "object",
+      "required": ["public_listing", "external_viewing", "embedding", "thumbnail_display", "local_analysis", "download", "redistribution", "evidence_status"],
+      "properties": {
+        "public_listing": {"const": "UNKNOWN"},
+        "external_viewing": {"const": "UNKNOWN"},
+        "embedding": {"const": "UNKNOWN"},
+        "thumbnail_display": {"const": "UNKNOWN"},
+        "local_analysis": {"const": "NOT_GRANTED"},
+        "download": {"const": "NOT_GRANTED"},
+        "redistribution": {"const": "NOT_GRANTED"},
+        "evidence_status": {"const": "NO_SCOPED_GRANT_RECORDED"},
+        "notes": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "event": {
+      "type": "object",
+      "required": ["event_id", "provider", "provider_event_id", "name", "event_year", "event_dates", "official_event_page_url", "event_page_evidence_id", "source_verified_at", "official_viewing_route", "rights", "public_status"],
+      "properties": {
+        "event_id": {"type": "string", "minLength": 1},
+        "provider": {"enum": ["WTT", "ITTF"]},
+        "provider_event_id": {"type": ["string", "null"]},
+        "name": {"type": "string", "minLength": 1},
+        "event_year": {"type": ["integer", "null"]},
+        "event_dates": {"type": "object", "required": ["start", "end", "status"], "properties": {"start": {"type": ["string", "null"]}, "end": {"type": ["string", "null"]}, "status": {"enum": ["SOURCE_PAGE_LISTED", "UNKNOWN"]}}, "additionalProperties": false},
+        "official_event_page_url": {"type": "string", "format": "uri", "pattern": "^https://"},
+        "event_page_evidence_id": {"type": "string"},
+        "source_verified_at": {"type": "string", "format": "date"},
+        "official_viewing_route": {"type": "object", "required": ["kind", "url", "status", "current_access", "territory", "login_or_paywall"], "properties": {"kind": {"enum": ["OFFICIAL_EVENT_PAGE", "OFFICIAL_PLATFORM_PAGE_OR_BROADCAST_INFO"]}, "url": {"type": "string", "format": "uri"}, "status": {"enum": ["OFFICIAL_ROUTE_IDENTIFIED", "OFFICIAL_PAGE_LISTS_RELATED_VIDEO", "OFFICIAL_ARTICLE_STATES_WATCH_OPTIONS"]}, "current_access": {"const": "NOT_TESTED_CURRENT_SESSION"}, "territory": {"const": "UNKNOWN"}, "login_or_paywall": {"const": "NOT_TESTED"}}, "additionalProperties": false},
+        "rights": {"$ref": "#/$defs/rights"},
+        "public_status": {"const": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW"},
+        "notes": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "star": {
+      "type": "object",
+      "required": ["athlete_id", "name_en", "name_zh", "association", "ittf_id", "official_profile_url", "registry_source_ids", "profile_snapshot_verified_at", "current_profile_access", "public_listing", "portrait_url", "biography_status", "equipment_status", "coach_observation_status", "interviews_status", "sponsorship_status", "social_feedback_status"],
+      "properties": {
+        "athlete_id": {"type": "string"},
+        "name_en": {"type": "string"},
+        "name_zh": {"type": ["string", "null"]},
+        "association": {"type": ["string", "null"]},
+        "ittf_id": {"type": ["integer", "null"]},
+        "official_profile_url": {"type": ["string", "null"], "format": "uri"},
+        "registry_source_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "profile_snapshot_verified_at": {"type": ["string", "null"], "format": "date-time"},
+        "current_profile_access": {"const": "NOT_TESTED_CURRENT_SESSION"},
+        "public_listing": {"const": "UNKNOWN"},
+        "display_permissions": {"type": "object", "required": ["profile_listing", "portrait_display", "biography_reuse", "evidence_status"], "properties": {"profile_listing": {"const": "UNKNOWN"}, "portrait_display": {"const": "UNKNOWN"}, "biography_reuse": {"const": "UNKNOWN"}, "evidence_status": {"const": "NO_SCOPED_GRANT_RECORDED"}}, "additionalProperties": false},
+        "portrait_url": {"type": "null"},
+        "biography_status": {"const": "NOT_COLLECTED"},
+        "equipment_status": {"const": "UNKNOWN"},
+        "coach_observation_status": {"const": "NOT_COLLECTED"},
+        "interviews_status": {"const": "NOT_COLLECTED"},
+        "sponsorship_status": {"const": "NOT_COLLECTED"},
+        "social_feedback_status": {"const": "NOT_COLLECTED"}
+      },
+      "additionalProperties": false
+    },
+    "contentCandidate": {
+      "type": "object",
+      "required": ["candidate_id", "event_id", "title", "content_type", "provider", "video_id", "publisher", "publisher_identity_status", "published_at", "publication_date_status", "official_video_url", "watch_route", "source_evidence_ids", "source_verified_at", "page_observation_status", "playback_status", "territory", "login_or_paywall", "embed_status", "thumbnail_url", "match_id", "match_link_status", "rights", "public_status"],
+      "properties": {
+        "candidate_id": {"type": "string", "minLength": 1},
+        "event_id": {"type": "string"},
+        "title": {"type": "string", "minLength": 1},
+        "content_type": {"enum": ["HIGHLIGHTS", "HIGHLIGHTS_SHOW"]},
+        "provider": {"enum": ["YOUTUBE", "UNKNOWN"]},
+        "video_id": {"type": ["string", "null"]},
+        "publisher": {"type": ["string", "null"]},
+        "publisher_identity_status": {"enum": ["WTT_VERIFIED_CHANNEL_SEARCH_RESULT", "EVENT_PAGE_LISTING_ONLY"]},
+        "published_at": {"type": ["string", "null"], "format": "date"},
+        "publication_date_status": {"enum": ["SOURCE_METADATA_DATE", "UNKNOWN"]},
+        "official_video_url": {"type": ["string", "null"], "format": "uri"},
+        "watch_route": {"type": "object", "required": ["kind", "url", "status"], "properties": {"kind": {"enum": ["OFFICIAL_YOUTUBE_VIDEO", "OFFICIAL_EVENT_PAGE_LISTING"]}, "url": {"type": "string", "format": "uri"}, "status": {"enum": ["URL_IDENTIFIED_PLAYBACK_NOT_TESTED", "OFFICIAL_LISTING_ONLY_VIDEO_URL_UNRESOLVED"]}}, "additionalProperties": false},
+        "source_evidence_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "source_verified_at": {"type": "string", "format": "date"},
+        "page_observation_status": {"enum": ["YOUTUBE_SEARCH_INDEX_METADATA", "OFFICIAL_EVENT_PAGE_RELATED_VIDEO_LISTING"]},
+        "playback_status": {"const": "NOT_TESTED"},
+        "territory": {"const": "UNKNOWN"},
+        "login_or_paywall": {"const": "NOT_TESTED"},
+        "embed_status": {"const": "UNKNOWN"},
+        "thumbnail_url": {"type": "null"},
+        "match_id": {"type": "null"},
+        "match_link_status": {"const": "UNKNOWN"},
+        "rights": {"$ref": "#/$defs/rights"},
+        "public_status": {"const": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW"}
+      },
+      "additionalProperties": false
+    },
+    "relationship": {
+      "type": "object",
+      "required": ["relationship_id", "from_type", "from_id", "to_type", "to_id", "relationship_kind", "evidence_id", "confidence_scope"],
+      "properties": {
+        "relationship_id": {"type": "string"},
+        "from_type": {"enum": ["ATHLETE", "CONTENT_CANDIDATE"]},
+        "from_id": {"type": "string"},
+        "to_type": {"const": "EVENT"},
+        "to_id": {"type": "string"},
+        "relationship_kind": {"enum": ["LISTED_ON_EVENT_PLAYER_ROSTER", "LISTED_AS_EVENT_RELATED_VIDEO", "TITLE_HASHTAG_EVENT_ASSOCIATION"]},
+        "evidence_id": {"type": "string"},
+        "confidence_scope": {"enum": ["EVENT_ROSTER_LISTING_ONLY_NOT_CLIP_APPEARANCE", "OFFICIAL_EVENT_PAGE_LISTING_ONLY_NOT_MATCH_LINK", "OFFICIAL_VIDEO_TITLE_EVENT_ASSOCIATION_ONLY_NOT_MATCH_LINK"]}
+      },
+      "additionalProperties": false
+    },
+    "evidenceSource": {
+      "type": "object",
+      "required": ["evidence_id", "kind", "url", "observed_at", "claims", "limitations"],
+      "properties": {
+        "evidence_id": {"type": "string"},
+        "kind": {"enum": ["OFFICIAL_EVENT_PAGE_SEARCH_INDEX", "OFFICIAL_WTT_ARTICLE_SEARCH_INDEX", "OFFICIAL_YOUTUBE_SEARCH_RESULT", "PROFESSIONAL_REGISTRY_SOURCE_SNAPSHOT"]},
+        "url": {"type": "string", "format": "uri", "pattern": "^https://"},
+        "observed_at": {"type": "string", "format": "date"},
+        "claims": {"type": "array", "items": {"type": "string"}},
+        "observed_event_name": {"type": "string"},
+        "event_start": {"type": "string", "format": "date"},
+        "event_end": {"type": "string", "format": "date"},
+        "observed_title": {"type": "string"},
+        "published_at": {"type": "string", "format": "date"},
+        "publisher": {"type": "string"},
+        "listed_titles": {"type": "array", "items": {"type": "string"}},
+        "listed_player_athlete_ids": {"type": "array", "items": {"type": "string"}},
+        "limitations": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "summary": {
+      "type": "object",
+      "required": ["event_count", "star_count", "candidate_count", "exact_video_url_count", "event_page_only_count", "playback_pass_count", "public_eligible_count", "match_video_links", "status_counts"],
+      "properties": {
+        "event_count": {"type": "integer", "minimum": 0},
+        "star_count": {"type": "integer", "minimum": 0},
+        "candidate_count": {"type": "integer", "minimum": 0},
+        "exact_video_url_count": {"type": "integer", "minimum": 0},
+        "event_page_only_count": {"type": "integer", "minimum": 0},
+        "playback_pass_count": {"const": 0},
+        "public_eligible_count": {"const": 0},
+        "match_video_links": {"const": 0},
+        "status_counts": {"type": "object", "required": ["playback_NOT_TESTED", "rights_UNKNOWN", "public_INTERNAL_ONLY"], "properties": {"playback_NOT_TESTED": {"type": "integer", "minimum": 0}, "rights_UNKNOWN": {"type": "integer", "minimum": 0}, "public_INTERNAL_ONLY": {"type": "integer", "minimum": 0}}, "additionalProperties": false}
+      },
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"view": {"const": "STRICT_PUBLIC"}}, "required": ["view"]},
+      "then": {
+        "properties": {
+          "source_manifest": {"maxItems": 0},
+          "evidence_sources": {"maxItems": 0},
+          "events": {"maxItems": 0},
+          "stars": {"maxItems": 0},
+          "content_candidates": {"maxItems": 0},
+          "relationships": {"maxItems": 0},
+          "quality_summary": {"properties": {"event_count": {"const": 0}, "star_count": {"const": 0}, "candidate_count": {"const": 0}, "exact_video_url_count": {"const": 0}, "event_page_only_count": {"const": 0}, "playback_pass_count": {"const": 0}, "public_eligible_count": {"const": 0}, "match_video_links": {"const": 0}, "status_counts": {"properties": {"playback_NOT_TESTED": {"const": 0}, "rights_UNKNOWN": {"const": 0}, "public_INTERNAL_ONLY": {"const": 0}}, "additionalProperties": false}}}
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.invalid/contracts/fan-inspiration-v0.1.schema.json",
+  "title": "PTTI Fan Inspiration Public Data v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "generated_at", "view", "input_identity", "clips", "match_watch_sources", "international_reactions", "gear_dossiers", "watch_routes", "notice"],
+  "properties": {
+    "contract_version": {"const": "ptti.fan-inspiration/0.1"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "view": {"const": "STRICT_PUBLIC_METADATA_LINKS_ONLY"},
+    "input_identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["base_contract", "base_sha256", "goal17_delta_contract", "goal17_delta_sha256", "goal22_supplement_sha256"],
+      "properties": {
+        "base_contract": {"const": "ptti.match-library-index/0.1"},
+        "base_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "goal17_delta_contract": {"const": "ptti.goal17.1-match-video-additions/0.1"},
+        "goal17_delta_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "goal22_supplement_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "clips": {"type": "array", "minItems": 11, "maxItems": 11, "items": {"$ref": "#/$defs/videoContent"}},
+    "match_watch_sources": {"type": "array", "minItems": 7, "maxItems": 7, "items": {"$ref": "#/$defs/videoContent"}},
+    "international_reactions": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/reaction"}},
+    "gear_dossiers": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/gearDossier"}},
+    "watch_routes": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"$ref": "#/$defs/watchRoute"}},
+    "notice": {"type": "string", "minLength": 20}
+  },
+  "$defs": {
+    "videoContent": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_id", "platform", "original_url", "original_title", "published_at", "publisher", "publisher_url", "athlete_ids", "athlete_names", "athlete_association_status", "event_id", "event_name", "event_year", "match_id", "video_category", "full_match_completeness", "verification", "rights"],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1},
+        "platform": {"const": "YOUTUBE"},
+        "original_url": {"type": "string", "format": "uri", "pattern": "^https://www\\.youtube\\.com/watch\\?v="},
+        "original_title": {"type": "string", "minLength": 1},
+        "published_at": {"type": ["string", "null"], "format": "date"},
+        "publisher": {"const": "World Table Tennis"},
+        "publisher_url": {"type": "string", "format": "uri"},
+        "athlete_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "athlete_names": {"type": "array", "items": {"type": "string"}},
+        "athlete_association_status": {"enum": ["MATCH_LINKED", "UNMAPPED_TITLE_NAMES", "UNASSIGNED_EVENT_LEVEL", "UNKNOWN"]},
+        "event_id": {"type": ["string", "null"]},
+        "event_name": {"type": ["string", "null"]},
+        "event_year": {"type": ["integer", "null"], "minimum": 1900, "maximum": 2200},
+        "match_id": {"type": ["string", "null"]},
+        "video_category": {"enum": ["FULL_MATCH_TITLE_CLAIM", "EVENT_HIGHLIGHTS_TITLE_CLAIM", "SEASON_HIGHLIGHTS_TITLE_CLAIM", "MATCH_SPECIFIC_TYPE_UNKNOWN", "EVENT_LEVEL_TYPE_UNKNOWN"]},
+        "full_match_completeness": {"const": "UNVERIFIED"},
+        "verification": {"$ref": "#/$defs/verification"},
+        "rights": {"$ref": "#/$defs/videoRights"}
+      }
+    },
+    "verification": {
+      "type": "object", "additionalProperties": false,
+      "required": ["publisher_identity", "source_identity", "match_link", "metadata_status", "metadata_checked_at", "official_page_open", "external_system_browser_open", "video_started", "complete_watch", "desktop_native_playback", "vision_analysis", "territory"],
+      "properties": {
+        "publisher_identity": {"enum": ["VERIFIED", "UNKNOWN"]},
+        "source_identity": {"enum": ["VERIFIED", "UNKNOWN"]},
+        "match_link": {"enum": ["HUMAN_VERIFIED", "TITLE_ASSOCIATION_VISUAL_NOT_TESTED", "UNKNOWN", "NOT_APPLICABLE"]},
+        "metadata_status": {"enum": ["VERIFIED_METADATA_BASELINE", "CURRENT_SEARCH_METADATA_SURFACED", "NOT_TESTED", "UNVERIFIED"]},
+        "metadata_checked_at": {"type": ["string", "null"], "format": "date-time"},
+        "official_page_open": {"enum": ["NOT_TESTED", "PARTIAL_METADATA_ONLY"]},
+        "external_system_browser_open": {"const": "NOT_TESTED"},
+        "video_started": {"const": "NOT_TESTED"},
+        "complete_watch": {"const": "UNVERIFIED"},
+        "desktop_native_playback": {"const": "NOT_TESTED"},
+        "vision_analysis": {"const": "NOT_TESTED"},
+        "territory": {"const": "UNKNOWN"}
+      }
+    },
+    "videoRights": {
+      "type": "object", "additionalProperties": false,
+      "required": ["public_listing", "external_viewing", "embed", "thumbnail_display", "download", "local_analysis", "redistribution"],
+      "properties": {
+        "public_listing": {"enum": ["ALLOWED", "ALLOWED_EXTERNAL_LINK_ONLY"]},
+        "external_viewing": {"enum": ["ALLOWED", "ALLOWED_WITHIN_PLATFORM_LINK_SHARING_SCOPE"]},
+        "embed": {"const": "UNKNOWN_NOT_GRANTED"},
+        "thumbnail_display": {"enum": ["NOT_ALLOWED", "NOT_GRANTED_PENDING_APPROVAL"]},
+        "download": {"const": "NOT_GRANTED"},
+        "local_analysis": {"const": "NOT_GRANTED"},
+        "redistribution": {"const": "NOT_GRANTED"}
+      }
+    },
+    "reaction": {
+      "type": "object", "additionalProperties": false,
+      "required": ["reaction_id", "related_match_id", "content_kind", "publisher", "source_url", "source_title", "published_at", "language", "summary_zh", "credibility", "rights"],
+      "properties": {
+        "reaction_id": {"type": "string"},
+        "related_match_id": {"type": ["string", "null"]},
+        "content_kind": {"const": "SINGLE_MEDIA_REPORT"},
+        "publisher": {"type": "string"},
+        "source_url": {"type": "string", "format": "uri"},
+        "source_title": {"type": "string"},
+        "published_at": {"type": "string", "format": "date"},
+        "language": {"type": "string", "minLength": 2},
+        "summary_zh": {"type": "string", "minLength": 10},
+        "credibility": {"$ref": "#/$defs/credibility"},
+        "rights": {"$ref": "#/$defs/reactionRights"}
+      }
+    },
+    "credibility": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_class", "confidence_scope", "audience_representativeness"],
+      "properties": {
+        "source_class": {"const": "ESTABLISHED_NATIONAL_NEWSROOM"},
+        "confidence_scope": {"const": "HIGH_FOR_ATTRIBUTING_THIS_ARTICLE_ONLY"},
+        "audience_representativeness": {"const": "NOT_CLAIMED"}
+      }
+    },
+    "reactionRights": {
+      "type": "object", "additionalProperties": false,
+      "required": ["public_listing", "article_republication", "image_reuse"],
+      "properties": {
+        "public_listing": {"const": "FACTUAL_SUMMARY_AND_OUTBOUND_LINK_ONLY"},
+        "article_republication": {"const": "NOT_GRANTED"},
+        "image_reuse": {"const": "NOT_GRANTED"}
+      }
+    },
+    "gearDossier": {
+      "type": "object", "additionalProperties": false,
+      "required": ["match_id", "participants", "evidence_status", "public_note"],
+      "properties": {
+        "match_id": {"type": "string"},
+        "participants": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/gearParticipant"}},
+        "evidence_status": {"const": "NOT_VERIFIED_FOR_SPECIFIC_MATCH"},
+        "public_note": {"type": "string"}
+      }
+    },
+    "gearParticipant": {
+      "type": "object", "additionalProperties": false,
+      "required": ["athlete_id", "athlete_name", "match_specific_status", "items"],
+      "properties": {
+        "athlete_id": {"type": ["string", "null"]},
+        "athlete_name": {"type": "string"},
+        "match_specific_status": {"const": "NOT_VERIFIED"},
+        "items": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"$ref": "#/$defs/gearItem"}}
+      }
+    },
+    "gearItem": {
+      "type": "object", "additionalProperties": false,
+      "required": ["category", "brand", "model", "status"],
+      "properties": {
+        "category": {"enum": ["JERSEY", "SHOES", "BLADE", "RUBBER"]},
+        "brand": {"type": "null"},
+        "model": {"type": "null"},
+        "status": {"const": "UNKNOWN"}
+      }
+    },
+    "watchRoute": {
+      "type": "object", "additionalProperties": false,
+      "required": ["mode", "priority", "state", "source_ids", "playback_evidence", "fallback_behavior"],
+      "properties": {
+        "mode": {"enum": ["OFFICIAL_EMBED", "OFFICIAL_PAGE", "AUTHORIZED_SOURCE", "REPLAY", "LIVE_SCORE"]},
+        "priority": {"type": "integer", "minimum": 1, "maximum": 5},
+        "state": {"enum": ["BLOCKED_NO_EXPLICIT_EMBED_PERMISSION", "OUTBOUND_LINKS_REGISTERED_PLAYBACK_NOT_TESTED", "NO_AUTHORIZED_SOURCE_REGISTERED", "OFFICIAL_REPLAY_LINKS_NOT_PLAYBACK_VERIFIED", "NO_LIVE_SCORE_VERIFIED"]},
+        "source_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "playback_evidence": {"const": "NOT_TESTED"},
+        "fallback_behavior": {"type": "string", "minLength": 10}
+      }
+    }
+  }
+}

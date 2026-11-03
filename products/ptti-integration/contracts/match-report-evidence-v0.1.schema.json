@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.invalid/contracts/match-report-evidence-v0.1.schema.json",
+  "title": "PTTI Official Match Report Evidence v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "generated_at", "input_identity", "match_reports", "notice"],
+  "properties": {
+    "contract_version": {"const": "ptti.main.match-report-evidence/0.1"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "input_identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["match_library_sha256", "fan_inspiration_sha256"],
+      "properties": {
+        "match_library_sha256": {"const": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930"},
+        "fan_inspiration_sha256": {"const": "702bc12850676ae9eeda39b533ade9cc5f2da0fe8710aa8ebc82f0c2b803c5c9"}
+      }
+    },
+    "match_reports": {
+      "type": "array", "minItems": 1, "maxItems": 1,
+      "items": {"$ref": "#/$defs/report"}
+    },
+    "notice": {"type": "string", "minLength": 20}
+  },
+  "$defs": {
+    "report": {
+      "type": "object", "additionalProperties": false,
+      "required": ["report_id", "match_id", "event_name", "event_year", "round", "participants", "recorded_result", "game_scores", "editorial_summary_zh", "article", "linked_video", "rights"],
+      "properties": {
+        "report_id": {"const": "match-report:wtt:singapore-smash-2026:wang-chuqin-lin-yun-ju-ms-final"},
+        "match_id": {"const": "pro:wtt:singapore-smash-2026:wang-chuqin-lin-yun-ju-ms-final"},
+        "event_name": {"const": "Singapore Smash 2026"},
+        "event_year": {"const": 2026},
+        "round": {"const": "Men's Singles Final"},
+        "participants": {
+          "type": "array", "minItems": 2, "maxItems": 2,
+          "prefixItems": [
+            {"const": {"athlete_id": "athlete:121558", "name_en": "WANG Chuqin"}},
+            {"const": {"athlete_id": "athlete:121582", "name_en": "LIN Yun-Ju"}}
+          ],
+          "items": false
+        },
+        "recorded_result": {
+          "type": "object", "additionalProperties": false,
+          "required": ["winner_id", "winner_name", "player_a_games", "player_b_games", "status"],
+          "properties": {
+            "winner_id": {"const": "athlete:121558"},
+            "winner_name": {"const": "WANG Chuqin"},
+            "player_a_games": {"const": 4},
+            "player_b_games": {"const": 0},
+            "status": {"const": "OFFICIAL_WTT_RESULT_CROSSCHECKED"}
+          }
+        },
+        "game_scores": {
+          "type": "array", "minItems": 4, "maxItems": 4,
+          "prefixItems": [
+            {"const": [11, 3]},
+            {"const": [11, 8]},
+            {"const": [11, 8]},
+            {"const": [11, 9]}
+          ],
+          "items": false
+        },
+        "editorial_summary_zh": {"type": "string", "minLength": 20},
+        "article": {
+          "type": "object", "additionalProperties": false,
+          "required": ["source_id", "publisher", "title", "url", "published_at", "published_at_status", "content_observation", "direct_page_status", "checked_on"],
+          "properties": {
+            "source_id": {"const": "goal15-wtt-singapore-smash-2026-ms-final"},
+            "publisher": {"const": "World Table Tennis"},
+            "title": {"const": "Lion Heart: Wang Chuqin Takes Second Singapore Smash Title"},
+            "url": {"const": "https://www.worldtabletennis.com/description?artId=5957"},
+            "published_at": {"type": "null"},
+            "published_at_status": {"const": "NOT_RECORDED_NO_DATE_IN_REVIEWED_SOURCE"},
+            "content_observation": {"const": "OFFICIAL_DOMAIN_SEARCH_EXCERPT_SURFACED"},
+            "direct_page_status": {"const": "COOKIE_CONSENT_SHELL_ONLY"},
+            "checked_on": {"const": "2026-10-21"}
+          }
+        },
+        "linked_video": {
+          "type": "object", "additionalProperties": false,
+          "required": ["source_id", "url", "match_link", "external_system_browser_open", "video_started", "complete_watch"],
+          "properties": {
+            "source_id": {"const": "video-source:youtube:cDccQqVlMnc"},
+            "url": {"const": "https://www.youtube.com/watch?v=cDccQqVlMnc"},
+            "match_link": {"const": "HUMAN_VERIFIED"},
+            "external_system_browser_open": {"const": "NOT_TESTED"},
+            "video_started": {"const": "NOT_TESTED"},
+            "complete_watch": {"const": "UNVERIFIED"}
+          }
+        },
+        "rights": {
+          "type": "object", "additionalProperties": false,
+          "required": ["article_republication", "image_reuse", "summary_and_outbound_link", "video_embed"],
+          "properties": {
+            "article_republication": {"const": "NOT_GRANTED"},
+            "image_reuse": {"const": "NOT_GRANTED"},
+            "summary_and_outbound_link": {"const": "FACTUAL_SUMMARY_AND_LINK_ONLY"},
+            "video_embed": {"const": "UNKNOWN_NOT_GRANTED"}
+          }
+        }
+      }
+    }
+  }
+}
