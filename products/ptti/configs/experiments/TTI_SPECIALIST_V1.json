@@ -1,0 +1,799 @@
+{
+  "experiment": "TTI_SPECIALIST_V1",
+  "scope": "bounded 3-epoch pilot; rally median proxy, not full official reproduction",
+  "release_gate": "HISTORICAL_DB_UNVERIFIED",
+  "vision_gate": "BALLTRACK_MODEL_IMPROVEMENT_FAILED",
+  "default_pipeline": "RAW_RACKETVISION",
+  "final_test": "NOT_SELECTED_OR_RUN: candidates failed known evaluation",
+  "provenance": {
+    "B": {
+      "parent_checkpoint_sha256": "00d707b9db7a49561c411e4765956e79bcd7c7e20c7a0a535073440b3e972342",
+      "split_sha256": "b3ca335f4fd96244c7fa1e3caada233a18e1fcc191e04b11d31fdbc00076aefd",
+      "config_sha256": "ef00d21bf66136e1044eadae503e4c52595ab5320246db22ec436f5f042b2526",
+      "epochs": 3,
+      "optimizer": "Adam",
+      "learning_rate": 1e-05,
+      "seed": 20261005,
+      "best_epoch": 2,
+      "validation_metric": {
+        "DEV_official_F1": 0.9442622950819672
+      },
+      "checkpoint_sha256": "69ba51636a56ae87d0c2d0ba02377a2bda009e9ac7aeb93aaa7c27a8aa6fd041",
+      "tti_commit": "ae4bdedd8819ddb045f46add07247fdf369d84ec",
+      "racketvision_commit": "c44af2a08524d3cb54d818f19686f4cdea4d2793",
+      "worker_sha256": "8436affb151e1fd3df291b9ffa2121f3d00d0a43ea64ae0620a7cd9745e0d0fb",
+      "prepared_inputs_sha256": "3c6da053a8e87795916dc1c9c61b02420d64a1c0ac9e889cef6e322481f37098",
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "torch": "2.10.0+cu128",
+      "cuda": "12.8",
+      "train_match_ids": [
+        "match20",
+        "match21",
+        "match22",
+        "match23",
+        "match24",
+        "match25",
+        "match26",
+        "match27"
+      ],
+      "dev_match_ids": [
+        "match28",
+        "match29",
+        "match30",
+        "match31"
+      ],
+      "strategy": "B",
+      "training_seconds": 293.77586359999987,
+      "architecture_changed": false,
+      "loss_changed": false,
+      "hard_negative_strategy": "none"
+    },
+    "C": {
+      "parent_checkpoint_sha256": "00d707b9db7a49561c411e4765956e79bcd7c7e20c7a0a535073440b3e972342",
+      "split_sha256": "b3ca335f4fd96244c7fa1e3caada233a18e1fcc191e04b11d31fdbc00076aefd",
+      "config_sha256": "ef00d21bf66136e1044eadae503e4c52595ab5320246db22ec436f5f042b2526",
+      "epochs": 3,
+      "optimizer": "Adam",
+      "learning_rate": 1e-05,
+      "seed": 20261005,
+      "best_epoch": 1,
+      "validation_metric": {
+        "DEV_official_F1": 0.9442622950819672
+      },
+      "checkpoint_sha256": "7c67a9f12b39e55b8dd4751133488c88ca9a208d7dcd41e8e5b4eb94a28eebd2",
+      "tti_commit": "ae4bdedd8819ddb045f46add07247fdf369d84ec",
+      "racketvision_commit": "c44af2a08524d3cb54d818f19686f4cdea4d2793",
+      "worker_sha256": "8436affb151e1fd3df291b9ffa2121f3d00d0a43ea64ae0620a7cd9745e0d0fb",
+      "prepared_inputs_sha256": "3c6da053a8e87795916dc1c9c61b02420d64a1c0ac9e889cef6e322481f37098",
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "torch": "2.10.0+cu128",
+      "cuda": "12.8",
+      "train_match_ids": [
+        "match20",
+        "match21",
+        "match22",
+        "match23",
+        "match24",
+        "match25",
+        "match26",
+        "match27"
+      ],
+      "dev_match_ids": [
+        "match28",
+        "match29",
+        "match30",
+        "match31"
+      ],
+      "strategy": "C",
+      "training_seconds": 299.3275829999984,
+      "architecture_changed": false,
+      "loss_changed": false,
+      "hard_negative_strategy": "3x weighted sampler; same epoch sample count, seed, parent, loss and LR"
+    }
+  },
+  "known_evaluation": {
+    "A": {
+      "official_style": {
+        "accuracy": 0.8512,
+        "precision": 0.9490445859872612,
+        "recall": 0.8514285714285714,
+        "f1": 0.8975903614457831,
+        "miss_rate": 0.14857142857142858,
+        "mean_dist": 2.1205085564481965
+      },
+      "tti_style": {
+        "visible": 525,
+        "detected": 456,
+        "recall": 0.8685714285714285,
+        "false_positives": 15,
+        "negative": 100,
+        "mean": 7.760169780756199,
+        "median": 2.23606797749979,
+        "p95": 7.123328331219236,
+        "catastrophic": {
+          "20": 8,
+          "50": 8,
+          "100": 8
+        }
+      },
+      "peak_rank": {
+        "1": 475,
+        "4": 485,
+        "8": 491,
+        "16": 497,
+        "32": 500,
+        "64": 507,
+        "visible": 525,
+        "greater_than64": 5,
+        "no_nearby_peak": 13
+      },
+      "witness": {
+        "gt_peak_rank": 57,
+        "true_ball_region_response": 0.037322998046875,
+        "clothing_peak_response": 0.6455078125,
+        "decoded": {
+          "frame": 184,
+          "visible": true,
+          "pixel_x": 1190,
+          "pixel_y": 459,
+          "confidence": 0.5439851880073547
+        },
+        "pixel_error": 428.78899239602686,
+        "semantics": "Response is not calibrated probability; official loader baseline differs from legacy inferencer interpolation"
+      },
+      "seconds": 129.2695470000035
+    },
+    "B": {
+      "official_style": {
+        "accuracy": 0.8416,
+        "precision": 0.9350104821802935,
+        "recall": 0.8495238095238096,
+        "f1": 0.8902195608782435,
+        "miss_rate": 0.15047619047619043,
+        "mean_dist": 2.795214346871762
+      },
+      "tti_style": {
+        "visible": 525,
+        "detected": 457,
+        "recall": 0.8704761904761905,
+        "false_positives": 20,
+        "negative": 100,
+        "mean": 10.245408137836433,
+        "median": 2.23606797749979,
+        "p95": 7.654668419872456,
+        "catastrophic": {
+          "20": 10,
+          "50": 9,
+          "100": 9
+        }
+      },
+      "peak_rank": {
+        "1": 478,
+        "4": 495,
+        "8": 501,
+        "16": 501,
+        "32": 506,
+        "64": 511,
+        "visible": 525,
+        "greater_than64": 1,
+        "no_nearby_peak": 13
+      },
+      "witness": {
+        "gt_peak_rank": 32,
+        "true_ball_region_response": 0.046630859375,
+        "clothing_peak_response": 0.56103515625,
+        "decoded": {
+          "frame": 184,
+          "visible": true,
+          "pixel_x": 1190,
+          "pixel_y": 459,
+          "confidence": 0.5236132740974426
+        },
+        "pixel_error": 428.78899239602686,
+        "semantics": "Response is not calibrated probability; official loader baseline differs from legacy inferencer interpolation"
+      },
+      "seconds": 126.64743859999726
+    },
+    "C": {
+      "official_style": {
+        "accuracy": 0.8384,
+        "precision": 0.9402985074626866,
+        "recall": 0.84,
+        "f1": 0.8873239436619718,
+        "miss_rate": 0.16000000000000003,
+        "mean_dist": 2.9833015878196716
+      },
+      "tti_style": {
+        "visible": 525,
+        "detected": 452,
+        "recall": 0.8609523809523809,
+        "false_positives": 17,
+        "negative": 100,
+        "mean": 10.856520747079994,
+        "median": 2.23606797749979,
+        "p95": 7.43115833674304,
+        "catastrophic": {
+          "20": 10,
+          "50": 10,
+          "100": 10
+        }
+      },
+      "peak_rank": {
+        "1": 479,
+        "4": 495,
+        "8": 502,
+        "16": 504,
+        "32": 506,
+        "64": 512,
+        "visible": 525,
+        "greater_than64": 3,
+        "no_nearby_peak": 10
+      },
+      "witness": {
+        "gt_peak_rank": 35,
+        "true_ball_region_response": 0.043365478515625,
+        "clothing_peak_response": 0.54638671875,
+        "decoded": {
+          "frame": 184,
+          "visible": true,
+          "pixel_x": 1190,
+          "pixel_y": 459,
+          "confidence": 0.5122656226158142
+        },
+        "pixel_error": 428.78899239602686,
+        "semantics": "Response is not calibrated probability; official loader baseline differs from legacy inferencer interpolation"
+      },
+      "seconds": 114.94024920000084
+    }
+  },
+  "per_match": {
+    "A": {
+      "match1": {
+        "visible": 65,
+        "detected": 64,
+        "negative": 10,
+        "fp": 4,
+        "recall": 0.9846153846153847,
+        "mean": 2.4399216188682016,
+        "median": 2.23606797749979,
+        "p95": 4.242640687119285,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match10": {
+        "visible": 55,
+        "detected": 37,
+        "negative": 20,
+        "fp": 4,
+        "recall": 0.6727272727272727,
+        "mean": 55.315577057331275,
+        "median": 2.8284271247461903,
+        "p95": 363.2920846494006,
+        "catastrophic": {
+          "20": 6,
+          "50": 6,
+          "100": 6
+        }
+      },
+      "match11": {
+        "visible": 60,
+        "detected": 48,
+        "negative": 15,
+        "fp": 2,
+        "recall": 0.8,
+        "mean": 2.182489504726066,
+        "median": 2.0,
+        "p95": 4.762300071049821,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match12": {
+        "visible": 56,
+        "detected": 44,
+        "negative": 19,
+        "fp": 0,
+        "recall": 0.7857142857142857,
+        "mean": 5.113280448401491,
+        "median": 2.53224755112299,
+        "p95": 6.2882864018309785,
+        "catastrophic": {
+          "20": 1,
+          "50": 1,
+          "100": 1
+        }
+      },
+      "match13": {
+        "visible": 62,
+        "detected": 55,
+        "negative": 13,
+        "fp": 3,
+        "recall": 0.8870967741935484,
+        "mean": 4.061099048697527,
+        "median": 3.1622776601683795,
+        "p95": 8.224278003921771,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match14": {
+        "visible": 44,
+        "detected": 41,
+        "negative": 6,
+        "fp": 0,
+        "recall": 0.9318181818181818,
+        "mean": 9.116222885229698,
+        "median": 2.0,
+        "p95": 3.605551275463989,
+        "catastrophic": {
+          "20": 1,
+          "50": 1,
+          "100": 1
+        }
+      },
+      "match15": {
+        "visible": 43,
+        "detected": 38,
+        "negative": 7,
+        "fp": 0,
+        "recall": 0.8837209302325582,
+        "mean": 1.758416859539233,
+        "median": 1.7071067811865475,
+        "p95": 3.024341649025257,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match16": {
+        "visible": 46,
+        "detected": 40,
+        "negative": 4,
+        "fp": 2,
+        "recall": 0.8695652173913043,
+        "mean": 2.4328413315529915,
+        "median": 2.0,
+        "p95": 5.0990195135927845,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match17": {
+        "visible": 47,
+        "detected": 44,
+        "negative": 3,
+        "fp": 0,
+        "recall": 0.9361702127659575,
+        "mean": 2.1571867205233186,
+        "median": 2.23606797749979,
+        "p95": 3.940832691319599,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match18": {
+        "visible": 22,
+        "detected": 20,
+        "negative": 3,
+        "fp": 0,
+        "recall": 0.9090909090909091,
+        "mean": 2.5408308020539163,
+        "median": 2.53224755112299,
+        "p95": 4.598529157249603,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match19": {
+        "visible": 25,
+        "detected": 25,
+        "negative": 0,
+        "fp": 0,
+        "recall": 1.0,
+        "mean": 3.962813507919666,
+        "median": 3.1622776601683795,
+        "p95": 8.296073776007193,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      }
+    },
+    "B": {
+      "match1": {
+        "visible": 65,
+        "detected": 64,
+        "negative": 10,
+        "fp": 5,
+        "recall": 0.9846153846153847,
+        "mean": 2.302823224935729,
+        "median": 2.23606797749979,
+        "p95": 4.147077275370987,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match10": {
+        "visible": 55,
+        "detected": 38,
+        "negative": 20,
+        "fp": 4,
+        "recall": 0.6909090909090909,
+        "mean": 82.88405339386195,
+        "median": 2.53224755112299,
+        "p95": 479.2584022325253,
+        "catastrophic": {
+          "20": 7,
+          "50": 7,
+          "100": 7
+        }
+      },
+      "match11": {
+        "visible": 60,
+        "detected": 45,
+        "negative": 15,
+        "fp": 4,
+        "recall": 0.75,
+        "mean": 3.168790453641077,
+        "median": 2.0,
+        "p95": 6.718515102424322,
+        "catastrophic": {
+          "20": 1,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match12": {
+        "visible": 56,
+        "detected": 46,
+        "negative": 19,
+        "fp": 0,
+        "recall": 0.8214285714285714,
+        "mean": 4.830468800108454,
+        "median": 2.23606797749979,
+        "p95": 6.264107122827124,
+        "catastrophic": {
+          "20": 1,
+          "50": 1,
+          "100": 1
+        }
+      },
+      "match13": {
+        "visible": 62,
+        "detected": 55,
+        "negative": 13,
+        "fp": 4,
+        "recall": 0.8870967741935484,
+        "mean": 4.183135573652989,
+        "median": 3.1622776601683795,
+        "p95": 8.018677324489564,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match14": {
+        "visible": 44,
+        "detected": 41,
+        "negative": 6,
+        "fp": 0,
+        "recall": 0.9318181818181818,
+        "mean": 9.147423356755729,
+        "median": 2.0,
+        "p95": 3.605551275463989,
+        "catastrophic": {
+          "20": 1,
+          "50": 1,
+          "100": 1
+        }
+      },
+      "match15": {
+        "visible": 43,
+        "detected": 39,
+        "negative": 7,
+        "fp": 0,
+        "recall": 0.9069767441860465,
+        "mean": 1.8002279765403484,
+        "median": 1.4142135623730951,
+        "p95": 4.047213595499959,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match16": {
+        "visible": 46,
+        "detected": 43,
+        "negative": 4,
+        "fp": 3,
+        "recall": 0.9347826086956522,
+        "mean": 2.5156095800646483,
+        "median": 2.23606797749979,
+        "p95": 5.001428124795271,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match17": {
+        "visible": 47,
+        "detected": 44,
+        "negative": 3,
+        "fp": 0,
+        "recall": 0.9361702127659575,
+        "mean": 2.139249104837058,
+        "median": 2.0,
+        "p95": 3.940832691319599,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match18": {
+        "visible": 22,
+        "detected": 17,
+        "negative": 3,
+        "fp": 0,
+        "recall": 0.7727272727272727,
+        "mean": 2.5842657623021976,
+        "median": 2.8284271247461903,
+        "p95": 5.210586460772704,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match19": {
+        "visible": 25,
+        "detected": 25,
+        "negative": 0,
+        "fp": 0,
+        "recall": 1.0,
+        "mean": 3.95293090528204,
+        "median": 3.1622776601683795,
+        "p95": 8.296073776007193,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      }
+    },
+    "C": {
+      "match1": {
+        "visible": 65,
+        "detected": 64,
+        "negative": 10,
+        "fp": 4,
+        "recall": 0.9846153846153847,
+        "mean": 2.3805611211309463,
+        "median": 2.23606797749979,
+        "p95": 4.920820393249934,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match10": {
+        "visible": 55,
+        "detected": 38,
+        "negative": 20,
+        "fp": 3,
+        "recall": 0.6909090909090909,
+        "mean": 69.2438999393153,
+        "median": 2.699172818834085,
+        "p95": 433.6173896639714,
+        "catastrophic": {
+          "20": 7,
+          "50": 7,
+          "100": 7
+        }
+      },
+      "match11": {
+        "visible": 60,
+        "detected": 45,
+        "negative": 15,
+        "fp": 3,
+        "recall": 0.75,
+        "mean": 2.227793472254569,
+        "median": 2.23606797749979,
+        "p95": 3.605551275463989,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match12": {
+        "visible": 56,
+        "detected": 46,
+        "negative": 19,
+        "fp": 0,
+        "recall": 0.8214285714285714,
+        "mean": 4.716927652991436,
+        "median": 2.23606797749979,
+        "p95": 6.082762530298219,
+        "catastrophic": {
+          "20": 1,
+          "50": 1,
+          "100": 1
+        }
+      },
+      "match13": {
+        "visible": 62,
+        "detected": 55,
+        "negative": 13,
+        "fp": 4,
+        "recall": 0.8870967741935484,
+        "mean": 4.00066835422475,
+        "median": 3.1622776601683795,
+        "p95": 9.110316729225934,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match14": {
+        "visible": 44,
+        "detected": 41,
+        "negative": 6,
+        "fp": 0,
+        "recall": 0.9318181818181818,
+        "mean": 8.95420427675781,
+        "median": 2.0,
+        "p95": 5.0,
+        "catastrophic": {
+          "20": 1,
+          "50": 1,
+          "100": 1
+        }
+      },
+      "match15": {
+        "visible": 43,
+        "detected": 37,
+        "negative": 7,
+        "fp": 0,
+        "recall": 0.8604651162790697,
+        "mean": 1.6537901242819382,
+        "median": 1.4142135623730951,
+        "p95": 3.032455532033675,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match16": {
+        "visible": 46,
+        "detected": 42,
+        "negative": 4,
+        "fp": 3,
+        "recall": 0.9130434782608695,
+        "mean": 22.456730216234757,
+        "median": 2.0,
+        "p95": 5.0562005722691055,
+        "catastrophic": {
+          "20": 1,
+          "50": 1,
+          "100": 1
+        }
+      },
+      "match17": {
+        "visible": 47,
+        "detected": 44,
+        "negative": 3,
+        "fp": 0,
+        "recall": 0.9361702127659575,
+        "mean": 2.1434850050920313,
+        "median": 2.0,
+        "p95": 4.1046397817750115,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match18": {
+        "visible": 22,
+        "detected": 16,
+        "negative": 3,
+        "fp": 0,
+        "recall": 0.7272727272727273,
+        "mean": 2.221299483754205,
+        "median": 2.23606797749979,
+        "p95": 3.978918334996188,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      },
+      "match19": {
+        "visible": 25,
+        "detected": 24,
+        "negative": 0,
+        "fp": 0,
+        "recall": 0.96,
+        "mean": 3.5378216446206117,
+        "median": 3.1622776601683795,
+        "p95": 6.614387722169195,
+        "catastrophic": {
+          "20": 0,
+          "50": 0,
+          "100": 0
+        }
+      }
+    }
+  },
+  "hard_negatives": {
+    "train": 4,
+    "dev": 3
+  },
+  "taxonomy": "All 7 remain UNKNOWN. Crops reviewed; objects visible are insufficient to prove causal categories.",
+  "artifacts": [
+    {
+      "path": "outputs\\vision\\specialist_v1\\A_official.json",
+      "sha256": "e9f3d6ed08c2cff01112e2cb1209a80026d549bbfb54fae2398b70866b796a4c"
+    },
+    {
+      "path": "outputs\\vision\\specialist_v1\\B_training.json",
+      "sha256": "052ce6c7beb8362cf33bc095d1ac2573dda481fde0215fbcc5ea7f83ce949a14"
+    },
+    {
+      "path": "outputs\\vision\\specialist_v1\\B_known_evaluation.json",
+      "sha256": "05b2b301afd42a9b4916734f086393ab2e94f91a97807d31d326574d69f02e3c"
+    },
+    {
+      "path": "outputs\\vision\\specialist_v1\\C_training.json",
+      "sha256": "fb1df4c9c7e2b3235fb12ef08220a868c982cefb28bc22d229acd0897e7045dc"
+    },
+    {
+      "path": "outputs\\vision\\specialist_v1\\C_known_evaluation.json",
+      "sha256": "d134a184eafe7e4c4ae470c9b4a78ff08e97f6f13058df22cdbc9104cdbeacd2"
+    },
+    {
+      "path": "outputs\\vision\\specialist_v1\\split.json",
+      "sha256": "b3ca335f4fd96244c7fa1e3caada233a18e1fcc191e04b11d31fdbc00076aefd"
+    },
+    {
+      "path": "outputs\\vision\\specialist_v1\\training_config.json",
+      "sha256": "ef00d21bf66136e1044eadae503e4c52595ab5320246db22ec436f5f042b2526"
+    },
+    {
+      "path": "outputs\\vision\\specialist_v1\\prepared_inputs.json",
+      "sha256": "3c6da053a8e87795916dc1c9c61b02420d64a1c0ac9e889cef6e322481f37098"
+    },
+    {
+      "path": "outputs\\vision\\specialist_v1\\hard_negative_train.json",
+      "sha256": "faabb43074f826e020cf8029b251ff24f2e2c94f06fa5bf9b64b5c2ad99339ce"
+    },
+    {
+      "path": "outputs\\vision\\specialist_v1\\hard_negative_dev.json",
+      "sha256": "0317a8103a5716cd42b4ebef00a684b812a9ea05b70c93c22077487597ef0598"
+    }
+  ]
+}
