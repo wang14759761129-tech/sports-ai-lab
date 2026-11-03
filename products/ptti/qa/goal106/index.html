@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PTTI GOAL106 · 单视频隔离 QA</title>
+<style>body{background:#090909;color:#eee;font:16px/1.6 system-ui;margin:24px auto;max-width:900px;padding:0 20px}a{color:#8ac6ff}button,select{font:inherit;padding:10px;margin:6px 8px 6px 0}iframe{display:block;width:640px;height:360px;border:0;max-width:none}#viewport{overflow:auto}label{display:block;margin:12px 0}small{color:#bbb}textarea{display:block;width:95%;height:90px}pre{white-space:pre-wrap}button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #8ac6ff}</style></head>
+<body><h1>单视频官方播放器实验</h1>
+<p>独立 QA · 不参与正式 Cinema 发布。视频 <code>0QgbtsBWZhk</code>；登记比赛 <code>pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun</code>。</p>
+<p>来源：YouTube / World Table Tennis（目录登记，当前画面与频道仍需人工核对）。点击加载会连接 YouTube，适用其条款与隐私政策；不请求私人账号权限。</p>
+<p><a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer">YouTube 条款</a> · <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google 隐私政策</a></p>
+<button id="load">加载官方播放器（不自动播放）</button><button id="stop">卸载播放器</button>
+<div id="viewport"></div><p id="status" role="status">NOT_TESTED：尚未加载。加载事件不证明画面或播放成功。</p>
+<p><a id="watch" href="https://www.youtube.com/watch?v=0QgbtsBWZhk" target="_blank" rel="noopener noreferrer">前往 YouTube 官方页面观看 ↗</a> <button id="copy">复制官方链接</button></p>
+<input id="url" aria-label="可手动复制的官方链接" readonly value="https://www.youtube.com/watch?v=0QgbtsBWZhk" size="58">
+<p>播放器固定 640×360，无覆盖层、不隐藏控件。请在桌面浏览器测试。窄屏可横向查看完整播放器，不把它缩成首页小卡片。</p>
+<h2>人工观察记录</h2><p>以下是人工填写，不是独立核验或 Native PASS。原始视频不保存；记录仅保留当前页内存，导出只含观察结果。</p>
+<div id="observations"></div><label>错误码、画面/时间推进及限制说明<textarea id="notes" maxlength="2000" placeholder="例如：150 禁止嵌入；或实际看到比赛画面，时间从…推进至…"></textarea></label>
+<button id="export">导出人工 QA JSON</button><pre id="result"></pre>
+<script type="module" src="/spike.js"></script></body></html>

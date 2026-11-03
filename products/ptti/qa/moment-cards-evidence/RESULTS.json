@@ -1,0 +1,63 @@
+{
+  "baseline": "dcf88aa3a43293bf356f21d15f75a3468ffe79d4",
+  "input_patch": {
+    "filename": "Moment Cards 补丁.patch",
+    "sha256": "3172fdfeb7a526a0371c66f4658f1dbe028bee2a672a46ba6b182ece88c3f28b"
+  },
+  "browser": {
+    "surface": "Windows Ego browser / existing Founder QA localhost service",
+    "space_id": 1,
+    "timestamp_utc": "2026-10-26T05:00:13Z",
+    "mode": "INTERNAL_FOUNDER_QA",
+    "observed_width": 1142,
+    "columns": 3,
+    "thumbnail_results": [
+      {
+        "video_id": "JTUWXpB-NVo",
+        "state": "LOADED",
+        "decoded_natural_width": 480
+      },
+      {
+        "video_id": "H77vNFk3neg",
+        "state": "LOADED",
+        "decoded_natural_width": 480
+      },
+      {
+        "video_id": "ekfCZiIEYi0",
+        "state": "LOADED",
+        "decoded_natural_width": 480
+      },
+      {
+        "video_id": "DTPNEl3-2b0",
+        "state": "LOADED",
+        "decoded_natural_width": 480
+      },
+      {
+        "video_id": "iQhVLkcGCFE",
+        "state": "LOADED",
+        "decoded_natural_width": 480
+      },
+      {
+        "video_id": "0QgbtsBWZhk",
+        "state": "LOADED",
+        "decoded_natural_width": 480
+      },
+      {
+        "video_id": "vYsJLPTEIaI",
+        "state": "LOADED",
+        "decoded_natural_width": 480
+      },
+      {
+        "video_id": "aFs7HJ0NX18",
+        "state": "LOADED",
+        "decoded_natural_width": 480
+      }
+    ],
+    "screenshot": "NOT_TAKEN_RESOURCE_STOP",
+    "moment_card_gui_flow": "BLOCKED_NOT_EXECUTED",
+    "runtime_guard": "OBSERVED_PROCESS_BUDGET_EXCEEDED",
+    "observed_browser_tree_bytes": 1427173376,
+    "budget_bytes": 1073741824,
+    "note": "Monitor stop and thumbnail observation were in one batch. No further GUI QA after receiving the stop; only the agent-owned page was closed. Existing user browser and QA services were not terminated."
+  }
+}
