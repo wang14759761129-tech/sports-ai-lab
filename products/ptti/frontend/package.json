@@ -1,0 +1,51 @@
+{
+  "name": "ptti",
+  "version": "0.2.0-dev",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "dev:founder-qa": "vite --mode founder-internal-qa --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "test:review": "node scripts/test-review-queue.mjs",
+    "test:score": "node scripts/test-score-time.mjs",
+    "test:score-observation": "node scripts/test-score-observation.mjs",
+    "test:official-theater": "node scripts/test-official-theater.mjs",
+    "test:feed": "node scripts/test-video-feed.mjs",
+    "test:moments": "node scripts/test-moment-cards.mjs",
+    "test:moment-backup": "node scripts/test-moment-backup.mjs",
+    "test:moment-view": "node scripts/test-moment-card-view.mjs",
+    "test:cinema-viewing": "node scripts/test-cinema-viewing.mjs",
+    "test:pro-lab": "node scripts/test-pro-lab-notes.mjs",
+    "test:pro-lab-view": "node scripts/test-pro-lab-view.mjs",
+    "test:favorite-persistence": "node scripts/test-favorite-persistence.mjs",
+    "test:goal99-story": "node scripts/test-goal99-story-favorites.mjs",
+    "test:youtube-thumbnail": "node scripts/test-youtube-thumbnail-runtime.mjs",
+    "test:youtube-metadata-poc": "node scripts/test-youtube-video-metadata.mjs",
+    "test:match-photo": "node scripts/test-match-photo.mjs",
+    "test:media-distribution": "node scripts/test-media-distribution.mjs",
+    "test:studio": "node scripts/test-dark-studio.mjs",
+    "test:fan-arena": "node scripts/test-fan-arena.mjs",
+    "test:fan-arena-storage": "node scripts/test-fan-arena-storage.mjs",
+    "test:grand-navigation": "node scripts/test-grand-navigation.mjs",
+    "test:founder-review": "node scripts/test-founder-review.mjs",
+    "test:native-qa-data-bundle": "node scripts/test-native-qa-data-bundle.mjs",
+    "test:foundation": "node scripts/test-foundation-contract.mjs",
+    "test:foundation-adapters": "node scripts/test-foundation-adapters.mjs",
+    "test:foundation-playback": "node scripts/test-playback-foundation-projection.mjs",
+    "test:m1a": "node scripts/test-m1a-integration.mjs",
+    "test:local-playback": "node scripts/test-local-playback.mjs",
+    "test:user-collection": "node scripts/test-user-collection-projection.mjs"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "recharts": "^3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0",
+    "vite": "7.3.7",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
+  }
+}

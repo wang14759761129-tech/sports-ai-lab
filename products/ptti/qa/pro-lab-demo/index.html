@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PTTI Pro Lab · Founder QA</title>
+<style>
+body{font-family:system-ui,sans-serif;background:#090a0c;color:#eee;max-width:1000px;margin:0 auto;padding:20px}button,input,textarea{font:inherit}button{padding:8px 14px;border-radius:7px;border:1px solid #333;background:#21252b;color:#eee;margin:4px;cursor:pointer}button:disabled{opacity:.5}label{display:block;margin:12px 0}input,textarea{box-sizing:border-box;width:100%;padding:9px;margin-top:4px;background:#16191e;color:#eee;border:1px solid #444;border-radius:7px}video{width:100%;max-height:540px;background:#000}.card{background:#15181d;border-radius:10px;padding:14px;margin:12px 0}.err{color:#ffaaa5}.ok{color:#a8e5c0}.tag{color:#9ec4ff;margin-right:8px}.warn{color:#f2d39b}
+</style></head><body>
+<h1>Pro Lab · 本机视频笔记</h1>
+<p>Founder QA 独立演示。选择你有权使用的本机训练视频；视频不上传，笔记只保存在当前浏览器，不写正式数据库。</p>
+<button id="back" type="button">返回 Cinema</button>
+<label>选择本机视频 <input type="file" id="file" accept="video/*"></label>
+<video id="video" controls preload="metadata"></video><p id="vname"></p>
+<button id="capture" type="button">暂停并记录当前时间点</button>
+<label>时间点 <input id="ts" placeholder="如 12:34"></label>
+<label>技战术标签 <input id="tags" placeholder="如 发球, 接发球, 第三板"></label>
+<label>观察备注 <textarea id="note" maxlength="500"></textarea></label>
+<p id="err" class="err" role="alert"></p><p id="status" class="ok" role="status"></p>
+<button id="save" type="button">保存笔记</button><button id="cancel" type="button">取消编辑</button><button id="export" type="button">导出 JSON</button>
+<section><h2>当前视频笔记</h2><div id="list"></div></section>
+<script type="module" src="./demo.mjs"></script></body></html>

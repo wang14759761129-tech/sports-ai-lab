@@ -1,0 +1,539 @@
+{
+  "phase": "verify",
+  "head_before": "8167457f03501b67b0b98a9400ca8bd57fb3ccb9",
+  "started_at": "2026-10-28T07:51:27.100383+00:00",
+  "guard_bytes": 2684354560,
+  "commands": [
+    {
+      "label": "npm-ci",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "ci"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3630120960,
+        "available_gib": 3.3808
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 6.566,
+      "log": "npm-ci.log",
+      "log_sha256": "f152a866b8eaa2e220d7b89cab12806086c78259207b8d1bd3d71099893c4c93",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3466838016,
+        "available_gib": 3.2287
+      },
+      "raw_log_sha256": "9d674f396b4d90e8fee1639ca031908b3aa941f9b516610ec7848ba7a6453ba4"
+    },
+    {
+      "label": "audit-after",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "audit",
+        "--json"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3466825728,
+        "available_gib": 3.2287
+      },
+      "status": "FAIL",
+      "exit_code": 1,
+      "seconds": 62.909,
+      "log": "audit-after.log",
+      "log_sha256": "eb51d701d9c6eff112b5b7efd5bb965e1665a6f654d75e9ddecb4ff0af02fa53",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3548364800,
+        "available_gib": 3.3047
+      },
+      "raw_log_sha256": "ddd0a45fe4d7c48bdfb9f0382e78e1ef0fc3ff21ca71e72c27b95739ffc1366c"
+    },
+    {
+      "label": "foundation",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:foundation"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3548368896,
+        "available_gib": 3.3047
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.455,
+      "log": "foundation.log",
+      "log_sha256": "98e9ce6a830161bd06800af54f9c6d4a848c5c9b90e4db1b07a09853e90bed9b",
+      "test_count": 14,
+      "memory_after": {
+        "available_bytes": 3538755584,
+        "available_gib": 3.2957
+      },
+      "raw_log_sha256": "70d5be27b07ec23e25cfb08bc51c01b0979b11cc722aedc3ea4575705fc13e14"
+    },
+    {
+      "label": "f3a-adapters",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:foundation-adapters"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3538792448,
+        "available_gib": 3.2958
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.459,
+      "log": "f3a-adapters.log",
+      "log_sha256": "e2c297df1f79e1c208a479f2ae70a37481efa677fb4fc894cd796b21e0d426ee",
+      "test_count": 10,
+      "memory_after": {
+        "available_bytes": 3533078528,
+        "available_gib": 3.2904
+      },
+      "raw_log_sha256": "a08c80f5b0beb53baf63e2de0f03be960876c3b8fa8f98c03aecf675a000fabd"
+    },
+    {
+      "label": "f3b-projection",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:foundation-playback"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3533086720,
+        "available_gib": 3.2904
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.441,
+      "log": "f3b-projection.log",
+      "log_sha256": "995eaa144da70a54e2770cce8661653fa984114bcb0468d17ccd389c879cc304",
+      "test_count": 14,
+      "memory_after": {
+        "available_bytes": 3533856768,
+        "available_gib": 3.2912
+      },
+      "raw_log_sha256": "f59412788d61cec30f95ec82f2eb44541097d988e7cad97d810806900b392e2b"
+    },
+    {
+      "label": "media-distribution",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:media-distribution"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3533864960,
+        "available_gib": 3.2912
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.488,
+      "log": "media-distribution.log",
+      "log_sha256": "c28b26d2f31c9352f227113e4afd436b08060ad4e72fd75815ffd252d9260d49",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3530043392,
+        "available_gib": 3.2876
+      },
+      "raw_log_sha256": "12098280923aa641190ee3b5fc72a47a5fe1c84bc736f9d1239b0626534f4329"
+    },
+    {
+      "label": "feed",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:feed"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3530047488,
+        "available_gib": 3.2876
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 1.127,
+      "log": "feed.log",
+      "log_sha256": "5f52a3440e80dd560852d58cb787d61642c9b23395618be3f7b4d82e43989b77",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3512934400,
+        "available_gib": 3.2717
+      },
+      "raw_log_sha256": "90deeec8fe9e727eb06cde570a17de684178310cf2199b54f5fec5719faa2f2f"
+    },
+    {
+      "label": "story",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:goal99-story"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3512938496,
+        "available_gib": 3.2717
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.442,
+      "log": "story.log",
+      "log_sha256": "88ebabbbc4f95a9fe07f3a7b0c8bc5b3ff6a4b67d1e30c2514f08016afea32f5",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3513016320,
+        "available_gib": 3.2718
+      },
+      "raw_log_sha256": "cbb0396e61eb73a5677e8606ecd9490b5e28f5edc965fdd28f884c21b35424d1"
+    },
+    {
+      "label": "favorites",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:favorite-persistence"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3513028608,
+        "available_gib": 3.2718
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.418,
+      "log": "favorites.log",
+      "log_sha256": "e20de4183fc5a53bbdae67145251b41e61e536be18284535e956c34c1332ab3f",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3516837888,
+        "available_gib": 3.2753
+      },
+      "raw_log_sha256": "4ef85b2e400966e2c94e203bdab2109f6a4b25ebde15df0b35e671652a351a93"
+    },
+    {
+      "label": "moments",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:moments"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3516911616,
+        "available_gib": 3.2754
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.446,
+      "log": "moments.log",
+      "log_sha256": "7e9483c2913a6bfe6358e9200e9849232d53db07becb2e7f83c8613c59efcdb9",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3507949568,
+        "available_gib": 3.267
+      },
+      "raw_log_sha256": "771559dfd6be95ec8cc6811a5b58536d0416277a969acb21f97507234910d9c9"
+    },
+    {
+      "label": "moment-backup",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:moment-backup"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3507953664,
+        "available_gib": 3.267
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.458,
+      "log": "moment-backup.log",
+      "log_sha256": "a584513efb7cc1a9c79f6add37516c795c0d9833b280bedd4b92281844829b9b",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3501428736,
+        "available_gib": 3.261
+      },
+      "raw_log_sha256": "edcd19da630ebbc14979f6c10587962c9a8cf2224bcac884c62626fbd5932742"
+    },
+    {
+      "label": "pro-lab",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:pro-lab"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3501436928,
+        "available_gib": 3.261
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.432,
+      "log": "pro-lab.log",
+      "log_sha256": "36ee93529fe4b9395593f47ffba70650e9cd0552bc19b47aa5f80085c3622e4e",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3500855296,
+        "available_gib": 3.2604
+      },
+      "raw_log_sha256": "d175d62907ba48533018c8c0982e273770cf2f756a5cf2fc6476429c742b3ce3"
+    },
+    {
+      "label": "arena",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:fan-arena"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3500867584,
+        "available_gib": 3.2604
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.439,
+      "log": "arena.log",
+      "log_sha256": "2966735d7bee1be82b18ec6cf24a5087973fe196ced49d55f49eb2a3495cb08a",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3482730496,
+        "available_gib": 3.2435
+      },
+      "raw_log_sha256": "8e784a12d1d3d535d40ec7e40775a6b710df32f572a66985d807a4fe4a2e5899"
+    },
+    {
+      "label": "arena-storage",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:fan-arena-storage"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3482738688,
+        "available_gib": 3.2436
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.462,
+      "log": "arena-storage.log",
+      "log_sha256": "568a68d62c3ba807a247140865f93f8bf24d95059a6dc81b23bf7efa055cb181",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3426963456,
+        "available_gib": 3.1916
+      },
+      "raw_log_sha256": "73e76287bc31f8cb29a24057345a4adf475e35dbee9a79c24c37af31b0faab99"
+    },
+    {
+      "label": "official-theater",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:official-theater"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3426975744,
+        "available_gib": 3.1916
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.474,
+      "log": "official-theater.log",
+      "log_sha256": "7d4564b95fc5974ba7460038337cd9aa103223de18a4fb3135232161665f0ee9",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3440484352,
+        "available_gib": 3.2042
+      },
+      "raw_log_sha256": "4b7046eb2fa5f218e78e52b84a338323c11d32c12365d97d2999c685f005ba93"
+    },
+    {
+      "label": "thumbnail-gate",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:youtube-thumbnail"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3440508928,
+        "available_gib": 3.2042
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.444,
+      "log": "thumbnail-gate.log",
+      "log_sha256": "bb8d7d96888367b2c6280e68a519c5bf9f9ddbc999e3147c92b43f2e9d2b2418",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3438010368,
+        "available_gib": 3.2019
+      },
+      "raw_log_sha256": "6086f3fc59b92e885c0b3edf03298a4d85cdcd66b67b3c006d2a82c37b3f8a88"
+    },
+    {
+      "label": "cinema-viewing",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "run",
+        "test:cinema-viewing"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3438022656,
+        "available_gib": 3.2019
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.452,
+      "log": "cinema-viewing.log",
+      "log_sha256": "c75cf533b522db8495924963e218950e6c5cae9ef94aba9b3407195094c0f827",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3435520000,
+        "available_gib": 3.1996
+      },
+      "raw_log_sha256": "78d6b9ef67a19df413da493c2d0a2611a115ed7aa095895c1197a9ad93b282be"
+    },
+    {
+      "label": "python-schema",
+      "argv": [
+        "<LOCAL_USER_ROOT>\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\python.exe",
+        "-m",
+        "unittest",
+        "products.ptti.tests.test_foundation_contract",
+        "-v"
+      ],
+      "cwd": ".",
+      "memory_before": {
+        "available_bytes": 3435638784,
+        "available_gib": 3.1997
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.355,
+      "log": "python-schema.log",
+      "log_sha256": "adcb3916c81679d84908a5ba5c8dd44db36ff58e23613d8b3f38c5fa7e62dfef",
+      "test_count": 11,
+      "memory_after": {
+        "available_bytes": 3427799040,
+        "available_gib": 3.1924
+      },
+      "raw_log_sha256": "3a9eb61a22efa1a25dbeb899c06d32c3d63fba473fb713a1503672ea8a354087"
+    },
+    {
+      "label": "playback-source-integration",
+      "argv": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "scripts/test-playback-foundation-source-integration.mjs",
+        "C:\\PTTI-Worktrees\\playback-moments-continue\\products\\ptti\\frontend\\src\\localPlayback.mjs"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3427803136,
+        "available_gib": 3.1924
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.072,
+      "log": "playback-source-integration.log",
+      "log_sha256": "c34a06e9f453a633151f967f1bdb180059bb6364a4aa1e11ba81905218feb7b9",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3436560384,
+        "available_gib": 3.2005
+      },
+      "raw_log_sha256": "be9e6ad6502ff7a1e97080c7ea229151c388e6f7618f8ee11281bd21ec4d17b2"
+    },
+    {
+      "label": "typescript-full",
+      "argv": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "node_modules/typescript/bin/tsc",
+        "-b",
+        "--pretty",
+        "false"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3436285952,
+        "available_gib": 3.2003
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 2.589,
+      "log": "typescript-full.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3403362304,
+        "available_gib": 3.1696
+      },
+      "raw_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "vite-production",
+      "argv": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3403378688,
+        "available_gib": 3.1696
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 3.972,
+      "log": "vite-production.log",
+      "log_sha256": "7ce1cabadaef828bb3006ec99a5e5b75122d6aa18b044eff66547c12cff798c1",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3545718784,
+        "available_gib": 3.3022
+      },
+      "raw_log_sha256": "cff470f203f4d487110c55e1d2751372b97ea4b29393d9b7ad89333d280e576b"
+    },
+    {
+      "label": "diff-check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": ".",
+      "memory_before": {
+        "available_bytes": 3545731072,
+        "available_gib": 3.3022
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.1,
+      "log": "diff-check.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3560755200,
+        "available_gib": 3.3162
+      },
+      "raw_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}
