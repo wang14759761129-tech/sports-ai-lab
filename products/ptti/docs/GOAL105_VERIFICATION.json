@@ -1,0 +1,20 @@
+{
+  "source_commit": "4d39b4257e69938c4674a0ec9fc37c3ae13c3a57",
+  "review_packet_sha256": "43b66d01950913f6d171c04c7f172f5106c72cfe3abad385101616e87bd69313",
+  "coverage_cli": "PASS_8_SOURCES_7_CANDIDATES_1_CAPTION_EXACT_0_DISTRIBUTION",
+  "coverage_negative_tests": "PASS",
+  "existing_media_distribution_tests": "PASS",
+  "typescript": "PASS",
+  "vite": "PASS",
+  "build_available_ram_gib": 3.76,
+  "web_artifact_media_gate": "PASS_ZERO_APPROVED_ASSETS",
+  "windows_real_input_staging_and_gate": "PASS_INTERNAL_GOAL105_FILES_EXCLUDED",
+  "public_manifest_and_runtime_source": "UNCHANGED",
+  "new_media_files_downloaded": 0,
+  "new_media_files_displayed": 0,
+  "new_browser_pixel_verification": "NOT_TESTED",
+  "windows_exe_build": "NOT_TESTED",
+  "native_gui": "NOT_TESTED",
+  "email_sent_by_this_run": false,
+  "mailbox_accessed_by_this_run": false
+}

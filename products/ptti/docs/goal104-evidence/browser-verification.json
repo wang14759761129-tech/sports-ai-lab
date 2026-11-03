@@ -1,0 +1,19 @@
+{
+  "scope": "ACTUAL_VIDEOFEED_WITH_READ_ONLY_CATALOG_FIXTURE_NO_BACKEND_OR_DATABASE",
+  "viewport": {
+    "width": 331,
+    "height": 637
+  },
+  "photo_id": "53034902256",
+  "video_id": "ekfCZiIEYi0",
+  "image_complete": true,
+  "natural_width": 1024,
+  "natural_height": 683,
+  "object_fit": "contain",
+  "photo_decode": "PASS",
+  "visible_credit_and_official_watch_link": "PASS",
+  "desktop_four_column_gui": "NOT_TESTED",
+  "native_windows_gui": "NOT_TESTED",
+  "external_video_playback_this_run": "NOT_TESTED",
+  "screenshot_sha256": "24406eb82f62f2bc8b85e060d2e46357a1c50b36bb3fc94e52a076042ccafc10"
+}
