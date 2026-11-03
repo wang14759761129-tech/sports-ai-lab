@@ -1,0 +1,31 @@
+{
+  "version": "0.1.6-fan-bb0a0c2",
+  "fan_commit": "bb0a0c2a5558ff9424e4d89f0eb0724cd77d5284",
+  "package": "<LOCAL_USER_ROOT>\\PTTI\\Candidates\\GOAL17\\0.1.6-fan-bb0a0c2",
+  "exe": "<LOCAL_USER_ROOT>\\PTTI\\Candidates\\GOAL17\\0.1.6-fan-bb0a0c2\\host\\PTTI-Desktop-Fan.exe",
+  "release_json_sha256": "7ae35d13aee3161d6533e937f1b88f4f26f5fdd60b81182a09f520c2a6f28adf",
+  "exe_sha256": "c24791e63cf6d4d28f365cc0afa0fabe3535b6033068b3a47f5a24028bdff623",
+  "file_count": 184,
+  "file_hash_verification": "PASS",
+  "web_static_build_sha256": "d0b145e6e33836dc34d74953b091f6ccbb832170446fdb25103493700b3e6624",
+  "san_dist_byte_equality": "PASS",
+  "ports_before": [
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 4183,
+      "OwningProcess": 28932
+    }
+  ],
+  "ports_after": [
+    {
+      "LocalAddress": "127.0.0.1",
+      "LocalPort": 4183,
+      "OwningProcess": 28932
+    }
+  ],
+  "protected_ports_unchanged": true,
+  "initial_free_gib": 3.1143417358398438,
+  "gui": "NOT_TESTED",
+  "native_bridge": "BLOCKED_PENDING_SELECTOR_APPROVAL",
+  "live_database_access": "NONE"
+}

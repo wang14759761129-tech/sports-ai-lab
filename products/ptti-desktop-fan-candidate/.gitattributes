@@ -1,0 +1,3 @@
+# Preserve the byte identity of the new Desktop release records on Windows.
+releases/0.1.5-fan-bb0a0c2/*.json -text whitespace=cr-at-eol
+releases/0.1.6-fan-bb0a0c2/*.json -text whitespace=cr-at-eol
