@@ -1,0 +1,19 @@
+{
+  "main_source_commit": "eb0a52af32eaaf26dfd39cf1ce5f321e24a1adac",
+  "contract_version": "ptti.match-library-index/0.1",
+  "view": "STRICT_PUBLIC",
+  "artifact_sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+  "schema_sha256": "4d10c5cee7b2ac5c8bb533c71887ddf88431976ebc2d2b055b8e8b6e0ca05415",
+  "counts": {
+    "matches": 5,
+    "sources": 15,
+    "stars": 8,
+    "human_verified_match_source_edges": 5,
+    "full_match_claims": 3,
+    "event_highlight_claims": 10,
+    "clip_claims": 0,
+    "unknown_content_claims": 2,
+    "playback_passes": 0
+  },
+  "projection_release": "GOAL15_MAIN_PUBLIC_PROJECTION/0.2"
+}

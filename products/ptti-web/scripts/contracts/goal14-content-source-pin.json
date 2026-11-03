@@ -1,0 +1,35 @@
+{
+  "main_requested_ancestor": "38005e341df10aa182ec3e223b28273a38764070",
+  "main_artifact_source_head": "e38a3ec3243f7d5e47381cdb5b77a78e5220e05b",
+  "contracts": {
+    "delivery": "ptti.fan-content-delivery/0.1",
+    "base": "ptti.fan-content-intelligence/0.1",
+    "mainPublicAdmission": "ptti.match-library-index/0.1",
+    "watchRouting": "ptti.watch-routing/0.1"
+  },
+  "mainPublicAdmission": {
+    "sourceCommit": "e38a3ec3243f7d5e47381cdb5b77a78e5220e05b",
+    "sourcePath": "products/ptti-integration/generated/goal14-main-admission/match-library-strict-public.json",
+    "schemaPath": "products/ptti-integration/contracts/match-library-index-v0.1.schema.json",
+    "candidateSchemaPath": "scripts/contracts/goal14-main-admission-match-library-index-v0.1.schema.json",
+    "candidateDataPath": "public/data/match-library-strict-public.json",
+    "expected": {
+      "matchId": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+      "sourceId": "video-source:youtube:0QgbtsBWZhk",
+      "athleteIds": ["athlete:121558", "athlete:135977"],
+      "counts": { "matches": 1, "sources": 1, "stars": 2 }
+    },
+    "sha256": {
+      "schemaBytes": "4d10c5cee7b2ac5c8bb533c71887ddf88431976ebc2d2b055b8e8b6e0ca05415",
+      "artifactBytes": "1e42763dadbb491b439939ee31d3473241f5efa243a1e7a2f3cc9d3f967013b2"
+    }
+  },
+  "sha256": {
+    "intelligenceSchema": "bec45b39cca5aa9c034f2d077a79ecfaf0fc65acfd2bab0e4b8ebcfd82b14d0e",
+    "deliverySchema": "e80445327b417082164fe90e3f23cb16f118dfedfa8349d2049eff9c132396a9",
+    "internalDatasetBytes": "1c18c4d3c0ccfdc056ce10c4b38db246d334747e3b02b23fc29f2cacc3065951",
+    "deliveryProjectionBytes": "534951c300e59fab24b69dc62612d1407b4972590e9a840abbb4d2345251d185",
+    "localizationCanonicalJson": "dcef91f1e317846453443a72581fc8c10931d91a194c11d490c4ddd1e0300df8",
+    "strictPublicBytes": "f82bb8491d2c3b98a432d6c9cc64f477e26d79a5e8ca6addd34e8a081c36de38"
+  }
+}
