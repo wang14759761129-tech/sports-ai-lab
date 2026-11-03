@@ -1,0 +1,111 @@
+{
+  "r4-common": {
+    "original_commit": "c6b0a94a3dbbb2306c3556e3d24a24a4faff8e60",
+    "new_commit": "417891107242d83ea3435b633e39f27725979f6e",
+    "new_tree": "a472a830b66ef533cdd21dd024cdd28db6e7831a",
+    "ref": "refs/heads/backup/r2-r4-common-20261028",
+    "source_files": 369,
+    "tree_files": 374,
+    "excluded": 230,
+    "screened_initial_commit": "16722b1b6a059ae627d6189a1a0a2fc12c0268f3"
+  },
+  "r4": {
+    "original_commit": "54d75007eb7dc63e33dd8ac419afc20cf7e2615c",
+    "new_commit": "a6497733ef609ba911c4e74f40b336c8412f910c",
+    "new_tree": "066ad8325af634c572a3e93a25c49035d2bbd04e",
+    "ref": "refs/heads/backup/r2-r4-20261028",
+    "source_files": 371,
+    "tree_files": 376,
+    "excluded": 231,
+    "screened_initial_commit": "94d2aa9f9bb547cd31978b13af39cfa59b54edee"
+  },
+  "r4-integrated": {
+    "original_commit": "3ec76c21b0023631f74a793f070c99207c603aa7",
+    "new_commit": "9f3cc8d4ecac448bf4e6fc3ea42efaf4ceae3bd7",
+    "new_tree": "bfe1a941e428935aaf45addcb89fc3dc34dc5e19",
+    "ref": "refs/heads/backup/r2-r4-integrated-20261028",
+    "source_files": 379,
+    "tree_files": 384,
+    "excluded": 231,
+    "screened_initial_commit": "e8aab12f41348db60ba85eee08d595c5f68a4cb2"
+  },
+  "foundation": {
+    "original_commit": "938c7ea46db5b12dd5f7bf8d95bb13e85094bf26",
+    "new_commit": "98a60f0bd3f479d50e9b09cc3960b65ca7a3cc65",
+    "new_tree": "8aff679ea8c7e89df3833d21996a463bb11cab06",
+    "ref": "refs/heads/backup/r2-foundation-20261028",
+    "source_files": 398,
+    "tree_files": 403,
+    "excluded": 233,
+    "screened_initial_commit": "9ec70109886891f35b892852c676d9418b175b84"
+  },
+  "f3a": {
+    "original_commit": "e0c0b952973568075b934aa44c00454c83cdcf1e",
+    "new_commit": "1466180e66e50fd1b6f47a71f17325d78c351c3c",
+    "new_tree": "45f0594c834aa223eb2e57f2469976c6a068a6d6",
+    "ref": "refs/heads/backup/r2-f3a-20261028",
+    "source_files": 399,
+    "tree_files": 404,
+    "excluded": 233,
+    "screened_initial_commit": "168c0bd0a4a71c44319a28107576699db85d8ae0"
+  },
+  "f3b": {
+    "original_commit": "8167457f03501b67b0b98a9400ca8bd57fb3ccb9",
+    "new_commit": "3175012d0fd11e1e2674e727f029dfc1ce9409e5",
+    "new_tree": "cf329a7939ce9871df1570c9def2a8272aadc97a",
+    "ref": "refs/heads/backup/r2-f3b-20261028",
+    "source_files": 404,
+    "tree_files": 409,
+    "excluded": 233,
+    "screened_initial_commit": "d95fe915f6bb5585dd6e813e259812eb111c19fd"
+  },
+  "f3b-gate": {
+    "original_commit": "c4bb5722025bb73ddcc0d21c039abefc8fd7c52d",
+    "new_commit": "59c171b592b72b47b9f3eb63f0b318b45d6e9007",
+    "new_tree": "2a38313ff0222890cc161dd192bea07e359754db",
+    "ref": "refs/heads/backup/r2-f3b-gate-20261028",
+    "source_files": 407,
+    "tree_files": 412,
+    "excluded": 287,
+    "screened_initial_commit": "58abefe63db7132a06e91d11fba2cacffd859032"
+  },
+  "f3c1": {
+    "original_commit": "ca238397ba580728d4af36d1870f84a9e4bb7fb8",
+    "new_commit": "819b935c3f8ffdfb52d048ce4a75f65b70668d60",
+    "new_tree": "3870d20e470ab91638283fdb17f2f406038432a2",
+    "ref": "refs/heads/backup/r2-f3c1-20261028",
+    "source_files": 410,
+    "tree_files": 415,
+    "excluded": 287,
+    "screened_initial_commit": "6c4f56cd2d855362b1dd6b3ecdd770ec549b865f"
+  },
+  "playback": {
+    "original_commit": "a9824180a87eb3a4b424ca35db136809bd7b4a73",
+    "new_commit": "7946ff5b4043d1d588ffc82221d41ad32c9330b6",
+    "new_tree": "a21a2c8aca134ff8c9bcf0c470f8fd35a2817399",
+    "ref": "refs/heads/backup/r2-playback-20261028",
+    "source_files": 386,
+    "tree_files": 391,
+    "excluded": 231,
+    "screened_initial_commit": "e337444178b5bee7002864334ae5c85290887791"
+  },
+  "san": {
+    "original_commit": "fc03395b78fbae0a12cb60a537712bba19c38b6b",
+    "new_commit": "9638675e7d8cb153f071be3ea01f85db68c99fa5",
+    "new_tree": "79f534f10fbb45abc9ac8f2b993941b9582a4290",
+    "ref": "refs/heads/backup/r2-san-20261028",
+    "source_files": 378,
+    "tree_files": 383,
+    "excluded": 230,
+    "screened_initial_commit": "f765fa727a4fdc7862f7d23d1f225be5f1a14bd8"
+  },
+  "backup-r1": {
+    "original_commit": "cce816519bb0083a8c63ed377ecfead33f8cad3e",
+    "new_commit": "edd621b8d80f80043539966fc75842505098ec4d",
+    "new_tree": "05f1969898b035a0116d2a1204d1366c8c56978d",
+    "ref": "refs/heads/backup/r2-backup-r1-20261028",
+    "source_files": 8,
+    "tree_files": 13,
+    "excluded": 601
+  }
+}
