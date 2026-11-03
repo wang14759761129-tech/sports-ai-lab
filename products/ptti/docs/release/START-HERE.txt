@@ -1,0 +1,10 @@
+PTTI 0.1.1 — 凯凯，先看这张就够啦 🏓
+
+1. 解压整个包，打开 PTTI/PTTI.exe；需要 Windows 10/11 x64 和 Edge WebView2 Runtime，不用 Python、Node、Git 或开发工具。
+2. 不要单独移动 exe：必须保留整个 PTTI 文件夹和 _internal。
+3. 首页点“加载合成示例”。这不是实际比赛，也不是研究结论。
+4. 点“导入比赛”，填比赛/球员名字、选 UTF-8 CSV、“校验并保存”。历史格式 player=A、opponent=B；合成 CSV 要勾选合成示例。
+5. 两种模板在 sample/，说明在 docs/CSV-TEMPLATE.md 和 DATA-FIELDS.md。不要把两种格式混在一起。
+6. “证据不足”不等于 0%：未知/不清楚不会被猜成战术值；数据足够也只是样本描述。
+7. 比赛页“导出 JSON/HTML”，选择位置。数据本地保存到 %LOCALAPPDATA%\PTTI\matches.db；重开后去比赛库找。
+8. 出错请截完整错误和出错页面，附 Windows 版本、docs/USER-FEEDBACK.md；有 startup-error.log 时附错误文本，不必发送私人比赛数据库。
