@@ -1,0 +1,15 @@
+{
+  "schema": "ptti.gex06.original-media/1",
+  "rights": "PTTI_ORIGINAL_SYNTHETIC",
+  "duration_seconds": 12,
+  "fps": 24,
+  "audio": false,
+  "public_match_id": null,
+  "files": {
+    "frame-12.webp": "b478c8537c2a499f32da82fba2942f9ac9ca3d2402e7fd87f67437d00da2c5e9",
+    "frame-156.webp": "ec06dbd002a6986166859ad1e60d35188b7db41223dac8546d184bb6fb119ce1",
+    "frame-228.webp": "ae3b8b3d64b57df9eb8fdce235d849c80f04b54de37586418ee74106bddfc8a8",
+    "frame-84.webp": "7518f3cf1ffb5a5c70c753dcc6f236b0a649fe991e63a0602164f21472b930ea",
+    "rally.mp4": "ef40114e749d48c3326a2786e523a3957e172d6c98fce158d30793d93bfb2507"
+  }
+}

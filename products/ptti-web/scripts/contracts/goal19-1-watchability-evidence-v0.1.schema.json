@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ptti.goal19.1-watchability-evidence/0.1",
+  "title": "PTTI Goal 19.1 Watchability Evidence Addendum",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "generated_at", "audience", "additive_only", "input_identity", "summary", "verification_definitions", "supplemental_event_page_fetches", "sources"],
+  "properties": {
+    "contract_version": { "const": "ptti.goal19.1-watchability-evidence/0.1" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "audience": { "const": "SAN_INTERNAL_REVIEW_ADDENDUM" },
+    "additive_only": { "const": true },
+    "input_identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["base_contract", "base_sha256", "goal17_1_delta_contract", "goal17_1_delta_sha256"],
+      "properties": {
+        "base_contract": { "type": "string" },
+        "base_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "goal17_1_delta_contract": { "type": "string" },
+        "goal17_1_delta_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "summary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_count", "unique_source_id_count", "unique_target_url_count", "source_match_link_count", "event_level_or_unlinked_count", "current_fetch_title_surfaced_count", "current_fetch_throttled_count", "current_fetch_not_attempted_count", "video_type_claim_counts", "match_link_baseline_counts", "external_system_browser_open_count", "direct_video_start_count", "complete_watch_count"],
+      "properties": { "source_count": { "const": 17 }, "unique_source_id_count": { "const": 17 }, "unique_target_url_count": { "const": 17 }, "source_match_link_count": { "type": "integer" }, "event_level_or_unlinked_count": { "type": "integer" }, "current_fetch_title_surfaced_count": { "type": "integer" }, "current_fetch_throttled_count": { "type": "integer" }, "current_fetch_not_attempted_count": { "type": "integer" }, "video_type_claim_counts": { "type": "object", "additionalProperties": { "type": "integer" } }, "match_link_baseline_counts": { "type": "object", "additionalProperties": { "type": "integer" } }, "external_system_browser_open_count": { "const": 0 }, "direct_video_start_count": { "const": 0 }, "complete_watch_count": { "const": 0 } }
+    },
+    "verification_definitions": { "type": "object", "additionalProperties": { "type": "string" } },
+    "supplemental_event_page_fetches": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["event_id", "url", "checked_on", "method", "status", "note"],
+        "properties": { "event_id": { "type": "string" }, "url": { "type": "string", "format": "uri" }, "checked_on": { "type": "string", "format": "date" }, "method": { "type": "string" }, "status": { "type": "string" }, "note": { "type": "string" } }
+      }
+    },
+    "sources": {
+      "type": "array", "minItems": 17, "maxItems": 17,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["source_id", "match_id", "official_target_url", "publisher", "publisher_identity_baseline", "source_identity_baseline", "match_link_baseline", "video_type_claim", "video_type_evidence", "claimed_full_match_completeness", "current_page_fetch", "verification_levels", "access", "source_recorded_at"],
+        "properties": {
+          "source_id": { "type": "string", "minLength": 1 },
+          "match_id": { "type": ["string", "null"] },
+          "official_target_url": { "type": "string", "format": "uri", "pattern": "^https://www\\.youtube\\.com/watch\\?v=" },
+          "publisher": { "type": ["string", "null"] },
+          "publisher_identity_baseline": { "type": "string" },
+          "source_identity_baseline": { "type": "string" },
+          "match_link_baseline": { "type": "string" },
+          "video_type_claim": { "enum": ["FULL_MATCH_TITLE_CLAIM", "EVENT_HIGHLIGHTS_TITLE_CLAIM", "MATCH_SPECIFIC_TYPE_UNKNOWN", "EVENT_LEVEL_OR_UNLINKED_TYPE_UNKNOWN"] },
+          "video_type_evidence": { "type": "string" },
+          "claimed_full_match_completeness": { "type": "string" },
+          "current_page_fetch": { "type": "object", "additionalProperties": { "type": ["string", "null"] } },
+          "verification_levels": { "type": "object", "additionalProperties": { "type": "string" } },
+          "access": { "type": "object", "additionalProperties": { "type": "string" } },
+          "source_recorded_at": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}
