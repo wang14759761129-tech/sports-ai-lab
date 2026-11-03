@@ -1,0 +1,51 @@
+import assert from 'node:assert/strict';
+import {mkdtempSync,mkdirSync,readFileSync,writeFileSync,rmSync,existsSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join,resolve} from 'node:path';
+import {loadMediaManifest,verifyMediaTree,artifactManifestName,validateManifest,mediaDistributionPlugin,sha256} from './mediaDistributionGate.mjs';
+const productionManifest=loadMediaManifest();
+// SIMULATED_ONLY denied bytes: original restricted photograph is intentionally absent.
+const original=Buffer.from('SIMULATED_ONLY withheld image fixture for hash gate');
+const fixtureHash=sha256(original);
+const manifest={...productionManifest,withheld_assets:productionManifest.withheld_assets.map(a=>({...a,media_sha256:fixtureHash}))};
+const founderQaBuildGate=mediaDistributionPlugin();
+assert.throws(()=>founderQaBuildGate.configResolved({root:process.cwd(),build:{outDir:'dist'},command:'build',mode:'founder-internal-qa'}),/INTERNAL QA mode cannot create a distributable build/,'Founder QA mode must not produce Web or Windows package artifacts');
+
+assert.equal(existsSync('public/media/editorial/wtt-53034902256.jpg'),false,'Review-only photo cannot live in Vite public');
+verifyMediaTree('public',{requireManifest:false});
+assert.equal(manifest.assets.length,0);
+const folder=mkdtempSync(join(tmpdir(),'ptti-distribution-'));
+function emitManifest(path,value=manifest){writeFileSync(join(path,artifactManifestName),JSON.stringify(value));}
+try{
+  const web=join(folder,'web');mkdirSync(web);writeFileSync(join(web,'index.html'),'<p>QA</p>');emitManifest(web);
+  assert.equal(verifyMediaTree(web,{manifest}).status,'PASS');
+  const missingArtifact=join(folder,'missing-artifact');
+  assert.throws(()=>verifyMediaTree(missingArtifact),error=>error.message===`MEDIA_DISTRIBUTION_GATE: artifact directory missing: ${resolve(missingArtifact)}`,
+    'Missing artifacts report their exact absolute path');
+  writeFileSync(join(web,'renamed.bin'),original);
+  assert.throws(()=>verifyMediaTree(web,{manifest}),/withheld image bytes/,'Renaming the pending JPEG cannot evade the gate');
+  rmSync(join(web,'renamed.bin'));
+  writeFileSync(join(web,'unlisted.jpg'),Buffer.from('SIMULATED_ONLY unlisted raster'));
+  assert.throws(()=>verifyMediaTree(web,{manifest}),/unlisted or altered image/);
+  rmSync(join(web,'unlisted.jpg'));
+  emitManifest(web,{...manifest,withheld_assets:[]});
+  assert.throws(()=>verifyMediaTree(web,{manifest}),/manifest differs/,'Artifact cannot silently erase the withheld list');emitManifest(web);
+  assert.throws(()=>validateManifest({...manifest,schema_version:'unknown'},'WEB'),/invalid policy/);
+  assert.throws(()=>validateManifest({...manifest,assets:[{distribution_permission:'UNKNOWN'}]},'WEB'),/permission/);
+  assert.throws(()=>validateManifest({...manifest,assets:[{distribution_permission:'ALLOWED',distribution_targets:['WEB']}]},'WINDOWS_DESKTOP'),/permission/,'Web permission is not Windows permission');
+  const pkg=join(folder,'windows'),dist=join(pkg,'_internal/frontend/dist');mkdirSync(dist,{recursive:true});emitManifest(dist);
+  const catalog=join(pkg,'_internal/data/professional');mkdirSync(catalog,{recursive:true});
+  writeFileSync(join(catalog,'public-match-cover-manifest.v0.2.json'),JSON.stringify(manifest));
+  assert.equal(verifyMediaTree(pkg,{manifest,target:'WINDOWS_DESKTOP',packageTree:true}).status,'PASS');
+  const wrongPkg=join(folder,'wrong-windows-layout'),wrongFrontend=join(wrongPkg,'frontend/dist');mkdirSync(wrongFrontend,{recursive:true});emitManifest(wrongFrontend);
+  assert.throws(()=>verifyMediaTree(wrongPkg,{manifest,target:'WINDOWS_DESKTOP',packageTree:true}),
+    error=>error.message===`MEDIA_DISTRIBUTION_GATE: packaged frontend manifest missing/ambiguous at expected absolute path: ${resolve(wrongPkg,'_internal','frontend','dist',artifactManifestName)}`,
+    'A frontend manifest under the wrong package root is rejected with the expected absolute location');
+  const history=join(catalog,'cover_review');mkdirSync(history,{recursive:true});
+  writeFileSync(join(history,'old-v0.1.json'),'{}');
+  assert.throws(()=>verifyMediaTree(pkg,{manifest,target:'WINDOWS_DESKTOP',packageTree:true}),/historical\/internal/);
+  rmSync(join(history,'old-v0.1.json'));
+  writeFileSync(join(pkg,'_internal','photo.dat'),original);
+  assert.throws(()=>verifyMediaTree(pkg,{manifest,target:'WINDOWS_DESKTOP',packageTree:true}),/withheld image bytes/,'Package-wide hash scan catches photo outside the frontend tree');
+  console.log('Media distribution: Web/Windows, withheld bytes, renamed assets, unlisted raster, version/scope, manifest drift and historical audit exclusion PASS');
+}finally{rmSync(folder,{recursive:true,force:true});}
