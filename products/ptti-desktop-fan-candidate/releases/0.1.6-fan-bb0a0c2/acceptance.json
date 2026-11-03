@@ -1,0 +1,111 @@
+{
+  "schema": "ptti.goal17.3.desktop-acceptance.v1",
+  "version": "0.1.6-fan-bb0a0c2",
+  "status": "INDEPENDENT_FAN_CANDIDATE_VERIFIED",
+  "san_commit": "bb0a0c2a5558ff9424e4d89f0eb0724cd77d5284",
+  "release_json_sha256": "7ae35d13aee3161d6533e937f1b88f4f26f5fdd60b81182a09f520c2a6f28adf",
+  "host_exe_sha256": "c24791e63cf6d4d28f365cc0afa0fabe3535b6033068b3a47f5a24028bdff623",
+  "web_static_build_sha256": "d0b145e6e33836dc34d74953b091f6ccbb832170446fdb25103493700b3e6624",
+  "payload_file_count": 184,
+  "payload_verification": "PASS",
+  "web_build_equal_to_san_dist": "PASS",
+  "media_evidence_version": "0.1.5-fan-bb0a0c2",
+  "media_byte_equality_015_to_016": "PASS",
+  "media_profiles": [
+    {
+      "athlete": "Wang Chuqin",
+      "status": "GUI_PASS",
+      "screenshot": "C:\\PTTI-Worktrees\\ptti-goal16-desktop-candidate\\products\\ptti-desktop-fan-candidate\\artifacts\\GOAL17.3\\screenshots\\03-wang-chuqin.png",
+      "screenshot_sha256": "31b5381398793646503dcdb6adad714bfa3403d650ac87fac48af77c6ab5d84d"
+    },
+    {
+      "athlete": "Felix Lebrun",
+      "status": "GUI_PASS",
+      "screenshot": "C:\\PTTI-Worktrees\\ptti-goal16-desktop-candidate\\products\\ptti-desktop-fan-candidate\\artifacts\\GOAL17.3\\screenshots\\04-felix-context.png",
+      "screenshot_sha256": "5f63d0bb3166d513dfc5d8bd278a63d1b1db2a8d0869612e060271efc313e018"
+    },
+    {
+      "athlete": "Sun Yingsha",
+      "status": "GUI_PASS",
+      "screenshot": "C:\\PTTI-Worktrees\\ptti-goal16-desktop-candidate\\products\\ptti-desktop-fan-candidate\\artifacts\\GOAL17.3\\screenshots\\05-sun-yingsha-native-resolution.png",
+      "screenshot_sha256": "4e2ff34328213184f3fa27b71c9e4b0b099eb79cb7f2219f87bd06929ae06a2d"
+    },
+    {
+      "athlete": "Tomokazu Harimoto",
+      "status": "GUI_PASS",
+      "screenshot": "C:\\PTTI-Worktrees\\ptti-goal16-desktop-candidate\\products\\ptti-desktop-fan-candidate\\artifacts\\GOAL17.3\\screenshots\\06-harimoto.png",
+      "screenshot_sha256": "26ac93d77e49f6d9dd5e08b6f5600e6f0e1ec1bb9ae9ea645277ce3c7547cebd"
+    },
+    {
+      "athlete": "Wang Manyu",
+      "status": "GUI_PASS",
+      "screenshot": "C:\\PTTI-Worktrees\\ptti-goal16-desktop-candidate\\products\\ptti-desktop-fan-candidate\\artifacts\\GOAL17.3\\screenshots\\07-wang-manyu.png",
+      "screenshot_sha256": "647d4602826dc52cbcbc8e1e2c510c1e3a9f31094d2313f4a2763393960c7433"
+    },
+    {
+      "athlete": "Liang Jingkun",
+      "status": "GUI_PASS",
+      "screenshot": "C:\\PTTI-Worktrees\\ptti-goal16-desktop-candidate\\products\\ptti-desktop-fan-candidate\\artifacts\\GOAL17.3\\screenshots\\08-liang-jingkun.png",
+      "screenshot_sha256": "94712156553c80a57eacc041b3f0687bec1623895009b6f7b19af12eba3d355c"
+    }
+  ],
+  "gui": {
+    "016_home_and_7_matches": "PASS",
+    "17_source_total_display": "PASS",
+    "all_17_sources_individually_opened": "NOT_TESTED",
+    "doha_duda_internal_route": "PASS https://www.youtube.com/watch?v=ywX9mUJ8NtI",
+    "doha_jang_internal_route": "PASS https://www.youtube.com/watch?v=Kbhf47vb3eE",
+    "external_browser_launch": "NOT_TESTED",
+    "external_playback": "NOT_TESTED",
+    "default_and_maximized_render": "PASS",
+    "narrow_window_resize": "NOT_TESTED",
+    "scroll_navigation_return": "PASS",
+    "json_export_015": "FAIL: pywebview ALLOW_DOWNLOADS default false cancelled the Blob download",
+    "json_export_016": "PASS: native save dialog and actual 601-byte JSON file",
+    "json_import_gui": "NOT_TESTED",
+    "actual_export_parse_roundtrip": "PASS",
+    "same_version_normal_close_reopen": "PASS",
+    "cross_015_016_qa_storage": "PASS"
+  },
+  "qa_data": {
+    "profile": "%TEMP%\\PTTI-GOAL16-DesktopFan-QA\\Port-4202\\WebView2",
+    "saved_matches": 1,
+    "followed_athletes": 1,
+    "fan_notes": 1,
+    "backup_contract": "ptti.fan-local-data/2",
+    "export_sha256": "f1f841a9e00d6a59debfecef164997da29ae3d4cc0a9070158f2dc72db017540",
+    "production_data_migration": "NONE"
+  },
+  "native": {
+    "entry": "PRESENT",
+    "roundtrip": "BLOCKED_PENDING_SELECTOR_APPROVAL",
+    "formal_selector_sha256": "277069C5BD9BC4D95780EDC38BF1866978B48DECA03B4E0ADAA6A84E4C3BF2B1",
+    "selector_modified": false,
+    "live_database_access": "NONE"
+  },
+  "runtime": {
+    "port": 4202,
+    "pid": 7208,
+    "instances": 1,
+    "4183_pid": 28932,
+    "4174": "NO_LISTENER_AT_INITIAL_AND_FINAL_CHECK",
+    "4200_4201": "initially listening; no listener after user resource-release interval; agent did not stop them"
+  },
+  "retained_goal16_packages": {
+    "0.1.3-fan-072c57a": {
+      "file_count": 175,
+      "manifest_sha256": "7c8c52fe910796332cecd5ea27b3aa3b85e40757fba5d2c41e96713bfb87c87f",
+      "status": "PASS"
+    },
+    "0.1.4-fan-072c57a": {
+      "file_count": 175,
+      "manifest_sha256": "ffd47565db68482542afd543e74a751f5ee08aee3e57960ee6dfc4a34cee8e32",
+      "status": "PASS"
+    }
+  },
+  "limitations": [
+    "The six photo screenshots were captured in 0.1.5; 0.1.6 only changes the desktop download setting and uses identical Web bytes.",
+    "Attribution is present and wraps, but the inherited small font is a usability limitation.",
+    "No production activation, Native playback or third-party playback claim."
+  ]
+}
