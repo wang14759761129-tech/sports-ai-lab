@@ -1,0 +1,98 @@
+[
+  {
+    "schema_version": "ptti.foundation/0.1", "record_id": "fixture:match-record-1", "kind": "MatchIdentity",
+    "identity": {"match_id": "fixture:match-1", "source_id": null, "video_asset_id": null}, "timeline_anchor": null,
+    "provenance": {"origin": "MOCK", "verification": "SYNTHETIC_ONLY", "evidence_refs": [], "inference": null},
+    "identity_status": "UNKNOWN", "official_record_url": null, "event_name": "Synthetic contract fixture", "event_year": null,
+    "discipline": "UNKNOWN", "participant_ids": []
+  },
+  {
+    "schema_version": "ptti.foundation/0.1", "record_id": "fixture:source-record-1", "kind": "MediaSource",
+    "identity": {"match_id": "fixture:match-1", "source_id": "fixture:source:local-1", "video_asset_id": null}, "timeline_anchor": null,
+    "provenance": {"origin": "MOCK", "verification": "SYNTHETIC_ONLY", "evidence_refs": [], "inference": null},
+    "provider": "LOCAL_LIBRARY", "source_status": "REVIEW_REQUIRED", "source_url": null,
+    "provider_video_id": null, "publisher_id": null
+  },
+  {
+    "schema_version": "ptti.foundation/0.1", "record_id": "fixture:asset-record-1", "kind": "VideoAsset",
+    "identity": {"match_id": "fixture:match-1", "source_id": "fixture:source:local-1", "video_asset_id": "fixture:asset:local-1"}, "timeline_anchor": null,
+    "provenance": {"origin": "MOCK", "verification": "SYNTHETIC_ONLY", "evidence_refs": [], "inference": null},
+    "asset_kind": "SYNTHETIC_DEMO", "identity_method": "FILE_METADATA_V1", "identity_value": "fixture-file:v1:demo",
+    "duration_ms": 60000, "availability": "UNKNOWN"
+  },
+  {
+    "schema_version": "ptti.foundation/0.1", "record_id": "fixture:playback-record-1", "kind": "PlaybackState",
+    "identity": {"match_id": "fixture:match-1", "source_id": "fixture:source:local-1", "video_asset_id": "fixture:asset:local-1"}, "timeline_anchor": null,
+    "provenance": {"origin": "MOCK", "verification": "SYNTHETIC_ONLY", "evidence_refs": [], "inference": null},
+    "route": "LOCAL_HTML_VIDEO", "observation": "NOT_TESTED", "observed_at": null,
+    "provider_embeddable": null, "embed_permission": "UNKNOWN", "rights_evidence_record_id": null
+  },
+  {
+    "schema_version": "ptti.foundation/0.1", "record_id": "fixture:moment-record-1", "kind": "Moment",
+    "identity": {"match_id": "fixture:match-1", "source_id": "fixture:source:local-1", "video_asset_id": "fixture:asset:local-1"},
+    "timeline_anchor": {"video_asset_id": "fixture:asset:local-1", "timestamp_ms": 12000, "end_ms": null, "time_basis": "USER_ENTERED_TIME"},
+    "provenance": {"origin": "USER_AUTHORED", "verification": "USER_CONFIRMED", "evidence_refs": [], "inference": null},
+    "moment_id": "fixture:moment-1", "title": "Synthetic user note", "note": "Contract fixture only", "tags": ["fixture"], "author_type": "USER"
+  },
+  {
+    "schema_version": "ptti.foundation/0.1", "record_id": "fixture:rally-record-1", "kind": "Rally",
+    "identity": {"match_id": "fixture:match-1", "source_id": "fixture:source:local-1", "video_asset_id": "fixture:asset:local-1"},
+    "timeline_anchor": {"video_asset_id": "fixture:asset:local-1", "timestamp_ms": 10000, "end_ms": 12000, "time_basis": "USER_MARKED_PLAYHEAD"},
+    "provenance": {"origin": "USER_AUTHORED", "verification": "NOT_INDEPENDENTLY_VERIFIED", "evidence_refs": [], "inference": null},
+    "rally_id": "fixture:rally-1", "verification_status": "REVIEW_REQUIRED", "note": "Synthetic interval"
+  },
+  {
+    "schema_version": "ptti.foundation/0.1", "record_id": "fixture:point-event-record-1", "kind": "PointEvent",
+    "identity": {"match_id": null, "source_id": null, "video_asset_id": null}, "timeline_anchor": null,
+    "provenance": {"origin": "SIMULATED_ONLY", "verification": "SYNTHETIC_ONLY", "evidence_refs": [], "inference": null},
+    "point_id": "fixture:sim-point-1", "event_scope": "SIMULATED_SEQUENCE", "simulation_id": "fixture:simulation-1", "sequence_index": 1,
+    "player_a_id": "SIM_A", "player_b_id": "SIM_B", "winner_id": "SIM_A", "score_a_before": 0, "score_b_before": 0
+  },
+  {
+    "schema_version": "ptti.foundation/0.1", "record_id": "fixture:prediction-record-1", "kind": "Prediction",
+    "identity": {"match_id": null, "source_id": null, "video_asset_id": null}, "timeline_anchor": null,
+    "provenance": {"origin": "SIMULATED_ONLY", "verification": "SYNTHETIC_ONLY", "evidence_refs": [], "inference": null},
+    "prediction_id": "fixture:prediction-1", "target_point_event_id": "fixture:point-event-record-1", "simulation_id": "fixture:simulation-1",
+    "prediction_type": "NEXT_POINT", "choice": "SIM_A", "status": "RESOLVED", "correct": true
+  },
+  {
+    "schema_version": "ptti.foundation/0.1", "record_id": "fixture:pose-record-1", "kind": "PoseEvidence",
+    "identity": {"match_id": "fixture:match-1", "source_id": "fixture:source:local-1", "video_asset_id": "fixture:asset:local-1"},
+    "timeline_anchor": {"video_asset_id": "fixture:asset:local-1", "timestamp_ms": 1000, "end_ms": null, "time_basis": "SOURCE_FRAME_ESTIMATE"},
+    "provenance": {
+      "origin": "MODEL_INFERENCE", "verification": "REVIEW_REQUIRED", "evidence_refs": [],
+      "inference": {"model_id": "fixture-pose-model", "model_version": "fixture-0", "input_refs": [{"reference_type": "RECORD", "reference_id": "fixture:asset-record-1", "relationship": "source video asset", "observed_at": null}], "confidence": null, "confidence_status": "UNAVAILABLE", "config_sha256": null}
+    },
+    "evidence_id": "fixture:pose-1", "coordinate_space": "NORMALIZED_IMAGE", "frame_times_ms": [1000, 1050], "evidence_status": "CANDIDATE"
+  },
+  {
+    "schema_version": "ptti.foundation/0.1", "record_id": "fixture:coach-record-1", "kind": "CoachAnnotation",
+    "identity": {"match_id": "fixture:match-1", "source_id": null, "video_asset_id": null}, "timeline_anchor": null,
+    "provenance": {"origin": "USER_AUTHORED", "verification": "USER_CONFIRMED", "evidence_refs": [], "inference": null},
+    "annotation_id": "fixture:coach-note-1", "scope": "GENERAL", "text": "Synthetic fixture note", "tags": ["fixture"], "related_point_event_id": null
+  },
+  {
+    "schema_version": "ptti.foundation/0.1", "record_id": "fixture:collection-record-1", "kind": "UserCollection",
+    "identity": {"match_id": null, "source_id": null, "video_asset_id": null}, "timeline_anchor": null,
+    "provenance": {"origin": "MOCK", "verification": "SYNTHETIC_ONLY", "evidence_refs": [], "inference": null},
+    "collection_id": "fixture:collection-1", "name": "Synthetic fixture list", "collection_kind": "CURATED", "storage_owner": "STATIC_CATALOG",
+    "item_refs": [{"record_kind": "MatchIdentity", "record_id": "fixture:match-record-1"}, {"record_kind": "VideoAsset", "record_id": "fixture:asset-record-1"}]
+  },
+  {
+    "schema_version": "ptti.foundation/0.1", "record_id": "fixture:rights-record-1", "kind": "RightsEvidence",
+    "identity": {"match_id": "fixture:match-1", "source_id": "fixture:source:local-1", "video_asset_id": "fixture:asset:local-1"}, "timeline_anchor": null,
+    "provenance": {"origin": "MOCK", "verification": "SYNTHETIC_ONLY", "evidence_refs": [], "inference": null},
+    "rights_id": "fixture:rights-1", "subject_kind": "MEDIA_SOURCE", "subject_record_id": "fixture:source-record-1", "reviewed_use_case": "Contract fixture only",
+    "permissions": {
+      "remote_display": {"status": "UNKNOWN", "evidence_refs": [], "valid_until": null},
+      "web_display": {"status": "UNKNOWN", "evidence_refs": [], "valid_until": null},
+      "native_display": {"status": "UNKNOWN", "evidence_refs": [], "valid_until": null},
+      "package_distribution": {"status": "UNKNOWN", "evidence_refs": [], "valid_until": null},
+      "embed": {"status": "UNKNOWN", "evidence_refs": [], "valid_until": null},
+      "download": {"status": "UNKNOWN", "evidence_refs": [], "valid_until": null},
+      "edit": {"status": "UNKNOWN", "evidence_refs": [], "valid_until": null},
+      "analysis": {"status": "UNKNOWN", "evidence_refs": [], "valid_until": null},
+      "commercial_use": {"status": "UNKNOWN", "evidence_refs": [], "valid_until": null}
+    }
+  }
+]
