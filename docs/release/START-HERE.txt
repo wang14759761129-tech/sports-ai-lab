@@ -1,0 +1,10 @@
+PTTI v0.1.0 — 凯凯，先看这张就够啦 🏓
+
+1. 解压整个压缩包，双击 PTTI 文件夹里的 PTTI.exe。
+2. 点 Load sample match，可以看一场明确标记为“合成示例”的比赛。
+3. 导入自己的比赛：点 New / import match，填写名字、球员和比赛信息，选 CSV，然后点 Validate & save。报错时先改 CSV；警告表示数据不完整。
+4. 模板在 sample/synthetic.csv；字段说明在 docs/CSV-TEMPLATE.md。示例不是实际比赛数据。
+5. 比赛保存在你电脑的 %LOCALAPPDATA%\PTTI\matches.db；关掉再打开，去 Match library 找比赛。
+6. 在比赛页点 Export JSON 或 Export HTML，选择保存位置。HTML 可以用浏览器打开或打印。
+7. 打不开时，把完整报错截图、Windows 版本发回来；如果有 %LOCALAPPDATA%\PTTI\startup-error.log，也把错误文本发回来。需要 Windows 的 Edge WebView2 Runtime；不用装 Python、Node 或开发工具。
+8. 不要单独复制 PTTI.exe，必须保留整个 PTTI 文件夹（包括 _internal）。
