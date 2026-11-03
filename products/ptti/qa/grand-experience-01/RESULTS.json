@@ -1,0 +1,85 @@
+{
+  "schema": "ptti.qa-results/0.1",
+  "audience": "INTERNAL_FOUNDER_QA_ONLY",
+  "date": "2026-10-26 Asia/Shanghai",
+  "baseline": "30834c478d6bd37a696feb301b5d1bc802482c99",
+  "checkpoint": "checkpoint/grand-experience-01-30834c4",
+  "navigation_commit": "7122c2b94b1422fbdb64b5252646686516e89b49",
+  "entry": "http://127.0.0.1:5173/",
+  "browser": "Existing Windows Ego Lite Chromium QA page, existing Vite and isolated backend reused",
+  "navigation": {
+    "spaces": ["Cinema","Moment Cards","Pro Lab","Fan Arena"],
+    "active_count": 1,
+    "single_click_switch": "PASS",
+    "keyboard_arrow_then_enter": "PASS: Moment Cards -> Pro Lab",
+    "draft_retention": "PASS: unsaved Moment title and 12:34; unsaved Pro Lab tags/note survive space switches",
+    "mounted_instances": {"moments":1,"pro_lab":1,"arena":1},
+    "video_identity_retained": "PASS: exact same video element and selected synthetic file after switching",
+    "inactive_video_pause": {"status":"PASS","time_seconds":2.9158,"paused":true,"ended":false},
+    "cinema_return": {"query":"王楚钦","category":"男单","saved_scroll":350,"restored_scroll":350},
+    "legacy_entries": "PASS: retained inside compact 快捷入口",
+    "initial_optional_module_requests": 0
+  },
+  "responsive": [
+    {"width":1440,"wall_columns":4,"nav_columns":4,"horizontal_overflow":false},
+    {"width":768,"wall_columns":2,"nav_columns":4,"horizontal_overflow":false},
+    {"width":390,"wall_columns":1,"nav_columns":2,"horizontal_overflow":false}
+  ],
+  "visual_observations": {
+    "sticky_navigation_top_px":54,
+    "reduced_motion":{"enabled":true,"nav_transition_duration":"0s"},
+    "game_point":{"score":"10:9","phase":"GAME_POINT","accent":"rgb(217, 79, 86)"},
+    "deuce":{"score":"10:10","phase":"DEUCE","accent":"rgb(212, 176, 122)"},
+    "pixel_screenshot":"NOT_TESTED_THIS_SPRINT: system capture did not expose the existing Ego/PTTI window; known CDP screenshot timeout was not retried",
+    "founder_visual_approval":"PENDING"
+  },
+  "defects_fixed": {
+    "cached_thumbnail_race": "Reproduced: complete=true and naturalWidth=480, but cover state remained LOADING. Removed the post-load reset effect; image/source identity now keys the small image component.",
+    "cached_thumbnail_regression": [{"pass":0,"loaded":8},{"pass":1,"loaded":8},{"pass":2,"loaded":8}],
+    "catalog_failure_isolation": "PASS: blocked catalog request still leaves four-space nav, Pro Lab and Arena usable",
+    "catalog_recovery": "PASS: retry restores 9 cards without remounting the Arena node",
+    "workspace_chunk_failure": "PASS: blocked Arena module shows recovery message, other spaces remain usable; blocks cleared and app reloaded",
+    "reload_warning": "Explicit confirmation before reloading a failed workspace because unsaved drafts may be lost"
+  },
+  "watch_evidence": {
+    "thumbnail_decode": "PASS: all 8 registered YouTube covers actually decoded in Founder QA; Bilibili retains separate fallback",
+    "target_url": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+    "official_page_open": "PASS: exact target opened; title FULL MATCH | Wang Chuqin vs Felix Lebrun | MS Final | #ChinaSmash 2025 - YouTube",
+    "observed_content": "Sponsored pre-roll ad; not evidence of match-content playback",
+    "match_content_playback": "BLOCKED: observed browser tree 1963524096 bytes exceeded the existing 1536 MiB medium budget; agent-created watch tab closed and playback QA stopped",
+    "platform_bypass": false,
+    "zero_q_in_app_iframe_count": 0
+  },
+  "data_preservation": {
+    "moment_store_sha256_unchanged":"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "pro_lab_store_sha256_unchanged":"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "arena_prior_history_records":3,
+    "arena_history_preserved":true,
+    "arena_current_game":"Advanced this existing SIMULATED_ONLY QA game from 0:0 to 10:10 to verify the new phase presentation; no new predictions or history deletion",
+    "story_match":"pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+    "story_card_favorites_list":"PASS: all saved=true, list has one QA favorite",
+    "database":"Existing service diagnostics confirmed system-temp QA DB; regression tests used a separate explicit temporary DB",
+    "user_video":"Only an original generated SIMULATED_ONLY test pattern used; no private video accessed"
+  },
+  "checks": {
+    "node_required_suites":17,
+    "node_required_result":"PASS; affected Feed/navigation/permissions suites rerun after final fixes",
+    "sqlite_api":"1 passed in 25.48s",
+    "typescript":"PASS",
+    "vite":"PASS",
+    "media_distribution":"PASS: approvedAssets=0",
+    "git_diff_check":"PASS"
+  },
+  "build": {
+    "main_js_before_bytes":495071,
+    "main_js_bytes":497782,
+    "main_js_delta_bytes":2711,
+    "main_js_sha256":"bec0adf44052bde1535c8dbcbfc3e3b39043c3d37dd9b6643ec2a99ad205d4c5",
+    "css_bytes":63558,
+    "css_sha256":"e3ae626461999b6e99c17823e550c166ef8c8686936a8b54bbad372132212f39",
+    "warning_limit_modified":false,
+    "optional_workspaces":"still separate lazy JS chunks"
+  },
+  "not_tested":["Native EXE","formal desktop integration","match footage playback this sprint","pixel screenshot approval"],
+  "formal_release":"NOT_PERFORMED; original R4, Launcher, user DB, Journal and media untouched"
+}

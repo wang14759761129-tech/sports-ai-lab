@@ -1,0 +1,475 @@
+{
+  "result": "PASS",
+  "scope": "All final changed tracked/untracked text deliverables, including logs. Manual full review of fixed-source excluded tests and the added Python tools; pattern scan is not a general security certification.",
+  "findings": [],
+  "self_excluded_from_hash_list": true,
+  "binary_media_credentials_or_databases_included": false,
+  "supplemental_test_patches": "Preserved externally with exact SHA256 in recovery-final/recovery.json; no upload.",
+  "files": [
+    {
+      "path": "products/ptti/docs/GOAL-F3B-GATE-REPORT.md",
+      "bytes": 12497,
+      "sha256": "93bddcb6185853f933f28e9dadf709ff82d07f92ee006b405ff092c0766db639",
+      "working_tree_sha256": "93bddcb6185853f933f28e9dadf709ff82d07f92ee006b405ff092c0766db639",
+      "working_tree_bytes": 12497,
+      "git_blob": "b009bb3511e390216ceda407a98f298044eaebfd"
+    },
+    {
+      "path": "products/ptti/frontend/package-lock.json",
+      "bytes": 53602,
+      "sha256": "31acba8e243a06fcbbce4a38c7bd2039eafcdd53db60b7481f67b2b79e0e4943",
+      "working_tree_sha256": "096754e7e101047fbcb16392fe25aadd9de1463e9da3165dc65e355712492e4a",
+      "working_tree_bytes": 55240,
+      "git_blob": "cbb6401199ebeadd50e4e7893b8d5bfd0cdda59d"
+    },
+    {
+      "path": "products/ptti/frontend/package.json",
+      "bytes": 2270,
+      "sha256": "2e03e8c8313455355c8f02a3041c4dab6e3289998414b6d7b2cb3fdb225042f3",
+      "working_tree_sha256": "42ab0b6f1af04a552b3a14f20c011041696d0113fbaaa6a5520c689873885451",
+      "working_tree_bytes": 2318,
+      "git_blob": "aa04d34ce931a4682667840443d946d52e766d19"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/.gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "working_tree_sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "working_tree_bytes": 8,
+      "git_blob": "fa1385d99a319b43c06f5309d1aae9fdd3adea46"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/.gitignore",
+      "bytes": 20,
+      "sha256": "dc4593f4066e40bd760ed5b010d6cae323bdac9dd29b175443708ae975c4d66a",
+      "working_tree_sha256": "dc4593f4066e40bd760ed5b010d6cae323bdac9dd29b175443708ae975c4d66a",
+      "working_tree_bytes": 20,
+      "git_blob": "a89ab7e3939be9433c55e397167934e9c1a5e590"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/build-artifacts.json",
+      "bytes": 3574,
+      "sha256": "f980829bb38fee87c367538eba63f21863fcf58da17515b819f279065012ce53",
+      "working_tree_sha256": "f980829bb38fee87c367538eba63f21863fcf58da17515b819f279065012ce53",
+      "working_tree_bytes": 3574,
+      "git_blob": "13c3a34ebf43d55aa0201ae9b8eea4f05688734e"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/environment.json",
+      "bytes": 575,
+      "sha256": "ed8b590284fec4475647e16c9b3d47119fbd04edef7a6fe5d308304a3e2c38ff",
+      "working_tree_sha256": "ed8b590284fec4475647e16c9b3d47119fbd04edef7a6fe5d308304a3e2c38ff",
+      "working_tree_bytes": 575,
+      "git_blob": "68fe0392f81dba15ab9290f5e4387cf166823ac0"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/evidence-sanitization.json",
+      "bytes": 243,
+      "sha256": "af58a93d5f0a4751742102a48b80cf618a3daa841967d9123e0fd1434a748cc0",
+      "working_tree_sha256": "af58a93d5f0a4751742102a48b80cf618a3daa841967d9123e0fd1434a748cc0",
+      "working_tree_bytes": 243,
+      "git_blob": "09c8f70ac51ba24925f69f18b6a37ea9a6f7db8f"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/f3a-f3b-not-synced.csv",
+      "bytes": 2234,
+      "sha256": "9ed51978c707f64272ddce0c8b101446c840ad12cbaceb794038cb5b52f0e211",
+      "working_tree_sha256": "9ed51978c707f64272ddce0c8b101446c840ad12cbaceb794038cb5b52f0e211",
+      "working_tree_bytes": 2234,
+      "git_blob": "d87042de8250b5c79a4ff5a05969b05fd6670a32"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/final-state-check.json",
+      "bytes": 1184,
+      "sha256": "f648eef10103232b3892dfc5196982ed0b5fa675120fad79384980bae3fa9fcd",
+      "working_tree_sha256": "f648eef10103232b3892dfc5196982ed0b5fa675120fad79384980bae3fa9fcd",
+      "working_tree_bytes": 1184,
+      "git_blob": "b7aeb2538364eb675a5b92414dd25bc4fc5b7278"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/final-tool-check/tools.json",
+      "bytes": 1032,
+      "sha256": "c64741ffb77e57a51177e6fafd58ec781fafa8095933caeb1d83fbd5d087856d",
+      "working_tree_sha256": "c64741ffb77e57a51177e6fafd58ec781fafa8095933caeb1d83fbd5d087856d",
+      "working_tree_bytes": 1032,
+      "git_blob": "6625481ffe123813e2b176cbad2f4cc1919943e7"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/final-tool-check/verification-tools.log",
+      "bytes": 1025,
+      "sha256": "3a282a76a7fb36561ecc881575c13fbcc01f548d902a8b46a289650dd6b9d723",
+      "working_tree_sha256": "3a282a76a7fb36561ecc881575c13fbcc01f548d902a8b46a289650dd6b9d723",
+      "working_tree_bytes": 1025,
+      "git_blob": "912c032c58d9a8e15ac3e18f3059d0a7ef20756b"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/gate-summary.json",
+      "bytes": 3315,
+      "sha256": "ae63c79d81ab49ed69de8fab0a96e644cdf7bec08ebaeec1ec93dbd18f08f753",
+      "working_tree_sha256": "ae63c79d81ab49ed69de8fab0a96e644cdf7bec08ebaeec1ec93dbd18f08f753",
+      "working_tree_bytes": 3315,
+      "git_blob": "007010183f72f789ae51235af8cba6b520970a45"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/recovery-final/main-files.csv",
+      "bytes": 87698,
+      "sha256": "fc47cd2fb3b51f2068afcffcd4ab28c426d51ced5d0674b4257a6553c9ef8865",
+      "working_tree_sha256": "fc47cd2fb3b51f2068afcffcd4ab28c426d51ced5d0674b4257a6553c9ef8865",
+      "working_tree_bytes": 87698,
+      "git_blob": "b266cb7eb42ad8cfbd6e1d4a0003127666ba6cd7"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/recovery-final/playback-files.csv",
+      "bytes": 85971,
+      "sha256": "46bc9b11b2ab3f5dd3a7e62fc2f2892d421c9ef05e1a0235eb21995f5937ec79",
+      "working_tree_sha256": "46bc9b11b2ab3f5dd3a7e62fc2f2892d421c9ef05e1a0235eb21995f5937ec79",
+      "working_tree_bytes": 85971,
+      "git_blob": "12fc176c9a749fff44d1ba0e60bc2664df6dca44"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/recovery-final/recovery.json",
+      "bytes": 14314,
+      "sha256": "a38c33040593403d3a3e55e4a0a8f8c1104eca95721d910e37dc3ec29b95c787",
+      "working_tree_sha256": "a38c33040593403d3a3e55e4a0a8f8c1104eca95721d910e37dc3ec29b95c787",
+      "working_tree_bytes": 14314,
+      "git_blob": "2057c434d4e440973ddcef5dbeab283fc767485c"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/recovery-final/san-files.csv",
+      "bytes": 84804,
+      "sha256": "4bd6170f489710918c5a1ea72eece3905f9e76275fa2729b67a4bbb143ae2f51",
+      "working_tree_sha256": "4bd6170f489710918c5a1ea72eece3905f9e76275fa2729b67a4bbb143ae2f51",
+      "working_tree_bytes": 84804,
+      "git_blob": "47b74e6a25b86490a229b846b3c23abefbf72c84"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/recovery-verified/recovery.json",
+      "bytes": 2411,
+      "sha256": "5684390b0a983f497b175b53cdef1afcef56d7473b6c44716f08f842bab7470c",
+      "working_tree_sha256": "5684390b0a983f497b175b53cdef1afcef56d7473b6c44716f08f842bab7470c",
+      "working_tree_bytes": 2411,
+      "git_blob": "2b9a8bb9ddefd2309fc84305956746174f56e33c"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/recovery/recovery.json",
+      "bytes": 245,
+      "sha256": "6b962d4f650e6c770f8a6186cec705a8852c9c1eef8408ebad88b4b2a8a33187",
+      "working_tree_sha256": "6b962d4f650e6c770f8a6186cec705a8852c9c1eef8408ebad88b4b2a8a33187",
+      "working_tree_bytes": 245,
+      "git_blob": "b3f2efba1c6ab30b80641e156eb0058f926cc120"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/source-states.json",
+      "bytes": 1109,
+      "sha256": "ffc4522c5f1fb133421a2f1fad6fc83493ab6023f728f81bf6af615eb977ae0d",
+      "working_tree_sha256": "ffc4522c5f1fb133421a2f1fad6fc83493ab6023f728f81bf6af615eb977ae0d",
+      "working_tree_bytes": 1109,
+      "git_blob": "0ea464adbcdc3b3bab8c985e0b74ca5a60eec1b7"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification-tools-final/tools.json",
+      "bytes": 1032,
+      "sha256": "2b1910504c20cf806e1d901ee27d7bc6e6647598c7ca21c239c2cd6da428601a",
+      "working_tree_sha256": "2b1910504c20cf806e1d901ee27d7bc6e6647598c7ca21c239c2cd6da428601a",
+      "working_tree_bytes": 1032,
+      "git_blob": "2a079bb1f786ac9ec729893a2d9e52c5742950e3"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification-tools-final/verification-tools.log",
+      "bytes": 1025,
+      "sha256": "e4a0c378458cc67a430f798841d467e833a2b027a7e168efd0201034e4182f02",
+      "working_tree_sha256": "e4a0c378458cc67a430f798841d467e833a2b027a7e168efd0201034e4182f02",
+      "working_tree_bytes": 1025,
+      "git_blob": "bd3133dada1bd59ab36f09b78d864372fae8feef"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/arena-storage.log",
+      "bytes": 171,
+      "sha256": "568a68d62c3ba807a247140865f93f8bf24d95059a6dc81b23bf7efa055cb181",
+      "working_tree_sha256": "568a68d62c3ba807a247140865f93f8bf24d95059a6dc81b23bf7efa055cb181",
+      "working_tree_bytes": 171,
+      "git_blob": "ecd2bb46e465c6d0f6d1c19b66fd33394e5820d1"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/arena.log",
+      "bytes": 167,
+      "sha256": "2966735d7bee1be82b18ec6cf24a5087973fe196ced49d55f49eb2a3495cb08a",
+      "working_tree_sha256": "2966735d7bee1be82b18ec6cf24a5087973fe196ced49d55f49eb2a3495cb08a",
+      "working_tree_bytes": 167,
+      "git_blob": "d59f2ea98fef828bfb87be36cc4437592819df43"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/artifact.json",
+      "bytes": 933,
+      "sha256": "4125776a9e75f6440e2662747fb763a51a52d0a7c3ada30e43a30594ba5e4893",
+      "working_tree_sha256": "4125776a9e75f6440e2662747fb763a51a52d0a7c3ada30e43a30594ba5e4893",
+      "working_tree_bytes": 933,
+      "git_blob": "ef66999ca4fcb326328abbdb648d608ad0fbd9ae"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/audit-after.log",
+      "bytes": 519,
+      "sha256": "eb51d701d9c6eff112b5b7efd5bb965e1665a6f654d75e9ddecb4ff0af02fa53",
+      "working_tree_sha256": "eb51d701d9c6eff112b5b7efd5bb965e1665a6f654d75e9ddecb4ff0af02fa53",
+      "working_tree_bytes": 519,
+      "git_blob": "4c85500ebe36c40df23a144c2a32947a4005d576"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/audit-before.log",
+      "bytes": 3118,
+      "sha256": "26dee72ae957aa23724806dadf5a4fcbca5bfbc3f13c8e90a11970897f224464",
+      "working_tree_sha256": "26dee72ae957aa23724806dadf5a4fcbca5bfbc3f13c8e90a11970897f224464",
+      "working_tree_bytes": 3118,
+      "git_blob": "ea8243180af05b35c59e25a26849bf5234743907"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/audit-confirmed.log",
+      "bytes": 363,
+      "sha256": "8d9ba77224af1b372e8740bf9d04e3a29f3482610979208a16d969a80dd08c8c",
+      "working_tree_sha256": "8d9ba77224af1b372e8740bf9d04e3a29f3482610979208a16d969a80dd08c8c",
+      "working_tree_bytes": 363,
+      "git_blob": "209a78b705bcd29b3c4dd8e37e2894c611d28cc5"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/audit.json",
+      "bytes": 1059,
+      "sha256": "46278e600ba86e4b97836568a44753a2aa39125b2d9cc9ca94bfe60c14c2d87e",
+      "working_tree_sha256": "46278e600ba86e4b97836568a44753a2aa39125b2d9cc9ca94bfe60c14c2d87e",
+      "working_tree_bytes": 1059,
+      "git_blob": "a6f71b7a52d93313cb021df0a8e9a573e3d8d595"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/baseline.json",
+      "bytes": 895,
+      "sha256": "0fc02231d6a24ccf7c2b935abf739d817b06189ad2a322d132f73524bd141dd6",
+      "working_tree_sha256": "0fc02231d6a24ccf7c2b935abf739d817b06189ad2a322d132f73524bd141dd6",
+      "working_tree_bytes": 895,
+      "git_blob": "c270a43b2f2e467b0e3fc1cb5cfe6c6854420a75"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/built-media-gate.log",
+      "bytes": 52,
+      "sha256": "5bd1f17e4aeb9c6f815756806cf7977dbf45141819dd46a9bc57613174726b1a",
+      "working_tree_sha256": "5bd1f17e4aeb9c6f815756806cf7977dbf45141819dd46a9bc57613174726b1a",
+      "working_tree_bytes": 52,
+      "git_blob": "4d7ffa42f4aacb536b9213ecf48ad632b0625876"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/cinema-viewing.log",
+      "bytes": 202,
+      "sha256": "c75cf533b522db8495924963e218950e6c5cae9ef94aba9b3407195094c0f827",
+      "working_tree_sha256": "c75cf533b522db8495924963e218950e6c5cae9ef94aba9b3407195094c0f827",
+      "working_tree_bytes": 202,
+      "git_blob": "3474d42fa943fa88ee84a3c5d4cda776c9588211"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/diff-check.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_bytes": 0,
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/f3a-adapters.log",
+      "bytes": 1170,
+      "sha256": "e2c297df1f79e1c208a479f2ae70a37481efa677fb4fc894cd796b21e0d426ee",
+      "working_tree_sha256": "e2c297df1f79e1c208a479f2ae70a37481efa677fb4fc894cd796b21e0d426ee",
+      "working_tree_bytes": 1170,
+      "git_blob": "78fb88b89ce22b9ada7f0497c0863ffef0cb218f"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/f3b-projection.log",
+      "bytes": 1618,
+      "sha256": "995eaa144da70a54e2770cce8661653fa984114bcb0468d17ccd389c879cc304",
+      "working_tree_sha256": "995eaa144da70a54e2770cce8661653fa984114bcb0468d17ccd389c879cc304",
+      "working_tree_bytes": 1618,
+      "git_blob": "07784d4b672f912c14d458d860fe754aef026d06"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/favorites.log",
+      "bytes": 138,
+      "sha256": "e20de4183fc5a53bbdae67145251b41e61e536be18284535e956c34c1332ab3f",
+      "working_tree_sha256": "e20de4183fc5a53bbdae67145251b41e61e536be18284535e956c34c1332ab3f",
+      "working_tree_bytes": 138,
+      "git_blob": "76d2637d32a8a1eee97b4da5001c0fc9a316db6a"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/feed.log",
+      "bytes": 122,
+      "sha256": "5f52a3440e80dd560852d58cb787d61642c9b23395618be3f7b4d82e43989b77",
+      "working_tree_sha256": "5f52a3440e80dd560852d58cb787d61642c9b23395618be3f7b4d82e43989b77",
+      "working_tree_bytes": 122,
+      "git_blob": "6af98262566c051007214dab48b29e1096a239bf"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/foundation.log",
+      "bytes": 1436,
+      "sha256": "98e9ce6a830161bd06800af54f9c6d4a848c5c9b90e4db1b07a09853e90bed9b",
+      "working_tree_sha256": "98e9ce6a830161bd06800af54f9c6d4a848c5c9b90e4db1b07a09853e90bed9b",
+      "working_tree_bytes": 1436,
+      "git_blob": "692aaeeca4ce84b66404990343ac5d2df2303220"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/media-distribution.log",
+      "bytes": 234,
+      "sha256": "c28b26d2f31c9352f227113e4afd436b08060ad4e72fd75815ffd252d9260d49",
+      "working_tree_sha256": "c28b26d2f31c9352f227113e4afd436b08060ad4e72fd75815ffd252d9260d49",
+      "working_tree_bytes": 234,
+      "git_blob": "48c7068c1106b08f701ad181992f5184821434e3"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/moment-backup.log",
+      "bytes": 184,
+      "sha256": "a584513efb7cc1a9c79f6add37516c795c0d9833b280bedd4b92281844829b9b",
+      "working_tree_sha256": "a584513efb7cc1a9c79f6add37516c795c0d9833b280bedd4b92281844829b9b",
+      "working_tree_bytes": 184,
+      "git_blob": "8568354e649e224a0e16c1e4df226bd930b3b330"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/moments.log",
+      "bytes": 164,
+      "sha256": "7e9483c2913a6bfe6358e9200e9849232d53db07becb2e7f83c8613c59efcdb9",
+      "working_tree_sha256": "7e9483c2913a6bfe6358e9200e9849232d53db07becb2e7f83c8613c59efcdb9",
+      "working_tree_bytes": 164,
+      "git_blob": "bf50a50fd6aeb175694116191d4bc1853a492928"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/npm-ci.log",
+      "bytes": 140,
+      "sha256": "f152a866b8eaa2e220d7b89cab12806086c78259207b8d1bd3d71099893c4c93",
+      "working_tree_sha256": "f152a866b8eaa2e220d7b89cab12806086c78259207b8d1bd3d71099893c4c93",
+      "working_tree_bytes": 140,
+      "git_blob": "9a16ddf3a94509b2a61e828dfadd90d4a0f612ff"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/official-theater.log",
+      "bytes": 191,
+      "sha256": "7d4564b95fc5974ba7460038337cd9aa103223de18a4fb3135232161665f0ee9",
+      "working_tree_sha256": "7d4564b95fc5974ba7460038337cd9aa103223de18a4fb3135232161665f0ee9",
+      "working_tree_bytes": 191,
+      "git_blob": "46f3ce0ff19ee14c3d6facd75872c867bb0e9973"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/playback-source-integration.log",
+      "bytes": 139,
+      "sha256": "c34a06e9f453a633151f967f1bdb180059bb6364a4aa1e11ba81905218feb7b9",
+      "working_tree_sha256": "c34a06e9f453a633151f967f1bdb180059bb6364a4aa1e11ba81905218feb7b9",
+      "working_tree_bytes": 139,
+      "git_blob": "7497a4ffe1a9d1072c440046dbb7b57c358d714c"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/pro-lab.log",
+      "bytes": 199,
+      "sha256": "36ee93529fe4b9395593f47ffba70650e9cd0552bc19b47aa5f80085c3622e4e",
+      "working_tree_sha256": "36ee93529fe4b9395593f47ffba70650e9cd0552bc19b47aa5f80085c3622e4e",
+      "working_tree_bytes": 199,
+      "git_blob": "7a90a75d65abad489f24b4a288fc2102e9de904a"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/python-schema.log",
+      "bytes": 2196,
+      "sha256": "adcb3916c81679d84908a5ba5c8dd44db36ff58e23613d8b3f38c5fa7e62dfef",
+      "working_tree_sha256": "adcb3916c81679d84908a5ba5c8dd44db36ff58e23613d8b3f38c5fa7e62dfef",
+      "working_tree_bytes": 2196,
+      "git_blob": "234b32e0f671c8e4e7b2365ecdf74a16d0a43a52"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/story.log",
+      "bytes": 124,
+      "sha256": "88ebabbbc4f95a9fe07f3a7b0c8bc5b3ff6a4b67d1e30c2514f08016afea32f5",
+      "working_tree_sha256": "88ebabbbc4f95a9fe07f3a7b0c8bc5b3ff6a4b67d1e30c2514f08016afea32f5",
+      "working_tree_bytes": 124,
+      "git_blob": "c2ef702c8cab07446a46522091b86df84f560b57"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/thumbnail-gate.log",
+      "bytes": 205,
+      "sha256": "bb8d7d96888367b2c6280e68a519c5bf9f9ddbc999e3147c92b43f2e9d2b2418",
+      "working_tree_sha256": "bb8d7d96888367b2c6280e68a519c5bf9f9ddbc999e3147c92b43f2e9d2b2418",
+      "working_tree_bytes": 205,
+      "git_blob": "54438f357d22ef4e42a13b952f3ccdcadb744de1"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/tools.json",
+      "bytes": 1034,
+      "sha256": "e61739e431e09d160352b6705459c754e406511fe58adb939ece833bd439b1f3",
+      "working_tree_sha256": "e61739e431e09d160352b6705459c754e406511fe58adb939ece833bd439b1f3",
+      "working_tree_bytes": 1034,
+      "git_blob": "b381f4a1b64f5229afd45208093acbe17479d3e4"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/typescript-full.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "working_tree_bytes": 0,
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/upgrade.json",
+      "bytes": 1011,
+      "sha256": "be06735c99dfb585aa97e3ad17e1477c20b5c12a01ddadb4a97aac44ed72cb5b",
+      "working_tree_sha256": "be06735c99dfb585aa97e3ad17e1477c20b5c12a01ddadb4a97aac44ed72cb5b",
+      "working_tree_bytes": 1011,
+      "git_blob": "fcbda4e42d9df994ba8f2371d992b858f3a0974b"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/verification-tools.log",
+      "bytes": 1025,
+      "sha256": "349c8ba9d45291f43cafd9f414dde781961ae1914ec894471ae7408799dced13",
+      "working_tree_sha256": "349c8ba9d45291f43cafd9f414dde781961ae1914ec894471ae7408799dced13",
+      "working_tree_bytes": 1025,
+      "git_blob": "6854758e92502bee80f0862f80af30dd095c96d6"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/verify.json",
+      "bytes": 16152,
+      "sha256": "1b7043332ab9ee52c1fadf1d6adf50835bdac726f18b66fbdc0b1d160ee66b5f",
+      "working_tree_sha256": "1b7043332ab9ee52c1fadf1d6adf50835bdac726f18b66fbdc0b1d160ee66b5f",
+      "working_tree_bytes": 16152,
+      "git_blob": "534656f86d8f10a689e2951c3b5eeaa98f9596f8"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/vite-patch-lock.log",
+      "bytes": 129,
+      "sha256": "13fa619310327317205ba30b2e3ec6840311c0da9c4b85503844d1fd57a00ef3",
+      "working_tree_sha256": "13fa619310327317205ba30b2e3ec6840311c0da9c4b85503844d1fd57a00ef3",
+      "working_tree_bytes": 129,
+      "git_blob": "08692fce81479167f722baf5d317d9e8b8c7e540"
+    },
+    {
+      "path": "products/ptti/qa/f3b-gate/verification/vite-production.log",
+      "bytes": 1803,
+      "sha256": "7ce1cabadaef828bb3006ec99a5e5b75122d6aa18b044eff66547c12cff798c1",
+      "working_tree_sha256": "7ce1cabadaef828bb3006ec99a5e5b75122d6aa18b044eff66547c12cff798c1",
+      "working_tree_bytes": 1803,
+      "git_blob": "5b4add9ac81a27f394904b45f3f08b4d6a85ccf6"
+    },
+    {
+      "path": "products/ptti/scripts/audit_f3b_recovery.py",
+      "bytes": 13085,
+      "sha256": "16069bf0c7144401446444d1e199fd52f9299802eb718b4b00b3bba7afe54190",
+      "working_tree_sha256": "16069bf0c7144401446444d1e199fd52f9299802eb718b4b00b3bba7afe54190",
+      "working_tree_bytes": 13085,
+      "git_blob": "0c13143e80f9e29479b50944dae6b3a2c4ebaadf"
+    },
+    {
+      "path": "products/ptti/scripts/verify_f3b_gate.py",
+      "bytes": 7348,
+      "sha256": "8081fb477e624f9e749fb6418ece7c99d0c3d369f54d9fc7780a668f1b84344a",
+      "working_tree_sha256": "8081fb477e624f9e749fb6418ece7c99d0c3d369f54d9fc7780a668f1b84344a",
+      "working_tree_bytes": 7348,
+      "git_blob": "18d469c6524048f018f4133660efdbf1ee5b7266"
+    },
+    {
+      "path": "products/ptti/tests/test_f3b_gate_verification.py",
+      "bytes": 3162,
+      "sha256": "9aed100da8513975c7e0b8ac326f9d2de9f4f4cdf70f9104865a0ead8d9bb22f",
+      "working_tree_sha256": "9aed100da8513975c7e0b8ac326f9d2de9f4f4cdf70f9104865a0ead8d9bb22f",
+      "working_tree_bytes": 3162,
+      "git_blob": "007a30bd833957ee1eb3bc8d619c88402806360a"
+    }
+  ],
+  "hash_scope": "sha256 and bytes identify indexed/committed Git bytes; working_tree_sha256 and working_tree_bytes identify Windows file bytes. The manifest excludes itself."
+}

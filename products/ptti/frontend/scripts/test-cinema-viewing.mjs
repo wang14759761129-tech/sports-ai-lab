@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {describeWatchFailure,loadFeedView,mergeFeedView,saveFeedView} from '../src/cinemaViewing.mjs';
+
+const memory=new Map();
+const store={getItem:key=>memory.get(key)??null,setItem:(key,value)=>memory.set(key,value)};
+assert.equal(saveFeedView(store,{athlete:'athlete-1',event:'WTT China Smash',query:'王楚钦'}),true);
+assert.deepEqual(loadFeedView(store),{athlete:'athlete-1',event:'WTT China Smash',query:'王楚钦'});
+const saved=loadFeedView(store);
+assert.deepEqual(mergeFeedView(saved,{athlete:'',event:undefined}),{athlete:'',event:'WTT China Smash',query:'王楚钦'},'an explicit clear is preserved while missing values restore');
+assert.equal(saveFeedView(store,{query:''}),true,'clearing search persists an explicit empty query');
+assert.equal(loadFeedView(store).query,'');
+assert.equal(saveFeedView(undefined,{query:'x'}),false,'unavailable session storage does not report success');
+assert.equal(loadFeedView({getItem:()=>'{broken'}),null);
+assert.equal(describeWatchFailure({watchUrl:null,failedWatchUrl:null}).kind,'UNAVAILABLE');
+assert.equal(describeWatchFailure({watchUrl:'https://youtube.com/watch?v=0QgbtsBWZhk',failedWatchUrl:'https://youtube.com/watch?v=0QgbtsBWZhk'}).canCopy,true);
+
+const feed=readFileSync(new URL('../src/VideoFeed.tsx',import.meta.url),'utf8');
+const app=readFileSync(new URL('../src/main.tsx',import.meta.url),'utf8');
+assert.ok(feed.includes("lazy(()=>import('./ProLab'))"),'Pro Lab loads on demand in the current Cinema component');
+assert.ok(feed.includes("switchSpace('pro-lab')"),'Cinema exposes Pro Lab through the shared navigation');
+assert.ok(feed.includes("const returnToWall=()=>switchSpace('cinema')")&&feed.includes("hidden={space!=='pro-lab'}"),'Pro Lab returns through the same mounted Cinema state');
+assert.ok(feed.includes('feedContext().scroll||0'),'Cinema restores the saved scroll position');
+assert.ok(feed.includes('onClick={event=>openOfficialOnDesktop(event,v.watchUrl!)}'),'official card watch action remains wired');
+assert.ok(feed.includes('onRetryWatch={retryOfficialOnDesktop}'),'failed official opens expose a distinct retry path');
+assert.ok(feed.includes('aria-label={`前往官方页面观看：'),'watch action has accessible keyboard label');
+assert.ok(feed.includes('重新检查来源'),'unavailable source exposes retry');
+assert.ok(app.includes('useState(initialFeedQuery)'),'search query is initialized synchronously before child state');
+assert.ok(app.includes('saveFeedView(window.sessionStorage,{query:value})'),'search changes are saved in session');
+console.log('Cinema viewing/session: query and filter initialization, explicit clear, Pro Lab return state and official watch entry PASS');
