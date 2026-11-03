@@ -1,0 +1,32 @@
+{
+  "status": "REAL_VIDEO_VISUALIZATION_EXPERIMENT_COMPLETE",
+  "version": "0.30.8",
+  "code_commit": "2c261cf98f2d412b7f87f6052b21b24019f09a96",
+  "license": "MIT",
+  "clip_source": "Extended OpenTTGames TRAIN game_1",
+  "source_sha256": "1297b3db91f2e3e160337643695dff07eabf9785ea2d88c2f7b59687ba511148",
+  "clip_sha256": "97aa383494ddea46e2081cc1945d37ec2f194b21edaab7ea40140d63c7d7d41a",
+  "start_seconds": 0.0,
+  "duration_seconds": 2,
+  "frames": 240,
+  "ball_visible_frames": 178,
+  "render_seconds": {
+    "current": 0.024979399968287908,
+    "supervision": 0.061580099994898774
+  },
+  "effective_adapter_loc": {
+    "current": 10,
+    "supervision": 10
+  },
+  "setup_and_dependency_glue_excluded_from_loc": true,
+  "pixel_difference_fraction": 0.0,
+  "equivalence": "SAME_SOURCE_COORDINATES_AND_VISIBILITY; PIXEL_DIFFERENCE_MEASURED",
+  "video_source_sink": "REAL_CV2_DECODE_AND_SUPERVISION_MJPG_SINK_VERIFIED",
+  "installed_environment_logical_bytes": 409474438,
+  "uv_locked_sync": "VERIFIED_TWICE",
+  "pose_mask_pipeline": "NOT_TESTED",
+  "decision": "TRIAL",
+  "reason": "Small visualization glue already simple; no significant total code reduction proven",
+  "product_dependencies_changed": false,
+  "production_db": "NOT_ACCESSED"
+}
