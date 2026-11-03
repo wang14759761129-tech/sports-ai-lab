@@ -1,0 +1,34 @@
+{
+  "phase": "tools",
+  "head_before": "8167457f03501b67b0b98a9400ca8bd57fb3ccb9",
+  "started_at": "2026-10-28T08:02:12.534401+00:00",
+  "guard_bytes": 2684354560,
+  "commands": [
+    {
+      "label": "verification-tools",
+      "argv": [
+        "<LOCAL_USER_ROOT>\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\python.exe",
+        "-m",
+        "unittest",
+        "products.ptti.tests.test_f3b_gate_verification",
+        "-v"
+      ],
+      "cwd": ".",
+      "memory_before": {
+        "available_bytes": 2858971136,
+        "available_gib": 2.6626
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.291,
+      "log": "verification-tools.log",
+      "log_sha256": "349c8ba9d45291f43cafd9f414dde781961ae1914ec894471ae7408799dced13",
+      "test_count": 5,
+      "memory_after": {
+        "available_bytes": 2845065216,
+        "available_gib": 2.6497
+      },
+      "raw_log_sha256": "5fda3abbe11ee439346580d9953893436d1b97fd13fdf243ba668ff288a882ce"
+    }
+  ]
+}
