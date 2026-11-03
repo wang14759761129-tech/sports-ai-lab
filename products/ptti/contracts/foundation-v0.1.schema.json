@@ -1,0 +1,412 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.local/contracts/foundation/0.1",
+  "title": "PTTI shared Foundation contract 0.1",
+  "description": "A versioned interoperability projection. It does not replace existing database or feature protocols.",
+  "oneOf": [
+    { "$ref": "#/$defs/MatchIdentity" },
+    { "$ref": "#/$defs/MediaSource" },
+    { "$ref": "#/$defs/VideoAsset" },
+    { "$ref": "#/$defs/PlaybackState" },
+    { "$ref": "#/$defs/Moment" },
+    { "$ref": "#/$defs/Rally" },
+    { "$ref": "#/$defs/PointEvent" },
+    { "$ref": "#/$defs/Prediction" },
+    { "$ref": "#/$defs/PoseEvidence" },
+    { "$ref": "#/$defs/CoachAnnotation" },
+    { "$ref": "#/$defs/UserCollection" },
+    { "$ref": "#/$defs/RightsEvidence" }
+  ],
+  "$defs": {
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["match_id", "source_id", "video_asset_id"],
+      "properties": {
+        "match_id": { "type": ["string", "null"], "minLength": 1 },
+        "source_id": { "type": ["string", "null"], "minLength": 1 },
+        "video_asset_id": { "type": ["string", "null"], "minLength": 1 }
+      }
+    },
+    "evidenceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reference_type", "reference_id", "relationship"],
+      "properties": {
+        "reference_type": { "enum": ["RECORD", "URL", "HASH", "API_RESPONSE", "USER_STATEMENT", "MODEL_ARTIFACT"] },
+        "reference_id": { "type": "string", "minLength": 1, "maxLength": 2048 },
+        "relationship": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "observed_at": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "inference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model_id", "model_version", "input_refs", "confidence", "confidence_status"],
+      "properties": {
+        "model_id": { "type": "string", "minLength": 1 },
+        "model_version": { "type": "string", "minLength": 1 },
+        "input_refs": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceReference" } },
+        "confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "confidence_status": { "enum": ["CALIBRATED", "UNCALIBRATED", "UNAVAILABLE"] },
+        "config_sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "confidence_status": { "const": "UNAVAILABLE" } } },
+          "then": { "properties": { "confidence": { "type": "null" } } }
+        }
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["origin", "verification", "evidence_refs", "inference"],
+      "properties": {
+        "origin": { "enum": ["OFFICIAL_PROVIDER", "OFFICIAL_API_RESPONSE", "USER_LOCAL", "USER_AUTHORED", "MODEL_INFERENCE", "SIMULATED_ONLY", "MOCK", "UNKNOWN"] },
+        "verification": { "enum": ["VERIFIED", "PAGE_VERIFIED", "USER_CONFIRMED", "NOT_INDEPENDENTLY_VERIFIED", "REVIEW_REQUIRED", "UNKNOWN", "SYNTHETIC_ONLY"] },
+        "evidence_refs": { "type": "array", "items": { "$ref": "#/$defs/evidenceReference" } },
+        "inference": { "anyOf": [{ "$ref": "#/$defs/inference" }, { "type": "null" }] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "origin": { "const": "MODEL_INFERENCE" } } },
+          "then": { "properties": { "inference": { "$ref": "#/$defs/inference" } } }
+        },
+        {
+          "if": { "properties": { "origin": { "const": "SIMULATED_ONLY" } } },
+          "then": { "properties": { "verification": { "const": "SYNTHETIC_ONLY" } } }
+        },
+        {
+          "if": { "properties": { "origin": { "const": "MOCK" } } },
+          "then": { "properties": { "verification": { "const": "SYNTHETIC_ONLY" } } }
+        },
+        {
+          "if": { "properties": { "origin": { "const": "MODEL_INFERENCE" } } },
+          "else": { "properties": { "inference": { "type": "null" } } }
+        }
+      ]
+    },
+    "timelineAnchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["video_asset_id", "timestamp_ms", "time_basis"],
+      "properties": {
+        "video_asset_id": { "type": "string", "minLength": 1 },
+        "timestamp_ms": { "type": "integer", "minimum": 0 },
+        "end_ms": { "type": ["integer", "null"], "minimum": 0 },
+        "time_basis": { "enum": ["PLAYER_TIME", "USER_MARKED_PLAYHEAD", "USER_ENTERED_TIME", "SOURCE_PTS", "SOURCE_FRAME_ESTIMATE"] }
+      }
+    },
+    "baseRecord": {
+      "type": "object",
+      "required": ["schema_version", "record_id", "kind", "identity", "timeline_anchor", "provenance"],
+      "properties": {
+        "schema_version": { "const": "ptti.foundation/0.1" },
+        "record_id": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "kind": { "enum": ["MatchIdentity", "MediaSource", "VideoAsset", "PlaybackState", "Moment", "Rally", "PointEvent", "Prediction", "PoseEvidence", "CoachAnnotation", "UserCollection", "RightsEvidence"] },
+        "identity": { "$ref": "#/$defs/identity" },
+        "timeline_anchor": { "anyOf": [{ "$ref": "#/$defs/timelineAnchor" }, { "type": "null" }] },
+        "provenance": { "$ref": "#/$defs/provenance" }
+      }
+    },
+    "MatchIdentity": {
+      "allOf": [
+        { "$ref": "#/$defs/baseRecord" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "MatchIdentity" },
+            "identity_status": { "enum": ["EXACT", "REVIEW_REQUIRED", "UNKNOWN"] },
+            "official_record_url": { "type": ["string", "null"], "format": "uri" },
+            "event_name": { "type": ["string", "null"], "maxLength": 300 },
+            "event_year": { "type": ["integer", "null"], "minimum": 1900, "maximum": 2200 },
+            "discipline": { "enum": ["MS", "WS", "MD", "WD", "XD", "UNKNOWN"] },
+            "participant_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+          },
+          "required": ["identity_status", "official_record_url", "event_name", "event_year", "discipline", "participant_ids"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "MediaSource": {
+      "allOf": [
+        { "$ref": "#/$defs/baseRecord" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "MediaSource" },
+            "provider": { "enum": ["YOUTUBE_OFFICIAL", "BILIBILI_OFFICIAL", "LOCAL_LIBRARY", "OTHER_REVIEWED", "UNKNOWN"] },
+            "source_status": { "enum": ["REGISTERED", "PAGE_VERIFIED", "UNAVAILABLE", "REVIEW_REQUIRED", "UNKNOWN"] },
+            "source_url": { "type": ["string", "null"], "format": "uri" },
+            "provider_video_id": { "type": ["string", "null"], "minLength": 1 },
+            "publisher_id": { "type": ["string", "null"], "minLength": 1 }
+          },
+          "required": ["provider", "source_status", "source_url", "provider_video_id", "publisher_id"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "VideoAsset": {
+      "allOf": [
+        { "$ref": "#/$defs/baseRecord" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "VideoAsset" },
+            "asset_kind": { "enum": ["OFFICIAL_REMOTE", "USER_LOCAL", "SYNTHETIC_DEMO", "UNKNOWN"] },
+            "identity_method": { "enum": ["PROVIDER_VIDEO_ID", "VERIFIED_SHA256", "SHA256_CHUNKED_CONTENT_V1", "FILE_METADATA_V1", "UNKNOWN"] },
+            "identity_value": { "type": ["string", "null"], "maxLength": 512 },
+            "duration_ms": { "type": ["integer", "null"], "minimum": 0 },
+            "availability": { "enum": ["AVAILABLE", "UNAVAILABLE", "NOT_TESTED", "UNKNOWN"] }
+          },
+          "required": ["asset_kind", "identity_method", "identity_value", "duration_ms", "availability"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "PlaybackState": {
+      "allOf": [
+        { "$ref": "#/$defs/baseRecord" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "PlaybackState" },
+            "route": { "enum": ["EXTERNAL_OFFICIAL_PAGE", "OFFICIAL_IFRAME", "LOCAL_HTML_VIDEO", "NATIVE_PLAYER", "UNKNOWN"] },
+            "observation": { "enum": ["NOT_TESTED", "PAGE_OPENED", "AD_PLAYING", "VIDEO_PLAYING", "COMPLETE_WATCH_CONFIRMED", "PAUSED", "FAILED", "UNKNOWN"] },
+            "observed_at": { "type": ["string", "null"], "format": "date-time" },
+            "provider_embeddable": { "type": ["boolean", "null"] },
+            "embed_permission": { "enum": ["ALLOWED", "DENIED", "UNKNOWN", "NEEDS_PERMISSION"] },
+            "rights_evidence_record_id": { "type": ["string", "null"] }
+          },
+          "required": ["route", "observation", "observed_at", "provider_embeddable", "embed_permission", "rights_evidence_record_id"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Moment": {
+      "allOf": [
+        { "$ref": "#/$defs/baseRecord" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "Moment" },
+            "moment_id": { "type": "string", "minLength": 1 },
+            "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+            "note": { "type": "string", "maxLength": 2000 },
+            "tags": { "type": "array", "maxItems": 20, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 80 } },
+            "author_type": { "enum": ["USER", "COACH", "SYSTEM_REVIEWED"] },
+            "timeline_anchor": { "$ref": "#/$defs/timelineAnchor" }
+          },
+          "required": ["moment_id", "title", "note", "tags", "author_type", "timeline_anchor"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Rally": {
+      "allOf": [
+        { "$ref": "#/$defs/baseRecord" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "Rally" },
+            "rally_id": { "type": "string", "minLength": 1 },
+            "verification_status": { "enum": ["CONFIRMED", "REVIEW_REQUIRED", "REJECTED", "NOT_INDEPENDENTLY_VERIFIED"] },
+            "note": { "type": "string", "maxLength": 2000 },
+            "timeline_anchor": { "$ref": "#/$defs/timelineAnchor" }
+          },
+          "required": ["rally_id", "verification_status", "note", "timeline_anchor"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "PointEvent": {
+      "allOf": [
+        { "$ref": "#/$defs/baseRecord" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "PointEvent" },
+            "point_id": { "type": "string", "minLength": 1 },
+            "event_scope": { "enum": ["MEDIA_TIMELINE", "SIMULATED_SEQUENCE"] },
+            "simulation_id": { "type": ["string", "null"] },
+            "sequence_index": { "type": ["integer", "null"], "minimum": 0 },
+            "player_a_id": { "type": "string", "minLength": 1 },
+            "player_b_id": { "type": "string", "minLength": 1 },
+            "winner_id": { "type": ["string", "null"] },
+            "score_a_before": { "type": ["integer", "null"], "minimum": 0 },
+            "score_b_before": { "type": ["integer", "null"], "minimum": 0 }
+          },
+          "required": ["point_id", "event_scope", "simulation_id", "sequence_index", "player_a_id", "player_b_id", "winner_id", "score_a_before", "score_b_before", "timeline_anchor"]
+        },
+        {
+          "if": { "properties": { "event_scope": { "const": "MEDIA_TIMELINE" } } },
+          "then": { "properties": { "timeline_anchor": { "$ref": "#/$defs/timelineAnchor" } } }
+        },
+        {
+          "if": { "properties": { "event_scope": { "const": "SIMULATED_SEQUENCE" } } },
+          "then": {
+            "properties": {
+              "timeline_anchor": { "type": "null" },
+              "identity": { "properties": { "match_id": { "type": "null" }, "source_id": { "type": "null" }, "video_asset_id": { "type": "null" } } },
+              "provenance": { "properties": { "origin": { "const": "SIMULATED_ONLY" }, "verification": { "const": "SYNTHETIC_ONLY" } } }
+            },
+            "required": ["simulation_id", "sequence_index"]
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Prediction": {
+      "allOf": [
+        { "$ref": "#/$defs/baseRecord" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "Prediction" },
+            "prediction_id": { "type": "string", "minLength": 1 },
+            "target_point_event_id": { "type": "string", "minLength": 1 },
+            "simulation_id": { "type": ["string", "null"] },
+            "prediction_type": { "type": "string", "minLength": 1, "maxLength": 80 },
+            "choice": { "type": "string", "minLength": 1, "maxLength": 80 },
+            "status": { "enum": ["LOCKED", "RESOLVED", "CANCELLED"] },
+            "correct": { "type": ["boolean", "null"] },
+            "timeline_anchor": { "type": "null" }
+          },
+          "required": ["prediction_id", "target_point_event_id", "simulation_id", "prediction_type", "choice", "status", "correct", "timeline_anchor"]
+        },
+        {
+          "if": { "properties": { "provenance": { "properties": { "origin": { "const": "SIMULATED_ONLY" } } } } },
+          "then": { "required": ["simulation_id"] }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "PoseEvidence": {
+      "allOf": [
+        { "$ref": "#/$defs/baseRecord" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "PoseEvidence" },
+            "evidence_id": { "type": "string", "minLength": 1 },
+            "coordinate_space": { "enum": ["NORMALIZED_IMAGE", "SOURCE_PIXELS", "UNKNOWN"] },
+            "frame_times_ms": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "integer", "minimum": 0 } },
+            "evidence_status": { "enum": ["CANDIDATE", "REVIEW_REQUIRED", "USER_CONFIRMED", "REJECTED"] },
+            "timeline_anchor": { "$ref": "#/$defs/timelineAnchor" }
+          },
+          "required": ["evidence_id", "coordinate_space", "frame_times_ms", "evidence_status", "timeline_anchor"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "CoachAnnotation": {
+      "allOf": [
+        { "$ref": "#/$defs/baseRecord" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "CoachAnnotation" },
+            "annotation_id": { "type": "string", "minLength": 1 },
+            "scope": { "enum": ["GENERAL", "MEDIA_TIMELINE", "POINT_EVENT"] },
+            "text": { "type": "string", "minLength": 1, "maxLength": 4000 },
+            "tags": { "type": "array", "maxItems": 20, "items": { "type": "string", "minLength": 1, "maxLength": 80 } },
+            "related_point_event_id": { "type": ["string", "null"] }
+          },
+          "required": ["annotation_id", "scope", "text", "tags", "related_point_event_id", "timeline_anchor"]
+        },
+        {
+          "if": { "properties": { "scope": { "const": "MEDIA_TIMELINE" } } },
+          "then": { "properties": { "timeline_anchor": { "$ref": "#/$defs/timelineAnchor" } } }
+        },
+        {
+          "if": { "properties": { "scope": { "const": "GENERAL" } } },
+          "then": { "properties": { "timeline_anchor": { "type": "null" } } }
+        },
+        {
+          "if": { "properties": { "scope": { "const": "POINT_EVENT" } } },
+          "then": { "required": ["related_point_event_id"], "properties": { "related_point_event_id": { "type": "string", "minLength": 1 } } }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "UserCollection": {
+      "allOf": [
+        { "$ref": "#/$defs/baseRecord" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "UserCollection" },
+            "collection_id": { "type": "string", "minLength": 1 },
+            "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+            "collection_kind": { "enum": ["FAVORITES", "USER_CREATED", "CURATED"] },
+            "storage_owner": { "enum": ["EXISTING_SQLITE_FAVORITES", "LOCAL_PROFILE", "STATIC_CATALOG"] },
+            "item_refs": {
+              "type": "array", "uniqueItems": true, "maxItems": 10000,
+              "items": {
+                "type": "object", "additionalProperties": false,
+                "required": ["record_kind", "record_id"],
+                "properties": {
+                  "record_kind": { "enum": ["MatchIdentity", "MediaSource", "VideoAsset", "Moment", "Rally", "PointEvent"] },
+                  "record_id": { "type": "string", "minLength": 1 }
+                }
+              }
+            },
+            "timeline_anchor": { "type": "null" }
+          },
+          "required": ["collection_id", "name", "collection_kind", "storage_owner", "item_refs", "timeline_anchor"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "permissionDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "evidence_refs", "valid_until"],
+      "properties": {
+        "status": { "enum": ["ALLOWED", "NOT_ALLOWED", "NEEDS_PERMISSION", "UNKNOWN", "EXPIRED", "REVOKED"] },
+        "evidence_refs": { "type": "array", "items": { "$ref": "#/$defs/evidenceReference" } },
+        "valid_until": { "type": ["string", "null"], "format": "date-time" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "ALLOWED" } } },
+          "then": { "properties": { "evidence_refs": { "minItems": 1 } } }
+        }
+      ]
+    },
+    "RightsEvidence": {
+      "allOf": [
+        { "$ref": "#/$defs/baseRecord" },
+        {
+          "type": "object",
+          "properties": {
+            "kind": { "const": "RightsEvidence" },
+            "rights_id": { "type": "string", "minLength": 1 },
+            "subject_kind": { "enum": ["MEDIA_SOURCE", "VIDEO_ASSET"] },
+            "subject_record_id": { "type": "string", "minLength": 1 },
+            "reviewed_use_case": { "type": "string", "minLength": 1, "maxLength": 240 },
+            "permissions": {
+              "type": "object", "additionalProperties": false,
+              "required": ["remote_display", "web_display", "native_display", "package_distribution", "embed", "download", "edit", "analysis", "commercial_use"],
+              "properties": {
+                "remote_display": { "$ref": "#/$defs/permissionDecision" },
+                "web_display": { "$ref": "#/$defs/permissionDecision" },
+                "native_display": { "$ref": "#/$defs/permissionDecision" },
+                "package_distribution": { "$ref": "#/$defs/permissionDecision" },
+                "embed": { "$ref": "#/$defs/permissionDecision" },
+                "download": { "$ref": "#/$defs/permissionDecision" },
+                "edit": { "$ref": "#/$defs/permissionDecision" },
+                "analysis": { "$ref": "#/$defs/permissionDecision" },
+                "commercial_use": { "$ref": "#/$defs/permissionDecision" }
+              }
+            },
+            "timeline_anchor": { "type": "null" }
+          },
+          "required": ["rights_id", "subject_kind", "subject_record_id", "reviewed_use_case", "permissions", "timeline_anchor"]
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  }
+}

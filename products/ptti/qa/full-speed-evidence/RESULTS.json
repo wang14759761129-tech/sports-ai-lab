@@ -1,0 +1,92 @@
+{
+  "schema": "ptti.qa-results/0.1",
+  "audience": "INTERNAL_FOUNDER_QA_ONLY",
+  "observed_date": "2026-10-26 Asia/Shanghai",
+  "starting_commit": "b53f4f59a6f28eb3858d579ca6c485ad40ec3832",
+  "tested_frontend_commit": "ed1dc46e41d0c652d3501294f5c54f58f2b0c323",
+  "entry": "http://127.0.0.1:5173/",
+  "services": {
+    "reused_existing": true,
+    "frontend_pid": 37212,
+    "backend_pid": 36044,
+    "backend_database": "CONFIRMED_UNDER_SYSTEM_TEMP_QA_DIRECTORY",
+    "backend_build_label": "b53f4f59a6f28eb3858d579ca6c485ad40ec3832",
+    "frontend_latest_source": "Verified through served modules, hot reload and new workspace behavior; backend label was not rewritten"
+  },
+  "cinema": {
+    "browser": "Ego Lite Chromium on Windows",
+    "wide_viewport_css_width": 1440,
+    "measured_columns": 4,
+    "cover_aspect_ratio": "16 / 9",
+    "founder_remote_thumbnails": [
+      {"video_id":"JTUWXpB-NVo","state":"LOADED","natural_width":480},
+      {"video_id":"H77vNFk3neg","state":"LOADED","natural_width":480},
+      {"video_id":"ekfCZiIEYi0","state":"LOADED","natural_width":480},
+      {"video_id":"DTPNEl3-2b0","state":"LOADED","natural_width":480},
+      {"video_id":"iQhVLkcGCFE","state":"LOADED","natural_width":480},
+      {"video_id":"0QgbtsBWZhk","state":"LOADED","natural_width":480},
+      {"video_id":"vYsJLPTEIaI","state":"LOADED","natural_width":480},
+      {"video_id":"aFs7HJ0NX18","state":"LOADED","natural_width":480}
+    ],
+    "bilibili_cover": "SEPARATE_FALLBACK",
+    "search_and_category": "PASS: 王楚钦 and 男单; persisted after refresh and workspace return",
+    "story_favorite_api_persistence": "PASS: remove in Story, server returns empty, refresh remains unsaved, restore initial QA favorite, favorite list and Story agree",
+    "story_return_scroll": {"saved":444.6666564941406,"restored":444.6666564941406},
+    "external_open_failure_and_retry": "PASS: simulated desktop bridge rejection gives retry and copy recovery",
+    "official_destination_opened": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+    "official_video_playback": "NOT_TESTED_THIS_RUN",
+    "copy_official_link": "PASS: browser displays 官方链接已复制",
+    "zero_q_iframe_count": 0,
+    "screenshot": {"status":"BLOCKED","reason":"Page.captureScreenshot CDP timeout; two attempts, stopped"}
+  },
+  "moment_cards": {
+    "create_refresh_edit_filter_delete": "PASS: 12:34 -> 13:01; exact t=754s -> t=781s",
+    "keyboard_enter_submit": "PASS",
+    "quota_failure": "PASS: alert, stored time stays 754, edited 13:01 retained in form",
+    "backup_export": "PASS: ptti.moment-cards-backup/0.1; whitelisted metadata, no media bytes or paths",
+    "bilibili_jump": "https://www.bilibili.com/video/BV1nb421H7jB/",
+    "bilibili_time_jump": "NOT_GENERATED"
+  },
+  "pro_lab": {
+    "fixture_kind": "ORIGINAL_SIMULATED_ONLY_TEST_PATTERNS_NOT_A_REAL_TRAINING_MATCH",
+    "fixtures": "Two generated MP4s, same basename, different metadata and durations (20s / 15s); no private media",
+    "play_pause_capture": {"status":"PASS","paused":true,"actual_time_seconds":1.9974,"captured":"0:01"},
+    "seek": {"status":"PASS","requested_seconds":8,"observed_seconds":8.0705,"playing":true},
+    "create_edit_refresh_reselect_delete": "PASS",
+    "same_name_other_file": "PASS: no leaked notes; tag filter reset",
+    "quota_failure": "PASS: stored 5s unchanged, edited 8s retained, error shown",
+    "invalid_media": "PASS: decoder failure cannot persist a note",
+    "json_export": "PASS: ptti.pro-lab-notes/0.2, metadata only",
+    "return_releases_player": "PASS: no video element remains",
+    "real_user_training_video": "NOT_TESTED",
+    "identical_metadata_collision": "POSSIBLE: metadata identity is not a content hash"
+  },
+  "loading": {
+    "home_optional_workspace_requests": 0,
+    "pro_lab_module_network_failure": "PASS: caught, main navigation retained, return to Cinema works",
+    "previous_main_js_bytes": 518828,
+    "current_main_js_bytes": 494628,
+    "warning_threshold_changed": false
+  },
+  "resources": {
+    "policy": "Resource Policy V2",
+    "initial_1024_mib_budget": "Exceeded by existing browser tree; paused playback QA",
+    "measured_browser_tree_mib_before_reassessment": 1338,
+    "subsequent_budget_mib": 1536,
+    "subsequent_projected_available_bytes": 629633024,
+    "subsequent_monitor_samples": 31,
+    "subsequent_observed_peak_mib": 1367.953125,
+    "subsequent_all_samples_allowed": true,
+    "processes_terminated": false
+  },
+  "checks": {
+    "typescript": "PASS",
+    "vite": "PASS",
+    "node_targeted_regressions": "PASS",
+    "isolated_sqlite_api_pytest": "1 passed in 29.36s",
+    "distributable_media_gate": "PASS: approvedAssets=0",
+    "git_diff_check": "PASS",
+    "native_exe": "NOT_TESTED",
+    "client_strict_mode_lifecycle": "NOT_TESTED; safe initialization also checked with repeated SSR and real browser reloads"
+  }
+}
