@@ -1,0 +1,9 @@
+# GOAL R4-02 — isolated secure-feed checkpoint
+
+Base 0de27ff278ad39081e44e3e8733aaf968cc75ab8; original 5cc753886b112305736fcc14ea77b37662726c9f. Founder-provided screenshot: <LOCAL_USER_ROOT>/OneDrive/图片/Screenshots/屏幕截图 2026-10-24 104509.png; SHA-256 6c9724e5ae3d520533c8879545ce67ac6ff83d32dde5be6041b40adf6317528a. Its title identifies 5cc753886b; the full commit is founder-confirmed, not a cryptographic identity embedded in the image. Snapshot retained separately at C:/PTTI-Worktrees/ptti-r4-original-restore-evidence/founder-original-5cc.png.
+
+VideoFeed.tsx, video-feed.css and main.tsx remain byte-identical to 5cc. feedCatalog and onlinePlayers were changed for fail-closed media behavior; vite.config adds the artifact gate. No visual comparison was performed. Official thumbnails are currently disabled regardless of permission until an integration with reviewed provenance is completed; original missing-cover UI remains. Local thumbnails preserve existing behavior. No Founder QA remote mode is connected.
+
+Imported existing thumbnailPermission, reviewedOfficialEmbed, youtubeThumbnailRuntime and mediaDistributionGate; reviewedOfficialEmbed is identity-only and is not wired as a grant. youtubeVideoMetadata is not present in 54d7500 and is not integrated. YouTube API metadata never supplies embed rights. Existing full media gate plugin verifies public and final artifact tree against the signed-hash manifest and refuses Founder QA builds. The gate's existence is not proof of a completed production build.
+
+No source data, DB or official release is modified. Node tests use synthetic data; build, full distribution artifact, GUI, native, official links and playback require independent verification. R4-03 runtime work is not part of this branch. Roll back by selecting 0de27ff in a new independent worktree; do not reset or overwrite existing worktrees.
