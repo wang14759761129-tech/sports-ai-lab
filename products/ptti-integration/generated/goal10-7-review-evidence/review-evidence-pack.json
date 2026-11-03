@@ -1,0 +1,1112 @@
+{
+  "contract_version": "ptti.review-evidence-pack/0.1",
+  "generated_at_utc": "2026-10-15T04:25:29Z",
+  "input": {
+    "input_name": "review-targets-11-8-input.json",
+    "input_contract_version": "ptti.quick-annotation/0.2",
+    "statistics_contract_version": "ptti.quick-annotation-stats/0.1",
+    "review_targets_contract_version": "ptti.review-targets/0.1",
+    "canonical_input_sha256": "ac38316ea8dd90fb82ecf9fce565e2fe9ec2e3166e90250ae535e138ca7bdad5",
+    "canonical_hash_semantics": "SHA-256 over parsed UTF-8 JSON with sorted keys, compact separators and preserved Unicode; formatting-only changes do not alter it.",
+    "raw_input_sha256": "f77471f5e572242f9308853cfbb55d685739fdec6da6075edc4332e1f88d8c45",
+    "raw_hash_semantics": "Exact input file byte identity when supplied by the CLI; not proof of truth, rights, or media identity."
+  },
+  "match": {
+    "match_id": "SIMULATED_ONLY:review-targets-11-8",
+    "dataset_id": "SIMULATED_ONLY:review-targets-dataset",
+    "dataset_class": "SIMULATED_ONLY",
+    "identity_status": "NOT_APPLICABLE_SIMULATED",
+    "game": {
+      "game_number": 1,
+      "point_count": 19,
+      "score": {
+        "A": 11,
+        "B": 8
+      },
+      "score_status": "ENDED_BY_RULE_SCORE",
+      "completion_rule": "At least 11 points and a lead of 2; ordered sequence complete from 0:0 and all winners known.",
+      "coverage_declaration": "COMPLETE_FROM_GAME_START",
+      "sequence_valid": true,
+      "known_winner_count": 19,
+      "unknown_winner_count": 0,
+      "point_ids": [
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+      ]
+    }
+  },
+  "source_and_rights": {
+    "source_status": "SIMULATED_ONLY",
+    "source_id": null,
+    "source_link_status": "UNBOUND",
+    "rights_status": "UNKNOWN",
+    "source_video_sha256": null,
+    "timeline_id": null,
+    "pts": null,
+    "time_base": null,
+    "vision_status": "NOT_TESTED",
+    "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+  },
+  "sample": {
+    "point_count": 19,
+    "point_ids": [
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+    ],
+    "score_by_role": {
+      "A": {
+        "review_role": "player",
+        "identity_status": "INPUT_ROLE_ONLY",
+        "won_count": 11,
+        "lost_count": 8,
+        "denominator": 19,
+        "sample_count": 19,
+        "unknown_count": 0,
+        "excluded_count": 0,
+        "point_ids": {
+          "valid": [
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+          ],
+          "won": [
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+          ],
+          "lost": [
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016"
+          ],
+          "unknown": [],
+          "excluded": []
+        },
+        "computation_rule": "Explicit known winners across all supplied rows, including rows without video times.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "DESCRIPTIVE_ONLY"
+      },
+      "B": {
+        "review_role": "opponent",
+        "identity_status": "INPUT_ROLE_ONLY",
+        "won_count": 8,
+        "lost_count": 11,
+        "denominator": 19,
+        "sample_count": 19,
+        "unknown_count": 0,
+        "excluded_count": 0,
+        "point_ids": {
+          "valid": [
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+          ],
+          "won": [
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016"
+          ],
+          "lost": [
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+          ],
+          "unknown": [],
+          "excluded": []
+        },
+        "computation_rule": "Explicit known winners across all supplied rows, including rows without video times.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "DESCRIPTIVE_ONLY"
+      }
+    },
+    "service_by_role": {
+      "A": {
+        "review_role": "player",
+        "identity_status": "INPUT_ROLE_ONLY",
+        "won_count": 6,
+        "lost_count": 4,
+        "denominator": 10,
+        "sample_count": 19,
+        "unknown_count": 0,
+        "excluded_count": 9,
+        "point_ids": {
+          "valid": [
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018"
+          ],
+          "won": [
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018"
+          ],
+          "lost": [
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014"
+          ],
+          "unknown": [],
+          "excluded": [
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+          ]
+        },
+        "computation_rule": "Known winners when this input role serves; unknown server or eligible unknown winner is unknown; known other server is excluded.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "DESCRIPTIVE_ONLY"
+      },
+      "B": {
+        "review_role": "opponent",
+        "identity_status": "INPUT_ROLE_ONLY",
+        "won_count": 4,
+        "lost_count": 5,
+        "denominator": 9,
+        "sample_count": 19,
+        "unknown_count": 0,
+        "excluded_count": 10,
+        "point_ids": {
+          "valid": [
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+          ],
+          "won": [
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016"
+          ],
+          "lost": [
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+          ],
+          "unknown": [],
+          "excluded": [
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+            "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018"
+          ]
+        },
+        "computation_rule": "Known winners when this input role serves; unknown server or eligible unknown winner is unknown; known other server is excluded.",
+        "evidence_status": "SIMULATED_ONLY",
+        "sample_status": "DESCRIPTIVE_ONLY"
+      }
+    },
+    "service_basis": "RULE_DERIVED_FROM_DECLARED_GAME_START_AND_FIRST_SERVER",
+    "raw_unknown_server_point_ids": [
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+      "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+    ],
+    "observed_rally_stages": {
+      "END_AFTER_1_2_CONTACTS": {
+        "A": {
+          "review_role": "player",
+          "identity_status": "INPUT_ROLE_ONLY",
+          "won_count": 11,
+          "lost_count": 0,
+          "denominator": 11,
+          "sample_count": 19,
+          "unknown_count": 2,
+          "excluded_count": 6,
+          "point_ids": {
+            "valid": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+            ],
+            "won": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+            ],
+            "lost": [],
+            "unknown": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016"
+            ],
+            "excluded": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012"
+            ]
+          },
+          "computation_rule": "Known winners within this explicitly observed coarse stage; unknown stage or eligible unknown winner is unknown; known other stage is excluded.",
+          "evidence_status": "SIMULATED_ONLY",
+          "sample_status": "DESCRIPTIVE_ONLY"
+        },
+        "B": {
+          "review_role": "opponent",
+          "identity_status": "INPUT_ROLE_ONLY",
+          "won_count": 0,
+          "lost_count": 11,
+          "denominator": 11,
+          "sample_count": 19,
+          "unknown_count": 2,
+          "excluded_count": 6,
+          "point_ids": {
+            "valid": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+            ],
+            "won": [],
+            "lost": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+            ],
+            "unknown": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016"
+            ],
+            "excluded": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012"
+            ]
+          },
+          "computation_rule": "Known winners within this explicitly observed coarse stage; unknown stage or eligible unknown winner is unknown; known other stage is excluded.",
+          "evidence_status": "SIMULATED_ONLY",
+          "sample_status": "DESCRIPTIVE_ONLY"
+        }
+      },
+      "END_AFTER_3_4_CONTACTS": {
+        "A": {
+          "review_role": "player",
+          "identity_status": "INPUT_ROLE_ONLY",
+          "won_count": 0,
+          "lost_count": 3,
+          "denominator": 3,
+          "sample_count": 19,
+          "unknown_count": 2,
+          "excluded_count": 14,
+          "point_ids": {
+            "valid": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006"
+            ],
+            "won": [],
+            "lost": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006"
+            ],
+            "unknown": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016"
+            ],
+            "excluded": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+            ]
+          },
+          "computation_rule": "Known winners within this explicitly observed coarse stage; unknown stage or eligible unknown winner is unknown; known other stage is excluded.",
+          "evidence_status": "SIMULATED_ONLY",
+          "sample_status": "INSUFFICIENT_SAMPLE"
+        },
+        "B": {
+          "review_role": "opponent",
+          "identity_status": "INPUT_ROLE_ONLY",
+          "won_count": 3,
+          "lost_count": 0,
+          "denominator": 3,
+          "sample_count": 19,
+          "unknown_count": 2,
+          "excluded_count": 14,
+          "point_ids": {
+            "valid": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006"
+            ],
+            "won": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006"
+            ],
+            "lost": [],
+            "unknown": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016"
+            ],
+            "excluded": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+            ]
+          },
+          "computation_rule": "Known winners within this explicitly observed coarse stage; unknown stage or eligible unknown winner is unknown; known other stage is excluded.",
+          "evidence_status": "SIMULATED_ONLY",
+          "sample_status": "INSUFFICIENT_SAMPLE"
+        }
+      },
+      "END_AFTER_5_PLUS_CONTACTS": {
+        "A": {
+          "review_role": "player",
+          "identity_status": "INPUT_ROLE_ONLY",
+          "won_count": 0,
+          "lost_count": 3,
+          "denominator": 3,
+          "sample_count": 19,
+          "unknown_count": 2,
+          "excluded_count": 14,
+          "point_ids": {
+            "valid": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012"
+            ],
+            "won": [],
+            "lost": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012"
+            ],
+            "unknown": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016"
+            ],
+            "excluded": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+            ]
+          },
+          "computation_rule": "Known winners within this explicitly observed coarse stage; unknown stage or eligible unknown winner is unknown; known other stage is excluded.",
+          "evidence_status": "SIMULATED_ONLY",
+          "sample_status": "INSUFFICIENT_SAMPLE"
+        },
+        "B": {
+          "review_role": "opponent",
+          "identity_status": "INPUT_ROLE_ONLY",
+          "won_count": 3,
+          "lost_count": 0,
+          "denominator": 3,
+          "sample_count": 19,
+          "unknown_count": 2,
+          "excluded_count": 14,
+          "point_ids": {
+            "valid": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012"
+            ],
+            "won": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012"
+            ],
+            "lost": [],
+            "unknown": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016"
+            ],
+            "excluded": [
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+              "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+            ]
+          },
+          "computation_rule": "Known winners within this explicitly observed coarse stage; unknown stage or eligible unknown winner is unknown; known other stage is excluded.",
+          "evidence_status": "SIMULATED_ONLY",
+          "sample_status": "INSUFFICIENT_SAMPLE"
+        }
+      }
+    },
+    "unknown_stage": {
+      "count": 2,
+      "point_ids": [
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016"
+      ],
+      "scope": "All supplied point rows, regardless of winner."
+    },
+    "unknown_winner": {
+      "count": 0,
+      "point_ids": [],
+      "scope": "winner=unknown rows; excluded from known score denominators."
+    },
+    "time_range_coverage": {
+      "numerator": 12,
+      "denominator": 19,
+      "sample_count": 19,
+      "missing_count": 7,
+      "value": 0.631579,
+      "computation_rule": "known-winner point rows with both endpoints range-checked against user-reported duration / known-winner rows; timestamps remain UNBOUND.",
+      "evidence_status": "RANGE_CHECKED_UNBOUND",
+      "sample_status": "DESCRIPTIVE_ONLY",
+      "display_caution_threshold": 5,
+      "threshold_is_significance_test": false,
+      "all_range_checked_point_rows": 12,
+      "range_checked_point_ids": [
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012"
+      ],
+      "missing_range_point_ids": [
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+      ],
+      "scope": "Known-winner rows; duration range checked only, timestamps remain unbound to a source timeline."
+    },
+    "display_caution_threshold": 5,
+    "threshold_is_significance_test": false,
+    "point_evidence_index": [
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+        "winner": "player",
+        "server": "player",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 0,
+          "opponent": 0
+        },
+        "observed_rally_stage": "END_AFTER_1_2_CONTACTS",
+        "time_range": {
+          "start_ms": 2000,
+          "end_ms": 3500,
+          "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+        "winner": "opponent",
+        "server": "player",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 1,
+          "opponent": 0
+        },
+        "observed_rally_stage": "END_AFTER_3_4_CONTACTS",
+        "time_range": {
+          "start_ms": 4000,
+          "end_ms": 5500,
+          "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+        "winner": "player",
+        "server": "opponent",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 1,
+          "opponent": 1
+        },
+        "observed_rally_stage": "END_AFTER_1_2_CONTACTS",
+        "time_range": {
+          "start_ms": 6000,
+          "end_ms": 7500,
+          "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+        "winner": "opponent",
+        "server": "opponent",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 2,
+          "opponent": 1
+        },
+        "observed_rally_stage": "END_AFTER_3_4_CONTACTS",
+        "time_range": {
+          "start_ms": 8000,
+          "end_ms": 9500,
+          "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+        "winner": "player",
+        "server": "player",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 2,
+          "opponent": 2
+        },
+        "observed_rally_stage": "END_AFTER_1_2_CONTACTS",
+        "time_range": {
+          "start_ms": 10000,
+          "end_ms": 11500,
+          "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006",
+        "winner": "opponent",
+        "server": "player",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 3,
+          "opponent": 2
+        },
+        "observed_rally_stage": "END_AFTER_3_4_CONTACTS",
+        "time_range": {
+          "start_ms": 12000,
+          "end_ms": 13500,
+          "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+        "winner": "player",
+        "server": "opponent",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 3,
+          "opponent": 3
+        },
+        "observed_rally_stage": "END_AFTER_1_2_CONTACTS",
+        "time_range": {
+          "start_ms": 14000,
+          "end_ms": 15500,
+          "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p008",
+        "winner": "opponent",
+        "server": "opponent",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 4,
+          "opponent": 3
+        },
+        "observed_rally_stage": "END_AFTER_5_PLUS_CONTACTS",
+        "time_range": {
+          "start_ms": 16000,
+          "end_ms": 17500,
+          "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+        "winner": "player",
+        "server": "player",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 4,
+          "opponent": 4
+        },
+        "observed_rally_stage": "END_AFTER_1_2_CONTACTS",
+        "time_range": {
+          "start_ms": 18000,
+          "end_ms": 19500,
+          "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p010",
+        "winner": "opponent",
+        "server": "player",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 5,
+          "opponent": 4
+        },
+        "observed_rally_stage": "END_AFTER_5_PLUS_CONTACTS",
+        "time_range": {
+          "start_ms": 20000,
+          "end_ms": 21500,
+          "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+        "winner": "player",
+        "server": "opponent",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 5,
+          "opponent": 5
+        },
+        "observed_rally_stage": "END_AFTER_1_2_CONTACTS",
+        "time_range": {
+          "start_ms": 22000,
+          "end_ms": 23500,
+          "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p012",
+        "winner": "opponent",
+        "server": "opponent",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 6,
+          "opponent": 5
+        },
+        "observed_rally_stage": "END_AFTER_5_PLUS_CONTACTS",
+        "time_range": {
+          "start_ms": 24000,
+          "end_ms": 25500,
+          "range_status": "CHECKED_AGAINST_USER_REPORTED_DURATION",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+        "winner": "player",
+        "server": "player",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 6,
+          "opponent": 6
+        },
+        "observed_rally_stage": "END_AFTER_1_2_CONTACTS",
+        "time_range": {
+          "start_ms": null,
+          "end_ms": null,
+          "range_status": "UNKNOWN",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p014",
+        "winner": "opponent",
+        "server": "player",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 7,
+          "opponent": 6
+        },
+        "observed_rally_stage": "UNKNOWN",
+        "time_range": {
+          "start_ms": null,
+          "end_ms": null,
+          "range_status": "UNKNOWN",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+        "winner": "player",
+        "server": "opponent",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 7,
+          "opponent": 7
+        },
+        "observed_rally_stage": "END_AFTER_1_2_CONTACTS",
+        "time_range": {
+          "start_ms": null,
+          "end_ms": null,
+          "range_status": "UNKNOWN",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "RULE_DERIVED_CANDIDATE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p016",
+        "winner": "opponent",
+        "server": "opponent",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 8,
+          "opponent": 7
+        },
+        "observed_rally_stage": "UNKNOWN",
+        "time_range": {
+          "start_ms": null,
+          "end_ms": null,
+          "range_status": "UNKNOWN",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "RULE_DERIVED_CANDIDATE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+        "winner": "player",
+        "server": "player",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 8,
+          "opponent": 8
+        },
+        "observed_rally_stage": "END_AFTER_1_2_CONTACTS",
+        "time_range": {
+          "start_ms": null,
+          "end_ms": null,
+          "range_status": "UNKNOWN",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "RULE_DERIVED_CANDIDATE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+        "winner": "player",
+        "server": "player",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 9,
+          "opponent": 8
+        },
+        "observed_rally_stage": "END_AFTER_1_2_CONTACTS",
+        "time_range": {
+          "start_ms": null,
+          "end_ms": null,
+          "range_status": "UNKNOWN",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "RULE_DERIVED_CANDIDATE"
+      },
+      {
+        "point_id": "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019",
+        "winner": "player",
+        "server": "opponent",
+        "server_derivation": "RULE_DERIVED_FROM_GAME_START_FIRST_SERVER",
+        "score_before_A_B": {
+          "player": 10,
+          "opponent": 8
+        },
+        "observed_rally_stage": "END_AFTER_1_2_CONTACTS",
+        "time_range": {
+          "start_ms": null,
+          "end_ms": null,
+          "range_status": "UNKNOWN",
+          "timeline_binding": "UNBOUND",
+          "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+        },
+        "key_point_status": "NOT_KEY_SCORE"
+      }
+    ]
+  },
+  "review_candidates": [
+    {
+      "target_id": "SIMULATED_ONLY:review-targets-dataset/opponent/END_AFTER_1_2_CONTACTS",
+      "subject_role": "opponent",
+      "observed_rally_stage": "END_AFTER_1_2_CONTACTS",
+      "lost_count": 11,
+      "denominator": 11,
+      "unknown_count": 2,
+      "point_ids": [
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p001",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p003",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p005",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p007",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p009",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p011",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p013",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p015",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p017",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p018",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p019"
+      ],
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "DESCRIPTIVE_ONLY",
+      "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "text_zh": "输入角色 opponent 在人工观察的 END_AFTER_1_2_CONTACTS 分组中失分 11 次，已知胜负样本 N=11。单局描述不能代表长期倾向。可核对这些逐分记录；尚不能判断具体技术或失误原因。"
+    },
+    {
+      "target_id": "SIMULATED_ONLY:review-targets-dataset/player/END_AFTER_3_4_CONTACTS",
+      "subject_role": "player",
+      "observed_rally_stage": "END_AFTER_3_4_CONTACTS",
+      "lost_count": 3,
+      "denominator": 3,
+      "unknown_count": 2,
+      "point_ids": [
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p002",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p004",
+        "SIMULATED_ONLY%3Areview-targets-11-8/g01/p006"
+      ],
+      "evidence_status": "SIMULATED_ONLY",
+      "sample_status": "INSUFFICIENT_SAMPLE",
+      "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+      "text_zh": "输入角色 player 在人工观察的 END_AFTER_3_4_CONTACTS 分组中失分 3 次，已知胜负样本 N=3。样本不足，不能据此判断长期倾向。可核对这些逐分记录；尚不能判断具体技术或失误原因。"
+    }
+  ],
+  "limitations": [
+    "This projection reuses ptti.review-targets/0.1; it adds no statistical inference.",
+    "A/B are input roles, not verified athlete identities. SIMULATED_ONLY is not real-match evidence.",
+    "A terminal score is derived only from the complete ordered known-winner sequence and is not external match verification.",
+    "Coarse observed stages do not establish exact contacts, third-ball tactics, spin, placement, or error cause.",
+    "Point IDs are traceable records, not proof of current-session media availability or playback.",
+    "The export includes no video bytes or local media/database paths; it grants no rights, timeline binding, native playback, or Vision result.",
+    "The configurable sample threshold is a display caution, not a significance test; one game does not establish a stable tendency."
+  ]
+}

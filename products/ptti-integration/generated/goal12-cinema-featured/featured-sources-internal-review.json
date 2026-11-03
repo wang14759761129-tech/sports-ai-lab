@@ -1,0 +1,230 @@
+{
+  "contract_version": "ptti.cinema-curated-sources/0.1",
+  "source_contract_version": "ptti.match-library-index/0.1",
+  "audience": "INTERNAL_REVIEW_ONLY",
+  "generated_at": "2026-10-15T15:00:00+00:00",
+  "selection_method": "EXPLICIT_SOURCE_ID_ALLOWLIST",
+  "strict_public_fallback": false,
+  "notice": "Reference-only review data. A reachable URL is not playback, a rights grant, a verified complete match, or a canonical Match link. Strict-public remains separate.",
+  "featured_sources": [
+    {
+      "source_id": "video-source:youtube:0QgbtsBWZhk",
+      "catalog_record_id": "catalog:youtube:0QgbtsBWZhk",
+      "platform": "YOUTUBE",
+      "video_id": "0QgbtsBWZhk",
+      "official_url": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "王楚钦 vs 菲利克斯·勒布伦",
+      "original_title_claim": "FULL MATCH | Wang Chuqin vs Felix Lebrun | MS Final | #ChinaSmash 2025",
+      "event_claim": "China Smash 2025",
+      "event_year_claim": null,
+      "discipline_claim": "MS",
+      "round_claim": "决赛",
+      "participants_claimed": {
+        "side_a": null,
+        "side_b": null,
+        "unassigned_names": [
+          "王楚钦",
+          "菲利克斯·勒布伦"
+        ],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "publisher_check": {
+        "status": "METADATA_MATCHED_RECORDED_PUBLISHER_AFFILIATION_NOT_INDEPENDENTLY_VERIFIED",
+        "method": "YOUTUBE_OEMBED_SINGLE_LOOKUP",
+        "checked_at": "2026-10-15T14:22:32Z",
+        "affiliation_status": "NOT_INDEPENDENTLY_VERIFIED"
+      },
+      "event_identity_evidence": {
+        "status": "REGISTERED_EVENT_AND_PAIR_CANDIDATE_NOT_LINKED_TO_VIDEO_ID",
+        "reference_url": "https://www.worldtabletennis.com/eventInfo?eventId=3098",
+        "note": "Existing match record and publisher title align on event, pair, discipline and round; no official source connects this exact video_id to that Match ID, so no canonical link is created."
+      },
+      "match_link": {
+        "canonical_match_id": null,
+        "status": "UNKNOWN",
+        "policy": "NO_JOIN_BY_TITLE_EVENT_OR_PLAYER_NAME"
+      },
+      "external_watch": {
+        "action": "OPEN_OFFICIAL_PLATFORM_URL",
+        "http_head_status": "HTTP_200",
+        "checked_at": "2026-10-15T14:22:32Z",
+        "actual_video_playback": "NOT_TESTED",
+        "viewing_rights": "UNKNOWN",
+        "territory": "UNKNOWN"
+      },
+      "content_claim": "FULL_MATCH",
+      "completeness": "UNVERIFIED",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "display_permission": "UNKNOWN",
+        "presentation": "PTTI_BRAND_PLACEHOLDER_ONLY"
+      },
+      "availability": {
+        "current_official_page": "HTTP_200",
+        "current_external_visual_playback": "NOT_TESTED",
+        "embedding_permission": "UNKNOWN",
+        "latest_recorded_embed_technical_status": "BLOCKED_OBSERVED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+      },
+      "audience_status": "INTERNAL_REFERENCE_ONLY",
+      "public_listing": "UNKNOWN"
+    },
+    {
+      "source_id": "video-source:youtube:KCGdLksBH7s",
+      "catalog_record_id": "catalog:youtube:KCGdLksBH7s",
+      "platform": "YOUTUBE",
+      "video_id": "KCGdLksBH7s",
+      "official_url": "https://www.youtube.com/watch?v=KCGdLksBH7s",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Sun Yingsha vs Wang Manyu",
+      "original_title_claim": "FULL MATCH | Sun Yingsha vs Wang Manyu | WS FINAL | #ITTFWorlds2025",
+      "event_claim": "ITTFWorlds2025",
+      "event_year_claim": 2025,
+      "discipline_claim": "WS",
+      "round_claim": "FINAL",
+      "participants_claimed": {
+        "side_a": "Sun Yingsha",
+        "side_b": "Wang Manyu",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "publisher_check": {
+        "status": "METADATA_MATCHED_RECORDED_PUBLISHER_AFFILIATION_NOT_INDEPENDENTLY_VERIFIED",
+        "method": "YOUTUBE_OEMBED_SINGLE_LOOKUP",
+        "checked_at": "2026-10-15T14:22:34Z",
+        "affiliation_status": "NOT_INDEPENDENTLY_VERIFIED"
+      },
+      "event_identity_evidence": {
+        "status": "OFFICIAL_EVENT_REPORT_CORROBORATES_EVENT_AND_PAIR_NOT_VIDEO_ID",
+        "reference_url": "https://www.ittf.com/2025/05/25/japan-ends-64-year-mens-doubles-drought-as-wang-chuqin-becomes-the-new-world-champion-in-doha/",
+        "note": "The ITTF report confirms the Sun Yingsha–Wang Manyu 2025 World Championships women's singles final; it does not reference this YouTube video_id, so no canonical link is created."
+      },
+      "match_link": {
+        "canonical_match_id": null,
+        "status": "UNKNOWN",
+        "policy": "NO_JOIN_BY_TITLE_EVENT_OR_PLAYER_NAME"
+      },
+      "external_watch": {
+        "action": "OPEN_OFFICIAL_PLATFORM_URL",
+        "http_head_status": "HTTP_200",
+        "checked_at": "2026-10-15T14:22:34Z",
+        "actual_video_playback": "NOT_TESTED",
+        "viewing_rights": "UNKNOWN",
+        "territory": "UNKNOWN"
+      },
+      "content_claim": "FULL_MATCH",
+      "completeness": "UNVERIFIED",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "display_permission": "UNKNOWN",
+        "presentation": "PTTI_BRAND_PLACEHOLDER_ONLY"
+      },
+      "availability": {
+        "current_official_page": "HTTP_200",
+        "current_external_visual_playback": "NOT_TESTED",
+        "embedding_permission": "UNKNOWN",
+        "latest_recorded_embed_technical_status": "NOT_TESTED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+      },
+      "audience_status": "INTERNAL_REFERENCE_ONLY",
+      "public_listing": "UNKNOWN"
+    },
+    {
+      "source_id": "video-source:youtube:O241nV8y4Dc",
+      "catalog_record_id": "catalog:youtube:O241nV8y4Dc",
+      "platform": "YOUTUBE",
+      "video_id": "O241nV8y4Dc",
+      "official_url": "https://www.youtube.com/watch?v=O241nV8y4Dc",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Nagasaki/Shin vs Diaconu/Xiao",
+      "original_title_claim": "FULL MATCH | Nagasaki/Shin vs Diaconu/Xiao | WD SF | #WTTSingapore2026",
+      "event_claim": "WTTSingapore2026",
+      "event_year_claim": 2026,
+      "discipline_claim": "WD",
+      "round_claim": "SF",
+      "participants_claimed": {
+        "side_a": "Nagasaki/Shin",
+        "side_b": "Diaconu/Xiao",
+        "unassigned_names": [],
+        "identity_status": "SOURCE_METADATA_CLAIM"
+      },
+      "source_identity_status": "SOURCE_METADATA_RECORDED_NOT_REVERIFIED",
+      "publisher_check": {
+        "status": "METADATA_MATCHED_RECORDED_PUBLISHER_AFFILIATION_NOT_INDEPENDENTLY_VERIFIED",
+        "method": "YOUTUBE_OEMBED_SINGLE_LOOKUP",
+        "checked_at": "2026-10-15T14:22:37Z",
+        "affiliation_status": "NOT_INDEPENDENTLY_VERIFIED"
+      },
+      "event_identity_evidence": {
+        "status": "SOURCE_METADATA_CLAIM_ONLY",
+        "reference_url": null,
+        "note": "No independent official match record binding the event, pair and this video_id was located in this review."
+      },
+      "match_link": {
+        "canonical_match_id": null,
+        "status": "UNKNOWN",
+        "policy": "NO_JOIN_BY_TITLE_EVENT_OR_PLAYER_NAME"
+      },
+      "external_watch": {
+        "action": "OPEN_OFFICIAL_PLATFORM_URL",
+        "http_head_status": "HTTP_200",
+        "checked_at": "2026-10-15T14:22:37Z",
+        "actual_video_playback": "NOT_TESTED",
+        "viewing_rights": "UNKNOWN",
+        "territory": "UNKNOWN"
+      },
+      "content_claim": "FULL_MATCH",
+      "completeness": "UNVERIFIED",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_PERMISSION_EVIDENCE"
+      },
+      "thumbnail": {
+        "url": null,
+        "display_permission": "UNKNOWN",
+        "presentation": "PTTI_BRAND_PLACEHOLDER_ONLY"
+      },
+      "availability": {
+        "current_official_page": "HTTP_200",
+        "current_external_visual_playback": "NOT_TESTED",
+        "embedding_permission": "UNKNOWN",
+        "latest_recorded_embed_technical_status": "NOT_TESTED",
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+      },
+      "audience_status": "INTERNAL_REFERENCE_ONLY",
+      "public_listing": "UNKNOWN"
+    }
+  ]
+}

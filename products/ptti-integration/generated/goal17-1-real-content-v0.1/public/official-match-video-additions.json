@@ -1,0 +1,121 @@
+{
+  "contract_version": "ptti.goal17.1-match-video-additions/0.1",
+  "generated_at": "2026-10-19T06:18:32.062Z",
+  "view": "STRICT_PUBLIC_EXTERNAL_LINK_DELTA",
+  "base_goal15_library_sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+  "license_notice": "Additive metadata only. These are official external links; playback, territory, login, embed, thumbnail, download, local analysis and redistribution permissions remain as stated per source. Do not replace the base strict-public package.",
+  "matches": [
+    {
+      "match_id": "match:ptti:wtt-doha-2026:ms-r16:lin-shidong-benedikt-duda",
+      "provider_match_id": null,
+      "event_id": "wtt-event:3231",
+      "event_name": "WTT Champions Doha 2026",
+      "event_page_url": "https://www.worldtabletennis.com/eventInfo?eventId=3231",
+      "event_year": 2026,
+      "category": "MS",
+      "round": "R16",
+      "match_date": null,
+      "title": "Lin Shidong vs Benedikt Duda",
+      "participants": [
+        {
+          "athlete_id": "athlete:137237",
+          "display_name": "Lin Shidong",
+          "identity_status": "CANONICAL_BASE_PACKAGE_ID",
+          "identity_evidence_url": "https://www.youtube.com/watch?v=ywX9mUJ8NtI"
+        },
+        {
+          "athlete_id": null,
+          "display_name": "Benedikt Duda",
+          "identity_status": "OFFICIAL_VIDEO_TITLE_NAMED_UNMAPPED",
+          "identity_evidence_url": "https://www.youtube.com/watch?v=ywX9mUJ8NtI"
+        }
+      ],
+      "identity_status": "OFFICIAL_VIDEO_TITLE_MATCH_ASSOCIATION; VISUAL_MATCH_NOT_TESTED",
+      "identity_evidence_source_id": "youtube:ywX9mUJ8NtI",
+      "video_source_ids": [
+        "youtube:ywX9mUJ8NtI"
+      ]
+    },
+    {
+      "match_id": "match:ptti:wtt-doha-2026:ms-sf:lin-shidong-jang-woojin",
+      "provider_match_id": null,
+      "event_id": "wtt-event:3231",
+      "event_name": "WTT Champions Doha 2026",
+      "event_page_url": "https://www.worldtabletennis.com/eventInfo?eventId=3231",
+      "event_year": 2026,
+      "category": "MS",
+      "round": "SF",
+      "match_date": null,
+      "title": "Lin Shidong vs Jang Woojin",
+      "participants": [
+        {
+          "athlete_id": "athlete:137237",
+          "display_name": "Lin Shidong",
+          "identity_status": "CANONICAL_BASE_PACKAGE_ID",
+          "identity_evidence_url": "https://www.youtube.com/watch?v=Kbhf47vb3eE"
+        },
+        {
+          "athlete_id": null,
+          "display_name": "Jang Woojin",
+          "identity_status": "OFFICIAL_VIDEO_TITLE_NAMED_UNMAPPED",
+          "identity_evidence_url": "https://www.youtube.com/watch?v=Kbhf47vb3eE"
+        }
+      ],
+      "identity_status": "OFFICIAL_VIDEO_TITLE_MATCH_ASSOCIATION; VISUAL_MATCH_NOT_TESTED",
+      "identity_evidence_source_id": "youtube:Kbhf47vb3eE",
+      "video_source_ids": [
+        "youtube:Kbhf47vb3eE"
+      ]
+    }
+  ],
+  "video_sources": [
+    {
+      "source_id": "youtube:ywX9mUJ8NtI",
+      "match_id": "match:ptti:wtt-doha-2026:ms-r16:lin-shidong-benedikt-duda",
+      "provider": "YOUTUBE",
+      "provider_video_id": "ywX9mUJ8NtI",
+      "title": "FULL MATCH | Lin Shidong vs Benedikt Duda | MS R16 | WTT Champions Doha 2026",
+      "publisher": "World Table Tennis",
+      "publisher_status": "OFFICIAL_VERIFIED_CHANNEL",
+      "source_published_at": "2026-01-09",
+      "watch_url": "https://www.youtube.com/watch?v=ywX9mUJ8NtI",
+      "watch_route": "OFFICIAL_EXTERNAL_LINK_ONLY",
+      "source_page_status": "OFFICIAL_TITLE_METADATA_FOUND; PLAYER_PAGE_NOT_OPENED",
+      "playback_status": "NOT_TESTED",
+      "completeness_status": "TITLE_ASSERTS_FULL_MATCH; VISUAL_COMPLETENESS_NOT_VERIFIED",
+      "embed_permission": "UNKNOWN_NOT_GRANTED",
+      "thumbnail_display_permission": "NOT_GRANTED_PENDING_WRITTEN_APPROVAL",
+      "download_permission": "NOT_GRANTED",
+      "local_analysis_permission": "NOT_GRANTED",
+      "redistribution_permission": "NOT_GRANTED",
+      "territory_status": "UNKNOWN",
+      "login_status": "UNKNOWN",
+      "copyright_notice": "© WTT; WTT states its content is copyrighted and images may not be reproduced without prior approval.",
+      "match_identity_evidence": "Official verified WTT channel video title names both players, category, round and event; no in-player visual verification performed."
+    },
+    {
+      "source_id": "youtube:Kbhf47vb3eE",
+      "match_id": "match:ptti:wtt-doha-2026:ms-sf:lin-shidong-jang-woojin",
+      "provider": "YOUTUBE",
+      "provider_video_id": "Kbhf47vb3eE",
+      "title": "FULL MATCH | Lin Shidong vs Jang Woojin | MS SF | WTT Champions Doha 2026",
+      "publisher": "World Table Tennis",
+      "publisher_status": "OFFICIAL_VERIFIED_CHANNEL",
+      "source_published_at": "2026-01-12",
+      "watch_url": "https://www.youtube.com/watch?v=Kbhf47vb3eE",
+      "watch_route": "OFFICIAL_EXTERNAL_LINK_ONLY",
+      "source_page_status": "OFFICIAL_TITLE_METADATA_FOUND; PLAYER_PAGE_NOT_OPENED",
+      "playback_status": "NOT_TESTED",
+      "completeness_status": "TITLE_ASSERTS_FULL_MATCH; VISUAL_COMPLETENESS_NOT_VERIFIED",
+      "embed_permission": "UNKNOWN_NOT_GRANTED",
+      "thumbnail_display_permission": "NOT_GRANTED_PENDING_WRITTEN_APPROVAL",
+      "download_permission": "NOT_GRANTED",
+      "local_analysis_permission": "NOT_GRANTED",
+      "redistribution_permission": "NOT_GRANTED",
+      "territory_status": "UNKNOWN",
+      "login_status": "UNKNOWN",
+      "copyright_notice": "© WTT; WTT states its content is copyrighted and images may not be reproduced without prior approval.",
+      "match_identity_evidence": "Official verified WTT channel video title names both players, category, round and event; no in-player visual verification performed."
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "contract_version": "ptti.scout004.original-intake-audit/0.1",
+  "observed_at": "2026-10-23T01:50:35Z",
+  "handoff_url": "https://ptti-global-scout-004-r2-final-main-dex-udqu.pages.grok.bot/",
+  "input": {
+    "expected_files": [
+      {
+        "name": "scout-004-r2-candidates.json",
+        "expected_sha256": "0081392d484d241278ade74a4959a3126e158164116f8c1f651cbaef1fbd742c",
+        "available": false,
+        "actual_sha256": null,
+        "parse_status": "NOT_RUN_NO_BYTES"
+      },
+      {
+        "name": "scout-004-r2-candidates.csv",
+        "expected_sha256": "2e32f4d7aa37500a5252e4a161240230a6cb96c35e8da3a0b1fd35a10ac6bce4",
+        "available": false,
+        "actual_sha256": null,
+        "parse_status": "NOT_RUN_NO_BYTES"
+      }
+    ],
+    "search_scope": [
+      "C:/PTTI-Worktrees",
+      "<LOCAL_USER_ROOT>/Downloads"
+    ],
+    "handoff_page_observation": "RENDERED_SUMMARY_ONLY",
+    "publisher_paths_are_downloads": false,
+    "raw_payload_reconstructed": false,
+    "status": "BLOCKED_MISSING_ORIGINAL_BYTES"
+  },
+  "rendered_page_comparison": {
+    "candidate_ids_visible": [
+      "C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11", "C12", "S1", "S2", "S3"
+    ],
+    "grade_counts_visible": {
+      "READY_FOR_MAIN_REVIEW": 10,
+      "NEEDS_VERIFICATION": 4,
+      "REJECTED": 1
+    },
+    "matches_previous_page_review": true,
+    "comparison_limit": "Only rendered-page summary fields can be compared; source JSON/CSV columns, row bytes, and full evidence arrays cannot be compared without the originals.",
+    "detected_transcription_difference": {
+      "candidate_id": "C07",
+      "field": "highlight_video_id",
+      "previous_review_value": "DHxcmcGrpn2",
+      "currently_rendered_page_value": "DHxcmcGrpn8",
+      "status": "PAGE_VISIBLE_VALUE_CONFLICT",
+      "admission_effect": "NONE; both values remain unverified claims until the original data and video metadata are available"
+    },
+    "other_raw_field_differences": "NOT_COMPARABLE_NO_ORIGINAL_BYTES"
+  },
+  "handoff_evidence_claims": {
+    "schema_claim": "PTTI-SCOUT neutral v0.2",
+    "ptti_match_source_athlete_ids": "NONE_IN_RENDERED_HANDOFF",
+    "official_wtt_ittf_single_match_record_urls": "UNKNOWN_FOR_14_NON_REJECTED_CANDIDATES",
+    "rights": "NOT_CLEARED_FOR_ALL_CANDIDATES",
+    "territory": "UNKNOWN",
+    "playback": "NOT_TESTED",
+    "embedding": "NOT_GRANTED; page notes a playable-in-embed observation without granting permission",
+    "thumbnail_download_analysis_redistribution": "NOT_GRANTED_OR_UNKNOWN; no upgrade permitted"
+  },
+  "exact_dedup_findings": {
+    "strict_public_baseline": {
+      "matches": 8,
+      "unique_video_ids": 19,
+      "athletes": 8
+    },
+    "candidate_public_overlap": {
+      "candidate_id": "C07",
+      "video_id": "cDccQqVlMnc",
+      "existing_match_id": "pro:wtt:singapore-smash-2026:wang-chuqin-lin-yun-ju-ms-final",
+      "existing_source_id": "video-source:youtube:cDccQqVlMnc",
+      "decision": "EXACT_DUPLICATE_EXISTING_MATCH_AND_FULL_MATCH_SOURCE"
+    },
+    "candidate_internal_overlap": {
+      "candidate_id": "S3",
+      "video_id": "vYsJLPTEIaI",
+      "existing_source_id": "video-source:youtube:vYsJLPTEIaI",
+      "source_record_path": "products/ptti/data/professional/official_video_sources.json",
+      "canonical_match_id": null,
+      "match_link_status": "UNKNOWN",
+      "rights": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
+      "decision": "EXISTING_INTERNAL_SOURCE; DO_NOT_DUPLICATE OR CREATE_MATCH_LINK"
+    },
+    "remaining_candidate_id_collisions": "No other exact candidate YouTube IDs were found in the reviewed Main public package union or the recorded Main source inventory; raw file-level dedup remains pending originals."
+  },
+  "admission": {
+    "new_matches": 0,
+    "new_video_sources": 0,
+    "strict_public_package_generated": false,
+    "reason": "Original SHA verification and row-level parsing are prerequisites. The visible handoff also says all candidate rights are uncleared, playback is not tested, and territory is unknown."
+  },
+  "san_read_only_compatibility": {
+    "branch": "codex/ptti-goal14-fan-experience",
+    "head": "ab484d6cf0336372c742a6a80ebc6072d14aec4e",
+    "latest_commit_subject": "feat(goal64): render evidence-labeled score river from existing reports",
+    "check": "PASS",
+    "consumed_catalog": {
+      "path": "products/ptti-web/public/data/match-library-strict-public.json",
+      "sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+      "contract_version": "ptti.match-library-index/0.1",
+      "view": "STRICT_PUBLIC",
+      "matches": 5,
+      "video_sources": 15,
+      "stars": 8
+    },
+    "scope": "Latest San consumer check passes against the existing Goal15 strict-public base only; no SCOUT candidate consumed. Main's composed 8/19/8 union is not present as San catalog files."
+  },
+  "prior_review": {
+    "path": "products/ptti-integration/generated/goal55-scout004-r2-page-review-v0.1/internal/review.json",
+    "sha256": "293aa7bdf6667d7d923970ec5d8e3621759112ece3b62d4d3bbe178320a5151b",
+    "preserved_unchanged": true
+  }
+}

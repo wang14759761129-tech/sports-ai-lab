@@ -1,0 +1,308 @@
+{
+  "contract_version": "ptti.match-library-index/0.1",
+  "view": "STRICT_PUBLIC",
+  "generated_at": "2026-10-18T00:00:00Z",
+  "source_manifest": [
+    {
+      "file": "products/ptti-integration/generated/goal11-match-library/match-library-internal-review.json",
+      "sha256": "770dd32962aa844c6d3cfc4580a05af9b793e522a0472d159c6d43979b849cd5"
+    },
+    {
+      "file": "products/ptti-integration/fixtures/goal14-main-content-admission-v0.1.json",
+      "sha256": "4471c6e8b7315a8e58622a951a786c4a7ae465578869b5dee57e3897c5845049"
+    }
+  ],
+  "matches": [
+    {
+      "match_id": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+      "identity_status": "REGISTERED_WITH_SOURCE_REFERENCES",
+      "event": {
+        "name": "China Smash 2025",
+        "event_id": "3098",
+        "date": null,
+        "competition_level": "WTT_GRAND_SMASH"
+      },
+      "match_type": "MS",
+      "round": "Men's Singles Final",
+      "participants": [
+        {
+          "side": "A",
+          "athlete_id": "athlete:121558",
+          "name_en": "WANG Chuqin"
+        },
+        {
+          "side": "B",
+          "athlete_id": "athlete:135977",
+          "name_en": "Felix LEBRUN"
+        }
+      ],
+      "recorded_result": {
+        "player_a_games": 4,
+        "player_b_games": 0
+      },
+      "recorded_winner_id": "athlete:121558",
+      "result_status": "OFFICIAL_EVENT_RESULT_CROSSCHECKED",
+      "reference_url": "https://www.worldtabletennis.com/eventInfo?eventId=3098",
+      "evidence_source_ids": [
+        "wtt-china-smash-2025-final",
+        "wtt-china-smash-2025-wang-lebrun",
+        "wtt-player-felix-lebrun",
+        "wtt-player-wang-chuqin",
+        "wtt-youtube-full-match-0QgbtsBWZhk"
+      ],
+      "video_source_ids": [
+        "video-source:youtube:0QgbtsBWZhk"
+      ],
+      "match_video_link_status": "HUMAN_VERIFIED",
+      "rights": {
+        "public_listing": "ALLOWED",
+        "evidence_status": "SCOPED_FACTUAL_METADATA_ONLY",
+        "scope": "FACTUAL_NAMES_EVENT_MATCH_SUMMARY_AND_SOURCE_ATTRIBUTION_ONLY",
+        "evidence_source_ids": [
+          "wtt-china-smash-2025-final",
+          "wtt-player-wang-chuqin",
+          "wtt-player-felix-lebrun"
+        ]
+      }
+    }
+  ],
+  "video_sources": [
+    {
+      "catalog_record_id": "catalog:youtube:0QgbtsBWZhk",
+      "source_id": "video-source:youtube:0QgbtsBWZhk",
+      "video_id": "0QgbtsBWZhk",
+      "platform": "YOUTUBE",
+      "official_url": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+      "watch_entry": "OPEN_OFFICIAL_PLATFORM_URL",
+      "title": "Men's Singles Final · Wang Chuqin vs Felix Lebrun · China Smash 2025",
+      "original_title": "FULL MATCH | Wang Chuqin vs Felix Lebrun | MS Final | #ChinaSmash 2025",
+      "event": "China Smash 2025",
+      "event_year": 2025,
+      "match_date": null,
+      "match_type": "MS",
+      "round": "Men's Singles Final",
+      "participants_claimed": {
+        "side_a": "Wang Chuqin",
+        "side_b": "Felix Lebrun",
+        "unassigned_names": []
+      },
+      "publisher": "World Table Tennis",
+      "publisher_url": "https://www.youtube.com/@wttglobal",
+      "publisher_identity_status": "VERIFIED",
+      "source_verified_at": "2026-10-18T00:00:00Z",
+      "source_identity_status": "VERIFIED",
+      "identity_conflicts": [],
+      "canonical_match_id": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+      "match_link_status": "HUMAN_VERIFIED",
+      "content_type_claim": "FULL_MATCH",
+      "completeness_status": "UNVERIFIED",
+      "permission_status_recorded": "SCOPED_PUBLIC_METADATA_AND_EXTERNAL_LINK_ONLY",
+      "rights": {
+        "public_listing": "ALLOWED",
+        "external_viewing": "ALLOWED",
+        "thumbnail_display": "NOT_ALLOWED",
+        "embedding": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "SCOPED_EXTERNAL_LINK_ONLY_NO_MEDIA_USE_GRANT",
+        "scope": "OFFICIAL_YOUTUBE_SHARE_URL_ONLY",
+        "evidence_source_ids": [
+          "wtt-youtube-full-match-0QgbtsBWZhk",
+          "youtube-share-link-help"
+        ]
+      },
+      "thumbnail": {
+        "url": null,
+        "source_has_thumbnail_url": true,
+        "display_status": "NOT_DISPLAYED_PRIOR_APPROVAL_REQUIRED"
+      },
+      "availability": {
+        "official_page_current": "NOT_TESTED",
+        "external_video_visual_latest_recorded": "NOT_TESTED",
+        "external_observations": [
+          {
+            "surface": "OFFICIAL_YOUTUBE_METADATA",
+            "checked_at": "2026-10-18T00:00:00Z",
+            "page_accessible": null,
+            "visual_playback": "NOT_TESTED",
+            "observed_result": "Exact official metadata observed; no video frames or current playback verified.",
+            "limitations": "Metadata and outbound URL only; current access and territory are unknown."
+          }
+        ],
+        "platform_embed": {
+          "permission": "UNKNOWN",
+          "latest_recorded_technical_status": "BLOCKED_OBSERVED_HISTORICAL_ERROR_150",
+          "historical_attempts": [
+            {
+              "result": "FAILED",
+              "error_code": 150,
+              "date": "2026-10-09",
+              "status": "HISTORICAL_ONLY"
+            }
+          ]
+        },
+        "desktop_native_playback": "NOT_TESTED",
+        "vision_analysis": "NOT_TESTED",
+        "current_session_eligibility": "NOT_EVALUATED_CURRENT_SESSION",
+        "latest_recorded_playback_status": "EMBED_BLOCKED_HISTORICAL",
+        "territory_availability": "UNKNOWN",
+        "recorded_region_restriction": "UNKNOWN"
+      },
+      "provenance": [
+        {
+          "snapshot": "goal14-main-content-admission-v0.1.json",
+          "recorded_at": "2026-10-18T00:00:00Z",
+          "metadata_method": "MANUAL_OFFICIAL_SOURCE_CROSSCHECK",
+          "publisher_url": "https://www.youtube.com/@wttglobal",
+          "event_evidence": "wtt-china-smash-2025-final",
+          "match_link_evidence": [
+            "wtt-china-smash-2025-final",
+            "wtt-youtube-full-match-0QgbtsBWZhk"
+          ],
+          "source_rights_scope": "OFFICIAL_YOUTUBE_SHARE_URL_ONLY",
+          "source_notice": "Official platform link only. No thumbnail, embed, analysis, download, or redistribution grant recorded.",
+          "playback_status_recorded": "NOT_TESTED"
+        }
+      ],
+      "snapshot_count": 1,
+      "source_identity_evidence_scope": "OFFICIAL_VIDEO_METADATA_ONLY_NOT_VISUAL_PLAYBACK"
+    }
+  ],
+  "local_video_assets": [],
+  "stars": [
+    {
+      "athlete_id": "athlete:121558",
+      "name_en": "WANG Chuqin",
+      "name_zh": "王楚钦",
+      "association": "CHN",
+      "official_profile_url": "https://www.worldtabletennis.com/player/121558/WANG-Chuqin",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-china-smash-2025-final",
+        "wtt-player-felix-lebrun",
+        "wtt-player-wang-chuqin",
+        "wtt-profile-121558"
+      ],
+      "public_listing": "ALLOWED",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "public_listing_scope": "FACTUAL_NAME_STABLE_ID_AND_OFFICIAL_PROFILE_LINK_ONLY_NO_PORTRAIT_OR_BIOGRAPHY"
+    },
+    {
+      "athlete_id": "athlete:135977",
+      "name_en": "Felix LEBRUN",
+      "name_zh": "菲利克斯·勒布伦",
+      "association": "FRA",
+      "official_profile_url": "https://www.worldtabletennis.com/player/135977/Felix-LEBRUN",
+      "profile_last_verified_at": "2026-10-05T16:32:00Z",
+      "evidence_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-china-smash-2025-final",
+        "wtt-player-felix-lebrun",
+        "wtt-player-wang-chuqin",
+        "wtt-profile-135977"
+      ],
+      "public_listing": "ALLOWED",
+      "equipment": {
+        "status": "UNKNOWN",
+        "items": []
+      },
+      "coach_observations": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "interviews": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "sponsorships": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "social_feedback": {
+        "status": "NOT_COLLECTED",
+        "items": []
+      },
+      "public_listing_scope": "FACTUAL_NAME_STABLE_ID_AND_OFFICIAL_PROFILE_LINK_ONLY_NO_PORTRAIT_OR_BIOGRAPHY"
+    }
+  ],
+  "evidence_sources": [
+    {
+      "source_id": "wtt-china-smash-2025-final",
+      "source_type": "OFFICIAL_WTT_EVENT_RESULT",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3098",
+      "retrieved_at": "2026-10-18T00:00:00Z",
+      "description": "WTT official event-result material identifies the China Smash 2025 Men's Singles Final and reports Wang Chuqin defeated Felix Lebrun 4-0 (11-7, 11-2, 11-5, 11-7). The page is dynamic; this review used WTT's indexed event result and did not verify current rendered-page access."
+    },
+    {
+      "source_id": "wtt-youtube-full-match-0QgbtsBWZhk",
+      "source_type": "OFFICIAL_YOUTUBE_VIDEO_METADATA",
+      "url": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+      "retrieved_at": "2026-10-18T00:00:00Z",
+      "description": "Official YouTube metadata lists the exact title 'FULL MATCH | Wang Chuqin vs Felix Lebrun | MS Final | #ChinaSmash 2025' and publisher World Table Tennis. This supports a source-metadata association, not a visual-playback or completeness pass. The video description states ©WTT and that images require prior approval for reproduction."
+    },
+    {
+      "source_id": "youtube-share-link-help",
+      "source_type": "PLATFORM_LINK_SHARING_GUIDANCE",
+      "url": "https://support.google.com/youtube/answer/57741?hl=en",
+      "retrieved_at": "2026-10-18T00:00:00Z",
+      "description": "YouTube Help describes using Copy link to share a video URL elsewhere. This admission uses only the official platform URL as an external navigation link; it does not rely on embed, thumbnail, download, or content-reuse permission."
+    },
+    {
+      "source_id": "wtt-player-wang-chuqin",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE_REFERENCE",
+      "url": "https://www.worldtabletennis.com/player/121558/WANG-Chuqin",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "The committed professional registry snapshot maps athlete:121558 to WANG Chuqin and this official WTT profile URL. Current page access was not tested. Only the factual name, stable athlete ID, and outbound profile link are projected; no image or biography is included."
+    },
+    {
+      "source_id": "wtt-player-felix-lebrun",
+      "source_type": "OFFICIAL_WTT_PLAYER_PROFILE_REFERENCE",
+      "url": "https://www.worldtabletennis.com/player/135977/Felix-LEBRUN",
+      "retrieved_at": "2026-10-05T16:32:00Z",
+      "description": "The committed professional registry snapshot maps athlete:135977 to Felix LEBRUN and this official WTT profile URL. Current page access was not tested. Only the factual name, stable athlete ID, and outbound profile link are projected; no image or biography is included."
+    }
+  ],
+  "rights_review_queue": [],
+  "quality_summary": {
+    "public_match_count": 1,
+    "public_video_source_count": 1,
+    "public_star_count": 2,
+    "public_match_video_link_count": 1,
+    "current_session_playback_pass_count": 0,
+    "official_embed_permission_count": 0,
+    "thumbnail_display_permission_count": 0,
+    "total_internal_video_sources_reviewed": 35,
+    "excluded_reference_only_records": 34,
+    "excluded_match_records": 5,
+    "excluded_athlete_profiles": 14,
+    "excluded_reason": "All other internal records lack an equivalent scoped public-facts/external-link review; no rights are inherited between records."
+  },
+  "analysis_compatibility": {
+    "review_targets_version": "ptti.review-targets/0.1",
+    "review_evidence_pack_version": "ptti.review-evidence-pack/0.1",
+    "join_policy": "EXACT_MATCH_ID_AND_SOURCE_ID_WITH_EVIDENCE_ONLY",
+    "automatic_join_by_title_or_player_name": false,
+    "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+  },
+  "notice": "This is a narrowly scoped curation decision for factual metadata and a platform-provided outbound link only. It is not a media license, embed grant, thumbnail grant, analysis permission, download permission, or redistribution permission. The record is a public factual index and official external watch link only. The video is not embedded or redistributed. Current access, region, playback, completeness, Desktop Native playback, and Vision analysis remain unverified."
+}

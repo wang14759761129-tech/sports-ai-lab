@@ -1,0 +1,2473 @@
+{
+  "contract_version": "ptti.fan-content-delivery/0.1",
+  "view": "INTERNAL_REVIEW",
+  "base_contract_version": "ptti.fan-content-intelligence/0.1",
+  "generated_at": "2026-10-18T04:30:00Z",
+  "source_manifest": {
+    "base_dataset_sha256": "1c18c4d3c0ccfdc056ce10c4b38db246d334747e3b02b23fc29f2cacc3065951",
+    "localization_sha256": "dcef91f1e317846453443a72581fc8c10931d91a194c11d490c4ddd1e0300df8"
+  },
+  "stars": [
+    {
+      "athlete_id": "athlete:135977",
+      "name_en": "Felix LEBRUN",
+      "name_zh": "菲利克斯·勒布伦",
+      "association": "FRA",
+      "ittf_id": 135977,
+      "official_profile_url": "https://www.worldtabletennis.com/player/135977/Felix-LEBRUN",
+      "registry_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-135977"
+      ],
+      "profile_snapshot_verified_at": "2026-10-05T16:32:00Z",
+      "current_profile_access": "NOT_TESTED_CURRENT_SESSION",
+      "public_listing": "UNKNOWN",
+      "display_permissions": {
+        "profile_listing": "UNKNOWN",
+        "portrait_display": "UNKNOWN",
+        "biography_reuse": "UNKNOWN",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED"
+      },
+      "portrait_url": null,
+      "biography_status": "NOT_COLLECTED",
+      "equipment_status": "UNKNOWN",
+      "coach_observation_status": "NOT_COLLECTED",
+      "interviews_status": "NOT_COLLECTED",
+      "sponsorship_status": "NOT_COLLECTED",
+      "social_feedback_status": "NOT_COLLECTED"
+    },
+    {
+      "athlete_id": "athlete:121558",
+      "name_en": "WANG Chuqin",
+      "name_zh": "王楚钦",
+      "association": "CHN",
+      "ittf_id": 121558,
+      "official_profile_url": "https://www.worldtabletennis.com/player/121558/WANG-Chuqin",
+      "registry_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-121558"
+      ],
+      "profile_snapshot_verified_at": "2026-10-05T16:32:00Z",
+      "current_profile_access": "NOT_TESTED_CURRENT_SESSION",
+      "public_listing": "UNKNOWN",
+      "display_permissions": {
+        "profile_listing": "UNKNOWN",
+        "portrait_display": "UNKNOWN",
+        "biography_reuse": "UNKNOWN",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED"
+      },
+      "portrait_url": null,
+      "biography_status": "NOT_COLLECTED",
+      "equipment_status": "UNKNOWN",
+      "coach_observation_status": "NOT_COLLECTED",
+      "interviews_status": "NOT_COLLECTED",
+      "sponsorship_status": "NOT_COLLECTED",
+      "social_feedback_status": "NOT_COLLECTED"
+    },
+    {
+      "athlete_id": "athlete:123980",
+      "name_en": "Tomokazu HARIMOTO",
+      "name_zh": "张本智和",
+      "association": "JPN",
+      "ittf_id": 123980,
+      "official_profile_url": "https://www.worldtabletennis.com/player/123980/Tomokazu-HARIMOTO",
+      "registry_source_ids": [
+        "ittf-wtt-mens-ranking-w41-2026",
+        "wtt-profile-123980"
+      ],
+      "profile_snapshot_verified_at": "2026-10-05T16:32:00Z",
+      "current_profile_access": "NOT_TESTED_CURRENT_SESSION",
+      "public_listing": "UNKNOWN",
+      "display_permissions": {
+        "profile_listing": "UNKNOWN",
+        "portrait_display": "UNKNOWN",
+        "biography_reuse": "UNKNOWN",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED"
+      },
+      "portrait_url": null,
+      "biography_status": "NOT_COLLECTED",
+      "equipment_status": "UNKNOWN",
+      "coach_observation_status": "NOT_COLLECTED",
+      "interviews_status": "NOT_COLLECTED",
+      "sponsorship_status": "NOT_COLLECTED",
+      "social_feedback_status": "NOT_COLLECTED"
+    }
+  ],
+  "events": [
+    {
+      "event_id": "event:wtt:3094",
+      "provider": "WTT",
+      "provider_event_id": "3094",
+      "name": "WTT Champions Yokohama 2025",
+      "event_year": 2025,
+      "event_dates": {
+        "start": null,
+        "end": null,
+        "status": "UNKNOWN"
+      },
+      "official_event_page_url": "https://www.worldtabletennis.com/eventInfo?eventId=3094",
+      "event_page_evidence_id": "evidence:wtt-event:3094",
+      "source_verified_at": "2026-10-18",
+      "official_viewing_route": {
+        "kind": "OFFICIAL_EVENT_PAGE",
+        "url": "https://www.worldtabletennis.com/eventInfo?eventId=3094",
+        "status": "OFFICIAL_PAGE_LISTS_RELATED_VIDEO",
+        "current_access": "NOT_TESTED_CURRENT_SESSION",
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED"
+      },
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "Official route is recorded as a link only; PTTI reuse, embedding, or territorial access permission is not established."
+        ]
+      },
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "notes": [
+        "WTT event page search-index content lists Top Points of Day 1-5 and Top 10 Points. Exact user-session access and territory are untested."
+      ],
+      "title_original": "WTT Champions Yokohama 2025",
+      "title_zh": "WTT 横滨冠军赛 2025",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN"
+    },
+    {
+      "event_id": "event:wtt:3083",
+      "provider": "WTT",
+      "provider_event_id": "3083",
+      "name": "WTT Star Contender Doha 2025",
+      "event_year": 2025,
+      "event_dates": {
+        "start": "2025-01-06",
+        "end": "2025-01-11",
+        "status": "SOURCE_PAGE_LISTED"
+      },
+      "official_event_page_url": "https://www.worldtabletennis.com/eventInfo?eventId=3083",
+      "event_page_evidence_id": "evidence:wtt-event:3083",
+      "source_verified_at": "2026-10-18",
+      "official_viewing_route": {
+        "kind": "OFFICIAL_EVENT_PAGE",
+        "url": "https://www.worldtabletennis.com/eventInfo?eventId=3083",
+        "status": "OFFICIAL_PAGE_LISTS_RELATED_VIDEO",
+        "current_access": "NOT_TESTED_CURRENT_SESSION",
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED"
+      },
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "Official route is recorded as a link only; PTTI reuse, embedding, or territorial access permission is not established."
+        ]
+      },
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "notes": [
+        "The 2024 Day 1 result is excluded; the 2025 page lists Qualifying, Days 2-4 and Top 10. Current access and territory are untested."
+      ],
+      "title_original": "WTT Star Contender Doha 2025",
+      "title_zh": "WTT 多哈球星挑战赛 2025",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN"
+    },
+    {
+      "event_id": "event:wtt:3128",
+      "provider": "WTT",
+      "provider_event_id": "3128",
+      "name": "Europe Smash - Sweden 2025",
+      "event_year": 2025,
+      "event_dates": {
+        "start": null,
+        "end": null,
+        "status": "UNKNOWN"
+      },
+      "official_event_page_url": "https://www.worldtabletennis.com/eventInfo?eventId=3128",
+      "event_page_evidence_id": "evidence:wtt-event:3128",
+      "source_verified_at": "2026-10-18",
+      "official_viewing_route": {
+        "kind": "OFFICIAL_EVENT_PAGE",
+        "url": "https://www.worldtabletennis.com/eventInfo?eventId=3128",
+        "status": "OFFICIAL_PAGE_LISTS_RELATED_VIDEO",
+        "current_access": "NOT_TESTED_CURRENT_SESSION",
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED"
+      },
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "Official route is recorded as a link only; PTTI reuse, embedding, or territorial access permission is not established."
+        ]
+      },
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "notes": [
+        "WTT event page search-index content lists Top Points of Qualifying and Days 1-7. Current access and territory are untested."
+      ],
+      "title_original": "Europe Smash - Sweden 2025",
+      "title_zh": "欧洲大满贯·瑞典站 2025",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN"
+    },
+    {
+      "event_id": "event:wtt:chongqing-champions:2025",
+      "provider": "WTT",
+      "provider_event_id": null,
+      "name": "WTT Champions Chongqing 2025 Presented by AITO",
+      "event_year": 2025,
+      "event_dates": {
+        "start": null,
+        "end": null,
+        "status": "UNKNOWN"
+      },
+      "official_event_page_url": "https://www.worldtabletennis.com/description?artId=4731",
+      "event_page_evidence_id": "evidence:wtt-article:4731",
+      "source_verified_at": "2026-10-18",
+      "official_viewing_route": {
+        "kind": "OFFICIAL_PLATFORM_PAGE_OR_BROADCAST_INFO",
+        "url": "https://www.worldtabletennis.com/description?artId=4731",
+        "status": "OFFICIAL_ARTICLE_STATES_WATCH_OPTIONS",
+        "current_access": "NOT_TESTED_CURRENT_SESSION",
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED"
+      },
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "Official route is recorded as a link only; PTTI reuse, embedding, or territorial access permission is not established."
+        ]
+      },
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "notes": [
+        "Official article reports Sun Yingsha vs Chen Xingtong WS final and links out to YouTube or local broadcasters; no territory-specific access was confirmed."
+      ],
+      "title_original": "WTT Champions Chongqing 2025 Presented by AITO",
+      "title_zh": "WTT 重庆冠军赛 2025（AITO 呈现）",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN"
+    },
+    {
+      "event_id": "event:wtt:3085",
+      "provider": "WTT",
+      "provider_event_id": "3085",
+      "name": "Singapore Smash 2025",
+      "event_year": 2025,
+      "event_dates": {
+        "start": null,
+        "end": null,
+        "status": "UNKNOWN"
+      },
+      "official_event_page_url": "https://www.worldtabletennis.com/eventInfo?eventId=3085",
+      "event_page_evidence_id": "evidence:wtt-event:3085",
+      "source_verified_at": "2026-10-18",
+      "official_viewing_route": {
+        "kind": "OFFICIAL_EVENT_PAGE",
+        "url": "https://www.worldtabletennis.com/eventInfo?eventId=3085",
+        "status": "OFFICIAL_PAGE_LISTS_RELATED_VIDEO",
+        "current_access": "NOT_TESTED_CURRENT_SESSION",
+        "territory": "UNKNOWN",
+        "login_or_paywall": "NOT_TESTED"
+      },
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "Official route is recorded as a link only; PTTI reuse, embedding, or territorial access permission is not established."
+        ]
+      },
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "notes": [
+        "WTT event page search-index content lists Top 10 Points. Current access and territory are untested."
+      ],
+      "title_original": "Singapore Smash 2025",
+      "title_zh": "WTT 新加坡大满贯 2025",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN"
+    }
+  ],
+  "matches": [],
+  "clips": [
+    {
+      "clip_id": "clip-candidate:yokohama-2025:top-points-day-1",
+      "event_id": "event:wtt:3094",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Day 1 | #WTTYokohama 2025",
+      "title_zh": "横滨冠军赛 2025｜第 1 日精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "YOUTUBE",
+      "video_id": "xef0VQVV-OE",
+      "official_video_url": "https://www.youtube.com/watch?v=xef0VQVV-OE",
+      "publisher": "World Table Tennis",
+      "publisher_identity_status": "WTT_VERIFIED_CHANNEL_SEARCH_RESULT",
+      "published_at": "2025-08-07",
+      "publication_date_status": "SOURCE_METADATA_DATE",
+      "page_observation_status": "YOUTUBE_SEARCH_INDEX_METADATA",
+      "watch_source_id": "watch:youtube:xef0VQVV-OE",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:xef0VQVV-OE"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:yokohama-2025:top-points-day-2",
+      "event_id": "event:wtt:3094",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Day 2 | #WTTYokohama 2025",
+      "title_zh": "横滨冠军赛 2025｜第 2 日精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "UNKNOWN",
+      "video_id": null,
+      "official_video_url": null,
+      "publisher": null,
+      "publisher_identity_status": "EVENT_PAGE_LISTING_ONLY",
+      "published_at": null,
+      "publication_date_status": "UNKNOWN",
+      "page_observation_status": "OFFICIAL_EVENT_PAGE_RELATED_VIDEO_LISTING",
+      "watch_source_id": "watch:event-page:wtt:3094",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3094"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:yokohama-2025:top-points-day-3",
+      "event_id": "event:wtt:3094",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Day 3 | #WTTYokohama 2025",
+      "title_zh": "横滨冠军赛 2025｜第 3 日精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "YOUTUBE",
+      "video_id": "WF0H02Br3LE",
+      "official_video_url": "https://www.youtube.com/watch?v=WF0H02Br3LE",
+      "publisher": "World Table Tennis",
+      "publisher_identity_status": "WTT_VERIFIED_CHANNEL_SEARCH_RESULT",
+      "published_at": "2025-08-09",
+      "publication_date_status": "SOURCE_METADATA_DATE",
+      "page_observation_status": "YOUTUBE_SEARCH_INDEX_METADATA",
+      "watch_source_id": "watch:youtube:WF0H02Br3LE",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:WF0H02Br3LE"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:yokohama-2025:top-points-day-4",
+      "event_id": "event:wtt:3094",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Day 4 | #WTTYokohama 2025",
+      "title_zh": "横滨冠军赛 2025｜第 4 日精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "YOUTUBE",
+      "video_id": "zfrkMx5DdRo",
+      "official_video_url": "https://www.youtube.com/watch?v=zfrkMx5DdRo",
+      "publisher": "World Table Tennis",
+      "publisher_identity_status": "WTT_VERIFIED_CHANNEL_SEARCH_RESULT",
+      "published_at": "2025-08-10",
+      "publication_date_status": "SOURCE_METADATA_DATE",
+      "page_observation_status": "YOUTUBE_SEARCH_INDEX_METADATA",
+      "watch_source_id": "watch:youtube:zfrkMx5DdRo",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:zfrkMx5DdRo"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:yokohama-2025:top-points-day-5",
+      "event_id": "event:wtt:3094",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Day 5 | #WTTYokohama 2025",
+      "title_zh": "横滨冠军赛 2025｜第 5 日精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "YOUTUBE",
+      "video_id": "fa2j70xjqoU",
+      "official_video_url": "https://www.youtube.com/watch?v=fa2j70xjqoU",
+      "publisher": "World Table Tennis",
+      "publisher_identity_status": "WTT_VERIFIED_CHANNEL_SEARCH_RESULT",
+      "published_at": "2025-08-11",
+      "publication_date_status": "SOURCE_METADATA_DATE",
+      "page_observation_status": "YOUTUBE_SEARCH_INDEX_METADATA",
+      "watch_source_id": "watch:youtube:fa2j70xjqoU",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:fa2j70xjqoU"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:yokohama-2025:top-10-points",
+      "event_id": "event:wtt:3094",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top 10 Points | Presented by DHS | #WTTYokohama 2025",
+      "title_zh": "横滨冠军赛 2025｜十大精彩回合（DHS 呈现）",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "YOUTUBE",
+      "video_id": "0820Zo3UaGM",
+      "official_video_url": "https://www.youtube.com/watch?v=0820Zo3UaGM",
+      "publisher": "World Table Tennis",
+      "publisher_identity_status": "WTT_VERIFIED_CHANNEL_SEARCH_RESULT",
+      "published_at": "2025-08-29",
+      "publication_date_status": "SOURCE_METADATA_DATE",
+      "page_observation_status": "YOUTUBE_SEARCH_INDEX_METADATA",
+      "watch_source_id": "watch:youtube:0820Zo3UaGM",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:0820Zo3UaGM"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:doha-2025:top-points-qualifying",
+      "event_id": "event:wtt:3083",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Qualifying | #WTTDoha 2025",
+      "title_zh": "多哈球星挑战赛 2025｜资格赛精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "YOUTUBE",
+      "video_id": "y9AYI43XtMI",
+      "official_video_url": "https://www.youtube.com/watch?v=y9AYI43XtMI",
+      "publisher": "World Table Tennis",
+      "publisher_identity_status": "WTT_VERIFIED_CHANNEL_SEARCH_RESULT",
+      "published_at": "2025-01-07",
+      "publication_date_status": "SOURCE_METADATA_DATE",
+      "page_observation_status": "YOUTUBE_SEARCH_INDEX_METADATA",
+      "watch_source_id": "watch:youtube:y9AYI43XtMI",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3083",
+        "evidence:youtube:y9AYI43XtMI"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:doha-2025:top-points-day-2",
+      "event_id": "event:wtt:3083",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Day 2 | #WTTDoha 2025",
+      "title_zh": "多哈球星挑战赛 2025｜第 2 日精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "UNKNOWN",
+      "video_id": null,
+      "official_video_url": null,
+      "publisher": null,
+      "publisher_identity_status": "EVENT_PAGE_LISTING_ONLY",
+      "published_at": null,
+      "publication_date_status": "UNKNOWN",
+      "page_observation_status": "OFFICIAL_EVENT_PAGE_RELATED_VIDEO_LISTING",
+      "watch_source_id": "watch:event-page:wtt:3083",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3083"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:doha-2025:top-points-day-3",
+      "event_id": "event:wtt:3083",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Day 3 | #WTTDoha 2025",
+      "title_zh": "多哈球星挑战赛 2025｜第 3 日精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "UNKNOWN",
+      "video_id": null,
+      "official_video_url": null,
+      "publisher": null,
+      "publisher_identity_status": "EVENT_PAGE_LISTING_ONLY",
+      "published_at": null,
+      "publication_date_status": "UNKNOWN",
+      "page_observation_status": "OFFICIAL_EVENT_PAGE_RELATED_VIDEO_LISTING",
+      "watch_source_id": "watch:event-page:wtt:3083",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3083"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:doha-2025:top-points-day-4",
+      "event_id": "event:wtt:3083",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Day 4 | #WTTDoha 2025",
+      "title_zh": "多哈球星挑战赛 2025｜第 4 日精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "YOUTUBE",
+      "video_id": "YNtnXjGiAcQ",
+      "official_video_url": "https://www.youtube.com/watch?v=YNtnXjGiAcQ",
+      "publisher": "World Table Tennis",
+      "publisher_identity_status": "WTT_VERIFIED_CHANNEL_SEARCH_RESULT",
+      "published_at": "2025-01-11",
+      "publication_date_status": "SOURCE_METADATA_DATE",
+      "page_observation_status": "YOUTUBE_SEARCH_INDEX_METADATA",
+      "watch_source_id": "watch:youtube:YNtnXjGiAcQ",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3083",
+        "evidence:youtube:YNtnXjGiAcQ"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:doha-2025:top-10-points",
+      "event_id": "event:wtt:3083",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top 10 Points | #WTTDoha 2025",
+      "title_zh": "多哈球星挑战赛 2025｜十大精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "YOUTUBE",
+      "video_id": "JZhxfSdn3E4",
+      "official_video_url": "https://www.youtube.com/watch?v=JZhxfSdn3E4",
+      "publisher": "World Table Tennis",
+      "publisher_identity_status": "WTT_VERIFIED_CHANNEL_SEARCH_RESULT",
+      "published_at": "2025-01-24",
+      "publication_date_status": "SOURCE_METADATA_DATE",
+      "page_observation_status": "YOUTUBE_SEARCH_INDEX_METADATA",
+      "watch_source_id": "watch:youtube:JZhxfSdn3E4",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3083",
+        "evidence:youtube:JZhxfSdn3E4"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:europe-smash-2025:top-points-qualifying",
+      "event_id": "event:wtt:3128",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Qualifying | #EuropeSmash 2025",
+      "title_zh": "欧洲大满贯·瑞典站 2025｜资格赛精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "YOUTUBE",
+      "video_id": "AgIDgIo7bSY",
+      "official_video_url": "https://www.youtube.com/watch?v=AgIDgIo7bSY",
+      "publisher": "World Table Tennis",
+      "publisher_identity_status": "WTT_VERIFIED_CHANNEL_SEARCH_RESULT",
+      "published_at": "2025-08-16",
+      "publication_date_status": "SOURCE_METADATA_DATE",
+      "page_observation_status": "YOUTUBE_SEARCH_INDEX_METADATA",
+      "watch_source_id": "watch:youtube:AgIDgIo7bSY",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3128",
+        "evidence:youtube:AgIDgIo7bSY"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:europe-smash-2025:top-points-day-1",
+      "event_id": "event:wtt:3128",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Day 1 | #EuropeSmash 2025",
+      "title_zh": "欧洲大满贯·瑞典站 2025｜第 1 日精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "UNKNOWN",
+      "video_id": null,
+      "official_video_url": null,
+      "publisher": null,
+      "publisher_identity_status": "EVENT_PAGE_LISTING_ONLY",
+      "published_at": null,
+      "publication_date_status": "UNKNOWN",
+      "page_observation_status": "OFFICIAL_EVENT_PAGE_RELATED_VIDEO_LISTING",
+      "watch_source_id": "watch:event-page:wtt:3128",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:europe-smash-2025:top-points-day-2",
+      "event_id": "event:wtt:3128",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Day 2 | #EuropeSmash 2025",
+      "title_zh": "欧洲大满贯·瑞典站 2025｜第 2 日精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "UNKNOWN",
+      "video_id": null,
+      "official_video_url": null,
+      "publisher": null,
+      "publisher_identity_status": "EVENT_PAGE_LISTING_ONLY",
+      "published_at": null,
+      "publication_date_status": "UNKNOWN",
+      "page_observation_status": "OFFICIAL_EVENT_PAGE_RELATED_VIDEO_LISTING",
+      "watch_source_id": "watch:event-page:wtt:3128",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:europe-smash-2025:top-points-day-3",
+      "event_id": "event:wtt:3128",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Day 3 | #EuropeSmash 2025",
+      "title_zh": "欧洲大满贯·瑞典站 2025｜第 3 日精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "UNKNOWN",
+      "video_id": null,
+      "official_video_url": null,
+      "publisher": null,
+      "publisher_identity_status": "EVENT_PAGE_LISTING_ONLY",
+      "published_at": null,
+      "publication_date_status": "UNKNOWN",
+      "page_observation_status": "OFFICIAL_EVENT_PAGE_RELATED_VIDEO_LISTING",
+      "watch_source_id": "watch:event-page:wtt:3128",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:europe-smash-2025:top-points-day-4",
+      "event_id": "event:wtt:3128",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Day 4 | #EuropeSmash 2025",
+      "title_zh": "欧洲大满贯·瑞典站 2025｜第 4 日精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "UNKNOWN",
+      "video_id": null,
+      "official_video_url": null,
+      "publisher": null,
+      "publisher_identity_status": "EVENT_PAGE_LISTING_ONLY",
+      "published_at": null,
+      "publication_date_status": "UNKNOWN",
+      "page_observation_status": "OFFICIAL_EVENT_PAGE_RELATED_VIDEO_LISTING",
+      "watch_source_id": "watch:event-page:wtt:3128",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:europe-smash-2025:top-points-day-5",
+      "event_id": "event:wtt:3128",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Day 5 | #EuropeSmash 2025",
+      "title_zh": "欧洲大满贯·瑞典站 2025｜第 5 日精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "UNKNOWN",
+      "video_id": null,
+      "official_video_url": null,
+      "publisher": null,
+      "publisher_identity_status": "EVENT_PAGE_LISTING_ONLY",
+      "published_at": null,
+      "publication_date_status": "UNKNOWN",
+      "page_observation_status": "OFFICIAL_EVENT_PAGE_RELATED_VIDEO_LISTING",
+      "watch_source_id": "watch:event-page:wtt:3128",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:europe-smash-2025:top-points-day-6",
+      "event_id": "event:wtt:3128",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top Points of Day 6 | #EuropeSmash 2025",
+      "title_zh": "欧洲大满贯·瑞典站 2025｜第 6 日精彩回合",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "UNKNOWN",
+      "video_id": null,
+      "official_video_url": null,
+      "publisher": null,
+      "publisher_identity_status": "EVENT_PAGE_LISTING_ONLY",
+      "published_at": null,
+      "publication_date_status": "UNKNOWN",
+      "page_observation_status": "OFFICIAL_EVENT_PAGE_RELATED_VIDEO_LISTING",
+      "watch_source_id": "watch:event-page:wtt:3128",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:chongqing-2025:highlights-show",
+      "event_id": "event:wtt:chongqing-champions:2025",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "The Highlights Show | #WTTChongqing 2025",
+      "title_zh": "重庆冠军赛 2025｜赛事高光节目",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS_SHOW",
+      "provider": "YOUTUBE",
+      "video_id": "DRWntK5EJj0",
+      "official_video_url": "https://www.youtube.com/watch?v=DRWntK5EJj0",
+      "publisher": "World Table Tennis",
+      "publisher_identity_status": "WTT_VERIFIED_CHANNEL_SEARCH_RESULT",
+      "published_at": "2025-03-26",
+      "publication_date_status": "SOURCE_METADATA_DATE",
+      "page_observation_status": "YOUTUBE_SEARCH_INDEX_METADATA",
+      "watch_source_id": "watch:youtube:DRWntK5EJj0",
+      "source_evidence_ids": [
+        "evidence:wtt-article:4731",
+        "evidence:youtube:DRWntK5EJj0"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "clip_id": "clip-candidate:singapore-smash-2025:top-10-points",
+      "event_id": "event:wtt:3085",
+      "match_id": null,
+      "match_link_status": "UNKNOWN",
+      "title_original": "Top 10 Points | Presented by DHS | #SingaporeSmash 2025",
+      "title_zh": "新加坡大满贯 2025｜十大精彩回合（DHS 呈现）",
+      "translation_origin": "PTTI_EDITORIAL_TRANSLATION",
+      "official_translation_status": "UNKNOWN",
+      "content_type": "HIGHLIGHTS",
+      "provider": "UNKNOWN",
+      "video_id": null,
+      "official_video_url": null,
+      "publisher": null,
+      "publisher_identity_status": "EVENT_PAGE_LISTING_ONLY",
+      "published_at": null,
+      "publication_date_status": "UNKNOWN",
+      "page_observation_status": "OFFICIAL_EVENT_PAGE_RELATED_VIDEO_LISTING",
+      "watch_source_id": "watch:event-page:wtt:3085",
+      "source_evidence_ids": [
+        "evidence:wtt-event:3085"
+      ],
+      "source_verified_at": "2026-10-18",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "thumbnail_url": null,
+      "public_status": "INTERNAL_ONLY_PENDING_RIGHTS_REVIEW",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    }
+  ],
+  "watch_sources": [
+    {
+      "watch_source_id": "watch:event-page:wtt:3083",
+      "provider": "WTT",
+      "route_kind": "OFFICIAL_EVENT_PAGE_LISTING",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3083",
+      "route_status": "OFFICIAL_LISTING_ONLY_VIDEO_URL_UNRESOLVED",
+      "evidence_ids": [
+        "evidence:wtt-event:3083"
+      ],
+      "current_access": "NOT_TESTED_CURRENT_SESSION",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "watch_source_id": "watch:event-page:wtt:3085",
+      "provider": "WTT",
+      "route_kind": "OFFICIAL_EVENT_PAGE_LISTING",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3085",
+      "route_status": "OFFICIAL_LISTING_ONLY_VIDEO_URL_UNRESOLVED",
+      "evidence_ids": [
+        "evidence:wtt-event:3085"
+      ],
+      "current_access": "NOT_TESTED_CURRENT_SESSION",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "watch_source_id": "watch:event-page:wtt:3094",
+      "provider": "WTT",
+      "route_kind": "OFFICIAL_EVENT_PAGE_LISTING",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3094",
+      "route_status": "OFFICIAL_LISTING_ONLY_VIDEO_URL_UNRESOLVED",
+      "evidence_ids": [
+        "evidence:wtt-event:3094"
+      ],
+      "current_access": "NOT_TESTED_CURRENT_SESSION",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "watch_source_id": "watch:event-page:wtt:3128",
+      "provider": "WTT",
+      "route_kind": "OFFICIAL_EVENT_PAGE_LISTING",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3128",
+      "route_status": "OFFICIAL_LISTING_ONLY_VIDEO_URL_UNRESOLVED",
+      "evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "current_access": "NOT_TESTED_CURRENT_SESSION",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "watch_source_id": "watch:youtube:0820Zo3UaGM",
+      "provider": "YOUTUBE",
+      "route_kind": "OFFICIAL_YOUTUBE_VIDEO",
+      "url": "https://www.youtube.com/watch?v=0820Zo3UaGM",
+      "route_status": "URL_IDENTIFIED_PLAYBACK_NOT_TESTED",
+      "evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:0820Zo3UaGM"
+      ],
+      "current_access": "NOT_TESTED_CURRENT_SESSION",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "watch_source_id": "watch:youtube:AgIDgIo7bSY",
+      "provider": "YOUTUBE",
+      "route_kind": "OFFICIAL_YOUTUBE_VIDEO",
+      "url": "https://www.youtube.com/watch?v=AgIDgIo7bSY",
+      "route_status": "URL_IDENTIFIED_PLAYBACK_NOT_TESTED",
+      "evidence_ids": [
+        "evidence:wtt-event:3128",
+        "evidence:youtube:AgIDgIo7bSY"
+      ],
+      "current_access": "NOT_TESTED_CURRENT_SESSION",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "watch_source_id": "watch:youtube:DRWntK5EJj0",
+      "provider": "YOUTUBE",
+      "route_kind": "OFFICIAL_YOUTUBE_VIDEO",
+      "url": "https://www.youtube.com/watch?v=DRWntK5EJj0",
+      "route_status": "URL_IDENTIFIED_PLAYBACK_NOT_TESTED",
+      "evidence_ids": [
+        "evidence:wtt-article:4731",
+        "evidence:youtube:DRWntK5EJj0"
+      ],
+      "current_access": "NOT_TESTED_CURRENT_SESSION",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "watch_source_id": "watch:youtube:JZhxfSdn3E4",
+      "provider": "YOUTUBE",
+      "route_kind": "OFFICIAL_YOUTUBE_VIDEO",
+      "url": "https://www.youtube.com/watch?v=JZhxfSdn3E4",
+      "route_status": "URL_IDENTIFIED_PLAYBACK_NOT_TESTED",
+      "evidence_ids": [
+        "evidence:wtt-event:3083",
+        "evidence:youtube:JZhxfSdn3E4"
+      ],
+      "current_access": "NOT_TESTED_CURRENT_SESSION",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "watch_source_id": "watch:youtube:WF0H02Br3LE",
+      "provider": "YOUTUBE",
+      "route_kind": "OFFICIAL_YOUTUBE_VIDEO",
+      "url": "https://www.youtube.com/watch?v=WF0H02Br3LE",
+      "route_status": "URL_IDENTIFIED_PLAYBACK_NOT_TESTED",
+      "evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:WF0H02Br3LE"
+      ],
+      "current_access": "NOT_TESTED_CURRENT_SESSION",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "watch_source_id": "watch:youtube:YNtnXjGiAcQ",
+      "provider": "YOUTUBE",
+      "route_kind": "OFFICIAL_YOUTUBE_VIDEO",
+      "url": "https://www.youtube.com/watch?v=YNtnXjGiAcQ",
+      "route_status": "URL_IDENTIFIED_PLAYBACK_NOT_TESTED",
+      "evidence_ids": [
+        "evidence:wtt-event:3083",
+        "evidence:youtube:YNtnXjGiAcQ"
+      ],
+      "current_access": "NOT_TESTED_CURRENT_SESSION",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "watch_source_id": "watch:youtube:fa2j70xjqoU",
+      "provider": "YOUTUBE",
+      "route_kind": "OFFICIAL_YOUTUBE_VIDEO",
+      "url": "https://www.youtube.com/watch?v=fa2j70xjqoU",
+      "route_status": "URL_IDENTIFIED_PLAYBACK_NOT_TESTED",
+      "evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:fa2j70xjqoU"
+      ],
+      "current_access": "NOT_TESTED_CURRENT_SESSION",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "watch_source_id": "watch:youtube:xef0VQVV-OE",
+      "provider": "YOUTUBE",
+      "route_kind": "OFFICIAL_YOUTUBE_VIDEO",
+      "url": "https://www.youtube.com/watch?v=xef0VQVV-OE",
+      "route_status": "URL_IDENTIFIED_PLAYBACK_NOT_TESTED",
+      "evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:xef0VQVV-OE"
+      ],
+      "current_access": "NOT_TESTED_CURRENT_SESSION",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "watch_source_id": "watch:youtube:y9AYI43XtMI",
+      "provider": "YOUTUBE",
+      "route_kind": "OFFICIAL_YOUTUBE_VIDEO",
+      "url": "https://www.youtube.com/watch?v=y9AYI43XtMI",
+      "route_status": "URL_IDENTIFIED_PLAYBACK_NOT_TESTED",
+      "evidence_ids": [
+        "evidence:wtt-event:3083",
+        "evidence:youtube:y9AYI43XtMI"
+      ],
+      "current_access": "NOT_TESTED_CURRENT_SESSION",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    },
+    {
+      "watch_source_id": "watch:youtube:zfrkMx5DdRo",
+      "provider": "YOUTUBE",
+      "route_kind": "OFFICIAL_YOUTUBE_VIDEO",
+      "url": "https://www.youtube.com/watch?v=zfrkMx5DdRo",
+      "route_status": "URL_IDENTIFIED_PLAYBACK_NOT_TESTED",
+      "evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:zfrkMx5DdRo"
+      ],
+      "current_access": "NOT_TESTED_CURRENT_SESSION",
+      "playback_status": "NOT_TESTED",
+      "territory": "UNKNOWN",
+      "login_or_paywall": "NOT_TESTED",
+      "embed_status": "UNKNOWN",
+      "rights": {
+        "public_listing": "UNKNOWN",
+        "external_viewing": "UNKNOWN",
+        "embedding": "UNKNOWN",
+        "thumbnail_display": "UNKNOWN",
+        "local_analysis": "NOT_GRANTED",
+        "download": "NOT_GRANTED",
+        "redistribution": "NOT_GRANTED",
+        "evidence_status": "NO_SCOPED_GRANT_RECORDED",
+        "notes": [
+          "No scoped permission for public listing, embed, thumbnail, local analysis, download, or redistribution was supplied."
+        ]
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "relationship_id": "rel:star:felix-yokohama-roster",
+      "from_type": "ATHLETE",
+      "from_id": "athlete:135977",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3094",
+      "relationship_kind": "LISTED_ON_EVENT_PLAYER_ROSTER",
+      "evidence_id": "evidence:wtt-event:3094",
+      "confidence_scope": "EVENT_ROSTER_LISTING_ONLY_NOT_CLIP_APPEARANCE",
+      "evidence_ids": [
+        "evidence:wtt-event:3094"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:star:wang-yokohama-roster",
+      "from_type": "ATHLETE",
+      "from_id": "athlete:121558",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3094",
+      "relationship_kind": "LISTED_ON_EVENT_PLAYER_ROSTER",
+      "evidence_id": "evidence:wtt-event:3094",
+      "confidence_scope": "EVENT_ROSTER_LISTING_ONLY_NOT_CLIP_APPEARANCE",
+      "evidence_ids": [
+        "evidence:wtt-event:3094"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:star:harimoto-yokohama-roster",
+      "from_type": "ATHLETE",
+      "from_id": "athlete:123980",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3094",
+      "relationship_kind": "LISTED_ON_EVENT_PLAYER_ROSTER",
+      "evidence_id": "evidence:wtt-event:3094",
+      "confidence_scope": "EVENT_ROSTER_LISTING_ONLY_NOT_CLIP_APPEARANCE",
+      "evidence_ids": [
+        "evidence:wtt-event:3094"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:yokohama-2025:top-points-day-1:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:yokohama-2025:top-points-day-1",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3094",
+      "relationship_kind": "TITLE_HASHTAG_EVENT_ASSOCIATION",
+      "evidence_id": "evidence:youtube:xef0VQVV-OE",
+      "confidence_scope": "OFFICIAL_VIDEO_TITLE_EVENT_ASSOCIATION_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:youtube:xef0VQVV-OE"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:yokohama-2025:top-points-day-2:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:yokohama-2025:top-points-day-2",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3094",
+      "relationship_kind": "LISTED_AS_EVENT_RELATED_VIDEO",
+      "evidence_id": "evidence:wtt-event:3094",
+      "confidence_scope": "OFFICIAL_EVENT_PAGE_LISTING_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:wtt-event:3094"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:yokohama-2025:top-points-day-3:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:yokohama-2025:top-points-day-3",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3094",
+      "relationship_kind": "TITLE_HASHTAG_EVENT_ASSOCIATION",
+      "evidence_id": "evidence:youtube:WF0H02Br3LE",
+      "confidence_scope": "OFFICIAL_VIDEO_TITLE_EVENT_ASSOCIATION_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:youtube:WF0H02Br3LE"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:yokohama-2025:top-points-day-4:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:yokohama-2025:top-points-day-4",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3094",
+      "relationship_kind": "TITLE_HASHTAG_EVENT_ASSOCIATION",
+      "evidence_id": "evidence:youtube:zfrkMx5DdRo",
+      "confidence_scope": "OFFICIAL_VIDEO_TITLE_EVENT_ASSOCIATION_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:youtube:zfrkMx5DdRo"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:yokohama-2025:top-points-day-5:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:yokohama-2025:top-points-day-5",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3094",
+      "relationship_kind": "TITLE_HASHTAG_EVENT_ASSOCIATION",
+      "evidence_id": "evidence:youtube:fa2j70xjqoU",
+      "confidence_scope": "OFFICIAL_VIDEO_TITLE_EVENT_ASSOCIATION_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:youtube:fa2j70xjqoU"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:yokohama-2025:top-10-points:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:yokohama-2025:top-10-points",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3094",
+      "relationship_kind": "TITLE_HASHTAG_EVENT_ASSOCIATION",
+      "evidence_id": "evidence:youtube:0820Zo3UaGM",
+      "confidence_scope": "OFFICIAL_VIDEO_TITLE_EVENT_ASSOCIATION_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:youtube:0820Zo3UaGM"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:doha-2025:top-points-qualifying:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:doha-2025:top-points-qualifying",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3083",
+      "relationship_kind": "TITLE_HASHTAG_EVENT_ASSOCIATION",
+      "evidence_id": "evidence:youtube:y9AYI43XtMI",
+      "confidence_scope": "OFFICIAL_VIDEO_TITLE_EVENT_ASSOCIATION_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:youtube:y9AYI43XtMI"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:doha-2025:top-points-day-2:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:doha-2025:top-points-day-2",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3083",
+      "relationship_kind": "LISTED_AS_EVENT_RELATED_VIDEO",
+      "evidence_id": "evidence:wtt-event:3083",
+      "confidence_scope": "OFFICIAL_EVENT_PAGE_LISTING_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:wtt-event:3083"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:doha-2025:top-points-day-3:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:doha-2025:top-points-day-3",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3083",
+      "relationship_kind": "LISTED_AS_EVENT_RELATED_VIDEO",
+      "evidence_id": "evidence:wtt-event:3083",
+      "confidence_scope": "OFFICIAL_EVENT_PAGE_LISTING_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:wtt-event:3083"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:doha-2025:top-points-day-4:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:doha-2025:top-points-day-4",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3083",
+      "relationship_kind": "TITLE_HASHTAG_EVENT_ASSOCIATION",
+      "evidence_id": "evidence:youtube:YNtnXjGiAcQ",
+      "confidence_scope": "OFFICIAL_VIDEO_TITLE_EVENT_ASSOCIATION_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:youtube:YNtnXjGiAcQ"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:doha-2025:top-10-points:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:doha-2025:top-10-points",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3083",
+      "relationship_kind": "TITLE_HASHTAG_EVENT_ASSOCIATION",
+      "evidence_id": "evidence:youtube:JZhxfSdn3E4",
+      "confidence_scope": "OFFICIAL_VIDEO_TITLE_EVENT_ASSOCIATION_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:youtube:JZhxfSdn3E4"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:europe-smash-2025:top-points-qualifying:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:europe-smash-2025:top-points-qualifying",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3128",
+      "relationship_kind": "TITLE_HASHTAG_EVENT_ASSOCIATION",
+      "evidence_id": "evidence:youtube:AgIDgIo7bSY",
+      "confidence_scope": "OFFICIAL_VIDEO_TITLE_EVENT_ASSOCIATION_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:youtube:AgIDgIo7bSY"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:europe-smash-2025:top-points-day-1:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:europe-smash-2025:top-points-day-1",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3128",
+      "relationship_kind": "LISTED_AS_EVENT_RELATED_VIDEO",
+      "evidence_id": "evidence:wtt-event:3128",
+      "confidence_scope": "OFFICIAL_EVENT_PAGE_LISTING_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:europe-smash-2025:top-points-day-2:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:europe-smash-2025:top-points-day-2",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3128",
+      "relationship_kind": "LISTED_AS_EVENT_RELATED_VIDEO",
+      "evidence_id": "evidence:wtt-event:3128",
+      "confidence_scope": "OFFICIAL_EVENT_PAGE_LISTING_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:europe-smash-2025:top-points-day-3:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:europe-smash-2025:top-points-day-3",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3128",
+      "relationship_kind": "LISTED_AS_EVENT_RELATED_VIDEO",
+      "evidence_id": "evidence:wtt-event:3128",
+      "confidence_scope": "OFFICIAL_EVENT_PAGE_LISTING_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:europe-smash-2025:top-points-day-4:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:europe-smash-2025:top-points-day-4",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3128",
+      "relationship_kind": "LISTED_AS_EVENT_RELATED_VIDEO",
+      "evidence_id": "evidence:wtt-event:3128",
+      "confidence_scope": "OFFICIAL_EVENT_PAGE_LISTING_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:europe-smash-2025:top-points-day-5:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:europe-smash-2025:top-points-day-5",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3128",
+      "relationship_kind": "LISTED_AS_EVENT_RELATED_VIDEO",
+      "evidence_id": "evidence:wtt-event:3128",
+      "confidence_scope": "OFFICIAL_EVENT_PAGE_LISTING_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:europe-smash-2025:top-points-day-6:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:europe-smash-2025:top-points-day-6",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3128",
+      "relationship_kind": "LISTED_AS_EVENT_RELATED_VIDEO",
+      "evidence_id": "evidence:wtt-event:3128",
+      "confidence_scope": "OFFICIAL_EVENT_PAGE_LISTING_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:chongqing-2025:highlights-show:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:chongqing-2025:highlights-show",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:chongqing-champions:2025",
+      "relationship_kind": "TITLE_HASHTAG_EVENT_ASSOCIATION",
+      "evidence_id": "evidence:youtube:DRWntK5EJj0",
+      "confidence_scope": "OFFICIAL_VIDEO_TITLE_EVENT_ASSOCIATION_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:youtube:DRWntK5EJj0"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:singapore-smash-2025:top-10-points:event",
+      "from_type": "CONTENT_CANDIDATE",
+      "from_id": "clip-candidate:singapore-smash-2025:top-10-points",
+      "to_type": "EVENT",
+      "to_id": "event:wtt:3085",
+      "relationship_kind": "LISTED_AS_EVENT_RELATED_VIDEO",
+      "evidence_id": "evidence:wtt-event:3085",
+      "confidence_scope": "OFFICIAL_EVENT_PAGE_LISTING_ONLY_NOT_MATCH_LINK",
+      "evidence_ids": [
+        "evidence:wtt-event:3085"
+      ],
+      "edge_status": "SOURCE_LISTING_OBSERVED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:yokohama-2025:top-points-day-1:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:yokohama-2025:top-points-day-1",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:youtube:xef0VQVV-OE",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:xef0VQVV-OE"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:yokohama-2025:top-points-day-2:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:yokohama-2025:top-points-day-2",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:event-page:wtt:3094",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3094"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:yokohama-2025:top-points-day-3:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:yokohama-2025:top-points-day-3",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:youtube:WF0H02Br3LE",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:WF0H02Br3LE"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:yokohama-2025:top-points-day-4:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:yokohama-2025:top-points-day-4",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:youtube:zfrkMx5DdRo",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:zfrkMx5DdRo"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:yokohama-2025:top-points-day-5:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:yokohama-2025:top-points-day-5",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:youtube:fa2j70xjqoU",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:fa2j70xjqoU"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:yokohama-2025:top-10-points:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:yokohama-2025:top-10-points",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:youtube:0820Zo3UaGM",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3094",
+        "evidence:youtube:0820Zo3UaGM"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:doha-2025:top-points-qualifying:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:doha-2025:top-points-qualifying",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:youtube:y9AYI43XtMI",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3083",
+        "evidence:youtube:y9AYI43XtMI"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:doha-2025:top-points-day-2:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:doha-2025:top-points-day-2",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:event-page:wtt:3083",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3083"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:doha-2025:top-points-day-3:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:doha-2025:top-points-day-3",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:event-page:wtt:3083",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3083"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:doha-2025:top-points-day-4:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:doha-2025:top-points-day-4",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:youtube:YNtnXjGiAcQ",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3083",
+        "evidence:youtube:YNtnXjGiAcQ"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:doha-2025:top-10-points:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:doha-2025:top-10-points",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:youtube:JZhxfSdn3E4",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3083",
+        "evidence:youtube:JZhxfSdn3E4"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:europe-smash-2025:top-points-qualifying:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:europe-smash-2025:top-points-qualifying",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:youtube:AgIDgIo7bSY",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3128",
+        "evidence:youtube:AgIDgIo7bSY"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:europe-smash-2025:top-points-day-1:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:europe-smash-2025:top-points-day-1",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:event-page:wtt:3128",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:europe-smash-2025:top-points-day-2:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:europe-smash-2025:top-points-day-2",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:event-page:wtt:3128",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:europe-smash-2025:top-points-day-3:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:europe-smash-2025:top-points-day-3",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:event-page:wtt:3128",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:europe-smash-2025:top-points-day-4:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:europe-smash-2025:top-points-day-4",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:event-page:wtt:3128",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:europe-smash-2025:top-points-day-5:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:europe-smash-2025:top-points-day-5",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:event-page:wtt:3128",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:europe-smash-2025:top-points-day-6:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:europe-smash-2025:top-points-day-6",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:event-page:wtt:3128",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3128"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:chongqing-2025:highlights-show:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:chongqing-2025:highlights-show",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:youtube:DRWntK5EJj0",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-article:4731",
+        "evidence:youtube:DRWntK5EJj0"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    },
+    {
+      "relationship_id": "rel:clip-candidate:singapore-smash-2025:top-10-points:watch-source",
+      "from_type": "CLIP_CANDIDATE",
+      "from_id": "clip-candidate:singapore-smash-2025:top-10-points",
+      "to_type": "WATCH_SOURCE",
+      "to_id": "watch:event-page:wtt:3085",
+      "relationship_kind": "HAS_OFFICIAL_WATCH_ROUTE",
+      "evidence_ids": [
+        "evidence:wtt-event:3085"
+      ],
+      "edge_status": "ROUTE_LISTED_NOT_PLAYBACK_VERIFIED"
+    }
+  ],
+  "relationship_gaps": [
+    {
+      "path": "STAR_TO_MATCH",
+      "status": "NOT_ESTABLISHED",
+      "reason": "No direct evidence links a listed athlete to a specific match record in this package."
+    },
+    {
+      "path": "MATCH_TO_CLIP",
+      "status": "NOT_ESTABLISHED",
+      "reason": "Candidates are event-level highlights or event-page listings; no match-specific clip appearance was verified."
+    }
+  ],
+  "source_index": [
+    {
+      "evidence_id": "evidence:wtt-event:3094",
+      "kind": "OFFICIAL_EVENT_PAGE_SEARCH_INDEX",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3094",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "event_name_and_provider_event_id",
+        "related_video_titles",
+        "listed_players_felix_lebrun_wang_chuqin_tomokazu_harimoto"
+      ],
+      "limitations": "Search-indexed official page content only; this is not a current-session browser open, watchability, match-video identity, or rights grant.",
+      "listed_titles": [
+        "Top Points of Day 1 | #WTTYokohama 2025",
+        "Top Points of Day 2 | #WTTYokohama 2025",
+        "Top Points of Day 3 | #WTTYokohama 2025",
+        "Top Points of Day 4 | #WTTYokohama 2025",
+        "Top Points of Day 5 | #WTTYokohama 2025",
+        "Top 10 Points | Presented by DHS | #WTTYokohama 2025"
+      ],
+      "listed_player_athlete_ids": [
+        "athlete:135977",
+        "athlete:121558",
+        "athlete:123980"
+      ],
+      "observed_event_name": "WTT Champions Yokohama 2025"
+    },
+    {
+      "evidence_id": "evidence:wtt-event:3083",
+      "kind": "OFFICIAL_EVENT_PAGE_SEARCH_INDEX",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3083",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "event_name_and_provider_event_id",
+        "event_dates_2025_01_06_to_2025_01_11",
+        "related_video_titles"
+      ],
+      "limitations": "Search-indexed official page content only; the page also displayed a stale 2024 Day 1 item, which was excluded.",
+      "listed_titles": [
+        "Top Points of Qualifying | #WTTDoha 2025",
+        "Top Points of Day 2 | #WTTDoha 2025",
+        "Top Points of Day 3 | #WTTDoha 2025",
+        "Top Points of Day 4 | #WTTDoha 2025",
+        "Top 10 Points | #WTTDoha 2025"
+      ],
+      "observed_event_name": "WTT Star Contender Doha 2025",
+      "event_start": "2025-01-06",
+      "event_end": "2025-01-11"
+    },
+    {
+      "evidence_id": "evidence:wtt-event:3128",
+      "kind": "OFFICIAL_EVENT_PAGE_SEARCH_INDEX",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3128",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "event_name_and_provider_event_id",
+        "related_video_titles_qualifying_and_days_1_to_7"
+      ],
+      "limitations": "Search-indexed official page content only; no direct watch IDs resolved for most listed titles.",
+      "listed_titles": [
+        "Top Points of Qualifying | #EuropeSmash 2025",
+        "Top Points of Day 1 | #EuropeSmash 2025",
+        "Top Points of Day 2 | #EuropeSmash 2025",
+        "Top Points of Day 3 | #EuropeSmash 2025",
+        "Top Points of Day 4 | #EuropeSmash 2025",
+        "Top Points of Day 5 | #EuropeSmash 2025",
+        "Top Points of Day 6 | #EuropeSmash 2025"
+      ],
+      "observed_event_name": "Europe Smash - Sweden 2025"
+    },
+    {
+      "evidence_id": "evidence:wtt-event:3085",
+      "kind": "OFFICIAL_EVENT_PAGE_SEARCH_INDEX",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3085",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "event_name_and_provider_event_id",
+        "related_video_titles_top_10_points"
+      ],
+      "limitations": "Search-indexed official page content only; this does not establish current availability or playback.",
+      "listed_titles": [
+        "Top 10 Points | Presented by DHS | #SingaporeSmash 2025"
+      ],
+      "observed_event_name": "Singapore Smash 2025"
+    },
+    {
+      "evidence_id": "evidence:wtt-article:4731",
+      "kind": "OFFICIAL_WTT_ARTICLE_SEARCH_INDEX",
+      "url": "https://www.worldtabletennis.com/description?artId=4731",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "sun_yingsha_chen_xingtong_womens_singles_final_identity_and_result",
+        "article_lists_youtube_or_local_broadcaster_watch_routes"
+      ],
+      "limitations": "Article metadata does not identify a specific full-match video or grant PTTI reuse rights.",
+      "observed_event_name": "WTT Champions Chongqing 2025 Presented by AITO"
+    },
+    {
+      "evidence_id": "evidence:youtube:xef0VQVV-OE",
+      "kind": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=xef0VQVV-OE",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "exact_video_title",
+        "publisher_world_table_tennis_verified",
+        "published_2025_08_07"
+      ],
+      "limitations": "Search-result metadata only; no playback, embedding, territory or reuse test.",
+      "observed_title": "Top Points of Day 1 | #WTTYokohama 2025",
+      "published_at": "2025-08-07",
+      "publisher": "World Table Tennis"
+    },
+    {
+      "evidence_id": "evidence:youtube:WF0H02Br3LE",
+      "kind": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=WF0H02Br3LE",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "exact_video_title",
+        "publisher_world_table_tennis_verified",
+        "published_2025_08_09"
+      ],
+      "limitations": "Search-result metadata only; no playback, embedding, territory or reuse test.",
+      "observed_title": "Top Points of Day 3 | #WTTYokohama 2025",
+      "published_at": "2025-08-09",
+      "publisher": "World Table Tennis"
+    },
+    {
+      "evidence_id": "evidence:youtube:zfrkMx5DdRo",
+      "kind": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=zfrkMx5DdRo",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "exact_video_title",
+        "publisher_world_table_tennis_verified",
+        "published_2025_08_10"
+      ],
+      "limitations": "Search-result metadata only; no playback, embedding, territory or reuse test.",
+      "observed_title": "Top Points of Day 4 | #WTTYokohama 2025",
+      "published_at": "2025-08-10",
+      "publisher": "World Table Tennis"
+    },
+    {
+      "evidence_id": "evidence:youtube:fa2j70xjqoU",
+      "kind": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=fa2j70xjqoU",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "exact_video_title",
+        "publisher_world_table_tennis_verified",
+        "published_2025_08_11"
+      ],
+      "limitations": "Search-result metadata only; no playback, embedding, territory or reuse test.",
+      "observed_title": "Top Points of Day 5 | #WTTYokohama 2025",
+      "published_at": "2025-08-11",
+      "publisher": "World Table Tennis"
+    },
+    {
+      "evidence_id": "evidence:youtube:0820Zo3UaGM",
+      "kind": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=0820Zo3UaGM",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "exact_video_title",
+        "publisher_world_table_tennis_verified",
+        "published_2025_08_29"
+      ],
+      "limitations": "Search-result metadata only; no playback, embedding, territory or reuse test.",
+      "observed_title": "Top 10 Points | Presented by DHS | #WTTYokohama 2025",
+      "published_at": "2025-08-29",
+      "publisher": "World Table Tennis"
+    },
+    {
+      "evidence_id": "evidence:youtube:y9AYI43XtMI",
+      "kind": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=y9AYI43XtMI",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "exact_video_title",
+        "publisher_world_table_tennis_verified",
+        "published_2025_01_07"
+      ],
+      "limitations": "Search-result metadata only; no playback, embedding, territory or reuse test.",
+      "observed_title": "Top Points of Qualifying | #WTTDoha 2025",
+      "published_at": "2025-01-07",
+      "publisher": "World Table Tennis"
+    },
+    {
+      "evidence_id": "evidence:youtube:YNtnXjGiAcQ",
+      "kind": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=YNtnXjGiAcQ",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "exact_video_title",
+        "publisher_world_table_tennis_verified",
+        "published_2025_01_11"
+      ],
+      "limitations": "Search-result metadata only; no playback, embedding, territory or reuse test.",
+      "observed_title": "Top Points of Day 4 | #WTTDoha 2025",
+      "published_at": "2025-01-11",
+      "publisher": "World Table Tennis"
+    },
+    {
+      "evidence_id": "evidence:youtube:JZhxfSdn3E4",
+      "kind": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=JZhxfSdn3E4",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "exact_video_title",
+        "publisher_world_table_tennis_verified",
+        "published_2025_01_24"
+      ],
+      "limitations": "Search-result metadata only; no playback, embedding, territory or reuse test.",
+      "observed_title": "Top 10 Points | #WTTDoha 2025",
+      "published_at": "2025-01-24",
+      "publisher": "World Table Tennis"
+    },
+    {
+      "evidence_id": "evidence:youtube:AgIDgIo7bSY",
+      "kind": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=AgIDgIo7bSY",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "exact_video_title",
+        "publisher_world_table_tennis_verified",
+        "published_2025_08_16"
+      ],
+      "limitations": "Search-result metadata only; no playback, embedding, territory or reuse test.",
+      "observed_title": "Top Points of Qualifying | #EuropeSmash 2025",
+      "published_at": "2025-08-16",
+      "publisher": "World Table Tennis"
+    },
+    {
+      "evidence_id": "evidence:youtube:DRWntK5EJj0",
+      "kind": "OFFICIAL_YOUTUBE_SEARCH_RESULT",
+      "url": "https://www.youtube.com/watch?v=DRWntK5EJj0",
+      "observed_at": "2026-10-18",
+      "claims": [
+        "exact_video_title",
+        "publisher_world_table_tennis_verified",
+        "published_2025_03_26",
+        "description_contains_wtt_copyright_and_image_reuse_requires_prior_approval"
+      ],
+      "limitations": "Search-result metadata and publisher notice only; no playback, embedding, territory or PTTI reuse permission.",
+      "observed_title": "The Highlights Show | #WTTChongqing 2025",
+      "published_at": "2025-03-26",
+      "publisher": "World Table Tennis"
+    },
+    {
+      "evidence_id": "evidence:registry:wtt-profile-135977",
+      "kind": "PROFESSIONAL_REGISTRY_SOURCE_SNAPSHOT",
+      "url": "https://www.worldtabletennis.com/player/135977/Felix-LEBRUN",
+      "observed_at": "2026-10-05",
+      "claims": [
+        "registry_identity_fields_and_official_profile_url"
+      ],
+      "limitations": "Committed professional registry snapshot only; current page access, profile freshness, portrait permission, and public reuse are not tested or granted."
+    },
+    {
+      "evidence_id": "evidence:registry:wtt-profile-121558",
+      "kind": "PROFESSIONAL_REGISTRY_SOURCE_SNAPSHOT",
+      "url": "https://www.worldtabletennis.com/player/121558/WANG-Chuqin",
+      "observed_at": "2026-10-05",
+      "claims": [
+        "registry_identity_fields_and_official_profile_url"
+      ],
+      "limitations": "Committed professional registry snapshot only; current page access, profile freshness, portrait permission, and public reuse are not tested or granted."
+    },
+    {
+      "evidence_id": "evidence:registry:wtt-profile-123980",
+      "kind": "PROFESSIONAL_REGISTRY_SOURCE_SNAPSHOT",
+      "url": "https://www.worldtabletennis.com/player/123980/Tomokazu-HARIMOTO",
+      "observed_at": "2026-10-05",
+      "claims": [
+        "registry_identity_fields_and_official_profile_url"
+      ],
+      "limitations": "Committed professional registry snapshot only; current page access, profile freshness, portrait permission, and public reuse are not tested or granted."
+    }
+  ],
+  "quality_summary": {
+    "star_count": 3,
+    "event_count": 5,
+    "verified_match_count": 0,
+    "clip_candidate_count": 20,
+    "unique_watch_source_count": 14,
+    "exact_video_url_count": 10,
+    "event_page_only_count": 10,
+    "playback_pass_count": 0,
+    "public_eligible_count": 0,
+    "match_video_links": 0
+  },
+  "notice": "Internal review only. Localized titles are PTTI editorial translations, not official translations. External routes are not playback proof. No individual match-to-clip identity or public media rights are established."
+}

@@ -1,0 +1,213 @@
+{
+  "contract_version": "ptti.scout004-rendered-page-review/0.1",
+  "reviewed_at": "2026-10-23T00:50:11Z",
+  "intake": {
+    "handoff_title": "PTTI GLOBAL SCOUT-004 R2｜FINAL MAIN DEX HANDOFF PACK",
+    "handoff_url": "https://ptti-global-scout-004-r2-final-main-dex-udqu.pages.grok.bot/",
+    "page_read_status": "RENDERED_PAGE_READ",
+    "candidate_payload_schema_claim": "PTTI-SCOUT neutral v0.2",
+    "json_attachment": {
+      "publisher_path": "/workspace/ptti/scout-004-r2-candidates.json",
+      "retrieval_status": "NOT_AVAILABLE"
+    },
+    "csv_attachment": {
+      "publisher_path": "/workspace/ptti/scout-004-r2-candidates.csv",
+      "retrieval_status": "NOT_AVAILABLE"
+    },
+    "pdf_download": "NOT_COMPLETED_BROWSER_INPUT_TIMEOUT",
+    "local_search": "NO_MATCH_IN_MAIN_WORKTREE_PTTI_WORKTREES_OR_DOWNLOADS",
+    "limitation": "This is a rendered-page review ledger, not the original candidate JSON/CSV. It is not an ingestion file and must not be projected into a public catalog."
+  },
+  "handoff_claim_counts": {
+    "candidate_count": 15,
+    "ready_for_main_review": 10,
+    "needs_verification": 4,
+    "rejected": 1
+  },
+  "catalog_baseline": {
+    "main_internal_source_snapshot": {
+      "path": "products/ptti/data/professional/official_video_sources.json",
+      "sha256": "fa1d536610561c673f94392ee2e202b6a7dc6989a4818ee1a58daeb924884dc3",
+      "rows": 9,
+      "note": "Current snapshot file count; distinct from the GOAL11 historical internal review roll-up of 35 unique source references."
+    },
+    "goal11_historical_internal_review_rollup": {
+      "path": "products/ptti-integration/generated/goal11-match-library/match-library-internal-review.json",
+      "unique_video_sources": 35,
+      "registered_match_records": 6
+    },
+    "main_composed_union": {
+      "matches": 8,
+      "unique_video_ids": 19,
+      "stars": 8,
+      "packages": [
+        {
+          "name": "GOAL15 strict public base",
+          "path": "products/ptti-integration/generated/goal15-main-fan-universe-public-v0.2/match-library-strict-public.json",
+          "sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930"
+        },
+        {
+          "name": "GOAL17 official video additions",
+          "path": "products/ptti-integration/generated/goal17-1-real-content-v0.1/public/official-match-video-additions.json",
+          "sha256": "6f05d1fc48fb74ffc305abe20fd9152973bd96bb009fe6a183d42c031a31198a"
+        },
+        {
+          "name": "GOAL22 inspiration delta",
+          "path": "products/ptti-integration/generated/goal22-main-inspiration-v0.1/public/fan-inspiration-v0.1.json",
+          "sha256": "702bc12850676ae9eeda39b533ade9cc5f2da0fe8710aa8ebc82f0c2b803c5c9"
+        },
+        {
+          "name": "GOAL24 match report",
+          "path": "products/ptti-integration/generated/goal24-main-evidence-v0.1/public/match-reports-v0.1.json",
+          "sha256": "701213d2bfca2e120b31629ef9422f8fd9a21eef4f341a87614b65fd130effa8"
+        },
+        {
+          "name": "GOAL27 Doha highlight delta",
+          "path": "products/ptti-integration/generated/goal27-match-experience-v0.1/public/match-experience-delta-v0.1.json",
+          "sha256": "9c3662e8bf13fc8c49b37f3826094d744297f938361afba54945ab91fb1a930a"
+        }
+      ],
+      "identity_policy": "Exact provider video ID and exact existing match IDs only; names or title similarity do not create relationships."
+    },
+    "san_worktree_snapshot": {
+      "path": "C:/PTTI-Worktrees/web-goal14-fan-mvp",
+      "branch": "codex/ptti-goal14-fan-experience",
+      "head": "b8017ac8de2a0dbac7ec274fca1f76c21f1fc7cd",
+      "worktree": "CLEAN",
+      "strict_base_path": "products/ptti-web/public/data/match-library-strict-public.json",
+      "strict_base_sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+      "strict_base_counts": {"matches": 5, "video_sources": 15, "stars": 8},
+      "goal14_projection_sha256": "f82bb8491d2c3b98a432d6c9cc64f477e26d79a5e8ca6addd34e8a081c36de38",
+      "goal14_projection_counts": {"events": 0, "content_candidates": 0, "relationships": 0},
+      "note": "The Main composed union is 8/19/8, but the current San public data files physically contain the 5/15/8 base only; the GOAL17/22/24/27 additions are not present as files in this San worktree snapshot."
+    }
+  },
+  "dedup_summary": {
+    "rendered_distinct_candidate_video_ids_including_alternative": 25,
+    "exact_video_id_overlap_count_in_strict_public_union": 1,
+    "candidate_video_ids_not_in_strict_public_union": 24,
+    "exact_video_id_overlap_count_in_internal_source_inventory": 1,
+    "candidate_video_ids_not_found_in_any_main_recorded_source": 23,
+    "exact_existing_match_candidates": 1,
+    "other_identifiable_match_claims_without_exact_catalog_match": 13,
+    "unidentifiable_rejected_claims": 1,
+    "new_main_match_ids_created": 0,
+    "new_main_source_ids_created": 0,
+    "strict_public_additions": 0,
+    "exact_overlap": {
+      "candidate_id": "C07",
+      "video_id": "cDccQqVlMnc",
+      "existing_source_id": "video-source:youtube:cDccQqVlMnc",
+      "existing_match_id": "pro:wtt:singapore-smash-2026:wang-chuqin-lin-yun-ju-ms-final",
+      "existing_content_type": "FULL_MATCH",
+      "candidate_highlight_id": "DHxcmcGrpn2",
+      "highlight_admission": "NOT_ADMITTED_SOURCE_IDENTITY_AND_RIGHTS_NOT_CLEARED"
+    },
+    "internal_source_inventory_overlap": {
+      "candidate_id": "S3",
+      "video_id": "vYsJLPTEIaI",
+      "existing_catalog_record_id": "catalog:youtube:vYsJLPTEIaI",
+      "existing_source_id": "video-source:youtube:vYsJLPTEIaI",
+      "existing_source_path": "products/ptti/data/professional/official_video_sources.json",
+      "internal_review_path": "products/ptti-integration/generated/goal11-match-library/match-library-internal-review.json",
+      "existing_match_link_status": "UNKNOWN",
+      "existing_canonical_match_id": null,
+      "existing_rights_status": "REFERENCE_ONLY_NOT_LICENSE_GRANTED",
+      "dedup_decision": "DO_NOT_CREATE_DUPLICATE_SOURCE; DO_NOT_CREATE_MATCH_LINK_WITHOUT_MATCH_IDENTITY_EVIDENCE"
+    }
+  },
+  "global_media_evidence_from_handoff": {
+    "official_wtt_ittf_single_match_record_urls": "UNKNOWN_FOR_ALL_14_NON_REJECTED_CANDIDATES",
+    "external_page_playback": "NOT_TESTED",
+    "video_start": "NOT_TESTED",
+    "complete_watch": "NOT_TESTED",
+    "region": "UNKNOWN",
+    "embedding": "UNKNOWN_NOT_GRANTED",
+    "thumbnail_display": "NOT_GRANTED",
+    "download": "NOT_GRANTED",
+    "local_analysis": "NOT_GRANTED",
+    "redistribution": "NOT_GRANTED",
+    "rights_cleared": false
+  },
+  "focus_fact_review": [
+    {
+      "candidate_id": "C01",
+      "claim": "China Smash 2026 MS Final: Sora Matsushima vs Lin Yun-Ju",
+      "review_status": "MATCH_IDENTITY_AND_RESULT_VERIFIED_FROM_OFFICIAL_ASSOCIATION_EVENT_PAGE",
+      "source_url": "https://jtta.or.jp/tour/36667",
+      "source_role": "Japan Table Tennis Association event results page",
+      "verified_facts": {
+        "event_year": 2026,
+        "event_dates": "2026-10-01/2026-10-11",
+        "round": "Men's Singles Final",
+        "match_date": "2026-10-11",
+        "result": "Sora Matsushima 4-3 Lin Yun-Ju",
+        "game_scores_from_matsushima_side": ["11-7", "11-9", "7-11", "8-11", "5-11", "11-7", "11-9"]
+      },
+      "wtt_ittf_single_match_record_url": "UNKNOWN",
+      "ptti_match_id": null,
+      "video_claims": "HANDOFF_ONLY_VIDEO_IDS_NOT_INDEPENDENTLY_VERIFIED",
+      "rights_and_playback": "NOT_CLEARED_AND_NOT_TESTED"
+    },
+    {
+      "candidate_id": "C08",
+      "claim": "WTT Champions Macao 2026 WS Final: Miwa Harimoto vs Chen Yi",
+      "review_status": "MATCH_IDENTITY_AND_RESULT_VERIFIED_FROM_OFFICIAL_COORGANIZER",
+      "source_url": "https://www.sport.gov.mo/en/news?id=5757",
+      "source_role": "Macao SAR Sports Bureau press release; Bureau is named as event organizer with WTT and Galaxy Entertainment Group",
+      "verified_facts": {
+        "event_year": 2026,
+        "event_date": "2026-09-13",
+        "round": "Women's Singles Final",
+        "result": "Miwa Harimoto 4-3 Chen Yi",
+        "game_scores_from_chen_yi_side": ["7-11", "7-11", "11-9", "11-8", "13-11", "9-11", "10-12"]
+      },
+      "wtt_ittf_single_match_record_url": "UNKNOWN",
+      "jtta_url_claimed_by_handoff": "https://jtta.or.jp/tour/36665",
+      "jtta_page_access_in_this_review": "NOT_ACCESSIBLE_VIA_WEB_RETRIEVAL",
+      "ptti_match_id": null,
+      "video_claims": "HANDOFF_ONLY_VIDEO_IDS_NOT_INDEPENDENTLY_VERIFIED",
+      "rights_and_playback": "NOT_CLEARED_AND_NOT_TESTED"
+    },
+    {
+      "candidate_id": "S1",
+      "claim": "ITTF Worlds Team Finals London 2026 Women's Final M4: Sun Yingsha vs Miwa Harimoto",
+      "review_status": "PAIR_AND_STRAIGHT_GAMES_RESULT_SUPPORTED_BY_ITTF_EVENT_REPORT; MATCH_NUMBER_AND_POINT_SCORES_NOT_INDEPENDENTLY_CONFIRMED",
+      "source_url": "https://www.ittf.com/2026/05/10/chinas-women-dazzle-on-the-centenary-stage-to-claim-a-record-24th-world-title-at-london-2026/",
+      "source_role": "ITTF official event report; search-index text states Sun defeated Harimoto in straight games during the women's final",
+      "verified_facts": {
+        "event_year": 2026,
+        "round": "Women's Team Final",
+        "pair_result": "Sun Yingsha defeated Miwa Harimoto in straight games",
+        "match_number": "UNKNOWN",
+        "exact_game_scores": "UNKNOWN"
+      },
+      "wtt_ittf_single_match_record_url": "UNKNOWN",
+      "ptti_match_id": null,
+      "video_claims": "AaghFJHOt-E IS HANDOFF-ONLY; YOUTUBE PAGE FETCH WAS THROTTLED",
+      "rights_and_playback": "NOT_CLEARED_AND_NOT_TESTED"
+    }
+  ],
+  "candidates": [
+    {"candidate_id":"C01","handoff_match_claim":"China Smash 2026 MS Final｜Sora Matsushima vs Lin Yun-Ju｜2026-10-11","handoff_media_claim":"FULL_MATCH + HIGHLIGHTS","handoff_grade":"READY FOR MAIN REVIEW","video_ids":["075p-PLisZc","shrAdamlupE"],"match_dedup":"NO_EXACT_MATCH_IN_CURRENT_MAIN_UNION","exact_existing_video_ids":[],"fact_review":"OFFICIAL_JTTA_MATCH_AND_RESULT_VERIFIED","main_admission":"HOLD_RAW_CANDIDATE_FILE_MISSING_VIDEO_METADATA_UNVERIFIED_RIGHTS_NOT_CLEARED"},
+    {"candidate_id":"C02","handoff_match_claim":"China Smash 2026 WS Final｜Wang Manyu vs Hitomi Sato｜2026-10-11","handoff_media_claim":"FULL_MATCH + HIGHLIGHTS","handoff_grade":"READY FOR MAIN REVIEW","video_ids":["zLd1aadwMjQ","cH9ydVnwn5U"],"match_dedup":"NO_EXACT_MATCH_IN_CURRENT_MAIN_UNION","exact_existing_video_ids":[],"fact_review":"OFFICIAL_JTTA_EVENT_PAGE_CONFIRMS_WANG_4_0_SATO","main_admission":"HOLD_RAW_CANDIDATE_FILE_MISSING_VIDEO_METADATA_UNVERIFIED_RIGHTS_NOT_CLEARED"},
+    {"candidate_id":"C03","handoff_match_claim":"China Smash 2026 WS R32｜Orawan Paranang vs Sun Yingsha｜2026-10-07","handoff_media_claim":"FULL_MATCH + HIGHLIGHTS","handoff_grade":"NEEDS VERIFICATION","video_ids":["tPOJbom3fdQ","3Q2A4f3t1mI"],"match_dedup":"NO_EXACT_MATCH_IN_CURRENT_MAIN_UNION","exact_existing_video_ids":[],"fact_review":"THIRD_PARTY_MATCH_RESULT_ONLY; OFFICIAL_SINGLE_MATCH_RECORD_UNKNOWN","main_admission":"HOLD_RAW_CANDIDATE_FILE_MISSING_OFFICIAL_RESULT_URL_UNKNOWN_VIDEO_METADATA_UNVERIFIED_RIGHTS_NOT_CLEARED"},
+    {"candidate_id":"C04","handoff_match_claim":"Europe Smash Sweden 2026 MS Final｜Felix Lebrun vs Tomokazu Harimoto｜2026-08-16","handoff_media_claim":"FULL_MATCH + HIGHLIGHTS","handoff_grade":"READY FOR MAIN REVIEW","video_ids":["Oc6EUZ2aYQ4","TaIArVDocEY"],"match_dedup":"NO_EXACT_MATCH_IN_CURRENT_MAIN_UNION","exact_existing_video_ids":[],"fact_review":"HANDOFF_SUMMARY_ONLY_IN_THIS_REVIEW","main_admission":"HOLD_RAW_CANDIDATE_FILE_MISSING_SOURCE_METADATA_AND_RIGHTS_NOT_CLEARED"},
+    {"candidate_id":"C05","handoff_match_claim":"WTT Champions Yokohama 2026 MS Final｜Tomokazu Harimoto vs Oh Junsung｜2026-08-09","handoff_media_claim":"FULL_MATCH + EXTENDED HIGHLIGHTS","handoff_grade":"READY FOR MAIN REVIEW","video_ids":["v4K_pm1RbQw","QGE3OcC7Tbk"],"match_dedup":"NO_EXACT_MATCH_IN_CURRENT_MAIN_UNION","exact_existing_video_ids":[],"fact_review":"HANDOFF_SUMMARY_ONLY_IN_THIS_REVIEW","main_admission":"HOLD_RAW_CANDIDATE_FILE_MISSING_SOURCE_METADATA_AND_RIGHTS_NOT_CLEARED"},
+    {"candidate_id":"C06","handoff_match_claim":"WTT Champions Yokohama 2026 WS Final｜Miwa Harimoto vs Chen Xingtong｜2026-08-09","handoff_media_claim":"FULL_MATCH + EXTENDED HIGHLIGHTS","handoff_grade":"READY FOR MAIN REVIEW","video_ids":["96Cf8blQanM","TSGiasATPKs"],"match_dedup":"NO_EXACT_MATCH_IN_CURRENT_MAIN_UNION","exact_existing_video_ids":[],"fact_review":"HANDOFF_SUMMARY_ONLY_IN_THIS_REVIEW","main_admission":"HOLD_RAW_CANDIDATE_FILE_MISSING_SOURCE_METADATA_AND_RIGHTS_NOT_CLEARED"},
+    {"candidate_id":"C07","handoff_match_claim":"Singapore Smash 2026 MS Final｜Wang Chuqin vs Lin Yun-Ju｜2026-03-01","handoff_media_claim":"FULL_MATCH + HIGHLIGHTS","handoff_grade":"READY FOR MAIN REVIEW","video_ids":["cDccQqVlMnc","DHxcmcGrpn2"],"match_dedup":"EXACT_EXISTING_MATCH_BY_FULL_VIDEO_ID_AND_CANONICAL_MATCH_ID","exact_existing_video_ids":["cDccQqVlMnc"],"existing_match_id":"pro:wtt:singapore-smash-2026:wang-chuqin-lin-yun-ju-ms-final","new_highlight_admission":"NOT_ADMITTED_IDENTITY_AND_RIGHTS_UNVERIFIED","fact_review":"EXISTING_MATCH_ALREADY_IN_MAIN_UNION","main_admission":"DO_NOT_DUPLICATE_EXISTING_MATCH_OR_FULL_SOURCE; HOLD_HIGHLIGHT"},
+    {"candidate_id":"C08","handoff_match_claim":"WTT Champions Macao 2026 WS Final｜Miwa Harimoto vs Chen Yi｜2026-09-13","handoff_media_claim":"FULL_MATCH + HIGHLIGHTS","handoff_grade":"READY FOR MAIN REVIEW","video_ids":["vh7kTxwItLM","PCJq94AFsK8"],"match_dedup":"NO_EXACT_MATCH_IN_CURRENT_MAIN_UNION","exact_existing_video_ids":[],"fact_review":"OFFICIAL_MACAO_SPORTS_BUREAU_MATCH_AND_RESULT_VERIFIED","main_admission":"HOLD_RAW_CANDIDATE_FILE_MISSING_VIDEO_METADATA_UNVERIFIED_RIGHTS_NOT_CLEARED"},
+    {"candidate_id":"C09","handoff_match_claim":"WTT Champions Doha 2026 MS QF｜Tomokazu Harimoto vs Felix Lebrun｜2026-01-10","handoff_media_claim":"FULL_MATCH + HIGHLIGHTS","handoff_grade":"READY FOR MAIN REVIEW","video_ids":["47cI7sggcbk","z84qoBky67w"],"match_dedup":"NO_EXACT_MATCH_IN_CURRENT_MAIN_UNION","exact_existing_video_ids":[],"fact_review":"HANDOFF_SUMMARY_ONLY_IN_THIS_REVIEW","main_admission":"HOLD_RAW_CANDIDATE_FILE_MISSING_SOURCE_METADATA_AND_RIGHTS_NOT_CLEARED"},
+    {"candidate_id":"C10","handoff_match_claim":"ETTU European Championships Ljubljana 2026 MS Final｜Felix Lebrun vs Anton Källberg｜2026-10-18","handoff_media_claim":"OFFICIAL HIGHLIGHTS ONLY; NO FULL MATCH","handoff_grade":"NEEDS VERIFICATION","video_ids":["XgSxQ8NC6Zc"],"alternative_video_ids":["xVz7HfzcSb4"],"match_dedup":"NO_EXACT_MATCH_IN_CURRENT_MAIN_UNION","exact_existing_video_ids":[],"fact_review":"HANDOFF_SUMMARY_ONLY; ETTU_RESULT_NOT_INDEPENDENTLY_RECHECKED","main_admission":"HOLD_ALTERNATE_VIDEO_ID_UNRESOLVED_RAW_FILE_MISSING_RIGHTS_NOT_CLEARED"},
+    {"candidate_id":"C11","handoff_match_claim":"Asian Games Aichi-Nagoya 2026 MS Final｜Lin Shidong vs Wang Chuqin｜2026-09-28","handoff_media_claim":"NO VIDEO SOURCE LISTED","handoff_grade":"NEEDS VERIFICATION","video_ids":[],"match_dedup":"NO_EXACT_MATCH_IN_CURRENT_MAIN_UNION","exact_existing_video_ids":[],"fact_review":"HANDOFF_SUMMARY_ONLY","main_admission":"HOLD_RAW_CANDIDATE_FILE_MISSING_OFFICIAL_MATCH_RECORD_UNKNOWN"},
+    {"candidate_id":"C12","handoff_match_claim":"Asian Games 2026 Men's Team Final｜Japan vs China｜date UNKNOWN","handoff_media_claim":"NO VIDEO SOURCE LISTED","handoff_grade":"REJECTED","video_ids":[],"match_dedup":"UNIDENTIFIABLE_REJECTED","exact_existing_video_ids":[],"fact_review":"HANDOFF_REJECTED_ALL_IDENTITY_FIELDS_UNKNOWN","main_admission":"REJECTED_NO_IDENTITY_EVIDENCE"},
+    {"candidate_id":"S1","handoff_match_claim":"ITTF Worlds Team Finals London 2026 WT Final M4｜Sun Yingsha vs Miwa Harimoto｜2026-05-10","handoff_media_claim":"FULL_MATCH ONLY","handoff_grade":"READY FOR MAIN REVIEW","video_ids":["AaghFJHOt-E"],"match_dedup":"NO_EXACT_MATCH_IN_CURRENT_MAIN_UNION","exact_existing_video_ids":[],"fact_review":"ITTF_REPORT_SUPPORTS_PAIR_AND_STRAIGHT_GAMES_RESULT; MATCH_NUMBER_AND_POINT_SCORES_UNCONFIRMED","main_admission":"HOLD_RAW_CANDIDATE_FILE_MISSING_VIDEO_METADATA_UNVERIFIED_RIGHTS_NOT_CLEARED"},
+    {"candidate_id":"S2","handoff_match_claim":"ITTF Worlds Team Finals London 2026 WT Final M2｜Sun Yingsha vs Hina Hayata｜2026-05-10","handoff_media_claim":"FULL_MATCH + HIGHLIGHTS","handoff_grade":"READY FOR MAIN REVIEW","video_ids":["Z-h9ajuw4p4","nsFDX8EMsG4"],"match_dedup":"NO_EXACT_MATCH_IN_CURRENT_MAIN_UNION","exact_existing_video_ids":[],"fact_review":"HANDOFF_SUMMARY_ONLY_IN_THIS_REVIEW","main_admission":"HOLD_RAW_CANDIDATE_FILE_MISSING_SOURCE_METADATA_AND_RIGHTS_NOT_CLEARED"},
+    {"candidate_id":"S3","handoff_match_claim":"Singapore Smash 2026 WS Final｜Sun Yingsha vs Wang Manyu｜2026-03-01","handoff_media_claim":"FULL_MATCH + HIGHLIGHTS","handoff_grade":"NEEDS VERIFICATION","video_ids":["vYsJLPTEIaI","9e5Eqa4Edr4"],"match_dedup":"VIDEO_ID_ALREADY_EXISTS_IN_INTERNAL_INVENTORY; CANONICAL_MATCH_LINK_UNKNOWN","exact_existing_video_ids":["vYsJLPTEIaI"],"fact_review":"HANDOFF_SUMMARY_ONLY; SECOND_INDEPENDENT_RESULT_SOURCE_MISSING","main_admission":"HOLD_NO_DUPLICATE_SOURCE; MATCH_LINK_UNKNOWN; RAW_CANDIDATE_FILE_MISSING; VIDEO_METADATA_AND_RIGHTS_NOT_CLEARED"}
+  ],
+  "admission_result": {
+    "new_strict_public_matches": 0,
+    "new_strict_public_video_sources": 0,
+    "reason": "Original machine-readable attachment unavailable; handoff states all candidate media rights are uncleared, all playback NOT_TESTED, all territory UNKNOWN. The existing exact schema requires sourced rights and video identity, so no candidate is promoted. Verified fact findings are retained here for later re-evaluation against the original artifact."
+  }
+}

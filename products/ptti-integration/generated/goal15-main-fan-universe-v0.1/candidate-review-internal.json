@@ -1,0 +1,163 @@
+{
+  "contract_version": "ptti.goal15-content-review/0.1",
+  "view": "INTERNAL_REVIEW",
+  "generated_at": "2026-10-18T10:56:58Z",
+  "public_package_sha256": "ca714727ebe43fd091b7e52a2c8e31225c6deba65fde30765e9da6f360c12ee2",
+  "athlete_review": [
+    {
+      "athlete_id": "athlete:121558",
+      "name_en": "WANG Chuqin",
+      "official_profile_url": "https://www.worldtabletennis.com/player/121558/WANG-Chuqin",
+      "official_identity": "PROFILE_ID_EVIDENCE_RECORDED",
+      "profile_page_access": "INHERITED_FROM_GOAL14_BASE",
+      "official_social_account": "NOT_VERIFIED",
+      "social_urls": [],
+      "equipment_model": "UNKNOWN",
+      "equipment_evidence": [],
+      "portrait_display": "NOT_GRANTED_OR_NOT_VERIFIED"
+    },
+    {
+      "athlete_id": "athlete:135977",
+      "name_en": "Felix LEBRUN",
+      "official_profile_url": "https://www.worldtabletennis.com/player/135977/Felix-LEBRUN",
+      "official_identity": "PROFILE_ID_EVIDENCE_RECORDED",
+      "profile_page_access": "INHERITED_FROM_GOAL14_BASE",
+      "official_social_account": "NOT_VERIFIED",
+      "social_urls": [],
+      "equipment_model": "UNKNOWN",
+      "equipment_evidence": [],
+      "portrait_display": "NOT_GRANTED_OR_NOT_VERIFIED"
+    },
+    {
+      "athlete_id": "athlete:123980",
+      "name_en": "Tomokazu HARIMOTO",
+      "official_profile_url": "https://www.worldtabletennis.com/player/123980/Tomokazu-HARIMOTO",
+      "official_identity": "PROFILE_ID_EVIDENCE_RECORDED",
+      "profile_page_access": "INHERITED_FROM_GOAL14_BASE",
+      "official_social_account": "NOT_VERIFIED",
+      "social_urls": [],
+      "equipment_model": "UNKNOWN",
+      "equipment_evidence": [],
+      "portrait_display": "NOT_GRANTED_OR_NOT_VERIFIED"
+    },
+    {
+      "athlete_id": "athlete:131163",
+      "name_en": "SUN Yingsha",
+      "official_profile_url": "https://results.ittf.link/index.php/player-profile/details/59/29264",
+      "official_identity": "PROFILE_ID_EVIDENCE_RECORDED",
+      "profile_page_access": "NOT_TESTED_IN_USER_BROWSER",
+      "official_social_account": "NOT_VERIFIED",
+      "social_urls": [],
+      "equipment_model": "UNKNOWN",
+      "equipment_evidence": [],
+      "portrait_display": "NOT_GRANTED_OR_NOT_VERIFIED"
+    },
+    {
+      "athlete_id": "athlete:121411",
+      "name_en": "WANG Manyu",
+      "official_profile_url": "https://results.ittf.link/index.php/player-profile/details/59/19634",
+      "official_identity": "PROFILE_ID_EVIDENCE_RECORDED",
+      "profile_page_access": "NOT_TESTED_IN_USER_BROWSER",
+      "official_social_account": "NOT_VERIFIED",
+      "social_urls": [],
+      "equipment_model": "UNKNOWN",
+      "equipment_evidence": [],
+      "portrait_display": "NOT_GRANTED_OR_NOT_VERIFIED"
+    },
+    {
+      "athlete_id": "athlete:137237",
+      "name_en": "LIN Shidong",
+      "official_profile_url": "https://results.ittf.link/index.php/player-profile/details/59/35272",
+      "official_identity": "PROFILE_ID_EVIDENCE_RECORDED",
+      "profile_page_access": "NOT_TESTED_IN_USER_BROWSER",
+      "official_social_account": "NOT_VERIFIED",
+      "social_urls": [],
+      "equipment_model": "UNKNOWN",
+      "equipment_evidence": [],
+      "portrait_display": "NOT_GRANTED_OR_NOT_VERIFIED"
+    },
+    {
+      "athlete_id": "athlete:119588",
+      "name_en": "LIANG Jingkun",
+      "official_profile_url": "https://results.ittf.link/index.php/player-profile/details/59/18077",
+      "official_identity": "PROFILE_ID_EVIDENCE_RECORDED",
+      "profile_page_access": "NOT_TESTED_IN_USER_BROWSER",
+      "official_social_account": "NOT_VERIFIED",
+      "social_urls": [],
+      "equipment_model": "UNKNOWN",
+      "equipment_evidence": [],
+      "portrait_display": "NOT_GRANTED_OR_NOT_VERIFIED"
+    },
+    {
+      "athlete_id": "athlete:135049",
+      "name_en": "KUAI Man",
+      "official_profile_url": "https://results.ittf.link/index.php/player-profile/details/59/33096",
+      "official_identity": "PROFILE_ID_EVIDENCE_RECORDED",
+      "profile_page_access": "NOT_TESTED_IN_USER_BROWSER",
+      "official_social_account": "NOT_VERIFIED",
+      "social_urls": [],
+      "equipment_model": "UNKNOWN",
+      "equipment_evidence": [],
+      "portrait_display": "NOT_GRANTED_OR_NOT_VERIFIED"
+    }
+  ],
+  "video_type_review": {
+    "strict_public_source_count": 15,
+    "official_title_claim_counts": {
+      "FULL_MATCH": 3,
+      "HIGHLIGHTS": 10,
+      "SESSION": 0,
+      "CLIP": 0,
+      "UNKNOWN": 2
+    },
+    "verified_complete_match_count": 0,
+    "verified_shorts_count": 0,
+    "note": "Classification is based on source/title metadata. No visual playback or completeness review was performed."
+  },
+  "community_news_candidates": [
+    {
+      "source_id": "goal15-wtt-china-smash-2025-ws-final",
+      "url": "https://www.worldtabletennis.com/eventInfo?eventId=3098",
+      "status": "OFFICIAL_EVENT_NEWS_AND_RESULT_LINK_ONLY"
+    },
+    {
+      "source_id": "goal15-wtt-singapore-smash-2026-ms-final",
+      "url": "https://www.worldtabletennis.com/description?artId=5957",
+      "status": "OFFICIAL_MATCH_REPORT_LINK_ONLY"
+    }
+  ],
+  "not_admitted": [
+    {
+      "candidate": "2026 Singapore Smash WD semifinal O241nV8y4Dc",
+      "status": "INTERNAL_CANDIDATE_ONLY",
+      "reason": "Official video title metadata was previously observed, but this pass did not complete an official WTT result-to-video cross-check and stable athlete/source evidence pack; no new match edge is created."
+    },
+    {
+      "candidate": "Athlete personal social accounts",
+      "status": "NOT_VERIFIED",
+      "reason": "No account is included without a first-party WTT/ITTF profile or official team source linking the exact account."
+    },
+    {
+      "candidate": "Player equipment models and sponsorship",
+      "status": "UNKNOWN",
+      "reason": "No first-party equipment or sponsorship statement tied to an exact model and time period was verified."
+    },
+    {
+      "candidate": "WTT/ITTF Shorts",
+      "status": "NO_EXACT_SHORTS_ID_VERIFIED_IN_THIS_PASS",
+      "reason": "No exact official Shorts video ID and source metadata passed review; no placeholder or guessed link is emitted."
+    }
+  ],
+  "rights_summary": {
+    "external_official_share_url": "ALLOWED_WITHIN_PLATFORM_LINK_SHARING_SCOPE",
+    "embedding": "UNKNOWN",
+    "third_party_thumbnail_display": "NOT_ALLOWED",
+    "download": "NOT_GRANTED",
+    "local_analysis": "NOT_GRANTED",
+    "redistribution": "NOT_GRANTED",
+    "territory": "UNKNOWN",
+    "external_playback": "NOT_TESTED",
+    "desktop_native_playback": "NOT_TESTED",
+    "vision_analysis": "NOT_TESTED"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "contract_version": "ptti.match-library-index/0.1",
+  "view": "STRICT_PUBLIC",
+  "generated_at": "2026-10-15T08:59:44+00:00",
+  "source_manifest": [],
+  "matches": [],
+  "video_sources": [],
+  "local_video_assets": [],
+  "stars": [],
+  "evidence_sources": [],
+  "rights_review_queue": [],
+  "quality_summary": {
+    "public_match_count": 0,
+    "public_video_source_count": 0,
+    "public_star_count": 0,
+    "excluded_reference_only_records": 35,
+    "exclusion_reason": "No scoped, evidenced public metadata-listing permission is present in these snapshots."
+  },
+  "analysis_compatibility": {
+    "review_targets_version": "ptti.review-targets/0.1",
+    "review_evidence_pack_version": "ptti.review-evidence-pack/0.1",
+    "join_policy": "EXACT_MATCH_ID_AND_SOURCE_ID_WITH_EVIDENCE_ONLY",
+    "automatic_join_by_title_or_player_name": false,
+    "playback_eligibility": "NOT_EVALUATED_CURRENT_SESSION"
+  },
+  "notice": "Strict public projection. Unknown rights are excluded; no review fallback is permitted."
+}

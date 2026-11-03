@@ -1,0 +1,79 @@
+{
+  "contract_version": "ptti.main.match-report-evidence/0.1",
+  "generated_at": "2026-10-21T00:00:00Z",
+  "input_identity": {
+    "match_library_sha256": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+    "fan_inspiration_sha256": "702bc12850676ae9eeda39b533ade9cc5f2da0fe8710aa8ebc82f0c2b803c5c9"
+  },
+  "match_reports": [
+    {
+      "report_id": "match-report:wtt:singapore-smash-2026:wang-chuqin-lin-yun-ju-ms-final",
+      "match_id": "pro:wtt:singapore-smash-2026:wang-chuqin-lin-yun-ju-ms-final",
+      "event_name": "Singapore Smash 2026",
+      "event_year": 2026,
+      "round": "Men's Singles Final",
+      "participants": [
+        {
+          "athlete_id": "athlete:121558",
+          "name_en": "WANG Chuqin"
+        },
+        {
+          "athlete_id": "athlete:121582",
+          "name_en": "LIN Yun-Ju"
+        }
+      ],
+      "recorded_result": {
+        "winner_id": "athlete:121558",
+        "winner_name": "WANG Chuqin",
+        "player_a_games": 4,
+        "player_b_games": 0,
+        "status": "OFFICIAL_WTT_RESULT_CROSSCHECKED"
+      },
+      "game_scores": [
+        [
+          11,
+          3
+        ],
+        [
+          11,
+          8
+        ],
+        [
+          11,
+          8
+        ],
+        [
+          11,
+          9
+        ]
+      ],
+      "editorial_summary_zh": "WTT官方赛报称，王楚钦在新加坡大满贯男单决赛以4比0战胜林昀儒；比赛局分为11比3、11比8、11比8、11比9。报道还记录了比赛走势和王楚钦的赛后感受。",
+      "article": {
+        "source_id": "goal15-wtt-singapore-smash-2026-ms-final",
+        "publisher": "World Table Tennis",
+        "title": "Lion Heart: Wang Chuqin Takes Second Singapore Smash Title",
+        "url": "https://www.worldtabletennis.com/description?artId=5957",
+        "published_at": null,
+        "published_at_status": "NOT_RECORDED_NO_DATE_IN_REVIEWED_SOURCE",
+        "content_observation": "OFFICIAL_DOMAIN_SEARCH_EXCERPT_SURFACED",
+        "direct_page_status": "COOKIE_CONSENT_SHELL_ONLY",
+        "checked_on": "2026-10-21"
+      },
+      "linked_video": {
+        "source_id": "video-source:youtube:cDccQqVlMnc",
+        "url": "https://www.youtube.com/watch?v=cDccQqVlMnc",
+        "match_link": "HUMAN_VERIFIED",
+        "external_system_browser_open": "NOT_TESTED",
+        "video_started": "NOT_TESTED",
+        "complete_watch": "UNVERIFIED"
+      },
+      "rights": {
+        "article_republication": "NOT_GRANTED",
+        "image_reuse": "NOT_GRANTED",
+        "summary_and_outbound_link": "FACTUAL_SUMMARY_AND_LINK_ONLY",
+        "video_embed": "UNKNOWN_NOT_GRANTED"
+      }
+    }
+  ],
+  "notice": "One official report projection is linked to an existing WTT match and existing official video record. This is factual summary and outbound-link data only; direct browser opening and video playback remain untested."
+}

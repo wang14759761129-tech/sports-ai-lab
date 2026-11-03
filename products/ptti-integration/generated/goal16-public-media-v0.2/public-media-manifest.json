@@ -1,0 +1,190 @@
+{
+  "contract_version": "ptti.public-media-manifest/0.2",
+  "generated_at": "2026-10-18T15:17:57Z",
+  "view": "STRICT_PUBLIC_MEDIA",
+  "clearance_review_sha256": "9aecae8d1b0bcbdb99bb6142c7bf77531c9a33c50f6121070489a2a9bf271125",
+  "source_manifest_sha256": "e533ceeae42138a1bcf45099f0ea53180a29a7f21366e5f59d6ce8bebd837a49",
+  "license_notice": "These four images are cleared only for factual athlete-profile editorial display with visible credit, source link and license. Do not imply endorsement or use as homepage promotion/advertising. Every derivative is CC BY-SA under the same license as the source; preserve attribution and ShareAlike. No image is linked to a Goal15 match.",
+  "assets": [
+    {
+      "asset_id": "commons:attc-2017:harimoto-1",
+      "athlete_id": "athlete:123980",
+      "subject_name": "Tomokazu Harimoto",
+      "match_id": null,
+      "match_link_status": "NOT_LINKED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+      "use_scope": "ATHLETE_PROFILE_EDITORIAL_ONLY",
+      "promotion_use": "NOT_CLEARED_NO_ENDORSEMENT_OR_HOMEPAGE_PROMOTION",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Harimoto_Tomokazu_ATTC2017_1.jpeg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Harimoto_Tomokazu_ATTC2017_1.jpeg",
+      "source_title": "Harimoto Tomokazu ATTC2017 1.jpeg",
+      "photographer": "XIAOYU TANG (Flickr source account: Crew of China Sports)",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "attribution": "Harimoto Tomokazu ATTC2017 1.jpeg — Photo by XIAOYU TANG (Flickr source account: Crew of China Sports); licensed CC BY-SA 2.0. Source: https://commons.wikimedia.org/wiki/File:Harimoto_Tomokazu_ATTC2017_1.jpeg. License: https://creativecommons.org/licenses/by-sa/2.0/. This use does not imply athlete endorsement.",
+      "changes_made": "Original cropped to 4:5, resized to two responsive dimensions, converted to WebP, and stripped of EXIF metadata; derivatives remain under the same CC BY-SA license.",
+      "share_alike_required": true,
+      "source_sha256": "f420e2bd10788514b33e7fc907ea23cd7a87a3b4ae2a46e8e24e2892e3fdd536",
+      "source_dimensions": {
+        "width": 4138,
+        "height": 2759
+      },
+      "derivatives": [
+        {
+          "path": "assets/commons-attc-2017-harimoto-1-400x500.webp",
+          "sha256": "5ddf83202af85211f2531cbf4c0117584ee59de0404b30e1c75dffa3f96bdf73",
+          "width": 400,
+          "height": 500,
+          "format": "WEBP",
+          "license": "CC BY-SA 2.0",
+          "changes_made": "4:5 center crop; resized; JPEG converted to WebP; EXIF/GPS metadata removed",
+          "metadata_stripped": true
+        },
+        {
+          "path": "assets/commons-attc-2017-harimoto-1-800x1000.webp",
+          "sha256": "5487202af81d1aae6191f5975be282b1407b23d2c307fda4a27310c94eca2440",
+          "width": 800,
+          "height": 1000,
+          "format": "WEBP",
+          "license": "CC BY-SA 2.0",
+          "changes_made": "4:5 center crop; resized; JPEG converted to WebP; EXIF/GPS metadata removed",
+          "metadata_stripped": true
+        }
+      ]
+    },
+    {
+      "asset_id": "commons:jonathan-groth-portrait",
+      "athlete_id": "athlete:112409",
+      "subject_name": "Jonathan Groth",
+      "match_id": null,
+      "match_link_status": "NOT_LINKED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+      "use_scope": "ATHLETE_PROFILE_EDITORIAL_ONLY",
+      "promotion_use": "NOT_CLEARED_NO_ENDORSEMENT_OR_HOMEPAGE_PROMOTION",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Jonathan_Groth.jpg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/4/46/Jonathan_Groth.jpg",
+      "source_title": "Jonathan Groth.jpg",
+      "photographer": "Olav76",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "attribution": "Jonathan Groth.jpg — Photo by Olav76; licensed CC BY-SA 4.0. Source: https://commons.wikimedia.org/wiki/File:Jonathan_Groth.jpg. License: https://creativecommons.org/licenses/by-sa/4.0/. This use does not imply athlete endorsement.",
+      "changes_made": "Original cropped to 4:5, resized to two responsive dimensions, converted to WebP, and stripped of EXIF metadata; derivatives remain under the same CC BY-SA license.",
+      "share_alike_required": true,
+      "source_sha256": "2598ed51de49a09162cf592527ecd559d65c108c3a9b20694d67c5213574b85e",
+      "source_dimensions": {
+        "width": 4928,
+        "height": 3264
+      },
+      "derivatives": [
+        {
+          "path": "assets/commons-jonathan-groth-portrait-400x500.webp",
+          "sha256": "4c1666fcda5ec064b6edaf2c19b063bf183c725f1bab83f6ebbb2a80e815fea6",
+          "width": 400,
+          "height": 500,
+          "format": "WEBP",
+          "license": "CC BY-SA 4.0",
+          "changes_made": "4:5 center crop; resized; JPEG converted to WebP; EXIF/GPS metadata removed",
+          "metadata_stripped": true
+        },
+        {
+          "path": "assets/commons-jonathan-groth-portrait-800x1000.webp",
+          "sha256": "11346737877a1c57f1d241007d3ec2aac8e61bc6ae354986400ca5813ac73968",
+          "width": 800,
+          "height": 1000,
+          "format": "WEBP",
+          "license": "CC BY-SA 4.0",
+          "changes_made": "4:5 center crop; resized; JPEG converted to WebP; EXIF/GPS metadata removed",
+          "metadata_stripped": true
+        }
+      ]
+    },
+    {
+      "asset_id": "commons:acttc-2016:wang-manyu-17",
+      "athlete_id": "athlete:121411",
+      "subject_name": "Wang Manyu",
+      "match_id": null,
+      "match_link_status": "NOT_LINKED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+      "use_scope": "ATHLETE_PROFILE_EDITORIAL_ONLY",
+      "promotion_use": "NOT_CLEARED_NO_ENDORSEMENT_OR_HOMEPAGE_PROMOTION",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Wang_Manyu_ACTTC2016_17.jpeg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/0/09/Wang_Manyu_ACTTC2016_17.jpeg",
+      "source_title": "Wang Manyu ACTTC2016 17.jpeg",
+      "photographer": "XIAOYU TANG (Flickr source account: Crew of China Sports)",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "attribution": "Wang Manyu ACTTC2016 17.jpeg — Photo by XIAOYU TANG (Flickr source account: Crew of China Sports); licensed CC BY-SA 2.0. Source: https://commons.wikimedia.org/wiki/File:Wang_Manyu_ACTTC2016_17.jpeg. License: https://creativecommons.org/licenses/by-sa/2.0/. This use does not imply athlete endorsement.",
+      "changes_made": "Original cropped to 4:5, resized to two responsive dimensions, converted to WebP, and stripped of EXIF metadata; derivatives remain under the same CC BY-SA license.",
+      "share_alike_required": true,
+      "source_sha256": "a8e92964a6538136566c4f0140477f9c3eb986e9f86d50215c21e3a0c740b28f",
+      "source_dimensions": {
+        "width": 3456,
+        "height": 5184
+      },
+      "derivatives": [
+        {
+          "path": "assets/commons-acttc-2016-wang-manyu-17-400x500.webp",
+          "sha256": "501acd623703ba86c8d2ef63d3c0f37592b1646c2f97c9e4063ce250943174a0",
+          "width": 400,
+          "height": 500,
+          "format": "WEBP",
+          "license": "CC BY-SA 2.0",
+          "changes_made": "4:5 center crop; resized; JPEG converted to WebP; EXIF/GPS metadata removed",
+          "metadata_stripped": true
+        },
+        {
+          "path": "assets/commons-acttc-2016-wang-manyu-17-800x1000.webp",
+          "sha256": "210a2df9cab17e3433b2b5d28707b3d328b832e38e0da4b5fcfa511363d78a47",
+          "width": 800,
+          "height": 1000,
+          "format": "WEBP",
+          "license": "CC BY-SA 2.0",
+          "changes_made": "4:5 center crop; resized; JPEG converted to WebP; EXIF/GPS metadata removed",
+          "metadata_stripped": true
+        }
+      ]
+    },
+    {
+      "asset_id": "commons:acttc-2016:liang-jingkun-8",
+      "athlete_id": "athlete:119588",
+      "subject_name": "Liang Jingkun",
+      "match_id": null,
+      "match_link_status": "NOT_LINKED_NO_DIRECT_MATCH_PHOTO_EVIDENCE",
+      "use_scope": "ATHLETE_PROFILE_EDITORIAL_ONLY",
+      "promotion_use": "NOT_CLEARED_NO_ENDORSEMENT_OR_HOMEPAGE_PROMOTION",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Liang_Jingkun_ACTTC2016_8.jpeg",
+      "source_file_url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Liang_Jingkun_ACTTC2016_8.jpeg",
+      "source_title": "Liang Jingkun ACTTC2016 8.jpeg",
+      "photographer": "XIAOYU TANG (Flickr source account: Crew of China Sports)",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "attribution": "Liang Jingkun ACTTC2016 8.jpeg — Photo by XIAOYU TANG (Flickr source account: Crew of China Sports); licensed CC BY-SA 2.0. Source: https://commons.wikimedia.org/wiki/File:Liang_Jingkun_ACTTC2016_8.jpeg. License: https://creativecommons.org/licenses/by-sa/2.0/. This use does not imply athlete endorsement.",
+      "changes_made": "Original cropped to 4:5, resized to two responsive dimensions, converted to WebP, and stripped of EXIF metadata; derivatives remain under the same CC BY-SA license.",
+      "share_alike_required": true,
+      "source_sha256": "73525784ec787111dfb83b24db217a8ce54705f5fb8b3c83cd491da332f22e00",
+      "source_dimensions": {
+        "width": 5184,
+        "height": 3456
+      },
+      "derivatives": [
+        {
+          "path": "assets/commons-acttc-2016-liang-jingkun-8-480x320.webp",
+          "sha256": "1f52a7cb42507b13a69eac6cf89db3dbe7430267df0f3cba61f9bbe312458c93",
+          "width": 480,
+          "height": 320,
+          "format": "WEBP",
+          "license": "CC BY-SA 2.0",
+          "changes_made": "3:2 full-frame resize; JPEG converted to WebP; EXIF/GPS metadata removed",
+          "metadata_stripped": true
+        },
+        {
+          "path": "assets/commons-acttc-2016-liang-jingkun-8-960x640.webp",
+          "sha256": "0402d89b46e7c8c2cb299bfb54555cc664dfb82ac6917e252bdc4a278b7c0d62",
+          "width": 960,
+          "height": 640,
+          "format": "WEBP",
+          "license": "CC BY-SA 2.0",
+          "changes_made": "3:2 full-frame resize; JPEG converted to WebP; EXIF/GPS metadata removed",
+          "metadata_stripped": true
+        }
+      ]
+    }
+  ]
+}
