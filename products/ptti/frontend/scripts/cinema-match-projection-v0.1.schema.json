@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.local/contracts/cinema-match-projection-v0.1.schema.json",
+  "type": "object",
+  "required": ["contract_version", "audience", "input_sha256", "matches", "video_sources", "evidence_sources", "notice"],
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {"const": "ptti.cinema-match-projection/0.1"},
+    "audience": {"const": "STRICT_PUBLIC_METADATA_EXTERNAL_LINK_ONLY"},
+    "input_sha256": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "matches": {"type": "array", "items": {"type": "object", "required": ["match_id", "event", "match_type", "round", "participants", "identity_status", "source_ids", "evidence_source_ids", "media_sha256", "media_sha256_status"], "additionalProperties": false, "properties": {"match_id": {"type": "string", "minLength": 1}, "event": {"type": "object"}, "match_type": {"type": "string"}, "round": {"type": "string"}, "participants": {"type": "array"}, "identity_status": {"type": "string"}, "source_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}, "evidence_source_ids": {"type": "array", "items": {"type": "string"}}, "media_sha256": {"type": "null"}, "media_sha256_status": {"const": "UNKNOWN"}}}},
+    "video_sources": {"type": "array", "items": {"type": "object", "required": ["source_id", "match_id", "video_id", "provider", "official_url", "title", "publisher", "identity_status", "content_type_claim", "evidence_source_ids", "evidence_url", "external_navigation", "embedding", "download", "redistribution", "media_sha256", "media_sha256_status", "page_status", "playback_status", "current_session_eligibility"], "additionalProperties": false, "properties": {"source_id": {"type": "string"}, "match_id": {"type": ["string", "null"]}, "video_id": {"type": "string", "pattern": "^[A-Za-z0-9_-]{11}$"}, "provider": {"const": "YOUTUBE"}, "official_url": {"type": "string", "format": "uri"}, "title": {"type": "string"}, "publisher": {"type": ["string", "null"]}, "identity_status": {"type": "string"}, "content_type_claim": {"type": "string"}, "evidence_source_ids": {"type": "array", "items": {"type": "string"}}, "evidence_url": {"type": "string", "format": "uri"}, "external_navigation": {"const": "ALLOWED_AS_RECORDED"}, "embedding": {"const": "UNKNOWN"}, "download": {"const": "NOT_GRANTED"}, "redistribution": {"const": "NOT_GRANTED"}, "media_sha256": {"type": "null"}, "media_sha256_status": {"const": "UNKNOWN"}, "page_status": {"const": "NOT_TESTED"}, "playback_status": {"const": "NOT_TESTED"}, "current_session_eligibility": {"const": "NOT_EVALUATED_CURRENT_SESSION"}}}},
+    "evidence_sources": {"type": "array", "items": {"type": "object"}},
+    "notice": {"type": "string"}
+  }
+}

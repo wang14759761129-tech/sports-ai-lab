@@ -1,0 +1,5 @@
+import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';import {validateProjection} from '../src/cinemaProjection.mjs';
+const bytes=readFileSync(new URL('../src/sprint08-cinema-projection.json',import.meta.url));assert.equal(createHash('sha256').update(bytes).digest('hex'),'5a94b6c9f2196b31ba9c151188b31900d4fbd50c2c5ecda6e95efcdde639c329');
+const p=JSON.parse(bytes);validateProjection(p);assert.equal(p.matches.length,8);assert.equal(p.video_sources.length,18);assert.equal(p.video_sources.filter(s=>s.match_id!==null).length,8);assert.equal(p.video_sources.filter(s=>s.match_id===null).length,10);
+for(const change of [q=>q.contract_version='wrong',q=>q.matches[0].media_sha256='f'.repeat(64),q=>q.video_sources[0].official_url='https://evil.example',q=>q.video_sources[0].embedding='ALLOWED',q=>q.video_sources[0].match_id='fabricated',q=>q.matches[0].source_ids.push('unknown')]){const q=structuredClone(p);change(q);assert.throws(()=>validateProjection(q));}
+console.log('PASS projection hash, 8/18 identity and links, negative rights and mapping cases');
