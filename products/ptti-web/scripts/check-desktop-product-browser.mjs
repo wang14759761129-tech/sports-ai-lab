@@ -1,0 +1,38 @@
+import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { pathToFileURL } from 'node:url';
+const started = Date.now();
+const ram = Number(spawnSync('powershell', ['-NoProfile', '-Command', '(Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory'], { encoding: 'utf8', windowsHide: true }).stdout.trim()) / 1048576;
+if (!Number.isFinite(ram) || ram < 2.5) throw new Error(`BLOCKED RAM ${ram.toFixed(2)} GiB < 2.5 GiB`);
+const module = await import(pathToFileURL(process.env.PTTI_PLAYWRIGHT_MODULE).href);
+const browser = await module.chromium.launch({ executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', headless: true });
+const qa = new URL('../.alpha-qa/goal11-desktop/', import.meta.url);
+await mkdir(qa, { recursive: true });
+const errors = [];
+const actions = [];
+try {
+  const page = await browser.newPage({ viewport: { width: 1366, height: 768 } });
+  page.on('pageerror', e => errors.push(e.message));
+  await page.goto('http://127.0.0.1:4174/');
+  await page.locator('main[data-catalog-mode="review"]').waitFor();
+  await page.locator('#match-search').waitFor(); actions.push('Cinema search visible');
+  await page.locator('#match-search').fill('樊振东'); actions.push('Chinese player search entered');
+  await page.locator('#match-search').fill('');
+  await page.screenshot({ path: new URL('cinema-1366.png', qa).pathname.replace(/^\/(\w:)/, '$1') });
+  await page.locator('.primary-nav button').filter({ hasText: 'Review' }).click();
+  await page.locator('.local-video-review input[type=file]').first().waitFor(); actions.push('Review local file input visible');
+  await page.locator('.primary-nav button').filter({ hasText: 'Insight' }).click();
+  await page.locator('[data-import-review-targets]').waitFor(); actions.push('Insight formal target import visible');
+  assert.equal(await page.locator('video').count(), 0, 'no private media is loaded before the user selects a file');
+  await page.screenshot({ path: new URL('pro-1366.png', qa).pathname.replace(/^\/(\w:)/, '$1') });
+  await page.setViewportSize({ width: 390, height: 844 });
+  assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'no page overflow');
+  await page.screenshot({ path: new URL('pro-390.png', qa).pathname.replace(/^\/(\w:)/, '$1') }); actions.push('390px no horizontal page overflow');
+  await page.getByRole('button', { name: 'English', exact: true }).click();
+  await page.locator('.primary-nav button').filter({ hasText: 'Review' }).click(); actions.push('English navigation');
+  assert.deepEqual(errors, []);
+  const health = await (await page.request.get('http://127.0.0.1:4174/__ptti/health.json')).json();
+  await writeFile(new URL('browser-report.json', qa), JSON.stringify({ status: 'PASS', elapsed_ms: Date.now() - started, ram_gib: ram, health, actions, errors, synthetic_only: true, real_user_count: 0 }, null, 2));
+  console.log(`Desktop product Chrome PASS: ${actions.length} checks; ${Date.now()-started}ms; source identity ${health.san_head}`);
+} finally { await browser.close(); }

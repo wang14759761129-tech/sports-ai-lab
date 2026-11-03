@@ -1,0 +1,3 @@
+# Preserve Main's exact byte identities across Windows checkouts.
+public/data/fan-inspiration-v0.1.json -text
+src/contracts/fan-inspiration-v0.1.schema.json -text
