@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {coveragePath,validatePhotoCoverage} from './review-goal105-photo-coverage.mjs';
+import {loadMediaManifest,verifyMediaTree} from './mediaDistributionGate.mjs';
+const review=JSON.parse(readFileSync(coveragePath,'utf8'));
+const catalog=JSON.parse(readFileSync('../data/professional/official_video_sources.json','utf8'));
+assert.equal(validatePhotoCoverage(review,catalog).specific_photo_candidates,7);
+function rejects(mutate){const copy=structuredClone(review);mutate(copy);assert.throws(()=>validatePhotoCoverage(copy,catalog));}
+rejects(r=>r.schema_version='ptti.match-cover-review/unknown');
+rejects(r=>r.records[0].video_id='invented');
+rejects(r=>r.records[0].source_id='video-source:youtube:another');
+rejects(r=>r.records[0].match_id='pro:guessed');
+rejects(r=>r.records[0].watch_url='https://example.com/guessed');
+rejects(r=>r.records[1]=structuredClone(r.records[0]));
+rejects(r=>r.summary.distribution_approved=7);
+rejects(r=>r.records.find(x=>x.alternative_match_photo).alternative_match_photo.windows_packaging_permission='ALLOWED');
+rejects(r=>r.records.find(x=>x.alternative_match_photo).alternative_match_photo.web_display_permission='ALLOWED');
+rejects(r=>r.records.find(x=>x.alternative_match_photo).alternative_match_photo.media_sha256='PENDING');
+rejects(r=>r.records.find(x=>x.alternative_match_photo).alternative_match_photo.publisher_account_id='unverified-account');
+rejects(r=>r.records.find(x=>x.alternative_match_photo).alternative_match_photo.source_file_url='https://live.staticflickr.com/65535/other_image.jpg');
+const oldWorldCup=JSON.parse(readFileSync('../data/professional/cover_review/goal105-search-observations.json','utf8')).flatMap(s=>s.photos).find(p=>p.id==='50605794726');
+assert.match(oldWorldCup.description,/Weihai/);assert.match(oldWorldCup.description,/World Cup/);
+rejects(r=>r.records.find(x=>x.video_id==='JTUWXpB-NVo').alternative_match_photo.publisher_description=oldWorldCup.description);
+const b=review.records.find(x=>x.video_id==='BV1nb421H7jB');assert.equal(b.match_id,null);assert.equal(b.alternative_match_photo,null);
+assert.equal(loadMediaManifest().assets.length,0,'Internal candidates never populate the public manifest');
+assert.equal(verifyMediaTree('dist').approvedAssets,0,'Current Web artifact remains photo-free');
+console.log('GOAL105: eight-source review, seven concrete candidates, caption mismatch/duplicate/ID/rights/hash negatives and zero-public-assets gate PASS');
