@@ -1,0 +1,117 @@
+{
+  "version": "ptti.metadata-review-queue/0.1",
+  "scope": "INTERNAL_REVIEW_ONLY",
+  "source_file_sha256": "209247ad0fcf774608f66029a0ff1aa6fac6064ea38df9e0d6c567f856e89382",
+  "generated_at": "2026-10-26T03:37:46.514357+00:00",
+  "action": "REVIEW_REQUIRED_NOT_AUTOMATIC_REFRESH",
+  "entries": [
+    {
+      "provider": "BILIBILI",
+      "video_id": "BV1nb421H7jB",
+      "match_id": null,
+      "registered_url": "https://www.bilibili.com/video/BV1nb421H7jB/",
+      "registered_title": "马龙 王楚钦VS樊振东 林高远 观众视角 23年亚锦赛",
+      "metadata_verified_at": "2026-10-09T15:57:08.1042839+00:00",
+      "current_gate_expires_at": "2026-11-08T15:57:08.104283+00:00",
+      "new_page_review": "NOT_TESTED",
+      "new_playback_review": "NOT_TESTED",
+      "thumbnail_distribution_permission": "NOT_GRANTED_BY_THIS_REVIEW"
+    },
+    {
+      "provider": "YOUTUBE_OFFICIAL",
+      "video_id": "0QgbtsBWZhk",
+      "match_id": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+      "registered_url": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+      "registered_title": "FULL MATCH | Wang Chuqin vs Felix Lebrun | MS Final | #ChinaSmash 2025",
+      "metadata_verified_at": "2026-10-09T14:18:45.968249+00:00",
+      "current_gate_expires_at": "2026-11-08T14:18:45.968249+00:00",
+      "new_page_review": "NOT_TESTED",
+      "new_playback_review": "NOT_TESTED",
+      "thumbnail_distribution_permission": "NOT_GRANTED_BY_THIS_REVIEW"
+    },
+    {
+      "provider": "YOUTUBE_OFFICIAL",
+      "video_id": "vYsJLPTEIaI",
+      "match_id": null,
+      "registered_url": "https://www.youtube.com/watch?v=vYsJLPTEIaI",
+      "registered_title": "FULL MATCH | Sun Yingsha vs Wang Manyu | WS Final | #WTTSingapore2026",
+      "metadata_verified_at": "2026-10-09T14:18:52.673994+00:00",
+      "current_gate_expires_at": "2026-11-08T14:18:52.673994+00:00",
+      "new_page_review": "NOT_TESTED",
+      "new_playback_review": "NOT_TESTED",
+      "thumbnail_distribution_permission": "NOT_GRANTED_BY_THIS_REVIEW"
+    },
+    {
+      "provider": "YOUTUBE_OFFICIAL",
+      "video_id": "aFs7HJ0NX18",
+      "match_id": null,
+      "registered_url": "https://www.youtube.com/watch?v=aFs7HJ0NX18",
+      "registered_title": "FULL MATCH | MA Long (CHN) vs FAN Zhendong (CHN) | MS F | 2020 ITTF Finals",
+      "metadata_verified_at": "2026-10-09T14:18:54.674950+00:00",
+      "current_gate_expires_at": "2026-11-08T14:18:54.674950+00:00",
+      "new_page_review": "NOT_TESTED",
+      "new_playback_review": "NOT_TESTED",
+      "thumbnail_distribution_permission": "NOT_GRANTED_BY_THIS_REVIEW"
+    },
+    {
+      "provider": "YOUTUBE_OFFICIAL",
+      "video_id": "JTUWXpB-NVo",
+      "match_id": null,
+      "registered_url": "https://www.youtube.com/watch?v=JTUWXpB-NVo",
+      "registered_title": "FULL MATCH | MA Long (CHN) vs FAN Zhendong (CHN) | MS F | 2019 ITTF Grand Finals",
+      "metadata_verified_at": "2026-10-09T14:18:55.493007+00:00",
+      "current_gate_expires_at": "2026-11-08T14:18:55.493007+00:00",
+      "new_page_review": "NOT_TESTED",
+      "new_playback_review": "NOT_TESTED",
+      "thumbnail_distribution_permission": "NOT_GRANTED_BY_THIS_REVIEW"
+    },
+    {
+      "provider": "YOUTUBE_OFFICIAL",
+      "video_id": "H77vNFk3neg",
+      "match_id": null,
+      "registered_url": "https://www.youtube.com/watch?v=H77vNFk3neg",
+      "registered_title": "FULL MATCH | WANG Chuqin vs MA Long | MS F | #WTTMacao 2023",
+      "metadata_verified_at": "2026-10-09T14:18:59.078088+00:00",
+      "current_gate_expires_at": "2026-11-08T14:18:59.078088+00:00",
+      "new_page_review": "NOT_TESTED",
+      "new_playback_review": "NOT_TESTED",
+      "thumbnail_distribution_permission": "NOT_GRANTED_BY_THIS_REVIEW"
+    },
+    {
+      "provider": "YOUTUBE_OFFICIAL",
+      "video_id": "ekfCZiIEYi0",
+      "match_id": null,
+      "registered_url": "https://www.youtube.com/watch?v=ekfCZiIEYi0",
+      "registered_title": "FULL MATCH | WANG Chuqin vs FAN Zhendong | MS F | #WTTLjubljana 2023",
+      "metadata_verified_at": "2026-10-09T14:19:01.591146+00:00",
+      "current_gate_expires_at": "2026-11-08T14:19:01.591146+00:00",
+      "new_page_review": "NOT_TESTED",
+      "new_playback_review": "NOT_TESTED",
+      "thumbnail_distribution_permission": "NOT_GRANTED_BY_THIS_REVIEW"
+    },
+    {
+      "provider": "YOUTUBE_OFFICIAL",
+      "video_id": "DTPNEl3-2b0",
+      "match_id": null,
+      "registered_url": "https://www.youtube.com/watch?v=DTPNEl3-2b0",
+      "registered_title": "FULL MATCH | Sun Yingsha vs Kim Nayeong | WS R16 | #WTTMacao 2024",
+      "metadata_verified_at": "2026-10-09T14:19:06.168132+00:00",
+      "current_gate_expires_at": "2026-11-08T14:19:06.168132+00:00",
+      "new_page_review": "NOT_TESTED",
+      "new_playback_review": "NOT_TESTED",
+      "thumbnail_distribution_permission": "NOT_GRANTED_BY_THIS_REVIEW"
+    },
+    {
+      "provider": "YOUTUBE_OFFICIAL",
+      "video_id": "iQhVLkcGCFE",
+      "match_id": null,
+      "registered_url": "https://www.youtube.com/watch?v=iQhVLkcGCFE",
+      "registered_title": "FULL MATCH | LIN Yun-Ju / CHENG I-Ching vs WANG Chuqin / SUN Yingsha | XD SF | #ITTFWorlds2021",
+      "metadata_verified_at": "2026-10-09T14:19:09.839368+00:00",
+      "current_gate_expires_at": "2026-11-08T14:19:09.839368+00:00",
+      "new_page_review": "NOT_TESTED",
+      "new_playback_review": "NOT_TESTED",
+      "thumbnail_distribution_permission": "NOT_GRANTED_BY_THIS_REVIEW"
+    }
+  ]
+}
