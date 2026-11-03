@@ -1,0 +1,7 @@
+# Preserve Main's exact byte identities across Windows checkouts.
+public/data/fan-inspiration-v0.1.json -text
+src/contracts/fan-inspiration-v0.1.schema.json -text
+
+# Main's byte pin includes CRLF; keep ordinary whitespace checks while recognizing CR.
+public/data/goal27-match-experience-delta-v0.1.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+src/contracts/match-experience-delta-v0.1.schema.json -text

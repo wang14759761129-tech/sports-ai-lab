@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-27",
+  "scope": "GEX06R isolated local-media prototype",
+  "parent": "d94bccc2dd6658ef1c3a4fec64efdd18389c8462",
+  "auto_test_groups": 15,
+  "auto_tests": "PASS",
+  "isolated_bundle": "PASS",
+  "actual_browser_clicks": "NOT_TESTED",
+  "browser_media_playback": "NOT_TESTED",
+  "full_screen": "NOT_TESTED",
+  "text_to_speech": "NOT_TESTED",
+  "screenshots": "NOT_TESTED",
+  "gui": "BLOCKED",
+  "guard": {
+    "available_gib": 2.7315711975097656,
+    "idle_seconds": 77.469,
+    "required_gib": 3,
+    "required_idle_seconds": 60,
+    "attempts": 1,
+    "retry": false
+  },
+  "storage": "ptti.gex06r.local-evidence/1 only",
+  "private_media_tested": false,
+  "test_media": "unchanged PTTI-owned synthetic 12s H264; original decode passed",
+  "six_page_MUSE_source": "NOT_FOUND; existing GEX06 three-scene implementation evolved",
+  "pose": "INACTIVE; no measurement or similarity claims",
+  "production_files_modified": 0,
+  "typescript_existing_project": "PASS",
+  "bundle_bytes": 24085,
+  "dependencies_added": 0
+}

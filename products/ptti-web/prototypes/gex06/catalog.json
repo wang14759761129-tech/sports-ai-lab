@@ -1,0 +1,119 @@
+{
+  "schema": "ptti.gex06.catalog-display/1",
+  "base_sha": "1e038dcab1a39c6c37d7687a066cd391328681a89950ae02e937ab1a0ac65930",
+  "cover_mode": "ORIGINAL_SYNTHETIC_NOT_MATCH_FOOTAGE",
+  "matches": [
+    {
+      "id": "pro:wtt:china-smash-2025:wang-chuqin-felix-lebrun",
+      "title": "WANG Chuqin × Felix LEBRUN",
+      "event": "China Smash 2025",
+      "round": "Men's Singles Final",
+      "sources": [
+        {
+          "id": "video-source:youtube:0QgbtsBWZhk",
+          "url": "https://www.youtube.com/watch?v=0QgbtsBWZhk",
+          "title": "Men's Singles Final · Wang Chuqin vs Felix Lebrun · China Smash 2025",
+          "type": "FULL_MATCH"
+        }
+      ]
+    },
+    {
+      "id": "pro:wtt:doha-star-contender-2025:harimoto-jonathan-groth",
+      "title": "Tomokazu HARIMOTO × Jonathan GROTH",
+      "event": "WTT Star Contender Doha 2025",
+      "round": "Men's Singles Final",
+      "sources": [
+        {
+          "id": "video-source:youtube:jv_XQ6oKaDU",
+          "url": "https://www.youtube.com/watch?v=jv_XQ6oKaDU",
+          "title": "Tomokazu Harimoto vs Jonathan Groth | MS Final | WTT Star Contender Doha 2025",
+          "type": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "id": "pro:wtt:wtt-finals-fukuoka-2024:chen-xingtong-wang-manyu-ws-final",
+      "title": "Chen Xingtong × Wang Manyu",
+      "event": "WTT Finals Fukuoka 2024",
+      "round": "Women's Singles Final",
+      "sources": [
+        {
+          "id": "video-source:youtube:lb4UMbE8Pfs",
+          "url": "https://www.youtube.com/watch?v=lb4UMbE8Pfs",
+          "title": "Chen Xingtong vs Wang Manyu | WS F | WTT Finals Fukuoka 2024",
+          "type": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "id": "pro:wtt:china-smash-2025:sun-yingsha-wang-manyu-ws-final",
+      "title": "SUN Yingsha × WANG Manyu",
+      "event": "China Smash 2025",
+      "round": "Women's Singles Final",
+      "sources": [
+        {
+          "id": "video-source:youtube:ttUevnAZSEY",
+          "url": "https://www.youtube.com/watch?v=ttUevnAZSEY",
+          "title": "FULL MATCH | Sun Yingsha vs Wang Manyu | WS Final | #ChinaSmash 2025",
+          "type": "FULL_MATCH"
+        }
+      ]
+    },
+    {
+      "id": "pro:wtt:singapore-smash-2026:wang-chuqin-lin-yun-ju-ms-final",
+      "title": "WANG Chuqin × LIN Yun-Ju",
+      "event": "Singapore Smash 2026",
+      "round": "Men's Singles Final",
+      "sources": [
+        {
+          "id": "video-source:youtube:cDccQqVlMnc",
+          "url": "https://www.youtube.com/watch?v=cDccQqVlMnc",
+          "title": "FULL MATCH | Wang Chuqin vs Lin Yun-Ju | MS Final | #WTTSingapore2026",
+          "type": "FULL_MATCH"
+        }
+      ]
+    },
+    {
+      "id": "match:ptti:wtt-doha-2026:ms-r16:lin-shidong-benedikt-duda",
+      "title": "Lin Shidong × Benedikt Duda",
+      "event": "WTT Champions Doha 2026",
+      "round": "R16",
+      "sources": [
+        {
+          "id": "youtube:ywX9mUJ8NtI",
+          "url": "https://www.youtube.com/watch?v=ywX9mUJ8NtI",
+          "title": "Lin Shidong vs Benedikt Duda",
+          "type": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "id": "match:ptti:wtt-doha-2026:ms-sf:lin-shidong-jang-woojin",
+      "title": "Lin Shidong × Jang Woojin",
+      "event": "WTT Champions Doha 2026",
+      "round": "SF",
+      "sources": [
+        {
+          "id": "youtube:Kbhf47vb3eE",
+          "url": "https://www.youtube.com/watch?v=Kbhf47vb3eE",
+          "title": "Lin Shidong vs Jang Woojin",
+          "type": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "id": "match:ittf-doha-2025:ms:wang-chuqin-wong-chun-ting",
+      "title": "WANG Chuqin × WONG Chun Ting",
+      "event": "ITTF World Table Tennis Championships Finals Doha 2025",
+      "round": "UNKNOWN",
+      "sources": [
+        {
+          "id": "video-source:youtube:suwultS-Jcc",
+          "url": "https://www.youtube.com/watch?v=suwultS-Jcc",
+          "title": "Wong Chun Ting vs Wang Chuqin | Match Highlights | #ITTFWorlds2025",
+          "type": "HIGHLIGHTS"
+        }
+      ]
+    }
+  ]
+}

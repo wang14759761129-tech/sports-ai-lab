@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-27",
+  "scope": "GEX06 isolated prototype",
+  "auto_tests": "PASS",
+  "synthetic_video_decode": "PASS",
+  "video_dimensions": "960x540 @24fps / 12s",
+  "http_and_range": "PASS",
+  "typescript_existing_project": "PASS",
+  "isolated_browser_bundle": "PASS",
+  "gui": "BLOCKED",
+  "real_browser_video_playback": "NOT_TESTED",
+  "responsive_visual": "NOT_TESTED",
+  "screenshots": "NOT_TESTED",
+  "resource_guard": {
+    "available_gib": 2.3660812377929688,
+    "idle_seconds": 35.235,
+    "required_gib": 3,
+    "required_idle_seconds": 60,
+    "retries": 0
+  },
+  "founder_approval": "NOT_OBTAINED",
+  "historical_GEX03E": "HOST_REPORTED; source RESULTS.json read only; not reverified GUI",
+  "original_5cc": "Source CSS and VideoFeed identity read only; no runtime merge",
+  "third_party_images_bundled": 0,
+  "third_party_match_video_bundled": 0,
+  "production_files_modified": 0
+}
