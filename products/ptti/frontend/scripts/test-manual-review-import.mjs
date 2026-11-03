@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {createReviewV2} from '../src/manualReviewV2.mjs';
+import {prepareManualReviewImport,MAX_REVIEW_BYTES} from '../src/manualReviewImport.mjs';
+const digest='a'.repeat(64), expected={digest,duration_seconds:20};
+const source={...createReviewV2({identity:{kind:'SESSION',value:'session_12345678901234'},duration_seconds:20},[{id:'one',seconds:12.34,tag:'serve',note:'test'}]),local_content_fingerprint:{algorithm:'ptti-local-video-chunks-sha256-v1',digest}};
+const test=(data, e=expected)=>prepareManualReviewImport(JSON.stringify(data),e);
+assert.equal(test(source).marks[0].seconds,12.34);
+assert.throws(()=>prepareManualReviewImport('{',expected),/INVALID_JSON/);
+assert.throws(()=>test({...source,schema:'bad'}),/INVALID_REVIEW/);
+assert.throws(()=>test({...source,marks:[{...source.marks[0],seconds:21}]}),/INVALID_MARK/);
+assert.throws(()=>test({...source,marks:[source.marks[0],source.marks[0]]}),/INVALID_MARK/);
+assert.throws(()=>test(source,{...expected,digest:'b'.repeat(64)}),/MEDIA_IDENTITY_MISMATCH/);
+assert.throws(()=>test(source,{...expected,duration_seconds:19}),/MEDIA_IDENTITY_MISMATCH/);
+assert.throws(()=>test({...source,local_content_fingerprint:{algorithm:'sha256',digest}}),/INVALID_FINGERPRINT/);
+assert.throws(()=>test({...source,association:'MATCH'}),/INVALID_REVIEW/);
+assert.throws(()=>prepareManualReviewImport('x'.repeat(MAX_REVIEW_BYTES+1),expected),/IMPORT_TOO_LARGE/);
+console.log('manual review import validation PASS');
