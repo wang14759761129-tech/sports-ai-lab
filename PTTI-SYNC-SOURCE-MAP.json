@@ -1,0 +1,2787 @@
+{
+  "source_commit": "045569269472d8b4c44875fd3ea972b757bcc039",
+  "source_branch": "feature/ptti-video-home-feed-v0.5.1",
+  "history_preserved": false,
+  "snapshot_only": true,
+  "build": "NOT_TESTED",
+  "GUI": "NOT_TESTED",
+  "policy": "PTTI public screened snapshot v2; independent root commits, original history LOCAL_ONLY; workflows excluded",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "source_blob": "b8aeeae5982cc55e13cdb0ca3d8d1a098b2819e9",
+      "source_sha256": "cca22b47e09b56f6e5c6e89ef60e497b49ab997905d761ee053c1e4128b9f835",
+      "safe_sha256": "cca22b47e09b56f6e5c6e89ef60e497b49ab997905d761ee053c1e4128b9f835",
+      "transformed": false
+    },
+    {
+      "path": ".gitignore",
+      "source_blob": "2fbc69724161a105774629186993fe2ff28c134e",
+      "source_sha256": "50f6202e4c71e91dd981575a16dff79b8c13376cce00ee07246d74473910c8fa",
+      "safe_sha256": "50f6202e4c71e91dd981575a16dff79b8c13376cce00ee07246d74473910c8fa",
+      "transformed": false
+    },
+    {
+      "path": "PROJECT_ROADMAP.md",
+      "source_blob": "4e8bb4a6f94dcdffe4dbf535935a0e92ffdb350c",
+      "source_sha256": "da862529a4fe96a81f289f135b3b1f49ecbf36298781b3f86b5accdc6a9a2322",
+      "safe_sha256": "da862529a4fe96a81f289f135b3b1f49ecbf36298781b3f86b5accdc6a9a2322",
+      "transformed": false
+    },
+    {
+      "path": "RESEARCH_LOG.md",
+      "source_blob": "8901d4c6fc1341271adcc954685706b3781c8af5",
+      "source_sha256": "0df6b50267a5025677e73747ad0a4f24650a3ab68a56b84a19d05aee0c8466b0",
+      "safe_sha256": "0df6b50267a5025677e73747ad0a4f24650a3ab68a56b84a19d05aee0c8466b0",
+      "transformed": false
+    },
+    {
+      "path": "RESEARCH_STANDARDS.md",
+      "source_blob": "ff3a0bb59af4f04c59b0fd2de79764a219c52e63",
+      "source_sha256": "b0d41c89b5ae6d9a3214a193fd8596c048ae3661323ae528261eac9d10feb487",
+      "safe_sha256": "b0d41c89b5ae6d9a3214a193fd8596c048ae3661323ae528261eac9d10feb487",
+      "transformed": false
+    },
+    {
+      "path": "docs/VISION-LAB-V2-PLAN.md",
+      "source_blob": "70336a6dd0cae4198016ff37633907de1533f4c7",
+      "source_sha256": "56554cb194c7085e6cf552225e215efe84b50a27151ba33836c63597506c6919",
+      "safe_sha256": "56554cb194c7085e6cf552225e215efe84b50a27151ba33836c63597506c6919",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/.gitignore",
+      "source_blob": "822ee68126ea8f15c7c0b8bac433bf85f6919fcb",
+      "source_sha256": "947604d84eb6589f4aa532b17491da4035dbdffad810a3675b62447573b9bed6",
+      "safe_sha256": "947604d84eb6589f4aa532b17491da4035dbdffad810a3675b62447573b9bed6",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/CHANGELOG.md",
+      "source_blob": "ba44d2e8feed93d5ac2ec31e599387b70b6b82c7",
+      "source_sha256": "02814dac14dae5abdde7b1861f3158ca62d898bd8606a22b24b8f096ac971166",
+      "safe_sha256": "02814dac14dae5abdde7b1861f3158ca62d898bd8606a22b24b8f096ac971166",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/CONTRIBUTING.md",
+      "source_blob": "403141b4dde3e55d673130e72c41e22fd1daba58",
+      "source_sha256": "a1446f2c5dfa062e6488162f655fbc83b624649ce605461a3dc4d4527a05ac4c",
+      "safe_sha256": "a1446f2c5dfa062e6488162f655fbc83b624649ce605461a3dc4d4527a05ac4c",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/PTTI-Vision-Dev.spec",
+      "source_blob": "01643b41c0cdc691d7c91eba8fcc3b251292cfe4",
+      "source_sha256": "6663fc44ec09cdf96909e236e9cf5230e47772901a8d12c644b28f540e621176",
+      "safe_sha256": "6663fc44ec09cdf96909e236e9cf5230e47772901a8d12c644b28f540e621176",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/ROADMAP.md",
+      "source_blob": "37de2f17c018b510acfaad0fae7652fdb60631c9",
+      "source_sha256": "0c80089aa7a0f767fba221dd2cceac97cdccbd6e92a0d16468df29373d8285bb",
+      "safe_sha256": "0c80089aa7a0f767fba221dd2cceac97cdccbd6e92a0d16468df29373d8285bb",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/THIRD_PARTY_AI_REGISTRY.md",
+      "source_blob": "f07d95ba0aa01b834dbd78536575b1e0a305292c",
+      "source_sha256": "cf73934f415e38aef59cf0b1a484eb0884a540b0fcc45ec684eddee84f822293",
+      "safe_sha256": "cf73934f415e38aef59cf0b1a484eb0884a540b0fcc45ec684eddee84f822293",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/THIRD_PARTY_NOTICES.md",
+      "source_blob": "772b29d65f1f0a4c0a7bc39776435cc0e53b3ee4",
+      "source_sha256": "43f43cc068eac36d9dc616259519186c77de19d31e19383d74a1e08442968676",
+      "safe_sha256": "43f43cc068eac36d9dc616259519186c77de19d31e19383d74a1e08442968676",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/apps/desktop.py",
+      "source_blob": "8a581bc6d7ac6c406d277e108c8e39e19269f1db",
+      "source_sha256": "fc911b9ecbfc66b8af0166060763a0bbad82b4e2dc2b53e53d237315198a2fde",
+      "safe_sha256": "fc911b9ecbfc66b8af0166060763a0bbad82b4e2dc2b53e53d237315198a2fde",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/assets/ptti.svg",
+      "source_blob": "67030b019d8c6e7e04566a84395e7d4054899aff",
+      "source_sha256": "077e2e067f9c74d8b317200a12e3611b84619c81f0e24b6b5e9c1517abcf48c9",
+      "safe_sha256": "077e2e067f9c74d8b317200a12e3611b84619c81f0e24b6b5e9c1517abcf48c9",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/__init__.py",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "safe_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/anchor_guided_tracker.py",
+      "source_blob": "afa6fd355c0ede5b855aab19f3eef47064039be3",
+      "source_sha256": "b800f924842d46cc8e3222400b92d3f12f2434b8e99a53c3561211816da94dc6",
+      "safe_sha256": "b800f924842d46cc8e3222400b92d3f12f2434b8e99a53c3561211816da94dc6",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/database.py",
+      "source_blob": "3cfbf52126fba481545cdfce26a8813f99346c78",
+      "source_sha256": "ed3cfa54930054bbfe5665907f2be17c8ee3786229f8cbe03294f034b0840404",
+      "safe_sha256": "ed3cfa54930054bbfe5665907f2be17c8ee3786229f8cbe03294f034b0840404",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/evidence_fusion.py",
+      "source_blob": "3341d865b899da8ea98fdcee8a44db279829813a",
+      "source_sha256": "45e63de9a6fa0bfbadc54d1fbfd308bfe36908759b7dd829dfa3851e6e319763",
+      "safe_sha256": "45e63de9a6fa0bfbadc54d1fbfd308bfe36908759b7dd829dfa3851e6e319763",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/evidence_fusion_api.py",
+      "source_blob": "045128957a232924eee7976e1084e89a199c0266",
+      "source_sha256": "32ba42bfcd17ed989485635a03802e31d7e12bcc0a66acc96b3c9537a93c1b29",
+      "safe_sha256": "32ba42bfcd17ed989485635a03802e31d7e12bcc0a66acc96b3c9537a93c1b29",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/extended_openttgames.py",
+      "source_blob": "12361563793cb6c90433c167b0f5a97136656950",
+      "source_sha256": "1573fd73139a34e2b34639129f4afc0977497e51042dd21abedb8cb3c8377c81",
+      "safe_sha256": "1573fd73139a34e2b34639129f4afc0977497e51042dd21abedb8cb3c8377c81",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/full_match_pipeline.py",
+      "source_blob": "817273b02ad77cb2a966448397be6454614f08c3",
+      "source_sha256": "88be3d59f1b18326914360b910b3db5a31065abfc13f6b4c979c09b816b87a01",
+      "safe_sha256": "88be3d59f1b18326914360b910b3db5a31065abfc13f6b4c979c09b816b87a01",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/fullmatch.py",
+      "source_blob": "b5d9a3c510fa4799e27d5fb861ee6d659a8de68e",
+      "source_sha256": "412cfe11bc738ff69cc867e1834d7161abfdaf67b93d8a3756c646c10a4490a5",
+      "safe_sha256": "412cfe11bc738ff69cc867e1834d7161abfdaf67b93d8a3756c646c10a4490a5",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/hit_event_v02.py",
+      "source_blob": "2fa71e8e617b9d7500d38063f19b8dc81afdad4b",
+      "source_sha256": "d2ae2afd3b438e758590441f0ef696969f9caf222a97c744a07d112ad709f210",
+      "safe_sha256": "d2ae2afd3b438e758590441f0ef696969f9caf222a97c744a07d112ad709f210",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/hybrid_scene.py",
+      "source_blob": "bc2507ae569108330d8befb614a34915efec81d0",
+      "source_sha256": "05a8526ee1363e2b1b4ce9f3db7e7424af9bc64e20b81e19fd861165756e7de5",
+      "safe_sha256": "05a8526ee1363e2b1b4ce9f3db7e7424af9bc64e20b81e19fd861165756e7de5",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/main.py",
+      "source_blob": "59b3aa73eb60e7ce3bf35a2ffb65171dd5116b36",
+      "source_sha256": "900f7928a53b08bcb02b8662be8fefc4f40f25bf8f10d8fcc9f4a5ac3e06ccd0",
+      "safe_sha256": "900f7928a53b08bcb02b8662be8fefc4f40f25bf8f10d8fcc9f4a5ac3e06ccd0",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/match_library.py",
+      "source_blob": "d032a466d2e3ada6d859e7663cb6757a74ffe042",
+      "source_sha256": "8323341a7dec9b3bbdff44fa0d77f6d95a671ba5df277b9ecbfd5e0dcd4e3d51",
+      "safe_sha256": "8323341a7dec9b3bbdff44fa0d77f6d95a671ba5df277b9ecbfd5e0dcd4e3d51",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/match_structure.py",
+      "source_blob": "d7ca548a516332bfed68ef75e088f7aaaa07fb28",
+      "source_sha256": "1602897ce80d67650d42ddebef95869503d601bfde282028f4c2e81432347318",
+      "safe_sha256": "1602897ce80d67650d42ddebef95869503d601bfde282028f4c2e81432347318",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/person_detector.py",
+      "source_blob": "139bef12d56d9bf8f49c6fbf9e35e6aad205bd26",
+      "source_sha256": "7521ce4e050523e676654d4f35bb7433dbfe65926a0690660571bab07143ed5e",
+      "safe_sha256": "7521ce4e050523e676654d4f35bb7433dbfe65926a0690660571bab07143ed5e",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/person_scene.py",
+      "source_blob": "5d245f4cd148e14d2257512079c22bc57a82f27f",
+      "source_sha256": "6cc85878667ad892d1e01a03e4a11344818e9bc2cc81df66ba8b1b001fb14259",
+      "safe_sha256": "6cc85878667ad892d1e01a03e4a11344818e9bc2cc81df66ba8b1b001fb14259",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/player_motion.py",
+      "source_blob": "94fb076b7d07b7270bc140ac38510d1e639f98b7",
+      "source_sha256": "42cd42db818adb3cff8a2e297989cd61db4a82b365780008a35413017cf1e961",
+      "safe_sha256": "42cd42db818adb3cff8a2e297989cd61db4a82b365780008a35413017cf1e961",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/player_motion_api.py",
+      "source_blob": "b2e38b0711bcbd724a0be894e2d34a3332b4990f",
+      "source_sha256": "edba939efdfbdfd72dedf4eb51b302bb7c5bb1bb3f3deb0408e6bfe36bd54c08",
+      "safe_sha256": "edba939efdfbdfd72dedf4eb51b302bb7c5bb1bb3f3deb0408e6bfe36bd54c08",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/player_tracking_closed_loop.py",
+      "source_blob": "e15e0c5c09a2325208a382ecd1b4311c026a9562",
+      "source_sha256": "782b07582b7db8cb71c9a30ca93f201b7f291d034376998614610fc8318bd10d",
+      "safe_sha256": "782b07582b7db8cb71c9a30ca93f201b7f291d034376998614610fc8318bd10d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/player_tracking_loop.py",
+      "source_blob": "a7ad0d92b72e181660d10a9236f5204244d7e90c",
+      "source_sha256": "232f48ebcbb3b3ed874898288094a658b134f98c95a98317a0d5bf77615b9f95",
+      "safe_sha256": "232f48ebcbb3b3ed874898288094a658b134f98c95a98317a0d5bf77615b9f95",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/preview_api.py",
+      "source_blob": "4ae89bae28bfc754a449013d162b1b38a5097e67",
+      "source_sha256": "f02e1515465f2ce1a97ea266366c371871ab1990530a889a1c5c9a29aacd1570",
+      "safe_sha256": "f02e1515465f2ce1a97ea266366c371871ab1990530a889a1c5c9a29aacd1570",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/professional.py",
+      "source_blob": "bfb314616c2c2b1b1241b16993c61fd5dc43e640",
+      "source_sha256": "080de52bdc1b446a0aa1c066c6fefe1f2bf6e113b6787d5f97d50e80581dcf7f",
+      "safe_sha256": "080de52bdc1b446a0aa1c066c6fefe1f2bf6e113b6787d5f97d50e80581dcf7f",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/repository.py",
+      "source_blob": "c63be939758e9edb9cc2417aff74610621274bc5",
+      "source_sha256": "ce7cd7dd53771daf610e1393f80f4e904ae1a6b619a209e5fb467dbd03e90a88",
+      "safe_sha256": "ce7cd7dd53771daf610e1393f80f4e904ae1a6b619a209e5fb467dbd03e90a88",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/sam2_player_tracking.py",
+      "source_blob": "532b8e6a5c91bea230f58920c9fd72fae8572126",
+      "source_sha256": "4eec0875928a6b53b58e11147c4883d5b67fa886b551b67df7a84fec9b47cefd",
+      "safe_sha256": "4eec0875928a6b53b58e11147c4883d5b67fa886b551b67df7a84fec9b47cefd",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/scene_bootstrap.py",
+      "source_blob": "81538c54aecedd1d6755144c970fb5cc1b151867",
+      "source_sha256": "3bffe6ead6e77b455fbad9095833bc893d0fc3365eddef985284b8b24a90e858",
+      "safe_sha256": "3bffe6ead6e77b455fbad9095833bc893d0fc3365eddef985284b8b24a90e858",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/score_navigation.py",
+      "source_blob": "e518facda9ee7867dd4e23421b08d8f4a3fe21ca",
+      "source_sha256": "aafb826fcb97161a486b6cbc9663799da34e0fdceb018ed4ada8f8f8c494668d",
+      "safe_sha256": "aafb826fcb97161a486b6cbc9663799da34e0fdceb018ed4ada8f8f8c494668d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/tracking_validation_workbench.py",
+      "source_blob": "3cd51c5eddec78e2d240b997643622e5e12db029",
+      "source_sha256": "1b5b1b487c148ad947bd783f3b2c691948d3072ef9cecbac130cf55c7fd19fd0",
+      "safe_sha256": "1b5b1b487c148ad947bd783f3b2c691948d3072ef9cecbac130cf55c7fd19fd0",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/video_evidence.py",
+      "source_blob": "7c349b62fbea3bc74059e6ed0b5fed169a2d7263",
+      "source_sha256": "63a1e3f279065fcb4c7f79bdd1ef88dd827757e9203fcdd2c55fcda1433f728d",
+      "safe_sha256": "63a1e3f279065fcb4c7f79bdd1ef88dd827757e9203fcdd2c55fcda1433f728d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/vision_api.py",
+      "source_blob": "16b2e5138066084007b21af9bacc6169310c13a3",
+      "source_sha256": "c65023b5a8d884622ebc0635b9ef9093162a471c68789a501e68ad5514694cfe",
+      "safe_sha256": "c65023b5a8d884622ebc0635b9ef9093162a471c68789a501e68ad5514694cfe",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/vision_v2.py",
+      "source_blob": "d3c67003f955de344c1234d95976a5849828a428",
+      "source_sha256": "fc48525c402ab7c4cbe608d6f7e282e4131688f5a315a1f9eb095c2a509c331a",
+      "safe_sha256": "fc48525c402ab7c4cbe608d6f7e282e4131688f5a315a1f9eb095c2a509c331a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/build_windows.bat",
+      "source_blob": "3f6ca45ce3949bcf0e956af20b995e21a9d9ad53",
+      "source_sha256": "9a39612655bdd47d9ca83c10ac5adc659662e92ca9786b3e92b38cf662f56df9",
+      "safe_sha256": "9a39612655bdd47d9ca83c10ac5adc659662e92ca9786b3e92b38cf662f56df9",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/balltrack-postprocess-v1.json",
+      "source_blob": "49990544f0a104997f7afc3043418474f684d29f",
+      "source_sha256": "8ae9f064aba4d29320127c4a9f2bb5aceb039e137c4ba9d2a5a9e5e0e6e214e7",
+      "safe_sha256": "8ae9f064aba4d29320127c4a9f2bb5aceb039e137c4ba9d2a5a9e5e0e6e214e7",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/balltrack-tracker-v2/dataset_manifest.json",
+      "source_blob": "ee739fcc756f6b21547cbe878e809c280df9b6f6",
+      "source_sha256": "d739deb07d48c0bf7f49beb49f00ccddac22a38ec497cec87543686df7d920a2",
+      "safe_sha256": "d739deb07d48c0bf7f49beb49f00ccddac22a38ec497cec87543686df7d920a2",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/balltrack-tracker-v2/tracker_config.json",
+      "source_blob": "13f7e98a1b31e42eba3994c27b8fb504a47bf13e",
+      "source_sha256": "7e7f677465fa2eae66086bded1a563c2fab0a2d04c668bf662375561cca53de2",
+      "safe_sha256": "7e7f677465fa2eae66086bded1a563c2fab0a2d04c668bf662375561cca53de2",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/balltrack-tracker-v2/tracker_lock.json",
+      "source_blob": "fe82b66aa9b18b045a68e1d7cdbe0d1e1e6cec58",
+      "source_sha256": "5f3c204405f37b56d08468400c8eaddca3724614c6935aa6d12287a2ff071d89",
+      "safe_sha256": "5f3c204405f37b56d08468400c8eaddca3724614c6935aa6d12287a2ff071d89",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/evidence-fusion/HIT_EVENT_V0_1_CONFIG.json",
+      "source_blob": "108484729295bf7e4c57391158c6df4375337446",
+      "source_sha256": "cb9e0af4da0da97dd3c564fda8002f83701de5bdeb50a2a06a28188eb71db75d",
+      "safe_sha256": "cb9e0af4da0da97dd3c564fda8002f83701de5bdeb50a2a06a28188eb71db75d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/evidence-fusion/HIT_EVENT_V0_1_LOCK.json",
+      "source_blob": "152672e05f7ba39e725069c06ea6af08d7f7ff83",
+      "source_sha256": "3afb077f87b32fca2abe67b64af0a073f075243cbb7c0305076c8dd28f196b53",
+      "safe_sha256": "3afb077f87b32fca2abe67b64af0a073f075243cbb7c0305076c8dd28f196b53",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/evidence-fusion/HIT_EVENT_V0_2_DEV_PRIORS.json",
+      "source_blob": "d2155a45d574229745ea5bb4eb29fceaf30b6a3a",
+      "source_sha256": "d60055544f3200601ade3f30582d03e583914856a3fd2d1ff91a1dc3a0352219",
+      "safe_sha256": "d60055544f3200601ade3f30582d03e583914856a3fd2d1ff91a1dc3a0352219",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/evidence-fusion/HIT_EVENT_V0_2_DRAFT_CONFIG.json",
+      "source_blob": "02d5cc2f3ad4208ba38f956dcd61d313fe81b97f",
+      "source_sha256": "c7f739edbd1e86e92fc5d26900925dd4336b250cea326d13684a23bf3befaf7d",
+      "safe_sha256": "c7f739edbd1e86e92fc5d26900925dd4336b250cea326d13684a23bf3befaf7d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/evidence-fusion/HIT_EVENT_V0_2_SPLIT.json",
+      "source_blob": "ecbfa3a7f49b46d5a915fc556ecc30bf88943be7",
+      "source_sha256": "3474dc6ca09ca8c82683bc2d0561ed84e25a5e4dd5cdfb676667b9c0ac4a0d57",
+      "safe_sha256": "3474dc6ca09ca8c82683bc2d0561ed84e25a5e4dd5cdfb676667b9c0ac4a0d57",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/evidence-fusion/HIT_EVENT_V0_3_CALIBRATION_EXECUTION_PROVENANCE.json",
+      "source_blob": "e9116299a5672de3d0df7a223d190f2989aa3565",
+      "source_sha256": "95d5f6c8dee8c7856011df4c33b0455512c391487a5eec00dab7fbbca0264317",
+      "safe_sha256": "c84fb6c1b8c551fe04838d5d923373529ccf4f95786359f9f724876230b53249",
+      "transformed": true
+    },
+    {
+      "path": "products/ptti/configs/evidence-fusion/HIT_EVENT_V0_3_FREEZE_RECORD_CORRECTION.json",
+      "source_blob": "5d975af51303c9e73d388eaff3b462a24ff8668a",
+      "source_sha256": "8480d2e2bc036d6b276b64244c18e10263f5d0ba3e427612ea4f67f129e3b10a",
+      "safe_sha256": "8480d2e2bc036d6b276b64244c18e10263f5d0ba3e427612ea4f67f129e3b10a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/evidence-fusion/HIT_EVENT_V0_3_FROZEN_CONFIG.json",
+      "source_blob": "4d81d169aeaaa5a45fc746f6e4be1684edca8b26",
+      "source_sha256": "fb42c70ab44bb4b919242e6c14de493507fb5aa17ac4a203c6a9e870a1c047f3",
+      "safe_sha256": "fb42c70ab44bb4b919242e6c14de493507fb5aa17ac4a203c6a9e870a1c047f3",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/experiments/BALLTRACK_V1_FROZEN.json",
+      "source_blob": "dc55da2191974060ebeef0e4d0fd9356afde2384",
+      "source_sha256": "1bebd4a12e19cb56608031aa2a8e1808f80a819f16798ef2fa3a294c2f939a53",
+      "safe_sha256": "1bebd4a12e19cb56608031aa2a8e1808f80a819f16798ef2fa3a294c2f939a53",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/experiments/TTI_SPECIALIST_V1.json",
+      "source_blob": "c6adb2811fea703dff6ea68010aa154a257c2265",
+      "source_sha256": "01e2ec3b7a3152351de0eb1cbba7eb92cae40d6d567905f1310a33d836856a06",
+      "safe_sha256": "01e2ec3b7a3152351de0eb1cbba7eb92cae40d6d567905f1310a33d836856a06",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/experiments/TTI_TRACKER_V1.json",
+      "source_blob": "3c68aae38889c54e477e787e9cc17de4f470d660",
+      "source_sha256": "45ce98f89b9bc839495d8b1c80a8c304f6612005abf66f0b5d5c21cbf38bbf54",
+      "safe_sha256": "45ce98f89b9bc839495d8b1c80a8c304f6612005abf66f0b5d5c21cbf38bbf54",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/configs/vision/PLAYER_TRACKING_V1_CANDIDATE.json",
+      "source_blob": "9957bf482529700851fdd9b63879fd5b79a8222a",
+      "source_sha256": "970115a09122ba7350bc62c4d82b69ff16d304740cd6818456d57511c48471e0",
+      "safe_sha256": "970115a09122ba7350bc62c4d82b69ff16d304740cd6818456d57511c48471e0",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/core/__init__.py",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "safe_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/core/adapters/__init__.py",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "safe_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/core/adapters/protocol_v0_3/__init__.py",
+      "source_blob": "2efaca9c75665b5bbfed3ad7c81b140296e74880",
+      "source_sha256": "7107b8108afe77bd0192abfa366e2528b4af6ef19eef696c8843408694105ff4",
+      "safe_sha256": "7107b8108afe77bd0192abfa366e2528b4af6ef19eef696c8843408694105ff4",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/core/engine.py",
+      "source_blob": "44f3a575c25a156ad6eba4d16caccc150a54c751",
+      "source_sha256": "62595b85fbdac03b106c64ecff1f5afabfc59aad7f97ba83ce1fccb8cefd8335",
+      "safe_sha256": "62595b85fbdac03b106c64ecff1f5afabfc59aad7f97ba83ce1fccb8cefd8335",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/core/evidence.py",
+      "source_blob": "b6d7cbdd07f46d6fe1f638fb431fdbfd23e81584",
+      "source_sha256": "914bbfb497da684382b1cd1264eeacd9705421da7d3a0c598820891369af2900",
+      "safe_sha256": "914bbfb497da684382b1cd1264eeacd9705421da7d3a0c598820891369af2900",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/core/importing.py",
+      "source_blob": "1c484029cf56bf128d3f8b8c2bd59adf0bbfe85b",
+      "source_sha256": "ae48a653bddfd47c1179f69c0d456a706c16530151a39a4078e8abed1d48a3f0",
+      "safe_sha256": "ae48a653bddfd47c1179f69c0d456a706c16530151a39a4078e8abed1d48a3f0",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/BALLTRACK-CROSS-MATCH-v2.md",
+      "source_blob": "1926092d3cd0398a8cee020b4faa4f8635fc6edc",
+      "source_sha256": "1a25e2da16675ea6b1263c2ff5d42dad69fb2b07416ff92d07e3da8f873aa5ea",
+      "safe_sha256": "02ee004c8120532d1ff514d7cf854974bb816e9ff70b32a7c409c0ec884d9bfe",
+      "transformed": true
+    },
+    {
+      "path": "products/ptti/docs/BALLTRACK-HARDENING-v1.md",
+      "source_blob": "9d0926e3598365b1a4f2767265c8301a42905139",
+      "source_sha256": "08d2d48f9135afe7aa0a45d596061cc4d58d9b9ecb20aba70dcc9ca485d05dfc",
+      "safe_sha256": "08d2d48f9135afe7aa0a45d596061cc4d58d9b9ecb20aba70dcc9ca485d05dfc",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/BALLTRACK-SPECIALIST-v1-RESULTS.md",
+      "source_blob": "f9487d2a2386670eceb3e87d16623f91bc1d2570",
+      "source_sha256": "244760722040c014c8db24421a7bf16bc3e09f830a4544103404eff7ec4d827d",
+      "safe_sha256": "244760722040c014c8db24421a7bf16bc3e09f830a4544103404eff7ec4d827d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/BALLTRACK-SPECIALIST-v1.md",
+      "source_blob": "9fe15188204a50c24a992b48b6909ab617f39701",
+      "source_sha256": "14a3032a7cb1b94c335975b43c6c04ff0417b8312d146cd9b4a9c3eaafe66baf",
+      "safe_sha256": "14a3032a7cb1b94c335975b43c6c04ff0417b8312d146cd9b4a9c3eaafe66baf",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/BALLTRACK-V1-FROZEN.md",
+      "source_blob": "9293009c65b2e2cef4c9bc15765e6fd5cfa34cc8",
+      "source_sha256": "cfff90c89e8586786a35cb1bcfffac54ccdf1caff8a2619b4b6f323bfd442e73",
+      "safe_sha256": "cfff90c89e8586786a35cb1bcfffac54ccdf1caff8a2619b4b6f323bfd442e73",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/CURRENT_PLAYER_ARCHITECTURE.md",
+      "source_blob": "7d37cc20f547d2db53c5ede45680e7a4e3352e87",
+      "source_sha256": "d4eb84888628cbe73253882bc21a9b3a61160e7fe12891294d4c0071825b2d41",
+      "safe_sha256": "d4eb84888628cbe73253882bc21a9b3a61160e7fe12891294d4c0071825b2d41",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/CVAT-ANNOTATION-WORKFLOW.md",
+      "source_blob": "0def2a90f6fbedce5aca16251b845d46776c0b0a",
+      "source_sha256": "21d2195a0b2d8f1b61e71b8961aaedf1e976554338f163f15821cda12d7fed58",
+      "safe_sha256": "21d2195a0b2d8f1b61e71b8961aaedf1e976554338f163f15821cda12d7fed58",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/DESKTOP-PRODUCT-GAP.md",
+      "source_blob": "2c83db59f6aa21b9559bf1ee84cb11a1f0003ea4",
+      "source_sha256": "e8b486e1507e31b0293223abd491636271029f56e0c95783c2d439ec9cd10825",
+      "safe_sha256": "e8b486e1507e31b0293223abd491636271029f56e0c95783c2d439ec9cd10825",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/DESKTOP-V03-INTEGRATION-VERIFICATION.md",
+      "source_blob": "bf7b801d9f1af4b9a9c6ed5c02e3e982ea10aef2",
+      "source_sha256": "17443756f508e8fc90ef7fbe6782bea157cf200cb3d217f44de96e3fdfc30ca7",
+      "safe_sha256": "17443756f508e8fc90ef7fbe6782bea157cf200cb3d217f44de96e3fdfc30ca7",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/EVIDENCE-METRICS.md",
+      "source_blob": "96d1a1c3c76c74d5eecfe6f57d6b6f404bcfa4fb",
+      "source_sha256": "d5237d0f7246861448399b08e0cc4cb610b196af247ed4c4132448aa2f2ec834",
+      "safe_sha256": "d5237d0f7246861448399b08e0cc4cb610b196af247ed4c4132448aa2f2ec834",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/EXTENDED-OPENTTGAMES.md",
+      "source_blob": "413621cbad7b12e7e88cd02e04386a3826aad070",
+      "source_sha256": "7370e5098fe508a36fd2d0c28834f5cafc57f600a45d00f47af51e9c8b8d16d3",
+      "safe_sha256": "7370e5098fe508a36fd2d0c28834f5cafc57f600a45d00f47af51e9c8b8d16d3",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/GROUNDING_DINO_PLAYER_BASELINE.md",
+      "source_blob": "9370d2af15ebab08ca41fa8a7f342ef79f6c4d2c",
+      "source_sha256": "f52302797f72e64128826b63297c3438490e6ab87d82570abacc277e4489c125",
+      "safe_sha256": "f52302797f72e64128826b63297c3438490e6ab87d82570abacc277e4489c125",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/HIT-EVENT-V0.1-BASELINE.md",
+      "source_blob": "f7b22f64cc845dcf728e4fb2a3aa7cc5419e37e2",
+      "source_sha256": "17007e149aab284b6212ab1781812a9a4314271b05d7c04a325ff9d3351cc94f",
+      "safe_sha256": "17007e149aab284b6212ab1781812a9a4314271b05d7c04a325ff9d3351cc94f",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/HIT-EVENT-V0.2.md",
+      "source_blob": "1300a088232367b06b2264ddcdff0fb5ed5b1487",
+      "source_sha256": "a69fd99b193ba08edfa0b18d0e82f8e578a2e4e5c26a6e928d31f429f7938ab3",
+      "safe_sha256": "a69fd99b193ba08edfa0b18d0e82f8e578a2e4e5c26a6e928d31f429f7938ab3",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/HIT-EVENT-V0.3-DEV.md",
+      "source_blob": "158f9761cf2d3aad2dec745fa7e905a1cdbcb78c",
+      "source_sha256": "242a8e0e69ff767905b3e2d37ba29f21f9e26fe82ac85cff8a63318a9cde2c41",
+      "safe_sha256": "242a8e0e69ff767905b3e2d37ba29f21f9e26fe82ac85cff8a63318a9cde2c41",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/HYBRID-SCENE-ENGINE.md",
+      "source_blob": "b491b925b3611eb11ec2b5f58d5ca92c29b3a818",
+      "source_sha256": "170c31daabb3eeeffddbec5687e15b8d6a6d1527648f326ed0b187815948adab",
+      "safe_sha256": "170c31daabb3eeeffddbec5687e15b8d6a6d1527648f326ed0b187815948adab",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/MATCH-LIBRARY-V04-DELIVERY.md",
+      "source_blob": "e6afe5730997df0282f4160d57e7a01a9cb94c21",
+      "source_sha256": "ff06dbbf670c6147f485c7cbf544200d53d780d45de2183445cd4a6361bd597c",
+      "safe_sha256": "c7c721a608d65caeff0eda1b98c627c6ac72bcf4001972ad72e63481a1671d17",
+      "transformed": true
+    },
+    {
+      "path": "products/ptti/docs/MATCH-LIBRARY-V04-MILESTONE1.md",
+      "source_blob": "24ef0610ce772356b1543ebc27870001d5d1e07d",
+      "source_sha256": "e344bd6a9443dd8236db55284064dc09e9b44204e4a5e3ae396c30b0368d2a60",
+      "safe_sha256": "ff93644fade91091db85c7c5b6d8d1761c4b4013d0496a1c24875a74270e869d",
+      "transformed": true
+    },
+    {
+      "path": "products/ptti/docs/MATCH-STRUCTURE.md",
+      "source_blob": "705ac6422605cb5c53ba3b627c5e1c6e77081c18",
+      "source_sha256": "b5f26f04736f03b1b9f59bf61f1ba2fdc3b1ac23970b5d93ea5bc518387fd615",
+      "safe_sha256": "b5f26f04736f03b1b9f59bf61f1ba2fdc3b1ac23970b5d93ea5bc518387fd615",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/NOTION-SYNC-REPORT.md",
+      "source_blob": "ef0b047f2ea7a6f77e32258981729d9b44a61fb1",
+      "source_sha256": "0fd603ddf73f4f56d81adbcb477f5f30f229e59ec7403f08b18c3cef70dc8ff7",
+      "safe_sha256": "0fd603ddf73f4f56d81adbcb477f5f30f229e59ec7403f08b18c3cef70dc8ff7",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/PERSON-DETECTOR-PIVOT.md",
+      "source_blob": "5c82f582e78222aa0f645185eff8028d02ed2475",
+      "source_sha256": "f53aeb8d2aedc62ab7095ea9160ead7b947f60412adb00ee9d38a101fd755cbb",
+      "safe_sha256": "f53aeb8d2aedc62ab7095ea9160ead7b947f60412adb00ee9d38a101fd755cbb",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/PLAYER-MOTION-V0.1.md",
+      "source_blob": "9cbb4317a3aef41b175da52d5cda7c52553cd136",
+      "source_sha256": "d3415a3725c0897aee6186da853d2415de351d9d8836a6478524b67508d3b9f0",
+      "safe_sha256": "d3415a3725c0897aee6186da853d2415de351d9d8836a6478524b67508d3b9f0",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/PROFESSIONAL-MATCH-ROADMAP.md",
+      "source_blob": "db494670243c8998fbcb4371e471503bd724d7ac",
+      "source_sha256": "1cb1986c97ef68145f82a1e697fef29298d5478879f4cbf1f8c61bef907f8333",
+      "safe_sha256": "1cb1986c97ef68145f82a1e697fef29298d5478879f4cbf1f8c61bef907f8333",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/PROFESSIONAL-PLAYER-REGISTRY.md",
+      "source_blob": "fd5693d381cf89d62927c4b73159d5e806fcb56e",
+      "source_sha256": "498d55aaa966a05c389b74cd17df23fd8690bf41ca6a23e301f3bf2187103a82",
+      "safe_sha256": "498d55aaa966a05c389b74cd17df23fd8690bf41ca6a23e301f3bf2187103a82",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/PROFESSIONAL-PREVIEW.md",
+      "source_blob": "323a7d23d1aaaa081a1a8f2cc36399893f53ff2e",
+      "source_sha256": "c7cc11204e7bb6a84657d0922f918d4ba3a4e8cd6549382749515726f487388b",
+      "safe_sha256": "c7cc11204e7bb6a84657d0922f918d4ba3a4e8cd6549382749515726f487388b",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/PTTI-BOTTLENECKS-2026-10.md",
+      "source_blob": "e1e25d8f0e3284d179c1a31afa584b7c692e575f",
+      "source_sha256": "cb6f6636d0f805c808350041ec05590ae9df2711f727949e62009e6791cfb599",
+      "safe_sha256": "cb6f6636d0f805c808350041ec05590ae9df2711f727949e62009e6791cfb599",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/PTTI-CURRENT-TECH-STACK.md",
+      "source_blob": "137135b2ccd4af1ade003ad0919928349b419539",
+      "source_sha256": "3596264c1bafdf61abfe44f51c90678dbe463d6fa94742fa1e5a1e5846db4f46",
+      "safe_sha256": "3596264c1bafdf61abfe44f51c90678dbe463d6fa94742fa1e5a1e5846db4f46",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/PTTI-TECHNOLOGY-RADAR.md",
+      "source_blob": "9d577d062441bda8b0a95702227ee63105893192",
+      "source_sha256": "9a2744425e558bb58ba90f71aeba24343b6fe5681998bd42c06f0b2d5a6e2e34",
+      "safe_sha256": "9a2744425e558bb58ba90f71aeba24343b6fe5681998bd42c06f0b2d5a6e2e34",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/PTTI_BRANCH_INTEGRATION_AUDIT.md",
+      "source_blob": "c03f0c76c4dd31da8c92434fb1f86546429b321e",
+      "source_sha256": "e8743e699d8edd652a17eecc9419f8a7db137fd0ce2fa8b9889a62d0ceda7914",
+      "safe_sha256": "e8743e699d8edd652a17eecc9419f8a7db137fd0ce2fa8b9889a62d0ceda7914",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/RESEARCH-BASIS.md",
+      "source_blob": "88d3050a747ca728bdd3abcd04a6b72293e42c07",
+      "source_sha256": "fd8c00e968f2f66117c056522624a31aaa44760c03bc24e2b93fa43884999865",
+      "safe_sha256": "fd8c00e968f2f66117c056522624a31aaa44760c03bc24e2b93fa43884999865",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/RF-DETR-NANO-BENCHMARK.md",
+      "source_blob": "66fafaaea2eacb8a3d6b0d417ef8457365a311cc",
+      "source_sha256": "0f1c86b289511ab63e1b61144d34f4868b23615dbe3a29b59347d6a83e524035",
+      "safe_sha256": "0f1c86b289511ab63e1b61144d34f4868b23615dbe3a29b59347d6a83e524035",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/SAM2-PLAYER-TRACKING.md",
+      "source_blob": "4a260d1eae2f99dc21925bf0ced6dfa502670ce4",
+      "source_sha256": "ee99bc00013bade206997b7bb5c4c072adfc6c437853218efed51b82276ba319",
+      "safe_sha256": "ee99bc00013bade206997b7bb5c4c072adfc6c437853218efed51b82276ba319",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/SCENE-BOOTSTRAP-HARDENING.md",
+      "source_blob": "e4fff4964a7c069eb2e8602fb98e704cdff47c43",
+      "source_sha256": "c183b8f07a6ab79efe7950263a103718eaff2b4f8e86acb74d31389888dae0d1",
+      "safe_sha256": "c183b8f07a6ab79efe7950263a103718eaff2b4f8e86acb74d31389888dae0d1",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/SCHEMA-COMPATIBILITY.md",
+      "source_blob": "fef96313394f6afd66bb447d6dc407d876045ad4",
+      "source_sha256": "6446ca6f70bfefe7099f88fbf7faf876196f17649936d9cad7c391a65dce37cb",
+      "safe_sha256": "6446ca6f70bfefe7099f88fbf7faf876196f17649936d9cad7c391a65dce37cb",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/SCORE-NAVIGATION-V01-NATIVE-QA.md",
+      "source_blob": "31add3d125f9d534d4cb233f50b9996b4d2ad6c2",
+      "source_sha256": "1e13c7856776c480b7299ffd607eb61be5f11399acc897dc8dad8b3e026f6c69",
+      "safe_sha256": "1e13c7856776c480b7299ffd607eb61be5f11399acc897dc8dad8b3e026f6c69",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/SUPERVISION-EVALUATION.md",
+      "source_blob": "8abbb1c703f4929e4dabfd88bf42902ecf657c50",
+      "source_sha256": "2808a9c9a2b12a2e9725232de9983a2d2ccc728760dee1a7f9bda646354623ee",
+      "safe_sha256": "2808a9c9a2b12a2e9725232de9983a2d2ccc728760dee1a7f9bda646354623ee",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/THIRD-PARTY-TECH-FOUNDATION.md",
+      "source_blob": "ea7bf34159ac8121a0abc98f5f9f477e5d1dbe46",
+      "source_sha256": "f4eef178580b9ebdb706157ddd0c782fbc0cc9c2b426ec4b6ac75f17b41534dc",
+      "safe_sha256": "f4eef178580b9ebdb706157ddd0c782fbc0cc9c2b426ec4b6ac75f17b41534dc",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/USER-FEEDBACK.md",
+      "source_blob": "88d9bb33219b2d4cfb0ccffb7ad0d18b40086b92",
+      "source_sha256": "29c73344b92593a866585b1ed33da26b6b5f401c0c33a24406887c38cba35381",
+      "safe_sha256": "29c73344b92593a866585b1ed33da26b6b5f401c0c33a24406887c38cba35381",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/VIDEO-EVIDENCE-AI-BRIDGE-V0.2.md",
+      "source_blob": "577c9d7d9e48654a799615a64aa9b82668bd11ed",
+      "source_sha256": "eec7ba31cf548f31bc39c40c6703f10245e24b1e3e48599182bdb9224dd85b87",
+      "safe_sha256": "eec7ba31cf548f31bc39c40c6703f10245e24b1e3e48599182bdb9224dd85b87",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/VIDEO-EVIDENCE-MANUAL-QA.md",
+      "source_blob": "33f5a3de5c365396cc28d8943a49fe1c0f114da5",
+      "source_sha256": "bdc560df09db7a76f8888965dec857c37850aede02fd90066f2b2472ca7aa8ff",
+      "safe_sha256": "bdc560df09db7a76f8888965dec857c37850aede02fd90066f2b2472ca7aa8ff",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/VIDEO-EVIDENCE-PLAYER.md",
+      "source_blob": "7b6e6808357aa6f98e72dadb906e377c36daadc0",
+      "source_sha256": "4be6ead106f839f1eea8b1f63ec0305cb930d2ec708f1e80f9a8c316d4c7b0f3",
+      "safe_sha256": "4be6ead106f839f1eea8b1f63ec0305cb930d2ec708f1e80f9a8c316d4c7b0f3",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/VIDEO-EVIDENCE-RESOURCE-HARDENING.md",
+      "source_blob": "0ebc1affe823628f2c4d7576e5d21f148f2ecc6c",
+      "source_sha256": "a89b2984d257798d220d200e28f6c31e6a9e7b8539e4a03fa036f9bd0325458d",
+      "safe_sha256": "a89b2984d257798d220d200e28f6c31e6a9e7b8539e4a03fa036f9bd0325458d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/VIDEO-EVIDENCE-V03-NATIVE-QA.md",
+      "source_blob": "2cb1b38ccfead7964f610e9d2f2c8dd954c96a3f",
+      "source_sha256": "441b621811319385bcd80b2b58bff5bab01b48e269e093f0ac7012ae52f343b8",
+      "safe_sha256": "1ebb0b1e74726c7b7bfcf9e38811d0300d24c9360a933dbd556079eb482d456f",
+      "transformed": true
+    },
+    {
+      "path": "products/ptti/docs/VIDEO-FEED-V051.md",
+      "source_blob": "9615722c5db9e8d760c9880583c9b5784ba0d64e",
+      "source_sha256": "818be0163147c7d2a7e3e0a117ebf1c6991b234b8023e459346da11cef9edd00",
+      "safe_sha256": "818be0163147c7d2a7e3e0a117ebf1c6991b234b8023e459346da11cef9edd00",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/VIDEO-FIRST-V05.md",
+      "source_blob": "d989f01cb2cd0942ed68c10904cc62c0bac8208a",
+      "source_sha256": "6c7fe2eeb4af8acd2c4ee63018460728eb7e38ae1f2b6ba9330da5efcd789a44",
+      "safe_sha256": "6c7fe2eeb4af8acd2c4ee63018460728eb7e38ae1f2b6ba9330da5efcd789a44",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/VIDEO_EVIDENCE_V02_NATIVE_QA.md",
+      "source_blob": "88bdc80ae47f3201e904266cb401337ba2dea281",
+      "source_sha256": "4dd26b0eb75b295af9be45d14ca676f200ff6b44325f0e24548edcb58b3e39b7",
+      "safe_sha256": "d55015a1ce21b3c40ec44bb6eac72f411e8d959b1344743f46e1c80b9647373a",
+      "transformed": true
+    },
+    {
+      "path": "products/ptti/docs/VIDEO_SOURCES.md",
+      "source_blob": "3f57ffffa7a8096efeb5a03c13b067ae09383c51",
+      "source_sha256": "ce3446bb63625939a816b172e709550a1cbcdd179299c2eddc522bd8749aede4",
+      "safe_sha256": "ce3446bb63625939a816b172e709550a1cbcdd179299c2eddc522bd8749aede4",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/VISION-PREFLIGHT.md",
+      "source_blob": "f93c90cdde0bac9a858c2d54fc023960d0c5a7b1",
+      "source_sha256": "a0a096777170a50a8fef034c85e5bbc8a197a498d7fdd7f2fc8b113f97bd1cc6",
+      "safe_sha256": "a0a096777170a50a8fef034c85e5bbc8a197a498d7fdd7f2fc8b113f97bd1cc6",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/VISION-SCENE-BOOTSTRAP.md",
+      "source_blob": "d5b7c80b4c6eedb9efc30bb3b5101bcadf948871",
+      "source_sha256": "da096803bd6b2add5f78de6621d055f8a70c1b9e5b64347ebc9f0c4b5ff1eafb",
+      "safe_sha256": "da096803bd6b2add5f78de6621d055f8a70c1b9e5b64347ebc9f0c4b5ff1eafb",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/VISION.md",
+      "source_blob": "10a9d2ca874b930b88d4c853c66dda4037d8d69f",
+      "source_sha256": "8fb7e5008a7944d1811c6fddd8cdd95b9870ac466762b9a763aae0f11386b556",
+      "safe_sha256": "8fb7e5008a7944d1811c6fddd8cdd95b9870ac466762b9a763aae0f11386b556",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/analysis-methodology.md",
+      "source_blob": "d38b8694faa5f70d961599348816ad598682bd80",
+      "source_sha256": "96a73d2ee63c6ed5ca277617c0e14e6dff8ea9cfa8e997f3716fbe7a3f08274b",
+      "safe_sha256": "96a73d2ee63c6ed5ca277617c0e14e6dff8ea9cfa8e997f3716fbe7a3f08274b",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/architecture.md",
+      "source_blob": "c4e1b273cbfb0510e271a20e6949418157ca14ef",
+      "source_sha256": "9b10afa0d18eb765f6960231752cc8d424fb12363384b5ef2140fba78f657f19",
+      "safe_sha256": "9b10afa0d18eb765f6960231752cc8d424fb12363384b5ef2140fba78f657f19",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/data-schema.md",
+      "source_blob": "1c97d7577027dacdcdf0c900e6eb52d8a4526878",
+      "source_sha256": "9f98affebb2b87b1fa5bd9a746bebab306a8e1f92e1b572fffdc051b97eccb26",
+      "safe_sha256": "9f98affebb2b87b1fa5bd9a746bebab306a8e1f92e1b572fffdc051b97eccb26",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/database_forensic_report.md",
+      "source_blob": "18f00f622168a819fcee919f678e88f353fc002b",
+      "source_sha256": "1c4d362dadf35ff91419203708c0a70c55602dec6d6b31178dbc4ca0e8fc15f5",
+      "safe_sha256": "2146e862af865b6adfb56fca358ff742dfc224747e09aa87e55fcaf210f73e24",
+      "transformed": true
+    },
+    {
+      "path": "products/ptti/docs/desktop-verification-v0.1.2.md",
+      "source_blob": "1680f36caa658829fda8503426991b67ac627082",
+      "source_sha256": "7eb19d67b746d2722b6bc21891949d45fd65aac88f10697be80e86197e7c2737",
+      "safe_sha256": "7eb19d67b746d2722b6bc21891949d45fd65aac88f10697be80e86197e7c2737",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/metrics.md",
+      "source_blob": "ee2488a78bff275093f727f7c91687f9f41097a0",
+      "source_sha256": "07eb8325ed717901d71417817592bae5b969c9cd1940fe77a223e2152c206eb2",
+      "safe_sha256": "07eb8325ed717901d71417817592bae5b969c9cd1940fe77a223e2152c206eb2",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/release-freeze.md",
+      "source_blob": "025e078b37317f869013478f2784e13251c2e666",
+      "source_sha256": "158bfd640972005f6ca950ef6732346e6478f8236bcaed1687262c5c68336c5a",
+      "safe_sha256": "158bfd640972005f6ca950ef6732346e6478f8236bcaed1687262c5c68336c5a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/release-verification.md",
+      "source_blob": "4d3a255d12cc53ea93538eeb9b455c27da4f7cb2",
+      "source_sha256": "70914b409bac70759f7f726916f516091ccb2ad0add551656800ebfd67b4d9c5",
+      "safe_sha256": "70914b409bac70759f7f726916f516091ccb2ad0add551656800ebfd67b4d9c5",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/release/CSV-TEMPLATE.md",
+      "source_blob": "ef20562a52405d5c8114d55a15719b2bb70f820c",
+      "source_sha256": "429d6b1af89dab02682e835eb660bc749826dd5883f647f63ba9bb49c14a6157",
+      "safe_sha256": "429d6b1af89dab02682e835eb660bc749826dd5883f647f63ba9bb49c14a6157",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/release/DATA-FIELDS.md",
+      "source_blob": "c81895e70e5bd22021fa63efa32c76e4254b5b70",
+      "source_sha256": "ee3d172b73cbcdd56e03a3824768d94c1e27644a2aa28d14fdfd5ab3b7652886",
+      "safe_sha256": "ee3d172b73cbcdd56e03a3824768d94c1e27644a2aa28d14fdfd5ab3b7652886",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/release/QUICK-START.md",
+      "source_blob": "5f25d001bf1a38961e03ec1bb5a20be2b7e2e77c",
+      "source_sha256": "dc33e0850ee608ba558fdfac990ead8f0cf80dabb0b1f1fa0c124e15e21533ae",
+      "safe_sha256": "dc33e0850ee608ba558fdfac990ead8f0cf80dabb0b1f1fa0c124e15e21533ae",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/release/RELEASE-NOTES.md",
+      "source_blob": "0746737ebccc79e189914f824c9b963914ea5b43",
+      "source_sha256": "a141df0a09972dfea32d2c87b463afdc520f5675f8f311d666a8ca657df5ab82",
+      "safe_sha256": "a141df0a09972dfea32d2c87b463afdc520f5675f8f311d666a8ca657df5ab82",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/release/START-HERE.txt",
+      "source_blob": "6b42a5cc01a01a95f1c31f8aea9dcf0d38a7977d",
+      "source_sha256": "31383190cc6331a6c941ccf14d7af73da9623590a0829a34d5b5da04955c8d6a",
+      "safe_sha256": "31383190cc6331a6c941ccf14d7af73da9623590a0829a34d5b5da04955c8d6a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/index.html",
+      "source_blob": "aab2997c5bb87c2f499f217f27a4fc43b80dd212",
+      "source_sha256": "6fa76ddce20c8b3515d8f87d9b1300926c4fd62523f5518fdc1a75933dabdbc6",
+      "safe_sha256": "6fa76ddce20c8b3515d8f87d9b1300926c4fd62523f5518fdc1a75933dabdbc6",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/package-lock.json",
+      "source_blob": "a932784f31f43fb0c1df7f57fda7d0e867b39ecf",
+      "source_sha256": "a56d2241441ae1b11339b7a2ed6bfd13de328ea6870b2b3c32d9d905545012ae",
+      "safe_sha256": "a56d2241441ae1b11339b7a2ed6bfd13de328ea6870b2b3c32d9d905545012ae",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/package.json",
+      "source_blob": "4520f5d1f0d27b042af8bf4ac9195a42ac0c7cb0",
+      "source_sha256": "9900f370cca0ad05b9f929e2b31b3270580976a650572548c4b820f4c2aa86a0",
+      "safe_sha256": "9900f370cca0ad05b9f929e2b31b3270580976a650572548c4b820f4c2aa86a0",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/public/ptti.svg",
+      "source_blob": "67030b019d8c6e7e04566a84395e7d4054899aff",
+      "source_sha256": "077e2e067f9c74d8b317200a12e3611b84619c81f0e24b6b5e9c1517abcf48c9",
+      "safe_sha256": "077e2e067f9c74d8b317200a12e3611b84619c81f0e24b6b5e9c1517abcf48c9",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/scripts/test-review-queue.mjs",
+      "source_blob": "ee0a7a4cda76296813eb394f52482ca20796105b",
+      "source_sha256": "16fe5fcabbcca4f58c3194f3c955d1d751fc36f35352fe3c1245ee52ac299d63",
+      "safe_sha256": "16fe5fcabbcca4f58c3194f3c955d1d751fc36f35352fe3c1245ee52ac299d63",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/scripts/test-score-observation.mjs",
+      "source_blob": "69739c2304c724e473e223c03129bbf8854f3020",
+      "source_sha256": "5ff198166cdc50efcb4a4487ef3598a7282c312192571a5fe5949cf4449e115e",
+      "safe_sha256": "5ff198166cdc50efcb4a4487ef3598a7282c312192571a5fe5949cf4449e115e",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/scripts/test-score-time.mjs",
+      "source_blob": "3baa61afc484c24acef55553a4dc3b6d15449b11",
+      "source_sha256": "75b5b03d577dd5794a1f05a8fe85ac8eac323fe5f6c37b447b436f817e5b105c",
+      "safe_sha256": "75b5b03d577dd5794a1f05a8fe85ac8eac323fe5f6c37b447b436f817e5b105c",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/scripts/test-video-feed.mjs",
+      "source_blob": "e56d90f85987cdf564763f4dbfd99fcb35836b80",
+      "source_sha256": "0a2525c30639498e71aade2f806ec6ed9b23889765d76fef4843c4476ac47b6f",
+      "safe_sha256": "0a2525c30639498e71aade2f806ec6ed9b23889765d76fef4843c4476ac47b6f",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/FixedScoreLinks.tsx",
+      "source_blob": "857f761350146ac12ad28628e3829dc12cad1558",
+      "source_sha256": "4101fcea70d66be11c41acd91dca016941077922b87327cf62d0d57680c1f5e1",
+      "safe_sha256": "4101fcea70d66be11c41acd91dca016941077922b87327cf62d0d57680c1f5e1",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/HitCandidateReviewQueue.tsx",
+      "source_blob": "204a2094018bfc541427cdbf292549659186e865",
+      "source_sha256": "b98632927999417f143cdb081a7c1dcad93baec34e965aa556dd5f4e705c58cb",
+      "safe_sha256": "b98632927999417f143cdb081a7c1dcad93baec34e965aa556dd5f4e705c58cb",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/MatchVideoLibrary.tsx",
+      "source_blob": "91df11f2fb7dface7329e3069c713d197ed1dab3",
+      "source_sha256": "e20d76171acad144791150287b6ef514e2feabd9a7d1241f763187b98a00d11d",
+      "safe_sha256": "e20d76171acad144791150287b6ef514e2feabd9a7d1241f763187b98a00d11d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/OfficialVideoPlayer.tsx",
+      "source_blob": "d89ab780dc93f81991a39705e0f0c4e18e3dc3a4",
+      "source_sha256": "0b54ff3cc0ada9bee8b99aab728d076872ffa93734cda0975b1743cc7ebb01a6",
+      "safe_sha256": "0b54ff3cc0ada9bee8b99aab728d076872ffa93734cda0975b1743cc7ebb01a6",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/PersonSceneGallery.tsx",
+      "source_blob": "2d1a70fa0da14512a1e5a8c92c3a3ed20bddcf9e",
+      "source_sha256": "94a52abf4ffbcda9133568888272640df019f73924816e5dcf672b4f1b474bec",
+      "safe_sha256": "94a52abf4ffbcda9133568888272640df019f73924816e5dcf672b4f1b474bec",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/PlayerMotionPanel.tsx",
+      "source_blob": "13bd58730c050c787edccee180aab213632eb61d",
+      "source_sha256": "f8fac3bbcc604798c749fbdedfc93326b8e08c982db0dea7d24e261d5cf223da",
+      "safe_sha256": "f8fac3bbcc604798c749fbdedfc93326b8e08c982db0dea7d24e261d5cf223da",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/PlayerTrackingPreview.tsx",
+      "source_blob": "06a8df5ce4425bc2d3ea4b30703e086eaaf189b3",
+      "source_sha256": "717f71c71b701b589d5505fcc79b4351e854865a92b767312300b573f6fb5733",
+      "safe_sha256": "717f71c71b701b589d5505fcc79b4351e854865a92b767312300b573f6fb5733",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/ProfessionalWorkspace.tsx",
+      "source_blob": "e782effb1f26ac828ce511852fdbd6f2d87d4c20",
+      "source_sha256": "ec19b3377f05d942c352c4c34d2b1f4b8fe028f397b614c319d9b64dbb45fd33",
+      "safe_sha256": "ec19b3377f05d942c352c4c34d2b1f4b8fe028f397b614c319d9b64dbb45fd33",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/ScoreChart.tsx",
+      "source_blob": "36e220a1a5b47b8addd7856e6ab3811938134b80",
+      "source_sha256": "02dc1b18a72fdcf65ff3250100ec6f18f11edff221c43f73c785273d36a13187",
+      "safe_sha256": "02dc1b18a72fdcf65ff3250100ec6f18f11edff221c43f73c785273d36a13187",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/ScoreNavigation.tsx",
+      "source_blob": "d42bdbff29190f804f78d2d8645e277d2f1aad3c",
+      "source_sha256": "2693502597da088e7ce34f11e5c9354a07d8e1008c0d01a137d823057acb7dcb",
+      "safe_sha256": "2693502597da088e7ce34f11e5c9354a07d8e1008c0d01a137d823057acb7dcb",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/VideoDiscovery.tsx",
+      "source_blob": "1e2df53aef1aae2d61c8504ea7dc7f90c8ecbe3e",
+      "source_sha256": "03906e1ad007aeffeb328d8048b544322ac785340290d9d9a2db796c8f1747c8",
+      "safe_sha256": "03906e1ad007aeffeb328d8048b544322ac785340290d9d9a2db796c8f1747c8",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/VideoEvidencePlayer.tsx",
+      "source_blob": "b7bfb9407937a0a9ae741494097c5a829019b29c",
+      "source_sha256": "33f0ffca9bc75a05ea4ceec9a508c4d6b1ff77615af15bf17f383d63a0172797",
+      "safe_sha256": "33f0ffca9bc75a05ea4ceec9a508c4d6b1ff77615af15bf17f383d63a0172797",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/VideoFeed.tsx",
+      "source_blob": "a00234950f273c52a65a0a277b0388cdfdd5d157",
+      "source_sha256": "3c577cc5dde67714a47a82690b6946c3e0c49230583d93ec2ac7f388c4aef7ef",
+      "safe_sha256": "3c577cc5dde67714a47a82690b6946c3e0c49230583d93ec2ac7f388c4aef7ef",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/Vision.tsx",
+      "source_blob": "e09b39603d498a6d9dbdf94827e9a265292c43b0",
+      "source_sha256": "6bd01ef4fd39ef092d5a7b18ae5ac52f8e457e415f05fe36d54425b238e49716",
+      "safe_sha256": "6bd01ef4fd39ef092d5a7b18ae5ac52f8e457e415f05fe36d54425b238e49716",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/feedCatalog.ts",
+      "source_blob": "c3bc24663b8f755d7a80d9cfc2449f7f422e65c7",
+      "source_sha256": "7d9bafb5c35ad239bb7fe5feeca4581894b9602bde8e212f81c21e4eb173aeb5",
+      "safe_sha256": "7d9bafb5c35ad239bb7fe5feeca4581894b9602bde8e212f81c21e4eb173aeb5",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/libraryPlayback.ts",
+      "source_blob": "22be84f4d18ee9b0ba949c6aa37d00bcb4c57ceb",
+      "source_sha256": "67eb7a8e837463174de6e34008c5feff8be42795a2876d707b6f7e1b5a2cf565",
+      "safe_sha256": "67eb7a8e837463174de6e34008c5feff8be42795a2876d707b6f7e1b5a2cf565",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/match-video-library.css",
+      "source_blob": "7feb4bb72ba721e431761dc65fbd9a2f2074104c",
+      "source_sha256": "0ead50d5040a2f1340363f3853363473a93463ab31cdc3197b81d62a0aabd44e",
+      "safe_sha256": "0ead50d5040a2f1340363f3853363473a93463ab31cdc3197b81d62a0aabd44e",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/player-motion.css",
+      "source_blob": "b96ffead8d169f79798d7706a1ab816bf98b4180",
+      "source_sha256": "c16ebf57656de58959ae31bacd75cd0184c9a6108e77e8c37dd971c5b6ed0b40",
+      "safe_sha256": "c16ebf57656de58959ae31bacd75cd0184c9a6108e77e8c37dd971c5b6ed0b40",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/player-tracking-closed-loop.css",
+      "source_blob": "5d0f40b5fea3b0312905c798ac745d6783fe4131",
+      "source_sha256": "1904a3415e44e42cda7d7555581a0310cad3da259b694094b823ca8add143044",
+      "safe_sha256": "1904a3415e44e42cda7d7555581a0310cad3da259b694094b823ca8add143044",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/professional.css",
+      "source_blob": "5c2a58b5f0715d72d4758224ed2ee9993818944c",
+      "source_sha256": "df512c6ffdfc129af2140e7cbbaa2aedba0bbed2b3dcc9b7c7fd27987060502a",
+      "safe_sha256": "df512c6ffdfc129af2140e7cbbaa2aedba0bbed2b3dcc9b7c7fd27987060502a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/reviewQueueRequests.ts",
+      "source_blob": "a2591ffdfb5a26fd8bf33757554902876207ae36",
+      "source_sha256": "0449ce127a485dbfd2e2977ea6fc98ebd0f13a148b918e27e20501466a861a7c",
+      "safe_sha256": "0449ce127a485dbfd2e2977ea6fc98ebd0f13a148b918e27e20501466a861a7c",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/scoreObservation.ts",
+      "source_blob": "a964d087a694f91c6421f5b98fd16f2eed379ecb",
+      "source_sha256": "5f25db2de37478ad229d6a5799dc26d6b8548145590030ba0d2a136ee506ad64",
+      "safe_sha256": "5f25db2de37478ad229d6a5799dc26d6b8548145590030ba0d2a136ee506ad64",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/scoreTime.ts",
+      "source_blob": "3c54912b066a194762b4b9f1fe2e708ad8cbe7d0",
+      "source_sha256": "c2341b042783c3fe2c11f7062b2fd63bea0b1c182dcf473805a79a48d0779387",
+      "safe_sha256": "c2341b042783c3fe2c11f7062b2fd63bea0b1c182dcf473805a79a48d0779387",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/style.css",
+      "source_blob": "b3e348d49e1d9a6fb17a8ba1aec594c793c1324a",
+      "source_sha256": "5ffa4c5514a91aa01e3af4815b9230163ef9cf5232ecbbd82d4fb8bd2351ddd9",
+      "safe_sha256": "5ffa4c5514a91aa01e3af4815b9230163ef9cf5232ecbbd82d4fb8bd2351ddd9",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/ui.tsx",
+      "source_blob": "e9f367afa0024c7a8198170ecf55376cd5258a15",
+      "source_sha256": "96f469dbd2b5689db54ebad3c8aba329639177c2161b5a5f2d7a121fb1b626fa",
+      "safe_sha256": "96f469dbd2b5689db54ebad3c8aba329639177c2161b5a5f2d7a121fb1b626fa",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/video-discovery.css",
+      "source_blob": "9331ea352c5956c0cadc1ca72860169ce350924d",
+      "source_sha256": "2e040249ea82cbaf52d2f68d9231b219ce429b4fc697587f8f29ab85630fd0af",
+      "safe_sha256": "2e040249ea82cbaf52d2f68d9231b219ce429b4fc697587f8f29ab85630fd0af",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/video-evidence.css",
+      "source_blob": "86ac5033e35c2098fe6e73f25395bb95427e9dfe",
+      "source_sha256": "e4265c596b2f8d7e2ad1723e849b20c260f6f67cb5396fa2ae0c98e3c86a271c",
+      "safe_sha256": "e4265c596b2f8d7e2ad1723e849b20c260f6f67cb5396fa2ae0c98e3c86a271c",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/video-feed.css",
+      "source_blob": "638b9d57f238edf120a168082140de491633f92d",
+      "source_sha256": "51747cc80d12fc0ba9b68cb458d3c8c867246a44c2db4933bd1f13f026090d3c",
+      "safe_sha256": "51747cc80d12fc0ba9b68cb458d3c8c867246a44c2db4933bd1f13f026090d3c",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/tsconfig.json",
+      "source_blob": "c85d0d7130c12d8cbd26a224f44439d7b19b263d",
+      "source_sha256": "8a5d95f002b552ebf18061dca36fc28782db283c0beb42d248b2d1e1417b2ef9",
+      "safe_sha256": "8a5d95f002b552ebf18061dca36fc28782db283c0beb42d248b2d1e1417b2ef9",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/vite.config.ts",
+      "source_blob": "4875f9cb2406e28e4e9cdcdc439be664dec84f2e",
+      "source_sha256": "a57d4be09dbb4e54126f170c4e05ec80d21f13820e77d38ff6788600be7befd1",
+      "safe_sha256": "a57d4be09dbb4e54126f170c4e05ec80d21f13820e77d38ff6788600be7befd1",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/pytest.ini",
+      "source_blob": "357227364089abf949d1ed7bd140616e7d9f43f1",
+      "source_sha256": "ea0ddfd53c2aee71dde8fd6337ca0bcecb301c6a97c8090aa315e62a8bf303bb",
+      "safe_sha256": "ea0ddfd53c2aee71dde8fd6337ca0bcecb301c6a97c8090aa315e62a8bf303bb",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/requirements.txt",
+      "source_blob": "12f867384b14d9f72b8a45a3d1e3e362984c464c",
+      "source_sha256": "c23d50cea8d9f8aa7bc54793da1c9a415617639e13936160a5c97272b5a9a46b",
+      "safe_sha256": "c23d50cea8d9f8aa7bc54793da1c9a415617639e13936160a5c97272b5a9a46b",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/DEV_RESULTS.md",
+      "source_blob": "ed511c7cbba33c1a12c5ae2520ef18bb66c52c48",
+      "source_sha256": "a9fe1b7903095c65804ea46ad302ead32b3e308adf01caa7ad08e49601bce663",
+      "safe_sha256": "a9fe1b7903095c65804ea46ad302ead32b3e308adf01caa7ad08e49601bce663",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/annotation_pack.py",
+      "source_blob": "952fbbb09cfe745c85e98de4b14693f3abfbba85",
+      "source_sha256": "31a46daf61eadbe255845630d751b8743ec2b248160c0869965f50a7bc630842",
+      "safe_sha256": "31a46daf61eadbe255845630d751b8743ec2b248160c0869965f50a7bc630842",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/audit.py",
+      "source_blob": "9cc129c7be478d93619944e5431870cfbe188c1f",
+      "source_sha256": "678485b29b91f6991655fb9062c47d76fadb46152422f6de9681ef48325e53e3",
+      "safe_sha256": "678485b29b91f6991655fb9062c47d76fadb46152422f6de9681ef48325e53e3",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/calibration.py",
+      "source_blob": "2f76bb6cbb44547eee74b8b40feecb9dcbeb035e",
+      "source_sha256": "67049d5da0d6cba2cf700f9d3acf1fe0711eb1086f2b41733741891fb4544c52",
+      "safe_sha256": "67049d5da0d6cba2cf700f9d3acf1fe0711eb1086f2b41733741891fb4544c52",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/calibration_player_worker.py",
+      "source_blob": "3673e7896bc16b0325f730dc4f595efb239abe7a",
+      "source_sha256": "fd080869153bdee02b48cde9487f4ad2ef05b5a37b12df4733d859078e2c6160",
+      "safe_sha256": "fd080869153bdee02b48cde9487f4ad2ef05b5a37b12df4733d859078e2c6160",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/evaluate.py",
+      "source_blob": "6b7428f788d19da8b8a01f4317668b599920e7c7",
+      "source_sha256": "308f94de11c14d8d83ac6f03815a254d8ab857cca6beb2d278ce09d525fc21f3",
+      "safe_sha256": "308f94de11c14d8d83ac6f03815a254d8ab857cca6beb2d278ce09d525fc21f3",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/evaluate_game4_calibration.py",
+      "source_blob": "9903b927696efef042283b79dfbbd64329bc2208",
+      "source_sha256": "8889ff88cf4b17600c89e277e53548411b10aa9d4fbf85269d70652976c3b9d4",
+      "safe_sha256": "8889ff88cf4b17600c89e277e53548411b10aa9d4fbf85269d70652976c3b9d4",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/feature_study.py",
+      "source_blob": "a8b2ebcbe6bdedded16757fcb997d40dcc2b3cce",
+      "source_sha256": "55078ea81d2fb6ad07256e6f4ea060dca531b3f3d347c2aae2d4fe3528c1b5d3",
+      "safe_sha256": "55078ea81d2fb6ad07256e6f4ea060dca531b3f3d347c2aae2d4fe3528c1b5d3",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/plan_event_players.py",
+      "source_blob": "4f21eac0c7c29ac73710726d13d530e7e24560dc",
+      "source_sha256": "c5a757e1872fb2d1aa4618f09049f68af614a39e6b530495afc8469478a28123",
+      "safe_sha256": "c5a757e1872fb2d1aa4618f09049f68af614a39e6b530495afc8469478a28123",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/plan_players.py",
+      "source_blob": "8e7c67b6c9b8fd2cfd8cc51dd13ed804e6bfcc98",
+      "source_sha256": "2039c329043b306762653a00852abb42d7f93048a4983cd280afb8c31ffd3f88",
+      "safe_sha256": "2039c329043b306762653a00852abb42d7f93048a4983cd280afb8c31ffd3f88",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/player_study.py",
+      "source_blob": "c6e542c2ba6f36e941f62600ab523a5bba1f80f7",
+      "source_sha256": "ade909268aed12af8390dcb8ee02d4251c16f29c63a4c4026c28ba2b7ce7b4ab",
+      "safe_sha256": "ade909268aed12af8390dcb8ee02d4251c16f29c63a4c4026c28ba2b7ce7b4ab",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/player_worker.py",
+      "source_blob": "c5c7e0af132e8b936ad33a08cfe462de417f863a",
+      "source_sha256": "be0b9fc7b2f513631fb50585e345bb7b4d02ac7946873d4586cf1b7a87786b10",
+      "safe_sha256": "be0b9fc7b2f513631fb50585e345bb7b4d02ac7946873d4586cf1b7a87786b10",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/pyproject.toml",
+      "source_blob": "1bc82e15a35e5edf3842742d6b5b08544d652512",
+      "source_sha256": "8333ce49e2fec7c1a9c6a5528f06b5c97113851980deaadaf122c46a0324cbbf",
+      "safe_sha256": "8333ce49e2fec7c1a9c6a5528f06b5c97113851980deaadaf122c46a0324cbbf",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/report.py",
+      "source_blob": "2f2f2c31a2aa57bc7af5a8b0b3c1a9f3f36600b9",
+      "source_sha256": "072df48efffba2f7fc5b8fc53fd600db6e920fabbd103fa36079717a863d1e49",
+      "safe_sha256": "072df48efffba2f7fc5b8fc53fd600db6e920fabbd103fa36079717a863d1e49",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/resources.py",
+      "source_blob": "5845076a94f5d8e6fe533bbc9c22b0834c2b1b29",
+      "source_sha256": "8701ddf8377a329da438de1b6a6c9c7c59a9ab4a32a8e059693c7f77af0541cc",
+      "safe_sha256": "8701ddf8377a329da438de1b6a6c9c7c59a9ab4a32a8e059693c7f77af0541cc",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/run_calibration_players.py",
+      "source_blob": "0bb3eb864cce946b4ac3d9f0f54738557ef9c0ce",
+      "source_sha256": "d64a6a92fc6c24ff1a32c44ecbde772561237a74421235cadfc14ab9d0481d96",
+      "safe_sha256": "d64a6a92fc6c24ff1a32c44ecbde772561237a74421235cadfc14ab9d0481d96",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/run_players.py",
+      "source_blob": "2c16550083813f5aabf82dcb4f9850d2a6579231",
+      "source_sha256": "761fc5dc9e1bda9dafbb5e0063b0dfca8094d5a625c19735509e6ddde9e332c5",
+      "safe_sha256": "761fc5dc9e1bda9dafbb5e0063b0dfca8094d5a625c19735509e6ddde9e332c5",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/runtime.py",
+      "source_blob": "8c0554070194c57419dc927aee8fe5ca238b7322",
+      "source_sha256": "961bc14a1e3beb8c7a0da26133e28fe272efc58bb17eec85e6435c2b9b32c9db",
+      "safe_sha256": "961bc14a1e3beb8c7a0da26133e28fe272efc58bb17eec85e6435c2b9b32c9db",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/hit-v03/verify_table_sources.py",
+      "source_blob": "129934ab8472a8fcdcb05ac617aea8422c4c09b2",
+      "source_sha256": "62610c87e007935b70b6a191d54a98d728ba6ea078a41a00a6119695d4945ed4",
+      "safe_sha256": "62610c87e007935b70b6a191d54a98d728ba6ea078a41a00a6119695d4945ed4",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/BENCHMARK_V0_REFERENCE.json",
+      "source_blob": "f087648fb86ca05f8a87222c5c7b02ffa6b8593e",
+      "source_sha256": "bac4789986aa2e8a6a32307cfdf444ff7cfb54202552c95d33adfdf80ae6a6e5",
+      "safe_sha256": "75181c91a5df57bbaf128d747d160b558771fc4295d8e3e9d03f0aad4bcfea14",
+      "transformed": true
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/README.md",
+      "source_blob": "288c3b8a0a398efcb27423cc618ea8dce0768085",
+      "source_sha256": "2d26dd478c59605b7a1a1ec0257ba74c5214aea690be0cf0b4211464de068eae",
+      "safe_sha256": "2d26dd478c59605b7a1a1ec0257ba74c5214aea690be0cf0b4211464de068eae",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/RF_DETR_NANO_RESULTS.json",
+      "source_blob": "95d5288744d327985aa5dd7d954b73476c677aef",
+      "source_sha256": "5298af26961d99d39e9908c33507a65153532448e68e918f7e9993a4b56bb88a",
+      "safe_sha256": "5298af26961d99d39e9908c33507a65153532448e68e918f7e9993a4b56bb88a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/SUPERVISION_RESULTS.json",
+      "source_blob": "515492e0a4368778ed4322726c4ac0908a7dd0b3",
+      "source_sha256": "bde3e1e93275d00ddaee8d8fa23ed2fbd1053eb4e209ecc0805e3ac29ee53731",
+      "safe_sha256": "bde3e1e93275d00ddaee8d8fa23ed2fbd1053eb4e209ecc0805e3ac29ee53731",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/TOOL_VALUE_CARDS.json",
+      "source_blob": "b379b2860268beed331be74b12db70683625771a",
+      "source_sha256": "d99307c0159a64fc9c52684bfc5c98d1ab3772a11555783f3535ae60c28b135a",
+      "safe_sha256": "d99307c0159a64fc9c52684bfc5c98d1ab3772a11555783f3535ae60c28b135a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/audit_stack.py",
+      "source_blob": "2c4e6b449bfabfedcad23939655e4223274f4782",
+      "source_sha256": "01be5fd64c6e8b484e4b313ea2ce6e9dbfbe8f678db84d327bc13a3d940e7085",
+      "safe_sha256": "01be5fd64c6e8b484e4b313ea2ce6e9dbfbe8f678db84d327bc13a3d940e7085",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/build_foundation_report.py",
+      "source_blob": "ea925618ce7e1d4d4eaf434eba8f73fcb40c3ca9",
+      "source_sha256": "7aaf84f74b0c3fedd2c6a7bd3beccdcf181cd8e157354453e100e3c5290acb69",
+      "safe_sha256": "7aaf84f74b0c3fedd2c6a7bd3beccdcf181cd8e157354453e100e3c5290acb69",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/cvat-labels.json",
+      "source_blob": "1258af4369eb09b7be8ee66735c3963fcf00eea6",
+      "source_sha256": "cc067ecbff43e532b07b85712faf0e0466d8593366afb27f1c5507f2ced4c55e",
+      "safe_sha256": "cc067ecbff43e532b07b85712faf0e0466d8593366afb27f1c5507f2ced4c55e",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/download_rf_nano.py",
+      "source_blob": "f34abfbf32e9005bbb6d23f6b1d730da5385b8ce",
+      "source_sha256": "25e73ff2d1389fc1ca09adb67e2ea3ef5f776f9f825d7887a7966d6d51b61326",
+      "safe_sha256": "25e73ff2d1389fc1ca09adb67e2ea3ef5f776f9f825d7887a7966d6d51b61326",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/prepare_cvat_tasks.py",
+      "source_blob": "b9ed5f943819863494b665adb015c3905cd527af",
+      "source_sha256": "f2dde7089f693d8bd0582c7d60f6747def74e126cfc009c06ddcaad5a8182f62",
+      "safe_sha256": "f2dde7089f693d8bd0582c7d60f6747def74e126cfc009c06ddcaad5a8182f62",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/prepare_local_benchmark.py",
+      "source_blob": "5691740dd780919fabbf90267c6999278cdfe0a6",
+      "source_sha256": "027aa92f859957cf684d6b7a84908e0f2c376836b5cce12b89077c70de9c7a12",
+      "safe_sha256": "027aa92f859957cf684d6b7a84908e0f2c376836b5cce12b89077c70de9c7a12",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/ptti_benchmark/__init__.py",
+      "source_blob": "0e6a1ec6ed25670cf495f06292f37f387f27b493",
+      "source_sha256": "ab92d84910db0cba2b591756435e6ece539af60534853e8705681afcec1ba209",
+      "safe_sha256": "ab92d84910db0cba2b591756435e6ece539af60534853e8705681afcec1ba209",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/ptti_benchmark/adapters.py",
+      "source_blob": "59b10c31f73528fd4d771b37ac8fa15931aa5bbe",
+      "source_sha256": "d20b5217546b7d31c9f1e4de063686e38373766c51fc6730ebd24568563f5516",
+      "safe_sha256": "d20b5217546b7d31c9f1e4de063686e38373766c51fc6730ebd24568563f5516",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/ptti_benchmark/core.py",
+      "source_blob": "f49a8668a6bb15411149b304c815ffda79f7a675",
+      "source_sha256": "9abe63bdfc354fd73d1e3cc14f6500f7636b0dbaaf6cfc6cf1d0769ddf543a30",
+      "safe_sha256": "9abe63bdfc354fd73d1e3cc14f6500f7636b0dbaaf6cfc6cf1d0769ddf543a30",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/ptti_benchmark/cvat.py",
+      "source_blob": "8d3b7690d3624b9e32ce928baf39d0ff65ab4b31",
+      "source_sha256": "3784a94f896ab74b8c28e9ae2d0292f7390d1838ca95d0ca47127112479fb378",
+      "safe_sha256": "3784a94f896ab74b8c28e9ae2d0292f7390d1838ca95d0ca47127112479fb378",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/ptti_benchmark/downstream.py",
+      "source_blob": "b63e9d116ef88bd9282e8103c2f615c705007080",
+      "source_sha256": "b07828f2fe23b8f2adf70879dd9cd73109b88c4a39fe72721f3e7344c496571b",
+      "safe_sha256": "b07828f2fe23b8f2adf70879dd9cd73109b88c4a39fe72721f3e7344c496571b",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/ptti_benchmark/tool_value.py",
+      "source_blob": "0a914a93042b7917761da95576e996fc9d253723",
+      "source_sha256": "07f4ef4f711aebfb46083d4c399c5e0381998ea2671267a8ca0f4625b69eeb9d",
+      "safe_sha256": "07f4ef4f711aebfb46083d4c399c5e0381998ea2671267a8ca0f4625b69eeb9d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/ruff.toml",
+      "source_blob": "4e65e48577c4e622fc197ad5a7b00c16b0433d40",
+      "source_sha256": "0a809b167b193d077145dc6fa5e4622ae96a30fb9e6f35f29ec547a930c542b4",
+      "safe_sha256": "0a809b167b193d077145dc6fa5e4622ae96a30fb9e6f35f29ec547a930c542b4",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/run_rf_nano.py",
+      "source_blob": "1f29d83097741490c8d7db78058f87598a8262c4",
+      "source_sha256": "58b4d3faef45abeae8d497d43373925159595d8b2c85a7aa963e54c4024589b9",
+      "safe_sha256": "58b4d3faef45abeae8d497d43373925159595d8b2c85a7aa963e54c4024589b9",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/run_supervision_experiment.py",
+      "source_blob": "38e727d1a1774c01b739c799f0d9eec7b44850eb",
+      "source_sha256": "13921267d80b21216134357d7bd15c3d1492fd6e9fa9b04fc6f2dcd0ab6fb4ef",
+      "safe_sha256": "13921267d80b21216134357d7bd15c3d1492fd6e9fa9b04fc6f2dcd0ab6fb4ef",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/seal_benchmark_manifest.py",
+      "source_blob": "af25857bbd2129c2a1fc385c2cdf769e1a2421ad",
+      "source_sha256": "11f3043a80bf404376b42896ff03ba530cb1018b4da3e7e219d62415ee3fc193",
+      "safe_sha256": "11f3043a80bf404376b42896ff03ba530cb1018b4da3e7e219d62415ee3fc193",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/supervision-pyproject.toml",
+      "source_blob": "a9bbc21aa6522ef8eff704ea940f5220ffdebee3",
+      "source_sha256": "59584adcda3d0862608ff43090695c9b51264d2c6f55f09581179c7d7bcf00e3",
+      "safe_sha256": "59584adcda3d0862608ff43090695c9b51264d2c6f55f09581179c7d7bcf00e3",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/run_backend.bat",
+      "source_blob": "60f8891c0ad0c0cdc015f3cb2cc161dab2c6e605",
+      "source_sha256": "ed1c8b850ac0601ffbe611594e21031d571fc5c74d381b1b67f9e6ded47c8455",
+      "safe_sha256": "ed1c8b850ac0601ffbe611594e21031d571fc5c74d381b1b67f9e6ded47c8455",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/run_dev.bat",
+      "source_blob": "e4e0e2c52dee60fdfaabd11dfc40089efdd1c4f2",
+      "source_sha256": "7425950c4c904fba25c13c16bc21cbbaa76b0032f5ef129af97c1eeef67dc75a",
+      "safe_sha256": "7425950c4c904fba25c13c16bc21cbbaa76b0032f5ef129af97c1eeef67dc75a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/run_frontend.bat",
+      "source_blob": "2daaa1a3103769d4308d73aee623ccfc55375122",
+      "source_sha256": "8978a6222d8734229b975bdf6c76de36a281b5229525368840fed866c39b24d8",
+      "safe_sha256": "8978a6222d8734229b975bdf6c76de36a281b5229525368840fed866c39b24d8",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/INSTALL.cmd",
+      "source_blob": "dba70d926b18f3720d627f7a2ea274475b15224f",
+      "source_sha256": "2153aea691dec9c6f55d0d4fb4e49990e7e9cf2345daf6a8eec5ede623547107",
+      "safe_sha256": "2153aea691dec9c6f55d0d4fb4e49990e7e9cf2345daf6a8eec5ede623547107",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/INSTALL.ps1",
+      "source_blob": "53f2f6d3b75c534d86a663f1959d2de4c8357931",
+      "source_sha256": "90151aeaeb8301a3c37c079809d8b4d4ef6819e3ba2c73906f9a5132379c346b",
+      "safe_sha256": "90151aeaeb8301a3c37c079809d8b4d4ef6819e3ba2c73906f9a5132379c346b",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/UNINSTALL.ps1",
+      "source_blob": "36c9b500f1c1815c4563f7b8d3abcee2fe1c32dc",
+      "source_sha256": "36a1699f563ee9258ba1037a44eb538bb254428168dbf34ac3eab878b91e43be",
+      "safe_sha256": "36a1699f563ee9258ba1037a44eb538bb254428168dbf34ac3eab878b91e43be",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_anchor_visibility_sheets.py",
+      "source_blob": "aeb2cfe7350a2a4510b4a56c4cbb54c59e536b4f",
+      "source_sha256": "d56734026b4137c432b0f0fb36009dac36c5e38b6d9cddc622688b3953f30b70",
+      "safe_sha256": "d56734026b4137c432b0f0fb36009dac36c5e38b6d9cddc622688b3953f30b70",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_evidence_fusion_overlay.py",
+      "source_blob": "86b913336c2e12d36e5190e1b37521588ceae935",
+      "source_sha256": "07e1f9bf63f17e2df07f7cf2336d9d6926789b466867813eafc656c0bf6e165e",
+      "safe_sha256": "07e1f9bf63f17e2df07f7cf2336d9d6926789b466867813eafc656c0bf6e165e",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_evidence_fusion_preview.py",
+      "source_blob": "bff0baf002579608ab900bb41279fdbe94dce83c",
+      "source_sha256": "39014601aa5250c649fa760e99025f610be1226fe2cb0f15344918b7f6ea00cb",
+      "safe_sha256": "39014601aa5250c649fa760e99025f610be1226fe2cb0f15344918b7f6ea00cb",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_hit_v03_evidence_package.py",
+      "source_blob": "ce3014584683e3e57c857dbe6fec83cb27f22cee",
+      "source_sha256": "8bb258b12d3cd3d744d5edfb721c6b126734d9d2c8acadc4dc58db9c00484cbe",
+      "safe_sha256": "8bb258b12d3cd3d744d5edfb721c6b126734d9d2c8acadc4dc58db9c00484cbe",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_match_library_v04_preview.py",
+      "source_blob": "9cd81ec28e6214c8a016a1546ab2bffa9c62a21e",
+      "source_sha256": "9dad07d2c207902cca30238f06cf491477420c4910222b9caa8b3d08f5c17ec7",
+      "safe_sha256": "9dad07d2c207902cca30238f06cf491477420c4910222b9caa8b3d08f5c17ec7",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_player_motion_preview.py",
+      "source_blob": "9a31c1a1413a51f9f87c9248c5619a04c73d404c",
+      "source_sha256": "a528b38f356cbd7ebcbb5806624e8ad1789e1ede31a474092b4220a7b8d2dd4b",
+      "safe_sha256": "a528b38f356cbd7ebcbb5806624e8ad1789e1ede31a474092b4220a7b8d2dd4b",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_player_tracking_v1_preview.py",
+      "source_blob": "0fb80210a24e59236d2b1b93ee9c0d52753902be",
+      "source_sha256": "fceb13dd8fcfc030593bd22eb2bb3d804350bfde753320f501ffd791414c5534",
+      "safe_sha256": "fceb13dd8fcfc030593bd22eb2bb3d804350bfde753320f501ffd791414c5534",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_professional_preview.py",
+      "source_blob": "9f3985f6d67387e673567219f3718da679e192b3",
+      "source_sha256": "924db2572f4ca8ef6b1697f11a29d4a9119e66ff364bed9cf92a8210cb6ed030",
+      "safe_sha256": "924db2572f4ca8ef6b1697f11a29d4a9119e66ff364bed9cf92a8210cb6ed030",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_sam2_player_tracking_preview.py",
+      "source_blob": "b313718e8a74e179f75942d591a88639ccbba7de",
+      "source_sha256": "796806dfb287f9a832d009263f5cada5cceaa5fe3bee2b9ec8ba3ec3cd3a0d62",
+      "safe_sha256": "796806dfb287f9a832d009263f5cada5cceaa5fe3bee2b9ec8ba3ec3cd3a0d62",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_scene_bootstrap_preview.py",
+      "source_blob": "eb970020107d0a2fd06d7c16acd5b5d8b4162fea",
+      "source_sha256": "58dd2f01f178b51626ccb545c31c0314738cdb35fe245d49b5ba1c1dec22d51b",
+      "safe_sha256": "58dd2f01f178b51626ccb545c31c0314738cdb35fe245d49b5ba1c1dec22d51b",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_score_navigation_v01_preview.py",
+      "source_blob": "a4c408889b4c5f783b803102d9cd62d92bd0ce65",
+      "source_sha256": "dc9058299ea037f8d23eab21cbd18f8e2f0575018b881f2cb62adeb956bcc7ef",
+      "safe_sha256": "dc9058299ea037f8d23eab21cbd18f8e2f0575018b881f2cb62adeb956bcc7ef",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_video_evidence_ai_bridge_preview.py",
+      "source_blob": "e9edb425afd17823234a120363c22adaa0f60c31",
+      "source_sha256": "7dcc303e209471717fa16d5fe82d97ed09e1f108663562cd194e32b97a0ef43a",
+      "safe_sha256": "7dcc303e209471717fa16d5fe82d97ed09e1f108663562cd194e32b97a0ef43a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_video_evidence_preview.py",
+      "source_blob": "c94e29138ffa5be0372916fb3e89484c047424cc",
+      "source_sha256": "e3bef211e5e83fcf8557fd34fc7af58c293b2cebe0d6a2eabddc1f33ee497a80",
+      "safe_sha256": "e3bef211e5e83fcf8557fd34fc7af58c293b2cebe0d6a2eabddc1f33ee497a80",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_video_evidence_v03_preview.py",
+      "source_blob": "379b09f27daa4fec36a8c77d61a74b391293c05d",
+      "source_sha256": "7048ec2f1774d4b41b7bd3709a42d0801a59328bc7db1f4ae07ceace3477b45b",
+      "safe_sha256": "7048ec2f1774d4b41b7bd3709a42d0801a59328bc7db1f4ae07ceace3477b45b",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_video_first_v051_preview.py",
+      "source_blob": "fd81dac7d13ee0da74a6b737bb114d4b4eae6b90",
+      "source_sha256": "539e213121bc444ba9aa58e6673755a101e036013ec38db77411d60b018c364d",
+      "safe_sha256": "539e213121bc444ba9aa58e6673755a101e036013ec38db77411d60b018c364d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_video_first_v05_preview.py",
+      "source_blob": "be6471b15bdd2db43dd4a10406dd09890dbae530",
+      "source_sha256": "a256eb9da1e4ed9bace8ad7775d356c688ca9b17a52ceabe401d72589b5658c2",
+      "safe_sha256": "a256eb9da1e4ed9bace8ad7775d356c688ca9b17a52ceabe401d72589b5658c2",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/build_vision_windows.bat",
+      "source_blob": "cf26734ed4aa54166da587330abba4cfb8c4c942",
+      "source_sha256": "0e0787b82dedf5018743cb6f6754dccafcd632f57890ec39a37b9f53097ad2d7",
+      "safe_sha256": "0e0787b82dedf5018743cb6f6754dccafcd632f57890ec39a37b9f53097ad2d7",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/compare_scene_bootstrap_prompts.py",
+      "source_blob": "713266a625eeed2e03a589184ba2431deab85541",
+      "source_sha256": "0bbd7ecf1c854646b4004a909c42f388c36f84241fb040d2c9d65d108fcbc354",
+      "safe_sha256": "0bbd7ecf1c854646b4004a909c42f388c36f84241fb040d2c9d65d108fcbc354",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/cross_match_tracker.py",
+      "source_blob": "854e73f9e5b86b0f8de8e3c414cbd2829f5739b6",
+      "source_sha256": "264995ed77ea49902223472a2b507c4e1eb0ecf6c945b5b3a0d6d7e7cbbf8d46",
+      "safe_sha256": "264995ed77ea49902223472a2b507c4e1eb0ecf6c945b5b3a0d6d7e7cbbf8d46",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/download_torch_wheel.py",
+      "source_blob": "41b726e31a0f23dcf7a60d63407cc076dd074a75",
+      "source_sha256": "7a0d2fbdcabeabceb1b61207022a795584a88d53fcee2d811535001ec7bce216",
+      "safe_sha256": "7a0d2fbdcabeabceb1b61207022a795584a88d53fcee2d811535001ec7bce216",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/download_vision_holdout.py",
+      "source_blob": "52ea095ee0c2332cd98eddd793c394f90a2a42ad",
+      "source_sha256": "04036dd475e50faf191e44ffac7550cc4d0b8bdb7bf6b6b075cec3a8627c6681",
+      "safe_sha256": "04036dd475e50faf191e44ffac7550cc4d0b8bdb7bf6b6b075cec3a8627c6681",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/download_vision_sample.py",
+      "source_blob": "8aa8da94135324e0e3aa04620c826e359ef045ff",
+      "source_sha256": "b4a65b8f393ddcebe0939c5822b3720d59421b3499268389af83559fe8448974",
+      "safe_sha256": "b4a65b8f393ddcebe0939c5822b3720d59421b3499268389af83559fe8448974",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/evaluate_extended_openttgames.py",
+      "source_blob": "2019540d37e8b6cae12d74ea9fa1e718e2ae3bff",
+      "source_sha256": "6db4a9889caf310fb676f37250887663d9da62e3fb45199df8bcf72952757387",
+      "safe_sha256": "6db4a9889caf310fb676f37250887663d9da62e3fb45199df8bcf72952757387",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/evaluate_person_detector.py",
+      "source_blob": "96c96fe3fe8fb554dc004e6d00c30ee672f69570",
+      "source_sha256": "0641b06bef03a7b2eb65fdad840f743ad485d6e9163841c5089a6e2055372dfc",
+      "safe_sha256": "0641b06bef03a7b2eb65fdad840f743ad485d6e9163841c5089a6e2055372dfc",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/evaluate_scene_bootstrap_multimatch.py",
+      "source_blob": "4204df866e1015d859d6cba6918d00da5a27a1b9",
+      "source_sha256": "c3d014fc453cd8fee72262feaa30897fc37542c4c4fcedec02f45a1752ba1275",
+      "safe_sha256": "c3d014fc453cd8fee72262feaa30897fc37542c4c4fcedec02f45a1752ba1275",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/finalize_fullmatch_long_qa.py",
+      "source_blob": "905177cb05a53ba2d78969fb0be31a3505e96450",
+      "source_sha256": "a1a5779db02d4ecedfb0e4cdc835f3ae3f4a84b6cbbd48a837324320798e45f5",
+      "safe_sha256": "a1a5779db02d4ecedfb0e4cdc835f3ae3f4a84b6cbbd48a837324320798e45f5",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/finalize_person_development.py",
+      "source_blob": "837a2835cd2dc969bd876d5f009905f55c3e96a2",
+      "source_sha256": "cee43fd6289e96bc84cca2d431dfd90c0762c9f52d4941c0f095977854dd21c2",
+      "safe_sha256": "cee43fd6289e96bc84cca2d431dfd90c0762c9f52d4941c0f095977854dd21c2",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/make_icon.py",
+      "source_blob": "48b44f01e4941e25d35706c922cfb91b0a9ddf80",
+      "source_sha256": "eed62ca599a26ff2f6d53a8df3fee6982993aa34e33d987fe4c4d95066b60933",
+      "safe_sha256": "eed62ca599a26ff2f6d53a8df3fee6982993aa34e33d987fe4c4d95066b60933",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/make_sample.py",
+      "source_blob": "a6c8a306b82eb328e7ae2d35484e33f0f981fc8a",
+      "source_sha256": "f5782fb91ad1e6d2c50a2d30fd97449478a045fcb12ad4b01539eba14fad990b",
+      "safe_sha256": "f5782fb91ad1e6d2c50a2d30fd97449478a045fcb12ad4b01539eba14fad990b",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/package_release.ps1",
+      "source_blob": "757fcf1111df20acae4bf902df036ccf50596fb6",
+      "source_sha256": "dd80ccaeb25e42c81f7f1491cb17dc8035246b09a72fad34e0199ca6122fc5ca",
+      "safe_sha256": "dd80ccaeb25e42c81f7f1491cb17dc8035246b09a72fad34e0199ca6122fc5ca",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/prepare_balltrack_final.py",
+      "source_blob": "e151348b2c26d3ebc31401b54fbbe8e6fed4b04b",
+      "source_sha256": "51fe76adb5b53c8a0fdbc7046086f5bf79aa0c16243101961f479773717af3ff",
+      "safe_sha256": "51fe76adb5b53c8a0fdbc7046086f5bf79aa0c16243101961f479773717af3ff",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/prepare_balltrack_final_media.py",
+      "source_blob": "be6df69e827ca2eb7e3fcb24e4cc7a0116831b3e",
+      "source_sha256": "47461c1acf69963553bff073a8394faa874bb879966d4f3fe728e735a423ba21",
+      "safe_sha256": "47461c1acf69963553bff073a8394faa874bb879966d4f3fe728e735a423ba21",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/prepare_game4_calibration.py",
+      "source_blob": "d6d47d484e7ee5a47fa2ce3f3ecb98eee33d17c9",
+      "source_sha256": "aed13c999834b5d491cdf7e9ab57bbadc45a3e7e169c9f31194bfb691d69e615",
+      "safe_sha256": "aed13c999834b5d491cdf7e9ab57bbadc45a3e7e169c9f31194bfb691d69e615",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/prepare_specialist.py",
+      "source_blob": "84745d6d5fe4edcef37a227b732c6c08cb39c661",
+      "source_sha256": "790106e71c38630ab55699dd1cc894b59f0a066a09875d6eb53c1f931ca01cf2",
+      "safe_sha256": "790106e71c38630ab55699dd1cc894b59f0a066a09875d6eb53c1f931ca01cf2",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/qa_video_evidence_v02_native.ps1",
+      "source_blob": "eae2898bf515325c63112d59f3c7673af0ecf162",
+      "source_sha256": "e27975502b7958d860790a4b56c35fdc93be5005f2098dc50cade67ab080c768",
+      "safe_sha256": "e27975502b7958d860790a4b56c35fdc93be5005f2098dc50cade67ab080c768",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/refresh_official_video_catalog.py",
+      "source_blob": "42dbb56ec1ac1972701f3fec5c0d40fef99635ce",
+      "source_sha256": "e72d3c272301f82d09202533eabe85812a8d2b4a2fe1721e670c8a85b60b1363",
+      "safe_sha256": "e72d3c272301f82d09202533eabe85812a8d2b4a2fe1721e670c8a85b60b1363",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/render_tracker_errors.py",
+      "source_blob": "8e04ae5e76178030b9a8a8a442f02ac4bd035043",
+      "source_sha256": "26ef6a0de09bec9141d77e9d23aaf5410cb84a020e415622bb079a56157f0c69",
+      "safe_sha256": "26ef6a0de09bec9141d77e9d23aaf5410cb84a020e415622bb079a56157f0c69",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/repair_balltrack_final_manifest.py",
+      "source_blob": "d89c2242b0607a03c3e60b591c91bce4c98a9bd0",
+      "source_sha256": "32bd44c9e65ab47fb1167260bcb38f600b6dd11357f751ab6e00b3e464236b10",
+      "safe_sha256": "32bd44c9e65ab47fb1167260bcb38f600b6dd11357f751ab6e00b3e464236b10",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/report_balltrack_final.py",
+      "source_blob": "e0a9249d63d6bd7af808ab9a0ba50765c5bbcb2a",
+      "source_sha256": "377b626ab156df1716c76db8924c138325b24aeee57f687c5bd53b74ec79e144",
+      "safe_sha256": "377b626ab156df1716c76db8924c138325b24aeee57f687c5bd53b74ec79e144",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/report_specialist.py",
+      "source_blob": "392b9bde3ef91218774000765c202908495a5d46",
+      "source_sha256": "d3c934789b9ac54d006f31b8be62e2b9ba38f06d9e6d17e0b6c6b74a88bce6a7",
+      "safe_sha256": "d3c934789b9ac54d006f31b8be62e2b9ba38f06d9e6d17e0b6c6b74a88bce6a7",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/requirements-player-motion-runtime.txt",
+      "source_blob": "3e9c1d5a1399e7e48e90271a371ee7081f474bda",
+      "source_sha256": "ae0f7618e5b50f8dcbac27abfbf12a6282032c6f497a7516e7aa8c09ca1a5475",
+      "safe_sha256": "ae0f7618e5b50f8dcbac27abfbf12a6282032c6f497a7516e7aa8c09ca1a5475",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/run_evidence_fusion.py",
+      "source_blob": "ef2347a31f479aaad177119431598978b61b28d6",
+      "source_sha256": "7875809df1ad9cc747f3602ed18821a6620d2ec45d9a4964cacf7015d2125ac2",
+      "safe_sha256": "7875809df1ad9cc747f3602ed18821a6620d2ec45d9a4964cacf7015d2125ac2",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/run_extended_openttgames_training.py",
+      "source_blob": "b85f1aa88a64ea91accdb73c68ff27fd392d2b55",
+      "source_sha256": "aac8e352e4a7de3332ca27857f48a381d541a1b4694ec0c885716dfcbe326794",
+      "safe_sha256": "aac8e352e4a7de3332ca27857f48a381d541a1b4694ec0c885716dfcbe326794",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/run_full_dev_game.py",
+      "source_blob": "e3e767d90fd137e4d01fd0569c15f68f73e3ce6a",
+      "source_sha256": "62474050a11812ffb5fcc51c902ead0facd448d4805781b005ab7a50ec93a652",
+      "safe_sha256": "62474050a11812ffb5fcc51c902ead0facd448d4805781b005ab7a50ec93a652",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/run_full_dev_hit_v02.py",
+      "source_blob": "9b3500502d0b28fe739ddeec0f9a73c16adde683",
+      "source_sha256": "0fb58632c48fd6ac3d2ebd464ccf56de2b1ffe5ccb3ed28de71d04c255049ce6",
+      "safe_sha256": "0fb58632c48fd6ac3d2ebd464ccf56de2b1ffe5ccb3ed28de71d04c255049ce6",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/run_fullmatch_long_qa.py",
+      "source_blob": "d0f9c1cc946e8b1080aacbf09ff921d24c5dcab9",
+      "source_sha256": "361b71fb811013d74f5b8e3de2a643fdcdb84f376913104fce35db9870c521e5",
+      "safe_sha256": "361b71fb811013d74f5b8e3de2a643fdcdb84f376913104fce35db9870c521e5",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/run_game4_calibration_balltrack.py",
+      "source_blob": "b1caa44137d46a29be383183919a257c41008975",
+      "source_sha256": "5ecaefed27df025cf85949066bd4e2203f83d951444665d50be51a8e4baff708",
+      "safe_sha256": "5ecaefed27df025cf85949066bd4e2203f83d951444665d50be51a8e4baff708",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/run_hit_event_v02_dev_smoke.py",
+      "source_blob": "d338b5d5bb79782ce3a042c52320e0a0d688e42e",
+      "source_sha256": "32ec9d1ae13ec3660d3830f6f29370f3f80eaee81331ee95250695d524c6ee4f",
+      "safe_sha256": "32ec9d1ae13ec3660d3830f6f29370f3f80eaee81331ee95250695d524c6ee4f",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/run_scene_bootstrap.py",
+      "source_blob": "b15a7832554e71eeeef9b3666281b92522f910a4",
+      "source_sha256": "747272e88a65148e935d28121d7868a75ceb01b55c8d8b26e4101a195fed1cda",
+      "safe_sha256": "747272e88a65148e935d28121d7868a75ceb01b55c8d8b26e4101a195fed1cda",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/setup_player_motion_runtime.ps1",
+      "source_blob": "c38b3e7337da82b2949e8f56df279f3cd93edcef",
+      "source_sha256": "b0dcfb4da79931fa7a373844d697befc6f833bc17bf2b24020320ef70fad8b73",
+      "safe_sha256": "b0dcfb4da79931fa7a373844d697befc6f833bc17bf2b24020320ef70fad8b73",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/setup_vision.ps1",
+      "source_blob": "41852daa262b4972944bfd7d5a1238e657c6901b",
+      "source_sha256": "490cab075deafdcc3513b905c0787b6366b7b799f34182d9dff8b7f1ad860125",
+      "safe_sha256": "490cab075deafdcc3513b905c0787b6366b7b799f34182d9dff8b7f1ad860125",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/stage_extended_openttgames_train.py",
+      "source_blob": "1146ab48e448ddb93a878bf799fb968409509df0",
+      "source_sha256": "cb9f36b370d4ad69b0bddbd115cfa3036e84a986e918468ad9054b672516bc85",
+      "safe_sha256": "cb9f36b370d4ad69b0bddbd115cfa3036e84a986e918468ad9054b672516bc85",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/study_balltrack_decoder.py",
+      "source_blob": "94b7db5996fc2d97988c0b0cbbe97350405c6597",
+      "source_sha256": "7396f628eab4484714801793089b94fc2c521574d0c8b308914217ccb207486e",
+      "safe_sha256": "7396f628eab4484714801793089b94fc2c521574d0c8b308914217ccb207486e",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/trace_database_state.py",
+      "source_blob": "fc45f927981833f6fa314e0ba551eeb3664eca02",
+      "source_sha256": "ccc39294fd6414cb4e30734d253328f520b6836d757b2dbc0dfb07e518349139",
+      "safe_sha256": "ccc39294fd6414cb4e30734d253328f520b6836d757b2dbc0dfb07e518349139",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/validate_person_sources.py",
+      "source_blob": "e5fd5a511e05ac6a629ae2048324b17a28a941a4",
+      "source_sha256": "cdd1c4f67ca85f837d6b03c454cae901222cd6b05b091cb4b8854e622a3041a5",
+      "safe_sha256": "cdd1c4f67ca85f837d6b03c454cae901222cd6b05b091cb4b8854e622a3041a5",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/write_anchor_visibility_truth.py",
+      "source_blob": "c7202f217c4d97706cb354c976f90ae936584bc7",
+      "source_sha256": "24047d6ee8d20f3b3b9b975291fab084c57568fb38d60e862d016b03905cf96a",
+      "safe_sha256": "24047d6ee8d20f3b3b9b975291fab084c57568fb38d60e862d016b03905cf96a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/write_build_info.py",
+      "source_blob": "480db053044461eb2a43b8344cb76417ef4b8828",
+      "source_sha256": "32fd59174d6fb890504b152ac8ded6b1263e7407b8373bd42af5c86494a4c10a",
+      "safe_sha256": "32fd59174d6fb890504b152ac8ded6b1263e7407b8373bd42af5c86494a4c10a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/setup_windows.bat",
+      "source_blob": "87345c934a06fab8798820953477d0bacb5f8415",
+      "source_sha256": "a40df9ffe1049c26ca80455b6d6b2c7fb68c8cc4bbf19ac7c072e50b496e0e1d",
+      "safe_sha256": "a40df9ffe1049c26ca80455b6d6b2c7fb68c8cc4bbf19ac7c072e50b496e0e1d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/conftest.py",
+      "source_blob": "8778cb8f0d7d070a726b143f69bd5ba339d9db8a",
+      "source_sha256": "89186642772ba0d8f0f7eb705f40be543c1606658ef8598a1cb0fc084a3ac782",
+      "safe_sha256": "89186642772ba0d8f0f7eb705f40be543c1606658ef8598a1cb0fc084a3ac782",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_anchor_guided_tracker.py",
+      "source_blob": "c2b2a72e92efaea892b4fa4ea2a1ad5063374a3b",
+      "source_sha256": "aaf83edffbb3610cc165b2a864e486b93645da361d069ac6c886abaccc71f7a4",
+      "safe_sha256": "aaf83edffbb3610cc165b2a864e486b93645da361d069ac6c886abaccc71f7a4",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_balltrack_postprocess.py",
+      "source_blob": "eaf1f67fa8c21c44e017e440bac4a99af4f46c40",
+      "source_sha256": "b83219b28586fda82f20b7454b907e669ce478c7df064cbfedd172f38a05a0d1",
+      "safe_sha256": "b83219b28586fda82f20b7454b907e669ce478c7df064cbfedd172f38a05a0d1",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_balltrack_specialist.py",
+      "source_blob": "f136e82edbf3170c1e808710083ceb546179f96a",
+      "source_sha256": "442b93a9d5dce6be25dca327a102665a2b3d18d0ff640105f857cc633ac9a755",
+      "safe_sha256": "442b93a9d5dce6be25dca327a102665a2b3d18d0ff640105f857cc633ac9a755",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_database_isolation.py",
+      "source_blob": "7ddc61a95e7511ef7e08539d2348c684b4dfc706",
+      "source_sha256": "de7cf77ad2b1f697929f4110d345c4ade50bf6063f7fbf07e99a8522da36c636",
+      "safe_sha256": "de7cf77ad2b1f697929f4110d345c4ade50bf6063f7fbf07e99a8522da36c636",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_desktop_ux.py",
+      "source_blob": "dc6b9b85eabe363e32e390332acce4f432c53001",
+      "source_sha256": "f322132879eb215a75275178f80af870f49fd3a82e570a1668f1239185734b8e",
+      "safe_sha256": "f322132879eb215a75275178f80af870f49fd3a82e570a1668f1239185734b8e",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_evidence_fusion.py",
+      "source_blob": "9e6cc0d5f498f07785506d3fc7fefeabc848d3e6",
+      "source_sha256": "f347a5c63eb8234fc4e7490d6636d64033e6cb38e4c0572ca58118f2c23f9242",
+      "safe_sha256": "f347a5c63eb8234fc4e7490d6636d64033e6cb38e4c0572ca58118f2c23f9242",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_evidence_fusion_api.py",
+      "source_blob": "910577bb880cb7cd488db18ab9a35fbdabebcaa9",
+      "source_sha256": "1249429aca2eca9ca45def39d3e3790da27085deeb8b02725755c88197c77786",
+      "safe_sha256": "1249429aca2eca9ca45def39d3e3790da27085deeb8b02725755c88197c77786",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_extended_openttgames.py",
+      "source_blob": "037f53a88595a0d7a19f1772300793c54964b042",
+      "source_sha256": "3b9c9a4a273038127f8a55845ca673122f3127f3552a47d6881fa99544481bbd",
+      "safe_sha256": "3b9c9a4a273038127f8a55845ca673122f3127f3552a47d6881fa99544481bbd",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_full_dev_hit_runner.py",
+      "source_blob": "2b72c6c72befb79ce5f94e2cc4f6aeadcc4238e3",
+      "source_sha256": "4e2f3769f00c74c870bc2d2b906a8e062680f1c03f4314b999c688102798a517",
+      "safe_sha256": "4e2f3769f00c74c870bc2d2b906a8e062680f1c03f4314b999c688102798a517",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_full_dev_pipeline.py",
+      "source_blob": "c9ebcdcc4ca4927d3edf9d83f553d360f8336593",
+      "source_sha256": "83067bf23958277cf4ef4598b4bcc412ea4280e30cbda5612033d36adfeec1fd",
+      "safe_sha256": "83067bf23958277cf4ef4598b4bcc412ea4280e30cbda5612033d36adfeec1fd",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_fullmatch_foundation.py",
+      "source_blob": "f6f3528ca1146ac1e227f5d038381e8e4c358aab",
+      "source_sha256": "c1b4e58ad81a916c7c4f7d28079d1495f3c75fea821a07f31fe64fdd821a2c70",
+      "safe_sha256": "c1b4e58ad81a916c7c4f7d28079d1495f3c75fea821a07f31fe64fdd821a2c70",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_hit_event_v02.py",
+      "source_blob": "c18383d777102154ef328cf1bd40521ee871d5ce",
+      "source_sha256": "4f3c5c6a20eb097d5a573f922ebe697e4b19a2c216321a02315125262f065eef",
+      "safe_sha256": "4f3c5c6a20eb097d5a573f922ebe697e4b19a2c216321a02315125262f065eef",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_hit_v03_calibration.py",
+      "source_blob": "ab1127485e71967a0079e79250f018ef44590aa8",
+      "source_sha256": "d616192c2b4fa9c20b728ee3006d9abaf541734f0a5d9c24020b15d05dfda372",
+      "safe_sha256": "d616192c2b4fa9c20b728ee3006d9abaf541734f0a5d9c24020b15d05dfda372",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_hit_v03_research.py",
+      "source_blob": "63f7931a55171b7b3079a40ff292e0494ced5eff",
+      "source_sha256": "faa6265a88d88a467b6a2f04d85dd88a0ba5fa60f49fa65ad052e883e4cd85a3",
+      "safe_sha256": "faa6265a88d88a467b6a2f04d85dd88a0ba5fa60f49fa65ad052e883e4cd85a3",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_hybrid_scene.py",
+      "source_blob": "dc3175f7424ac48b163fe15e85364bd58ae023a9",
+      "source_sha256": "5fb539dc21671f0bfbf1d65706650fbd0e13f3a01eb58c6399200db510703bb3",
+      "safe_sha256": "5fb539dc21671f0bfbf1d65706650fbd0e13f3a01eb58c6399200db510703bb3",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_match_structure.py",
+      "source_blob": "11d5856b63a13f5940339f4158c29bf3da7e0f2f",
+      "source_sha256": "5e6e4837aa1b5c99c87e3b06cc9d0a87c57df62f4bf0c95e358b9f8e5e4c4f7d",
+      "safe_sha256": "5e6e4837aa1b5c99c87e3b06cc9d0a87c57df62f4bf0c95e358b9f8e5e4c4f7d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_match_video_library.py",
+      "source_blob": "40d8dbbafd0eee929b1beeec7097dd93d1a8a257",
+      "source_sha256": "0ae5eec9a5b3478a508ea7d0a5696796f14a27ee5cbdaf38853f0869e798fac6",
+      "safe_sha256": "0ae5eec9a5b3478a508ea7d0a5696796f14a27ee5cbdaf38853f0869e798fac6",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_person_detector.py",
+      "source_blob": "32c7041f7ff928ed24e9d976b479356f092a7bc8",
+      "source_sha256": "b609cd72fd9bff82b4ec3f9319063fa4e7b2523ff75886f1f9f9293c04f36292",
+      "safe_sha256": "b609cd72fd9bff82b4ec3f9319063fa4e7b2523ff75886f1f9f9293c04f36292",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_player_motion.py",
+      "source_blob": "87b37343f0f639c1f15682c9a9ddce90b9d24dcf",
+      "source_sha256": "39866df4322899a69ea72797fb2b27d8bb60d44e19259e496ef1e482b5ff41a7",
+      "safe_sha256": "39866df4322899a69ea72797fb2b27d8bb60d44e19259e496ef1e482b5ff41a7",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_player_motion_api.py",
+      "source_blob": "2ba5b548ca3c5826de0c2a08605c38692ab1c067",
+      "source_sha256": "6acb6a2368f32666fc085b27d5289fdc6593ef56b5f3ab21a6bf708b01e63d88",
+      "safe_sha256": "6acb6a2368f32666fc085b27d5289fdc6593ef56b5f3ab21a6bf708b01e63d88",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_player_tracking_closed_loop.py",
+      "source_blob": "2bf0b3e8fe3db8d7631440b2994c4f2533cc5cf2",
+      "source_sha256": "c632381c9325bfdc3975d397f434108e9fda8a370095f198fdb20c105a1c57a8",
+      "safe_sha256": "c632381c9325bfdc3975d397f434108e9fda8a370095f198fdb20c105a1c57a8",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_player_tracking_loop.py",
+      "source_blob": "f9680a92124c14525409c7a1665300d693b8e742",
+      "source_sha256": "a21cfcda03f93bf43ae20411fcba2aed0e5ce957ad3d52a5002dea30ab2d1c15",
+      "safe_sha256": "a21cfcda03f93bf43ae20411fcba2aed0e5ce957ad3d52a5002dea30ab2d1c15",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_preview_overlay_resources.py",
+      "source_blob": "39ef48161c0f61784ea375859fd8fc9a66d07215",
+      "source_sha256": "9f15f6b6e792f1d2ceb6b57de22fecb1d371783195395530abf664d3ddd63eb2",
+      "safe_sha256": "9f15f6b6e792f1d2ceb6b57de22fecb1d371783195395530abf664d3ddd63eb2",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_preview_v03.py",
+      "source_blob": "1a9541f8439059244b936a68575b3d83be20711e",
+      "source_sha256": "71d8ef3bf95784c8d9ad5b694ef7e6cdc70a7765b3a3307c2f0e41cf23c7b612",
+      "safe_sha256": "71d8ef3bf95784c8d9ad5b694ef7e6cdc70a7765b3a3307c2f0e41cf23c7b612",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_professional_foundation.py",
+      "source_blob": "61c641a133b08ed36a23bff418e3faaad81dcff9",
+      "source_sha256": "bfac97081d09c9f4c136e849f750639e82a236a4baca50f84f0e674c12f370ff",
+      "safe_sha256": "bfac97081d09c9f4c136e849f750639e82a236a4baca50f84f0e674c12f370ff",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_professional_preview.py",
+      "source_blob": "55d7cb2a709ea38a98fb37cf740434aa4341408e",
+      "source_sha256": "2b34761d3b357fe8f254fdea9ecee126567290fa92f88a37d438be33d2c50a38",
+      "safe_sha256": "2b34761d3b357fe8f254fdea9ecee126567290fa92f88a37d438be33d2c50a38",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_protocol_adapter.py",
+      "source_blob": "e31c70ad98f92c1165d85bb30dee6e00c844dce4",
+      "source_sha256": "94915c9417fe1821e478ae665ca34de7f4661a4644b868c45e05f29fd53b8c53",
+      "safe_sha256": "94915c9417fe1821e478ae665ca34de7f4661a4644b868c45e05f29fd53b8c53",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_ptti.py",
+      "source_blob": "82816161ce7cfc5f7526d2dc2ce8002276581f91",
+      "source_sha256": "f524518059f24c2c5fbec62a97af078c8fb1cb78d279793086e6bb76ad7ed2cb",
+      "safe_sha256": "f524518059f24c2c5fbec62a97af078c8fb1cb78d279793086e6bb76ad7ed2cb",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_sam2_player_tracking.py",
+      "source_blob": "a168c74a8e0c54eab0a90500d8048880d7655efc",
+      "source_sha256": "918515b30a12c1bbc862b5bb5edd2f20076a55b530e04f3bf7e56bb7ea628b64",
+      "safe_sha256": "918515b30a12c1bbc862b5bb5edd2f20076a55b530e04f3bf7e56bb7ea628b64",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_scene_bootstrap.py",
+      "source_blob": "6326feb436f245a6a88d57fb29823fc4734f2eb4",
+      "source_sha256": "f72dc0abf112c062020f4d19e2d50f0f40498e35f39eb952eb9891cee71ff437",
+      "safe_sha256": "f72dc0abf112c062020f4d19e2d50f0f40498e35f39eb952eb9891cee71ff437",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_score_navigation.py",
+      "source_blob": "b69f496af233e86736aefedd4a4ab1a9881b1ed4",
+      "source_sha256": "e1466850706e95a5be5d3ff514cf40ed5af8ec78da7e2d86294e8d26b0be8126",
+      "safe_sha256": "e1466850706e95a5be5d3ff514cf40ed5af8ec78da7e2d86294e8d26b0be8126",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_stage_extended_openttgames_train.py",
+      "source_blob": "00ff79c75c0e9f4411878a4306c5c0e0ac0a844d",
+      "source_sha256": "328dd7ccbc4b75b130249cc26ed0d0211c1f6bdeb53112f9dd60c5bb2fea4e2a",
+      "safe_sha256": "328dd7ccbc4b75b130249cc26ed0d0211c1f6bdeb53112f9dd60c5bb2fea4e2a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_tti_tracker.py",
+      "source_blob": "6b1c15b884a72c8ba96340f44f8577dcbe82fbcc",
+      "source_sha256": "cacd94ed986e61fd1b02d88d31501c5cfde1061e618cd29cb1baa01cc3c5f4c0",
+      "safe_sha256": "cacd94ed986e61fd1b02d88d31501c5cfde1061e618cd29cb1baa01cc3c5f4c0",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_video_evidence.py",
+      "source_blob": "05ae1469213c87134e9312aba4b82df0b874c812",
+      "source_sha256": "201d5cb6760a1e1547f11e4e11fb0558467e8731fcf6c8c7b4d76ef4d8f7e673",
+      "safe_sha256": "201d5cb6760a1e1547f11e4e11fb0558467e8731fcf6c8c7b4d76ef4d8f7e673",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_video_evidence_export_security.py",
+      "source_blob": "d6cc59a6573c9051f58b8a46da8097d1d0dbd175",
+      "source_sha256": "4055368b62e2169c1662faf482b172eb40ea9d23d141ec292fe4934f965af46d",
+      "safe_sha256": "4055368b62e2169c1662faf482b172eb40ea9d23d141ec292fe4934f965af46d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_video_metadata_boundaries.py",
+      "source_blob": "5a906c45c754b1a71e2589be055507ddaf9079ac",
+      "source_sha256": "686e0415a6ee4c71df9ae657c7f871141491f1018c645084c099fd1c9e298f1a",
+      "safe_sha256": "686e0415a6ee4c71df9ae657c7f871141491f1018c645084c099fd1c9e298f1a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_vision.py",
+      "source_blob": "f85f4c8bb04d5d17f8f31f5562af410329b7b50c",
+      "source_sha256": "6e2a287798cee9dd2db77f260e2a46f54f8abd24ebc99d7583c9828550bdf228",
+      "safe_sha256": "6e2a287798cee9dd2db77f260e2a46f54f8abd24ebc99d7583c9828550bdf228",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_vision_benchmark_foundation.py",
+      "source_blob": "ff06d2c1d56a9027fc5d4ecca78909fc2be93d7d",
+      "source_sha256": "357fc53b886ba5b483e5046311449deab381864763850ced3ec6f5afac7a4287",
+      "safe_sha256": "357fc53b886ba5b483e5046311449deab381864763850ced3ec6f5afac7a4287",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_vision_hardening.py",
+      "source_blob": "f4d7961be598ff0de99238520b86867cd3c38e69",
+      "source_sha256": "dd2ab27ace98ec8f23df5c43f07fe786530fd091a0ddb1f811b8e9638c11a7f6",
+      "safe_sha256": "dd2ab27ace98ec8f23df5c43f07fe786530fd091a0ddb1f811b8e9638c11a7f6",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_vision_suite.py",
+      "source_blob": "875e6f82a5819cffce08e2ea511125eb35f00490",
+      "source_sha256": "c59a023befa6c7cd7eabffdcf35cf7a81e94ab8bf440000c72d5b3c7f35701df",
+      "safe_sha256": "c59a023befa6c7cd7eabffdcf35cf7a81e94ab8bf440000c72d5b3c7f35701df",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_vision_v2.py",
+      "source_blob": "be71b2a092ce83580f69573a0c086dc554675fe8",
+      "source_sha256": "3b91c11526d895fac9451e0f2016f1c2a8fd571fa37ae3793fb148f8d86eb10e",
+      "safe_sha256": "3b91c11526d895fac9451e0f2016f1c2a8fd571fa37ae3793fb148f8d86eb10e",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/__init__.py",
+      "source_blob": "e90b04b0a0324ccfb83c104190c202017a200f81",
+      "source_sha256": "8e3dd476c252e9de37d65a35b3de44098e7c46a39763772b8cb5c0b359247bf4",
+      "safe_sha256": "8e3dd476c252e9de37d65a35b3de44098e7c46a39763772b8cb5c0b359247bf4",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/__main__.py",
+      "source_blob": "4e109f881b2a64588c2255a934b3cd55f5587fd9",
+      "source_sha256": "6ce42e2a8d163c792bd75614b84ccb7fd78461fe39eca5b55ce59fd59a381159",
+      "safe_sha256": "6ce42e2a8d163c792bd75614b84ccb7fd78461fe39eca5b55ce59fd59a381159",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/adapter.py",
+      "source_blob": "83c55ae7d06c83f361a039a94d3455aba0fc30a4",
+      "source_sha256": "c20f3a4706db53482e7d4ae372b29748a2511792e609482b7e6912b9dbc740f2",
+      "safe_sha256": "c20f3a4706db53482e7d4ae372b29748a2511792e609482b7e6912b9dbc740f2",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/benchmark.py",
+      "source_blob": "bbac4c6e72c7240b1e619344bb383146a5e65358",
+      "source_sha256": "068bfa427fa376984cb3cb6a72ca4088c90e780313e086552aed6bb0ad48b5f0",
+      "safe_sha256": "068bfa427fa376984cb3cb6a72ca4088c90e780313e086552aed6bb0ad48b5f0",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/config.py",
+      "source_blob": "535149999b1f6179d123c46506e7aa1ae0148a8a",
+      "source_sha256": "58cba79a0d7e91f518d45ccc58515fe133635357474dc38212aa8583f5e8c40d",
+      "safe_sha256": "58cba79a0d7e91f518d45ccc58515fe133635357474dc38212aa8583f5e8c40d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/doctor.py",
+      "source_blob": "9f1f036c7672eba32c913e860cdb9496f76b20e2",
+      "source_sha256": "1d53ed4ad265b7a18d99db685b2834cd73224672eb319002fec05e1852578960",
+      "safe_sha256": "1d53ed4ad265b7a18d99db685b2834cd73224672eb319002fec05e1852578960",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/hardening.py",
+      "source_blob": "f5dbfbb6863daba8bc9dac2109ebdeab0dc7832f",
+      "source_sha256": "ef74fed155f20f1a2bd18e4a5753a16c01c9d86a8a04ccff2f7ae9f761822908",
+      "safe_sha256": "ef74fed155f20f1a2bd18e4a5753a16c01c9d86a8a04ccff2f7ae9f761822908",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/models.py",
+      "source_blob": "7ad85346d231b1bc185901b87d2627f63559d982",
+      "source_sha256": "94db8887faf992687e7656d39c0eea352b14233f12f5a9b39296208cb9638636",
+      "safe_sha256": "94db8887faf992687e7656d39c0eea352b14233f12f5a9b39296208cb9638636",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/postprocess.py",
+      "source_blob": "ca2e8883f4891036303627eaaa138b116f963f7f",
+      "source_sha256": "cba600c8aafcaafb5b9fdc45ba38616f7055e8b2b1b6181ca42f2798699b3ab1",
+      "safe_sha256": "cba600c8aafcaafb5b9fdc45ba38616f7055e8b2b1b6181ca42f2798699b3ab1",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/quality.py",
+      "source_blob": "dae47aa853f306caaa14ea17d6f7ca230ca998f0",
+      "source_sha256": "9acf475ddbeaa06b6b9034d42b26dbded8e77d19bc23db8a1c1c1d58961b28aa",
+      "safe_sha256": "9acf475ddbeaa06b6b9034d42b26dbded8e77d19bc23db8a1c1c1d58961b28aa",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/regression.py",
+      "source_blob": "ac99b76e17382de51af8bc0f684d4295514b79e0",
+      "source_sha256": "ac18d13cb630b1bc233cbd433cfb49558bf5874b0450f82f54ac8ffec3462166",
+      "safe_sha256": "ac18d13cb630b1bc233cbd433cfb49558bf5874b0450f82f54ac8ffec3462166",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/runner.py",
+      "source_blob": "f456b6e8d485b11eb3fb6b0e53e766ac65312b5d",
+      "source_sha256": "469d7a6ae4e9dc95c5bf19a1c5b3154ba6196d548195a057228b7748eaa3bda7",
+      "safe_sha256": "469d7a6ae4e9dc95c5bf19a1c5b3154ba6196d548195a057228b7748eaa3bda7",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/schema.py",
+      "source_blob": "ce2ab93c1b8c5c037f9d38c89ec66019e130338e",
+      "source_sha256": "b64ca0b4257df1ecdd93e949442d291a179b60d2e8d153280851515b960808c9",
+      "safe_sha256": "b64ca0b4257df1ecdd93e949442d291a179b60d2e8d153280851515b960808c9",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/service.py",
+      "source_blob": "6eb1441378f4c06aba6ac540f2e39a4ffa099b3b",
+      "source_sha256": "2de5d51f36c6e4d3158efe865ca1c58f4ba94c6c15f079207b018c32d2b3c35a",
+      "safe_sha256": "2de5d51f36c6e4d3158efe865ca1c58f4ba94c6c15f079207b018c32d2b3c35a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/specialist.py",
+      "source_blob": "d8fc876431eb862cd458323a7ee1f9b15cc442ae",
+      "source_sha256": "a0746f949b1be63ae83ecd1c22f2d82f9ea46e727c3c5ca07eadbf2151702428",
+      "safe_sha256": "a0746f949b1be63ae83ecd1c22f2d82f9ea46e727c3c5ca07eadbf2151702428",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/suite.py",
+      "source_blob": "d62c1f25bd9a03a9c9b6510dd08abfc5ff82b79d",
+      "source_sha256": "f33f1920e190a2d7340a8dfdee8da1e34f12028df5d3d6307b05611758dad5dd",
+      "safe_sha256": "f33f1920e190a2d7340a8dfdee8da1e34f12028df5d3d6307b05611758dad5dd",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision/tracker.py",
+      "source_blob": "af60a5365f0fce4a7df3ba529510733ff07cbce0",
+      "source_sha256": "f10fecc5dfae67b99af4fecf56680966be4611662422f61a498b12b81eec6e50",
+      "safe_sha256": "f10fecc5dfae67b99af4fecf56680966be4611662422f61a498b12b81eec6e50",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision_worker/anchor_guided_player_tracker.py",
+      "source_blob": "ad4f175438eabd2460f12dfdaac273ab44aac281",
+      "source_sha256": "48606b2c0fbef95afbb6af5b9749aa277ffe77894c2b07c46f8b130612b3021d",
+      "safe_sha256": "48606b2c0fbef95afbb6af5b9749aa277ffe77894c2b07c46f8b130612b3021d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision_worker/background.py",
+      "source_blob": "e2e109a71f2c399176f9dfabcf9a1a1dde6a3c18",
+      "source_sha256": "66db112f142f71e98d3b665ff65395eab4a425b6e9854efc82926417f8be9744",
+      "safe_sha256": "66db112f142f71e98d3b665ff65395eab4a425b6e9854efc82926417f8be9744",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision_worker/balltrack.py",
+      "source_blob": "a925835372a77e88aa23a205aa074b9faa560ac7",
+      "source_sha256": "3e333abc104917c1f9ecb42143b11b06570d45b0c548b577857ac68c03d162aa",
+      "safe_sha256": "3e333abc104917c1f9ecb42143b11b06570d45b0c548b577857ac68c03d162aa",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision_worker/candidates.py",
+      "source_blob": "c914f1770f8d3ebc311edbf10b677007545a1aea",
+      "source_sha256": "120b42cbedd02de8ca9c33a7fb8d4b6c5839caaa4d6612837590fb5908dee843",
+      "safe_sha256": "120b42cbedd02de8ca9c33a7fb8d4b6c5839caaa4d6612837590fb5908dee843",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision_worker/error_images.py",
+      "source_blob": "be0dd191afd0648e820fb04a59676a815799c13a",
+      "source_sha256": "9272bc207a93fdf77ade56e9f4ac0d882b3de99a132d006ef9da1cd82d5f0979",
+      "safe_sha256": "9272bc207a93fdf77ade56e9f4ac0d882b3de99a132d006ef9da1cd82d5f0979",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision_worker/final_tuning.py",
+      "source_blob": "8869e23cf2b66d28967bf303c2a0b1ceffa816b3",
+      "source_sha256": "f83a3a776b8313c777139445f0ffd51f2e8d934c5ad30ace1aaa2a97b44570c1",
+      "safe_sha256": "f83a3a776b8313c777139445f0ffd51f2e8d934c5ad30ace1aaa2a97b44570c1",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision_worker/overlay.py",
+      "source_blob": "1a6bcb58857e8359f054cf6bb6836464f9974c76",
+      "source_sha256": "34bc82d3a1cd7d8a7996090bfd3de4d1adfb66533a6de9a0c19263f1ae4f7c5c",
+      "safe_sha256": "34bc82d3a1cd7d8a7996090bfd3de4d1adfb66533a6de9a0c19263f1ae4f7c5c",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision_worker/player_motion_rtmpose.py",
+      "source_blob": "24ad0badbf7a5eb625d71d55ace6746f4d4c0795",
+      "source_sha256": "388c28f38911345189501e4f40ea30bcfc12aa7f25d02880c0591d338fa354eb",
+      "safe_sha256": "388c28f38911345189501e4f40ea30bcfc12aa7f25d02880c0591d338fa354eb",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision_worker/player_tracking_closed_loop.py",
+      "source_blob": "97b55e2cbebd87a7da8ca516724454aa96b78887",
+      "source_sha256": "df33d2558a1a93c8306429631c04ada2f6519ebd58cc9dc52d86345e357c4a1c",
+      "safe_sha256": "df33d2558a1a93c8306429631c04ada2f6519ebd58cc9dc52d86345e357c4a1c",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision_worker/probe_rtmpose_single_frame.py",
+      "source_blob": "c3b6910cdf483a653ca2ff5d9b0afcfb880e7ee0",
+      "source_sha256": "9284e0218c6d11c086ced5cdb1edb838c835ff1ae714765278952888cb30f735",
+      "safe_sha256": "9284e0218c6d11c086ced5cdb1edb838c835ff1ae714765278952888cb30f735",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision_worker/requirements.txt",
+      "source_blob": "159931b2da78fc69ce5f26ca853cf87ac51d3100",
+      "source_sha256": "bc68956bab4225fde8aaf95b0af40b784cdc69651600e8da148b14605791af56",
+      "safe_sha256": "bc68956bab4225fde8aaf95b0af40b784cdc69651600e8da148b14605791af56",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision_worker/rtmlib_compat.py",
+      "source_blob": "24bca5559b85ba13c61ca1fb850b34f65ada0fca",
+      "source_sha256": "4938efa5805df86ed58c0a62d40b7e18763216fb7a21921db9957b09b4cbd6a1",
+      "safe_sha256": "4938efa5805df86ed58c0a62d40b7e18763216fb7a21921db9957b09b4cbd6a1",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision_worker/specialist.py",
+      "source_blob": "e384ad145e24cac06fd8e942340cd3f95e7b7b60",
+      "source_sha256": "f376abca2a8eae4f80ec94158f77667beb5968629d7aa679219eda1e492fa816",
+      "safe_sha256": "f376abca2a8eae4f80ec94158f77667beb5968629d7aa679219eda1e492fa816",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/vision_worker/worst_cases.py",
+      "source_blob": "3c73b23b44574870d52c4b676b9278b5408d9c6a",
+      "source_sha256": "9a3ea6703a9680c2b8e7f1300a1607e034fde1a728d9b2838c6650946cf23923",
+      "safe_sha256": "9a3ea6703a9680c2b8e7f1300a1607e034fde1a728d9b2838c6650946cf23923",
+      "transformed": false
+    },
+    {
+      "path": "projects/001-serve-description/README.md",
+      "source_blob": "d1a9dc291b2eb6eb31ca7c7c4c0ad696ad29344e",
+      "source_sha256": "64543f26690e0905f2a6f9df4b7361b140c2f5910e526687158fdb256c58a320",
+      "safe_sha256": "64543f26690e0905f2a6f9df4b7361b140c2f5910e526687158fdb256c58a320",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/README.md",
+      "source_blob": "8db6694962cc290089f28566129ae924127a1a8a",
+      "source_sha256": "62f628588f397b2da02a73023db8f29a9d58f5147ce16321ff364eba1efabbb7",
+      "safe_sha256": "62f628588f397b2da02a73023db8f29a9d58f5147ce16321ff364eba1efabbb7",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/analysis/README.md",
+      "source_blob": "251b8d0bb90393522022e287103ea62ac84b598c",
+      "source_sha256": "9b4361ddebeca40570c4043339000328c5f34fb3648384aff0c287bc85235edc",
+      "safe_sha256": "9b4361ddebeca40570c4043339000328c5f34fb3648384aff0c287bc85235edc",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/analysis/analyze_match.py",
+      "source_blob": "8fb3762449968aaca47ef95294bd7081041a946d",
+      "source_sha256": "ad85d4ac1aa9f900339c489127979cdace8da38fa69a6a28b86b8a6c2f063030",
+      "safe_sha256": "ad85d4ac1aa9f900339c489127979cdace8da38fa69a6a28b86b8a6c2f063030",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/analysis/results.md",
+      "source_blob": "589429544b1f7b19701422c422bb17f26fb3a889",
+      "source_sha256": "fd5ccc68bd1e3b4164ff0a6041cb7495c72507b34d01d961ce70c949669abce7",
+      "safe_sha256": "fd5ccc68bd1e3b4164ff0a6041cb7495c72507b34d01d961ce70c949669abce7",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/notes/README.md",
+      "source_blob": "df3d675daee2d7dd707159867df1f9c404fac338",
+      "source_sha256": "3880fa436876aecfc84501b7166d1db2b2b9b805358f674d50f013ffadaaac19",
+      "safe_sha256": "3880fa436876aecfc84501b7166d1db2b2b9b805358f674d50f013ffadaaac19",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/notes/RESEARCH_LOG.md",
+      "source_blob": "37ba8e53c7543b9972bcca5a2d305d59902514c3",
+      "source_sha256": "fa3e5f761694a8a982f797abd26cdda54e764f276deb5f9a73c5cfedb5f1f8cc",
+      "safe_sha256": "fa3e5f761694a8a982f797abd26cdda54e764f276deb5f9a73c5cfedb5f1f8cc",
+      "transformed": false
+    },
+    {
+      "path": "reports/README.md",
+      "source_blob": "d637fd3d54e42e97a7d72cab44de4179ed2b74ab",
+      "source_sha256": "7efb4c647b17ac8389ae1c81e0e41383316c2e9145f124216b1e9ba67c93bab5",
+      "safe_sha256": "7efb4c647b17ac8389ae1c81e0e41383316c2e9145f124216b1e9ba67c93bab5",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/ANALYSIS_PLAN.md",
+      "source_blob": "52731b41eefa8656b4392b3d1b001f9265c20323",
+      "source_sha256": "ef775a8baa66d6430f7dc02a5863c9aa4dac054627afd9bf278d605846c22f43",
+      "safe_sha256": "ef775a8baa66d6430f7dc02a5863c9aa4dac054627afd9bf278d605846c22f43",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/ANNOTATION_BURDEN.md",
+      "source_blob": "4276b1289258e6f3c5dba0f129f9bf0a0ff998de",
+      "source_sha256": "cbb31f37b51ea3474b311d09309b877639e5dda0ca4c9f152afcefba9fea79f8",
+      "safe_sha256": "cbb31f37b51ea3474b311d09309b877639e5dda0ca4c9f152afcefba9fea79f8",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/ANNOTATION_GUIDE.md",
+      "source_blob": "6b79c30c2b6217deb2443fbc8be9c338eaf6e5cf",
+      "source_sha256": "f26cead12a52e9ec8bc7e051136cde557a1a4330cc97ef2a949719b6e7fc0162",
+      "safe_sha256": "f26cead12a52e9ec8bc7e051136cde557a1a4330cc97ef2a949719b6e7fc0162",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/CHANGELOG.md",
+      "source_blob": "014f71f89b8f7be5036ddc82403837a8a7e9932f",
+      "source_sha256": "9012f53b2396af4f300bddf17a6e093b9d7bf374e08c355ebcd0ac9ad6363411",
+      "safe_sha256": "9012f53b2396af4f300bddf17a6e093b9d7bf374e08c355ebcd0ac9ad6363411",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/DATA_SCHEMA.md",
+      "source_blob": "7d4e835b58d08e77a241ade5309c2d1ed96a62cf",
+      "source_sha256": "436ac163733018be6c454ce54dbfca31f0264537593ce3d602f277c8cb660cc0",
+      "safe_sha256": "436ac163733018be6c454ce54dbfca31f0264537593ce3d602f277c8cb660cc0",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/INTER_RATER_RELIABILITY.md",
+      "source_blob": "32228098fe388bf2f77302544e16db22ad902fde",
+      "source_sha256": "dca400d2c7c3a0f0036602f0cfee5801169fcdff02a2dd515028f6cdefca2fae",
+      "safe_sha256": "dca400d2c7c3a0f0036602f0cfee5801169fcdff02a2dd515028f6cdefca2fae",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/LIMITATIONS.md",
+      "source_blob": "94bb616e83901ae1fb8794df205341fac478d27c",
+      "source_sha256": "178da1b1e352daada979b7961c2f7bcfb4804cce231fc9578d948f31c834dc1b",
+      "safe_sha256": "178da1b1e352daada979b7961c2f7bcfb4804cce231fc9578d948f31c834dc1b",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/OBSERVABILITY_MATRIX.md",
+      "source_blob": "0ca84f852ebab9252c99818db32f4ccbd0169b65",
+      "source_sha256": "2b75a2339773948b9aa1406a55ddb9e8eef7300b19bb283c0e4b006c6a7e144a",
+      "safe_sha256": "2b75a2339773948b9aa1406a55ddb9e8eef7300b19bb283c0e4b006c6a7e144a",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_1B_REPORT.md",
+      "source_blob": "f4a7cfbbcfe5a32fecc033bebb237ac1ee466646",
+      "source_sha256": "b2bf0af013e9fdaeb7fc82acfd45a3d822b1930d91878edd57abd0430e981d56",
+      "safe_sha256": "b2bf0af013e9fdaeb7fc82acfd45a3d822b1930d91878edd57abd0430e981d56",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_1C_REPORT.md",
+      "source_blob": "266e7cbb31841e715186f0e133f4ea6c2f0e2f6d",
+      "source_sha256": "fb473164d3c31474bc00d88e1c1a0d48316798bc4a8bd32c84bc39ce4c1bfee4",
+      "safe_sha256": "fb473164d3c31474bc00d88e1c1a0d48316798bc4a8bd32c84bc39ce4c1bfee4",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_1_REPORT.md",
+      "source_blob": "4d614aa7d8600d2f2c9662998d1ef6fafc0efe2b",
+      "source_sha256": "c13e7c86e30c198d0cc7aa0e674ac0b16d1f720c5b385bc8404c49322816067e",
+      "safe_sha256": "c13e7c86e30c198d0cc7aa0e674ac0b16d1f720c5b385bc8404c49322816067e",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_2_PLAN.md",
+      "source_blob": "0a94eebf49476eaaba1e4f9c4e3e8b6d78d88b83",
+      "source_sha256": "fe4873b14767074f8b1a7c69b3026bdc52a2a1805d32cb1ecf7311161f293d2b",
+      "safe_sha256": "fe4873b14767074f8b1a7c69b3026bdc52a2a1805d32cb1ecf7311161f293d2b",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_2_REPORT.md",
+      "source_blob": "22c43ad1798178d14e1b98a2455365c0b314bfea",
+      "source_sha256": "7732deff6c10b38964e7a1d0b3337a152d1d72dfeaf048aa5888a6d97dc7f1e0",
+      "safe_sha256": "7732deff6c10b38964e7a1d0b3337a152d1d72dfeaf048aa5888a6d97dc7f1e0",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_PLAN.md",
+      "source_blob": "7f9097f471178d20d4971f1523641b85fe9877ec",
+      "source_sha256": "816c300cbe1e96feadd31f1bcc511b21ba2cc749b9bb1de7446546900f9db8c5",
+      "safe_sha256": "816c300cbe1e96feadd31f1bcc511b21ba2cc749b9bb1de7446546900f9db8c5",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PROTOCOL.md",
+      "source_blob": "473107be74e3609fb1611596c5ea907d3df6b2f4",
+      "source_sha256": "2e7a97e618ead486e486dad317ace678bb240e5db53443947e904e37a7c8c823",
+      "safe_sha256": "2e7a97e618ead486e486dad317ace678bb240e5db53443947e904e37a7c8c823",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/README.md",
+      "source_blob": "305c5ee7d76c34d531536df61ae9f23a17659271",
+      "source_sha256": "eb772496f9bf146b1031231487e9948230ebb5674b62ce2dab3cc23a23e960d0",
+      "safe_sha256": "eb772496f9bf146b1031231487e9948230ebb5674b62ce2dab3cc23a23e960d0",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/RESEARCH_QUESTION.md",
+      "source_blob": "7ae5daca02c8605a1d328d824081ae91620ef64b",
+      "source_sha256": "ca91ccea1699665409d34781ac7a73b5b68115ca450dacde5c31f5df9c95e5c4",
+      "safe_sha256": "ca91ccea1699665409d34781ac7a73b5b68115ca450dacde5c31f5df9c95e5c4",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/VIDEO_SOURCE_SCORECARD.md",
+      "source_blob": "cc713b7d133e5cae9afeaea88100581f1c4c1803",
+      "source_sha256": "9e57ca8135525c571d1294fd3e2d090a30577b1822270d4c601e9d1bfedaf732",
+      "safe_sha256": "9e57ca8135525c571d1294fd3e2d090a30577b1822270d4c601e9d1bfedaf732",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/analysis/README.md",
+      "source_blob": "52087f2107a0477860dcf4277428a1fdd7d9f114",
+      "source_sha256": "3f327b79e61d0b3e88e5a66767b3440db49c496a50c74ae62e044e044209a95b",
+      "safe_sha256": "3f327b79e61d0b3e88e5a66767b3440db49c496a50c74ae62e044e044209a95b",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/analysis/data_quality_report.md",
+      "source_blob": "ff0b8149b38b63600452f3f55a7a6d54e401a252",
+      "source_sha256": "ad2a2891bc5745ef7c9ee4ef130e955f299f3ba982804f6ab7f13ff4b43d4779",
+      "safe_sha256": "ad2a2891bc5745ef7c9ee4ef130e955f299f3ba982804f6ab7f13ff4b43d4779",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/analysis/scripts/summarize_points.py",
+      "source_blob": "2f5364007e362417a51e361fe6a08f1e1d11bb23",
+      "source_sha256": "9957d2312f0fb26b37e5d3ebddd6aa5b259e2e6593102afe4f05d15a03f9a8ec",
+      "safe_sha256": "9957d2312f0fb26b37e5d3ebddd6aa5b259e2e6593102afe4f05d15a03f9a8ec",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/analysis/scripts/validate_data.py",
+      "source_blob": "84bbf1ade30175e8baf8d8c8b537fdda669be003",
+      "source_sha256": "a722f6c324eee74766c21a9d141d6a1a092d661294195d3822b6d63f611e0171",
+      "safe_sha256": "a722f6c324eee74766c21a9d141d6a1a092d661294195d3822b6d63f611e0171",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/figures/README.md",
+      "source_blob": "9c847b1e76021db92d6bf90d6b80af86e76eefcc",
+      "source_sha256": "5c89a4c27ca3579305d5c25e3e8d934f0c95b96c37835be5559603e753812aa8",
+      "safe_sha256": "5c89a4c27ca3579305d5c25e3e8d934f0c95b96c37835be5559603e753812aa8",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/notes/README.md",
+      "source_blob": "a666d26cd80ffc41bbb01b0f5f82517cadca2884",
+      "source_sha256": "458396503dbf72dcbbea31f6f3168ac596a01d8273d71805b63941506833c937",
+      "safe_sha256": "458396503dbf72dcbbea31f6f3168ac596a01d8273d71805b63941506833c937",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/notes/annotation_time.md",
+      "source_blob": "a91be13ff856d4a8a0ada34fff3f7ac49102453c",
+      "source_sha256": "1b52b0c68d3be2a485943eb0c7a40536df27679a71251262370af45749b9c59e",
+      "safe_sha256": "1b52b0c68d3be2a485943eb0c7a40536df27679a71251262370af45749b9c59e",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/notes/pilot_1_early_observations.md",
+      "source_blob": "42f6dd46705eaeac386d6b9abd94c39a4381291f",
+      "source_sha256": "9b21593bc867ae6de701521ed7c42982e91362f644bf4f02462a8dccb13bf0cf",
+      "safe_sha256": "9b21593bc867ae6de701521ed7c42982e91362f644bf4f02462a8dccb13bf0cf",
+      "transformed": false
+    }
+  ],
+  "excluded": [
+    {
+      "path": "README.md",
+      "reason": "content review blocked: phone"
+    },
+    {
+      "path": "data/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "products/ptti/README.md",
+      "reason": "content review blocked: phone"
+    },
+    {
+      "path": "products/ptti/assets/ptti.ico",
+      "reason": "nonallowlisted/binary extension"
+    },
+    {
+      "path": "products/ptti/configs/evidence-fusion/HIT_EVENT_V0_2_SPLIT.json.sha256",
+      "reason": "nonallowlisted/binary extension"
+    },
+    {
+      "path": "products/ptti/configs/evidence-fusion/HIT_EVENT_V0_3_FROZEN_CONFIG.json.sha256",
+      "reason": "nonallowlisted/binary extension"
+    },
+    {
+      "path": "products/ptti/data/professional/official_video_sources.json",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "products/ptti/data/professional/registry.json",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "products/ptti/data/samples/protocol-v0.3-example.csv",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "products/ptti/data/samples/synthetic.csv",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "products/ptti/docs/ENGINEERING-AUDIT-STABILIZATION-2026-10-08.md",
+      "reason": "content review blocked: phone"
+    },
+    {
+      "path": "products/ptti/docs/database_snapshot_inventory.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "products/ptti/docs/integration-verification.md",
+      "reason": "content review blocked: phone"
+    },
+    {
+      "path": "products/ptti/frontend/src/main.tsx",
+      "reason": "content review blocked: phone"
+    },
+    {
+      "path": "products/ptti/research/hit-v03/uv.lock",
+      "reason": "nonallowlisted/binary extension"
+    },
+    {
+      "path": "products/ptti/research/vision-benchmark/supervision-uv.lock",
+      "reason": "nonallowlisted/binary extension"
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/data/DATA_DICTIONARY.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/data/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/data/match_scores.csv",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/processed/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/raw/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/raw/match_001_metadata.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/raw/match_001_points.csv",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/sample/example_points.csv",
+      "reason": "private/data/runtime/archive/third-party path"
+    }
+  ]
+}
