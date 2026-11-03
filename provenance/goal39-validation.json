@@ -1,0 +1,167 @@
+{
+  "safe_baseline_build": "PARTIAL",
+  "regression_cases": {
+    "pass": 15,
+    "scope": "Latest 8-file registry, optional provider and Playback integrity"
+  },
+  "render_and_contract_cases": 31,
+  "main_public_schema_results": [
+    {
+      "public_file": "fan-inspiration-v0.1.json",
+      "schema": "fan-inspiration-v0.1.schema.json",
+      "status": "PASS"
+    },
+    {
+      "public_file": "match-reports-v0.1.json",
+      "schema": "match-report-evidence-v0.1.schema.json",
+      "status": "PASS"
+    },
+    {
+      "public_file": "goal17-official-match-video-additions.json",
+      "schema": "goal17-1-match-video-additions-v0.1.schema.json",
+      "status": "PASS"
+    },
+    {
+      "public_file": "goal17-athlete-photo-additions.json",
+      "schema": "goal17-1-athlete-media-v0.1.schema.json",
+      "status": "PASS"
+    },
+    {
+      "public_file": "match-library-strict-public.json",
+      "schema": "match-library-index-v0.1.schema.json",
+      "status": "PASS"
+    },
+    {
+      "public_file": "web-strict-public.json",
+      "schema": "match-media-v0.2.schema.json",
+      "status": "PASS"
+    },
+    {
+      "public_file": "pro-demo-match-intelligence.json",
+      "schema": "match-intelligence-v0.1.schema.json",
+      "status": "PASS"
+    },
+    {
+      "public_file": "goal14-fan-content-strict-public.json",
+      "schema": "fan-content-intelligence-v0.1.schema.json",
+      "status": "PASS"
+    }
+  ],
+  "python_ast_pass": 268,
+  "host_static_checks": "PASS frozen identity and 2.5 GiB guard preserved; HOST compile NOT_TESTED",
+  "full_legacy_build": "BLOCKED_EXCLUDED_PRIVATE_AND_MEDIA_TEST_ASSETS",
+  "backend_application_tests": "NOT_TESTED_EXCLUDED_CONFIG_AND_FIXTURES",
+  "desktop_and_browser": "NOT_TESTED_NOT_STARTED",
+  "secret_scan": {
+    "status": "PARTIAL",
+    "pattern_result": "PASS_PATTERN_SCOPE_ONLY",
+    "issues": [],
+    "professional_tools": "NOT_INSTALLED",
+    "limitations": [
+      "No professional secret scanner installed",
+      "No semantic certification of arbitrary personal data",
+      "Ignored dependency binaries and build outputs are not upload candidates"
+    ]
+  },
+  "source_provenance": "PASS_FOR_INCLUDED_FILES_AND_GOAL39_DELTAS",
+  "original_sources_preserved": {
+    "HOST": true,
+    "SAN": true,
+    "MAIN": true,
+    "PLAYBACK": true,
+    "HOST_LEGACY": true
+  },
+  "dependency_versions": {
+    "node": "24.15.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.7",
+    "python": "3.13.14",
+    "jsonschema": "4.26.0",
+    "lock_checked_installed_packages": 21,
+    "missing_required": 0,
+    "version_mismatches": 0,
+    "network_downloads": false
+  },
+  "push": "NO",
+  "ready_for_unconditional_push_approval": false,
+  "runtime_warning": "Vite warns first-load chunk exceeds 500 kB; no timing or GUI performance claim",
+  "earlier_complete_web_snapshot_build": {
+    "status": "PASS",
+    "scope": "SOURCE_SNAPSHOT_WEB_BUILD_NOT_DESKTOP_OR_GUI",
+    "checks": [
+      {
+        "label": "TypeScript",
+        "ram_gib": 2.706,
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "label": "public-7-18-8-and-user-data",
+        "ram_gib": 2.722,
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "label": "rights-evidence",
+        "ram_gib": 2.724,
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "label": "collector-and-legacy-data",
+        "ram_gib": 2.724,
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "label": "watch-routing-contract",
+        "ram_gib": 2.723,
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "label": "Vite",
+        "ram_gib": 2.722,
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "label": "render-and-public-boundary",
+        "ram_gib": 2.704,
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    ]
+  },
+  "final_expanded_web_build": {
+    "status": "BLOCKED",
+    "blocked_at": "watch-routing-contract",
+    "reason": "Observed build runner RAM_GUARD threshold below 2.5 GiB; no retry",
+    "ram_gib_at_guard": null,
+    "checks": [
+      {
+        "label": "TypeScript",
+        "status": "PASS"
+      },
+      {
+        "label": "public-7-18-8-and-user-data",
+        "status": "PASS"
+      },
+      {
+        "label": "match-report-contract",
+        "status": "PASS"
+      },
+      {
+        "label": "rights-evidence",
+        "status": "PASS"
+      },
+      {
+        "label": "collector-and-legacy-data",
+        "status": "PASS"
+      }
+    ],
+    "Vite_final_run": "NOT_TESTED",
+    "guard_failure_evidence": "Tool output: RAM_GUARD: stop before watch-routing-contract"
+  },
+  "latest_report_contract_test": "PASS source identities, 18-source invariant, report status and negative rights mutations"
+}

@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const observation=JSON.parse(readFileSync(new URL('../qa/goal20-2/prior-browser-observation.json',import.meta.url)));
+const catalog=JSON.parse(readFileSync(new URL('../public/data/match-library-strict-public.json',import.meta.url)));
+const source=catalog.video_sources.find(s=>s.source_id===observation.source_id);
+assert(source);
+assert.equal(source.official_url,observation.official_url);
+assert.equal(observation.observed_at,null);
+assert.equal(observation.video_after.paused,false);
+assert(observation.video_after.currentTime>observation.video_before.currentTime);
+assert.equal(observation.complete_viewing,'NOT_TESTED');
+assert.equal(observation.os_default_browser,'NOT_TESTED');
+assert.equal(observation.updates_main_evidence,false);
+assert.equal(observation.updates_user_reports,false);
+assert.deepEqual(observation.saved_screenshot_files,[]);
+console.log('PASS: historical observation exact source/URL; no fabricated timestamp, screenshot or trust promotion');

@@ -1,0 +1,155 @@
+{
+  "status": "PARTIAL",
+  "policy_tests": [
+    {
+      "case": "deny:src/internal-review/private.json",
+      "status": "PASS"
+    },
+    {
+      "case": "deny:public/media/portrait.webp",
+      "status": "PASS"
+    },
+    {
+      "case": "deny:.env",
+      "status": "PASS"
+    },
+    {
+      "case": "deny:../escape.ts",
+      "status": "PASS"
+    },
+    {
+      "case": "deny:releases/release.json",
+      "status": "PASS"
+    },
+    {
+      "case": "deny:data/matches.db",
+      "status": "PASS"
+    },
+    {
+      "case": "deny:generated/rights-review.json",
+      "status": "PASS"
+    },
+    {
+      "case": "deny:scripts/fixtures/private.json",
+      "status": "PASS"
+    },
+    {
+      "case": "allow:src/App.tsx",
+      "status": "PASS"
+    },
+    {
+      "case": "allow:package-lock.json",
+      "status": "PASS"
+    },
+    {
+      "case": "allow:contracts/test.schema.json",
+      "status": "PASS"
+    },
+    {
+      "case": "allow:playback-core/src/index.ts",
+      "status": "PASS"
+    },
+    {
+      "case": "allow:goal23/build_goal23.py",
+      "status": "PASS"
+    },
+    {
+      "case": "synthetic-token-rejected",
+      "status": "PASS"
+    },
+    {
+      "case": "synthetic-user-path-rejected",
+      "status": "PASS"
+    }
+  ],
+  "secret_scan": {
+    "known_patterns": "PASS_NO_MATCH",
+    "files_checked": 580,
+    "limitation": "Pattern scan is not a complete secret detector; arbitrary personal content and unrecognized credentials require review"
+  },
+  "syntax": {
+    "python_ast_pass": 266,
+    "json_parse_pass": 53,
+    "node_check_pass": 118,
+    "errors": []
+  },
+  "source_hashes": "PASS",
+  "build": "NOT_TESTED_DEPENDENCY_AND_PIN_BLOCKERS",
+  "browser": "NOT_TESTED_NOT_STARTED",
+  "source_tests": "8 SYNTHETIC LOCAL DATA CASES PASS; other source suites NOT_TESTED",
+  "module_counts": {
+    "HOST": 10,
+    "SAN": 198,
+    "MAIN": 91,
+    "PLAYBACK": 273
+  },
+  "excluded_count": 461,
+  "remote_push": "NO",
+  "confirmed_missing_relative_imports": [
+    {
+      "source": "products/ptti-web/src/FanCatalogPage.tsx",
+      "relative_import": "./internal-review/goal19-watchability-evidence-v0.1.json?raw"
+    },
+    {
+      "source": "products/ptti-web/src/FanCatalogPage.tsx",
+      "relative_import": "./internal-review/goal19.3-user-playback-reports-v0.1.json?raw"
+    }
+  ],
+  "unresolved_import_scan_candidates": [
+    {
+      "source": "products/ptti-web/scripts/check-arena-challenge.mjs",
+      "relative_import": "./src/ArenaChallengePage",
+      "classification": "heuristic candidate; may be embedded generated test source"
+    },
+    {
+      "source": "products/ptti-web/scripts/check-arena-challenge.mjs",
+      "relative_import": "./src/i18n",
+      "classification": "heuristic candidate; may be embedded generated test source"
+    },
+    {
+      "source": "products/ptti-web/scripts/check-fan-gold.mjs",
+      "relative_import": "./src/FanArtwork",
+      "classification": "heuristic candidate; may be embedded generated test source"
+    },
+    {
+      "source": "products/ptti-web/scripts/check-fan-gold.mjs",
+      "relative_import": "./src/PublicFanCatalog",
+      "classification": "heuristic candidate; may be embedded generated test source"
+    },
+    {
+      "source": "products/ptti-web/scripts/check-fan-gold.mjs",
+      "relative_import": "./src/FanCatalogPage",
+      "classification": "heuristic candidate; may be embedded generated test source"
+    },
+    {
+      "source": "products/ptti-web/scripts/check-fan-gold.mjs",
+      "relative_import": "./src/FanUniversePages",
+      "classification": "heuristic candidate; may be embedded generated test source"
+    },
+    {
+      "source": "products/ptti-web/scripts/check-private-theater.mjs",
+      "relative_import": "./src/PrivateTheaterFrame",
+      "classification": "heuristic candidate; may be embedded generated test source"
+    },
+    {
+      "source": "products/ptti/frontend/scripts/test-portable-playback-browser.mjs",
+      "relative_import": "../node_modules/typescript/lib/typescript.js",
+      "classification": "heuristic candidate; may be embedded generated test source"
+    },
+    {
+      "source": "products/ptti/frontend/scripts/test-portable-playback.mjs",
+      "relative_import": "../node_modules/typescript/lib/typescript.js",
+      "classification": "heuristic candidate; may be embedded generated test source"
+    }
+  ],
+  "external_secret_scanners": {
+    "gitleaks": "NOT_INSTALLED",
+    "trufflehog": "NOT_INSTALLED"
+  },
+  "offline_local_data": {
+    "status": "PASS",
+    "cases": 8,
+    "data": "IN_MEMORY_SYNTHETIC_ONLY",
+    "scope": "local-data functions, not GUI or integrated build"
+  }
+}

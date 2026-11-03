@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.invalid/contracts/goal14-main-content-candidate-audit-v0.1.schema.json",
+  "title": "PTTI GOAL14 Main Content Candidate Audit v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "view", "generated_at", "source_manifest", "candidate_count", "decision_counts", "candidates", "notice"],
+  "properties": {
+    "contract_version": {"const": "ptti.main-content-candidate-audit/0.1"},
+    "view": {"const": "INTERNAL_REVIEW"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "source_manifest": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["file", "sha256"], "properties": {"file": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}}},
+    "candidate_count": {"const": 20},
+    "decision_counts": {"type": "object", "additionalProperties": false, "required": ["PUBLIC_OFFICIAL_EXTERNAL_LINK_ONLY", "INTERNAL_ONLY_VIDEO_ID_UNRESOLVED"], "properties": {"PUBLIC_OFFICIAL_EXTERNAL_LINK_ONLY": {"type": "integer", "minimum": 0}, "INTERNAL_ONLY_VIDEO_ID_UNRESOLVED": {"type": "integer", "minimum": 0}}},
+    "candidates": {"type": "array", "minItems": 20, "maxItems": 20, "items": {"$ref": "#/$defs/candidate"}},
+    "notice": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_id", "event_id", "event", "title_original", "video_id", "official_video_url", "related_event_page_url", "publisher", "source_evidence_ids", "decision", "reason", "match_id", "match_link_status", "playback_status", "territory", "embedding", "thumbnail_display", "download", "redistribution"],
+      "properties": {
+        "candidate_id": {"type": "string", "minLength": 1},
+        "event_id": {"type": "string", "minLength": 1},
+        "event": {"type": "string", "minLength": 1},
+        "title_original": {"type": "string", "minLength": 1},
+        "video_id": {"type": ["string", "null"]},
+        "official_video_url": {"type": ["string", "null"], "format": "uri"},
+        "related_event_page_url": {"type": "string", "format": "uri"},
+        "publisher": {"type": ["string", "null"]},
+        "published_at": {"type": ["string", "null"]},
+        "source_evidence_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "decision": {"enum": ["PUBLIC_OFFICIAL_EXTERNAL_LINK_ONLY", "INTERNAL_ONLY_VIDEO_ID_UNRESOLVED"]},
+        "reason": {"type": "string", "minLength": 1},
+        "match_id": {"type": "null"},
+        "match_link_status": {"const": "UNKNOWN"},
+        "playback_status": {"const": "NOT_TESTED"},
+        "territory": {"const": "UNKNOWN"},
+        "embedding": {"const": "UNKNOWN"},
+        "thumbnail_display": {"const": "NOT_ALLOWED"},
+        "download": {"const": "NOT_GRANTED"},
+        "redistribution": {"const": "NOT_GRANTED"}
+      }
+    }
+  }
+}

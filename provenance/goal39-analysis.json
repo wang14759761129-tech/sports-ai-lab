@@ -1,0 +1,387 @@
+{
+  "total_owner_differences": 61,
+  "classification": {
+    "EXCLUDED_FROM_SNAPSHOT": 2,
+    "TEST_OR_TOOL": 20,
+    "BUILD_CONFIG": 4,
+    "RUNTIME_SOURCE": 35
+  },
+  "included_differences": [
+    {
+      "path": "products/ptti-web/index.html",
+      "owner": "SAN",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/package.json",
+      "owner": "SAN",
+      "category": "BUILD_CONFIG",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/scripts/check-fan-gold.mjs",
+      "owner": "SAN",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/scripts/check-fan-navigation.mjs",
+      "owner": "SAN",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/scripts/check-goal14-public-isolation.mjs",
+      "owner": "SAN",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/scripts/check-goal15.mjs",
+      "owner": "SAN",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/scripts/check-preview-package.mjs",
+      "owner": "SAN",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/scripts/check-sources.mjs",
+      "owner": "SAN",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/scripts/check-watch-filter.mjs",
+      "owner": "SAN",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/scripts/check-watch-routing.mjs",
+      "owner": "SAN",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/App.tsx",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/FanArtwork.tsx",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/FanCatalogPage.tsx",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/FanUniversePages.tsx",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/LocalVideoReview.tsx",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/ProWorkbench.tsx",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/PublicFanCatalog.tsx",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/env.d.ts",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/fan-catalog.d.mts",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/fan-catalog.mjs",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/fan-gold.css",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/fan-local-data.d.mts",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/fan-local-data.mjs",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/fan-navigation.d.mts",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/fan-navigation.mjs",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/i18n.ts",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/main.tsx",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/match-location.mjs",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/style.css",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/types.ts",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/watch-filter.d.mts",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/src/watch-filter.mjs",
+      "owner": "SAN",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti-web/vite.config.ts",
+      "owner": "SAN",
+      "category": "BUILD_CONFIG",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/apps/desktop.py",
+      "owner": "PLAYBACK",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/backend/database.py",
+      "owner": "PLAYBACK",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/backend/main.py",
+      "owner": "PLAYBACK",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/backend/match_library.py",
+      "owner": "PLAYBACK",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/backend/score_navigation.py",
+      "owner": "PLAYBACK",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/backend/video_evidence.py",
+      "owner": "PLAYBACK",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/frontend/package.json",
+      "owner": "PLAYBACK",
+      "category": "BUILD_CONFIG",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/frontend/scripts/test-dark-studio.mjs",
+      "owner": "PLAYBACK",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/frontend/scripts/test-video-feed.mjs",
+      "owner": "PLAYBACK",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/frontend/src/MatchVideoLibrary.tsx",
+      "owner": "PLAYBACK",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/frontend/src/VideoEvidencePlayer.tsx",
+      "owner": "PLAYBACK",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/frontend/src/VideoFeed.tsx",
+      "owner": "PLAYBACK",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/frontend/src/VisionPlayer.tsx",
+      "owner": "PLAYBACK",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/frontend/src/design-tokens.css",
+      "owner": "PLAYBACK",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/frontend/src/feedCatalog.ts",
+      "owner": "PLAYBACK",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/frontend/src/studio-shell.css",
+      "owner": "PLAYBACK",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/frontend/src/video-feed.css",
+      "owner": "PLAYBACK",
+      "category": "RUNTIME_SOURCE",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/frontend/vite.config.ts",
+      "owner": "PLAYBACK",
+      "category": "BUILD_CONFIG",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/scripts/build_dual_source_v061_preview.py",
+      "owner": "PLAYBACK",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/scripts/ci_windows_candidate.py",
+      "owner": "PLAYBACK",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/scripts/dev_sync.py",
+      "owner": "PLAYBACK",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/tests/test_ci_windows_candidate.py",
+      "owner": "PLAYBACK",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/tests/test_database_isolation.py",
+      "owner": "PLAYBACK",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/tests/test_match_video_library.py",
+      "owner": "PLAYBACK",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/tests/test_score_navigation.py",
+      "owner": "PLAYBACK",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    },
+    {
+      "path": "products/ptti/tests/test_video_evidence.py",
+      "owner": "PLAYBACK",
+      "category": "TEST_OR_TOOL",
+      "resolution": "Owner version retained; alternate blobs not overlaid"
+    }
+  ],
+  "main_source_and_schema_bytes_unchanged": true,
+  "playback_all_source_bytes_unchanged": true,
+  "confirmed_build_blockers_fixed": [
+    "Two private JSON imports",
+    "External sibling Playback HEAD assumption",
+    "Missing reviewed public admission fixture",
+    "Explicit CRLF/LF byte identity of public pins"
+  ],
+  "schema_owner_conflicts": "No differing same-name schema variants identified by GOAL38; 8 public package validations pass",
+  "remaining_integration_limits": [
+    "Excluded media payloads and private review fixtures",
+    "Frozen HOST source commit and parent Desktop release not present as build prerequisites",
+    "Full legacy npm build still requires private and media gates",
+    "Unexecuted backend application tests; excluded configs and fixtures"
+  ],
+  "host_static_checks": {
+    "resource_guard": "PASS_2.5_GiB_UNCHANGED",
+    "native_bridge": "DISABLED",
+    "frozen_identity": "PRESERVED_NOT_UPDATED",
+    "host_build": "NOT_TESTED"
+  },
+  "build_interface_validation": "TypeScript, byte-pinned Core/routing, 7/18/8 runtime merge, 8 MAIN schemas; not blanket semantic approval of all differences"
+}

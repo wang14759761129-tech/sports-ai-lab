@@ -1,0 +1,29 @@
+{
+  "schema": "ptti.clean-source-snapshot/1",
+  "mode": "OWNER_SCOPED_SOURCE_ARCHIVE_NOT_INTEGRATED_RELEASE",
+  "common_ancestor": "2c87a6433437f39bf85a9439cccf99709cce887e",
+  "sources": {
+    "HOST": {
+      "commit": "1ae47777d36d7a50369a263db64878f495844b51",
+      "module": "products/ptti-desktop-fan-candidate"
+    },
+    "SAN": {
+      "commit": "1a86f860c6d19b42fb0324256a7e0e32f0f5721e",
+      "module": "products/ptti-web"
+    },
+    "MAIN": {
+      "commit": "8036a37ff6af5ae5c7924b5c26d3290e640bf607",
+      "module": "products/ptti-integration"
+    },
+    "PLAYBACK": {
+      "commit": "b54e1546b7e6c1edc69406582ed68e90988a1910",
+      "module": "products/ptti"
+    }
+  },
+  "checks": {
+    "playback_core_sha256": "a59df06b688d75885bfb8ed51364e73edbaedaaa2b3746b5f7fd1d1edf67caf2",
+    "watch_routing_sha256": "1fa1e6100eb85f56cc51819d1e0cffaef500d6fa96bba616f6b281d60bb51619"
+  },
+  "original_history_included": false,
+  "uncommitted_changes_included": false
+}

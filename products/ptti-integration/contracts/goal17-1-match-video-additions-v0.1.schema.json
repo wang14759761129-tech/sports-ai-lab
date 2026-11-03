@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptti.invalid/contracts/goal17-1-match-video-additions-v0.1.schema.json",
+  "title": "PTTI GOAL17.1 official external match-video additions",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "generated_at", "view", "base_goal15_library_sha256", "license_notice", "matches", "video_sources"],
+  "properties": {
+    "contract_version": {"const": "ptti.goal17.1-match-video-additions/0.1"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "view": {"const": "STRICT_PUBLIC_EXTERNAL_LINK_DELTA"},
+    "base_goal15_library_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "license_notice": {"type": "string", "minLength": 1},
+    "matches": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/match"}},
+    "video_sources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source"}}
+  },
+  "$defs": {
+    "participant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["athlete_id", "display_name", "identity_status", "identity_evidence_url"],
+      "properties": {
+        "athlete_id": {"type": ["string", "null"]},
+        "display_name": {"type": "string", "minLength": 1},
+        "identity_status": {"enum": ["CANONICAL_BASE_PACKAGE_ID", "OFFICIAL_VIDEO_TITLE_NAMED_UNMAPPED"]},
+        "identity_evidence_url": {"type": "string", "format": "uri"}
+      }
+    },
+    "match": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["match_id", "provider_match_id", "event_id", "event_name", "event_page_url", "event_year", "category", "round", "match_date", "title", "participants", "identity_status", "identity_evidence_source_id", "video_source_ids"],
+      "properties": {
+        "match_id": {"type": "string", "minLength": 1},
+        "provider_match_id": {"type": "null"},
+        "event_id": {"type": "string", "minLength": 1},
+        "event_name": {"const": "WTT Champions Doha 2026"},
+        "event_page_url": {"type": "string", "format": "uri", "pattern": "^https://www\\.worldtabletennis\\.com/eventInfo\\?eventId=3231$"},
+        "event_year": {"const": 2026},
+        "category": {"const": "MS"},
+        "round": {"enum": ["R16", "SF"]},
+        "match_date": {"type": "null"},
+        "title": {"type": "string", "minLength": 1},
+        "participants": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/participant"}},
+        "identity_status": {"const": "OFFICIAL_VIDEO_TITLE_MATCH_ASSOCIATION; VISUAL_MATCH_NOT_TESTED"},
+        "identity_evidence_source_id": {"type": "string"},
+        "video_source_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "match_id", "provider", "provider_video_id", "title", "publisher", "publisher_status", "source_published_at", "watch_url", "watch_route", "source_page_status", "playback_status", "completeness_status", "embed_permission", "thumbnail_display_permission", "download_permission", "local_analysis_permission", "redistribution_permission", "territory_status", "login_status", "copyright_notice", "match_identity_evidence"],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1},
+        "match_id": {"type": "string", "minLength": 1},
+        "provider": {"const": "YOUTUBE"},
+        "provider_video_id": {"type": "string", "pattern": "^[A-Za-z0-9_-]{11}$"},
+        "title": {"type": "string", "minLength": 1},
+        "publisher": {"const": "World Table Tennis"},
+        "publisher_status": {"const": "OFFICIAL_VERIFIED_CHANNEL"},
+        "source_published_at": {"type": "string", "format": "date"},
+        "watch_url": {"type": "string", "format": "uri", "pattern": "^https://www\\.youtube\\.com/watch\\?v="},
+        "watch_route": {"const": "OFFICIAL_EXTERNAL_LINK_ONLY"},
+        "source_page_status": {"const": "OFFICIAL_TITLE_METADATA_FOUND; PLAYER_PAGE_NOT_OPENED"},
+        "playback_status": {"const": "NOT_TESTED"},
+        "completeness_status": {"const": "TITLE_ASSERTS_FULL_MATCH; VISUAL_COMPLETENESS_NOT_VERIFIED"},
+        "embed_permission": {"const": "UNKNOWN_NOT_GRANTED"},
+        "thumbnail_display_permission": {"const": "NOT_GRANTED_PENDING_WRITTEN_APPROVAL"},
+        "download_permission": {"const": "NOT_GRANTED"},
+        "local_analysis_permission": {"const": "NOT_GRANTED"},
+        "redistribution_permission": {"const": "NOT_GRANTED"},
+        "territory_status": {"const": "UNKNOWN"},
+        "login_status": {"const": "UNKNOWN"},
+        "copyright_notice": {"const": "© WTT; WTT states its content is copyrighted and images may not be reproduced without prior approval."},
+        "match_identity_evidence": {"const": "Official verified WTT channel video title names both players, category, round and event; no in-player visual verification performed."}
+      }
+    }
+  }
+}

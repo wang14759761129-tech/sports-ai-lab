@@ -1,0 +1,8 @@
+{
+  "contract": "ptti.playback-core-source-pin/1",
+  "core_commit": "304eb661b8a16d6af78a70743bb9e1ef1bdb2fbe",
+  "source_path": "products/ptti/playback-core/src/index.ts",
+  "git_blob_sha1": "4ec9fd9f2c03b9cb8d7afb3ecb3679044567e0a9",
+  "source_sha256": "a59df06b688d75885bfb8ed51364e73edbaedaaa2b3746b5f7fd1d1edf67caf2",
+  "source_bytes": 26345
+}
