@@ -1,0 +1,40 @@
+{
+  "phase": "audit",
+  "head_before": "8167457f03501b67b0b98a9400ca8bd57fb3ccb9",
+  "started_at": "2026-10-28T07:53:45.615562+00:00",
+  "guard_bytes": 2684354560,
+  "commands": [
+    {
+      "label": "audit-confirmed",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "audit",
+        "--json"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3061260288,
+        "available_gib": 2.851
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 1.42,
+      "log": "audit-confirmed.log",
+      "log_sha256": "8d9ba77224af1b372e8740bf9d04e3a29f3482610979208a16d969a80dd08c8c",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3339739136,
+        "available_gib": 3.1104
+      },
+      "audit_vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "raw_log_sha256": "7b2ccb8943edec68291138c91115df03e1dcf26e8924d833201c74423531ead6"
+    }
+  ]
+}

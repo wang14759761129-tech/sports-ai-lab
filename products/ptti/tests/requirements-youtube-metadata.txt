@@ -1,0 +1,2 @@
+# Test-only dependency; not part of the desktop runtime.
+jsonschema==4.26.0

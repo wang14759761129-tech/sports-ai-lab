@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Foundation",
+    "exit_code": 0,
+    "head": "938c7ea46db5b12dd5f7bf8d95bb13e85094bf26",
+    "status_and_branch": [
+      "codex/ptti-one-foundation-gex05"
+    ]
+  },
+  {
+    "name": "F3A",
+    "exit_code": 0,
+    "head": "e0c0b952973568075b934aa44c00454c83cdcf1e",
+    "status_and_branch": [
+      "codex/ptti-goal-f3a-identity-moment-adapter"
+    ]
+  },
+  {
+    "name": "F3B",
+    "exit_code": 0,
+    "head": "8167457f03501b67b0b98a9400ca8bd57fb3ccb9",
+    "status_and_branch": [
+      "codex/ptti-goal-f3b-playback-state-rights"
+    ]
+  },
+  {
+    "name": "Playback",
+    "exit_code": 0,
+    "head": "a9824180a87eb3a4b424ca35db136809bd7b4a73",
+    "status_and_branch": [
+      "codex/playback-moments-continue"
+    ]
+  },
+  {
+    "name": "SAN-reference",
+    "exit_code": 0,
+    "head": "fc03395b78fbae0a12cb60a537712bba19c38b6b",
+    "status_and_branch": [
+      "codex/cinema-original-moment-qa"
+    ]
+  },
+  {
+    "name": "R4",
+    "exit_code": 0,
+    "head": "54d75007eb7dc63e33dd8ac419afc20cf7e2615c",
+    "status_and_branch": [
+      "codex/goal99-r4-cinema-evolution"
+    ]
+  }
+]
