@@ -1,0 +1,21 @@
+.fan-arena{max-width:1000px;margin:0 auto;background:#0a0a0f;color:#f2ede0;border-radius:16px;padding:20px}
+.fan-arena-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.fan-arena-head h2{margin:0 0 6px;color:#e8c766}
+.fan-arena-head p{color:#b8b2a3;font-size:13px;line-height:1.6;margin:0}
+.fan-scoreboard{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin:20px 0;padding:20px;background:#14141c;border:1px solid #2a2a35;border-radius:12px}
+.fan-player{display:flex;flex-direction:column;gap:4px}
+.fan-player--red strong{color:#e5484d}
+.fan-player--blue strong{color:#5b9dff;text-align:right}
+.fan-player--blue span{text-align:right}
+.fan-player span{color:#b8b2a3;font-size:12px}
+.fan-score{font-size:44px;font-variant-numeric:tabular-nums;color:#e8c766}
+.fan-status{font-size:15px;color:#e8c766}
+.fan-actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.fan-predict,.fan-current,.fan-history{background:#14141c;border:1px solid #2a2a35;border-radius:12px;padding:16px;margin:14px 0}
+.fan-predict label{display:flex;flex-direction:column;gap:6px;font-size:13px;margin:8px 0}
+.fan-predict select{margin:0;max-width:320px}
+.fan-message{color:#e8c766}
+.fan-error{color:#ff8a8a}
+.fan-arena button:focus-visible{outline:2px solid #e8c766;outline-offset:2px}
+@media(max-width:600px){.fan-score{font-size:32px}.fan-arena-head{flex-direction:column}}
+@media(prefers-reduced-motion:reduce){.fan-arena *{transition:none!important;animation:none!important}}
