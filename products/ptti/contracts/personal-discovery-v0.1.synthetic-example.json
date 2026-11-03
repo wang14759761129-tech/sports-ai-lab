@@ -1,0 +1,12 @@
+{
+  "schema_version": "ptti.personal-discovery/0.1",
+  "profile_id": "fixture-only",
+  "recently_opened": [
+    {
+      "record_kind": "MatchIdentity",
+      "record_id": "fixture:match:1",
+      "open_requested_at": "2026-10-28T00:00:00Z"
+    }
+  ],
+  "local_progress": []
+}

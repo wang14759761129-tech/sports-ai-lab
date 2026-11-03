@@ -1,0 +1,36 @@
+{
+  "phase": "upgrade",
+  "head_before": "8167457f03501b67b0b98a9400ca8bd57fb3ccb9",
+  "started_at": "2026-10-28T07:51:21.092673+00:00",
+  "guard_bytes": 2684354560,
+  "commands": [
+    {
+      "label": "vite-patch-lock",
+      "argv": [
+        "C:\\Program Files\\nodejs\\npm.cmd",
+        "install",
+        "--save-dev",
+        "--save-exact",
+        "vite@7.3.7",
+        "--package-lock-only",
+        "--ignore-scripts"
+      ],
+      "cwd": "products\\ptti\\frontend",
+      "memory_before": {
+        "available_bytes": 3584798720,
+        "available_gib": 3.3386
+      },
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 1.661,
+      "log": "vite-patch-lock.log",
+      "log_sha256": "13fa619310327317205ba30b2e3ec6840311c0da9c4b85503844d1fd57a00ef3",
+      "test_count": null,
+      "memory_after": {
+        "available_bytes": 3600814080,
+        "available_gib": 3.3535
+      },
+      "raw_log_sha256": "3ee6d704d42ddeff6aafd0d9f0b73f0697cb0cda3371d13950924a2b54f2c738"
+    }
+  ]
+}
