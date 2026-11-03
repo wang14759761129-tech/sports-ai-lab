@@ -1,0 +1,16 @@
+// Requires an already approved Playwright installation; never installs anything.
+import {execFileSync} from 'node:child_process';import {mkdtempSync,writeFileSync} from 'node:fs';import {tmpdir} from 'node:os';import {join} from 'node:path';
+const ram=()=>Number(execFileSync('powershell.exe',['-NoProfile','-Command','(Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory * 1024'],{encoding:'utf8'}).trim());
+for(let i=0;i<3;i++){if(ram()<3*1024**3)throw Error('BLOCKED_RAM: startup requires three samples >=3 GiB');await new Promise(r=>setTimeout(r,1000))}
+const {chromium}=await import('playwright');const dir=mkdtempSync(join(tmpdir(),'ptti-cinema-e2e-'));const context=await chromium.launchPersistentContext(join(dir,'profile'),{channel:'chrome',headless:false,viewport:{width:1920,height:1080}});const records=[];let floor=false;
+const monitor=setInterval(()=>{if(ram()<2.5*1024**3){floor=true;context.close().catch(()=>{})}},1000);
+try {
+ const page=await context.newPage();page.on('console',m=>records.push({console:m.type(),text:m.text()}));page.on('pageerror',e=>records.push({error:String(e)}));page.on('requestfailed',r=>records.push({request:r.url(),error:r.failure()}));
+ await page.goto('http://127.0.0.1:5199/');await page.locator('.feed-video').first().waitFor();await page.screenshot({path:join(dir,'cinema-1920.png'),fullPage:true});
+ const layout=await page.locator('.feed-grid').first().evaluate(el=>({columns:getComputedStyle(el).gridTemplateColumns,gap:getComputedStyle(el).gap}));records.push({layout});if(layout.gap!=='18px')throw Error('grid spacing mismatch');
+ await page.locator('.feed-watch').first().click();const video=page.locator('video');await video.waitFor();await video.evaluate(async v=>{await v.play()});await page.waitForTimeout(1500);let t=await video.evaluate(v=>v.currentTime);if(t<=0)throw Error('playback did not advance');records.push({played:t});await video.evaluate(v=>v.pause());
+ await video.evaluate(v=>new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('seek timeout')),5000);v.addEventListener('seeked',()=>{clearTimeout(timer);resolve(v.currentTime)},{once:true});v.currentTime=12.34}));
+ await page.getByLabel('时刻备注').fill('Sprint06 E2E');await page.getByRole('button',{name:'保存当前时刻'}).click();await page.getByText('时刻已保存到演示数据库',{exact:true}).waitFor();await page.reload();await page.locator('.feed-watch').first().click();await page.getByRole('button',{name:/12\.34 秒 · Sprint06 E2E/}).last().waitFor();
+ const seek=video.evaluate(v=>new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('seek timeout')),5000);v.addEventListener('seeked',()=>{clearTimeout(timer);resolve(v.currentTime)},{once:true})}));await page.getByRole('button',{name:/12\.34 秒 · Sprint06 E2E/}).last().click();const actual=await seek;records.push({seeked:actual,error:Math.abs(actual-12.34)});if(Math.abs(actual-12.34)>.1)throw Error('seek deviation');await page.screenshot({path:join(dir,'moment.png'),fullPage:true});
+ records.push({status:'PASS',scope:'playback, saved-moment reload and seek only; other UX paths NOT_TESTED'});
+} catch(e){records.push({status:'FAIL',error:String(e)});throw e}finally{clearInterval(monitor);await context.close();writeFileSync(join(dir,'evidence.json'),JSON.stringify({floor,records},null,2));console.log(dir)}
