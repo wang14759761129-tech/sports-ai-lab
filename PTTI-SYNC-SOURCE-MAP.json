@@ -1,0 +1,739 @@
+{
+  "source_commit": "e64b9860059727e2b53a1466b6871fed90c8f4db",
+  "source_branch": "codex/ptti-v0.1.2-chinese-desktop",
+  "history_preserved": false,
+  "snapshot_only": true,
+  "build": "NOT_TESTED",
+  "GUI": "NOT_TESTED",
+  "policy": "PTTI public screened snapshot v2; independent root commits, original history LOCAL_ONLY; workflows excluded",
+  "files": [
+    {
+      "path": ".gitignore",
+      "source_blob": "2fbc69724161a105774629186993fe2ff28c134e",
+      "source_sha256": "50f6202e4c71e91dd981575a16dff79b8c13376cce00ee07246d74473910c8fa",
+      "safe_sha256": "50f6202e4c71e91dd981575a16dff79b8c13376cce00ee07246d74473910c8fa",
+      "transformed": false
+    },
+    {
+      "path": "PROJECT_ROADMAP.md",
+      "source_blob": "4e8bb4a6f94dcdffe4dbf535935a0e92ffdb350c",
+      "source_sha256": "da862529a4fe96a81f289f135b3b1f49ecbf36298781b3f86b5accdc6a9a2322",
+      "safe_sha256": "da862529a4fe96a81f289f135b3b1f49ecbf36298781b3f86b5accdc6a9a2322",
+      "transformed": false
+    },
+    {
+      "path": "RESEARCH_LOG.md",
+      "source_blob": "8901d4c6fc1341271adcc954685706b3781c8af5",
+      "source_sha256": "0df6b50267a5025677e73747ad0a4f24650a3ab68a56b84a19d05aee0c8466b0",
+      "safe_sha256": "0df6b50267a5025677e73747ad0a4f24650a3ab68a56b84a19d05aee0c8466b0",
+      "transformed": false
+    },
+    {
+      "path": "RESEARCH_STANDARDS.md",
+      "source_blob": "ff3a0bb59af4f04c59b0fd2de79764a219c52e63",
+      "source_sha256": "b0d41c89b5ae6d9a3214a193fd8596c048ae3661323ae528261eac9d10feb487",
+      "safe_sha256": "b0d41c89b5ae6d9a3214a193fd8596c048ae3661323ae528261eac9d10feb487",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/.gitignore",
+      "source_blob": "afea00742bac32174534f62960a87a557286a1dd",
+      "source_sha256": "bc8c1ab3a8d3f5b7f0e9bb9cee10f5a52ca486662d38f06911a4f6c1c8067e32",
+      "safe_sha256": "bc8c1ab3a8d3f5b7f0e9bb9cee10f5a52ca486662d38f06911a4f6c1c8067e32",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/CHANGELOG.md",
+      "source_blob": "fbf6f0e470f76f015bea7aef2a0197c1df4cc36f",
+      "source_sha256": "b17d97328a6c390e410afef3f57da9243a605befab8f2f75d13f802e771b4f7a",
+      "safe_sha256": "b17d97328a6c390e410afef3f57da9243a605befab8f2f75d13f802e771b4f7a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/CONTRIBUTING.md",
+      "source_blob": "403141b4dde3e55d673130e72c41e22fd1daba58",
+      "source_sha256": "a1446f2c5dfa062e6488162f655fbc83b624649ce605461a3dc4d4527a05ac4c",
+      "safe_sha256": "a1446f2c5dfa062e6488162f655fbc83b624649ce605461a3dc4d4527a05ac4c",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/ROADMAP.md",
+      "source_blob": "37de2f17c018b510acfaad0fae7652fdb60631c9",
+      "source_sha256": "0c80089aa7a0f767fba221dd2cceac97cdccbd6e92a0d16468df29373d8285bb",
+      "safe_sha256": "0c80089aa7a0f767fba221dd2cceac97cdccbd6e92a0d16468df29373d8285bb",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/apps/desktop.py",
+      "source_blob": "e12509a93bb870875db8e6686be111c339504574",
+      "source_sha256": "9446f8c7bb4f07d0c166f3f5716ef8f0c016aedc81921ce8bebed4c09f48954e",
+      "safe_sha256": "9446f8c7bb4f07d0c166f3f5716ef8f0c016aedc81921ce8bebed4c09f48954e",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/assets/ptti.svg",
+      "source_blob": "67030b019d8c6e7e04566a84395e7d4054899aff",
+      "source_sha256": "077e2e067f9c74d8b317200a12e3611b84619c81f0e24b6b5e9c1517abcf48c9",
+      "safe_sha256": "077e2e067f9c74d8b317200a12e3611b84619c81f0e24b6b5e9c1517abcf48c9",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/__init__.py",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "safe_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/main.py",
+      "source_blob": "f0dc4fbc0452114145ac7d4355a35cea0f45106e",
+      "source_sha256": "ab3bcf9486f4597a485972dd671a0fe01e7de986446e14c4dc36a4b7ef499934",
+      "safe_sha256": "ab3bcf9486f4597a485972dd671a0fe01e7de986446e14c4dc36a4b7ef499934",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/backend/repository.py",
+      "source_blob": "4643e17f7310a53898fcd047e36cf116786638cd",
+      "source_sha256": "48bce816282f45c45fc51e2fc37c15bbba572d52b44eb35e61152174aa767bd7",
+      "safe_sha256": "48bce816282f45c45fc51e2fc37c15bbba572d52b44eb35e61152174aa767bd7",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/build_windows.bat",
+      "source_blob": "d6cf647e1f0deb81f341a7a8a2d50d611f18429c",
+      "source_sha256": "8ab918c14d9a5c364ad54295c9d731680d56e71445d7ca74eecdb213ebf08cb7",
+      "safe_sha256": "8ab918c14d9a5c364ad54295c9d731680d56e71445d7ca74eecdb213ebf08cb7",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/core/__init__.py",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "safe_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/core/adapters/__init__.py",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "safe_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/core/adapters/protocol_v0_3/__init__.py",
+      "source_blob": "2efaca9c75665b5bbfed3ad7c81b140296e74880",
+      "source_sha256": "7107b8108afe77bd0192abfa366e2528b4af6ef19eef696c8843408694105ff4",
+      "safe_sha256": "7107b8108afe77bd0192abfa366e2528b4af6ef19eef696c8843408694105ff4",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/core/engine.py",
+      "source_blob": "44f3a575c25a156ad6eba4d16caccc150a54c751",
+      "source_sha256": "62595b85fbdac03b106c64ecff1f5afabfc59aad7f97ba83ce1fccb8cefd8335",
+      "safe_sha256": "62595b85fbdac03b106c64ecff1f5afabfc59aad7f97ba83ce1fccb8cefd8335",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/core/evidence.py",
+      "source_blob": "b6d7cbdd07f46d6fe1f638fb431fdbfd23e81584",
+      "source_sha256": "914bbfb497da684382b1cd1264eeacd9705421da7d3a0c598820891369af2900",
+      "safe_sha256": "914bbfb497da684382b1cd1264eeacd9705421da7d3a0c598820891369af2900",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/core/importing.py",
+      "source_blob": "1c484029cf56bf128d3f8b8c2bd59adf0bbfe85b",
+      "source_sha256": "ae48a653bddfd47c1179f69c0d456a706c16530151a39a4078e8abed1d48a3f0",
+      "safe_sha256": "ae48a653bddfd47c1179f69c0d456a706c16530151a39a4078e8abed1d48a3f0",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/EVIDENCE-METRICS.md",
+      "source_blob": "96d1a1c3c76c74d5eecfe6f57d6b6f404bcfa4fb",
+      "source_sha256": "d5237d0f7246861448399b08e0cc4cb610b196af247ed4c4132448aa2f2ec834",
+      "safe_sha256": "d5237d0f7246861448399b08e0cc4cb610b196af247ed4c4132448aa2f2ec834",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/NOTION-SYNC-REPORT.md",
+      "source_blob": "ef0b047f2ea7a6f77e32258981729d9b44a61fb1",
+      "source_sha256": "0fd603ddf73f4f56d81adbcb477f5f30f229e59ec7403f08b18c3cef70dc8ff7",
+      "safe_sha256": "0fd603ddf73f4f56d81adbcb477f5f30f229e59ec7403f08b18c3cef70dc8ff7",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/RESEARCH-BASIS.md",
+      "source_blob": "88d3050a747ca728bdd3abcd04a6b72293e42c07",
+      "source_sha256": "fd8c00e968f2f66117c056522624a31aaa44760c03bc24e2b93fa43884999865",
+      "safe_sha256": "fd8c00e968f2f66117c056522624a31aaa44760c03bc24e2b93fa43884999865",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/SCHEMA-COMPATIBILITY.md",
+      "source_blob": "fef96313394f6afd66bb447d6dc407d876045ad4",
+      "source_sha256": "6446ca6f70bfefe7099f88fbf7faf876196f17649936d9cad7c391a65dce37cb",
+      "safe_sha256": "6446ca6f70bfefe7099f88fbf7faf876196f17649936d9cad7c391a65dce37cb",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/USER-FEEDBACK.md",
+      "source_blob": "88d9bb33219b2d4cfb0ccffb7ad0d18b40086b92",
+      "source_sha256": "29c73344b92593a866585b1ed33da26b6b5f401c0c33a24406887c38cba35381",
+      "safe_sha256": "29c73344b92593a866585b1ed33da26b6b5f401c0c33a24406887c38cba35381",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/analysis-methodology.md",
+      "source_blob": "d38b8694faa5f70d961599348816ad598682bd80",
+      "source_sha256": "96a73d2ee63c6ed5ca277617c0e14e6dff8ea9cfa8e997f3716fbe7a3f08274b",
+      "safe_sha256": "96a73d2ee63c6ed5ca277617c0e14e6dff8ea9cfa8e997f3716fbe7a3f08274b",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/architecture.md",
+      "source_blob": "c4e1b273cbfb0510e271a20e6949418157ca14ef",
+      "source_sha256": "9b10afa0d18eb765f6960231752cc8d424fb12363384b5ef2140fba78f657f19",
+      "safe_sha256": "9b10afa0d18eb765f6960231752cc8d424fb12363384b5ef2140fba78f657f19",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/data-schema.md",
+      "source_blob": "1c97d7577027dacdcdf0c900e6eb52d8a4526878",
+      "source_sha256": "9f98affebb2b87b1fa5bd9a746bebab306a8e1f92e1b572fffdc051b97eccb26",
+      "safe_sha256": "9f98affebb2b87b1fa5bd9a746bebab306a8e1f92e1b572fffdc051b97eccb26",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/desktop-verification-v0.1.2.md",
+      "source_blob": "1680f36caa658829fda8503426991b67ac627082",
+      "source_sha256": "7eb19d67b746d2722b6bc21891949d45fd65aac88f10697be80e86197e7c2737",
+      "safe_sha256": "7eb19d67b746d2722b6bc21891949d45fd65aac88f10697be80e86197e7c2737",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/metrics.md",
+      "source_blob": "ee2488a78bff275093f727f7c91687f9f41097a0",
+      "source_sha256": "07eb8325ed717901d71417817592bae5b969c9cd1940fe77a223e2152c206eb2",
+      "safe_sha256": "07eb8325ed717901d71417817592bae5b969c9cd1940fe77a223e2152c206eb2",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/release-freeze.md",
+      "source_blob": "025e078b37317f869013478f2784e13251c2e666",
+      "source_sha256": "158bfd640972005f6ca950ef6732346e6478f8236bcaed1687262c5c68336c5a",
+      "safe_sha256": "158bfd640972005f6ca950ef6732346e6478f8236bcaed1687262c5c68336c5a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/release-verification.md",
+      "source_blob": "4d3a255d12cc53ea93538eeb9b455c27da4f7cb2",
+      "source_sha256": "70914b409bac70759f7f726916f516091ccb2ad0add551656800ebfd67b4d9c5",
+      "safe_sha256": "70914b409bac70759f7f726916f516091ccb2ad0add551656800ebfd67b4d9c5",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/release/CSV-TEMPLATE.md",
+      "source_blob": "ef20562a52405d5c8114d55a15719b2bb70f820c",
+      "source_sha256": "429d6b1af89dab02682e835eb660bc749826dd5883f647f63ba9bb49c14a6157",
+      "safe_sha256": "429d6b1af89dab02682e835eb660bc749826dd5883f647f63ba9bb49c14a6157",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/release/DATA-FIELDS.md",
+      "source_blob": "c81895e70e5bd22021fa63efa32c76e4254b5b70",
+      "source_sha256": "ee3d172b73cbcdd56e03a3824768d94c1e27644a2aa28d14fdfd5ab3b7652886",
+      "safe_sha256": "ee3d172b73cbcdd56e03a3824768d94c1e27644a2aa28d14fdfd5ab3b7652886",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/release/QUICK-START.md",
+      "source_blob": "5f25d001bf1a38961e03ec1bb5a20be2b7e2e77c",
+      "source_sha256": "dc33e0850ee608ba558fdfac990ead8f0cf80dabb0b1f1fa0c124e15e21533ae",
+      "safe_sha256": "dc33e0850ee608ba558fdfac990ead8f0cf80dabb0b1f1fa0c124e15e21533ae",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/release/RELEASE-NOTES.md",
+      "source_blob": "0746737ebccc79e189914f824c9b963914ea5b43",
+      "source_sha256": "a141df0a09972dfea32d2c87b463afdc520f5675f8f311d666a8ca657df5ab82",
+      "safe_sha256": "a141df0a09972dfea32d2c87b463afdc520f5675f8f311d666a8ca657df5ab82",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/docs/release/START-HERE.txt",
+      "source_blob": "6b42a5cc01a01a95f1c31f8aea9dcf0d38a7977d",
+      "source_sha256": "31383190cc6331a6c941ccf14d7af73da9623590a0829a34d5b5da04955c8d6a",
+      "safe_sha256": "31383190cc6331a6c941ccf14d7af73da9623590a0829a34d5b5da04955c8d6a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/index.html",
+      "source_blob": "670114c1e7d3ca01312150d9478ac12e915f15b1",
+      "source_sha256": "8d5910e5235757ade8070c8322b665e238c5e8aad445f293197c2769548de754",
+      "safe_sha256": "8d5910e5235757ade8070c8322b665e238c5e8aad445f293197c2769548de754",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/package-lock.json",
+      "source_blob": "4d9662c46efd0c0e6a485bdf3d81dd6b73960e78",
+      "source_sha256": "f8fdc1d202770dd5c62762bd3260966810de601ff860d4a7a6d2247458fe68ea",
+      "safe_sha256": "f8fdc1d202770dd5c62762bd3260966810de601ff860d4a7a6d2247458fe68ea",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/package.json",
+      "source_blob": "baa051f49b31d36d98f140d9a6bcfdc5c98ac780",
+      "source_sha256": "2178d7b485a02dfeea9b36a68797a9c0ffbdeefa34b0d1a4855ab9ab2fb2534b",
+      "safe_sha256": "2178d7b485a02dfeea9b36a68797a9c0ffbdeefa34b0d1a4855ab9ab2fb2534b",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/public/ptti.svg",
+      "source_blob": "67030b019d8c6e7e04566a84395e7d4054899aff",
+      "source_sha256": "077e2e067f9c74d8b317200a12e3611b84619c81f0e24b6b5e9c1517abcf48c9",
+      "safe_sha256": "077e2e067f9c74d8b317200a12e3611b84619c81f0e24b6b5e9c1517abcf48c9",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/ScoreChart.tsx",
+      "source_blob": "36e220a1a5b47b8addd7856e6ab3811938134b80",
+      "source_sha256": "02dc1b18a72fdcf65ff3250100ec6f18f11edff221c43f73c785273d36a13187",
+      "safe_sha256": "02dc1b18a72fdcf65ff3250100ec6f18f11edff221c43f73c785273d36a13187",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/style.css",
+      "source_blob": "6af466ae1c03d761ceae6da6652b11a3737314df",
+      "source_sha256": "8ad39dacdb3ee6eaa043a68891e98cf81680a20cd1b71beec8c99fa429711a47",
+      "safe_sha256": "8ad39dacdb3ee6eaa043a68891e98cf81680a20cd1b71beec8c99fa429711a47",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/src/ui.tsx",
+      "source_blob": "e9f367afa0024c7a8198170ecf55376cd5258a15",
+      "source_sha256": "96f469dbd2b5689db54ebad3c8aba329639177c2161b5a5f2d7a121fb1b626fa",
+      "safe_sha256": "96f469dbd2b5689db54ebad3c8aba329639177c2161b5a5f2d7a121fb1b626fa",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/tsconfig.json",
+      "source_blob": "c85d0d7130c12d8cbd26a224f44439d7b19b263d",
+      "source_sha256": "8a5d95f002b552ebf18061dca36fc28782db283c0beb42d248b2d1e1417b2ef9",
+      "safe_sha256": "8a5d95f002b552ebf18061dca36fc28782db283c0beb42d248b2d1e1417b2ef9",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/frontend/vite.config.ts",
+      "source_blob": "4875f9cb2406e28e4e9cdcdc439be664dec84f2e",
+      "source_sha256": "a57d4be09dbb4e54126f170c4e05ec80d21f13820e77d38ff6788600be7befd1",
+      "safe_sha256": "a57d4be09dbb4e54126f170c4e05ec80d21f13820e77d38ff6788600be7befd1",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/requirements.txt",
+      "source_blob": "cde83c5f14f7fa24f9fe73c6a12726bbb89746a9",
+      "source_sha256": "fe26c57d26bfa872656d6219bd97bf2bb06ff7cbf22324c583313064262df495",
+      "safe_sha256": "fe26c57d26bfa872656d6219bd97bf2bb06ff7cbf22324c583313064262df495",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/run_backend.bat",
+      "source_blob": "60f8891c0ad0c0cdc015f3cb2cc161dab2c6e605",
+      "source_sha256": "ed1c8b850ac0601ffbe611594e21031d571fc5c74d381b1b67f9e6ded47c8455",
+      "safe_sha256": "ed1c8b850ac0601ffbe611594e21031d571fc5c74d381b1b67f9e6ded47c8455",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/run_dev.bat",
+      "source_blob": "e4e0e2c52dee60fdfaabd11dfc40089efdd1c4f2",
+      "source_sha256": "7425950c4c904fba25c13c16bc21cbbaa76b0032f5ef129af97c1eeef67dc75a",
+      "safe_sha256": "7425950c4c904fba25c13c16bc21cbbaa76b0032f5ef129af97c1eeef67dc75a",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/run_frontend.bat",
+      "source_blob": "2daaa1a3103769d4308d73aee623ccfc55375122",
+      "source_sha256": "8978a6222d8734229b975bdf6c76de36a281b5229525368840fed866c39b24d8",
+      "safe_sha256": "8978a6222d8734229b975bdf6c76de36a281b5229525368840fed866c39b24d8",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/INSTALL.cmd",
+      "source_blob": "dba70d926b18f3720d627f7a2ea274475b15224f",
+      "source_sha256": "2153aea691dec9c6f55d0d4fb4e49990e7e9cf2345daf6a8eec5ede623547107",
+      "safe_sha256": "2153aea691dec9c6f55d0d4fb4e49990e7e9cf2345daf6a8eec5ede623547107",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/INSTALL.ps1",
+      "source_blob": "53f2f6d3b75c534d86a663f1959d2de4c8357931",
+      "source_sha256": "90151aeaeb8301a3c37c079809d8b4d4ef6819e3ba2c73906f9a5132379c346b",
+      "safe_sha256": "90151aeaeb8301a3c37c079809d8b4d4ef6819e3ba2c73906f9a5132379c346b",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/UNINSTALL.ps1",
+      "source_blob": "36c9b500f1c1815c4563f7b8d3abcee2fe1c32dc",
+      "source_sha256": "36a1699f563ee9258ba1037a44eb538bb254428168dbf34ac3eab878b91e43be",
+      "safe_sha256": "36a1699f563ee9258ba1037a44eb538bb254428168dbf34ac3eab878b91e43be",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/make_icon.py",
+      "source_blob": "48b44f01e4941e25d35706c922cfb91b0a9ddf80",
+      "source_sha256": "eed62ca599a26ff2f6d53a8df3fee6982993aa34e33d987fe4c4d95066b60933",
+      "safe_sha256": "eed62ca599a26ff2f6d53a8df3fee6982993aa34e33d987fe4c4d95066b60933",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/make_sample.py",
+      "source_blob": "a6c8a306b82eb328e7ae2d35484e33f0f981fc8a",
+      "source_sha256": "f5782fb91ad1e6d2c50a2d30fd97449478a045fcb12ad4b01539eba14fad990b",
+      "safe_sha256": "f5782fb91ad1e6d2c50a2d30fd97449478a045fcb12ad4b01539eba14fad990b",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/scripts/package_release.ps1",
+      "source_blob": "757fcf1111df20acae4bf902df036ccf50596fb6",
+      "source_sha256": "dd80ccaeb25e42c81f7f1491cb17dc8035246b09a72fad34e0199ca6122fc5ca",
+      "safe_sha256": "dd80ccaeb25e42c81f7f1491cb17dc8035246b09a72fad34e0199ca6122fc5ca",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/setup_windows.bat",
+      "source_blob": "87345c934a06fab8798820953477d0bacb5f8415",
+      "source_sha256": "a40df9ffe1049c26ca80455b6d6b2c7fb68c8cc4bbf19ac7c072e50b496e0e1d",
+      "safe_sha256": "a40df9ffe1049c26ca80455b6d6b2c7fb68c8cc4bbf19ac7c072e50b496e0e1d",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_desktop_ux.py",
+      "source_blob": "dc6b9b85eabe363e32e390332acce4f432c53001",
+      "source_sha256": "f322132879eb215a75275178f80af870f49fd3a82e570a1668f1239185734b8e",
+      "safe_sha256": "f322132879eb215a75275178f80af870f49fd3a82e570a1668f1239185734b8e",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_protocol_adapter.py",
+      "source_blob": "e31c70ad98f92c1165d85bb30dee6e00c844dce4",
+      "source_sha256": "94915c9417fe1821e478ae665ca34de7f4661a4644b868c45e05f29fd53b8c53",
+      "safe_sha256": "94915c9417fe1821e478ae665ca34de7f4661a4644b868c45e05f29fd53b8c53",
+      "transformed": false
+    },
+    {
+      "path": "products/ptti/tests/test_ptti.py",
+      "source_blob": "82816161ce7cfc5f7526d2dc2ce8002276581f91",
+      "source_sha256": "f524518059f24c2c5fbec62a97af078c8fb1cb78d279793086e6bb76ad7ed2cb",
+      "safe_sha256": "f524518059f24c2c5fbec62a97af078c8fb1cb78d279793086e6bb76ad7ed2cb",
+      "transformed": false
+    },
+    {
+      "path": "projects/001-serve-description/README.md",
+      "source_blob": "d1a9dc291b2eb6eb31ca7c7c4c0ad696ad29344e",
+      "source_sha256": "64543f26690e0905f2a6f9df4b7361b140c2f5910e526687158fdb256c58a320",
+      "safe_sha256": "64543f26690e0905f2a6f9df4b7361b140c2f5910e526687158fdb256c58a320",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/README.md",
+      "source_blob": "8db6694962cc290089f28566129ae924127a1a8a",
+      "source_sha256": "62f628588f397b2da02a73023db8f29a9d58f5147ce16321ff364eba1efabbb7",
+      "safe_sha256": "62f628588f397b2da02a73023db8f29a9d58f5147ce16321ff364eba1efabbb7",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/analysis/README.md",
+      "source_blob": "251b8d0bb90393522022e287103ea62ac84b598c",
+      "source_sha256": "9b4361ddebeca40570c4043339000328c5f34fb3648384aff0c287bc85235edc",
+      "safe_sha256": "9b4361ddebeca40570c4043339000328c5f34fb3648384aff0c287bc85235edc",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/analysis/analyze_match.py",
+      "source_blob": "8fb3762449968aaca47ef95294bd7081041a946d",
+      "source_sha256": "ad85d4ac1aa9f900339c489127979cdace8da38fa69a6a28b86b8a6c2f063030",
+      "safe_sha256": "ad85d4ac1aa9f900339c489127979cdace8da38fa69a6a28b86b8a6c2f063030",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/analysis/results.md",
+      "source_blob": "589429544b1f7b19701422c422bb17f26fb3a889",
+      "source_sha256": "fd5ccc68bd1e3b4164ff0a6041cb7495c72507b34d01d961ce70c949669abce7",
+      "safe_sha256": "fd5ccc68bd1e3b4164ff0a6041cb7495c72507b34d01d961ce70c949669abce7",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/notes/README.md",
+      "source_blob": "df3d675daee2d7dd707159867df1f9c404fac338",
+      "source_sha256": "3880fa436876aecfc84501b7166d1db2b2b9b805358f674d50f013ffadaaac19",
+      "safe_sha256": "3880fa436876aecfc84501b7166d1db2b2b9b805358f674d50f013ffadaaac19",
+      "transformed": false
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/notes/RESEARCH_LOG.md",
+      "source_blob": "37ba8e53c7543b9972bcca5a2d305d59902514c3",
+      "source_sha256": "fa3e5f761694a8a982f797abd26cdda54e764f276deb5f9a73c5cfedb5f1f8cc",
+      "safe_sha256": "fa3e5f761694a8a982f797abd26cdda54e764f276deb5f9a73c5cfedb5f1f8cc",
+      "transformed": false
+    },
+    {
+      "path": "reports/README.md",
+      "source_blob": "d637fd3d54e42e97a7d72cab44de4179ed2b74ab",
+      "source_sha256": "7efb4c647b17ac8389ae1c81e0e41383316c2e9145f124216b1e9ba67c93bab5",
+      "safe_sha256": "7efb4c647b17ac8389ae1c81e0e41383316c2e9145f124216b1e9ba67c93bab5",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/ANALYSIS_PLAN.md",
+      "source_blob": "52731b41eefa8656b4392b3d1b001f9265c20323",
+      "source_sha256": "ef775a8baa66d6430f7dc02a5863c9aa4dac054627afd9bf278d605846c22f43",
+      "safe_sha256": "ef775a8baa66d6430f7dc02a5863c9aa4dac054627afd9bf278d605846c22f43",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/ANNOTATION_BURDEN.md",
+      "source_blob": "4276b1289258e6f3c5dba0f129f9bf0a0ff998de",
+      "source_sha256": "cbb31f37b51ea3474b311d09309b877639e5dda0ca4c9f152afcefba9fea79f8",
+      "safe_sha256": "cbb31f37b51ea3474b311d09309b877639e5dda0ca4c9f152afcefba9fea79f8",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/ANNOTATION_GUIDE.md",
+      "source_blob": "6b79c30c2b6217deb2443fbc8be9c338eaf6e5cf",
+      "source_sha256": "f26cead12a52e9ec8bc7e051136cde557a1a4330cc97ef2a949719b6e7fc0162",
+      "safe_sha256": "f26cead12a52e9ec8bc7e051136cde557a1a4330cc97ef2a949719b6e7fc0162",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/CHANGELOG.md",
+      "source_blob": "014f71f89b8f7be5036ddc82403837a8a7e9932f",
+      "source_sha256": "9012f53b2396af4f300bddf17a6e093b9d7bf374e08c355ebcd0ac9ad6363411",
+      "safe_sha256": "9012f53b2396af4f300bddf17a6e093b9d7bf374e08c355ebcd0ac9ad6363411",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/DATA_SCHEMA.md",
+      "source_blob": "7d4e835b58d08e77a241ade5309c2d1ed96a62cf",
+      "source_sha256": "436ac163733018be6c454ce54dbfca31f0264537593ce3d602f277c8cb660cc0",
+      "safe_sha256": "436ac163733018be6c454ce54dbfca31f0264537593ce3d602f277c8cb660cc0",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/INTER_RATER_RELIABILITY.md",
+      "source_blob": "32228098fe388bf2f77302544e16db22ad902fde",
+      "source_sha256": "dca400d2c7c3a0f0036602f0cfee5801169fcdff02a2dd515028f6cdefca2fae",
+      "safe_sha256": "dca400d2c7c3a0f0036602f0cfee5801169fcdff02a2dd515028f6cdefca2fae",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/LIMITATIONS.md",
+      "source_blob": "94bb616e83901ae1fb8794df205341fac478d27c",
+      "source_sha256": "178da1b1e352daada979b7961c2f7bcfb4804cce231fc9578d948f31c834dc1b",
+      "safe_sha256": "178da1b1e352daada979b7961c2f7bcfb4804cce231fc9578d948f31c834dc1b",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/OBSERVABILITY_MATRIX.md",
+      "source_blob": "0ca84f852ebab9252c99818db32f4ccbd0169b65",
+      "source_sha256": "2b75a2339773948b9aa1406a55ddb9e8eef7300b19bb283c0e4b006c6a7e144a",
+      "safe_sha256": "2b75a2339773948b9aa1406a55ddb9e8eef7300b19bb283c0e4b006c6a7e144a",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_1B_REPORT.md",
+      "source_blob": "f4a7cfbbcfe5a32fecc033bebb237ac1ee466646",
+      "source_sha256": "b2bf0af013e9fdaeb7fc82acfd45a3d822b1930d91878edd57abd0430e981d56",
+      "safe_sha256": "b2bf0af013e9fdaeb7fc82acfd45a3d822b1930d91878edd57abd0430e981d56",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_1C_REPORT.md",
+      "source_blob": "266e7cbb31841e715186f0e133f4ea6c2f0e2f6d",
+      "source_sha256": "fb473164d3c31474bc00d88e1c1a0d48316798bc4a8bd32c84bc39ce4c1bfee4",
+      "safe_sha256": "fb473164d3c31474bc00d88e1c1a0d48316798bc4a8bd32c84bc39ce4c1bfee4",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_1_REPORT.md",
+      "source_blob": "4d614aa7d8600d2f2c9662998d1ef6fafc0efe2b",
+      "source_sha256": "c13e7c86e30c198d0cc7aa0e674ac0b16d1f720c5b385bc8404c49322816067e",
+      "safe_sha256": "c13e7c86e30c198d0cc7aa0e674ac0b16d1f720c5b385bc8404c49322816067e",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_2_PLAN.md",
+      "source_blob": "0a94eebf49476eaaba1e4f9c4e3e8b6d78d88b83",
+      "source_sha256": "fe4873b14767074f8b1a7c69b3026bdc52a2a1805d32cb1ecf7311161f293d2b",
+      "safe_sha256": "fe4873b14767074f8b1a7c69b3026bdc52a2a1805d32cb1ecf7311161f293d2b",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_2_REPORT.md",
+      "source_blob": "22c43ad1798178d14e1b98a2455365c0b314bfea",
+      "source_sha256": "7732deff6c10b38964e7a1d0b3337a152d1d72dfeaf048aa5888a6d97dc7f1e0",
+      "safe_sha256": "7732deff6c10b38964e7a1d0b3337a152d1d72dfeaf048aa5888a6d97dc7f1e0",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PILOT_PLAN.md",
+      "source_blob": "7f9097f471178d20d4971f1523641b85fe9877ec",
+      "source_sha256": "816c300cbe1e96feadd31f1bcc511b21ba2cc749b9bb1de7446546900f9db8c5",
+      "safe_sha256": "816c300cbe1e96feadd31f1bcc511b21ba2cc749b9bb1de7446546900f9db8c5",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/PROTOCOL.md",
+      "source_blob": "473107be74e3609fb1611596c5ea907d3df6b2f4",
+      "source_sha256": "2e7a97e618ead486e486dad317ace678bb240e5db53443947e904e37a7c8c823",
+      "safe_sha256": "2e7a97e618ead486e486dad317ace678bb240e5db53443947e904e37a7c8c823",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/README.md",
+      "source_blob": "305c5ee7d76c34d531536df61ae9f23a17659271",
+      "source_sha256": "eb772496f9bf146b1031231487e9948230ebb5674b62ce2dab3cc23a23e960d0",
+      "safe_sha256": "eb772496f9bf146b1031231487e9948230ebb5674b62ce2dab3cc23a23e960d0",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/RESEARCH_QUESTION.md",
+      "source_blob": "7ae5daca02c8605a1d328d824081ae91620ef64b",
+      "source_sha256": "ca91ccea1699665409d34781ac7a73b5b68115ca450dacde5c31f5df9c95e5c4",
+      "safe_sha256": "ca91ccea1699665409d34781ac7a73b5b68115ca450dacde5c31f5df9c95e5c4",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/VIDEO_SOURCE_SCORECARD.md",
+      "source_blob": "cc713b7d133e5cae9afeaea88100581f1c4c1803",
+      "source_sha256": "9e57ca8135525c571d1294fd3e2d090a30577b1822270d4c601e9d1bfedaf732",
+      "safe_sha256": "9e57ca8135525c571d1294fd3e2d090a30577b1822270d4c601e9d1bfedaf732",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/analysis/README.md",
+      "source_blob": "52087f2107a0477860dcf4277428a1fdd7d9f114",
+      "source_sha256": "3f327b79e61d0b3e88e5a66767b3440db49c496a50c74ae62e044e044209a95b",
+      "safe_sha256": "3f327b79e61d0b3e88e5a66767b3440db49c496a50c74ae62e044e044209a95b",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/analysis/data_quality_report.md",
+      "source_blob": "ff0b8149b38b63600452f3f55a7a6d54e401a252",
+      "source_sha256": "ad2a2891bc5745ef7c9ee4ef130e955f299f3ba982804f6ab7f13ff4b43d4779",
+      "safe_sha256": "ad2a2891bc5745ef7c9ee4ef130e955f299f3ba982804f6ab7f13ff4b43d4779",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/analysis/scripts/summarize_points.py",
+      "source_blob": "2f5364007e362417a51e361fe6a08f1e1d11bb23",
+      "source_sha256": "9957d2312f0fb26b37e5d3ebddd6aa5b259e2e6593102afe4f05d15a03f9a8ec",
+      "safe_sha256": "9957d2312f0fb26b37e5d3ebddd6aa5b259e2e6593102afe4f05d15a03f9a8ec",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/analysis/scripts/validate_data.py",
+      "source_blob": "84bbf1ade30175e8baf8d8c8b537fdda669be003",
+      "source_sha256": "a722f6c324eee74766c21a9d141d6a1a092d661294195d3822b6d63f611e0171",
+      "safe_sha256": "a722f6c324eee74766c21a9d141d6a1a092d661294195d3822b6d63f611e0171",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/figures/README.md",
+      "source_blob": "9c847b1e76021db92d6bf90d6b80af86e76eefcc",
+      "source_sha256": "5c89a4c27ca3579305d5c25e3e8d934f0c95b96c37835be5559603e753812aa8",
+      "safe_sha256": "5c89a4c27ca3579305d5c25e3e8d934f0c95b96c37835be5559603e753812aa8",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/notes/README.md",
+      "source_blob": "a666d26cd80ffc41bbb01b0f5f82517cadca2884",
+      "source_sha256": "458396503dbf72dcbbea31f6f3168ac596a01d8273d71805b63941506833c937",
+      "safe_sha256": "458396503dbf72dcbbea31f6f3168ac596a01d8273d71805b63941506833c937",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/notes/annotation_time.md",
+      "source_blob": "a91be13ff856d4a8a0ada34fff3f7ac49102453c",
+      "source_sha256": "1b52b0c68d3be2a485943eb0c7a40536df27679a71251262370af45749b9c59e",
+      "safe_sha256": "1b52b0c68d3be2a485943eb0c7a40536df27679a71251262370af45749b9c59e",
+      "transformed": false
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/notes/pilot_1_early_observations.md",
+      "source_blob": "42f6dd46705eaeac386d6b9abd94c39a4381291f",
+      "source_sha256": "9b21593bc867ae6de701521ed7c42982e91362f644bf4f02462a8dccb13bf0cf",
+      "safe_sha256": "9b21593bc867ae6de701521ed7c42982e91362f644bf4f02462a8dccb13bf0cf",
+      "transformed": false
+    }
+  ],
+  "excluded": [
+    {
+      "path": "README.md",
+      "reason": "content review blocked: phone"
+    },
+    {
+      "path": "data/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "products/ptti/README.md",
+      "reason": "content review blocked: phone"
+    },
+    {
+      "path": "products/ptti/assets/ptti.ico",
+      "reason": "nonallowlisted/binary extension"
+    },
+    {
+      "path": "products/ptti/data/samples/protocol-v0.3-example.csv",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "products/ptti/data/samples/synthetic.csv",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "products/ptti/docs/integration-verification.md",
+      "reason": "content review blocked: phone"
+    },
+    {
+      "path": "products/ptti/frontend/src/main.tsx",
+      "reason": "content review blocked: phone"
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/data/DATA_DICTIONARY.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/data/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "projects/01-match-descriptive-analysis/data/match_scores.csv",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/processed/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/raw/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/raw/match_001_metadata.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/raw/match_001_points.csv",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "research-tracks/match-analytics/serve-third-ball-analytics/data/sample/example_points.csv",
+      "reason": "private/data/runtime/archive/third-party path"
+    }
+  ]
+}
