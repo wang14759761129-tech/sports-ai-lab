@@ -1,0 +1,22 @@
+.moment-cards{max-width:1000px;margin:0 auto}
+.moment-header{display:flex;gap:16px;align-items:flex-start;margin:16px 0}
+.moment-header h2{margin:0 0 6px}
+.moment-header p{color:var(--muted);font-size:13px;line-height:1.6;margin:0}
+.moment-form{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:var(--card);border-radius:12px;padding:16px;margin-bottom:16px}
+.moment-form label{display:flex;flex-direction:column;gap:6px;font-size:13px}
+.moment-form input,.moment-form select,.moment-form textarea{margin:0;width:100%}
+.moment-form textarea{min-height:72px;resize:vertical}
+.moment-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.moment-error{grid-column:1/-1;color:#ff8a8a}
+.moment-filter{display:flex;justify-content:space-between;align-items:center;margin:12px 0}
+.moment-empty{color:var(--muted)}
+.moment-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.moment-card{background:var(--card);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:7px;min-width:0}
+.moment-time{font-size:22px;font-variant-numeric:tabular-nums}
+.moment-card strong{line-height:1.5}
+.moment-card span,.moment-card small{color:var(--muted);font-size:12px;line-height:1.5}
+.moment-card p{font-size:13px;line-height:1.6;margin:0;white-space:pre-wrap}
+.moment-tags{display:flex;gap:6px;flex-wrap:wrap}
+.moment-tags button{font-size:12px;padding:4px 8px}
+@media(max-width:950px){.moment-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.moment-form{grid-template-columns:1fr}}
+@media(max-width:600px){.moment-grid{grid-template-columns:1fr}.moment-header{flex-direction:column}}
