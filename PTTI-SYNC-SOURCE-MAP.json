@@ -1,0 +1,83 @@
+{
+  "source_commit": "edd621b8d80f80043539966fc75842505098ec4d",
+  "source_branch": "backup/r2-backup-r1-20261028",
+  "history_preserved": false,
+  "snapshot_only": true,
+  "build": "NOT_TESTED",
+  "GUI": "NOT_TESTED",
+  "policy": "PTTI public screened snapshot v2; independent root commits, original history LOCAL_ONLY; workflows excluded",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "source_blob": "fa1385d99a319b43c06f5309d1aae9fdd3adea46",
+      "source_sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "safe_sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "transformed": false
+    },
+    {
+      "path": ".gitignore",
+      "source_blob": "1965072a0cfc14fd6c036adacbaf62a72fdddb59",
+      "source_sha256": "2189652c59c31d38178d2eaeda8c55a5d9264ef23c30ed55480270cef94b674e",
+      "safe_sha256": "2189652c59c31d38178d2eaeda8c55a5d9264ef23c30ed55480270cef94b674e",
+      "transformed": false
+    },
+    {
+      "path": "review-bundles/PATCH-CHECKSUMS.json",
+      "source_blob": "2e7cd750faa0b43d6b32101780cd2cb48f7f0735",
+      "source_sha256": "2b3c9bdc4a1bc43d6cdeebdf001428a837a7c19a8f4f77301ac313c35f67326c",
+      "safe_sha256": "2b3c9bdc4a1bc43d6cdeebdf001428a837a7c19a8f4f77301ac313c35f67326c",
+      "transformed": false
+    },
+    {
+      "path": "review-bundles/README.md",
+      "source_blob": "6cd9d6852670ee3c3f9d1544ad537dfc04d5f177",
+      "source_sha256": "4b602b91075f40590f7659d9b392fb28ceef491b24c3d418589f39cfe81f0816",
+      "safe_sha256": "4b602b91075f40590f7659d9b392fb28ceef491b24c3d418589f39cfe81f0816",
+      "transformed": false
+    },
+    {
+      "path": "review-bundles/REVIEWED-TESTS.json",
+      "source_blob": "f1ef3fcbecac7ea407af6e6d1ed519f9c5d5bd1a",
+      "source_sha256": "8896fab4f1a00d3b88d686b5a90859a676f3ce3148bac53eab522d4cc6937c97",
+      "safe_sha256": "8896fab4f1a00d3b88d686b5a90859a676f3ce3148bac53eab522d4cc6937c97",
+      "transformed": false
+    },
+    {
+      "path": "review-bundles/reviewed-tests/san/products/ptti/frontend/scripts/test-cinema-viewing.mjs",
+      "source_blob": "c6405ae6e7d628f32bfb12d556a3a90458937c26",
+      "source_sha256": "6785b1d292fb762b69d0ecfe9d25d47b598b6123a8f8fffab5b11d54f4a9df15",
+      "safe_sha256": "6785b1d292fb762b69d0ecfe9d25d47b598b6123a8f8fffab5b11d54f4a9df15",
+      "transformed": false
+    }
+  ],
+  "excluded": [
+    {
+      "path": "RECOVERY/EXCLUDED.json",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "RECOVERY/FILES.json",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "RECOVERY/README.md",
+      "reason": "private/data/runtime/archive/third-party path"
+    },
+    {
+      "path": "review-bundles/main.patch",
+      "reason": "nonallowlisted/binary extension"
+    },
+    {
+      "path": "review-bundles/playback.patch",
+      "reason": "nonallowlisted/binary extension"
+    },
+    {
+      "path": "review-bundles/reviewed-tests/main/products/ptti/tests/test_youtube_data_api.py",
+      "reason": "content review blocked: assigned-secret"
+    },
+    {
+      "path": "review-bundles/san.patch",
+      "reason": "nonallowlisted/binary extension"
+    }
+  ]
+}

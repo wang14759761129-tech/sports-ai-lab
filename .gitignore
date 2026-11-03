@@ -1,0 +1,6 @@
+node_modules/
+dist/
+__pycache__/
+*.tsbuildinfo
+.cinema-original-vite-cache/
+LOCAL_ONLY/
