@@ -1,0 +1,56 @@
+{
+  "schema_version": "hit-event-v0.2-dev-priors",
+  "dataset": "Extended OpenTTGames",
+  "dataset_revision": "36471a76b969a0340df59258a813bf8214e68e7c",
+  "license": "CC BY-NC-SA 4.0",
+  "commercial_use": false,
+  "source_split": ["game_1", "game_2", "game_3"],
+  "holdout_access": "NOT_ACCESSED_FOR_TIMINGS",
+  "production_database": "NOT_ACCESSED",
+  "split_manifest_sha256": "3474dc6ca09ca8c82683bc2d0561ed84e25a5e4dd5cdfb676667b9c0ac4a0d57",
+  "annotation_sha256": {
+    "game_1": "ef0fdbf0a2dcb0bf1004a2f6a55c71e6dc1fc87939e5fa9aa7a14750dc8c25e0",
+    "game_2": "7466f1f8c46316406ae224a17491354eac89f9cc2de858633b6f893573db4fe7",
+    "game_3": "b15160849fb31d18147faacb81aa45284155064f9c590468a2e7933dba8f60bb"
+  },
+  "within_derived_rally_stroke_intervals_ms": {
+    "sample_count": 684,
+    "min": 275.0,
+    "p1": 316.667,
+    "p5": 375.0,
+    "median": 733.333,
+    "p95": 15391.667,
+    "p99": 31125.0,
+    "max": 163441.667,
+    "caveat": "Long-tail intervals likely include incomplete or ambiguous rally annotation; use the lower quantiles only as a soft floor and do not treat p95 as a maximum contact interval."
+  },
+  "ending_to_next_serve_gaps_ms": {
+    "sample_count": 136,
+    "min": 3966.667,
+    "p1": 4350.0,
+    "p5": 6175.0,
+    "median": 10654.167,
+    "p95": 23525.0,
+    "max": 57441.667,
+    "caveat": "Used only as a provisional sequence reset reference; not a product rally detector."
+  },
+  "ground_truth_ball_speed_normalized_diagonals_per_second": {
+    "sample_count": 29843,
+    "min": 0.0,
+    "p50": 0.77,
+    "p90": 1.513,
+    "p95": 1.859,
+    "p99": 2.452,
+    "p995": 2.779,
+    "max": 80.785,
+    "caveat": "Training ball annotations only; an initial gross-jump flag for debugging, not a calibrated physical limit and not model confidence."
+  },
+  "configuration_policy": {
+    "status": "DRAFT_DEV_ONLY",
+    "pose_candidate_generation": "OFF",
+    "pose_reranking": "OFF_UNTIL_ABLATION",
+    "cluster_window_ms": "provisional; must be checked against full DEV candidate timing spread",
+    "official_test_split": "NOT_ACCESSED",
+    "internal_holdout": "Do not inspect event timings before config lock"
+  }
+}

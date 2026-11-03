@@ -1,0 +1,16 @@
+# Preserve the exact bytes of the locked Hit Event v0.2 split on Windows.
+products/ptti/configs/evidence-fusion/HIT_EVENT_V0_2_SPLIT.json text eol=lf
+products/ptti/configs/evidence-fusion/HIT_EVENT_V0_2_SPLIT.json.sha256 text eol=lf
+products/ptti/configs/evidence-fusion/HIT_EVENT_V0_3_FROZEN_CONFIG.json text eol=lf
+products/ptti/configs/evidence-fusion/HIT_EVENT_V0_3_FROZEN_CONFIG.json.sha256 text eol=lf
+products/ptti/configs/evidence-fusion/HIT_EVENT_V0_3_CALIBRATION_EXECUTION_PROVENANCE.json text eol=lf
+products/ptti/configs/evidence-fusion/HIT_EVENT_V0_2_DRAFT_CONFIG.json text eol=lf
+products/ptti/configs/evidence-fusion/HIT_EVENT_V0_2_DEV_PRIORS.json text eol=lf
+# Public package byte hashes are part of the San release contract.
+products/ptti-web/public/data/match-library-strict-public.json text eol=lf
+products/ptti-web/public/data/goal17-athlete-photo-additions.json text eol=lf
+products/ptti-web/public/data/goal17-official-match-video-additions.json text eol=lf
+products/ptti-web/scripts/fixtures/goal16-media/main-public-media-v0.2.json text eol=lf
+products/ptti-web/scripts/fixtures/goal16-media/main-public-media-v0.2-schema.json text eol=lf
+products/ptti-web/scripts/fixtures/goal16-media/goal17-athlete-schema.json text eol=lf
+products/ptti-web/scripts/fixtures/goal16-media/goal17-match-schema.json text eol=lf

@@ -1,0 +1,27 @@
+{
+  "schema": "ptti.private-alpha-access-plan/0.1",
+  "deploy_status": "NOT_DEPLOYED",
+  "hostnames_to_protect": [
+    "<project>.pages.dev",
+    "*.<project>.pages.dev",
+    "<optional-custom-domain>"
+  ],
+  "default_policy": "DENY",
+  "allow_rule": "EXPLICIT_INVITED_EMAILS_ONLY",
+  "identity_provider": "Cloudflare Access email OTP or user-approved provider",
+  "application_session_duration": "4h",
+  "public_bypass_rules": 0,
+  "test_paths": [
+    "/",
+    "/stars/athlete%3A121558",
+    "/matches/<real-match-id>",
+    "/watch/<real-source-id>",
+    "/assets/<real-js-file>",
+    "/data/match-library-strict-public.json",
+    "/media/goal17/<real-image-file>",
+    "/release-identity.json"
+  ],
+  "unauthenticated_acceptance": "Every real path must deny content before product upload and again after preview upload",
+  "authenticated_acceptance": "Invited account must load all routes, JSON and scoped profile image",
+  "not_security_controls": ["Unlisted URL", "robots noindex", "client-side password"]
+}
