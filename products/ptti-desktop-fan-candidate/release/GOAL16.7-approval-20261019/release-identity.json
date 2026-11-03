@@ -1,0 +1,44 @@
+﻿{
+  "schema": "ptti.goal16.7.selector-approval.v1",
+  "status": "READY_FOR_APPROVAL",
+  "formal_selector": {
+    "path": "<LOCAL_USER_ROOT>\\PTTI\\Launcher\\Start-PTTI.ps1",
+    "sha256": "277069C5BD9BC4D95780EDC38BF1866978B48DECA03B4E0ADAA6A84E4C3BF2B1",
+    "expected_at_start": "277069C5BD9BC4D95780EDC38BF1866978B48DECA03B4E0ADAA6A84E4C3BF2B1"
+  },
+  "candidate_selector": {
+    "path": "C:\\PTTI-Worktrees\\ptti-goal16-desktop-candidate\\products\\ptti-desktop-fan-candidate\\native-bridge\\Start-PTTI.candidate.ps1",
+    "sha256": "8B82070ECFD42EE83EBC70AA3357041734C0E81BA13736DE3E53F5EC86070356",
+    "diff_path": "C:\\PTTI-Worktrees\\ptti-goal16-desktop-candidate\\products\\ptti-desktop-fan-candidate\\release\\GOAL16.7-approval-20261019\\selector-change.diff",
+    "diff_sha256": "A03E54610682C7BC751F6037BD886D79A9AFF43B9C29D1EBF4A865393582F4CC",
+    "rollback_path": "C:\\PTTI-Worktrees\\ptti-goal16-desktop-candidate\\products\\ptti-desktop-fan-candidate\\release\\GOAL16.7-approval-20261019\\rollback\\Start-PTTI.ps1.original",
+    "rollback_sha256": "277069C5BD9BC4D95780EDC38BF1866978B48DECA03B4E0ADAA6A84E4C3BF2B1"
+  },
+  "goal16_6": {
+    "base_commit": "1d3af88ccc1bbcbc4ed8eff5b925c8777bd92f2d",
+    "original_patch_path": "C:\\PTTI-Worktrees\\ptti-goal16-desktop-candidate\\products\\ptti-desktop-fan-candidate\\release\\GOAL16.7-approval-20261019\\evidence\\GOAL16.6-original-process-identity.patch",
+    "original_patch_sha256": "B741DE36C038383E8E3238E85F575AE7D92BBEAE3EFF7004D0480CA9471D1005"
+  },
+  "desktop_release": {
+    "version": "0.1.4-fan-072c57a",
+    "san_commit": "072c57a4d16c4e7fead452a22eb378f2a7a9f633",
+    "release_json_sha256": "FFD47565DB68482542AFD543E74A751F5EE08AEE3E57960EE6DFC4A34CEE8E32",
+    "desktop_host_sha256": "EDC7EFC5416DC5F53337CD1276B4EE6DF08DDBB04119A6745247784DA76C190D",
+    "release_payload_files": 175,
+    "payload_mismatches": 0,
+    "manifest_native_selector_sha256": "277069C5BD9BC4D95780EDC38BF1866978B48DECA03B4E0ADAA6A84E4C3BF2B1"
+  },
+  "tests": {
+    "process_identity_simulated": "11 PASS",
+    "pointer_lease": "PASS",
+    "qa_database_isolation": "7 PASS",
+    "desktop_gui_repeated": "NOT_TESTED",
+    "fan_native_return": "NOT_TESTED",
+    "live_database_access": "NONE"
+  },
+  "approval": {
+    "channel": "NO_SUPPORTED_CHANNEL_EXPOSED",
+    "prior_policy": "BLOCKED_BY_POLICY",
+    "formal_change_applied": false
+  }
+}

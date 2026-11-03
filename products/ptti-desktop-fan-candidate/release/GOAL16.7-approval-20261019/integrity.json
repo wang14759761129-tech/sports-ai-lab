@@ -1,0 +1,47 @@
+﻿{
+  "schema": "ptti.release-approval-bundle-integrity.v1",
+  "algorithm": "SHA-256",
+  "self_hash": "omitted by design",
+  "files": [
+    {
+      "path": "APPROVAL.md",
+      "size_bytes": 7122,
+      "sha256": "40FFA4001537510F7070ACEF4AFEDBE543A6DBCAE28389DCE06F25C7E518FE3D"
+    },
+    {
+      "path": "release-identity.json",
+      "size_bytes": 2447,
+      "sha256": "DA23962E0BAE7C68C5B5B4EE11B551E2A028ECC7B3CD200D4B4FB44FBDFCDDC5"
+    },
+    {
+      "path": "selector-change.diff",
+      "size_bytes": 11638,
+      "sha256": "A03E54610682C7BC751F6037BD886D79A9AFF43B9C29D1EBF4A865393582F4CC"
+    },
+    {
+      "path": "candidate/Start-PTTI.ps1.candidate",
+      "size_bytes": 19840,
+      "sha256": "8B82070ECFD42EE83EBC70AA3357041734C0E81BA13736DE3E53F5EC86070356"
+    },
+    {
+      "path": "evidence/current-state.json",
+      "size_bytes": 1338,
+      "sha256": "029495AA402E13324BE60AE53CB70C55C6E2DC7F3F1908E5AD337CBCB08D16B4"
+    },
+    {
+      "path": "evidence/GOAL16.6-original-process-identity.patch",
+      "size_bytes": 7214,
+      "sha256": "B741DE36C038383E8E3238E85F575AE7D92BBEAE3EFF7004D0480CA9471D1005"
+    },
+    {
+      "path": "evidence/test-output.txt",
+      "size_bytes": 941,
+      "sha256": "BDE01F34C5E346EAFE3B7E823D020612393E1E3A40C3ACCC674879CCE4161290"
+    },
+    {
+      "path": "rollback/Start-PTTI.ps1.original",
+      "size_bytes": 11927,
+      "sha256": "277069C5BD9BC4D95780EDC38BF1866978B48DECA03B4E0ADAA6A84E4C3BF2B1"
+    }
+  ]
+}
